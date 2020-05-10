@@ -67,8 +67,6 @@ Segue alguns:
 
 [https://kubernetes.io/docs/concepts/cluster-administration/addons/](https://kubernetes.io/docs/concepts/cluster-administration/addons/)
 
- \
-
 
 
 # Services
