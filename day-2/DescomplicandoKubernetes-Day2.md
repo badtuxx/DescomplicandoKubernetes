@@ -80,25 +80,33 @@ Segue alguns:
 ```
 # kubectl create -f meu_primeiro.yaml
 pod/nginx created
+```
 
+```
 # kubectl expose pod nginx
 service/nginx exposed
+```
 
+```
 # kubectl get svc
 NAME         TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)   AGE
 kubernetes   ClusterIP   10.96.0.1        <none>        443/TCP   25m
 nginx        ClusterIP   10.104.209.243   <none>        80/TCP    7m15s
-````
+```
+
 ```
 # curl 10.104.209.243
 ...
 <title>Welcome to nginx!</title>
 ...
 ```
+
 ```
 # kubectl logs -f nginx
 10.40.0.0 - - [10/May/2020:17:31:56 +0000] "GET / HTTP/1.1" 200 612 "-" "curl/7.58.0" "-"
+```
 
+```
 # kubectl delete svc nginx
 service "nginx" deleted
 ```
@@ -128,15 +136,17 @@ spec:
 
 
 ```
-
 # kubectl create -f primeiro-service-clusterip.yaml
 service/nginx-clusterip created
+```
 
+```
 # kubectl get services
 NAME              TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)   AGE
 kubernetes        ClusterIP   10.96.0.1       <none>        443/TCP   28m
 nginx-clusterip   ClusterIP   10.109.70.243   <none>        80/TCP    71s
 ```
+
 ```
 # kubectl describe service nginx
 Name:              nginx-clusterip
@@ -152,6 +162,7 @@ Endpoints:         10.46.0.1:80
 Session Affinity:  None
 Events:            <none>
 ```
+
 ```
 # kubectl delete -f primeiro-service-clusterip.yaml
 service "nginx-clusterip" deleted
@@ -180,15 +191,21 @@ spec:
     run: nginx
   sessionAffinity: ClientIP
   type: ClusterIP
+```
 
+```
 # kubectl create -f primeiro-service-clusterip.yaml
 service/nginx-clusterip created
+```
 
+```
 # kubectl get services
 NAME              TYPE        CLUSTER-IP     EXTERNAL-IP   PORT(S)   AGE
 kubernetes        ClusterIP   10.96.0.1      <none>        443/TCP   29m
 nginx-clusterip   ClusterIP   10.96.44.114   <none>        80/TCP    7s
+```
 
+```
 # kubectl describe service nginx
 Name:              nginx-clusterip
 Namespace:         default
@@ -223,7 +240,9 @@ service "nginx-clusterip" deleted
 ```
 # kubectl expose pods nginx --type=NodePort
 service/nginx exposed
+```
 
+```
 # kubectl get svc
 NAME         TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)        AGE
 kubernetes   ClusterIP   10.96.0.1       <none>        443/TCP        29m
