@@ -13,25 +13,25 @@
 *   Network e policies
 *   Storage
 
-**kube-apiserver** é o central de operações do cluster k8s. Todas as chamadas, internas ou externas são tratadas por ele. Ele é o único que conecta no ETCD.
+**[kube-apiserver](https://kubernetes.io/docs/concepts/overview/components/#kube-apiserver)** é o central de operações do cluster k8s. Todas as chamadas, internas ou externas são tratadas por ele. Ele é o único que conecta no ETCD.
 
-**kube-scheduller** usa um algoritmo para verificar em qual determinado pod deverá ser hospedado. Ele verifica os recursos disponíveis do node para verificar qual o melhor node para receber aquele pod.
+**[kube-scheduller](https://kubernetes.io/docs/concepts/overview/components/#kube-apiserver)** usa um algoritmo para verificar em qual determinado pod deverá ser hospedado. Ele verifica os recursos disponíveis do node para verificar qual o melhor node para receber aquele pod.
 
-No **ETCD** são armazenados o estado do cluster, rede e outras informações persistentes. 
+No **[ETCD](https://kubernetes.io/docs/concepts/overview/components/#etcd)** são armazenados o estado do cluster, rede e outras informações persistentes. 
 
-**kube-controller-manager** é o controle principal que interage com o kube-apiserver para determinar o seu estado. Se o estado não bate, o manager ira contactar o controller necessário para checar seu estado desejado. Tem diversos controller em uso como os endpoints, namespace e replication.
+**[kube-controller-manager](https://kubernetes.io/docs/concepts/overview/components/#cloud-controller-manager)** é o controle principal que interage com o kube-apiserver para determinar o seu estado. Se o estado não bate, o manager ira contactar o controller necessário para checar seu estado desejado. Tem diversos controller em uso como os endpoints, namespace e replication.
 
-O **kubelet** interage com o Docker instalado no node e garante que os containers que precisavam estar em execução realmente estão.
+O **[kubelet](https://kubernetes.io/docs/concepts/overview/components/#kubelet)** interage com o Docker instalado no node e garante que os containers que precisavam estar em execução realmente estão.
 
-O **kube-proxy** é o responsável por gerenciar a redes para os containers, é o responsável por expor portas dos containers
+O **[kube-proxy](https://kubernetes.io/docs/concepts/overview/components/#kube-proxy)** é o responsável por gerenciar a redes para os containers, é o responsável por expor portas dos containers
 
-**Supervisord** é o responsável por monitorar e restabelecer, se necessário, o kubelet e o docker. Por esse motivo, quando existe algum problema em relação ao kubelet, como por exemplo o uso do cgroup driver diferente do que  está rodando no Docker, você perceberá que ele ficará tentando subir o Kubelet frequentemente.
+**[Supervisord](http://supervisord.org/)** é o responsável por monitorar e restabelecer, se necessário, o kubelet e o docker. Por esse motivo, quando existe algum problema em relação ao kubelet, como por exemplo o uso do cgroup driver diferente do que  está rodando no Docker, você perceberá que ele ficará tentando subir o Kubelet frequentemente.
 
-**Pod** é a menor unidade que você irá tratar no k8s. Você poderá ter mais de um container por Pod, porém vale lembrar que eles dividirão os mesmos recursos, como por exemplo IP. Uma das boas razões para se ter mais de um container em um Pod é o fato de você ter os logs consolidados..
+**[Pod](https://kubernetes.io/docs/concepts/workloads/pods/pod-overview/)** é a menor unidade que você irá tratar no k8s. Você poderá ter mais de um container por Pod, porém vale lembrar que eles dividirão os mesmos recursos, como por exemplo IP. Uma das boas razões para se ter mais de um container em um Pod é o fato de você ter os logs consolidados..
 
 O Pod, por poder possuir diversos containers, muito das vezes se assemelha a uma VM, onde você poderia ter diversos serviços rodando compartilhando o mesmo IP e demais recursos.
 
-**Services** é uma forma de você expor a comunicação através de um NodePort ou LoadBalancer para distribuir as requisições entre diversos Pods daquele Deployment. Funciona como um balanceador de carga.
+**[Services](https://kubernetes.io/docs/concepts/services-networking/service/)** é uma forma de você expor a comunicação através de um NodePort ou LoadBalancer para distribuir as requisições entre diversos Pods daquele Deployment. Funciona como um balanceador de carga.
 
 **Container Network Interface**
 
@@ -57,13 +57,13 @@ Segue alguns:
 
 
 
-*   Weave	
-*   Flannel
-*   Canal
-*   Calico
-*   Romana
-*   Nuage
-*   Contiv
+*   [Weave](https://www.weave.works/docs/net/latest/kube-addon/)
+*   [Flannel](https://github.com/coreos/flannel/blob/master/Documentation/kubernetes.md)
+*   [Canal](https://github.com/tigera/canal/tree/master/k8s-install)
+*   [Calico](https://docs.projectcalico.org/latest/introduction/)
+*   [Romana](http://romana.io/)
+*   [Nuage](https://github.com/nuagenetworks/nuage-kubernetes/blob/v5.1.1-1/docs/kubernetes-1-installation.rst)
+*   [Contiv](http://contiv.github.io/)
 
 [https://kubernetes.io/docs/concepts/cluster-administration/addons/](https://kubernetes.io/docs/concepts/cluster-administration/addons/)
 

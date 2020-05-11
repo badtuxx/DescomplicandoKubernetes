@@ -42,7 +42,7 @@ Para simplificar, a arquitetura do k8s é feita de um manager e diversos workers
 
 O manager roda um API server, um scheduler e alguns controllers e o ETCD, um sistema de armazenamento para manter o estado do cluster, configurações dos containers e de rede.
 
-O k8s expõe uma API, através do kube-apiserver, e você se comunica com ela através do comando **kubectl,** você também pode criar o seu próprio client, evidentemente.
+O k8s expõe uma API, através do kube-apiserver, e você se comunica com ela através do comando **[kubectl](https://kubernetes.io/docs/reference/kubectl/overview/),** você também pode criar o seu próprio client, evidentemente.
 
 O kube-scheduller cuida das requisições vindas da kube-apiserver para a criação de novos containers e verifica em qual o melhor node para isso.
 
@@ -97,13 +97,13 @@ Lembre-se de fazer as liberações em seu firewall.
 
 Vamos conhecer algumas palavras chaves para que você possa se sentir em casa:
 
-**Pod** => No k8s, containers não são tratados individualmente, ele são gerenciados através de pods, que são agrupamentos de um ou mais containers dividindo o mesmo endereço, isso normalmente é composto por uma app principal e outras app de suporte para essa primeira.
+**[Pod](https://kubernetes.io/docs/concepts/workloads/pods/pod-overview/)** => No k8s, containers não são tratados individualmente, ele são gerenciados através de pods, que são agrupamentos de um ou mais containers dividindo o mesmo endereço, isso normalmente é composto por uma app principal e outras app de suporte para essa primeira.
 
-**Controllers** => Responsável pela orquestração, ele interage com o api server para saber o status de cada objeto.
+**[Controllers](https://kubernetes.io/docs/concepts/workloads/controllers/)** => Responsável pela orquestração, ele interage com o api server para saber o status de cada objeto.
 
-**Deployment** => É um dos principais controllers, ele é responsável por garantir que possui recursos disponíveis como IP e storage para o deploy dos ReplicaSet e DaemonSet.
+**[Deployment](https://kubernetes.io/docs/concepts/workloads/controllers/deployment/)** => É um dos principais controllers, ele é responsável por garantir que possui recursos disponíveis como IP e storage para o deploy dos ReplicaSet e DaemonSet.
 
-**Jobs ou CronJobs** => Responsáveis pelo gerenciamento de task isoladas ou recorrentes
+**[Jobs](https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/) ou [CronJobs](https://kubernetes.io/docs/concepts/workloads/controllers/cron-jobs/)** => Responsáveis pelo gerenciamento de task isoladas ou recorrentes
 
 Para acompanhar o treinamento, você pode possuir dois cenários. Poderá utilizar somente uma máquina com o minikube instalado, ou então, subir um cluster com 03 máquinas, pode ser virtual ou cloud.
 
