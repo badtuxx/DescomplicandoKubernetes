@@ -38,7 +38,7 @@ Embora exista a exigência de no mínimo três nós para a execução do k8s em 
 
 Abaixo um diagrama que mostra a arquitetura do k8s:
 
-![](/Users/stefanomartins/DescomplicandoKubernetes/day-1/Kubernetes.png)
+![](images/figura-01-kubernetes_arquitetura.png)
 
 - **API Server**: É um dos principais componentes do k8s. Ele quem fornece uma API que utiliza JSON sobre HTTP para comunicação principalmente utilizando o utilitário ```kubectl``` por parte dos administradores e para a comunicação entre os demais nós, conforme mostrado no gráfico, por meio de requisições REST;
 
