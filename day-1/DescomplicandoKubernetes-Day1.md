@@ -104,7 +104,7 @@ O melhor *app* para rodar em container, principalmente no k8s, são aplicações
 
 ## Instalação do Minikube no Linux
 
-Antes de mais nada, verifique se a sua máquina suporte virtualização. No Linux, isto pode ser realizado com:
+Antes de mais nada, verifique se a sua máquina suporta virtualização. No Linux, isto pode ser realizado com:
 
 ```
 # grep -E --color 'vmx|svm
