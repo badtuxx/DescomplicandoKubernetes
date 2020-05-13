@@ -38,8 +38,11 @@ Embora exista a exigência de no mínimo três nós para a execução do k8s em 
 
 Abaixo um diagrama que mostra a arquitetura do k8s:
 
-![](images/figura-01-kubernetes_arquitetura.png)
+| ![Arquitetura Kubernetes](https://upload.wikimedia.org/wikipedia/commons/b/be/Kubernetes.png)|
+|:--:| 
+| *Arquitetura Kubernetes* |
 
+##
 - **API Server**: É um dos principais componentes do k8s. Ele quem fornece uma API que utiliza JSON sobre HTTP para comunicação principalmente utilizando o utilitário ```kubectl``` por parte dos administradores e para a comunicação entre os demais nós, conforme mostrado no gráfico, por meio de requisições REST;
 
 - **etcd**: O etcd é um *datastore* chave-valor distribuído que o k8s utiliza para armazenar o status e as configurações do *cluster*. Todos os dados armazenados dentro do etcd são manipulados apenas através da API;
