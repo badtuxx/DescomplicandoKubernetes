@@ -47,7 +47,77 @@ weave-net-7dhpf                     2/2     Running   0          8d
 weave-net-fvttp                     2/2     Running   0          8d
 weave-net-xl7km                     2/2     Running   0          8d
 ```
+# Certificados ETCD
 
+O ETCD como os demais serviços do Kuberentes utiliza uma certificados PKI para autenticação sobre TLS, essas chaves são declaradas no manifesto de configução em:
+
+kubectl describe pod etcd-docker-01 -n kube-system
+
+```
+--cert-file
+--key-file
+--trusted-ca-file
+```
+
+Essas chaves vão ser utilizadas pelos demais componentes do cluster como por exemplo o API Server possam conectar e fazerem alteraçoes.
+
+kubectl describe pod kube-apiserver -n kube-system
+```
+--etcd-cafile
+--etcd-certfile
+--etcd-keyfile
+```
+
+Então para toda interação com o ETCD vamos precisar utililizar esses certificados para nos autenticar.
+
+# Interagindo com o ETCD
+
+Para interarir com o ETCD vamos precisar o etcdctl ou utilizar o proprio container do etcd com o ```kubectl exec```
+
+https://github.com/etcd-io/etcd/tree/master/etcdctl
+
+Baixando a ultima verção do etcd
+
+
+Linux:
+```
+ETCD_VER=v3.4.7
+
+GOOGLE_URL=https://storage.googleapis.com/etcd
+GITHUB_URL=https://github.com/etcd-io/etcd/releases/download
+DOWNLOAD_URL=${GOOGLE_URL}
+
+rm -f /tmp/etcd-${ETCD_VER}-linux-amd64.tar.gz
+rm -rf /tmp/etcd-download-test && mkdir -p /tmp/etcd-download-test
+
+curl -L ${DOWNLOAD_URL}/${ETCD_VER}/etcd-${ETCD_VER}-linux-amd64.tar.gz -o /tmp/etcd-${ETCD_VER}-linux-amd64.tar.gz
+tar xzvf /tmp/etcd-${ETCD_VER}-linux-amd64.tar.gz -C /tmp/etcd-download-test --strip-components=1
+rm -f /tmp/etcd-${ETCD_VER}-linux-amd64.tar.gz
+
+/tmp/etcd-download-test/etcd --version
+/tmp/etcd-download-test/etcdctl version
+```
+https://github.com/etcd-io/etcd/releases
+
+Como vimos anteriormente vamos precisar utilizar utilizar os certificados para nos conectar, vamos passsar os dados nos seguistes parametros:
+
+```
+--cacert
+--key
+--cert
+```
+
+Além disso vamos precisar do endpoint, caso esteja no container do ETCD seu endpoint será 127.0.0.1:2379
+O sua URL para o endpoint vai estar na flag ```--advertise-client-urls``` nas configuraçoes do ETCD
+
+O comando vai ser da seguinte forma:
+```
+ETCDCTL_API=3 etcdctl \
+--cacert /etc/kubernetes/pki/etcd/ca.crt \
+--key /etc/kubernetes/pki/etcd/server.key \
+--cert /etc/kubernetes/pki/etcd/server.crt \
+--endpoints $ADVERTISE_URL \
+```
 
 # Backup do ETCD no Kubernetes
 
