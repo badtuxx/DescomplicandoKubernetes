@@ -284,6 +284,181 @@ Os logs do Minikube podem ser acessados através do comando:
 ```
 # minikube logs
 ```
+# Instalando o k3s
+
+Vamos aprender como instalar o renomado k3s e adicionar nodes no seu cluster!!!
+
+Nesse exemplo eu estou usando o Raspberry Pi 4, a master com 4GB de RAM e 4 cores, e 2 workers com 2GB de RAM e 4 cores.
+
+Basta dar um curl:
+```
+# curl -sfL https://get.k3s.io | sh -
+[INFO]  Finding release for channel stable
+[INFO]  Using v1.18.2+k3s1 as release
+[INFO]  Downloading hash https://github.com/rancher/k3s/releases/download/v1.18.2+k3s1/sha256sum-arm.txt
+[INFO]  Downloading binary https://github.com/rancher/k3s/releases/download/v1.18.2+k3s1/k3s-armhf
+[INFO]  Verifying binary download
+[INFO]  Installing k3s to /usr/local/bin/k3s
+[INFO]  Creating /usr/local/bin/kubectl symlink to k3s
+[INFO]  Creating /usr/local/bin/crictl symlink to k3s
+[INFO]  Creating /usr/local/bin/ctr symlink to k3s
+[INFO]  Creating killall script /usr/local/bin/k3s-killall.sh
+[INFO]  Creating uninstall script /usr/local/bin/k3s-uninstall.sh
+[INFO]  env: Creating environment file /etc/systemd/system/k3s.service.env
+[INFO]  systemd: Creating service file /etc/systemd/system/k3s.service
+[INFO]  systemd: Enabling k3s unit
+Created symlink /etc/systemd/system/multi-user.target.wants/k3s.service → /etc/systemd/system/k3s.service.
+[INFO]  systemd: Starting k3s
+```
+
+Vamos ver se está tudo certo com o nosso node master:
+```
+#  kubectl get nodes
+NAME        STATUS   ROLES    AGE   VERSION
+elliot-01   Ready    master   15s   v1.18.2+k3s1
+```
+Vamos ver os pods em execuçâo:
+```
+# kubectl get pods
+No resources found in default namespace.
+```
+
+Humm parece que não temos nenhum, mas será mesmo?
+
+Vamos verificar novamente:
+```
+# kubectl get pods --all-namespaces
+NAMESPACE     NAME                                     READY   STATUS      RESTARTS   AGE
+kube-system   metrics-server-7566d596c8-rdn5f          1/1     Running     0          7m5s
+kube-system   local-path-provisioner-6d59f47c7-mfp89   1/1     Running     0          7m5s
+kube-system   coredns-8655855d6-ns4d4                  1/1     Running     0          7m5s
+kube-system   helm-install-traefik-mqmp4               0/1     Completed   2          7m5s
+kube-system   svclb-traefik-t49cs                      2/2     Running     0          6m11s
+kube-system   traefik-758cd5fc85-jwvmc                 1/1     Running     0          6m12s
+```
+
+Aí estão os pods que estão rodando por default.
+
+Mas temos muito mais coisas além dos pods, vamos conferir tudo que está rodando no nosso lindo k3s:
+```
+# kubectl get all --all-namespaces
+NAMESPACE     NAME                                         READY   STATUS      RESTARTS   AGE
+kube-system   pod/metrics-server-7566d596c8-rdn5f          1/1     Running     0          11m
+kube-system   pod/local-path-provisioner-6d59f47c7-mfp89   1/1     Running     0          11m
+kube-system   pod/coredns-8655855d6-ns4d4                  1/1     Running     0          11m
+kube-system   pod/helm-install-traefik-mqmp4               0/1     Completed   2          11m
+kube-system   pod/svclb-traefik-t49cs                      2/2     Running     0          10m
+kube-system   pod/traefik-758cd5fc85-jwvmc                 1/1     Running     0          10m
+
+NAMESPACE     NAME                         TYPE           CLUSTER-IP     EXTERNAL-IP      PORT(S)                      AGE
+default       service/kubernetes           ClusterIP      10.43.0.1      <none>           443/TCP                      12m
+kube-system   service/kube-dns             ClusterIP      10.43.0.10     <none>           53/UDP,53/TCP,9153/TCP       12m
+kube-system   service/metrics-server       ClusterIP      10.43.181.42   <none>           443/TCP                      12m
+kube-system   service/traefik-prometheus   ClusterIP      10.43.207.57   <none>           9100/TCP                     10m
+kube-system   service/traefik              LoadBalancer   10.43.232.43   192.168.86.101   80:30953/TCP,443:31363/TCP   10m
+
+NAMESPACE     NAME                           DESIRED   CURRENT   READY   UP-TO-DATE   AVAILABLE   NODE SELECTOR   AGE
+kube-system   daemonset.apps/svclb-traefik   1         1         1       1            1           <none>          10m
+
+NAMESPACE     NAME                                     READY   UP-TO-DATE   AVAILABLE   AGE
+kube-system   deployment.apps/metrics-server           1/1     1            1           12m
+kube-system   deployment.apps/local-path-provisioner   1/1     1            1           12m
+kube-system   deployment.apps/coredns                  1/1     1            1           12m
+kube-system   deployment.apps/traefik                  1/1     1            1           10m
+
+NAMESPACE     NAME                                               DESIRED   CURRENT   READY   AGE
+kube-system   replicaset.apps/metrics-server-7566d596c8          1         1         1       11m
+kube-system   replicaset.apps/local-path-provisioner-6d59f47c7   1         1         1       11m
+kube-system   replicaset.apps/coredns-8655855d6                  1         1         1       11m
+kube-system   replicaset.apps/traefik-758cd5fc85                 1         1         1       10m
+
+NAMESPACE     NAME                             COMPLETIONS   DURATION   AGE
+kube-system   job.batch/helm-install-traefik   1/1           55s        11m
+```
+
+Muito legal, bacana e sensacional né? 
+
+Porém ainda temos apenas 1 node, queremos adicionar mais nodes para que tenhamos alta disponibilidade para nossas aplicações.
+
+Para fazer isso, primeiro vamos pegar o Token do nosso cluster pois iremos utilizá-lo para adicionar os outros nodes em nosso cluster.
+```
+# cat /var/lib/rancher/k3s/server/node-token
+K10bded4a17f7674c322febfb517cde93afaa48c35b74528d9d2b7d20ec8e41a1ad::server:9d2c12e1112ecdc0d1f9a2fd0e2933fe
+```
+
+Mágica, achamos nosso Token.
+
+Agora finalmente bora adicionar mais nodes em nosso cluster.
+
+Calma, antes pegue o IP de seu master:
+```
+# ifconfig 
+...
+eth0: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
+        inet 192.168.86.101  netmask 255.255.255.0  broadcast 192.168.86.255
+        inet6 fe80::f58b:e4b:c74e:cbd  prefixlen 64  scopeid 0x20<link>
+        ether dc:a6:32:08:c5:6d  txqueuelen 1000  (Ethernet)
+        RX packets 117526  bytes 161460044 (153.9 MiB)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 17418  bytes 1180417 (1.1 MiB)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+...
+```
+Nice, agora que você já tem o Token e o IP da master, bora para o outro node.
+
+Já no outro node vamos executar o comando para que ele seja adicionado:
+```
+# curl -sfL https://get.k3s.io | K3S_URL=https://myserver:6443 K3S_TOKEN=XXX sh -
+```
+O comando ficará mais ou menos assim: (lembre-se de trocar pelo seu IP e Token)
+```
+# curl -sfL https://get.k3s.io | K3S_URL=https://192.168.86.101:6443 K3S_TOKEN=K10bded4a17f7674c322febfb517cde93afaa48c35b74528d9d2b7d20ec8e41a1ad::server:9d2c12e1112ecdc0d1f9a2fd0e2933fe sh -
+
+[INFO]  Finding release for channel stable
+[INFO]  Using v1.18.2+k3s1 as release
+[INFO]  Downloading hash https://github.com/rancher/k3s/releases/download/v1.18.2+k3s1/sha256sum-arm.txt
+[INFO]  Downloading binary https://github.com/rancher/k3s/releases/download/v1.18.2+k3s1/k3s-armhf
+[INFO]  Verifying binary download
+[INFO]  Installing k3s to /usr/local/bin/k3s
+[INFO]  Creating /usr/local/bin/kubectl symlink to k3s
+[INFO]  Creating /usr/local/bin/crictl symlink to k3s
+[INFO]  Creating /usr/local/bin/ctr symlink to k3s
+[INFO]  Creating killall script /usr/local/bin/k3s-killall.sh
+[INFO]  Creating uninstall script /usr/local/bin/k3s-agent-uninstall.sh
+[INFO]  env: Creating environment file /etc/systemd/system/k3s-agent.service.env
+[INFO]  systemd: Creating service file /etc/systemd/system/k3s-agent.service
+[INFO]  systemd: Enabling k3s-agent unit
+Created symlink /etc/systemd/system/multi-user.target.wants/k3s-agent.service → /etc/systemd/system/k3s-agent.service.
+[INFO]  systemd: Starting k3s-agent
+```
+Perfeito, agora vamos ver se esse node está no nosso cluster mesmo:
+```
+# kubectl get nodes
+NAME        STATUS   ROLES    AGE     VERSION
+elliot-02   Ready    <none>   5m27s   v1.18.2+k3s1
+elliot-01   Ready    master   34m     v1.18.2+k3s1
+```
+Olha ele ali, elliot-02 já está lindo de bonito em nosso cluster, mágico não?
+
+Quer adicionar mais nodes? Só copiar e colar aquele mesmo comando com o IP do master e o nosso Token no próximo node.
+```
+# kubectl get nodes
+NAME        STATUS   ROLES    AGE   VERSION
+elliot-02   Ready    <none>   10m   v1.18.2+k3s1
+elliot-01   Ready    master   39m   v1.18.2+k3s1
+elliot-03   Ready    <none>   68s   v1.18.2+k3s1
+```
+Todos os elliots saudáveis!!!
+
+Pronto!!! Agora temos um cluster com 3 nodes trabalhando, e as possibilidades são infinitas, divirta-se.
+
+Para saber mais detalhes acesse as documentações oficiais do k3s:
+
+https://k3s.io/
+
+https://rancher.com/docs/k3s/latest/en/
+
+https://github.com/rancher/k3s
 
 # Instalação em cluster com três nós
 
