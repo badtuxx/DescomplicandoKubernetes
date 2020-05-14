@@ -4,7 +4,7 @@ ETCD é um dos componentes fundamentais que fazem o kubernetes funcionar.
 
 # O que é o ETCD?
 
-Basicamente, o ETCD é um database de armazenamento de chave valor de alta disponibilidade.
+Basicamente, o ETCD é um database de armazenamento de chave-valor de alta disponibilidade.
 
 Em um banco de dados relacional, nós temos colunas e dentro das colunas nós temos o tipo de informação que está sendo armazenada;
 
@@ -12,21 +12,21 @@ Em um banco de dados relacional, nós temos colunas e dentro das colunas nós te
 |:--:| 
 | *Banco de dados relacional* |
 
-Em um banco de dados de chave valor nós inserimos a chave e o valor. Quando obtemos a chave, ela retorna o valor.
+Em um banco de dados de chave-valor, quando consultamos e obtemos a chave, é retornado o valor atribuido à aquela chave.
 
 | ![Banco de dados chave valor](https://upload.wikimedia.org/wikipedia/commons/5/5b/KeyValue.PNG)|
 |:--:| 
 | *Banco de dados chave valor* |
 
-Quando consultamos a k1, o resultado  retornado é a chave : AAA,BBB,CCC
+Quando consultamos a chave k1, o resultado  retornado é o valor : AAA,BBB,CCC
 
-Quando consultamos a k5, o resultado retornado é a chave : 3,ZZZ,5623
+Quando consultamos a chave k5, o resultado retornado é o valor : 3,ZZZ,5623
 
 # ETCD no Kubernetes
 
 No kubernetes, o ETCD é responsável por registrar todo tipo de informação do cluster, como nodes, roles, pods, configs, accounts, secrets, etc. 
 
-Quando o cluster é iniciado pelo kubeadm, um pod do etcd é criado no master node.
+Quando o cluster é iniciado pelo ***kubeadm***, um pod do etcd é criado no master node.
 
 Toda informação que é apresentada ao usuário quando executado "kubect get" são informações armazenadas no ETCD.
 
@@ -47,6 +47,7 @@ weave-net-7dhpf                     2/2     Running   0          8d
 weave-net-fvttp                     2/2     Running   0          8d
 weave-net-xl7km                     2/2     Running   0          8d
 ```
+
 # Certificados ETCD
 
 O ETCD como os demais serviços do Kuberentes utiliza uma certificados PKI para autenticação sobre TLS, essas chaves são declaradas no manifesto de configução em:
@@ -62,6 +63,7 @@ kubectl describe pod etcd-docker-01 -n kube-system
 Essas chaves vão ser utilizadas pelos demais componentes do cluster como por exemplo o API Server possam conectar e fazerem alteraçoes.
 
 kubectl describe pod kube-apiserver -n kube-system
+
 ```
 --etcd-cafile
 --etcd-certfile
