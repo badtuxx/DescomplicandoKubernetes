@@ -13,25 +13,25 @@
 *   Network e policies
 *   Storage
 
-**kube-apiserver** é o central de operações do cluster k8s. Todas as chamadas, internas ou externas são tratadas por ele. Ele é o único que conecta no ETCD.
+**[kube-apiserver](https://kubernetes.io/docs/concepts/overview/components/#kube-apiserver)** é o central de operações do cluster k8s. Todas as chamadas, internas ou externas são tratadas por ele. Ele é o único que conecta no ETCD.
 
-**kube-scheduller** usa um algoritmo para verificar em qual determinado pod deverá ser hospedado. Ele verifica os recursos disponíveis do node para verificar qual o melhor node para receber aquele pod.
+**[kube-scheduller](https://kubernetes.io/docs/concepts/overview/components/#kube-apiserver)** usa um algoritmo para verificar em qual determinado pod deverá ser hospedado. Ele verifica os recursos disponíveis do node para verificar qual o melhor node para receber aquele pod.
 
-No **ETCD** são armazenados o estado do cluster, rede e outras informações persistentes. 
+No **[ETCD](https://kubernetes.io/docs/concepts/overview/components/#etcd)** são armazenados o estado do cluster, rede e outras informações persistentes. 
 
-**kube-controller-manager** é o controle principal que interage com o kube-apiserver para determinar o seu estado. Se o estado não bate, o manager ira contactar o controller necessário para checar seu estado desejado. Tem diversos controller em uso como os endpoints, namespace e replication.
+**[kube-controller-manager](https://kubernetes.io/docs/concepts/overview/components/#cloud-controller-manager)** é o controle principal que interage com o kube-apiserver para determinar o seu estado. Se o estado não bate, o manager ira contactar o controller necessário para checar seu estado desejado. Tem diversos controller em uso como os endpoints, namespace e replication.
 
-O **kubelet** interage com o Docker instalado no node e garante que os containers que precisavam estar em execução realmente estão.
+O **[kubelet](https://kubernetes.io/docs/concepts/overview/components/#kubelet)** interage com o Docker instalado no node e garante que os containers que precisavam estar em execução realmente estão.
 
-O **kube-proxy** é o responsável por gerenciar a redes para os containers, é o responsável por expor portas dos containers
+O **[kube-proxy](https://kubernetes.io/docs/concepts/overview/components/#kube-proxy)** é o responsável por gerenciar a redes para os containers, é o responsável por expor portas dos containers
 
-**Supervisord** é o responsável por monitorar e restabelecer, se necessário, o kubelet e o docker. Por esse motivo, quando existe algum problema em relação ao kubelet, como por exemplo o uso do cgroup driver diferente do que  está rodando no Docker, você perceberá que ele ficará tentando subir o Kubelet frequentemente.
+**[Supervisord](http://supervisord.org/)** é o responsável por monitorar e restabelecer, se necessário, o kubelet e o docker. Por esse motivo, quando existe algum problema em relação ao kubelet, como por exemplo o uso do cgroup driver diferente do que  está rodando no Docker, você perceberá que ele ficará tentando subir o Kubelet frequentemente.
 
-**Pod** é a menor unidade que você irá tratar no k8s. Você poderá ter mais de um container por Pod, porém vale lembrar que eles dividirão os mesmos recursos, como por exemplo IP. Uma das boas razões para se ter mais de um container em um Pod é o fato de você ter os logs consolidados..
+**[Pod](https://kubernetes.io/docs/concepts/workloads/pods/pod-overview/)** é a menor unidade que você irá tratar no k8s. Você poderá ter mais de um container por Pod, porém vale lembrar que eles dividirão os mesmos recursos, como por exemplo IP. Uma das boas razões para se ter mais de um container em um Pod é o fato de você ter os logs consolidados..
 
 O Pod, por poder possuir diversos containers, muito das vezes se assemelha a uma VM, onde você poderia ter diversos serviços rodando compartilhando o mesmo IP e demais recursos.
 
-**Services** é uma forma de você expor a comunicação através de um NodePort ou LoadBalancer para distribuir as requisições entre diversos Pods daquele Deployment. Funciona como um balanceador de carga.
+**[Services](https://kubernetes.io/docs/concepts/services-networking/service/)** é uma forma de você expor a comunicação através de um NodePort ou LoadBalancer para distribuir as requisições entre diversos Pods daquele Deployment. Funciona como um balanceador de carga.
 
 **Container Network Interface**
 
@@ -57,13 +57,13 @@ Segue alguns:
 
 
 
-*   Weave	
-*   Flannel
-*   Canal
-*   Calico
-*   Romana
-*   Nuage
-*   Contiv
+*   [Weave](https://www.weave.works/docs/net/latest/kube-addon/)
+*   [Flannel](https://github.com/coreos/flannel/blob/master/Documentation/kubernetes.md)
+*   [Canal](https://github.com/tigera/canal/tree/master/k8s-install)
+*   [Calico](https://docs.projectcalico.org/latest/introduction/)
+*   [Romana](http://romana.io/)
+*   [Nuage](https://github.com/nuagenetworks/nuage-kubernetes/blob/v5.1.1-1/docs/kubernetes-1-installation.rst)
+*   [Contiv](http://contiv.github.io/)
 
 [https://kubernetes.io/docs/concepts/cluster-administration/addons/](https://kubernetes.io/docs/concepts/cluster-administration/addons/)
 
@@ -245,7 +245,9 @@ service/nginx exposed
 NAME         TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)        AGE
 kubernetes   ClusterIP   10.96.0.1       <none>        443/TCP        29m
 nginx        NodePort    10.101.42.230   <none>        80:31858/TCP   5s
+```
 
+```
 # kubectl delete svc nginx
 service "nginx" deleted
 ```
@@ -322,22 +324,31 @@ service "nginx-nodeport" deleted
 ```
 # kubectl expose pod nginx --type=LoadBalancer
 service/nginx exposed
+```
 
+```
 # kubectl get svc
 NAME         TYPE           CLUSTER-IP      EXTERNAL-IP   PORT(S)        AGE
 kubernetes   ClusterIP      10.96.0.1       <none>        443/TCP        32m
 nginx        LoadBalancer   10.110.198.89   <pending>     80:30728/TCP   4s
+```
 
+```
 # kubectl delete svc nginx
 service "nginx" deleted
 ```
 
 
-Agora vamos criar service NodePort, porém vamos criar um yaml com suas definições:
+Agora vamos criar service NodePort, porém vamos criar um yaml com suas definições, então:
 
 
 ```
 # vim primeiro-service-loadbalancer.yaml
+```
+
+E colocar as definições desse cara:
+
+```
 apiVersion: v1
 kind: Service
 metadata:
@@ -356,15 +367,21 @@ spec:
     run: nginx
   sessionAffinity: None
   type: LoadBalancer
+```
 
+```
 # kubectl create -f primeiro-service-loadbalancer.yaml
 service/nginx-loadbalancer created
+```
 
+```
 # kubectl get services
 NAME                 TYPE           CLUSTER-IP     EXTERNAL-IP   PORT(S)        AGE
 kubernetes           ClusterIP      10.96.0.1      <none>        443/TCP        33m
 nginx-loadbalancer   LoadBalancer   10.96.67.165   <pending>     80:31222/TCP   4s
+```
 
+```
 # kubectl describe service nginx
 Name:                     nginx-loadbalancer
 Namespace:                default
@@ -380,7 +397,9 @@ Endpoints:                10.46.0.1:80
 Session Affinity:         None
 External Traffic Policy:  Cluster
 Events:                   <none>
+```
 
+```
 # kubectl delete -f primeiro-service-loadbalancer.yaml
 service "nginx-loadbalancer" deleted
 ```
@@ -436,39 +455,51 @@ Vamos fazer um exemplo, para isso, vamos realizar a criação de um deployment, 
 ```
 # kubectl create deployment nginx --image=nginx
 deployment.apps/nginx created
+```
 
+```
 # kubectl get deployments.apps
 NAME    READY   UP-TO-DATE   AVAILABLE   AGE
 nginx   1/1     1            1           5s
+```
 
+```
 # kubectl scale deployment nginx --replicas=3
 deployment.apps/nginx scaled
+```
 
+```
 # kubectl get deployments.apps
 NAME    READY   UP-TO-DATE   AVAILABLE   AGE
 nginx   3/3     3            3           1m5s
+```
 
+```
 # kubectl expose deployment nginx --port=80
 service/nginx exposed
+```
 
+```
 # kubectl get svc
 NAME         TYPE        CLUSTER-IP     EXTERNAL-IP   PORT(S)   AGE
 kubernetes   ClusterIP   10.96.0.1      <none>        443/TCP   40m
 nginx        ClusterIP   10.98.153.22   <none>        80/TCP    6s
+```
 
-
+```
 # curl 10.98.153.22
 ...
 <h1>Welcome to nginx!</h1>
 ...
+```
 
+```
 # kubectl get endpoints
 NAME         ENDPOINTS                                AGE
 kubernetes   172.31.17.67:6443                        44m
 nginx        10.32.0.2:80,10.32.0.3:80,10.46.0.2:80   3m31s
-
-
-
+```
+```
 # kubectl describe endpoints nginx
 Name:         nginx
 Namespace:    default
@@ -483,7 +514,9 @@ Subsets:
     <unset>  80    TCP
 
 Events:  <none>
+```
 
+```
 # kubectl get endpoints -o yaml
 apiVersion: v1
 items:
@@ -520,12 +553,21 @@ kind: List
 metadata:
   resourceVersion: ""
   selfLink: ""
+```
 
+```
 # curl <IP_ENDPOINT>
+...
+<h1>Welcome to nginx!</h1>
+...
+```
 
+```
 # kubectl delete deployment nginx
 deployment.apps "nginx" deleted
+```
 
+```
 # kubectl delete service nginx
 service "nginx" deleted
 ```
@@ -546,17 +588,26 @@ Vamos criar nosso primeiro Deployment com limite de recursos, para isso vamos su
 ```
 # kubectl create deployment nginx --image=nginx
 deployment.apps/nginx created
+```
 
+```
 # kubectl scale deployment nginx --replicas=3
 deployment.apps/nginx scaled
+```
 
+```
 # kubectl get deployments
 NAME    READY   UP-TO-DATE   AVAILABLE   AGE
 nginx   3/3     3            3           24s
+```
 
+```
 # kubectl get deployment nginx -o yaml > deployment-limitado.yaml
+```
 
+E adicionar as definições de limite:
 
+```
 # vim deployment-limitado.yaml   
 apiVersion: apps/v1
 kind: Deployment
@@ -627,7 +678,9 @@ nginx                   1/1     Running   0          12m
 nginx-f89759699-77v8b   1/1     Running   0          117s
 nginx-f89759699-ffbgh   1/1     Running   0          117s
 nginx-f89759699-vzvlt   1/1     Running   0          2m2s
+```
 
+```
 # kubectl exec -ti nginx-f89759699-77v8b -- /bin/bash
 ```
 
@@ -637,7 +690,9 @@ Agora no container, instale e execute o stress para simular a carga em nossos re
 
 ```
 # apt-get update && apt-get install -y stress
+```
 
+```
 # stress --vm 1 --vm-bytes 128M --cpu 1
 stress: info: [221] dispatching hogs: 1 cpu, 0 io, 1 vm, 0 hdd
 ```
@@ -654,7 +709,9 @@ stress: info: [230] dispatching hogs: 1 cpu, 0 io, 1 vm, 0 hdd
 stress: FAIL: [230] (415) <-- worker 232 got signal 9
 stress: WARN: [230] (417) now reaping child worker processes
 stress: FAIL: [230] (451) failed run completed in 0s
+```
 
+```
 # kubectl delete deployment nginx
 deployment.extensions "nginx" deleted
 ```
@@ -806,7 +863,9 @@ Agora vamos criar um pod fora do namespace limitado e outro dentro do namespace 
 ```
 # kubectl create -f pod-limitrange.yaml
 pod/limit-pod created
+```
 
+```
 # kubectl create -f pod-limitrange.yaml -n primeiro-namespace
 pod/limit-pod created
 ```
@@ -992,13 +1051,13 @@ node/elliot-03 untainted
 ```
 # kubectl get pods  -o wide
 NAME                     READY   STATUS    RESTARTS   AGE     IP          NODE               NOMINATED NODE   READINESS GATES
-limit-pod                1/1     Running   0          6m17s   10.32.0.4   elliot-02   <none>           <none>
-nginx                    1/1     Running   0          27m     10.46.0.1   elliot-03    <none>           <none>
-nginx-85f7fb6b45-9bzwc   1/1     Running   0          8m40s   10.32.0.3   elliot-02   <none>           <none>
-nginx-85f7fb6b45-cbmtr   1/1     Running   0          8m40s   10.46.0.2   elliot-03    <none>           <none>
-nginx-85f7fb6b45-qnhtl   1/1     Running   0          72s     10.46.0.5   elliot-03    <none>           <none>
-nginx-85f7fb6b45-qsvpp   1/1     Running   0          72s     10.46.0.4   elliot-03    <none>           <none>
-nginx-85f7fb6b45-rprz5   1/1     Running   0          8m40s   10.32.0.2   elliot-02   <none>           <none>
+limit-pod                1/1     Running   0          6m17s   10.32.0.4   elliot-02          <none>           <none>
+nginx                    1/1     Running   0          27m     10.46.0.1   elliot-03          <none>           <none>
+nginx-85f7fb6b45-9bzwc   1/1     Running   0          8m40s   10.32.0.3   elliot-02          <none>           <none>
+nginx-85f7fb6b45-cbmtr   1/1     Running   0          8m40s   10.46.0.2   elliot-03          <none>           <none>
+nginx-85f7fb6b45-qnhtl   1/1     Running   0          72s     10.46.0.5   elliot-03          <none>           <none>
+nginx-85f7fb6b45-qsvpp   1/1     Running   0          72s     10.46.0.4   elliot-03          <none>           <none>
+nginx-85f7fb6b45-rprz5   1/1     Running   0          8m40s   10.32.0.2   elliot-02          <none>           <none>
 ```
 
 
@@ -1090,10 +1149,10 @@ deployment.apps/nginx scaled
 ```
 # kubectl get pods -o wide
 NAME                     READY   STATUS    RESTARTS   AGE    IP          NODE               NOMINATED NODE   READINESS GATES
-nginx-85f7fb6b45-2c6dm   1/1     Running   0          9s     10.32.0.2   elliot-02   <none>           <none>
-nginx-85f7fb6b45-4jzcn   1/1     Running   0          9s     10.32.0.3   elliot-02   <none>           <none>
-nginx-85f7fb6b45-drmzz   1/1     Running   0          114s   10.46.0.1   elliot-03    <none>           <none>
-nginx-85f7fb6b45-rstvq   1/1     Running   0          9s     10.46.0.2   elliot-03    <none>           <none>
+nginx-85f7fb6b45-2c6dm   1/1     Running   0          9s     10.32.0.2   elliot-02          <none>           <none>
+nginx-85f7fb6b45-4jzcn   1/1     Running   0          9s     10.32.0.3   elliot-02          <none>           <none>
+nginx-85f7fb6b45-drmzz   1/1     Running   0          114s   10.46.0.1   elliot-03          <none>           <none>
+nginx-85f7fb6b45-rstvq   1/1     Running   0          9s     10.46.0.2   elliot-03          <none>           <none>
 ```
 
 
@@ -1113,10 +1172,10 @@ node/elliot-03 tainted
 ```
 # kubectl get pods -o wide
 NAME                     READY   STATUS    RESTARTS   AGE   IP          NODE              NOMINATED NODE   READINESS GATES
-nginx-85f7fb6b45-49knz   1/1     Running   0          14s   10.40.0.5   elliot-01   <none>           <none>
-nginx-85f7fb6b45-4cm9x   1/1     Running   0          14s   10.40.0.4   elliot-01   <none>           <none>
-nginx-85f7fb6b45-kppnd   1/1     Running   0          14s   10.40.0.6   elliot-01   <none>           <none>
-nginx-85f7fb6b45-rjlmj   1/1     Running   0          14s   10.40.0.3   elliot-01   <none>           <none>
+nginx-85f7fb6b45-49knz   1/1     Running   0          14s   10.40.0.5   elliot-01         <none>           <none>
+nginx-85f7fb6b45-4cm9x   1/1     Running   0          14s   10.40.0.4   elliot-01         <none>           <none>
+nginx-85f7fb6b45-kppnd   1/1     Running   0          14s   10.40.0.6   elliot-01         <none>           <none>
+nginx-85f7fb6b45-rjlmj   1/1     Running   0          14s   10.40.0.3   elliot-01         <none>           <none>
 ```
 
 ```
