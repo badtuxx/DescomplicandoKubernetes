@@ -133,7 +133,8 @@ Para realizar o snapshot do ETCD sem **TLS habilitado**, precisamos executar o s
 
 ```ETCDCTL_API=3 etcdctl \
 --endpoints $ENDPOINT \
-snapshot save snapshotdb ```
+snapshot save snapshotdb
+```
 
  ```ETCDCTL_API=3 etcdctl \
 --write-out=table \
