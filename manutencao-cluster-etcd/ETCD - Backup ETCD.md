@@ -131,12 +131,14 @@ Esse snapshot, contém todos os dados do estado do cluster.
 
 Para realizar o snapshot do ETCD sem **TLS habilitado**, precisamos executar o seguinte comando.
 
-```ETCDCTL_API=3 etcdctl \
+```
+ETCDCTL_API=3 etcdctl \
 --endpoints $ENDPOINT \
 snapshot save snapshotdb
 ```
 
- ```ETCDCTL_API=3 etcdctl \
+ ```
+ ETCDCTL_API=3 etcdctl \
 --write-out=table \
 snapshot status snapshotdb
 
