@@ -845,7 +845,7 @@ Basicamente a mesma coisa do que o ReplicaSet, com a diferença que quando você
 
 É sempre interessante quando criar usar e abusar dos labels, assim você conseguirá ter melhor flexibilidade na distribuição mais adequada de sua aplicação.
 
-Ele é bem interessante para serviços que necessitem rodar em todos os nodes do cluster, como por exemplo, coletores de logs e agente de monitoração.
+Ele é bem interessante para serviços que necessitem rodar em todos os nodes do cluster, como por exemplo, coletores de logs e agentes de monitoração.
 
 Vamos criar o nosso primeiro DaemonSet:
 
