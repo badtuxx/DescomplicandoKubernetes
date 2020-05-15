@@ -16,7 +16,7 @@ Em um banco de dados de chave-valor, quando consultamos e obtemos a chave, é re
 
 | ![Banco de dados chave valor](https://upload.wikimedia.org/wikipedia/commons/5/5b/KeyValue.PNG)|
 |:--:| 
-| *Banco de dados chave valor* |
+| *Banco de dados chave-valor* |
 
 Quando consultamos a chave k1, o resultado  retornado é o valor : AAA,BBB,CCC
 
@@ -131,35 +131,20 @@ Esse snapshot, contém todos os dados do estado do cluster.
 
 Para realizar o snapshot do ETCD sem **TLS habilitado**, precisamos executar o seguinte comando.
 
-ETCDCTL_API=3 etcdctl --endpoints $ENDPOINT snapshot save snapshotdb
+```ETCDCTL_API=3 etcdctl \
+--endpoints $ENDPOINT \
+snapshot save snapshotdb ```
 
-Onde:
+ ```ETCDCTL_API=3 etcdctl \
+--write-out=table \
+snapshot status snapshotdb
 
-ETCDCTL_API=3 - versão do command line que queremos usar;
-
-etcdctl - command line do cliente ETCD;
-
-$ENDPOINT - Variável utilizada para o backup de onde o ETCD está em execução;
-Nesse caso, o valor do endpoint será: [127.0.0.1:2379]  - Esse é o valor default de onde o ETCD está rodando no nó master com a porta padrão do ETCD, 2379;
-
-snapshot - parâmetro utilizado para gerar o snapshot;
-
-save - informamos que queremos realizar um save desse snapshot;
-
-snapshotdb - nome do nosso snapshot;
-
-Logo, nosso comando ficaria:
-
-ETCDCTL_API=3 etcdctl --endpoints=[127.0.0.1:2379] snapshot save snapshotdb
-
-
-
-ETCDCTL_API=3 etcdctl --write-out=table snapshot status snapshotdb
 +----------+----------+------------+------------+
 |   HASH   | REVISION | TOTAL KEYS | TOTAL SIZE |
 +----------+----------+------------+------------+
 | fe01cf57 |       10 |          7 | 2.1 MB     |
 +----------+----------+------------+------------+
+```
 
 
 Existem algumas diferenças ao realizar o snapshot do ETCD com o **TLS habilitado** que são obrigatórias:
