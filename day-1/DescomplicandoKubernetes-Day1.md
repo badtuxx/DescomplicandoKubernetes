@@ -111,7 +111,7 @@ O melhor *app* para rodar em container, principalmente no k8s, são aplicações
 Antes de mais nada, verifique se a sua máquina suporta virtualização. No Linux, isto pode ser realizado com:
 
 ```
-# grep -E --color 'vmx|svm
+# grep -E --color 'vmx|svm' /proc/cpuinfo
 ```
 
 Caso a saída do comando não seja vazia, o resultado é positivo.
@@ -162,6 +162,29 @@ Já com o método tradicional, a instalação pode ser realizada com os seguinte
 # chmod +x ./kubectl
 # sudo mv ./kubectl /usr/local/bin/kubectl
 # kubectl version --client
+```
+
+## kubectl - alias e complete:
+
+BASH:
+
+```
+source <(kubectl completion bash)
+echo "source <(kubectl completion bash)"
+```
+
+Criar alias para k:
+
+```
+alias k=kubectl
+complete -F __start_kubectl k
+```
+
+ZSH:
+
+```
+source <(kubectl completion zsh)
+echo "[[ $commands[kubectl] ]] && source <(kubectl completion zsh)"
 ```
 
 Por fim, efetua-se a instalação do Minikube com um dos dois métodos abaixo, também podendo optar-se pelo Homebrew ou pelo método tradicional:
