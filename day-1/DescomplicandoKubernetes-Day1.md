@@ -80,7 +80,7 @@ Abaixo um diagrama que mostra a arquitetura do k8s:
 
 - NodePort Services: 30000-32767 TCP
 
-Você você opte pelo [Weave](https://weave.works) como *pod network*, devem ser liberadas também as portas 6783 e 6784 TCP.
+Caso você opte pelo [Weave](https://weave.works) como *pod network*, devem ser liberadas também as portas 6783 e 6784 TCP.
 
 ## Tá, mas qual tipo de aplicação eu devo rodar sobre o k8s?
 
