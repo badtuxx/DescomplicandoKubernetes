@@ -111,7 +111,7 @@ O melhor *app* para rodar em container, principalmente no k8s, são aplicações
 Antes de mais nada, verifique se a sua máquina suporta virtualização. No Linux, isto pode ser realizado com:
 
 ```
-# grep -E --color 'vmx|svm
+# grep -E --color 'vmx|svm'
 ```
 
 Caso a saída do comando não seja vazia, o resultado é positivo.
