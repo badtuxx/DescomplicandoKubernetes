@@ -155,6 +155,29 @@ Ou:
 # brew install kubectl-cli
 ```
 
+## kubectl - Cheat Sheet:
+
+BASH:
+
+```
+source <(kubectl completion bash)
+echo "source <(kubectl completion bash)"
+```
+
+Criar alias para k:
+
+```
+alias k=kubectl
+complete -F __start_kubectl k
+```
+
+ZSH:
+
+```
+source <(kubectl completion zsh)
+echo "[[ $commands[kubectl] ]] && source <(kubectl completion zsh)"
+```
+
 Já com o método tradicional, a instalação pode ser realizada com os seguintes comandos:
 
 ```
