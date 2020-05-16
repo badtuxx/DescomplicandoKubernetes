@@ -155,7 +155,19 @@ Ou:
 # brew install kubectl-cli
 ```
 
-## kubectl - Cheat Sheet:
+
+```
+
+Já com o método tradicional, a instalação pode ser realizada com os seguintes comandos:
+
+```
+# curl -LO "https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/darwin/amd64/kubectl"
+# chmod +x ./kubectl
+# sudo mv ./kubectl /usr/local/bin/kubectl
+# kubectl version --client
+```
+
+## kubectl - alias e complete:
 
 BASH:
 
@@ -176,16 +188,6 @@ ZSH:
 ```
 source <(kubectl completion zsh)
 echo "[[ $commands[kubectl] ]] && source <(kubectl completion zsh)"
-```
-
-Já com o método tradicional, a instalação pode ser realizada com os seguintes comandos:
-
-```
-# curl -LO "https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/darwin/amd64/kubectl"
-# chmod +x ./kubectl
-# sudo mv ./kubectl /usr/local/bin/kubectl
-# kubectl version --client
-```
 
 Por fim, efetua-se a instalação do Minikube com um dos dois métodos abaixo, também podendo optar-se pelo Homebrew ou pelo método tradicional:
 
