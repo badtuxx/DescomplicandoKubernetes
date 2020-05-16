@@ -262,7 +262,7 @@ Além do --endpoits, precisamos adicionar as chaves e certificados referentes ao
 
 --cert - identifica o cliente usando o certificado TLS;
 
---endpoints=[127.0.0.1:2379] - novamente, esse é o valor default de onde o ETCD está rodando no nó master com a porta padrão do ETCD, 2379;         This is the default as ETCD is running on master node and exposed on localhost 2379.
+--endpoints=[127.0.0.1:2379] - novamente, esse é o valor default de onde o ETCD está rodando no nó master com a porta padrão do ETCD, 2379;
 
 --key - identifica o cliente usando a chave TLS;
 
