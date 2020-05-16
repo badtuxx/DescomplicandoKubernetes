@@ -155,9 +155,6 @@ Ou:
 # brew install kubectl-cli
 ```
 
-
-```
-
 Já com o método tradicional, a instalação pode ser realizada com os seguintes comandos:
 
 ```
