@@ -131,6 +131,7 @@ Efetue o download e a instalação do Minikube utilizando o comando abaixo:
 
 ```
 # curl -Lo minikube https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64 && chmod +x minikube
+# sudo mv minikube /usr/local/bin
 ```
 
 ## Instalação do Minikube no macOS
