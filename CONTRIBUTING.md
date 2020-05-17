@@ -6,7 +6,7 @@
 
 # Contribuindo
 
-Sua contribuição é muito bem vinda! 
+Sua contribuição é muito bem vinda!
 
 Execute os passos a seguir sempre que desejar melhorar o conteúdo deste repositório.
 
