@@ -1,6 +1,6 @@
 ## Security Context
 
-Security Context são configurações onde definimos privilégios e acessos a um pod. Essas configurações incluem:
+Security Context são um conjunto de configurações onde definimos privilégios e acessos a um pod. Essas configurações incluem:
 
 Definir o usuário e grupo do container,
 
@@ -48,7 +48,7 @@ As configurações de securityContext definidas no container são aplicadas some
 apiVersion: v1
 kind: Pod
 metadata:
-  name: busy-security-user
+  name: busy-security-uid
 spec:
   securityContext:
     runAsUser: 1000
@@ -77,5 +77,53 @@ Começando no kernel 2.2, o Linux dividiu as formas tradicionais de privilégios
 Um pouco mais sobre capabilities
 # http://man7.org/linux/man-pages/man7/capabilities.7.html
 
+Para demonstar, vamos fazer um teste tentando alterar a hora de um container:
+
+```
+apiVersion: v1
+kind: Pod
+metadata:
+  name: busy-security-cap
+spec:
+  containers:
+  - name: sec-busy
+    image: busybox
+    command: [ "sh", "-c", "sleep 1h" ]
+
+```
 
 
+```
+kubectl exec busy-security-cap -- date -s "18:00:00"
+```
+
+Output
+```
+date: can't set date: Operation not permitted
+```
+
+Adicionando a capabilitie  SYS_TIME no container:
+
+```
+apiVersion: v1
+kind: Pod
+metadata:
+  name: busy-security-cap
+spec:
+  containers:
+  - name: sec-busy
+    image: busybox
+    securityContext:
+      capabilities:
+        add: ["SYS_TIME"]
+    command: [ "sh", "-c", "sleep 1h" ]
+```
+```
+kubectl exec busy-security-cap -- date -s "18:00:00"
+```
+```
+Output:
+```
+```
+Sat May 16 18:00:00 UTC 2020
+```
