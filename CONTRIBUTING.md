@@ -32,7 +32,7 @@ git branch
 * Faça as alterações necessárias.
 * Teste suas alterações.
 * Commit as suas alterações na branch recém criada, de preferência faça um commit para cada arquivo editado/criado.
-* Envie os commits para o repositório remoto com o comando `git push --set-upstream origin USYOUR_NAME`. Exemplo: *git push --set-upstream origin US-AECIO*
+* Envie os commits para o repositório remoto com o comando `git push --set-upstream origin US-YOUR_NAME`. Exemplo: *git push --set-upstream origin US-AECIO*
 * Crie um Pull Request (PR) para a branch `master` do repositório original. Veja este [tutorial](https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/creating-a-pull-request-from-a-fork)
 * Atualize o conteúdo com as sugestões do revisor (se necessário).
 * Depois de aprovado e realizado o merge do seu PR, atualize as mudanças no seu repositório local com os comandos a seguir.
