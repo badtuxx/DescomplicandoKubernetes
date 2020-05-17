@@ -22,6 +22,13 @@ git remote -v
 ```
 
 * Crie uma branch usando o padrão: `git checkout -b US-YOUR_NAME`. Exemplo: *git checkout -b US-AECIO*
+* Certifique-se de que está branch correta, usando o comando a seguir.
+
+```bash
+git branch
+```
+
+* Estará sendo utilizada a branch que estiver um '*' antes do nome.
 * Faça as alterações necessárias.
 * Teste suas alterações.
 * Commit as suas alterações na branch recém criada, de preferência faça um commit para cada arquivo editado/criado.
@@ -38,9 +45,9 @@ git pull upstream master
 * Remova a branch local após a aprovação e merge do seu PR, usando o comando `git branch -d BRANCH_NAME`. Exemplo: *git branch -d US-AECIO*
 * Atualize a branch ``master`` do seu repositório local.
 
-`` bash
+```bash
 git push origin master
-`` ``
+```
 
 * Envie a exclusão da branch local para o seu repositório no GitHub com o comando `git push --delete origin BRANCH_NAME`. Exemplo: *git push --delete origem US-AECIO*
 * Para manter seu fork em sincronia com o repositório original, execute estes comandos:

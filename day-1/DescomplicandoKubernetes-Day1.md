@@ -1,8 +1,54 @@
+<!-- TOC -->
+
+- [O quê preciso saber antes de começar?](#o-qu%c3%aa-preciso-saber-antes-de-come%c3%a7ar)
+  - [Qual distro Linux devo usar?](#qual-distro-linux-devo-usar)
+  - [Alguns sites que devemos visitar:](#alguns-sites-que-devemos-visitar)
+  - [E o k8s?](#e-o-k8s)
+  - [Arquitetura do k8s](#arquitetura-do-k8s)
+  - [Portas que devemos nos preocupar](#portas-que-devemos-nos-preocupar)
+  - [Tá, mas qual tipo de aplicação eu devo rodar sobre o k8s?](#t%c3%a1-mas-qual-tipo-de-aplica%c3%a7%c3%a3o-eu-devo-rodar-sobre-o-k8s)
+  - [Conceitos-chave do k8s](#conceitos-chave-do-k8s)
+- [Minikube](#minikube)
+  - [Requisitos básicos](#requisitos-b%c3%a1sicos)
+  - [Instalação do Minikube no Linux](#instala%c3%a7%c3%a3o-do-minikube-no-linux)
+  - [Instalação do Minikube no macOS](#instala%c3%a7%c3%a3o-do-minikube-no-macos)
+  - [Instalação do Minikube no Microsoft Windows](#instala%c3%a7%c3%a3o-do-minikube-no-microsoft-windows)
+  - [Iniciando, parando e excluindo o Minikube](#iniciando-parando-e-excluindo-o-minikube)
+  - [Certo, e como eu sei que está tudo funcionando como deveria?](#certo-e-como-eu-sei-que-est%c3%a1-tudo-funcionando-como-deveria)
+  - [Descobrindo o endereço do Minikube](#descobrindo-o-endere%c3%a7o-do-minikube)
+  - [Acessando a máquina do Minikube via SSH](#acessando-a-m%c3%a1quina-do-minikube-via-ssh)
+  - [Dashboard](#dashboard)
+  - [Logs](#logs)
+- [Instalando o k3s](#instalando-o-k3s)
+- [Instalação em cluster com três nós](#instala%c3%a7%c3%a3o-em-cluster-com-tr%c3%aas-n%c3%b3s)
+  - [Requisitos básicos](#requisitos-b%c3%a1sicos-1)
+  - [Configuração de módulos de kernel](#configura%c3%a7%c3%a3o-de-m%c3%b3dulos-de-kernel)
+  - [Atualização da distribuição](#atualiza%c3%a7%c3%a3o-da-distribui%c3%a7%c3%a3o)
+  - [Instalação do Docker e do Kubernetes](#instala%c3%a7%c3%a3o-do-docker-e-do-kubernetes)
+  - [Inicialização do cluster](#inicializa%c3%a7%c3%a3o-do-cluster)
+  - [Configuração do arquivo de contextos do kubectl](#configura%c3%a7%c3%a3o-do-arquivo-de-contextos-do-kubectl)
+  - [Inserindo os nós workers no cluster](#inserindo-os-n%c3%b3s-workers-no-cluster)
+  - [Instalação do pod network](#instala%c3%a7%c3%a3o-do-pod-network)
+  - [Verificando a instalação](#verificando-a-instala%c3%a7%c3%a3o)
+- [Primeiros passos no k8s](#primeiros-passos-no-k8s)
+  - [Exibindo informações detalhadas sobre os nós](#exibindo-informa%c3%a7%c3%b5es-detalhadas-sobre-os-n%c3%b3s)
+  - [Exibindo novamente token para entrar no cluster](#exibindo-novamente-token-para-entrar-no-cluster)
+  - [Ativando o autocomplete](#ativando-o-autocomplete)
+  - [Verificando os namespaces e pods](#verificando-os-namespaces-e-pods)
+  - [Executando nosso primeiro pod no k8s](#executando-nosso-primeiro-pod-no-k8s)
+  - [Verificar os últimos eventos do cluster](#verificar-os-%c3%baltimos-eventos-do-cluster)
+  - [Efetuar o dump de um objeto em formato YAML](#efetuar-o-dump-de-um-objeto-em-formato-yaml)
+  - [Socorro, são muitas opções!](#socorro-s%c3%a3o-muitas-op%c3%a7%c3%b5es)
+  - [Expondo o pod](#expondo-o-pod)
+  - [Limpando tudo e indo para casa](#limpando-tudo-e-indo-para-casa)
+
+<!-- TOC -->
+
 # O quê preciso saber antes de começar?
 
 ## Qual distro Linux devo usar?
 
-Devido ao fato de algumas importantes ferramentas como o systemd e o journald terem se tornado padrão, com a maioria das principais distribuições hoje disponíveis você conseguirá seguir treinamento. 
+Devido ao fato de algumas importantes ferramentas como o ``systemd`` e o ``journald`` terem se tornado padrão, com a maioria das principais distribuições GNU/Linux hoje disponíveis você conseguirá seguir com o treinamento.
 
 ## Alguns sites que devemos visitar:
 
@@ -20,21 +66,21 @@ Devido ao fato de algumas importantes ferramentas como o systemd e o journald te
 
 ## E o k8s?
 
-O projeto Kubernetes surgiu dentro da Google como seu orquestrador de containers, com seu design e desenvolvimento baseados no Borg e anunciado inicialmente em meados de 2014, já como um projeto *opensource*. O termo "kubernetes" em Grego significa "timoneiro", sendo que outros produtos também originaram-se do Bord, como o Apache Mesos e o Cloud Foundry.
+O projeto Kubernetes surgiu dentro da Google como seu orquestrador de containers, com seu design e desenvolvimento baseados no Borg e anunciado inicialmente em meados de 2014, já como um projeto *opensource*. O termo "kubernetes" em Grego significa "timoneiro", sendo que outros produtos também originaram-se do Borg, como o Apache Mesos e o Cloud Foundry.
 
-Como Kubernetes é uma palavra difícil de se pronunciar - e de se escrever - a comunidade simplesmente o apelidou de **k8s** (a letra "k" seguida por oito letras e o "s" no final), pronunciando-se simplesmente "kates".
+Como Kubernetes é uma palavra difícil de se pronunciar - e de se escrever - a comunidade simplesmente o apelidou de **k8s**, seguindo o padrão [i18n](http://www.i18nguy.com/origini18n.html) (a letra "k" seguida por oito letras e o "s" no final), pronunciando-se simplesmente "kates".
 
 ## Arquitetura do k8s
 
-Assim como os demais orquestradores disponíveis, o k8s também segue um modelo *master/slave*, constituindo assim um *cluster*, onde para seu funcionamento devem existir no mínimo três nós: o nó master, responsável por padrão apenas pelo gerenciamento do *cluster*, e os demais como *workers*, executores das aplicações que nós queremos executar sobre esse cluster.
+Assim como os demais orquestradores disponíveis, o k8s também segue um modelo *master/slave*, constituindo assim um *cluster*, onde para seu funcionamento devem existir no mínimo três nós: o nó master, responsável por padrão apenas pelo gerenciamento do *cluster*, e os demais como *workers*, executores das aplicações que queremos executar sobre esse cluster.
 
 Embora exista a exigência de no mínimo três nós para a execução do k8s em um ambiente padrão, existem distribuições do k8s para um único nó. Exemplos são:
 
 - [Minikube](https://github.com/kubernetes/minikube): Muito utilizado para implementar um cluster Kubernetes localmente para fins de desenvolvimento, testes e didáticos e que não deve ser utilizado para produção;
 
-- [MicroK8s](https://microk8s.io): Desenvolvido pela Canonical, mesma empresa que desenvolve o Ubuntu, pode ser utilizada em diversas distribuições e tem como público algo desenvolvedores e profissionais de DevOps, podendo ser utilizada para ambientes de produção, em especial para *Edge Computing* e IoT;
+- [MicroK8S](https://microk8s.io): Desenvolvido pela [Canonical](https://canonical.com), mesma empresa que desenvolve o [Ubuntu](https://ubuntu.com), pode ser utilizada em diversas distribuições e tem como público algo desenvolvedores e profissionais de DevOps, podendo ser utilizada para ambientes de produção, em especial para *Edge Computing* e IoT;
 
-- [k3s](https://k3s.io): Desenvolvido pela Rancher Labs, é um concorrente direto do MicroK8s, podendo ser executado inclusive em Raspberry Pi.
+- [k3s](https://k3s.io): Desenvolvido pela [Rancher Labs](https://rancher.com), é um concorrente direto do MicroK8s, podendo ser executado inclusive em Raspberry Pi.
 
 Abaixo um diagrama que mostra a arquitetura do k8s:
 
@@ -43,19 +89,19 @@ Abaixo um diagrama que mostra a arquitetura do k8s:
 | *Arquitetura Kubernetes* |
 
 ##
-- **API Server**: É um dos principais componentes do k8s. Ele quem fornece uma API que utiliza JSON sobre HTTP para comunicação principalmente utilizando o utilitário ```kubectl``` por parte dos administradores e para a comunicação entre os demais nós, conforme mostrado no gráfico, por meio de requisições REST;
+- **API Server**: É um dos principais componentes do k8s. Ele quem fornece uma API que utiliza JSON sobre HTTP para comunicação principalmente utilizando o utilitário ```kubectl``` por parte dos administradores e para a comunicação entre os demais nós, conforme mostrado na figura anterior, por meio de requisições [REST](https://restfulapi.net);
 
 - **etcd**: O etcd é um *datastore* chave-valor distribuído que o k8s utiliza para armazenar o status e as configurações do *cluster*. Todos os dados armazenados dentro do etcd são manipulados apenas através da API;
 
-- **Scheduler**: É o *scheduler* quem selecionará em qual nó um determinado pod (a menor unidade de um *cluster* k8s - não se preocupe sobre isso por enquanto, nós falaremos mais sobre isso mais tarde) será executado, baseado na quantidade de recursos disponíveis, além de sabe o estado de cada um dos nós do *cluster*, garantindo que os recursos estejam bem distribuídos, baseando-se também em políticas definidas pelo usuário como por afinidade, localização de dados a serem lidos pelas aplicações, etc;
+- **Scheduler**: É o *scheduler* quem selecionará em qual nó um determinado pod (a menor unidade de um *cluster* k8s - não se preocupe sobre isso por enquanto, nós falaremos mais sobre isso mais tarde) será executado, baseado na quantidade de recursos disponíveis, além de saber o estado de cada um dos nós do *cluster*, garantindo que os recursos estejam bem distribuídos, baseando-se também em políticas definidas pelo usuário como por afinidade, localização de dados a serem lidos pelas aplicações, etc;
 
 - **Controller Manager**: É o *controller manager* que garante que o cluster esteja no último estado definido na base de dados presente no etcd. Por exemplo: se no etcd um *deploy* está setado para possuir 10 réplicas em execução, é o *controller manager* quem irá verificar se o estado atual do cluster corresponde, se essas 10 réplicas estão de fato rodando corretamente e, em caso negativo, comunicará-se com a API do k8s para tal;
 
-- **Kubelet**: O *kubelet* pode ser visto como o agente do k8s eecutado nos nós workers. É *ele* o responsável por de fato iniciar, parar, e manter os containers e os *pods* dentro do nós, direcionados pelo *controller* do *cluster*;
+- **Kubelet**: O *kubelet* pode ser visto como o agente do k8s executado nos nós workers. É *ele* o responsável por de fato iniciar, parar, e manter os containers e os *pods* dentro do nós, direcionados pelo *controller* do *cluster*;
 
-- **Kube-proxy**: Age como um *proxy* e um *load balancer*, efetuando o roteamento para o *pod* correto, cuidando de parte da rede do nó;
+- **Kube-proxy**: Age como um *proxy* e um *load balancer*, efetuando o roteamento para o *pod* correto, cuidando da parte de rede do nó;
 
-- **Container runtime**: O *container runtime* é o ambiente de execução de containers necessário para o funcionamento do k8s. Em 2016 suporte ao [rkt](https://coreos.com/rkt/) foi adicionado, porém desde o início o Docker já é funcional.
+- **Container runtime**: O *container runtime* é o ambiente de execução de containers necessário para o funcionamento do k8s. Em 2016, o suporte ao [rkt](https://coreos.com/rkt/) foi adicionado, porém desde o início o Docker já é funcional.
 
 ## Portas que devemos nos preocupar
 
@@ -79,7 +125,7 @@ Abaixo um diagrama que mostra a arquitetura do k8s:
 
 - NodePort Services: 30000-32767 TCP
 
-Você você opte pelo [Weave](https://weave.works) como *pod network*, devem ser liberadas também as portas 6783 e 6784 TCP.
+Caso você opte pelo [Weave](https://weave.works) como *pod network*, devem ser liberadas também as portas 6783 e 6784 TCP.
 
 ## Tá, mas qual tipo de aplicação eu devo rodar sobre o k8s?
 
