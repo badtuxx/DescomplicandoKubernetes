@@ -486,7 +486,7 @@ Agora finalmente bora adicionar mais nodes em nosso cluster.
 Calma, antes pegue o IP de seu master:
 
 ```
-# ifconfig 
+# ifconfig
 ...
 eth0: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
         inet 192.168.86.101  netmask 255.255.255.0  broadcast 192.168.86.255
@@ -701,7 +701,7 @@ To start using your cluster, you need to run the following as a regular user:
   mkdir -p $HOME/.kube
   sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
   sudo chown $(id -u):$(id -g) $HOME/.kube/config
-... 
+...
 kubeadm join --token 39c341.a3bc3c4dd49758d5 IP_DO_MASTER:6443 --discovery-token-ca-cert-hash sha256:37092
 ...
 ```
@@ -1231,7 +1231,7 @@ spec:
        containers:
        - image: nginx
          imagePullPolicy: Always
-         ports: 
+         ports:
          - containerPort: 80
          name: nginx
          resources: {}
