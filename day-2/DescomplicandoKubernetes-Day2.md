@@ -1,6 +1,7 @@
 <!-- TOC -->
 
 - [Componentes do K8s](#componentes-do-k8s)
+- [Container Network Interface](#container-network-interface)
 - [Services](#services)
   - [Criando um service ClusterIP](#criando-um-service-clusterip)
   - [Criando um service NodePort](#criando-um-service-nodeport)
@@ -16,14 +17,14 @@
 
 **O k8s tem os seguintes componentes principais:**
 
-*   Master node
-*   Worker node
-*   Services
-*   Controllers
-*   Pods 
-*   Namespaces e quotas
-*   Network e policies
-*   Storage
+* Master node
+* Worker node
+* Services
+* Controllers
+* Pods
+* Namespaces e quotas
+* Network e policies
+* Storage
 
 **[kube-apiserver](https://kubernetes.io/docs/concepts/overview/components/#kube-apiserver)** é a central de operações do cluster k8s. Todas as chamadas, internas ou externas são tratadas por ele. Ele é o único que conecta no ETCD.
 
@@ -45,7 +46,7 @@ O Pod, por poder possuir diversos containers, muitas das vezes se assemelha a um
 
 **[Services](https://kubernetes.io/docs/concepts/services-networking/service/)** é uma forma de você expor a comunicação através de um **NodePort** ou **LoadBalancer** para distribuir as requisições entre diversos Pods daquele Deployment. Funciona como um balanceador de carga.
 
-**Container Network Interface**
+# Container Network Interface
 
 Para prover a rede para os containers, o k8s utiliza a especificação do **CNI**, Container Network Interface.
 
@@ -57,19 +58,19 @@ Enquanto o CNI define a rede dos pods, ele não te ajuda na comunicação entre 
 
 As características básicas da rede do k8s são:
 
-*   Todos os pods conseguem se comunicar entre eles em diferentes nodes;
-*   Todos os nodes pode se comunicar com todos os pods;
-*   Não utilizar NAT.
+* Todos os pods conseguem se comunicar entre eles em diferentes nodes;
+* Todos os nodes pode se comunicar com todos os pods;
+* Não utilizar NAT.
 
 Todos os IPs dos pods e nodes são roteados sem a utilização de [NAT](https://en.wikipedia.org/wiki/Network_address_translation). Isso é solucionado com a utilização de algum software que te ajudará na criação de uma rede Overlay. Seguem alguns:
 
-*   [Weave](https://www.weave.works/docs/net/latest/kube-addon/)
-*   [Flannel](https://github.com/coreos/flannel/blob/master/Documentation/kubernetes.md)
-*   [Canal](https://github.com/tigera/canal/tree/master/k8s-install)
-*   [Calico](https://docs.projectcalico.org/latest/introduction/)
-*   [Romana](http://romana.io/)
-*   [Nuage](https://github.com/nuagenetworks/nuage-kubernetes/blob/v5.1.1-1/docs/kubernetes-1-installation.rst)
-*   [Contiv](http://contiv.github.io/)
+* [Weave](https://www.weave.works/docs/net/latest/kube-addon/)
+* [Flannel](https://github.com/coreos/flannel/blob/master/Documentation/kubernetes.md)
+* [Canal](https://github.com/tigera/canal/tree/master/k8s-install)
+* [Calico](https://docs.projectcalico.org/latest/introduction/)
+* [Romana](http://romana.io/)
+* [Nuage](https://github.com/nuagenetworks/nuage-kubernetes/blob/v5.1.1-1/docs/kubernetes-1-installation.rst)
+* [Contiv](http://contiv.github.io/)
 
 Mais informações em: [https://kubernetes.io/docs/concepts/cluster-administration/addons/](https://kubernetes.io/docs/concepts/cluster-administration/addons/)
 
@@ -128,7 +129,6 @@ service "nginx" deleted
 ```
 
 Agora vamos criar nosso service ClusterIP, porém vamos criar um yaml com suas definições:
-
 
 ```
 # vim primeiro-service-clusterip.yaml
@@ -198,7 +198,6 @@ service "nginx-clusterip" deleted
 ```
 
 Agora vamos mudar um detalhe em nosso manifesto, vamos brincar com o nosso ``sessionaffinity``:
-
 
 ```
 # vim primeiro-service-clusterip.yaml
@@ -733,12 +732,12 @@ spec:
       - image: nginx
         imagePullPolicy: Always
         name: nginx
-   # Adicione as linhas abaixo 
+   # Adicione as linhas abaixo
         resources:
           limits:
             memory: "256Mi"
             cpu: "200m"
-          requests: 
+          requests:
             memory: "128Mi"
             cpu: "50m"
         terminationMessagePath: /dev/termination-log
