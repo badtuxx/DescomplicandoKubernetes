@@ -854,10 +854,10 @@ LAST SEEN   TYPE     REASON      OBJECT      MESSAGE
 Assim como quando se está trabalhando com *stacks* no Docker Swarm, normalmente recursos no k8s são declarados em arquivos **YAML** ou **JSON** e depois manipulados através do kubectl. Para nos poupar o trabalho de escrever o arquivo inteiro, pode-se utilizar como *template* o *dump* de um objeto já existente no k8s, como mostrado abaixo:
 
 ```
-# kubectl get node nginx -o yaml > meu-primeiro.yaml
+# kubectl get pod nginx -o yaml > meu-primeiro.yaml
 ```
 
-Será criado um novo arquivo chamado ```meu-primeiro.yaml```, resultante do redirecionamento da saída do comando ```kubectl get node nginx -o yaml```.
+Será criado um novo arquivo chamado ```meu-primeiro.yaml```, resultante do redirecionamento da saída do comando ```kubectl get pod nginx -o yaml```.
 
 Abrindo o arquivo com ```vim meu-primeiro.yaml``` (você pode utilizar o editor que você preferir), teremos o seguinte conteúdo:
 
@@ -1014,21 +1014,21 @@ status:
 Observando o arquivo acima, notamos que este reflete o **estado** do *pod* e que como desejamos utilizar tal arquivo apenas como um modelo, podemos apagar as entradas que armazenam dados de estado desse *pod*, como *status* e todas as demais configurações que são específicas dele. O arquivo final ficará semelhante a este:
 
 ```yaml
-apiVersion: v1
-kind: Pod
-metadata:
-  creationTimestamp: null
-  labels:
-    run: nginx
-  name: nginx
-spec:
-  containers:
-  - image: nginx
+  apiVersion: v1
+  kind: Pod
+  metadata:
+    creationTimestamp: null
+    labels:
+      run: nginx
     name: nginx
-    resources: {}
-  dnsPolicy: ClusterFirst
-  restartPolicy: Always
-status: {}
+  spec:
+    containers:
+    - image: nginx
+      name: nginx
+      resources: {}
+    dnsPolicy: ClusterFirst
+    restartPolicy: Always
+  status: {}
 ```
 
 Vamos agora remover o nosso *pod* com ```kubectl delete pod nginx```. A saída deve ser algo como:
@@ -1040,7 +1040,7 @@ pod "nginx" deleted
 Vamos recriá-lo, agora a partir do nosso arquivo YAML:
 
 ```
-# kubect create -f meu-primeiro.yaml
+# kubectl create -f meu-primeiro.yaml
 pod/nginx created
 ```
 
