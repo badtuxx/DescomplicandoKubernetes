@@ -579,6 +579,7 @@ Os comandos abaixo desativam o *firewall*, instalam os pacotes do k8s e ativam o
 # systemctl stop firewalld
 # systemctl disable firewalld
 # yum install -y kubelet kubeadm kubectl
+# systemctl enable docker && systemctl start docker
 # systemctl enable kubelet && systemctl start kubelet
 ```
 
