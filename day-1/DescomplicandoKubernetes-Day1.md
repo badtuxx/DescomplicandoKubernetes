@@ -594,8 +594,23 @@ Agora, em ambas as distribuições e famílias, é muito importante verificar se
 ```
 # docker info | grep -i cgroup
 Cgroup Driver: cgroupfs
+```
 
+Para alterar o *driver* do cgroup em distibuições Debian:
+
+```
 # sed -i "s/cgroup-driver=systemd/cgroup-driver=cgroupfs/g" /etc/systemd/system/kubelet.service.d/10-kubeadm.conf
+```
+
+Para alterar o *driver* do cgroup em distribuições RedHat:
+
+```
+# sed -i "s/cgroup-driver=systemd/cgroup-driver=cgroupfs/g" /usr/lib/systemd/system/kubelet.service.d/10-kubeadm.conf
+```
+
+É preciso reiniciar o daemon e restartar o kubelet:
+
+```
 # systemctl daemon-reload
 # systemctl restart kubelet
 ```
