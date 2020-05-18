@@ -238,13 +238,13 @@ Para realizar o snapshot do ETCD sem a autenticação **TLS habilitado**, precis
 ```
 ETCDCTL_API=3 etcdctl \
 --endpoints $ENDPOINT \
-snapshot save snapshotdb
+snapshot save snapshot.db
 ```
 
  ```
  ETCDCTL_API=3 etcdctl \
 --write-out=table \
-snapshot status snapshotdb
+snapshot status snapshot.db
 
 +----------+----------+------------+------------+
 |   HASH   | REVISION | TOTAL KEYS | TOTAL SIZE |
@@ -274,5 +274,24 @@ ETCDCTL_API=3 etcdctl \
 --key /var/lib/minikube/certs/etcd/server.key \
 --cert /var/lib/minikube/certs/etcd/server.crt \
 --endpoints [127.0.0.1:2379]  \
-snapshot save snapshotdb
+snapshot save snapshot.db
+```
+
+# Dicas para os exames
+
+Para a prova do CKA é bem relevante saber como o ETCD funciona.
+
+O assunto do ETCD está relacionado aos  11% do Cluster Maintenance.
+
+Porém, pode ser que você seja obrigado a salvar esse **snapshot** em um diretório específico. ex: /tmp/
+
+Com isso, o comando ficaria: 
+
+```
+ETCDCTL_API=3 etcdctl \
+--cacert /var/lib/minikube/certs/etcd/ca.crt \
+--key /var/lib/minikube/certs/etcd/server.key \
+--cert /var/lib/minikube/certs/etcd/server.crt \
+--endpoints [127.0.0.1:2379]  \
+snapshot save /tmp/snapshot.db
 ```
