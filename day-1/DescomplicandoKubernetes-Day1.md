@@ -878,7 +878,7 @@ LAST SEEN   TYPE     REASON      OBJECT      MESSAGE
 Assim como quando se está trabalhando com *stacks* no Docker Swarm, normalmente recursos no k8s são declarados em arquivos **YAML** ou **JSON** e depois manipulados através do kubectl. Para nos poupar o trabalho de escrever o arquivo inteiro, pode-se utilizar como *template* o *dump* de um objeto já existente no k8s, como mostrado abaixo:
 
 ```
-# kubectl get node nginx -o yaml > meu-primeiro.yaml
+# kubectl get pod nginx -o yaml > meu-primeiro.yaml
 ```
 
 Será criado um novo arquivo chamado ```meu-primeiro.yaml```, resultante do redirecionamento da saída do comando ```kubectl get node nginx -o yaml```.
