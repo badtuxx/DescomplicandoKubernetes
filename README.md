@@ -12,7 +12,7 @@ Devido a pandemia do [Coronavirus (COVID-19)](https://coronavirus.jhu.edu/map.ht
 
 Futuramente o conteúdo deste repositório se tornará um livro, com o nome de todas as pessoas que contribuiram para o projeto. O valor que será arrecado com a venda do livro, será totalmente destinado para alguma organização que ajude as quebradas e pessoas com problemas financeiros e/ou problemas com acesso a informação, como por exemplo, a [Bienal da Quebrada](https://twitter.com/bienalquebrada).
 
-Veja os vídeos sobre Kubernetes e até outros temas levais no canal LinuxTips.
+Veja os vídeos sobre Kubernetes e até outros temas legais no canal LinuxTips.
 
 * https://www.youtube.com/user/linuxtipscanal/videos
 * https://www.youtube.com/user/linuxtipscanal/playlists
