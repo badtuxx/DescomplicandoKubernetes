@@ -1106,7 +1106,7 @@ Exemplos:
 ```
 # kubectl explain deployment
 # kubectl explain pod --recursive
-# kubectl explain deployment.spect.template.spec
+# kubectl explain deployment.spec.template.spec
 ```
 
 ## Expondo o pod
