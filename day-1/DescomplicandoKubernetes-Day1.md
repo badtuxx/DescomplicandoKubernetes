@@ -1,6 +1,7 @@
 
 # Sumário
 
+<<<<<<< HEAD
 1. [O quê preciso saber antes de começar?](#o-qu%C3%AA-preciso-saber-antes-de-come%C3%A7ar)
     1. [Qual distro Linux devo usar?]()
     2. [Alguns sites que devemos visitar]()
@@ -44,6 +45,15 @@
     9. [Expondo o pod]()
     10.[Limpando tudo e indo para casa]()
 
+=======
+1. O quê preciso saber antes de começar?
+  1. Qual distro Linux devo usar?
+  2. Alguns sites que devemos visitar
+  3. E o k8s?
+  4. Arquitetura do k8s
+  5. Portas que devemos nos preocupar
+  6. Tá, mas qual tipo de aplicação eu devo rodar sobre o k8s?
+>>>>>>> 6c84049e75b44714de73cec54f7b9b2946bd86ee
 
 
 
