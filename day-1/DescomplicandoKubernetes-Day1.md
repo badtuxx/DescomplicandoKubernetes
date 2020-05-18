@@ -1177,7 +1177,7 @@ Assim como quando se está trabalhando com *stacks* no Docker Swarm, normalmente
 # kubectl get pod nginx -o yaml > meu-primeiro.yaml
 ```
 
-Será criado um novo arquivo chamado ```meu-primeiro.yaml```, resultante do redirecionamento da saída do comando ```kubectl get node nginx -o yaml```.
+Será criado um novo arquivo chamado ```meu-primeiro.yaml```, resultante do redirecionamento da saída do comando ```kubectl get pod nginx -o yaml```.
 
 Abrindo o arquivo com ```vim meu-primeiro.yaml``` (você pode utilizar o editor que você preferir), teremos o seguinte conteúdo.
 
@@ -1334,21 +1334,21 @@ status:
 Observando o arquivo anterior, notamos que este reflete o **estado** do *pod* e que como desejamos utilizar tal arquivo apenas como um modelo, podemos apagar as entradas que armazenam dados de estado desse *pod*, como *status* e todas as demais configurações que são específicas dele. O arquivo final ficará com o conteúdo semelhante a este:
 
 ```yaml
-apiVersion: v1
-kind: Pod
-metadata:
-  creationTimestamp: null
-  labels:
-    run: nginx
-  name: nginx
-spec:
-  containers:
-  - image: nginx
+  apiVersion: v1
+  kind: Pod
+  metadata:
+    creationTimestamp: null
+    labels:
+      run: nginx
     name: nginx
-    resources: {}
-  dnsPolicy: ClusterFirst
-  restartPolicy: Always
-status: {}
+  spec:
+    containers:
+    - image: nginx
+      name: nginx
+      resources: {}
+    dnsPolicy: ClusterFirst
+    restartPolicy: Always
+  status: {}
 ```
 
 Vamos agora remover o nosso *pod* com o seguinte comando.
