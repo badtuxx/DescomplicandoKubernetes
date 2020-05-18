@@ -1,5 +1,49 @@
-<!-- TOC -->
+# Descomplicando Kubernetes Day 1
 
+## Sumário
+
+-  [O quê preciso saber antes de começar?](#o-qu%C3%AA-preciso-saber-antes-de-come%C3%A7ar)
+    - [Qual distro Linux devo usar?](#qual-distro-linux-devo-usar)
+    - [Alguns sites que devemos visitar](#alguns-sites-que-devemos-visitar)
+    - [E o k8s?](#e-o-k8s)
+    - [Arquitetura do k8s](#arquitetura-do-k8s)
+    - [Portas que devemos nos preocupar](#portas-que-devemos-nos-preocupar)
+    - [Tá, mas qual tipo de aplicação eu devo rodar sobre o k8s?](#t%C3%A1-mas-qual-tipo-de-aplica%C3%A7%C3%A3o-eu-devo-rodar-sobre-o-k8s)
+    - [Conceitos-chave do k8s](#conceitos-chave-do-k8s)
+- [Mini Kube](#minikube)
+    - [Requisitos básicos](#requisitos-b%C3%A1sicos)
+    - [Instalação do Minikube no Linux](#instala%C3%A7%C3%A3o-do-minikube-no-linux)
+    - [Instalação do Minikube no macOS](#instala%C3%A7%C3%A3o-do-minikube-no-macos)
+    - [kubectl - alias e complete](#kubectl---alias-e-complete)
+    - [Instalação do Minikube no Microsoft Windows](#instala%C3%A7%C3%A3o-do-minikube-no-microsoft-windows)
+    - [Iniciando, parando e excluindo o Minikube](#iniciando-parando-e-excluindo-o-minikube)
+    - [Certo, e como eu sei que está tudo funcionando como deveria?](#certo-e-como-eu-sei-que-est%C3%A1-tudo-funcionando-como-deveria)
+    - [Descobrindo o endereço do Minikube](#descobrindo-o-endere%C3%A7o-do-minikube)
+    - [Acessando a máquina do Minikube via SSH](#acessando-a-m%C3%A1quina-do-minikube-via-ssh)
+    - [Dashboard](#dashboard)
+    - [Logs](#logs)
+- [Instalando o k3s](#instalando-o-k3s)
+- [Instalação em cluster com três nós](#instala%C3%A7%C3%A3o-em-cluster-com-tr%C3%AAs-n%C3%B3s)
+    - [Requisitos básicos](#requisitos-b%C3%A1sicos-1)
+    - [Configuração de módulos de kernel](#configura%C3%A7%C3%A3o-de-m%C3%B3dulos-de-kernel)
+    - [Atualização da distribuição](#atualiza%C3%A7%C3%A3o-da-distribui%C3%A7%C3%A3o)
+    - [Instalação do Docker e do Kubernetes](#instala%C3%A7%C3%A3o-do-docker-e-do-kubernetes)
+    - [Inicialização do cluster](#inicializa%C3%A7%C3%A3o-do-cluster)
+    - [Configuração do arquivo de contextos do kubectl](#configura%C3%A7%C3%A3o-do-arquivo-de-contextos-do-kubectl)
+    - [Inserindo os nós workers no cluster](#inserindo-os-n%C3%B3s-workers-no-cluster)
+    - [Instalação do pod network](#instala%C3%A7%C3%A3o-do-pod-network)
+    - [Verificando a instalação](#verificando-a-instala%C3%A7%C3%A3o)
+- [Primeiros passos no k8s](#primeiros-passos-no-k8s)
+    - [Exibindo informações detalhadas sobre os nós](#exibindo-informa%C3%A7%C3%B5es-detalhadas-sobre-os-n%C3%B3s)
+    - [Exibindo novamente token para entrar no cluster](#exibindo-novamente-token-para-entrar-no-cluster)
+    - [Ativando o autocomplete](#ativando-o-autocomplete)
+    - [Verificando os namespaces e pods](#verificando-os-namespaces-e-pods)
+    - [Executando nosso primeiro pod no k8s](#executando-nosso-primeiro-pod-no-k8s)
+    - [Verificar os últimos eventos do cluster](#verificar-os-%C3%BAltimos-eventos-do-cluster)
+    - [Efetuar o dump de um objeto em formato YAML](#efetuar-o-dump-de-um-objeto-em-formato-yaml)
+    - [Socorro, são muitas opções! - kubectl explain](#socorro-s%C3%A3o-muitas-op%C3%A7%C3%B5es)
+    - [Expondo o pod](#expondo-o-pod)
+- [Limpando tudo e indo para casa](#limpando-tudo-e-indo-para-casa)
 - [O quê preciso saber antes de começar?](#o-qu%c3%aa-preciso-saber-antes-de-come%c3%a7ar)
   - [Qual distro Linux devo usar?](#qual-distro-linux-devo-usar)
   - [Alguns sites que devemos visitar:](#alguns-sites-que-devemos-visitar)
@@ -43,7 +87,7 @@
   - [Expondo o pod](#expondo-o-pod)
   - [Limpando tudo e indo para casa](#limpando-tudo-e-indo-para-casa)
 
-<!-- TOC -->
+##
 
 # O quê preciso saber antes de começar?
 
