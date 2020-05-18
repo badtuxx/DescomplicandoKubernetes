@@ -691,7 +691,10 @@ Execute o comando a seguir também apenas no nó *master* para a inicialização
 # kubeadm init --apiserver-advertise-address $(hostname -i)
 ```
 
+A opção _--apiserver-advertise-address_ informa qual o endereço IP em que o servidor de API está ouvindo. Caso contrário, a interface de rede padrão será usada.
+
 A saída do comando será algo similar ao mostrado a seguir:
+
 
 ```
     [WARNING SystemVerification]: docker version is greater than the most recently validated version. Docker version: 18.05.0-ce. Max validated version: 17.03
