@@ -720,6 +720,41 @@ Como dito anteriormente e de forma similar ao Docker Swarm, o próprio kubeadm j
 
 Para inserir os nós *workers* no *cluster*, basta executar a linha que começa com ```kubeadm join``` nos mesmos.
 
+### Múltiplas Interfaces
+
+Caso algum nó que será utilizado tenha mais de uma interface de rede, verifique se ele consegue alcançar o `service` do `Kubernetes` através da rota padrão.
+
+Para verificar, será necessário pegar o IP interno do `service` `kubernetes` através do comando `kubectl get services kubernetes`. Após ter o IP, basta ir no nó que será ingressado no cluster e rodar o comando `curl -k https://SERVICE` alterando o `SERVICE` para o IP do `service`. Ex.: `curl -k https://10.96.0.1`.
+
+Caso a saída seja algo parecido com o exemplo abaixo, a conexão está acontecendo normalmente:
+
+```json
+{
+  "kind": "Status",
+  "apiVersion": "v1",
+  "metadata": {
+
+  },
+  "status": "Failure",
+  "message": "forbidden: User \"system:anonymous\" cannot get path \"/\"",
+  "reason": "Forbidden",
+  "details": {
+
+  },
+  "code": 403
+}
+```
+
+Caso a saída não seja parecido com o exemplo, será necessário adicionar uma rota com o seguinte comando:
+
+```shell
+ip route add REDE_DO_SERVICE/16 dev INTERFACE
+```
+
+Substitua a `REDE_DO SERVICE` com a rede do `service` (geralmente o IP finalizando com 0. Ex.: Se o ip for `10.96.0.1` a rede é `10.96.0.0`) e a `INTERFACE` com a interface do nó que tem acesso ao `master` do cluster. Ex.: `ip route add 10.96.0.0/16 dev eth1`
+
+Adicione a rota nas configurações de rede para que seja criada durante o boot.
+
 ## Instalação do pod network
 
 Para os usuários do Docker Swarm, há uma diferença entre os dois orquestradores: o k8s por padrão não fornece uma solução de *networking* *out-of-the-box*. Para que isso ocorra, deve ser instalada uma solução de *pod networking* como *add-on*, existindo diversas opções disponíveis, cada qual com funcionalidades diferentes, tais como: [Flannel](https://github.com/coreos/flannel), [Calico](http://docs.projectcalico.org/), [Romana](http://romana.io), [Weave-net](https://www.weave.works/products/weave-net/), entre outros.
