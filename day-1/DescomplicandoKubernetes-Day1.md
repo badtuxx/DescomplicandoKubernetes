@@ -2,12 +2,12 @@
 # Sumário
 
 1. O quê preciso saber antes de começar?
-* Qual distro Linux devo usar?
-* Alguns sites que devemos visitar
-* E o k8s?
-* Arquitetura do k8s
-* Portas que devemos nos preocupar
-* Tá, mas qual tipo de aplicação eu devo rodar sobre o k8s?
+  1. Qual distro Linux devo usar?
+  2. Alguns sites que devemos visitar
+  3. E o k8s?
+  4. Arquitetura do k8s
+  5. Portas que devemos nos preocupar
+  6. Tá, mas qual tipo de aplicação eu devo rodar sobre o k8s?
 
 
 
