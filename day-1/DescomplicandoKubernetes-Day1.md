@@ -624,6 +624,8 @@ Execute o comando abaixo também apenas no nó *master* para a inicialização d
 # kubeadm init --apiserver-advertise-address $(hostname -i)
 ```
 
+A opção _--apiserver-advertise-address_ informa qual o endereço IP em que o servidor de API está ouvindo. Caso contrário, a interface de rede padrão será usada.
+
 A saída do comando será algo similar ao abaixo:
 
 ```
