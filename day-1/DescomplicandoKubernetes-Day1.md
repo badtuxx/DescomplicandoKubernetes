@@ -1,13 +1,49 @@
 
 # Sumário
 
-1. O quê preciso saber antes de começar?
-* Qual distro Linux devo usar?
-* Alguns sites que devemos visitar
-* E o k8s?
-* Arquitetura do k8s
-* Portas que devemos nos preocupar
-* Tá, mas qual tipo de aplicação eu devo rodar sobre o k8s?
+1. [O quê preciso saber antes de começar?](#o-qu%C3%AA-preciso-saber-antes-de-come%C3%A7ar)
+    1. [Qual distro Linux devo usar?]()
+    2. [Alguns sites que devemos visitar]()
+    3. [E o k8s?]()
+    4. [Arquitetura do k8s]()
+    5. [Portas que devemos nos preocupar]()
+    6. [Tá, mas qual tipo de aplicação eu devo rodar sobre o k8s?]()
+    7. [Conceitos-chave do k8s]()
+2. [Mini Kube]()
+    1. [Requisitos básicos]()
+    2. [Instalação do Minikube no Linux]()
+    3. [Instalação do Minikube no macOS]()
+    4. [kubectl - alias e complete]()
+    5. [Instalação do Minikube no Microsoft Windows]()
+    6. [Iniciando, parando e excluindo o Minikube]()
+    7. [Certo, e como eu sei que está tudo funcionando como deveria?]()
+    8. [Descobrindo o endereço do Minikube]()
+    9. [Acessando a máquina do Minikube via SSH]()
+    10. [Dashboard]()
+    11. [Logs]()
+3. [Instalando o k3s]()
+4. [Instalação em cluster com três nós]()
+    1. [Requisitos básicos]()
+    2. [Configuração de módulos de kernel]()
+    3. [Atualização da distribuição]()
+    4. [Instalação do Docker e do Kubernetes]()
+    5. [Inicialização do cluster]()
+    6. [Configuração do arquivo de contextos do kubectl]()
+    7. [Inserindo os nós workers no cluster]()
+    8. [Instalação do pod network]()
+    9. [Verificando a instalação]()
+5. [Primeiros passos no k8s]()
+    1. [Exibindo informações detalhadas sobre os nós]()
+    2. [Exibindo novamente token para entrar no cluster]()
+    3. [Ativando o autocomplete]()
+    4. [Verificando os namespaces e pods]()
+    5. [Executando nosso primeiro pod no k8s]()
+    6. [Verificar os últimos eventos do cluster]()
+    7. [Efetuar o dump de um objeto em formato YAML]()
+    8. [Socorro, são muitas opções! - kubectl explain]()
+    9. [Expondo o pod]()
+    10.[Limpando tudo e indo para casa]()
+
 
 
 
