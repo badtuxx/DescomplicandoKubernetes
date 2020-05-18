@@ -1,12 +1,26 @@
+# Extra
+
+## Sumário
+
+<!-- TOC -->
+
+- [Extra](#extra)
+  - [Sumário](#sum%c3%a1rio)
+  - [Security Context](#security-context)
+  - [Utilizando o security Context](#utilizando-o-security-context)
+  - [Capabilities](#capabilities)
+
+<!-- TOC -->
+
 ## Security Context
 
 Security Context são um conjunto de configurações onde definimos privilégios e acessos a um pod. Essas configurações incluem:
 
-* Definir o usuário e grupo do container.
-* Se o container será um container privilegiado.
-* Linux Capabilities.
-* Se o container pode escalar privilégios
-* Utilizar SELinux / APPArmor
+* Definir o usuário e grupo do container;
+* Se o container será um container privilegiado;
+* Linux Capabilities;
+* Se o container pode escalar privilégios;
+* Utilizar SELinux/APPArmor.
 
 ## Utilizando o security Context
 
@@ -30,9 +44,9 @@ spec:
     command: [ "sh", "-c", "sleep 1h" ]
 ```
 
-No exemplo acima utilizamos o user/grup ID 1000 para o container.
+No exemplo acima utilizamos o user/grup ID ``1000`` para o container.
 
-Vamos entrar com ``` kubectl exec busy-security-user -- id ```no container e verificar com o comando ```id``` nossa usuário e grupo.
+Vamos executar o comando ``` kubectl exec busy-security-user -- id ``` no container e verificar com o comando ```id``` nosso usuário e grupo.
 
 ```
 kubectl exec busy-security-user -- id
@@ -43,7 +57,7 @@ Output:
 uid=1000 gid=1000
 ```
 
-As configurações de securityContext definidas no container são aplicadas somente a ele, já se são definidas no bloco securityContext fora de ```containers``` será aplicada para todos containers no manifesto.
+As configurações de ``securityContext`` definidas no container são aplicadas somente a ele, já se são definidas no bloco ``securityContext`` fora de ```containers``` será aplicada para todos containers no manifesto.
 
 ```
 apiVersion: v1
@@ -71,6 +85,7 @@ Output:
 ```
 uid=2000 gid=1000
 ```
+
 As configurações declaradas em containers sempre serão prioritárias e irão sobrescrever as demais.
 
 ## Capabilities
@@ -99,7 +114,6 @@ spec:
 
 ```
 
-
 ```
 kubectl exec busy-security-cap -- date -s "18:00:00"
 ```
@@ -109,7 +123,7 @@ Output
 date: can't set date: Operation not permitted
 ```
 
-Adicionando a capabilitie  SYS_TIME no container:
+Adicionando a capabilitie ``SYS_TIME`` no container:
 
 ```
 apiVersion: v1

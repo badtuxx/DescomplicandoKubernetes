@@ -2,48 +2,9 @@
 
 ## Sumário
 
--  [O quê preciso saber antes de começar?](#o-qu%C3%AA-preciso-saber-antes-de-come%C3%A7ar)
-    - [Qual distro Linux devo usar?](#qual-distro-linux-devo-usar)
-    - [Alguns sites que devemos visitar](#alguns-sites-que-devemos-visitar)
-    - [E o k8s?](#e-o-k8s)
-    - [Arquitetura do k8s](#arquitetura-do-k8s)
-    - [Portas que devemos nos preocupar](#portas-que-devemos-nos-preocupar)
-    - [Tá, mas qual tipo de aplicação eu devo rodar sobre o k8s?](#t%C3%A1-mas-qual-tipo-de-aplica%C3%A7%C3%A3o-eu-devo-rodar-sobre-o-k8s)
-    - [Conceitos-chave do k8s](#conceitos-chave-do-k8s)
-- [Mini Kube](#minikube)
-    - [Requisitos básicos](#requisitos-b%C3%A1sicos)
-    - [Instalação do Minikube no Linux](#instala%C3%A7%C3%A3o-do-minikube-no-linux)
-    - [Instalação do Minikube no macOS](#instala%C3%A7%C3%A3o-do-minikube-no-macos)
-    - [kubectl - alias e complete](#kubectl---alias-e-complete)
-    - [Instalação do Minikube no Microsoft Windows](#instala%C3%A7%C3%A3o-do-minikube-no-microsoft-windows)
-    - [Iniciando, parando e excluindo o Minikube](#iniciando-parando-e-excluindo-o-minikube)
-    - [Certo, e como eu sei que está tudo funcionando como deveria?](#certo-e-como-eu-sei-que-est%C3%A1-tudo-funcionando-como-deveria)
-    - [Descobrindo o endereço do Minikube](#descobrindo-o-endere%C3%A7o-do-minikube)
-    - [Acessando a máquina do Minikube via SSH](#acessando-a-m%C3%A1quina-do-minikube-via-ssh)
-    - [Dashboard](#dashboard)
-    - [Logs](#logs)
-- [Instalando o k3s](#instalando-o-k3s)
-- [Instalação em cluster com três nós](#instala%C3%A7%C3%A3o-em-cluster-com-tr%C3%AAs-n%C3%B3s)
-    - [Requisitos básicos](#requisitos-b%C3%A1sicos-1)
-    - [Configuração de módulos de kernel](#configura%C3%A7%C3%A3o-de-m%C3%B3dulos-de-kernel)
-    - [Atualização da distribuição](#atualiza%C3%A7%C3%A3o-da-distribui%C3%A7%C3%A3o)
-    - [Instalação do Docker e do Kubernetes](#instala%C3%A7%C3%A3o-do-docker-e-do-kubernetes)
-    - [Inicialização do cluster](#inicializa%C3%A7%C3%A3o-do-cluster)
-    - [Configuração do arquivo de contextos do kubectl](#configura%C3%A7%C3%A3o-do-arquivo-de-contextos-do-kubectl)
-    - [Inserindo os nós workers no cluster](#inserindo-os-n%C3%B3s-workers-no-cluster)
-    - [Instalação do pod network](#instala%C3%A7%C3%A3o-do-pod-network)
-    - [Verificando a instalação](#verificando-a-instala%C3%A7%C3%A3o)
-- [Primeiros passos no k8s](#primeiros-passos-no-k8s)
-    - [Exibindo informações detalhadas sobre os nós](#exibindo-informa%C3%A7%C3%B5es-detalhadas-sobre-os-n%C3%B3s)
-    - [Exibindo novamente token para entrar no cluster](#exibindo-novamente-token-para-entrar-no-cluster)
-    - [Ativando o autocomplete](#ativando-o-autocomplete)
-    - [Verificando os namespaces e pods](#verificando-os-namespaces-e-pods)
-    - [Executando nosso primeiro pod no k8s](#executando-nosso-primeiro-pod-no-k8s)
-    - [Verificar os últimos eventos do cluster](#verificar-os-%C3%BAltimos-eventos-do-cluster)
-    - [Efetuar o dump de um objeto em formato YAML](#efetuar-o-dump-de-um-objeto-em-formato-yaml)
-    - [Socorro, são muitas opções! - kubectl explain](#socorro-s%C3%A3o-muitas-op%C3%A7%C3%B5es)
-    - [Expondo o pod](#expondo-o-pod)
-- [Limpando tudo e indo para casa](#limpando-tudo-e-indo-para-casa)
+<!-- TOC -->
+- [Descomplicando Kubernetes Day 1](#descomplicando-kubernetes-day-1)
+  - [Sumário](#sum%c3%a1rio)
 - [O quê preciso saber antes de começar?](#o-qu%c3%aa-preciso-saber-antes-de-come%c3%a7ar)
   - [Qual distro Linux devo usar?](#qual-distro-linux-devo-usar)
   - [Alguns sites que devemos visitar:](#alguns-sites-que-devemos-visitar)
@@ -64,15 +25,27 @@
   - [Acessando a máquina do Minikube via SSH](#acessando-a-m%c3%a1quina-do-minikube-via-ssh)
   - [Dashboard](#dashboard)
   - [Logs](#logs)
+- [Microk8s](#microk8s)
+  - [Requisitos básicos](#requisitos-b%c3%a1sicos-1)
+  - [Instalaçao do MicroK8s no GNU/Linux](#instala%c3%a7ao-do-microk8s-no-gnulinux)
+    - [Versõs que suportam Snap](#vers%c3%b5s-que-suportam-snap)
+  - [Instalação no Windows](#instala%c3%a7%c3%a3o-no-windows)
+    - [Instalando o Chocolatey](#instalando-o-chocolatey)
+      - [Instalando o Multipass](#instalando-o-multipass)
+    - [Utilizando Microk8s com Multipass](#utilizando-microk8s-com-multipass)
+  - [Instalando o Microk8s no Mac](#instalando-o-microk8s-no-mac)
+    - [Instalando o Brew](#instalando-o-brew)
+    - [Instalando o Microk8s via Brew](#instalando-o-microk8s-via-brew)
 - [Instalando o k3s](#instalando-o-k3s)
 - [Instalação em cluster com três nós](#instala%c3%a7%c3%a3o-em-cluster-com-tr%c3%aas-n%c3%b3s)
-  - [Requisitos básicos](#requisitos-b%c3%a1sicos-1)
+  - [Requisitos básicos](#requisitos-b%c3%a1sicos-2)
   - [Configuração de módulos de kernel](#configura%c3%a7%c3%a3o-de-m%c3%b3dulos-de-kernel)
   - [Atualização da distribuição](#atualiza%c3%a7%c3%a3o-da-distribui%c3%a7%c3%a3o)
   - [Instalação do Docker e do Kubernetes](#instala%c3%a7%c3%a3o-do-docker-e-do-kubernetes)
   - [Inicialização do cluster](#inicializa%c3%a7%c3%a3o-do-cluster)
   - [Configuração do arquivo de contextos do kubectl](#configura%c3%a7%c3%a3o-do-arquivo-de-contextos-do-kubectl)
   - [Inserindo os nós workers no cluster](#inserindo-os-n%c3%b3s-workers-no-cluster)
+    - [Múltiplas Interfaces](#m%c3%baltiplas-interfaces)
   - [Instalação do pod network](#instala%c3%a7%c3%a3o-do-pod-network)
   - [Verificando a instalação](#verificando-a-instala%c3%a7%c3%a3o)
 - [Primeiros passos no k8s](#primeiros-passos-no-k8s)
@@ -87,7 +60,7 @@
   - [Expondo o pod](#expondo-o-pod)
   - [Limpando tudo e indo para casa](#limpando-tudo-e-indo-para-casa)
 
-##
+<!-- TOC -->
 
 # O quê preciso saber antes de começar?
 
@@ -412,41 +385,39 @@ Os *logs* do Minikube podem ser acessados através do seguinte comando.
 
 ## Requisitos básicos
 
-Existem dois tipos de instalação dessa versão de kubernets:
-. A primiera é para versões de linux que suportam Snap.
-. Windows - 4GB RAM e 40GB HD Livre
-. MacOS - Brew
-. RaspBarry
+Existem alguns tipos de instalação do Microk8s:
+* GNU/Linux que suportam Snap;
+* Windows - 4GB RAM e 40GB HD Livre;
+* MacOS - Brew;
+* RaspBerry;
 
+## Instalaçao do MicroK8s no GNU/Linux
 
-## Instalaçao do MicroK8s no Linux
-
-### Versõe sque suportam Snap
+### Versõs que suportam Snap
 
 BASH:
 
 ```
 # sudo snap install microk8s --classic --channel=1.18/stable
 # sudo usermod -a -G microk8s $USER
-#sudo chown -f -R $USER ~/.kube
+# sudo chown -f -R $USER ~/.kube
 # su - $USER
 # sudo microk8s status --wait-ready
 # sudo microk8s enable dns dashboard registry
-
 # alias kubectl='microk8s kubectl'
-
 ```
 
 ## Instalação no Windows
 
 Somente é possível em versões do Windows Professional e Enterprise
 
-Também será necessário a instalação por meio de um adminsitrador de pacotes do Windows, o [Chocolatey
+Também será necessário a instalação por meio de um administrador de pacotes do Windows, o [Chocolatey
 ](https://chocolatey.org/install)
 
 ### Instalando o Chocolatey
 
 PowerShell Admin:
+
 ```
 # Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
 ```
@@ -454,6 +425,7 @@ PowerShell Admin:
 #### Instalando o Multipass
 
 PowerShell Admin:
+
 ```
 # choco install multipass
 ```
@@ -461,20 +433,23 @@ PowerShell Admin:
 ### Utilizando Microk8s com Multipass
 
 PowerShell Admin:
+
 ```
 # multipass launch --name microk8s-vm --mem 4G --disk 40G
 # multipass exec microk8s-vm -- sudo snap install microk8s --classic
 # multipass exec microk8s-vm -- sudo iptables -P FORWARD ACCEPT
 # multipass list
+
 Name                    State             IPv4             Release
 microk8s-vm             RUNNING           10.72.145.216    Ubuntu 18.04 LTS
 
 # multipass shell microk8s-vm
 ```
 
-Se quiser utilziar o Microk8s sem utilizar um shell criado pelo multipass utilize a seguine expressão:
+Se quiser utilizar o Microk8s sem utilizar um shell criado pelo multipass utilize a seguine expressão.
 
 PowerShell Admin:
+
 ```
 # multipass exec microk8s-vm -- /snap/bin/microk8s.<command>
 ```
@@ -485,7 +460,7 @@ Utilizando o gerenciador de pacotes do Mac `Brew`:
 
 ### Instalando o Brew
 
-Se não tiver o brew instalado em sua maquina siga os passos  abaixo. Caso, já o possua, vá para o passo dois dessa seção.
+Se não tiver o ``brew`` instalado em sua maquina siga os passos a seguir. Caso, já o possua, vá para o passo dois dessa seção.
 
 BASH:
 
@@ -505,21 +480,21 @@ BASH:
 # microk8s kubectl get all --all-namespaces
 ```
 
-Espere até o que a configuração do microk8s esteja pronta para ser utilizada
+Espere até o que a configuração do microk8s esteja pronta para ser utilizada.
 
 BASH:
 
 ```
 # microk8s status --wait-ready
 ```
-Assim que o comentário:
+
+Assim que o comentário: ``microk8s is running`` for exibido, execute o seguinte comando.
 
 BASH:
 
 ```
 # microk8s kubectl <command>
 ```
-
 
 
 # Instalando o k3s
@@ -818,13 +793,13 @@ Agora, em ambas as distribuições e famílias, é muito importante verificar se
 Cgroup Driver: cgroupfs
 ```
 
-Para alterar o *driver* do cgroup em distibuições Debian:
+Para alterar o *driver* do cgroup em distibuições Debian e similares:
 
 ```
 # sed -i "s/cgroup-driver=systemd/cgroup-driver=cgroupfs/g" /etc/systemd/system/kubelet.service.d/10-kubeadm.conf
 ```
 
-Para alterar o *driver* do cgroup em distribuições RedHat:
+Para alterar o *driver* do cgroup em distribuições RedHat e similares:
 
 ```
 # sed -i "s/cgroup-driver=systemd/cgroup-driver=cgroupfs/g" /usr/lib/systemd/system/kubelet.service.d/10-kubeadm.conf
@@ -899,7 +874,7 @@ Caso algum nó que será utilizado tenha mais de uma interface de rede, verifiqu
 
 Para verificar, será necessário pegar o IP interno do `service` `kubernetes` através do comando `kubectl get services kubernetes`. Após ter o IP, basta ir no nó que será ingressado no cluster e rodar o comando `curl -k https://SERVICE` alterando o `SERVICE` para o IP do `service`. Ex.: `curl -k https://10.96.0.1`.
 
-Caso a saída seja algo parecido com o exemplo abaixo, a conexão está acontecendo normalmente:
+Caso a saída seja algo parecido com o exemplo a seguir, a conexão está acontecendo normalmente:
 
 ```json
 {

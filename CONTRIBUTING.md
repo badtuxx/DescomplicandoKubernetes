@@ -49,7 +49,7 @@ git pull upstream master
 git push origin master
 ```
 
-* Envie a exclusão da branch local para o seu repositório no GitHub com o comando `git push --delete origin BRANCH_NAME`. Exemplo: *git push --delete origem US-AECIO*
+* Envie a exclusão da branch local para o seu repositório no GitHub com o comando `git push --delete origin BRANCH_NAME`. Exemplo: *git push --delete origin US-AECIO*
 * Para manter seu fork em sincronia com o repositório original, execute estes comandos:
 
 ```bash
