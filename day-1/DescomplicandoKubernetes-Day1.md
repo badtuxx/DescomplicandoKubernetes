@@ -408,6 +408,120 @@ Os *logs* do Minikube podem ser acessados através do seguinte comando.
 # minikube logs
 ```
 
+# Microk8s
+
+## Requisitos básicos
+
+Existem dois tipos de instalação dessa versão de kubernets:
+. A primiera é para versões de linux que suportam Snap.
+. Windows - 4GB RAM e 40GB HD Livre
+. MacOS - Brew
+. RaspBarry
+
+
+## Instalaçao do MicroK8s no Linux
+
+### Versõe sque suportam Snap
+
+BASH:
+
+```
+# sudo snap install microk8s --classic --channel=1.18/stable
+# sudo usermod -a -G microk8s $USER
+#sudo chown -f -R $USER ~/.kube
+# su - $USER
+# sudo microk8s status --wait-ready
+# sudo microk8s enable dns dashboard registry
+
+# alias kubectl='microk8s kubectl'
+
+```
+
+## Instalação no Windows
+
+Somente é possível em versões do Windows Professional e Enterprise
+
+Também será necessário a instalação por meio de um adminsitrador de pacotes do Windows, o [Chocolatey
+](https://chocolatey.org/install)
+
+### Instalando o Chocolatey
+
+PowerShell Admin:
+```
+# Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
+```
+
+#### Instalando o Multipass
+
+PowerShell Admin:
+```
+# choco install multipass
+```
+
+### Utilizando Microk8s com Multipass
+
+PowerShell Admin:
+```
+# multipass launch --name microk8s-vm --mem 4G --disk 40G
+# multipass exec microk8s-vm -- sudo snap install microk8s --classic
+# multipass exec microk8s-vm -- sudo iptables -P FORWARD ACCEPT
+# multipass list
+Name                    State             IPv4             Release
+microk8s-vm             RUNNING           10.72.145.216    Ubuntu 18.04 LTS
+
+# multipass shell microk8s-vm
+```
+
+Se quiser utilziar o Microk8s sem utilizar um shell criado pelo multipass utilize a seguine expressão:
+
+PowerShell Admin:
+```
+# multipass exec microk8s-vm -- /snap/bin/microk8s.<command>
+```
+
+## Instalando o Microk8s no Mac
+
+Utilizando o gerenciador de pacotes do Mac `Brew`:
+
+### Instalando o Brew
+
+Se não tiver o brew instalado em sua maquina siga os passos  abaixo. Caso, já o possua, vá para o passo dois dessa seção.
+
+BASH:
+
+```
+# /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
+```
+
+### Instalando o Microk8s via Brew
+
+BASH:
+
+```
+# brew install ubuntu/microk8s/microk8s
+...
+# microk8s install
+...
+# microk8s kubectl get all --all-namespaces
+```
+
+Espere até o que a configuração do microk8s esteja pronta para ser utilizada
+
+BASH:
+
+```
+# microk8s status --wait-ready
+```
+Assim que o comentário:
+
+BASH:
+
+```
+# microk8s kubectl <command>
+```
+
+
+
 # Instalando o k3s
 
 Vamos aprender como instalar o renomado k3s e adicionar nodes no seu cluster!
@@ -864,133 +978,11 @@ Para verificar se a instalação está funcionando, e se os nós estão se comun
 
 ```
 NAME        STATUS   ROLES    AGE   VERSION
-docker-01   Ready    master   8d    v1.18.2
-docker-02   Ready    <none>   8d    v1.18.2
-docker-03   Ready    <none>   8d    v1.18.2
+elliot-01   Ready    master   8d    v1.18.2
+elliot-02   Ready    <none>   8d    v1.18.2
+elliot-03   Ready    <none>   8d    v1.18.2
 ```
 
-
-
-
-
-
-
-
-
-# Microk8s
-
-## Requisitos básicos
-
-Existem dois tipos de instalação dessa versão de kubernets:
-. A primiera é para versões de linux que suportam Snap.
-. Windows - 4GB RAM e 40GB HD Livre
-. MacOS - Brew
-. RaspBarry
-
-
-## Instalaçao do MicroK8s no Linux
-
-### Versõe sque suportam Snap
-
-BASH:
-
-```
-# sudo snap install microk8s --classic --channel=1.18/stable
-# sudo usermod -a -G microk8s $USER
-#sudo chown -f -R $USER ~/.kube
-# su - $USER
-# sudo microk8s status --wait-ready
-# sudo microk8s enable dns dashboard registry
-
-# alias kubectl='microk8s kubectl'
-
-```
-
-
-
-
-## Instalação no Windows
-
-Somente é possível em versões do Windows Professional e Enterprise
-
-Também será necessário a instalação por meio de um adminsitrador de pacotes do Windows, o [Chocolatey
-](https://chocolatey.org/install)
-
-### Instalando o Chocolatey
-
-PowerShell Admin:
-```
-# Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
-```
-
-#### Instalando o Multipass
-
-PowerShell Admin:
-```
-# choco install multipass
-```
-
-### Utilizando Microk8s com Multipass
-
-PowerShell Admin:
-```
-# multipass launch --name microk8s-vm --mem 4G --disk 40G
-# multipass exec microk8s-vm -- sudo snap install microk8s --classic
-# multipass exec microk8s-vm -- sudo iptables -P FORWARD ACCEPT
-# multipass list
-Name                    State             IPv4             Release
-microk8s-vm             RUNNING           10.72.145.216    Ubuntu 18.04 LTS
-
-# multipass shell microk8s-vm
-```
-
-Se quiser utilziar o Microk8s sem utilizar um shell criado pelo multipass utilize a seguine expressão:
-
-PowerShell Admin:
-```
-# multipass exec microk8s-vm -- /snap/bin/microk8s.<command>
-```
-
-## Instalando o Microk8s no Mac
-
-Utilizando o gerenciador de pacotes do Mac `Brew`:
-
-### Instalando o Brew
-
-Se não tiver o brew instalado em sua maquina siga os passos  abaixo. Caso, já o possua, vá para o passo dois dessa seção.
-
-BASH:
-
-```
-# /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
-```
-
-### Instalando o Microk8s via Brew
-
-BASH:
-
-```
-# brew install ubuntu/microk8s/microk8s
-...
-# microk8s install
-...
-# microk8s kubectl get all --all-namespaces
-```
-
-Espere até o que a configuração do microk8s esteja pronta para ser utilizada
-
-BASH:
-
-```
-# microk8s status --wait-ready
-```
-Assim que o comentário:
-
-BASH:
-
-```
-# microk8s kubectl <command>
-```
 
 
 # Primeiros passos no k8s
@@ -1004,13 +996,13 @@ BASH:
 Exemplo:
 
 ```
-# kubectl describe node docker-02
-Name:               docker-02
+# kubectl describe node elliot-02
+Name:               elliot-02
 Roles:              <none>
 Labels:             beta.kubernetes.io/arch=amd64
                     beta.kubernetes.io/os=linux
                     kubernetes.io/arch=amd64
-                    kubernetes.io/hostname=docker-02
+                    kubernetes.io/hostname=elliot-02
                     kubernetes.io/os=linux
 Annotations:        kubeadm.alpha.kubernetes.io/cri-socket: /var/run/dockershim.sock
                     node.alpha.kubernetes.io/ttl: 0
