@@ -1354,8 +1354,7 @@ pod "nginx" deleted
 Vamos recriá-lo, agora a partir do nosso arquivo YAML:
 
 ```
-# kubect create -f meu-primeiro.yaml
-
+# kubectl create -f meu-primeiro.yaml
 pod/nginx created
 ```
 
