@@ -1,5 +1,11 @@
+# Descomplicando Kubernetes Day 3
+
+## Sumário
+
 <!-- TOC -->
 
+- [Descomplicando Kubernetes Day 3](#descomplicando-kubernetes-day-3)
+  - [Sumário](#sum%c3%a1rio)
 - [Deployments](#deployments)
   - [Filtrando por Labels](#filtrando-por-labels)
   - [Node Selector](#node-selector)
