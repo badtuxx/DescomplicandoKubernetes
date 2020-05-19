@@ -28,7 +28,7 @@
 - [Microk8s](#microk8s)
   - [Requisitos básicos](#requisitos-b%c3%a1sicos-1)
   - [Instalaçao do MicroK8s no GNU/Linux](#instala%c3%a7ao-do-microk8s-no-gnulinux)
-    - [Versõs que suportam Snap](#vers%c3%b5s-que-suportam-snap)
+    - [Versões que suportam Snap](#vers%c3%b5es-que-suportam-snap)
   - [Instalação no Windows](#instala%c3%a7%c3%a3o-no-windows)
     - [Instalando o Chocolatey](#instalando-o-chocolatey)
       - [Instalando o Multipass](#instalando-o-multipass)
@@ -407,7 +407,7 @@ Existem alguns tipos de instalação do Microk8s:
 
 ## Instalaçao do MicroK8s no GNU/Linux
 
-### Versõs que suportam Snap
+### Versões que suportam Snap
 
 BASH:
 

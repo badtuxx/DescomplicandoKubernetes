@@ -6,13 +6,13 @@
 
 - [Extra](#extra)
   - [Sumário](#sum%c3%a1rio)
-  - [Security Context](#security-context)
-  - [Utilizando o security Context](#utilizando-o-security-context)
-  - [Capabilities](#capabilities)
+- [Security Context](#security-context)
+- [Utilizando o security Context](#utilizando-o-security-context)
+- [Capabilities](#capabilities)
 
 <!-- TOC -->
 
-## Security Context
+# Security Context
 
 Security Context são um conjunto de configurações onde definimos privilégios e acessos a um pod. Essas configurações incluem:
 
@@ -22,7 +22,7 @@ Security Context são um conjunto de configurações onde definimos privilégios
 * Se o container pode escalar privilégios;
 * Utilizar SELinux/APPArmor.
 
-## Utilizando o security Context
+# Utilizando o security Context
 
 Para utilizar essa configuração precisamos incluir o bloco ```securityCotext``` no manifesto do pod.
 
@@ -88,7 +88,7 @@ uid=2000 gid=1000
 
 As configurações declaradas em containers sempre serão prioritárias e irão sobrescrever as demais.
 
-## Capabilities
+# Capabilities
 
 Nos sistemas UNIX existem basicamente duas categorias de processos: processos privilegiados que são executados como o UID 0 (root ou superusuario) e os não privilegiados que possuem o UID diferente de 0.
 
