@@ -908,8 +908,9 @@ Para alterar o *driver* do cgroup em distibuições Debian e similares:
 Para alterar o *driver* do cgroup em distribuições RedHat e similares:
 
 ```
-# sed -i "s/cgroup-driver=systemd/cgroup-driver=cgroupfs/g" /usr/lib/systemd/system/kubelet.service.d/10-kubeadm.conf
+# sed -i "s/cgroup-driver=systemd/cgroup-driver=cgroupfs/g" /var/lib/kubelet/kubeadm-flags.env
 ```
+> Obs.: O arquivo '/var/lib/kubelet/kubeadm-flags.env' só será criado após a execução do comando "kubeadm init" ou "kubeadm join", seja no master ou no worker, respectivamente. 
 
 É preciso reiniciar o daemon e restartar o kubelet:
 
