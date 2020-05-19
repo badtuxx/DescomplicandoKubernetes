@@ -1,6 +1,7 @@
 <!-- TOC -->
 
 - [Contribuindo](#contribuindo)
+- [Dica](#dica)
 
 <!-- TOC -->
 
@@ -59,3 +60,13 @@ git push origin master
 
 Referência:
 * https://blog.scottlowe.org/2015/01/27/using-fork-branch-git-workflow/
+
+# Dica
+
+**Você pode usar o editor de texto de sua preferência e que se sinta mais confortável de usar.**
+
+Mas o VSCode (https://code.visualstudio.com), combinado com os plugins a seguir, auxilia o processo de edição/revisão, principalmente permitindo a pré-visualização do conteúdo antes do commit, analisando a sintaxe do Markdown e gerando o sumário automático, à medida que os títulos das seções vão sendo criados/alterados.
+
+* Markdown-lint: https://marketplace.visualstudio.com/items?itemName=DavidAnson.vscode-markdownlint
+* Markdown-toc: https://marketplace.visualstudio.com/items?itemName=AlanWalk.markdown-toc
+* Markdown-all-in-one: https://marketplace.visualstudio.com/items?itemName=yzhang.markdown-all-in-one

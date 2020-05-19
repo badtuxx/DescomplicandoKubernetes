@@ -7,7 +7,7 @@
   - [Sumário](#sum%c3%a1rio)
 - [O quê preciso saber antes de começar?](#o-qu%c3%aa-preciso-saber-antes-de-come%c3%a7ar)
   - [Qual distro Linux devo usar?](#qual-distro-linux-devo-usar)
-  - [Alguns sites que devemos visitar:](#alguns-sites-que-devemos-visitar)
+  - [Alguns sites que devemos visitar](#alguns-sites-que-devemos-visitar)
   - [E o k8s?](#e-o-k8s)
   - [Arquitetura do k8s](#arquitetura-do-k8s)
   - [Portas que devemos nos preocupar](#portas-que-devemos-nos-preocupar)
@@ -36,7 +36,13 @@
   - [Instalando o Microk8s no Mac](#instalando-o-microk8s-no-mac)
     - [Instalando o Brew](#instalando-o-brew)
     - [Instalando o Microk8s via Brew](#instalando-o-microk8s-via-brew)
-- [Instalando o k3s](#instalando-o-k3s)
+- [Kind](#kind)
+  - [Instalação no Linux](#instala%c3%a7%c3%a3o-no-linux)
+  - [Instalaçao no MacOS](#instala%c3%a7ao-no-macos)
+  - [Instalação no Windows](#instala%c3%a7%c3%a3o-no-windows-1)
+    - [Instalação no Windows via Chocolatey](#instala%c3%a7%c3%a3o-no-windows-via-chocolatey)
+  - [Criando um Cluster com o Kind](#criando-um-cluster-com-o-kind)
+- [k3s](#k3s)
 - [Instalação em cluster com três nós](#instala%c3%a7%c3%a3o-em-cluster-com-tr%c3%aas-n%c3%b3s)
   - [Requisitos básicos](#requisitos-b%c3%a1sicos-2)
   - [Configuração de módulos de kernel](#configura%c3%a7%c3%a3o-de-m%c3%b3dulos-de-kernel)
@@ -68,7 +74,7 @@
 
 Devido ao fato de algumas importantes ferramentas como o ``systemd`` e o ``journald`` terem se tornado padrão na maioria das principais distribuições hoje disponíveis, você não deve encontrar problemas para seguir o treinamento caso você opte por uma delas, como Ubuntu, Debian, CentOS e afins.
 
-## Alguns sites que devemos visitar:
+## Alguns sites que devemos visitar
 
 - [https://kubernetes.io](https://kubernetes.io)
 
@@ -496,8 +502,108 @@ BASH:
 # microk8s kubectl <command>
 ```
 
+# Kind
 
-# Instalando o k3s
+O Kind (Kubernertes in Docker) é outra alternativa para executar o Kubernetes num ambiente local para testes e aprendizado, mas não é recomendado para uso em produção.
+
+## Instalação no Linux
+
+Para fazer a instalação no Linux, execute os seguintes comandos.
+
+```
+# curl -Lo ./kind https://kind.sigs.k8s.io/dl/v0.8.1/kind-$(uname)-amd64
+# chmod +x ./kind
+# sudo mv ./kind /usr/local/bin/kind
+```
+
+## Instalaçao no MacOS
+
+Para fazer a instalação no MacOS, execute o seguinte comando.
+
+```
+# brew install kind
+```
+
+## Instalação no Windows
+
+Para fazer a instalação no Windows, execute os seguintes comandos.
+
+```
+# curl.exe -Lo kind-windows-amd64.exe https://kind.sigs.k8s.io/dl/v0.8.1/kind-windows-amd64
+# Move-Item .\kind-windows-amd64.exe c:\some-dir-in-your-PATH\kind.exe
+```
+
+### Instalação no Windows via Chocolatey
+
+Execute o seguinte comando para instalar o Kind no Windows usando o Chocolatey.
+
+```
+# choco install kind
+```
+
+## Criando um Cluster com o Kind
+
+Após realizar a instalação do Kind, vamos iniciar o nosso cluster.
+
+```
+# kind create cluster
+
+Creating cluster "kind" ...
+ ✓ Ensuring node image (kindest/node:v1.18.2) 🖼 
+ ✓ Preparing nodes 📦  
+ ✓ Writing configuration 📜 
+ ✓ Starting control-plane 🕹️ 
+ ✓ Installing CNI 🔌 
+ ✓ Installing StorageClass 💾 
+Set kubectl context to "kind-kind"
+You can now use your cluster with:
+
+kubectl cluster-info --context kind-kind
+
+Thanks for using kind! 😊
+```
+
+É possível criar mais de um cluster e personalizar o seu nome.
+
+```
+# kind create cluster --name giropops
+
+Creating cluster "giropops" ...
+ ✓ Ensuring node image (kindest/node:v1.18.2) 🖼 
+ ✓ Preparing nodes 📦  
+ ✓ Writing configuration 📜 
+ ✓ Starting control-plane 🕹️ 
+ ✓ Installing CNI 🔌 
+ ✓ Installing StorageClass 💾 
+Set kubectl context to "kind-giropops"
+You can now use your cluster with:
+
+kubectl cluster-info --context kind-giropops
+
+Thanks for using kind! 😊
+```
+
+Para visualizar os seus clusters utilizando o kind execute o comando a seguir.
+
+```
+# kind get clusters
+
+kind
+giropops
+```
+
+Liste os nodes do cluster.
+
+```
+# kubectl get nodes
+
+NAME                 STATUS   ROLES    AGE     VERSION
+kind-control-plane   Ready    master   3m51s   v1.18.2
+```
+
+Mais informações sobre o Kind estão disponíveis em: https://kind.sigs.k8s.io
+
+# k3s
 
 Vamos aprender como instalar o renomado k3s e adicionar nodes no seu cluster!
 
