@@ -194,8 +194,11 @@ Após isso, vamos instalar o ``kubectl`` com os seguintes comandos.
 
 ```
 # curl -LO https://storage.googleapis.com/kubernetes-release/release/`curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt`/bin/linux/amd64/kubectl
+
 # chmod +x ./kubectl
+
 # sudo mv ./kubectl /usr/local/bin/kubectl
+
 # kubectl version --client
 ```
 
@@ -234,8 +237,11 @@ Já com o método tradicional, a instalação pode ser realizada com os seguinte
 
 ```
 # curl -LO "https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/darwin/amd64/kubectl"
+
 # chmod +x ./kubectl
+
 # sudo mv ./kubectl /usr/local/bin/kubectl
+
 # kubectl version --client
 ```
 
@@ -345,6 +351,7 @@ A saída será similar ao conteúdo a seguir:
 
 ```
 # kubectl get nodes
+
 NAME       STATUS   ROLES    AGE   VERSION
 minikube   Ready    master   8d    v1.18.0
 ```
@@ -392,6 +399,7 @@ Os *logs* do Minikube podem ser acessados através do seguinte comando.
 ## Requisitos básicos
 
 Existem alguns tipos de instalação do Microk8s:
+
 * GNU/Linux que suportam Snap;
 * Windows - 4GB RAM e 40GB HD Livre;
 * MacOS - Brew;
@@ -480,9 +488,7 @@ BASH:
 
 ```
 # brew install ubuntu/microk8s/microk8s
-...
 # microk8s install
-...
 # microk8s kubectl get all --all-namespaces
 ```
 
@@ -726,6 +732,7 @@ Calma, antes pegue o IP de seu master:
 
 ```
 # ifconfig
+
 ...
 eth0: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
         inet 192.168.86.101  netmask 255.255.255.0  broadcast 192.168.86.255
@@ -1065,8 +1072,6 @@ elliot-01   Ready    master   8d    v1.18.2
 elliot-02   Ready    <none>   8d    v1.18.2
 elliot-03   Ready    <none>   8d    v1.18.2
 ```
-
-
 
 # Primeiros passos no k8s
 
