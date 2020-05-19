@@ -166,7 +166,11 @@ get / --prefix --keys-only
 O comando ``kubectl exec`` ficará similar ao mostrado a seguir.
 
 ```
-# kubectl exec -it etcd-minikube -n kube-system -- etcdctl --endpoints=https://127.0.0.1:2379 --cacert=/var/lib/minikube/certs/etcd/ca.crt --key=/var/lib/minikube/certs/etcd/server.key --cert=/var/lib/minikube/certs/etcd/server.crt get / --prefix --keys-only
+# kubectl exec -it etcd-minikube -n kube-system \
+-- etcdctl --endpoints=https://127.0.0.1:2379 \
+--cacert=/var/lib/minikube/certs/etcd/ca.crt \
+--key=/var/lib/minikube/certs/etcd/server.key \
+--cert=/var/lib/minikube/certs/etcd/server.crt get / --prefix --keys-only
 ```
 
 Output:
@@ -212,7 +216,12 @@ Aqui temos uma parte do conteúdo da  resposta do get no "/" do ETCD, onde list
 Em um exemplo um pouco mais prático vamos listar apenas as chaves dos pods no namespace ``default``, o parâmetro para que o output contenha apenas as chaves é ```--keys-only```.
 
 ```
-# kubectl exec -it etcd-minikube -n kube-system -- etcdctl --endpoints=https://127.0.0.1:2379 --cacert=/var/lib/minikube/certs/etcd/ca.crt --key=/var/lib/minikube/certs/etcd/server.key --cert=/var/lib/minikube/certs/etcd/server.crt get /registry/pods/default --prefix=true -keys-only
+# kubectl exec -it etcd-minikube -n kube-system \
+-- etcdctl --endpoints=https://127.0.0.1:2379 \
+--cacert=/var/lib/minikube/certs/etcd/ca.crt \
+--key=/var/lib/minikube/certs/etcd/server.key \
+--cert=/var/lib/minikube/certs/etcd/server.crt get /registry/pods/default \
+--prefix=true -keys-only
 ```
 
 Output:
@@ -224,7 +233,12 @@ Output:
 Agora vamos ver os valores contidos na chave ``/registry/pods/default/nginx`` onde estão as configurações do pod. Vamos remover o parâmetro ```--keys-only``` para que possamos ver os valores da chave.
 
 ```
-# kubectl exec -it etcd-minikube -n kube-system -- etcdctl --endpoints=https://127.0.0.1:2379 --cacert=/var/lib/minikube/certs/etcd/ca.crt --key=/var/lib/minikube/certs/etcd/server.key --cert=/var/lib/minikube/certs/etcd/server.crt get /registry/pods/default/nginx --prefix=true
+# kubectl exec -it etcd-minikube -n kube-system \
+-- etcdctl --endpoints=https://127.0.0.1:2379 \
+--cacert=/var/lib/minikube/certs/etcd/ca.crt \
+--key=/var/lib/minikube/certs/etcd/server.key \
+--cert=/var/lib/minikube/certs/etcd/server.crt get /registry/pods/default/nginx \
+--prefix=true
 ```
 
 Output:

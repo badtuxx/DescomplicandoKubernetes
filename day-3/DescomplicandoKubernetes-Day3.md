@@ -368,7 +368,7 @@ Quando criamos nossos Deployments adicionamos as seguintes labels.
 
 As Labels são utilizadas para a organização do cluster, vamos listar nossos Pods procurando pelas Labels.
 
-Primeiro vamos realizar uma pesquisa utilizando as labels dc=UK e dc=Netherlands:
+Primeiro vamos realizar uma pesquisa utilizando as labels ``dc=UK`` e ``dc=Netherlands``:
 
 Pesquisando pela label ``UK``.
 
@@ -485,6 +485,7 @@ beta.kubernetes.io/arch=amd64
 Agora, basta realizar o deploy novamente, porém antes vamos adicionar duas novas opções ao YAML e vamos ver a mágica acontecer. O nosso pod irá ser criado no node ``elliot-02``, onde possui a label ``disk=SSD``.
 
 Crie o arquivo ``terceiro-deployment.yaml``.
+
 ```
 # vim terceiro-deployment.yaml
 ```
@@ -556,7 +557,6 @@ Simples como voar, não?
 ## Kubectl Edit
 
 Agora vamos fazer o seguinte, vamos utilizar o comando ``Edit`` para editar nosso primeiro Deployment, digamos que a "quente" com o Pod ainda em execução.
-
 
 ```
 # kubectl edit deployment primeiro-deployment
@@ -982,7 +982,7 @@ Vamos listar nossos DaemonSet:
 ```
 # kubectl get daemonset
 
-NAME                  DESIRED  CURRENT  READY  UP-TO-DATE ... AGE 
+NAME                  DESIRED  CURRENT  READY  UP-TO-DATE ... AGE
 daemon-set-primeiro   3        3        3      3              30s
 ```
 
@@ -1222,6 +1222,7 @@ Vamos lá, primeiro vamos remover o ``DaemonSet``, adicionar duas novas informa�
 
 ```
 # kubectl delete -f primeiro-daemonset.yaml
+
 daemonset.extensions "daemon-set-primeiro" deleted
 ```
 
@@ -1411,6 +1412,7 @@ Visualizando a revision 1.
 
 ```
 # kubectl rollout history ds daemon-set-primeiro --revision=1
+
 daemonsets "daemon-set-primeiro" with revision #1
 Pod Template:
   Labels:	system=DaemonOne
@@ -1428,6 +1430,7 @@ Visualizando a revision 2.
 
 ```
 # kubectl rollout history ds daemon-set-primeiro --revision=2
+
 daemonsets "daemon-set-primeiro" with revision #2
 Pod Template:
   Labels:	system=DaemonOne
@@ -1504,6 +1507,7 @@ Visualizando detalhes dos pods.
 
 ```
 # kubectl describe pod daemon-set-primeiro-jzck9 | grep  -i image:
+
 Image:          nginx:1.15.0
 ```
 
