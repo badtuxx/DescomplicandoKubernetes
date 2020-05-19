@@ -124,6 +124,7 @@ Acesse o log do Nginx.
 
 ```
 # kubectl logs -f nginx
+
 10.40.0.0 - - [10/May/2020:17:31:56 +0000] "GET / HTTP/1.1" 200 612 "-" "curl/7.58.0" "-"
 ```
 
@@ -131,6 +132,7 @@ Remova o serviço criado anteriormente.
 
 ```
 # kubectl delete svc nginx
+
 service "nginx" deleted
 ```
 
@@ -172,6 +174,7 @@ Obtendo informações do service.
 
 ```
 # kubectl get services
+
 NAME              TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)   AGE
 kubernetes        ClusterIP   10.96.0.1       <none>        443/TCP   28m
 nginx-clusterip   ClusterIP   10.109.70.243   <none>        80/TCP    71s
@@ -200,6 +203,7 @@ Removendo o service.
 
 ```
 # kubectl delete -f primeiro-service-clusterip.yaml
+
 service "nginx-clusterip" deleted
 ```
 
@@ -242,6 +246,7 @@ Obtendo informações do service.
 
 ```
 # kubectl get services
+
 NAME              TYPE        CLUSTER-IP     EXTERNAL-IP   PORT(S)   AGE
 kubernetes        ClusterIP   10.96.0.1      <none>        443/TCP   29m
 nginx-clusterip   ClusterIP   10.96.44.114   <none>        80/TCP    7s
@@ -251,6 +256,7 @@ Visualizando detalhes do service.
 
 ```
 # kubectl describe service nginx
+
 Name:              nginx-clusterip
 Namespace:         default
 Labels:            run=nginx
@@ -264,12 +270,14 @@ Endpoints:         10.46.0.1:80
 Session Affinity:  ClientIP
 Events:            <none>
 ```
+
 Com isso, agora temos como manter a sessão, ou seja, ele irá manter a conexão com o mesmo pod, respeitando o IP de origem, do cliente.
 
 Agora podemos remover o service:
 
 ```
 # kubectl delete -f primeiro-service-clusterip.yaml
+
 service "nginx-clusterip" deleted
 ```
 
@@ -279,6 +287,7 @@ Execute o comando a seguir para exportar o pod usando o service NodePort.
 
 ```
 # kubectl expose pods nginx --type=NodePort
+
 service/nginx exposed
 ```
 
@@ -333,6 +342,7 @@ Criando o service.
 
 ```
 # kubectl create -f primeiro-service-nodeport.yaml
+
 service/nginx-nodeport created
 ```
 
@@ -437,6 +447,7 @@ Criando o service.
 
 ```
 # kubectl create -f primeiro-service-loadbalancer.yaml
+
 service/nginx-loadbalancer created
 ```
 
@@ -475,12 +486,13 @@ Removendo o service.
 
 ```
 # kubectl delete -f primeiro-service-loadbalancer.yaml
+
 service "nginx-loadbalancer" deleted
 ```
 
 ## EndPoint
 
-Sempre que criamos um service, automaticamente é criado um endpoint. O endpoint nada mais é do que o IP do pod que o service irá utilizar, por exemplo, quando criamos um service do tipo ClusterIP temos o seu IP, correto? 
+Sempre que criamos um service, automaticamente é criado um endpoint. O endpoint nada mais é do que o IP do pod que o service irá utilizar, por exemplo, quando criamos um service do tipo ClusterIP temos o seu IP, correto?
 
 Agora, quando batemos nesse IP ele redireciona a conexão para o Pod através desse IP, o EndPoint.
 
@@ -571,6 +583,7 @@ Acessando o nginx.
 
 ```
 # curl 10.98.153.22
+
 ...
 <h1>Welcome to nginx!</h1>
 ...
@@ -663,7 +676,6 @@ Removendo o service.
 service "nginx" deleted
 ```
 
-
 # Limitando Recursos
 
 Quando criamos um Pod podemos especificar a quantidade de CPU e Memória (RAM) que pode ser consumida em cada container. Quando algum container contém a configuração de limite de recursos o Scheduler fica responsável por alocar esse container no melhor nó possível de acordo com os recursos disponíveis.
@@ -682,6 +694,7 @@ Escalando o deployment para 3 réplicas.
 
 ```
 # kubectl scale deployment nginx --replicas=3
+
 deployment.apps/nginx scaled
 ```
 
@@ -809,6 +822,7 @@ Quando ultrapassar o limite configurado, você receberá um erro como mostrado a
 
 ```
 # stress --vm 1 --vm-bytes 512M --cpu 1
+
 stress: info: [230] dispatching hogs: 1 cpu, 0 io, 1 vm, 0 hdd
 stress: FAIL: [230] (415) <-- worker 232 got signal 9
 stress: WARN: [230] (417) now reaping child worker processes
@@ -819,6 +833,7 @@ Removendo o deployment.
 
 ```
 # kubectl delete deployment nginx
+
 deployment.extensions "nginx" deleted
 ```
 
@@ -910,6 +925,7 @@ Opa, não encontramos não é mesmo? Mas claro esquecemos de passar nosso namesp
 
 ```
 # kubectl get limitrange -n primeiro-namespace
+
 NAME                 CREATED AT
 limitando-recursos   2020-05-10T18:02:51Z
 ```
@@ -1115,6 +1131,7 @@ Node slave 2:
 
 ```
 # kubectl taint node elliot-03 key1=value1:NoSchedule
+
 node/elliot-03 tainted
 ```
 
@@ -1122,6 +1139,7 @@ Visualizando a label Taint no node slave 1.
 
 ```
 # kubectl describe node elliot-02 | grep -i taint
+
 Taints:             key1=value1:NoSchedule
 ```
 
@@ -1129,6 +1147,7 @@ Visualizando a label Taint no node slave 2.
 
 ```
 # kubectl describe node elliot-03 | grep -i taint
+
 Taints:             key1=value1:NoSchedule
 ```
 
