@@ -1,5 +1,13 @@
 # Descomplicando o Kubernetes
 
+O conteúdo desse material é dividido em 06 partes. (day-1 até o day-6)
+
+O material é dividido em 06 partes justamente para facilitar o aprendizado. A ídeia é o aluno focar o aprendizado por etapas, e por esse motivo recomendamos que ele mude para a próxima parte somente quando estiver totalmente confortável com o conteúdo atual.
+
+Nesse material você terá contato com conteúdo do iniciante ao avançado sobre Kubernetes, e agora que ele se tornou aberto, com a ajuda de todos vamos construir o maior e mais completo material sobre Kubernetes do mundo.
+
+Contamos com sua ajuda para tornar esse material ainda mais completo, colabore!
+
 <!-- TOC -->
 
 - [Descomplicando o Kubernetes](#descomplicando-o-kubernetes)
