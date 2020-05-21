@@ -262,7 +262,7 @@ Agora que já temos um PersistentVolume e um PersistentVolumeClaim vamos criar u
 
 ```
 # vim nfs-pv.yaml
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
@@ -307,7 +307,7 @@ spec:
       terminationGracePeriodSeconds: 30
 
 # kubectl create -f nfs-pv.yaml
-deployment.extensions/nginx created
+deployment.apps/nginx created
 
 # kubectl describe deployment nginx
 Name:                   nginx
