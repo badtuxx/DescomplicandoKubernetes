@@ -19,6 +19,30 @@
 
 <!-- TOC -->
 
+# Multi-cluster local
+
+! Referência: [kind multi-cluster](https://kubernetes.io/blog/2020/05/21/wsl-docker-kubernetes-on-the-windows-desktop/)
+
+É possível para essa aula incluir multiplos nós a estrutura do kind que foi mencionado na primeira sessão desse manual.
+```
+# seleciona e apaga todos os clusters
+kind delete clusters $(kind get clusters)
+# define uma arquivo de configuração para quantos nós no cluster e os tipos de nós
+cat << EOF > kind-3nodes.yaml
+kind: Cluster
+apiVersion: kind.x-k8s.io/v1alpha4
+nodes:
+  - role: control-plane
+  - role: worker
+  - role: worker
+EOF
+# Cria cluster com base nas especificações acima
+kind create cluster --name wslkindmultinodes --config ./kind-3nodes.yaml
+# Valida a criação do cluster (lembrando que a configuração e instalação do kind esta na primeira sessão)
+kubectl get nodes
+```
+Com as configurações acima os comandos que se seguem podem ser validados localmente, sem a necessidade de uma conta na AWS ou outra cloud pública, Apesar de ser recomendado para treinar.
+
 # Componentes do K8s
 
 **O k8s tem os seguintes componentes principais:**
