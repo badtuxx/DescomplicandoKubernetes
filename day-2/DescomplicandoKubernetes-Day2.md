@@ -32,35 +32,35 @@
 * Network e policies
 * Storage
 
-**[kube-apiserver](https://kubernetes.io/docs/concepts/overview/components/#kube-apiserver)** é a central de operações do cluster k8s. Todas as chamadas, internas ou externas são tratadas por ele. Ele é o único que conecta no ETCD.
+A **[kube-apiserver](https://kubernetes.io/docs/concepts/overview/components/#kube-apiserver)** é a central de operações do *cluster* k8s. Todas as chamadas, internas ou externas são tratadas por ele. Ele é o único que conecta no ETCD.
 
-**[kube-scheduller](https://kubernetes.io/docs/concepts/overview/components/#kube-apiserver)** usa um algoritmo para verificar em qual determinado pod deverá ser hospedado. Ele verifica os recursos disponíveis do node para verificar qual o melhor node para receber aquele pod.
+O **[kube-scheduller](https://kubernetes.io/docs/concepts/overview/components/#kube-apiserver)** usa um algoritmo para verificar em qual determinado *pod* deverá ser hospedado. Ele verifica os recursos disponíveis do node para verificar qual o melhor node para receber aquele *pod*.
+
+O **[kube-controller-manager](https://kubernetes.io/docs/concepts/overview/components/#cloud-controller-manager)** é o controle principal que interage com o *kube-apiserver* para determinar o seu estado. Se o estado não bate, o manager irá contactar o controller necessário para checar seu estado desejado. Tem diversos *controllers* em uso como: os *endpoints*, *namespace* e *replication*.
+
+O **[kubelet](https://kubernetes.io/docs/concepts/overview/components/#kubelet)** interage com o Docker instalado no *node* e garante que os *containers* que precisavam estar em execução realmente estão.
+
+O **[kube-proxy](https://kubernetes.io/docs/concepts/overview/components/#kube-proxy)** é o responsável por gerenciar a rede para os *containers*, é o responsável por expor portas dos *containers*.
+
+O **[Supervisord](http://supervisord.org/)** é o responsável por monitorar e restabelecer, se necessário, o *kubelet* e o Docker. Por esse motivo, quando existe algum problema em relação ao *kubelet*, como por exemplo o uso do driver ``cgroup`` diferente do que está rodando no Docker, você perceberá que ele ficará tentando subir o *kubelet* frequentemente.
+
+Um **[Pod](https://kubernetes.io/docs/concepts/workloads/pods/pod-overview/)** é a menor unidade que você irá tratar no k8s. Você poderá ter mais de um container por *pod*, porém vale lembrar que eles dividirão os mesmos recursos, como por exemplo IP. Uma das boas razões para se ter mais de um container em um *pod* é o fato de você ter os logs consolidados.
+
+Um *pod* pode ser composto por diversos *containers* e, neste sentido, se assemelha a uma VM onde você poderia ter diversos serviços rodando compartilhando o mesmo IP e demais recursos.
+
+Um **[Service](https://kubernetes.io/docs/concepts/services-networking/service/)** é uma forma de você expor a comunicação através de um **NodePort** ou **LoadBalancer** para distribuir as requisições entre diversos Pods daquele *Deployment*. Funciona como um balanceador de carga.
 
 No **[ETCD](https://kubernetes.io/docs/concepts/overview/components/#etcd)** são armazenados o estado do cluster, rede e outras informações persistentes. 
 
-**[kube-controller-manager](https://kubernetes.io/docs/concepts/overview/components/#cloud-controller-manager)** é o controle principal que interage com o kube-apiserver para determinar o seu estado. Se o estado não bate, o manager irá contactar o controller necessário para checar seu estado desejado. Tem diversos controllers em uso como: os endpoints, namespace e replication.
-
-O **[kubelet](https://kubernetes.io/docs/concepts/overview/components/#kubelet)** interage com o Docker instalado no node e garante que os containers que precisavam estar em execução realmente estão.
-
-O **[kube-proxy](https://kubernetes.io/docs/concepts/overview/components/#kube-proxy)** é o responsável por gerenciar a rede para os containers, é o responsável por expor portas dos containers.
-
-**[Supervisord](http://supervisord.org/)** é o responsável por monitorar e restabelecer, se necessário, o kubelet e o docker. Por esse motivo, quando existe algum problema em relação ao kubelet, como por exemplo o uso do driver ``cgroup`` diferente do que está rodando no Docker, você perceberá que ele ficará tentando subir o kubelet frequentemente.
-
-**[Pod](https://kubernetes.io/docs/concepts/workloads/pods/pod-overview/)** é a menor unidade que você irá tratar no k8s. Você poderá ter mais de um container por Pod, porém vale lembrar que eles dividirão os mesmos recursos, como por exemplo IP. Uma das boas razões para se ter mais de um container em um Pod é o fato de você ter os logs consolidados..
-
-O Pod, por poder possuir diversos containers, muitas das vezes se assemelha a uma VM, onde você poderia ter diversos serviços rodando compartilhando o mesmo IP e demais recursos.
-
-**[Services](https://kubernetes.io/docs/concepts/services-networking/service/)** é uma forma de você expor a comunicação através de um **NodePort** ou **LoadBalancer** para distribuir as requisições entre diversos Pods daquele Deployment. Funciona como um balanceador de carga.
-
 # Container Network Interface
 
-Para prover a rede para os containers, o k8s utiliza a especificação do **CNI**, Container Network Interface.
+Para prover a rede para os containers, o k8s utiliza a especificação do **CNI**, *Container Network Interface*.
 
-CNI é uma especificação que reúne alguma bibliotecas para o desenvolvimento de plugins para configuração e gerenciamento de redes para os containers. Ele provê uma interface comum entre as diversas soluções de rede para o k8s. Você encontra diversos plugins para AWS, GCP, Cloud Foundry entre outros.
+O CNI é uma especificação que reúne algumas bibliotecas para o desenvolvimento de plugins para configuração e gerenciamento de redes para os containers. Ele provê uma interface comum entre as diversas soluções de rede para o k8s. Você encontra diversos plugins para AWS, GCP, Cloud Foundry entre outros.
 
-Mais informações: [https://github.com/containernetworking/cni](https://github.com/containernetworking/cni)
+Mais informações em: [https://github.com/containernetworking/cni](https://github.com/containernetworking/cni)
 
-Enquanto o CNI define a rede dos pods, ele não te ajuda na comunicação entre os pods de diferentes nodes.
+Enquanto o CNI define a rede dos *pods*, ele não te ajuda na comunicação entre os pods de diferentes nodes.
 
 As características básicas da rede do k8s são:
 
@@ -84,10 +84,16 @@ Mais informações em: [https://kubernetes.io/docs/concepts/cluster-administrati
 
 ## Criando um service ClusterIP
 
-Criando o pod a partir do manifesto criado no fim do [day-1](../day-1/DescomplicandoKubernetes-Day1.md).
+Criando o *pod* a partir do manifesto criado no fim do [day-1](../day-1/DescomplicandoKubernetes-Day1.md).
+
+**(Opcional)** Caso você não tenha executado os passos descritos em [day-1](../day-1/DescomplicandoKubernetes-Day1.md) também é possível gerar novamente este arquivo através do comando a seguir.
+```
+# kubectl run nginx --image nginx --dry-run=client -o yaml > meu-primeiro.yaml
+```
+
 
 ```
-# kubectl create -f meu_primeiro.yaml
+# kubectl create -f meu-primeiro.yaml
 
 pod/nginx created
 ```
@@ -95,12 +101,12 @@ pod/nginx created
 Expondo o pod do Nginx.
 
 ```
-# kubectl expose pod nginx
+# kubectl expose pod nginx --port=80
 
 service/nginx exposed
 ```
 
-Obtendo informações do service.
+Obtendo informações do *service*.
 
 ```
 # kubectl get svc
@@ -110,7 +116,7 @@ kubernetes   ClusterIP   10.96.0.1        <none>        443/TCP   25m
 nginx        ClusterIP   10.104.209.243   <none>        80/TCP    7m15s
 ```
 
-Acessando o Ningx. Altere o IP do cluster no comando a seguir de acordo com o seu ambiente.
+Acessando o Ningx. Altere o IP do cluster no comando a seguir de acordo com o resultado apresentado na terceira coluna do comando anterior (CLUSTER-IP).
 
 ```
 # curl 10.104.209.243
@@ -162,7 +168,7 @@ spec:
   type: ClusterIP
 ```
 
-Criando o service.
+Criando o *service*.
 
 ```
 # kubectl create -f primeiro-service-clusterip.yaml
@@ -170,7 +176,7 @@ Criando o service.
 service/nginx-clusterip created
 ```
 
-Obtendo informações do service.
+Obtendo informações do *service*.
 
 ```
 # kubectl get services
