@@ -861,7 +861,7 @@ A instalação do Docker pode ser realizada com apenas um comando, que deve ser 
 O próximo passo é efetuar a adição dos repositórios do k8s e efetuar a instalação do ``kubeadm``. Em distribuições Debian e baseadas, isso pode ser realizado com os comandos a seguir.
 
 ```
-# apt-get update && apt-get install -y apt-transport-https
+# apt-get update && apt-get install -y apt-transport-https gnupg2
 # curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add -
 # echo "deb http://apt.kubernetes.io/ kubernetes-xenial main" > /etc/apt/sources.list.d/kubernetes.list
 # apt-get update
