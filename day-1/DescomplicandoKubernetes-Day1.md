@@ -906,6 +906,35 @@ Agora, em ambas as distribuições e famílias, é muito importante verificar se
 Cgroup Driver: cgroupfs
 ```
 
+O Kubernetes recomenda utilizar o driver *systemd* no lugar do *cgroupfs*, para alterar execute o comando os comandos a seguir:  
+
+```
+cat > /etc/docker/daemon.json <<EOF
+{
+  "exec-opts": ["native.cgroupdriver=systemd"],
+  "log-driver": "json-file",
+  "log-opts": {
+    "max-size": "100m"
+  },
+  "storage-driver": "overlay2"
+}
+EOF
+```
+
+Em seguida crie um diretório a seguir 
+
+```
+mkdir -p /etc/systemd/system/docker.service.d
+```
+
+Por fim, reinicie o docker. 
+
+```
+systemctl daemon-reload
+systemctl restart docker
+```
+
+
 Execute o seguinte comando para alterar o *driver* do cgroup em distibuições Debian e similares.
 
 ```
