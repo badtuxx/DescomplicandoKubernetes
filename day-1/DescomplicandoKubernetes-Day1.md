@@ -858,6 +858,60 @@ A instalação do Docker pode ser realizada com apenas um comando, que deve ser 
 # curl -fsSL https://get.docker.com | bash
 ```
 
+Embora a maneira acima seja a mais fácil, não permite o controle de opções. Por esse motivo, a documentação do Kubernetes sugere uma instalação mais controlada seguindo os passos disponíveis em https://kubernetes.io/docs/setup/production-environment/container-runtimes/
+
+**Caso escolha o método mais fácil**, os próximos comandos são muito importantes, pois garantem que o Cgroup driver do Docker será configurado para ``systemd`` que o padrão utilizado pelo Kubernetes.
+
+Para a família Debian, execute o seguinte comando:
+```
+cat > /etc/docker/daemon.json <<EOF
+{
+  "exec-opts": ["native.cgroupdriver=systemd"],
+  "log-driver": "json-file",
+  "log-opts": {
+    "max-size": "100m"
+  },
+  "storage-driver": "overlay2"
+}
+EOF
+```
+
+Para a família Red Hat, execute o seguinte comando:
+```
+cat > /etc/docker/daemon.json <<EOF
+{
+  "exec-opts": ["native.cgroupdriver=systemd"],
+  "log-driver": "json-file",
+  "log-opts": {
+    "max-size": "100m"
+  },
+  "storage-driver": "overlay2",
+  "storage-opts": [
+    "overlay2.override_kernel_check=true"
+  ]
+}
+EOF
+```
+Os passos a seguir são iguais para ambas as famílias.
+
+```
+mkdir -p /etc/systemd/system/docker.service.d
+```
+
+Agora basta reiniciar o Docker.
+
+```
+systemctl daemon-reload
+systemctl restart docker
+```
+
+Para finalizar, verifique se o Cgroup driver foi corretamente definido.
+```
+# docker info | grep -i cgroup
+```
+
+Se a saída foi ``Cgroup Driver: systemd``, tudo certo!
+
 O próximo passo é efetuar a adição dos repositórios do k8s e efetuar a instalação do ``kubeadm``. Em distribuições Debian e baseadas, isso pode ser realizado com os comandos a seguir.
 
 ```
@@ -896,35 +950,6 @@ Ainda em distribuições Red Hat e baseadas, é necessário a configuração de 
 ```
 net.bridge.bridge-nf-call-ip6tables = 1
 net.bridge.bridge-nf-call-iptables = 1
-```
-
-Agora, em ambas as distribuições e famílias, é muito importante verificar se o *driver* do ``cgroup`` utilizado pelo kubelet é o mesmo utilizado pelo Docker. Para tanto, execute:
-
-```
-# docker info | grep -i cgroup
-
-Cgroup Driver: cgroupfs
-```
-
-Execute o seguinte comando para alterar o *driver* do cgroup em distibuições Debian e similares.
-
-```
-# sed -i "s/cgroup-driver=systemd/cgroup-driver=cgroupfs/g" /etc/systemd/system/kubelet.service.d/10-kubeadm.conf
-```
-
-Execute o seguinte comando para alterar o *driver* do cgroup em distribuições RedHat e similares.
-
-```
-# sed -i "s/cgroup-driver=systemd/cgroup-driver=cgroupfs/g" /var/lib/kubelet/kubeadm-flags.env
-```
-
-> Obs.: O arquivo ``/var/lib/kubelet/kubeadm-flags.env`` só será criado após a execução do comando ``kubeadm init`` ou ``kubeadm join``, seja no master ou no worker, respectivamente.
-
-É preciso reiniciar o daemon e restartar o kubelet com os seguintes comandos.
-
-```
-# systemctl daemon-reload
-# systemctl restart kubelet
 ```
 
 É necessário também desativar a memória swap em todos os nós com o comando a seguir.
