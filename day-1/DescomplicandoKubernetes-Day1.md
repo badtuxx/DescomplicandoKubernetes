@@ -4,32 +4,32 @@
 
 <!-- TOC -->
 - [Descomplicando Kubernetes Day 1](#descomplicando-kubernetes-day-1)
-  - [Sumário](#sum%c3%a1rio)
-- [O quê preciso saber antes de começar?](#o-qu%c3%aa-preciso-saber-antes-de-come%c3%a7ar)
+  - [Sumário](#sumário)
+- [O quê preciso saber antes de começar?](#o-quê-preciso-saber-antes-de-começar)
   - [Qual distro Linux devo usar?](#qual-distro-linux-devo-usar)
   - [Alguns sites que devemos visitar](#alguns-sites-que-devemos-visitar)
   - [E o k8s?](#e-o-k8s)
   - [Arquitetura do k8s](#arquitetura-do-k8s)
   - [Portas que devemos nos preocupar](#portas-que-devemos-nos-preocupar)
-  - [Tá, mas qual tipo de aplicação eu devo rodar sobre o k8s?](#t%c3%a1-mas-qual-tipo-de-aplica%c3%a7%c3%a3o-eu-devo-rodar-sobre-o-k8s)
+  - [Tá, mas qual tipo de aplicação eu devo rodar sobre o k8s?](#tá-mas-qual-tipo-de-aplicação-eu-devo-rodar-sobre-o-k8s)
   - [Conceitos-chave do k8s](#conceitos-chave-do-k8s)
 - [Minikube](#minikube)
-  - [Requisitos básicos](#requisitos-b%c3%a1sicos)
-  - [Instalação do Minikube no Linux](#instala%c3%a7%c3%a3o-do-minikube-no-linux)
-  - [Instalação do Minikube no MacOS](#instala%c3%a7%c3%a3o-do-minikube-no-macos)
+  - [Requisitos básicos](#requisitos-básicos)
+  - [Instalação do Minikube no Linux](#instalação-do-minikube-no-linux)
+  - [Instalação do Minikube no MacOS](#instalação-do-minikube-no-macos)
   - [kubectl: alias e autocomplete](#kubectl-alias-e-autocomplete)
-  - [Instalação do Minikube no Microsoft Windows](#instala%c3%a7%c3%a3o-do-minikube-no-microsoft-windows)
+  - [Instalação do Minikube no Microsoft Windows](#instalação-do-minikube-no-microsoft-windows)
   - [Iniciando, parando e excluindo o Minikube](#iniciando-parando-e-excluindo-o-minikube)
-  - [Certo, e como eu sei que está tudo funcionando como deveria?](#certo-e-como-eu-sei-que-est%c3%a1-tudo-funcionando-como-deveria)
-  - [Descobrindo o endereço do Minikube](#descobrindo-o-endere%c3%a7o-do-minikube)
-  - [Acessando a máquina do Minikube via SSH](#acessando-a-m%c3%a1quina-do-minikube-via-ssh)
+  - [Certo, e como eu sei que está tudo funcionando como deveria?](#certo-e-como-eu-sei-que-está-tudo-funcionando-como-deveria)
+  - [Descobrindo o endereço do Minikube](#descobrindo-o-endereço-do-minikube)
+  - [Acessando a máquina do Minikube via SSH](#acessando-a-máquina-do-minikube-via-ssh)
   - [Dashboard](#dashboard)
   - [Logs](#logs)
 - [Microk8s](#microk8s)
-  - [Requisitos básicos](#requisitos-b%c3%a1sicos-1)
-  - [Instalaçao do MicroK8s no GNU/Linux](#instala%c3%a7ao-do-microk8s-no-gnulinux)
-    - [Versões que suportam Snap](#vers%c3%b5es-que-suportam-snap)
-  - [Instalação no Windows](#instala%c3%a7%c3%a3o-no-windows)
+  - [Requisitos básicos](#requisitos-básicos-1)
+  - [Instalaçao do MicroK8s no GNU/Linux](#instalaçao-do-microk8s-no-gnulinux)
+    - [Versões que suportam Snap](#versões-que-suportam-snap)
+  - [Instalação no Windows](#instalação-no-windows)
     - [Instalando o Chocolatey](#instalando-o-chocolatey)
       - [Instalando o Multipass](#instalando-o-multipass)
     - [Utilizando Microk8s com Multipass](#utilizando-microk8s-com-multipass)
@@ -37,32 +37,32 @@
     - [Instalando o Brew](#instalando-o-brew)
     - [Instalando o Microk8s via Brew](#instalando-o-microk8s-via-brew)
 - [Kind](#kind)
-  - [Instalação no Linux](#instala%c3%a7%c3%a3o-no-linux)
-  - [Instalaçao no MacOS](#instala%c3%a7ao-no-macos)
-  - [Instalação no Windows](#instala%c3%a7%c3%a3o-no-windows-1)
-    - [Instalação no Windows via Chocolatey](#instala%c3%a7%c3%a3o-no-windows-via-chocolatey)
+  - [Instalação no Linux](#instalação-no-linux)
+  - [Instalaçao no MacOS](#instalaçao-no-macos)
+  - [Instalação no Windows](#instalação-no-windows-1)
+    - [Instalação no Windows via Chocolatey](#instalação-no-windows-via-chocolatey)
   - [Criando um Cluster com o Kind](#criando-um-cluster-com-o-kind)
 - [k3s](#k3s)
-- [Instalação em cluster com três nós](#instala%c3%a7%c3%a3o-em-cluster-com-tr%c3%aas-n%c3%b3s)
-  - [Requisitos básicos](#requisitos-b%c3%a1sicos-2)
-  - [Configuração de módulos de kernel](#configura%c3%a7%c3%a3o-de-m%c3%b3dulos-de-kernel)
-  - [Atualização da distribuição](#atualiza%c3%a7%c3%a3o-da-distribui%c3%a7%c3%a3o)
-  - [Instalação do Docker e do Kubernetes](#instala%c3%a7%c3%a3o-do-docker-e-do-kubernetes)
-  - [Inicialização do cluster](#inicializa%c3%a7%c3%a3o-do-cluster)
-  - [Configuração do arquivo de contextos do kubectl](#configura%c3%a7%c3%a3o-do-arquivo-de-contextos-do-kubectl)
-  - [Inserindo os nós workers no cluster](#inserindo-os-n%c3%b3s-workers-no-cluster)
-    - [Múltiplas Interfaces](#m%c3%baltiplas-interfaces)
-  - [Instalação do pod network](#instala%c3%a7%c3%a3o-do-pod-network)
-  - [Verificando a instalação](#verificando-a-instala%c3%a7%c3%a3o)
+- [Instalação em cluster com três nós](#instalação-em-cluster-com-três-nós)
+  - [Requisitos básicos](#requisitos-básicos-2)
+  - [Configuração de módulos de kernel](#configuração-de-módulos-de-kernel)
+  - [Atualização da distribuição](#atualização-da-distribuição)
+  - [Instalação do Docker e do Kubernetes](#instalação-do-docker-e-do-kubernetes)
+  - [Inicialização do cluster](#inicialização-do-cluster)
+  - [Configuração do arquivo de contextos do kubectl](#configuração-do-arquivo-de-contextos-do-kubectl)
+  - [Inserindo os nós workers no cluster](#inserindo-os-nós-workers-no-cluster)
+    - [Múltiplas Interfaces](#múltiplas-interfaces)
+  - [Instalação do pod network](#instalação-do-pod-network)
+  - [Verificando a instalação](#verificando-a-instalação)
 - [Primeiros passos no k8s](#primeiros-passos-no-k8s)
-  - [Exibindo informações detalhadas sobre os nós](#exibindo-informa%c3%a7%c3%b5es-detalhadas-sobre-os-n%c3%b3s)
+  - [Exibindo informações detalhadas sobre os nós](#exibindo-informações-detalhadas-sobre-os-nós)
   - [Exibindo novamente token para entrar no cluster](#exibindo-novamente-token-para-entrar-no-cluster)
   - [Ativando o autocomplete](#ativando-o-autocomplete)
   - [Verificando os namespaces e pods](#verificando-os-namespaces-e-pods)
   - [Executando nosso primeiro pod no k8s](#executando-nosso-primeiro-pod-no-k8s)
-  - [Verificar os últimos eventos do cluster](#verificar-os-%c3%baltimos-eventos-do-cluster)
+  - [Verificar os últimos eventos do cluster](#verificar-os-últimos-eventos-do-cluster)
   - [Efetuar o dump de um objeto em formato YAML](#efetuar-o-dump-de-um-objeto-em-formato-yaml)
-  - [Socorro, são muitas opções!](#socorro-s%c3%a3o-muitas-op%c3%a7%c3%b5es)
+  - [Socorro, são muitas opções!](#socorro-são-muitas-opções)
   - [Expondo o pod](#expondo-o-pod)
   - [Limpando tudo e indo para casa](#limpando-tudo-e-indo-para-casa)
 
@@ -111,8 +111,6 @@ A seguir um diagrama que mostra a arquitetura do k8s.
 | ![Arquitetura Kubernetes](https://upload.wikimedia.org/wikipedia/commons/b/be/Kubernetes.png) |
 |:---------------------------------------------------------------------------------------------:|
 | *Arquitetura Kubernetes*                                                                      |
-
-##
 
 - **API Server**: É um dos principais componentes do k8s. Ele quem fornece uma API que utiliza JSON sobre HTTP para comunicação principalmente utilizando o utilitário ```kubectl``` por parte dos administradores e para a comunicação entre os demais nós, conforme mostrado no gráfico, por meio de requisições [REST](https://restfulapi.net);
 
@@ -858,11 +856,12 @@ A instalação do Docker pode ser realizada com apenas um comando, que deve ser 
 # curl -fsSL https://get.docker.com | bash
 ```
 
-Embora a maneira acima seja a mais fácil, não permite o controle de opções. Por esse motivo, a documentação do Kubernetes sugere uma instalação mais controlada seguindo os passos disponíveis em https://kubernetes.io/docs/setup/production-environment/container-runtimes/
+Embora a maneira acima seja a mais fácil, não permite o controle de opções. Por esse motivo, a documentação do Kubernetes sugere uma instalação mais controlada seguindo os passos disponíveis em: https://kubernetes.io/docs/setup/production-environment/container-runtimes/
 
-**Caso escolha o método mais fácil**, os próximos comandos são muito importantes, pois garantem que o Cgroup driver do Docker será configurado para ``systemd`` que o padrão utilizado pelo Kubernetes.
+**Caso escolha o método mais fácil**, os próximos comandos são muito importantes, pois garantem que o driver ``Cgroup`` do Docker será configurado para o ``systemd``, que é o gerenciador de serviços padrão utilizado pelo Kubernetes.
 
 Para a família Debian, execute o seguinte comando:
+
 ```
 cat > /etc/docker/daemon.json <<EOF
 {
@@ -877,6 +876,7 @@ EOF
 ```
 
 Para a família Red Hat, execute o seguinte comando:
+
 ```
 cat > /etc/docker/daemon.json <<EOF
 {
@@ -892,6 +892,7 @@ cat > /etc/docker/daemon.json <<EOF
 }
 EOF
 ```
+
 Os passos a seguir são iguais para ambas as famílias.
 
 ```
@@ -905,14 +906,17 @@ systemctl daemon-reload
 systemctl restart docker
 ```
 
-Para finalizar, verifique se o Cgroup driver foi corretamente definido.
+Para finalizar, verifique se o driver ``Cgroup`` foi corretamente definido.
+
 ```
 # docker info | grep -i cgroup
 ```
 
 Se a saída foi ``Cgroup Driver: systemd``, tudo certo!
 
-O próximo passo é efetuar a adição dos repositórios do k8s e efetuar a instalação do ``kubeadm``. Em distribuições Debian e baseadas, isso pode ser realizado com os comandos a seguir.
+O próximo passo é efetuar a adição dos repositórios do k8s e efetuar a instalação do ``kubeadm``.
+
+Em distribuições Debian e baseadas, isso pode ser realizado com os comandos a seguir.
 
 ```
 # apt-get update && apt-get install -y apt-transport-https gnupg2
@@ -922,7 +926,7 @@ O próximo passo é efetuar a adição dos repositórios do k8s e efetuar a inst
 # apt-get install -y kubelet kubeadm kubectl
 ```
 
-Já em distribuições Red Hat e baseadas, adiciona-se o repositório do k8s criando o arquivo ```/etc/yum.repos.d/kubernetes.repo``` com o conteúdo a seguir.
+Já em distribuições Red Hat e baseadas, adicione o repositório do k8s criando o arquivo ```/etc/yum.repos.d/kubernetes.repo``` com o conteúdo a seguir.
 
 ```
 [kubernetes]
@@ -952,7 +956,7 @@ net.bridge.bridge-nf-call-ip6tables = 1
 net.bridge.bridge-nf-call-iptables = 1
 ```
 
-É necessário também desativar a memória swap em todos os nós com o comando a seguir.
+Em ambas distribuições GNU/Linux também é necessário desativar a memória swap em todos os nós com o comando a seguir.
 
 ```
 # swapoff -a
@@ -979,7 +983,6 @@ Execute o comando a seguir também apenas no nó *master* para a inicialização
 A opção _--apiserver-advertise-address_ informa qual o endereço IP em que o servidor de API está ouvindo. Caso contrário, a interface de rede padrão será usada.
 
 A saída do comando será algo similar ao mostrado a seguir.
-
 
 ```
     [WARNING SystemVerification]: docker version is greater than the most recently validated version. Docker version: 18.05.0-ce. Max validated version: 17.03
