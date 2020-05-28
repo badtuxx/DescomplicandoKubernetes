@@ -7,6 +7,7 @@
 - [Descomplicando Kubernetes Day 2](#descomplicando-kubernetes-day-2)
   - [Sumário](#sum%c3%a1rio)
 - [Componentes do K8s](#componentes-do-k8s)
+- [Principais Comandos](#principais-comandos)
 - [Container Network Interface](#container-network-interface)
 - [Services](#services)
   - [Criando um service ClusterIP](#criando-um-service-clusterip)
@@ -51,6 +52,12 @@ O **[kube-proxy](https://kubernetes.io/docs/concepts/overview/components/#kube-p
 O Pod, por poder possuir diversos containers, muitas das vezes se assemelha a uma VM, onde você poderia ter diversos serviços rodando compartilhando o mesmo IP e demais recursos.
 
 **[Services](https://kubernetes.io/docs/concepts/services-networking/service/)** é uma forma de você expor a comunicação através de um **NodePort** ou **LoadBalancer** para distribuir as requisições entre diversos Pods daquele Deployment. Funciona como um balanceador de carga.
+
+
+# Principais Comandos
+
+![Principais Comandos](https://uploaddeimagens.com.br/images/002/667/919/full/Kubernetes-Comandos.png)
+
 
 # Container Network Interface
 
