@@ -7,6 +7,7 @@
 - [Descomplicando Kubernetes Day 2](#descomplicando-kubernetes-day-2)
   - [Sumário](#sum%c3%a1rio)
 - [Componentes do K8s](#componentes-do-k8s)
+- [Principais Comandos](#principais-comandos)
 - [Container Network Interface](#container-network-interface)
 - [Services](#services)
   - [Criando um service ClusterIP](#criando-um-service-clusterip)
@@ -52,6 +53,12 @@ O Pod, por poder possuir diversos containers, muitas das vezes se assemelha a um
 
 **[Services](https://kubernetes.io/docs/concepts/services-networking/service/)** é uma forma de você expor a comunicação através de um **NodePort** ou **LoadBalancer** para distribuir as requisições entre diversos Pods daquele Deployment. Funciona como um balanceador de carga.
 
+
+# Principais Comandos
+
+![Principais Comandos](https://uploaddeimagens.com.br/images/002/667/919/full/Kubernetes-Comandos.png)
+
+
 # Container Network Interface
 
 Para prover a rede para os containers, o k8s utiliza a especificação do **CNI**, Container Network Interface.
@@ -89,7 +96,6 @@ Vamos criar um pod a partir de um pod template utilizando os seguintes comandos:
 ```
 # kubectl run nginx --image nginx --dry-run=client -o yaml > pod-template.yaml
 # kubectl create -f pod-template.yaml
-
 pod/nginx created
 ```
 
@@ -1403,14 +1409,6 @@ Removendo o taint ``NoSchedule`` em todos os nós do cluster.
 node/elliot-01 untainted
 node/elliot-02 untainted
 node/elliot-03 untainted
-```
-
-Visualizando os taints dos nodes:
-
-```
-# kubectl describe node elliot-01 | grep -i taint
-
-Taints:             <none>
 ```
 
 Removendo o taint ``NoExecute`` em todos os nós do cluster.
