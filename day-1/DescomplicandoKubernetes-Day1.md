@@ -102,7 +102,7 @@ Embora exista a exigência de no mínimo três nós para a execução do k8s em 
 
 - [Minikube](https://github.com/kubernetes/minikube): Muito utilizado para implementar um *cluster* Kubernetes localmente para fins de desenvolvimento, testes e didáticos e que não deve ser utilizado para produção;
 
-- [MicroK8S](https://microk8s.io): Desenvolvido pela [Canonical](https://canonical.com), mesma empresa que desenvolve o [Ubuntu](https://ubuntu.com), pode ser utilizada em diversas distribuições e tem como público algo desenvolvedores e profissionais de DevOps, podendo ser utilizada para ambientes de produção, em especial para *Edge Computing* e IoT;
+- [MicroK8S](https://microk8s.io): Desenvolvido pela [Canonical](https://canonical.com), mesma empresa que desenvolve o [Ubuntu](https://ubuntu.com), pode ser utilizada em diversas distribuições e tem como público alvo desenvolvedores e profissionais de DevOps, podendo ser utilizada para ambientes de produção, em especial para *Edge Computing* e IoT;
 
 - [k3s](https://k3s.io): Desenvolvido pela [Rancher Labs](https://rancher.com), é um concorrente direto do MicroK8s, podendo ser executado inclusive em Raspberry Pi.
 
@@ -858,10 +858,64 @@ A instalação do Docker pode ser realizada com apenas um comando, que deve ser 
 # curl -fsSL https://get.docker.com | bash
 ```
 
+Embora a maneira acima seja a mais fácil, não permite o controle de opções. Por esse motivo, a documentação do Kubernetes sugere uma instalação mais controlada seguindo os passos disponíveis em https://kubernetes.io/docs/setup/production-environment/container-runtimes/
+
+**Caso escolha o método mais fácil**, os próximos comandos são muito importantes, pois garantem que o Cgroup driver do Docker será configurado para ``systemd`` que o padrão utilizado pelo Kubernetes.
+
+Para a família Debian, execute o seguinte comando:
+```
+cat > /etc/docker/daemon.json <<EOF
+{
+  "exec-opts": ["native.cgroupdriver=systemd"],
+  "log-driver": "json-file",
+  "log-opts": {
+    "max-size": "100m"
+  },
+  "storage-driver": "overlay2"
+}
+EOF
+```
+
+Para a família Red Hat, execute o seguinte comando:
+```
+cat > /etc/docker/daemon.json <<EOF
+{
+  "exec-opts": ["native.cgroupdriver=systemd"],
+  "log-driver": "json-file",
+  "log-opts": {
+    "max-size": "100m"
+  },
+  "storage-driver": "overlay2",
+  "storage-opts": [
+    "overlay2.override_kernel_check=true"
+  ]
+}
+EOF
+```
+Os passos a seguir são iguais para ambas as famílias.
+
+```
+mkdir -p /etc/systemd/system/docker.service.d
+```
+
+Agora basta reiniciar o Docker.
+
+```
+systemctl daemon-reload
+systemctl restart docker
+```
+
+Para finalizar, verifique se o Cgroup driver foi corretamente definido.
+```
+# docker info | grep -i cgroup
+```
+
+Se a saída foi ``Cgroup Driver: systemd``, tudo certo!
+
 O próximo passo é efetuar a adição dos repositórios do k8s e efetuar a instalação do ``kubeadm``. Em distribuições Debian e baseadas, isso pode ser realizado com os comandos a seguir.
 
 ```
-# apt-get update && apt-get install -y apt-transport-https
+# apt-get update && apt-get install -y apt-transport-https gnupg2
 # curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add -
 # echo "deb http://apt.kubernetes.io/ kubernetes-xenial main" > /etc/apt/sources.list.d/kubernetes.list
 # apt-get update
@@ -896,35 +950,6 @@ Ainda em distribuições Red Hat e baseadas, é necessário a configuração de 
 ```
 net.bridge.bridge-nf-call-ip6tables = 1
 net.bridge.bridge-nf-call-iptables = 1
-```
-
-Agora, em ambas as distribuições e famílias, é muito importante verificar se o *driver* do ``cgroup`` utilizado pelo kubelet é o mesmo utilizado pelo Docker. Para tanto, execute:
-
-```
-# docker info | grep -i cgroup
-
-Cgroup Driver: cgroupfs
-```
-
-Execute o seguinte comando para alterar o *driver* do cgroup em distibuições Debian e similares.
-
-```
-# sed -i "s/cgroup-driver=systemd/cgroup-driver=cgroupfs/g" /etc/systemd/system/kubelet.service.d/10-kubeadm.conf
-```
-
-Execute o seguinte comando para alterar o *driver* do cgroup em distribuições RedHat e similares.
-
-```
-# sed -i "s/cgroup-driver=systemd/cgroup-driver=cgroupfs/g" /var/lib/kubelet/kubeadm-flags.env
-```
-
-> Obs.: O arquivo ``/var/lib/kubelet/kubeadm-flags.env`` só será criado após a execução do comando ``kubeadm init`` ou ``kubeadm join``, seja no master ou no worker, respectivamente.
-
-É preciso reiniciar o daemon e restartar o kubelet com os seguintes comandos.
-
-```
-# systemctl daemon-reload
-# systemctl restart kubelet
 ```
 
 É necessário também desativar a memória swap em todos os nós com o comando a seguir.

@@ -7,6 +7,7 @@
 - [Descomplicando Kubernetes Day 2](#descomplicando-kubernetes-day-2)
   - [Sumário](#sum%c3%a1rio)
 - [Componentes do K8s](#componentes-do-k8s)
+- [Principais Comandos](#principais-comandos)
 - [Container Network Interface](#container-network-interface)
 - [Services](#services)
   - [Criando um service ClusterIP](#criando-um-service-clusterip)
@@ -76,6 +77,12 @@ O Pod, por poder possuir diversos containers, muitas das vezes se assemelha a um
 
 **[Services](https://kubernetes.io/docs/concepts/services-networking/service/)** é uma forma de você expor a comunicação através de um **NodePort** ou **LoadBalancer** para distribuir as requisições entre diversos Pods daquele Deployment. Funciona como um balanceador de carga.
 
+
+# Principais Comandos
+
+![Principais Comandos](https://uploaddeimagens.com.br/images/002/667/919/full/Kubernetes-Comandos.png)
+
+
 # Container Network Interface
 
 Para prover a rede para os containers, o k8s utiliza a especificação do **CNI**, Container Network Interface.
@@ -108,18 +115,18 @@ Mais informações em: [https://kubernetes.io/docs/concepts/cluster-administrati
 
 ## Criando um service ClusterIP
 
-Criando o pod a partir do manifesto criado no fim do [day-1](../day-1/DescomplicandoKubernetes-Day1.md).
+Vamos criar um pod a partir de um pod template utilizando os seguintes comandos:
 
 ```
-# kubectl create -f meu_primeiro.yaml
-
+# kubectl run nginx --image nginx --dry-run=client -o yaml > pod-template.yaml
+# kubectl create -f pod-template.yaml
 pod/nginx created
 ```
 
 Expondo o pod do Nginx.
 
 ```
-# kubectl expose pod nginx
+# kubectl expose pod nginx --port=80
 
 service/nginx exposed
 ```
@@ -132,6 +139,24 @@ Obtendo informações do service.
 NAME         TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)   AGE
 kubernetes   ClusterIP   10.96.0.1        <none>        443/TCP   25m
 nginx        ClusterIP   10.104.209.243   <none>        80/TCP    7m15s
+```
+
+Execute o seguinte comando para visualizar mais detalhes do service nginx.
+
+```
+# kubectl describe service nginx
+Name:              nginx
+Namespace:         default
+Labels:            run=nginx
+Annotations:       <none>
+Selector:          run=nginx
+Type:              ClusterIP
+IP:                10.104.209.243
+Port:              <unset>  80/TCP
+TargetPort:        80/TCP
+Endpoints:         10.46.0.0:80
+Session Affinity:  None
+Events:            <none>
 ```
 
 Acessando o Ningx. Altere o IP do cluster no comando a seguir de acordo com o seu ambiente.
@@ -160,7 +185,7 @@ Remova o serviço criado anteriormente.
 service "nginx" deleted
 ```
 
-Agora vamos criar nosso service ClusterIP, porém vamos criar um yaml com suas definições:
+Agora vamos criar nosso service ClusterIP, porém vamos criar um arquivo yaml com suas definições:
 
 ```
 # vim primeiro-service-clusterip.yaml
@@ -207,7 +232,7 @@ nginx-clusterip   ClusterIP   10.109.70.243   <none>        80/TCP    71s
 Visualizando detalhes do service.
 
 ```
-# kubectl describe service nginx
+# kubectl describe service nginx-clusterip
 
 Name:              nginx-clusterip
 Namespace:         default
@@ -310,7 +335,7 @@ service "nginx-clusterip" deleted
 Execute o comando a seguir para exportar o pod usando o service NodePort.
 
 ```
-# kubectl expose pods nginx --type=NodePort
+# kubectl expose pods nginx --type=NodePort --port=80
 
 service/nginx exposed
 ```
@@ -414,7 +439,7 @@ service "nginx-nodeport" deleted
 Execute o comando a seguir para exportar o pod usando o service LoadBalancer.
 
 ```
-# kubectl expose pod nginx --type=LoadBalancer
+# kubectl expose pod nginx --type=LoadBalancer --port=80
 
 service/nginx exposed
 ```
@@ -534,9 +559,6 @@ Vamos verificar esse endpoint com mais detalhes.
 ```
 # kubectl describe endpoints kubernetes
 
-NAME         ENDPOINTS           AGE
-kubernetes   172.31.17.67:6443   33m
-root@elliot-01:~# kubectl describe endpoints kubernetes
 Name:         kubernetes
 Namespace:    default
 Labels:       <none>
@@ -731,13 +753,7 @@ NAME    READY   UP-TO-DATE   AVAILABLE   AGE
 nginx   3/3     3            3           24s
 ```
 
-Exportando o deployment nginx no formato YAML.
-
-```
-# kubectl get deployment nginx -o yaml > deployment-limitado.yaml
-```
-
-Edite o arquivo recém exportado.
+Crie o seguinte arquivo.
 
 ```
 # vim deployment-limitado.yaml
@@ -792,6 +808,8 @@ spec:
       terminationGracePeriodSeconds: 30
 ```
 
+> Atenção! **1 core de CPU** corresponde a ``1000m`` (1000 milicore). Ao especificar ``200m``, estamos querendo reservar 20% de 1 core da CPU. Se fosse informado o valor ``0.2`` teria o mesmo efeito, ou seja, seria reservado 20% de 1 core da CPU.
+
 Vamos remover o deployment do nginx.
 
 ```
@@ -842,7 +860,7 @@ stress: info: [221] dispatching hogs: 1 cpu, 0 io, 1 vm, 0 hdd
 
 Aqui estamos _stressando_ o container, utilizando 128M de RAM e um core de CPU. Brinque de acordo com os limites que você estabeleceu.
 
-Quando ultrapassar o limite configurado, você receberá um erro como mostrado a seguir, pois ele não conseguirá alocar os recursos:
+Quando ultrapassar o limite configurado, você receberá um erro como mostrado ao executar o seguinte comando, pois ele não conseguirá alocar os recursos de memória:
 
 ```
 # stress --vm 1 --vm-bytes 512M --cpu 1
@@ -853,9 +871,10 @@ stress: WARN: [230] (417) now reaping child worker processes
 stress: FAIL: [230] (451) failed run completed in 0s
 ```
 
-Removendo o deployment.
+Saia do pod e remova o deployment.
 
 ```
+# exit
 # kubectl delete deployment nginx
 
 deployment.extensions "nginx" deleted
@@ -903,9 +922,9 @@ No resource quota.
 No LimitRange resource.
 ```
 
-Como podemos ver nosso namespace ainda está cru sem configurações, vamos incrementar esse namespace e colocar limite de recursos, para isso vamos utilizar o LimitRange.
+Como podemos ver nosso namespace ainda está cru sem configurações, vamos incrementar esse namespace e colocar limite de recursos, para isso vamos utilizar o ``LimitRange``.
 
-Vamos criar o manifesto do LimitRange:
+Vamos criar o manifesto do ``LimitRange``:
 
 ```
 # vim limitando-recursos.yaml
@@ -932,7 +951,7 @@ spec:
 Agora vamos adicionar esse ``LimitRange`` ao Namespace.
 
 ```
-# kubectl create -f limitando-recursos.yaml -n primeiro-namespace 
+# kubectl create -f limitando-recursos.yaml -n primeiro-namespace
 
 limitrange/limitando-recursos created
 ```
@@ -999,11 +1018,15 @@ spec:
 
 Agora vamos criar um pod fora do namespace default e outro dentro do namespace limitado (primeiro-namespace) e vamos observar os limites de recursos de cada container e como foram aplicados:
 
+Criando o pod no namespace ``default``:
+
 ```
 # kubectl create -f pod-limitrange.yaml
 
 pod/limit-pod created
 ```
+
+Criando o pod no namespace ``primeiro-namespace``:
 
 ```
 # kubectl create -f pod-limitrange.yaml -n primeiro-namespace
@@ -1021,7 +1044,7 @@ default              limit-pod                                 1/1     Running  
 primeiro-namespace   limit-pod                                 1/1     Running   0          5s
 ```
 
-Vamos dver mais detalhes do pod no namespace ``default``.
+Vamos ver mais detalhes do pod no namespace ``default``.
 
 ```
 # kubectl describe pod limit-pod
@@ -1083,6 +1106,17 @@ O Taint nada mais é do que adicionar propriedades ao nó do cluster para impedi
 Por exemplo, todo nó ``master`` do cluster é marcado para não receber pods que não sejam de gerenciamento do cluster.
 
 O nó ``master`` está marcado com o taint ``NoSchedule``, assim o scheduler do Kubernetes não aloca pods no nó master, e procurar outros nós no cluster sem essa marca.
+
+Visualizando os nodes do cluster.
+
+```
+# kubectl get nodes
+
+NAME           STATUS   ROLES    AGE     VERSION
+elliot-01   Ready    master   7d14h   v1.18.2
+elliot-02   Ready    <none>   7d14h   v1.18.2
+elliot-03   Ready    <none>   7d14h   v1.18.2
+```
 
 Visualizando as labels Taints do node ``master``.
 
@@ -1392,11 +1426,29 @@ O Scheduler alocou tudo no nó ``master``, como podemos ver o Taint pode ser usa
 
 Vamos permitir que nosso Scheduler aloque e execute os Pods em todos os nós:
 
-Adicionando o taint em todos os nós do cluster.
+Removendo o taint ``NoSchedule`` em todos os nós do cluster.
 
 ```
 # kubectl taint node --all key1:NoSchedule-
 node/elliot-01 untainted
 node/elliot-02 untainted
 node/elliot-03 untainted
+```
+
+Removendo o taint ``NoExecute`` em todos os nós do cluster.
+
+```
+# kubectl taint node --all key1:NoExecute-
+
+node/kube-worker1 untainted
+node/kube-worker2 untainted
+error: taint "key1:NoExecute" not found
+```
+
+Visualizando os taints dos nodes:
+
+```
+# kubectl describe node elliot-01 | grep -i taint
+
+Taints:             <none>
 ```
