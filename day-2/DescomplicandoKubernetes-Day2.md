@@ -94,7 +94,7 @@ Mais informações em: [https://kubernetes.io/docs/concepts/cluster-administrati
 Criando o pod a partir do manifesto criado no fim do [day-1](../day-1/DescomplicandoKubernetes-Day1.md).
 
 ```
-# kubectl create -f meu_primeiro.yaml
+# kubectl create -f meu-primeiro.yaml
 
 pod/nginx created
 ```
