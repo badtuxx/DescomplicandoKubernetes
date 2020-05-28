@@ -5,7 +5,7 @@
 <!-- TOC -->
 
 - [Descomplicando Kubernetes Day 4](#descomplicando-kubernetes-day-4)
-  - [Sumário](#sum%c3%a1rio)
+  - [Sumário](#sumário)
 - [Volumes](#volumes)
   - [Empty-Dir](#empty-dir)
   - [Persistent Volume](#persistent-volume)
@@ -15,26 +15,6 @@
 - [InitContainers](#initcontainers)
 - [RBAC](#rbac)
 - [Helm](#helm)
-- [wget https://storage.googleapis.com/kubernetes-helm/helm-v2.12.3-linux-amd64.tar.gz](#wget-httpsstoragegoogleapiscomkubernetes-helmhelm-v2123-linux-amd64targz)
-- [tar -vxzf helm-v2.11.0-linux-amd64.tar.gz](#tar--vxzf-helm-v2110-linux-amd64targz)
-- [cd linux-amd64/](#cd-linux-amd64)
-- [mv helm /usr/local/bin/](#mv-helm-usrlocalbin)
-- [mv tiller /usr/local/bin/](#mv-tiller-usrlocalbin)
-- [helm init](#helm-init)
-- [kubectl create serviceaccount --namespace=kube-system tiller](#kubectl-create-serviceaccount---namespacekube-system-tiller)
-- [kubectl create clusterrolebinding tiller-cluster-role --clusterrole=cluster-admin --serviceaccount=kube-system:tiller](#kubectl-create-clusterrolebinding-tiller-cluster-role---clusterrolecluster-admin---serviceaccountkube-systemtiller)
-- [kubectl patch deployments -n kube-system tiller-deploy -p '{"spec":{"template":{"spec":{"serviceAccount":"tiller"}}}}'](#kubectl-patch-deployments--n-kube-system-tiller-deploy--p-%22spec%22%22template%22%22spec%22%22serviceaccount%22%22tiller%22)
-- [helm install --namespace=monitoring --name=prometheus --version=7.0.0 --set alertmanager.persistentVolume.enabled=false,server.persistentVolume.enabled=false stable/prometheus](#helm-install---namespacemonitoring---nameprometheus---version700---set-alertmanagerpersistentvolumeenabledfalseserverpersistentvolumeenabledfalse-stableprometheus)
-- [helm list](#helm-list)
-- [helm search grafana](#helm-search-grafana)
-- [helm install --namespace=monitoring --name=grafana --version=1.12.0 --set=adminUser=admin,adminPassword=admin,service.type=NodePort stable/grafana](#helm-install---namespacemonitoring---namegrafana---version1120---setadminuseradminadminpasswordadminservicetypenodeport-stablegrafana)
-- [helm list](#helm-list-1)
-- [kubectl  get deployments.](#kubectl-get-deployments)
-- [kubectl  get service](#kubectl-get-service)
-- [helm delete prometheus](#helm-delete-prometheus)
-- [helm delete grafana](#helm-delete-grafana)
-- [helm list](#helm-list-2)
-- [helm reset](#helm-reset)
 
 <!-- TOC -->
 
