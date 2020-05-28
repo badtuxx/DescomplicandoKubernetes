@@ -5,7 +5,7 @@
 <!-- TOC -->
 
 - [Extra](#extra)
-  - [Sumário](#sum%c3%a1rio)
+  - [Sumário](#sumário)
 - [Security Context](#security-context)
 - [Utilizando o security Context](#utilizando-o-security-context)
 - [Capabilities](#capabilities)
@@ -27,7 +27,6 @@ Security Context são um conjunto de configurações onde definimos privilégios
 Para utilizar essa configuração precisamos incluir o bloco ```securityCotext``` no manifesto do pod.
 
 Primeiro vamos definir um usuário e grupo para nosso container através das flags ```runAsUser``` e ```runAsGroup``` o usuário e grupo devem ser informados por UID exemplo 1000.
-
 
 ```
 apiVersion: v1
