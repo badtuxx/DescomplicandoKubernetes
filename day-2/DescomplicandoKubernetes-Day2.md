@@ -204,7 +204,7 @@ kubernetes        ClusterIP   10.96.0.1       <none>        443/TCP   28m
 nginx-clusterip   ClusterIP   10.109.70.243   <none>        80/TCP    71s
 ```
 
-Visualizando detalhes do service.
+Visualizando os detalhes do service.
 
 ```
 # kubectl describe service nginx-clusterip
@@ -276,7 +276,7 @@ kubernetes        ClusterIP   10.96.0.1      <none>        443/TCP   29m
 nginx-clusterip   ClusterIP   10.96.44.114   <none>        80/TCP    7s
 ```
 
-Visualizando detalhes do service.
+Visualizando os detalhes do service.
 
 ```
 # kubectl describe service nginx
@@ -380,7 +380,7 @@ kubernetes       ClusterIP   10.96.0.1      <none>        443/TCP        30m
 nginx-nodeport   NodePort    10.102.91.81   <none>        80:31111/TCP   7s
 ```
 
-Visualizando detalhes do service.
+Visualizando os detalhes do service.
 
 ```
 # kubectl describe service nginx
@@ -620,7 +620,7 @@ kubernetes   172.31.17.67:6443                        44m
 nginx        10.32.0.2:80,10.32.0.3:80,10.46.0.2:80   3m31s
 ```
 
-Visualizando detalhes do endpoint nginx.
+Visualizando os detalhes do endpoint nginx.
 
 ```
 # kubectl describe endpoints nginx
@@ -1348,7 +1348,7 @@ Agora vamos aumentar a quantidade de réplicas do nosso pod ``nginx``.
 deployment.apps/nginx scaled
 ```
 
-Visualizando detalhes dos pods.
+Visualizando os detalhes dos pods.
 
 ```
 # kubectl get pods -o wide
