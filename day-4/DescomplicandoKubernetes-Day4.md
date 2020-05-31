@@ -22,9 +22,9 @@
 
 ## Empty-Dir
 
-Um volume do tipo **EmptyDir** é criado sempre que um Pod é atribuído a um nó existente, esse volume é criado inicialmente vazio, e todos os containers do Pod podem ler e gravar arquivos no volume.
+Um volume do tipo **EmptyDir** é criado sempre que um Pod é atribuído a um nó existente. Esse volume é criado inicialmente vazio, e todos os containers do Pod podem ler e gravar arquivos no volume.
 
-Esse volume não é um volume com persistência de dados, sempre que o Pod é removido de um nó, os dados no ``EmptyDir`` são excluídos permanentemente, é importante ressaltar que os dados não são excluídos em casos de falhas nos containers.
+Esse volume não é um volume com persistência de dados. Sempre que o Pod é removido de um nó, os dados no ``EmptyDir`` são excluídos permanentemente. É importante ressaltar que os dados não são excluídos em casos de falhas nos containers.
 
 Vamos criar um Pod para testar esse volume.
 
@@ -72,7 +72,7 @@ NAME                      READY     STATUS    RESTARTS   AGE
 busybox                   1/1       Running   0          12s
 ```
 
-Pronto! Já subimos nosso pod e agora vamos adicionar um arquivo dentro do path/giropops diretamente no Pod criado:
+Pronto! Já subimos nosso pod e agora vamos adicionar um arquivo dentro do path ``/giropops`` diretamente no Pod criado:
 
 ```
 # kubectl exec -ti busybox -c busy -- touch /giropops/funciona
@@ -87,7 +87,7 @@ total 0
 -rw-r--r--    1 root     root             0 Jul  7 17:37 funciona
 ```
 
-Como podemos observar nosso arquivo foi criado corretamente, vamos verificar se esse arquivo também foi criado no volume gerenciado pelo kubelet, para isso precisamos descobrir em qual Nó está alocado o Pod.
+Como podemos observar nosso arquivo foi criado corretamente. Vamos verificar se esse arquivo também foi criado no volume gerenciado pelo kubelet. Para isso precisamos descobrir em qual Nó está alocado o Pod.
 
 ```
 # kubectl get pod -o wide
@@ -125,11 +125,11 @@ pod "busybox" deleted
 No such file or directory
 ```
 
-Opa, recebemos a mensagem de que o diretório não pode ser encontrado, exatamente o que esperamos correto? Porque o volume do tipo EmptyDir não mantém os dados persistentes.
+Opa, recebemos a mensagem de que o diretório não pode ser encontrado, exatamente o que esperamos correto? Porque o volume do tipo **EmptyDir** não mantém os dados persistentes.
 
 ## Persistent Volume
 
-O subsistema **PersistentVolume** fornece uma API para usuários e administradores que resume detalhes de como o armazenamento é fornecido e consumido pelos Pods, para o melhor controle desse sistema foi introduzido dois recursos de API: ``PersistentVolume`` e ``PersistentVolumeClaim``.
+O subsistema **PersistentVolume** fornece uma API para usuários e administradores que resume detalhes de como o armazenamento é fornecido e consumido pelos Pods. Para o melhor controle desse sistema foi introduzido dois recursos de API: ``PersistentVolume`` e ``PersistentVolumeClaim``.
 
 Um **PersistentVolume** (PV) é um recurso no cluster, assim como um nó. Mas nesse caso é um recurso de armazenamento. O PV é uma parte do armazenamento no cluster que foi provisionado por um administrador. Os PVs tem um ciclo de vida independente de qualquer pod associado a ele. Essa API permite armazenamentos do tipo: NFS, ISCSI ou armazenamento de um provedor de nuvem específico.
 
@@ -166,7 +166,7 @@ Agora vamos montar um diretório e dar as permissões necessárias para testar t
 # chmod 1777 /opt/giropops/
 ```
 
-Vamos adicionar esse diretório no NFS Server, e fazer a ativação do mesmo.
+Vamos adicionar esse diretório no NFS Server e fazer a ativação do mesmo.
 
 ```
 # vim /etc/exports
@@ -190,7 +190,7 @@ Vamos criar um arquivo nesse diretório para nosso teste.
 # touch /opt/giropops/FUNCIONA
 ```
 
-Agora vamos criar o manifesto yaml do nosso ``PersistentVolume``, lembre-se de alterar o IP address do campo server para o IP address do node ``elliot-01``.
+Agora vamos criar o manifesto yaml do nosso ``PersistentVolume``. Lembre-se de alterar o IP address do campo server para o IP address do node ``elliot-01``.
 
 ```
 # vim primeiro-pv.yaml
@@ -260,6 +260,7 @@ Events:        <none>
 Agora precisamos criar nosso ``PersitentVolumeClaim``, assim os Pods conseguem solicitar leitura e escrita ao nosso ``PersistentVolume``.
 
 Crie o seguinte arquivo.
+
 ```
 # vim primeiro-pvc.yaml
 ```
@@ -410,7 +411,7 @@ Events:
   Normal  ScalingReplicaSet  7s    deployment-controller  Scaled up replica set nginx-b4bd77674 to 1
 ```
 
-Como podemos observar detalhando nosso pod ele foi criado com o Volume NFS utilizando o ``ClaimName`` com o valor ``primeiro-pvc``.
+Como podemos observar detalhando nosso pod, ele foi criado com o Volume NFS utilizando o ``ClaimName`` com o valor ``primeiro-pvc``.
 
 Vamos detalhar nosso pod para verificar se está tudo certinho.
 
@@ -449,7 +450,7 @@ Volumes:
 ...
 ```
 
-Tudo certo, não? O pod realmente montou o volume /giropops utilizando o volume nfs.
+Tudo certo, não? O pod realmente montou o volume ``/giropops`` utilizando o volume ``nfs``.
 
 Agora vamos listar os arquivos dentro do path no container utilizando nosso exemplo que no caso está localizado no nó `elliot-02`:
 
@@ -509,9 +510,9 @@ Como era de se esperar os arquivos continuam lá e não foram deletados com a ex
 
 # Cron Jobs
 
-Um serviço **CronJob** nada mais é do que uma linha de um arquivo crontab o mesmo arquivo de uma tabela cron. Ele agenda e executa tarefas periodicamente em um determinado cronograma.
+Um serviço **CronJob** nada mais é do que uma linha de um arquivo crontab o mesmo arquivo de uma tabela ``cron``. Ele agenda e executa tarefas periodicamente em um determinado cronograma.
 
-Mas para que podemos usar os Cron Jobs? As Cron são úteis para criar tarefas periódicas e recorrentes, como executar backups ou enviar e-mails.
+Mas para que podemos usar os **Cron Jobs****? As "Cron" são úteis para criar tarefas periódicas e recorrentes, como executar backups ou enviar e-mails.
 
 Vamos criar um exemplo para ver como funciona, bora criar nosso manifesto:
 
@@ -519,7 +520,7 @@ Vamos criar um exemplo para ver como funciona, bora criar nosso manifesto:
 # vim primeiro-cron.yaml
 ```
 
-Informe o seguinte conteúdo:
+Informe o seguinte conteúdo.
 
 ```
 apiVersion: batch/v1beta1
@@ -603,9 +604,9 @@ Events:
   Normal  SuccessfulDelete  1s    cronjob-controller  Deleted job giropops-cron-1534977000
 ```
 
-Olha que bacana, se observar no ``Events`` do cluster o Cron já está agendando e executando as tarefas.
+Olha que bacana, se observar no ``Events`` do cluster o ``cron`` já está agendando e executando as tarefas.
 
-Agora vamos ver esse Cron funcionando através do comando get junto do parâmetro ``--watch`` para verificar a saida das tarefas, preste atenção que a tarefa vai ser criada em cerca de um minuto após a criação do CronJob.
+Agora vamos ver esse ``cron`` funcionando através do comando ``kubectl get`` junto do parâmetro ``--watch`` para verificar a saida das tarefas, preste atenção que a tarefa vai ser criada em cerca de um minuto após a criação do ``CronJob``.
 
 ```
 # kubectl get jobs --watch
@@ -624,9 +625,9 @@ NAME           SCHEDULE      SUSPEND   ACTIVE    LAST SCHEDULE   AGE
 giropops-cron  */1 * * * *   False     1         26s             48m
 ```
 
-Como podemos observar nosso Cron está funcionando corretamente, para visualizar a saída dos comandos executados pela tarefa vamos utilizar o comando ``logs`` do ``kubectl``.
+Como podemos observar que nosso ``cron`` está funcionando corretamente. Para visualizar a saída dos comandos executados pela tarefa vamos utilizar o comando ``logs`` do ``kubectl``.
 
-Para isso vamos listar os pods em execução e em seguida pegar os logs do mesmo.
+Para isso vamos listar os pods em execução e, em seguida, pegar os logs do mesmo.
 
 ```
 # kubectl get pods
@@ -644,9 +645,9 @@ Wed Aug 22 23:19:06 UTC 2018
 LinuxTips VAIIII
 ```
 
-O Cron está executando corretamente as tarefas de  imprimir a data e a frase que criamos no manifesto.
+O ``cron`` está executando corretamente as tarefas de imprimir a data e a frase que criamos no manifesto.
 
-Se executarmos um get pods poderemos ver os Pods criados e utilizados para executar as tarefas a todo minuto.
+Se executarmos um ``kubectl get pods`` poderemos ver os Pods criados e utilizados para executar as tarefas a todo minuto.
 
 ```
 # kubectl get pods
@@ -657,7 +658,11 @@ giropops-cron-1534980420-6czgg   0/1      Completed   0          1m
 giropops-cron-1534980480-4bwcc   1/1      Running     0          4s
 ```
 
-Por padrão o Kubernetes mantém o histórico dos últimos 3 Cron executados, concluídos ou com falhas.
+---
+
+Obs.: Por padrão, o Kubernetes mantém o histórico dos últimos 3 ``cron`` executados, concluídos ou com falhas.
+
+---
 
 Agora vamos deletar nosso CronJob.
 
@@ -671,7 +676,7 @@ cronjob.batch "giropops-cron" deleted
 
 Objetos do tipo **Secret** são normalmente utilizados para armazenar informações confidenciais, como por exemplo tokens e chaves ssh. Deixar senhas e informações confidenciais em arquivo texto não é um bom comportamento visto do olhar de segurança. Colocar essas informações em um objeto ``Secret`` permite que o administrador tenha mais controle sobre eles reduzindo assim o risco de exposição acidental.
 
-Vamos criar nosso primeiro objeto Secret utilizando o arquivo ``secret.txt`` que vamos criar logo a seguir.
+Vamos criar nosso primeiro objeto ``Secret`` utilizando o arquivo ``secret.txt`` que vamos criar logo a seguir.
 
 ```
 # echo -n "descomplicando-k8s" > secret.txt
@@ -702,7 +707,7 @@ Data
 secret.txt:  18 bytes
 ```
 
-Observe que não é possível ver o conteúdo do arquivo utilizando o ``describe``, isso é para proteger a chave de ser exposta acidentalmente. 
+Observe que não é possível ver o conteúdo do arquivo utilizando o ``describe``, isso é para proteger a chave de ser exposta acidentalmente.
 
 Para verificar o conteúdo de um ``Secret`` precisamos decodificar o arquivo gerado, para fazer isso temos que verificar o manifesto do do mesmo.
 
@@ -790,7 +795,7 @@ descomplicando-k8s
 
 Sucesso, esse é um dos modos de colocar informações ou senha dentro de nossos Pods, mas existe um jeito ainda mais bacana utilizando os Secrets como variável de ambiente.
 
-Vamos dar uma olhada nesse cara, primeiro vamos criar um novo objeto secret usando chave literal com chave e valor.
+Vamos dar uma olhada nesse cara, primeiro vamos criar um novo objeto ``Secret`` usando chave literal com chave e valor.
 
 ```
 # kubectl create secret generic my-literal-secret --from-literal user=linuxtips --from-literal password=catota
@@ -878,7 +883,7 @@ KUBERNETES_PORT_443_TCP=tcp://10.96.0.1:443
 HOME=/root
 ```
 
-Viram. Agora podemos utilizar essa chave dentro do container como variável de ambiente, caso alguma aplicação dentro do container precise se conectar ao um banco de dados por exemplo utilizando usuário e senha , basta criar um secret com essas informações e referenciar dentro de um Pod depois é só consumir dentro do Pod como variável de ambiente ou um arquivo texto criando volumes.
+Viram? Agora podemos utilizar essa chave dentro do container como variável de ambiente, caso alguma aplicação dentro do container precise se conectar ao um banco de dados por exemplo utilizando usuário e senha, basta criar um ``secret`` com essas informações e referenciar dentro de um Pod depois é só consumir dentro do Pod como variável de ambiente ou um arquivo texto criando volumes.
 
 # ConfigMaps
 
@@ -886,7 +891,7 @@ Os Objetos do tipo **ConfigMaps** são utilizados para separar arquivos de confi
 
 Para nosso exemplo vamos utilizar um ``ConfigMaps`` configurado com dois arquivos e  um valor literal.
 
-Vamos criar um diretório chamado frutas e nele vamos adicionar frutas e suas características.
+Vamos criar um diretório chamado ``frutas`` e nele vamos adicionar frutas e suas características.
 
 ```
 # mkdir frutas
@@ -1143,6 +1148,7 @@ Events:
 # kubectl create clusterrolebinding toskeria --serviceaccount=default:jeferson --clusterrole=cluster-admin
 
 # vim admin-user.yaml
+
 apiVersion: v1
 kind: ServiceAccount
 metadata:
@@ -1150,6 +1156,7 @@ metadata:
   namespace: kube-system
 
 # vim admin-cluster-role-binding.yaml
+
 apiVersion: rbac.authorization.k8s.io/v1beta1
 kind: ClusterRoleBinding
 metadata:
