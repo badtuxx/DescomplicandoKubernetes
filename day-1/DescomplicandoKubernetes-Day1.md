@@ -195,7 +195,7 @@ Após isso, vamos instalar o ``kubectl`` com os seguintes comandos.
 
 # chmod +x ./kubectl
 
-# sudo mv ./kubectl /usr/local/bin/kubectl
+# mv ./kubectl /usr/local/bin/kubectl
 
 # kubectl version --client
 ```
@@ -206,7 +206,7 @@ Efetue o download e a instalação do ``Minikube`` utilizando os seguintes coman
 
 ```
 # curl -Lo minikube https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64 && chmod +x minikube
-# sudo mv minikube /usr/local/bin
+# mv minikube /usr/local/bin
 ```
 
 ## Instalação do Minikube no MacOS
@@ -238,7 +238,7 @@ Já com o método tradicional, a instalação pode ser realizada com os seguinte
 
 # chmod +x ./kubectl
 
-# sudo mv ./kubectl /usr/local/bin/kubectl
+# mv ./kubectl /usr/local/bin/kubectl
 
 # kubectl version --client
 ```
@@ -253,7 +253,7 @@ Ou:
 
 ```
 # curl -Lo minikube https://storage.googleapis.com/minikube/releases/latest/minikube-darwin-amd64 && chmod +x minikube
-# sudo mv minikube /usr/local/bin
+# mv minikube /usr/local/bin
 ```
 
 ## kubectl: alias e autocomplete
@@ -410,12 +410,12 @@ Existem alguns tipos de instalação do Microk8s:
 BASH:
 
 ```
-# sudo snap install microk8s --classic --channel=1.18/stable
-# sudo usermod -a -G microk8s $USER
-# sudo chown -f -R $USER ~/.kube
+# snap install microk8s --classic --channel=1.18/stable
+# usermod -a -G microk8s $USER
+# chown -f -R $USER ~/.kube
 # su - $USER
-# sudo microk8s status --wait-ready
-# sudo microk8s enable dns dashboard registry
+# microk8s status --wait-ready
+# microk8s enable dns dashboard registry
 # alias kubectl='microk8s kubectl'
 ```
 
@@ -448,8 +448,8 @@ PowerShell Admin:
 
 ```
 # multipass launch --name microk8s-vm --mem 4G --disk 40G
-# multipass exec microk8s-vm -- sudo snap install microk8s --classic
-# multipass exec microk8s-vm -- sudo iptables -P FORWARD ACCEPT
+# multipass exec microk8s-vm -- snap install microk8s --classic
+# multipass exec microk8s-vm -- iptables -P FORWARD ACCEPT
 # multipass list
 
 Name                    State             IPv4             Release
@@ -517,7 +517,7 @@ Para fazer a instalação no Linux, execute os seguintes comandos.
 ```
 # curl -Lo ./kind https://kind.sigs.k8s.io/dl/v0.8.1/kind-$(uname)-amd64
 # chmod +x ./kind
-# sudo mv ./kind /usr/local/bin/kind
+# mv ./kind /usr/local/bin/kind
 ```
 
 ## Instalaçao no MacOS
@@ -1027,8 +1027,8 @@ Como dito anteriormente e de forma similar ao Docker Swarm, o próprio kubeadm j
 
 ```
 # mkdir -p $HOME/.kube
-# sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
-# sudo chown $(id -u):$(id -g) $HOME/.kube/config
+# cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+# chown $(id -u):$(id -g) $HOME/.kube/config
 ```
 
 ## Inserindo os nós workers no cluster
