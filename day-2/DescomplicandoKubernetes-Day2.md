@@ -37,7 +37,7 @@
 
 **[kube-scheduller](https://kubernetes.io/docs/concepts/overview/components/#kube-apiserver)** usa um algoritmo para verificar em qual node o pod deverá ser hospedado. Ele verifica os recursos disponíveis do node para verificar qual o melhor node para receber aquele pod.
 
-No **[ETCD](https://kubernetes.io/docs/concepts/overview/components/#etcd)** são armazenados o estado do cluster, rede e outras informações persistentes. 
+No **[ETCD](https://kubernetes.io/docs/concepts/overview/components/#etcd)** são armazenados o estado do cluster, rede e outras informações persistentes.
 
 **[kube-controller-manager](https://kubernetes.io/docs/concepts/overview/components/#cloud-controller-manager)** é o controle principal que interage com o kube-apiserver para determinar o seu estado. Se o estado não bate, o manager irá contactar o controller necessário para checar seu estado desejado. Tem diversos controllers em uso como: os endpoints, namespace e replication.
 
@@ -47,7 +47,7 @@ O **[kube-proxy](https://kubernetes.io/docs/concepts/overview/components/#kube-p
 
 **[Supervisord](http://supervisord.org/)** é o responsável por monitorar e restabelecer, se necessário, o kubelet e o docker. Por esse motivo, quando existe algum problema em relação ao kubelet, como por exemplo o uso do driver ``cgroup`` diferente do que está rodando no Docker, você perceberá que ele ficará tentando subir o kubelet frequentemente.
 
-**[Pod](https://kubernetes.io/docs/concepts/workloads/pods/pod-overview/)** é a menor unidade que você irá tratar no k8s. Você poderá ter mais de um container por Pod, porém vale lembrar que eles dividirão os mesmos recursos, como por exemplo IP. Uma das boas razões para se ter mais de um container em um Pod é o fato de você ter os logs consolidados..
+**[Pod](https://kubernetes.io/docs/concepts/workloads/pods/pod-overview/)** é a menor unidade que você irá tratar no k8s. Você poderá ter mais de um container por Pod, porém vale lembrar que eles dividirão os mesmos recursos, como por exemplo IP. Uma das boas razões para se ter mais de um container em um Pod é o fato de você ter os logs consolidados.
 
 O Pod, por poder possuir diversos containers, muitas das vezes se assemelha a uma VM, onde você poderia ter diversos serviços rodando compartilhando o mesmo IP e demais recursos.
 
@@ -119,6 +119,7 @@ Execute o seguinte comando para visualizar mais detalhes do service nginx.
 
 ```
 # kubectl describe service nginx
+
 Name:              nginx
 Namespace:         default
 Labels:            run=nginx
@@ -203,7 +204,7 @@ kubernetes        ClusterIP   10.96.0.1       <none>        443/TCP   28m
 nginx-clusterip   ClusterIP   10.109.70.243   <none>        80/TCP    71s
 ```
 
-Visualizando detalhes do service.
+Visualizando os detalhes do service.
 
 ```
 # kubectl describe service nginx-clusterip
@@ -275,7 +276,7 @@ kubernetes        ClusterIP   10.96.0.1      <none>        443/TCP   29m
 nginx-clusterip   ClusterIP   10.96.44.114   <none>        80/TCP    7s
 ```
 
-Visualizando detalhes do service.
+Visualizando os detalhes do service.
 
 ```
 # kubectl describe service nginx
@@ -379,7 +380,7 @@ kubernetes       ClusterIP   10.96.0.1      <none>        443/TCP        30m
 nginx-nodeport   NodePort    10.102.91.81   <none>        80:31111/TCP   7s
 ```
 
-Visualizando detalhes do service.
+Visualizando os detalhes do service.
 
 ```
 # kubectl describe service nginx
@@ -437,7 +438,6 @@ service "nginx" deleted
 ```
 
 Agora vamos criar service LoadBalancer, porém vamos criar um yaml com suas definições.
-
 
 ```
 # vim primeiro-service-loadbalancer.yaml
@@ -574,6 +574,7 @@ deployment.apps/nginx scaled
 ```
 
 Observando os deployments.
+
 ```
 # kubectl get deployments.apps
 
@@ -619,7 +620,7 @@ kubernetes   172.31.17.67:6443                        44m
 nginx        10.32.0.2:80,10.32.0.3:80,10.46.0.2:80   3m31s
 ```
 
-Visualizando detalhes do endpoint nginx.
+Visualizando os detalhes do endpoint nginx.
 
 ```
 # kubectl describe endpoints nginx
@@ -1347,7 +1348,7 @@ Agora vamos aumentar a quantidade de réplicas do nosso pod ``nginx``.
 deployment.apps/nginx scaled
 ```
 
-Visualizando detalhes dos pods.
+Visualizando os detalhes dos pods.
 
 ```
 # kubectl get pods -o wide
@@ -1370,6 +1371,7 @@ node/elliot-02 tainted
 ```
 
 Adicionando o taint no slave 2.
+
 ```
 # kubectl taint node elliot-03 key1=value1:NoExecute
 
@@ -1404,6 +1406,7 @@ Removendo o taint ``NoSchedule`` em todos os nós do cluster.
 
 ```
 # kubectl taint node --all key1:NoSchedule-
+
 node/elliot-01 untainted
 node/elliot-02 untainted
 node/elliot-03 untainted

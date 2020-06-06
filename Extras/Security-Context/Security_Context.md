@@ -14,7 +14,7 @@
 
 # Security Context
 
-Security Context são um conjunto de configurações onde definimos privilégios e acessos a um pod. Essas configurações incluem:
+**Security Context** são um conjunto de configurações onde definimos privilégios e acessos a um pod. Essas configurações incluem:
 
 * Definir o usuário e grupo do container;
 * Se o container será um container privilegiado;
@@ -26,7 +26,7 @@ Security Context são um conjunto de configurações onde definimos privilégios
 
 Para utilizar essa configuração precisamos incluir o bloco ```securityCotext``` no manifesto do pod.
 
-Primeiro vamos definir um usuário e grupo para nosso container através das flags ```runAsUser``` e ```runAsGroup``` o usuário e grupo devem ser informados por UID exemplo 1000.
+Primeiro vamos definir um usuário e grupo para nosso container através das flags ```runAsUser``` e ```runAsGroup```. O usuário e grupo devem ser informados por ``UID``. Exemplo: ``1000``.
 
 ```
 apiVersion: v1
@@ -43,7 +43,7 @@ spec:
     command: [ "sh", "-c", "sleep 1h" ]
 ```
 
-No exemplo acima utilizamos o user/grup ID ``1000`` para o container.
+No exemplo anterior utilizamos o user/grup ID ``1000`` para o container.
 
 Vamos executar o comando ``` kubectl exec busy-security-user -- id ``` no container e verificar com o comando ```id``` nosso usuário e grupo.
 
@@ -89,9 +89,9 @@ As configurações declaradas em containers sempre serão prioritárias e irão 
 
 # Capabilities
 
-Nos sistemas UNIX existem basicamente duas categorias de processos: processos privilegiados que são executados como o UID 0 (root ou superusuario) e os não privilegiados que possuem o UID diferente de 0.
+Nos sistemas UNIX existem basicamente duas categorias de processos: **processos privilegiados** que são executados como o ``UID 0`` (``root`` ou superusuario) e os **não privilegiados** que possuem o ``UID`` **diferente** de ``0``.
 
-Os processos privilegiados dão "bypass" em todas as verificações do kernel, já os processos não-privilegiados passam por algumas checagens como UID,GID,ACLS.
+Os processos privilegiados dão *bypass* em todas as verificações do kernel. Já os processos não-privilegiados passam por algumas checagens como ``UID``, ``GID`` e ``ACLS``.
 
 Começando no kernel 2.2, o Linux dividiu as formas tradicionais de privilégios associados ao superusuários em unidades diferentes, agora conhecidas como ```capabilities```, que podem ser habilitadas e desabilitadas independentemente umas das outras. Essas capacidades são atribuídas por thread.
 

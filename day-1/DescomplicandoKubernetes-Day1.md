@@ -41,7 +41,8 @@
   - [Instalaçao no MacOS](#instalaçao-no-macos)
   - [Instalação no Windows](#instalação-no-windows-1)
     - [Instalação no Windows via Chocolatey](#instalação-no-windows-via-chocolatey)
-  - [Criando um Cluster com o Kind](#criando-um-cluster-com-o-kind)
+  - [Criando um cluster com o Kind](#criando-um-cluster-com-o-kind)
+    - [Criando um cluster com múltiplos nós locais com o Kind](#criando-um-cluster-com-múltiplos-nós-locais-com-o-kind)
 - [k3s](#k3s)
 - [Instalação em cluster com três nós](#instalação-em-cluster-com-três-nós)
   - [Requisitos básicos](#requisitos-básicos-2)
@@ -545,7 +546,7 @@ Execute o seguinte comando para instalar o Kind no Windows usando o Chocolatey.
 # choco install kind
 ```
 
-## Criando um Cluster com o Kind
+## Criando um cluster com o Kind
 
 Após realizar a instalação do Kind, vamos iniciar o nosso cluster.
 
@@ -605,15 +606,19 @@ NAME                 STATUS   ROLES    AGE     VERSION
 kind-control-plane   Ready    master   3m51s   v1.18.2
 ```
 
-## Criando um cluster com múltiplos nós locais
+### Criando um cluster com múltiplos nós locais com o Kind
 
-! Referência: [kind multi-cluster](https://kubernetes.io/blog/2020/05/21/wsl-docker-kubernetes-on-the-windows-desktop/)
+É possível para essa aula incluir múltiplos nós na estrutura do Kind, que foi mencionado anteriormente.
 
-É possível para essa aula incluir multiplos nós a estrutura do kind que foi mencionado na primeira sessão desse manual.
+Execute o comando a seguir para selecionar e remover todos os clusters locais criados no Kind.
+
 ```
-# seleciona e apaga todos os clusters
-kind delete clusters $(kind get clusters)
-# define uma arquivo de configuração para quantos nós no cluster e os tipos de nós
+# kind delete clusters $(kind get clusters)
+```
+
+Crie um arquivo de configuração para definir quantos e o tipo de nós no cluster que você deseja. No exemplo a seguir, será criado o arquivo de configuração ``kind-3nodes.yaml`` para especificar um cluster com 1 nó master (que executará o control plane) e 2 workers.
+
+```
 cat << EOF > kind-3nodes.yaml
 kind: Cluster
 apiVersion: kind.x-k8s.io/v1alpha4
@@ -622,14 +627,43 @@ nodes:
   - role: worker
   - role: worker
 EOF
-# Cria cluster com base nas especificações acima
-kind create cluster --name wslkindmultinodes --config ./kind-3nodes.yaml
-# Valida a criação do cluster (lembrando que a configuração e instalação do kind está na primeira sessão)
-kubectl get nodes
 ```
-Com as configurações acima os comandos que se seguem podem ser validados localmente, sem a necessidade de uma conta na AWS ou outra cloud pública, apesar de sua utilização ser recomendado para treinamento.
+
+Crie um cluster chamado ``kind-multinodes`` utilizando as especificações definidas no arquivo ``kind-3nodes.yaml``.
+
+```
+# kind create cluster --name kind-multinodes --config ./kind-3nodes.yaml
+
+Creating cluster "kind-multinodes" ...
+ ✓ Ensuring node image (kindest/node:v1.18.2) 🖼
+ ✓ Preparing nodes 📦 📦 📦
+ ✓ Writing configuration 📜
+ ✓ Starting control-plane 🕹️
+ ✓ Installing CNI 🔌
+ ✓ Installing StorageClass 💾
+ ✓ Joining worker nodes 🚜
+Set kubectl context to "kind-kind-multinodes"
+You can now use your cluster with:
+
+kubectl cluster-info --context kind-kind-multinodes
+
+Have a question, bug, or feature request? Let us know! https://kind.sigs.k8s.io/#community 🙂
+```
+
+Valide a criação do cluster com o comando a seguir.
+
+```
+# kubectl get nodes
+
+NAME                            STATUS   ROLES    AGE     VERSION
+kind-multinodes-control-plane   Ready    master   3m3s    v1.18.2
+kind-multinodes-worker          Ready    <none>   2m30s   v1.18.2
+kind-multinodes-worker2         Ready    <none>   2m30s   v1.18.2
+```
 
 Mais informações sobre o Kind estão disponíveis em: https://kind.sigs.k8s.io
+
+! Referência: [kind multi-cluster](https://kubernetes.io/blog/2020/05/21/wsl-docker-kubernetes-on-the-windows-desktop/)
 
 # k3s
 

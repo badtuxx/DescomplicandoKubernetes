@@ -5,10 +5,10 @@
 
 <!-- TOC -->
 
-- [Manutenção do Cluster](#manuten%c3%a7%c3%a3o-do-cluster)
-  - [Sumário](#sum%c3%a1rio)
-- [O que preciso saber antes de começar?](#o-que-preciso-saber-antes-de-come%c3%a7ar)
-- [O que é o ETCD?](#o-que-%c3%a9-o-etcd)
+- [Manutenção do Cluster](#manutenção-do-cluster)
+  - [Sumário](#sumário)
+- [O que preciso saber antes de começar?](#o-que-preciso-saber-antes-de-começar)
+- [O que é o ETCD?](#o-que-é-o-etcd)
 - [ETCD no Kubernetes](#etcd-no-kubernetes)
 - [Certificados ETCD](#certificados-etcd)
 - [Interagindo com o ETCD](#interagindo-com-o-etcd)
@@ -37,17 +37,17 @@ Em um banco de dados de chave-valor, quando consultamos e obtemos a chave, é re
 |:--:| 
 | *Banco de dados chave-valor* |
 
-Quando consultamos a chave k1, o resultado  retornado é o valor : AAA,BBB,CCC
+Quando consultamos a chave ``k1``, o resultado  retornado é o valor: ``AAA,BBB,CCC``
 
-Quando consultamos a chave k5, o resultado retornado é o valor : 3,ZZZ,5623
+Quando consultamos a chave ``k5``, o resultado retornado é o valor: ``3,ZZZ,5623``
 
 # ETCD no Kubernetes
 
-No kubernetes, o ETCD é responsável por registrar todo tipo de informação do cluster, como nodes, roles, pods, configs, accounts, secrets, etc.
+No kubernetes, o ETCD é responsável por registrar todo tipo de informação do cluster, tais como: ``nodes``, ``roles``, ``pods``, ``configs``, ``accounts``, ``secrets``, etc.
 
-Quando o cluster é iniciado pelo ***kubeadm***, um pod do etcd é criado no master node.
+Quando o cluster é iniciado pelo ***kubeadm***, um pod do ``etcd`` é criado no node ``master``.
 
-Toda informação que é apresentada ao usuário quando executado "kubect get" são informações armazenadas no ETCD.
+Toda informação que é apresentada ao usuário quando executado o comando ``kubect get`` são informações armazenadas no ETCD.
 
 Vejamos se o *pod etcd* foi criado com sucesso com o seguinte comando.
 
@@ -89,7 +89,7 @@ Parâmetros:
 --trusted-ca-file
 ```
 
-Essas chaves vão ser utilizadas pelos demais componentes do cluster como por exemplo o API Server possam conectar e fazerem alterações.
+Essas chaves vão ser utilizadas pelos demais componentes do cluster como, por exemplo, o **API Server** possam conectar e fazerem alterações.
 
 ```
 # kubectl describe pod kube-apiserver -n kube-system
@@ -103,7 +103,7 @@ Parâmetros:
 --etcd-keyfile
 ```
 
-Então para toda e qualquer interação com o ETCD vamos precisar utililizar esses certificados para nos autenticar.
+Então, para toda e qualquer interação com o ETCD vamos precisar utililizar esses certificados para nos autenticar.
 
 # Interagindo com o ETCD
 
@@ -111,7 +111,7 @@ Para interagir com o ETCD vamos precisar o ``etcdctl`` ou utilizar o próprio co
 
 Referência: https://github.com/etcd-io/etcd/tree/master/etcdctl
 
-Baixando a ultima versão do etc:
+Baixando a ultima versão do etcd:
 
 Linux:
 ```
@@ -140,7 +140,7 @@ Linux:
 
 Referência: https://github.com/etcd-io/etcd/releases
 
-Como vimos anteriormente vamos precisar utilizar os certificados para nos autenticar, vamos fornecer os dados nos seguintes parâmetros no comando:
+Como vimos anteriormente, vamos precisar utilizar os certificados para nos autenticar. Vamos fornecer os dados nos seguintes parâmetros no comando:
 
 ```
 --cacert
@@ -148,7 +148,7 @@ Como vimos anteriormente vamos precisar utilizar os certificados para nos autent
 --cert
 ```
 
-Além disso vamos precisar do endpoint, caso esteja no container do ETCD seu endpoint será 127.0.0.1:2379
+Além disso vamos precisar do endpoint, caso esteja no container do ETCD seu endpoint será ``127.0.0.1:2379``.
 
 A sua URL para o endpoint vai estar na flag ```--advertise-client-urls``` nas configurações do ETCD.
 
@@ -211,9 +211,9 @@ Output:
 /registry/apiregistration.k8s.io/apiservices/v1beta1.authorization.k8s.io
 ```
 
-Aqui temos uma parte do conteúdo da  resposta do get no "/" do ETCD, onde listamos todas as chaves do etcd.
+Aqui temos uma parte do conteúdo da  resposta do get no ``/`` do ETCD, onde listamos todas as chaves do etcd.
 
-Em um exemplo um pouco mais prático vamos listar apenas as chaves dos pods no namespace ``default``, o parâmetro para que o output contenha apenas as chaves é ```--keys-only```.
+Em um exemplo um pouco mais prático, vamos listar apenas as chaves dos pods no namespace ``default``. O parâmetro para que o output contenha apenas as chaves é ```--keys-only```.
 
 ```
 # kubectl exec -it etcd-minikube -n kube-system \
@@ -230,7 +230,7 @@ Output:
 /registry/pods/default/nginx
 ```
 
-Agora vamos ver os valores contidos na chave ``/registry/pods/default/nginx`` onde estão as configurações do pod. Vamos remover o parâmetro ```--keys-only``` para que possamos ver os valores da chave.
+Agora vamos ver os valores contidos na chave ``/registry/pods/default/nginx``, onde estão as configurações do pod. Vamos remover o parâmetro ```--keys-only``` para que possamos ver os valores da chave.
 
 ```
 # kubectl exec -it etcd-minikube -n kube-system \
@@ -344,7 +344,7 @@ snapshot save snapshot.db
 
 Para a prova do CKA é bem relevante saber como o ETCD funciona.
 
-O assunto do ETCD está relacionado aos  11% do Cluster Maintenance.
+O assunto do ETCD está relacionado aos 11% do Cluster Maintenance.
 
 Porém, pode ser que você seja obrigado a salvar esse **snapshot** em um diretório específico. Exemplo: ``/tmp/``.
 
