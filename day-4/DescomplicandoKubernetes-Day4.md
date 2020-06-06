@@ -147,7 +147,7 @@ No Debian/Ubuntu:
 # apt-get install nfs-kernel-server -y
 ```
 
-No CentOS/RedHat:
+No CentOS/RedHat tanto no servidor quanto nos nodes o pacote será o mesmo:
 
 ```
 # sudo yum install nfs-utils -y
