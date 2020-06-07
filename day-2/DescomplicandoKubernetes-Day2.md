@@ -55,6 +55,8 @@ O Pod, por poder possuir diversos containers, muitas das vezes se assemelha a um
 
 # Principais Comandos
 
+A figura a seguir mostra a estrutura dos principais comandos do kubectl.
+
 | ![Principais Comandos](../images/kubernetes_commands.png) |
 |:---------------------------------------------------------------------------------------------:|
 | *Principais comandos [Ref: uploaddeimagens.com.br](https://uploaddeimagens.com.br/images/002/667/919/full/Kubernetes-Comandos.png)*                                                                      |
