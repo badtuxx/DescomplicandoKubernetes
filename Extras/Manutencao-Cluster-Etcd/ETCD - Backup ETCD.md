@@ -358,3 +358,18 @@ Com isso, o comando ficaria assim:
 --endpoints [127.0.0.1:2379]  \
 snapshot save /tmp/snapshot.db
 ```
+
+Para fazer o restore usando o arquivo de backup /tmp/snapshot.db podemos executar os seguintes comandos:
+
+```
+ETCDCTL_API=3 etcdctl \
+--cacert /var/lib/minikube/certs/etcd/ca.crt \
+--key /var/lib/minikube/certs/etcd/server.key \
+--cert /var/lib/minikube/certs/etcd/server.crt \
+--endpoints 127.0.0.1:2379  \
+snapshot restore /tmp/snapshot.db
+
+mv /var/lib/etcd/member /var/lib/etcd/member.old
+mv /var/lib/etcd/default.etcd/member /var/lib/etcd/
+```
+
