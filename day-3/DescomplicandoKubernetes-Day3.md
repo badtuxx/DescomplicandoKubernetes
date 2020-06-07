@@ -159,7 +159,7 @@ primeiro-deployment-68c9dbf8b8-kjqpt 1/1    Running   0          19s
 segundo-deployment-59db86c584-cf9pp  1/1    Running   0          15s
 ```
 
-Visualizando os detalhes do ``pod`` criado a partir do **primeiro deployment**.
+Visualizando os detalhes do ``pod`` criado a partir do **primeiro deployment**:
 
 ```
 # kubectl describe pod primeiro-deployment-68c9dbf8b8-kjqpt
@@ -216,7 +216,7 @@ Events:
   Normal  Started    44s   kubelet, elliot-02  Started container
 ```
 
-Visualizando os detalhes do ``pod`` criado a partir do **segundo deployment**.
+Visualizando os detalhes do ``pod`` criado a partir do **segundo deployment**:
 
 ```
 # kubectl describe pod segundo-deployment-59db86c584-cf9pp
@@ -273,7 +273,7 @@ Events:
   Normal  Started    2m    kubelet, elliot-02  Started container
 ```
 
-Visualizando os detalhes do **primeiro deployment**.
+Visualizando os detalhes do **primeiro deployment**:
 
 ```
 # kubectl describe deployment primeiro-deployment
@@ -313,7 +313,7 @@ Events:
   Normal  ScalingReplicaSet  3m    deployment-controller  Scaled up replica set primeiro-deployment-68c9dbf8b8 to 1
 ```
 
-Visualizando os detalhes do **segundo deployment**.
+Visualizando os detalhes do **segundo deployment**:
 
 ```
 # kubectl describe deployment segundo-deployment
@@ -398,14 +398,13 @@ primeiro-deployment-68c9...  1/1   Running  0        5m  UK
 segundo-deployment-59db ...  1/1   Running  0        5m  Netherlands
 ```
 
-
 ## Node Selector
 
 O **Node Selector** é uma forma de classificar nossos nodes como por exemplo nosso node ``elliot-02`` que possui disco **SSD** e está localizado no DataCenter ``UK``, e o node ``elliot-03`` que possui disco **HDD** e está localizado no DataCenter ``Netherlands``.
 
 Agora que temos essas informações vamos criar essas labels em nossos nodes, para utilizar o ``nodeSelector``.
 
-Criando a label ``disk`` com o valor ``SSD`` no slave 1.
+Criando a label ``disk`` com o valor ``SSD`` no slave 1:
 
 ```
 # kubectl label node elliot-02 disk=SSD
@@ -413,7 +412,7 @@ Criando a label ``disk`` com o valor ``SSD`` no slave 1.
 node/elliot-02 labeled
 ```
 
-Criando a label ``dc`` com o valor ``UK`` no slave 1.
+Criando a label ``dc`` com o valor ``UK`` no slave 1:
 
 ```
 # kubectl label node elliot-02 dc=UK
@@ -421,7 +420,7 @@ Criando a label ``dc`` com o valor ``UK`` no slave 1.
 node/elliot-02 labeled
 ```
 
-Criando a label ``dc`` com o valor ``Netherlands`` no slave 2.
+Criando a label ``dc`` com o valor ``Netherlands`` no slave 2:
 
 ```
 # kubectl label node elliot-03 dc=Netherlands
@@ -429,7 +428,7 @@ Criando a label ``dc`` com o valor ``Netherlands`` no slave 2.
 node/elliot-03 labeled
 ```
 
-Criando a label ``disk`` com o valor ``hdd`` no slave 2.
+Criando a label ``disk`` com o valor ``hdd`` no slave 2:
 
 ```
 # kubectl label nodes elliot-03 disk=hdd
@@ -528,7 +527,7 @@ Crie o deployment a partir do manifesto:
 deployment.extensions/terceiro-deployment created
 ```
 
-Visualizando os detalhes dos pods.
+Visualizando os detalhes dos pods:
 
 ```
 # kubectl get pods -o wide
@@ -539,13 +538,13 @@ segundo-deployment-869f...  1/1   Running  0      14m  172.17.0.5 elliot-03
 terceiro-deployment-59cd... 1/1   Running  0      22s  172.17.0.6 elliot-02
 ```
 
-Removendo a label ``dc`` de um node slave.
+Removendo a label ``dc`` de um node slave:
 
 ```
 # kubectl label nodes elliot-02 dc-
 ```
 
-Removendo uma determinada label de todos os nodes.
+Removendo uma determinada label de todos os nodes:
 
 ```
 # kubectl label nodes --all dc-
@@ -792,7 +791,7 @@ Veja que ele não cria um deployment para esse replicaset:
 
 Perceba que não é listado um deployment relacionado ao ``replica-set-primeiro``.
 
-Agora vamos editar um dos pods e modificar a versão da imagem do Nginx que estamos utilizando no exemplo, vamos alterar de ``image: nginx:1.7.9_`` para ``image: nginx:1.15.0`` utilizando o ``kubectl edit``.
+Agora vamos editar um dos pods e modificar a versão da imagem do Nginx que estamos utilizando no exemplo. Vamos alterar de ``image: nginx:1.7.9_`` para ``image: nginx:1.15.0`` utilizando o ``kubectl edit``.
 
 Editando o pod:
 
@@ -883,7 +882,7 @@ replica-set-primeiro-s5dz2   1/1       Running   0          13m
 replica-set-primeiro-xzfvg   1/1       Running   0          5s
 ```
 
-Visualizando os detalhes do pods.
+Visualizando os detalhes do pods:
 
 ```
 # kubectl describe pod replica-set-primeiro-xzfvg
@@ -987,7 +986,7 @@ NAME                  DESIRED  CURRENT  READY  UP-TO-DATE ... AGE
 daemon-set-primeiro   3        3        3      3              30s
 ```
 
-Visualizando os detalhes do DaemonSet.
+Visualizando os detalhes do DaemonSet:
 
 ```
 # kubectl describe ds daemon-set-primeiro
@@ -1021,7 +1020,7 @@ Events:
   Normal  SuccessfulCreate  412    daemonset-controller  Created pod: daemon-set-primeiro-t9rv9
 ```
 
-Visualizando os detalhes dos pods.
+Visualizando os detalhes dos pods:
 
 ```
 # kubectl get pods -o wide
@@ -1042,7 +1041,7 @@ Vamos alterar a imagem desse pod diretamente no DaemonSet, usando o comando ``ku
 daemonset.extensions/daemon-set-primeiro image updated
 ```
 
-Vamos confirmar se a imagem foi realmente alterada.
+Vamos confirmar se a imagem foi realmente alterada:
 
 ```
 # kubectl describe ds daemon-set-primeiro
@@ -1209,7 +1208,7 @@ Obs.: Por padrão, o DaemonSet guarda apenas as 10 últimas revisions. Para alte
 # kubectl edit daemonsets.apps daemon-set-primeiro
 ```
 
-Altere a quantidade no parâmetro ``revisionHistoryLimit``.
+Altere a quantidade no parâmetro ``revisionHistoryLimit``:
 
 ```
   revisionHistoryLimit: 10
@@ -1217,7 +1216,7 @@ Altere a quantidade no parâmetro ``revisionHistoryLimit``.
 
 ---
 
-Voltando à nossa linha de raciocínio, para acompanhar o rollout, execute o seguinte comando.
+Voltando à nossa linha de raciocínio, para acompanhar o rollout, execute o seguinte comando:
 
 ```
 # kubectl rollout status ds daemon-set-primeiro
@@ -1235,7 +1234,7 @@ Não funcionou, por quê? Porque teremos que matar o Pod para ele ser recriado c
 
 Vamos afinar esse nosso DamonSet, vamos adicionar o ``RollingUpdate`` e esse cara vai atualizar automaticamente os Pods quando houver alguma alteração.
 
-Vamos lá, primeiro vamos remover o ``DaemonSet``, adicionar duas novas informações em nosso manifesto yaml e, em seguida, criar outro DaemonSet em seu lugar.
+Vamos lá, primeiro vamos remover o ``DaemonSet``, adicionar duas novas informações em nosso manifesto yaml e, em seguida, criar outro DaemonSet em seu lugar:
 
 ```
 # kubectl delete -f primeiro-daemonset.yaml
@@ -1274,7 +1273,7 @@ spec:
     type: RollingUpdate
 ```
 
-Crie o DaemonSet.
+Crie o DaemonSet:
 
 ```
 # kubectl create -f primeiro-daemonset.yaml
@@ -1291,10 +1290,11 @@ NAME                  DESIRED   CURRENT   READY  ...  AGE
 daemon-set-primeiro   3         3         3      ...  5m
 ```
 
-Visualizando os detalhes do DaemonSet.
+Visualizando os detalhes do DaemonSet:
 
 ```
 # kubectl describe ds daemon-set-primeiro
+
 Name:           daemon-set-primeiro
 Selector:       system=DaemonOne
 Node-Selector:  <none>
@@ -1325,7 +1325,7 @@ Events:
     daemonset-controller  Created pod: daemon-set-primeiro-9dktj
 ```
 
-Vamos verificar nossa recém adicionada configuração de ``RollingUpdate``.
+Vamos verificar nossa recém adicionada configuração de ``RollingUpdate``:
 
 ```
 # kubectl get ds daemon-set-primeiro -o yaml | grep -A 2 Strategy
@@ -1335,7 +1335,7 @@ Vamos verificar nossa recém adicionada configuração de ``RollingUpdate``.
       maxUnavailable: 1
 ```
 
-Agora com nosso DaemonSet já configurado, vamos alterar aquela mesma imagem do ``nginx`` e ver o que acontece de fato.
+Agora com nosso DaemonSet já configurado, vamos alterar aquela mesma imagem do ``nginx`` e ver o que acontece de fato:
 
 ```
 # kubectl set image ds daemon-set-primeiro nginx=nginx:1.15.0
@@ -1343,7 +1343,7 @@ Agora com nosso DaemonSet já configurado, vamos alterar aquela mesma imagem do 
 daemonset.extensions/daemon-set-primeiro image updated
 ```
 
-Vamos listar o DaemonSet e os Pods para ter certeza de que nada se quebrou.
+Vamos listar o DaemonSet e os Pods para ter certeza de que nada se quebrou:
 
 ```
 # kubectl get daemonset
@@ -1464,7 +1464,7 @@ Pod Template:
   Volumes:	<none>
 ```
 
-Agora vamos realizar o rollback do nosso DaemonSet para a revision 1.
+Agora vamos realizar o rollback do nosso DaemonSet para a revision 1:
 
 ```
 # kubectl rollout undo ds daemon-set-primeiro --to-revision=1
@@ -1484,7 +1484,7 @@ daemon-set-primeiro-hrn48   1/1       Running   0          19s
 daemon-set-primeiro-t6mr9   1/1       Running   0          19s
 ```
 
-Visualizando os detalhes dos pods.
+Visualizando os detalhes dos pods:
 
 ```
 # kubectl describe pod daemon-set-primeiro-c2jjk | grep -i image:
@@ -1523,7 +1523,7 @@ daemon-set-primeiro-td7h5   1/1       Running   0          29s
 daemon-set-primeiro-v5c86   1/1       Running   0          40s
 ```
 
-Visualizando os detalhes dos pods.
+Visualizando os detalhes dos pods:
 
 ```
 # kubectl describe pod daemon-set-primeiro-jzck9 | grep  -i image:
