@@ -27,13 +27,13 @@ Basicamente, o ETCD é um database de armazenamento de chave-valor de alta dispo
 
 Em um banco de dados relacional, nós temos colunas e dentro das colunas nós temos o tipo de informação que está sendo armazenada;
 
-| ![Banco de dados relacional](../images/relational-database-chart.jpg) |
+| ![Banco de dados relacional](../../images/relational-database-chart.jpg) |
 |:---------------------------------------------------------------------------------------------:|
 | *Banco de dados relacional [Ref: hswstatic.com](https://cdn.hswstatic.com/gif/relational-database-chart.jpg)*                                                                      |
 
 Em um banco de dados de chave-valor, quando consultamos e obtemos a chave, é retornado o valor atribuido à aquela chave.
 
-| ![Banco de dados chave valor](../images/KeyValue.png) |
+| ![Banco de dados chave valor](../../images/KeyValue.png) |
 |:---------------------------------------------------------------------------------------------:|
 | *Banco de dados chave-valor [Ref: Wikimedia.org](https://upload.wikimedia.org/wikipedia/commons/5/5b/KeyValue.PNG)*                                                                      |
 
