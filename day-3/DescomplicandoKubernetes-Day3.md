@@ -1203,6 +1203,9 @@ Perceba que trocamos o ``history`` por ``undo`` e o ``revision`` por ``to-revisi
 ---
 
 Obs.: Por padrão, o DaemonSet guarda apenas as 10 últimas revisions. Para alterar a quantidade máxima de revisions no nosso Daemonset, execute o seguinte comando.
+Fonte: https://kubernetes.io/docs/concepts/workloads/controllers/deployment/#clean-up-policy
+
+---
 
 ```
 # kubectl edit daemonsets.apps daemon-set-primeiro
