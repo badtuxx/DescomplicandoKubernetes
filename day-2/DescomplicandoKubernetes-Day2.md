@@ -55,7 +55,11 @@ O Pod, por poder possuir diversos containers, muitas das vezes se assemelha a um
 
 # Principais Comandos
 
-![Principais Comandos](https://uploaddeimagens.com.br/images/002/667/919/full/Kubernetes-Comandos.png)
+A figura a seguir mostra a estrutura dos principais comandos do kubectl.
+
+| ![Principais Comandos](../images/kubernetes_commands.png) |
+|:---------------------------------------------------------------------------------------------:|
+| *Principais comandos [Ref: uploaddeimagens.com.br](https://uploaddeimagens.com.br/images/002/667/919/full/Kubernetes-Comandos.png)*                                                                      |
 
 # Container Network Interface
 
@@ -766,7 +770,7 @@ spec:
       - image: nginx
         imagePullPolicy: Always
         name: nginx
-   # Adicione as linhas abaixo
+   # Adicione as seguintes linhas
         resources:
           limits:
             memory: "256Mi"
