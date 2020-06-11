@@ -704,7 +704,7 @@ cronjob.batch "giropops-cron" deleted
 
 # Secrets
 
-Objetos do tipo **Secret** são normalmente utilizados para armazenar informações confidenciais, como por exemplo tokens e chaves ssh. Deixar senhas e informações confidenciais em arquivo texto não é um bom comportamento visto do olhar de segurança. Colocar essas informações em um objeto ``Secret`` permite que o administrador tenha mais controle sobre eles reduzindo assim o risco de exposição acidental.
+Objetos do tipo **Secret** são normalmente utilizados para armazenar informações confidenciais, como por exemplo tokens e chaves SSH. Deixar senhas e informações confidenciais em arquivo texto não é um bom comportamento visto do olhar de segurança. Colocar essas informações em um objeto ``Secret`` permite que o administrador tenha mais controle sobre eles reduzindo assim o risco de exposição acidental.
 
 Vamos criar nosso primeiro objeto ``Secret`` utilizando o arquivo ``secret.txt`` que vamos criar logo a seguir.
 
@@ -1024,6 +1024,9 @@ Crie o pod a partir do manifesto.
 ```
 
 # InitContainers
+
+> **Seção em construção...**
+> **Falta definir o conceito de Init Containers...**
 
 Crie o seguinte arquivo.
 
