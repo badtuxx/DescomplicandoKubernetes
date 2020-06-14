@@ -65,9 +65,9 @@ A figura a seguir mostra a estrutura dos principais comandos do kubectl.
 
 Para prover a rede para os containers, o k8s utiliza a especificação do **CNI**, Container Network Interface.
 
-CNI é uma especificação que reúne alguma bibliotecas para o desenvolvimento de plugins para configuração e gerenciamento de redes para os containers. Ele provê uma interface comum entre as diversas soluções de rede para o k8s. Você encontra diversos plugins para AWS, GCP, Cloud Foundry entre outros.
+CNI é uma especificação que reúne algumas bibliotecas para o desenvolvimento de plugins para configuração e gerenciamento de redes para os containers. Ele provê uma interface comum entre as diversas soluções de rede para o k8s. Você encontra diversos plugins para AWS, GCP, Cloud Foundry entre outros.
 
-Mais informações: [https://github.com/containernetworking/cni](https://github.com/containernetworking/cni)
+Mais informações em: [https://github.com/containernetworking/cni](https://github.com/containernetworking/cni)
 
 Enquanto o CNI define a rede dos pods, ele não te ajuda na comunicação entre os pods de diferentes nodes.
 
