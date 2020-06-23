@@ -14,8 +14,8 @@
     * deletar
 
  * Dominar um pouco de shell para manipular saídas
-    * >  
-    * >> 
+    * ">"  
+    * ">>" 
     * awk '{print $}'
     * grep 
     
