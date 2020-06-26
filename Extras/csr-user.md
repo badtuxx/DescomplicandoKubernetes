@@ -1,6 +1,6 @@
 ## Criando um usuário no Kubernetes 
 
-Para criar um usuário no Kubernetes, vamos precisar gerar um CSR para o usuario. O usuário que vamos utilizar como exemplo é o linuxtips.
+Para criar um usuário no Kubernetes, vamos precisar gerar um CSR. O usuário que vamos utilizar como exemplo é o linuxtips.
 
 Comando para gerar o CSR:
 
