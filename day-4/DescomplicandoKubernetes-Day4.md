@@ -209,7 +209,21 @@ Adicione a seguinte linha:
 Aplique a configuração do NFS no node ``elliot-01``.
 
 ```
-# exportfs -ra
+# exportfs -a
+```
+
+Vamos fazer o restart do serviço do NFS no node ``elliot-01``.
+
+No Debian/Ubuntu:
+
+```
+# systemctl restart nfs-kernel-server
+```
+
+No CentOS/RedHat:
+
+```
+# systemctl restart nfs
 ```
 
 Ainda no node ``elliot-01``, vamos criar um arquivo nesse diretório para nosso teste.
