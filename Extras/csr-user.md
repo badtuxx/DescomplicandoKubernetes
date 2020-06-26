@@ -55,12 +55,12 @@ Vamos pegar as informações de IP cluster:
 ```
 kubectl config set-cluster $(kubectl config view -o jsonpath='{.clusters[0].name}') --server=$(kubectl config view -o jsonpath='{.clusters[0].cluster.server}') --certificate-authority=ca.crt --kubeconfig=linuxtips-config --embed-certs
 ```
-Agora setando as confs de user e key:
+Agora definindo as configurações de user e key:
 ```
 kubectl config set-credentials linuxtips --client-certificate=linuxtips.crt --client-key=linuxtips.key --embed-certs --kubeconfig=linuxtips-config
 ```
 
-Agora definindo  e setando o context:
+Agora definindo e mudando o context:
 
 ```
 kubectl config set-context linuxtips --cluster=$(kubectl config view -o jsonpath='{.clusters[0].name}')  --user=linuxtips --kubeconfig=linuxtips-config
@@ -69,9 +69,9 @@ kubectl config set-context linuxtips --cluster=$(kubectl config view -o jsonpath
 ```
 kubectl config use-context linuxtips --kubeconfig=linuxtips-config
 ```
-Vamos ver um teste
+Vamos ver um teste utilizando a config com o parametro --kubeconfig=
 ```
-kubectl version --kubeconfig=bob-k8s-config
+kubectl version --kubeconfig=linuxtips-config
 ```
 
 Pronto ! Agora só associar um role com as permissões desejadas para o usuário
