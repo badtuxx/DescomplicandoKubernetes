@@ -301,6 +301,14 @@ Events:            <none>
 
 Com isso, agora temos como manter a sessão, ou seja, ele irá manter a conexão com o mesmo pod, respeitando o IP de origem do cliente.
 
+Caso precise, é possível alterar o valor do timeout para o ``sessionAffinity`` (O valor padrão é de 10800 segundos, ou seja 3 horas), apenas adicionando a configuração abaixo.
+
+```
+  sessionAffinityConfig:
+    clientIP:
+      timeoutSeconds: 10
+```
+
 Agora podemos remover o service:
 
 ```
