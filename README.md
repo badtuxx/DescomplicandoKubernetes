@@ -33,8 +33,9 @@ Para contribuir com melhorias no conteúdo, siga as instruções deste [tutorial
 <!-- TOC -->
 - [Descomplicando Kubernetes Day 1](day-1/DescomplicandoKubernetes-Day1.md)
 
-  - [Sumário](#sumário)
-- [O quê preciso saber antes de começar?](#o-quê-preciso-saber-antes-de-começar)
+
+  - [Sumário](day-1/DescomplicandoKubernetes-Day1.md#sumário)
+- [O quê preciso saber antes de começar?](day-1/DescomplicandoKubernetes-Day1.md#o-quê-preciso-saber-antes-de-começar)
   - [Qual distro Linux devo usar?](#qual-distro-linux-devo-usar)
   - [Alguns sites que devemos visitar](#alguns-sites-que-devemos-visitar)
   - [E o k8s?](#e-o-k8s)
