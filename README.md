@@ -31,7 +31,8 @@ Veja os vídeos sobre Kubernetes e até outros temas legais no canal LinuxTips.
 Para contribuir com melhorias no conteúdo, siga as instruções deste [tutorial](CONTRIBUTING.md).
 
 <!-- TOC -->
-- [Descomplicando Kubernetes Day 1](#descomplicando-kubernetes-day-1)
+- [Descomplicando Kubernetes Day 1]([day-1/DescomplicandoKubernetes-Day1.md](#descomplicando-kubernetes-day-1))
+
   - [Sumário](#sumário)
 - [O quê preciso saber antes de começar?](#o-quê-preciso-saber-antes-de-começar)
   - [Qual distro Linux devo usar?](#qual-distro-linux-devo-usar)
