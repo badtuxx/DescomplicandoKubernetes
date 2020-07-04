@@ -118,3 +118,17 @@ Para contribuir com melhorias no conteúdo, siga as instruções deste [tutorial
 
 <!-- TOC -->
 
+<!-- TOC -->
+
+- [Descomplicando Kubernetes Day 3](day-3/DescomplicandoKubernetes-Day3.md#descomplicando-kubernetes-day-3)
+  - [Sumário](day-3/DescomplicandoKubernetes-Day3.md#sumário)
+- [Deployments](day-3/DescomplicandoKubernetes-Day3.md#deployments)
+  - [Filtrando por Labels](day-3/DescomplicandoKubernetes-Day3.md#filtrando-por-labels)
+  - [Node Selector](day-3/DescomplicandoKubernetes-Day3.md#node-selector)
+  - [Kubectl Edit](day-3/DescomplicandoKubernetes-Day3.md#kubectl-edit)
+- [ReplicaSet](day-3/DescomplicandoKubernetes-Day3.md#replicaset)
+- [DaemonSet](day-3/DescomplicandoKubernetes-Day3.md#daemonset)
+- [Rollouts e Rollbacks](day-3/DescomplicandoKubernetes-Day3.md#rollouts-e-rollbacks)
+
+<!-- TOC -->
+
