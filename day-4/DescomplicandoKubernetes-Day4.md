@@ -1495,7 +1495,7 @@ Top da Balada!
 Veja os detalhes do pod ``meu-prometheus-server-5bc59849fd-b29q490``:
 
 ```
-# kubect describe pod meu-prometheus-server-5bc59849fd-b29q490
+# kubectl describe pod meu-prometheus-server-5bc59849fd-b29q490
 
 Name:         meu-prometheus-server-5bc59849fd-b29q4
 Namespace:    default
