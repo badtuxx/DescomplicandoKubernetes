@@ -1411,7 +1411,6 @@ Valide rodando o comando exportfs -v
 ```
 exportfs -v
 
-/opt/dados    	<world>(rw,wdelay,no_root_squash,sec=sys,rw,secure,no_root_squash,no_all_squash)
 /opt/prometheus
 		<world>(rw,wdelay,no_root_squash,sec=sys,rw,secure,no_root_squash,no_all_squash)
 /opt/alertmanager
