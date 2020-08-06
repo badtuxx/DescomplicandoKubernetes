@@ -1,6 +1,6 @@
 ## Criando um usuário no Kubernetes 
 
-Para criar um usuário no Kubernetes, vamos precisar gerar um CSR. O usuário que vamos utilizar como exemplo é o linuxtips.
+Para criar um usuário no Kubernetes, vamos precisar gerar um CSR para o usuario. O usuário que vamos utilizar como exemplo é o linuxtips.
 
 Comando para gerar o CSR:
 
@@ -42,7 +42,7 @@ Agora o certificado foi assinado pela CA do cluster, para pegar o certificado as
 kubectl get csr linuxtips-csr -o jsonpath='{.status.certificate}' | base64 --decode > linuxtips.crt
 ```
 
-Será necessário para a configuração do kubeconf a CA do cluster, para obtê-lá vamos extrai-lá do kubeconf atual que estamos utilizando:
+Será necessário para a configuração do kubeconfig a CA do cluster, para obtê-lá vamos extrai-lá do kubeconf atual que estamos utilizando:
 
 ```
 kubectl config view -o jsonpath='{.clusters[0].cluster.certificate-authority-data}' --raw | base64 --decode - > ca.crt
@@ -55,12 +55,12 @@ Vamos pegar as informações de IP cluster:
 ```
 kubectl config set-cluster $(kubectl config view -o jsonpath='{.clusters[0].name}') --server=$(kubectl config view -o jsonpath='{.clusters[0].cluster.server}') --certificate-authority=ca.crt --kubeconfig=linuxtips-config --embed-certs
 ```
-Agora definindo as configurações de user e key:
+Agora setando as confs de user e key:
 ```
 kubectl config set-credentials linuxtips --client-certificate=linuxtips.crt --client-key=linuxtips.key --embed-certs --kubeconfig=linuxtips-config
 ```
 
-Agora definindo e mudando o context:
+Agora definindo o context:
 
 ```
 kubectl config set-context linuxtips --cluster=$(kubectl config view -o jsonpath='{.clusters[0].name}')  --user=linuxtips --kubeconfig=linuxtips-config
@@ -69,9 +69,9 @@ kubectl config set-context linuxtips --cluster=$(kubectl config view -o jsonpath
 ```
 kubectl config use-context linuxtips --kubeconfig=linuxtips-config
 ```
-Vamos ver um teste utilizando a config com o parametro --kubeconfig=
+Vamos ver um teste
 ```
-kubectl version --kubeconfig=linuxtips-config
+kubectl version --kubeconfig=bob-k8s-config
 ```
 
 Pronto ! Agora só associar um role com as permissões desejadas para o usuário
