@@ -24,14 +24,14 @@
 
 ## Empty-Dir
 
-Um volume do tipo **EmptyDir** é criado sempre que um Pod é atribuído a um nó existente. Esse volume é criado inicialmente vazio, e todos os containers do Pod podem ler e gravar arquivos no volume.
+Um volume do tipo **EmptyDir** é criado sempre que um Pod é atribuído a um nó existente. Esse volume é criado inicialmente vazio, e todos os contêineres do Pod podem ler e gravar arquivos no volume.
 
-Esse volume não é um volume com persistência de dados. Sempre que o Pod é removido de um nó, os dados no ``EmptyDir`` são excluídos permanentemente. É importante ressaltar que os dados não são excluídos em casos de falhas nos containers.
+Esse volume não é um volume com persistência de dados. Sempre que o Pod é removido de um nó, os dados no ``EmptyDir`` são excluídos permanentemente. É importante ressaltar que os dados não são excluídos em casos de falhas nos contêineres.
 
 Vamos criar um Pod para testar esse volume.
 
 ```
-# vim pod-emptydir.yaml
+vim pod-emptydir.yaml
 ```
 
 Informe o seguinte conteúdo:
@@ -60,7 +60,7 @@ spec:
 Crie o volume a partir do manifesto.
 
 ```
-# kubectl create -f pod-emptydir.yaml
+kubectl create -f pod-emptydir.yaml
 
 pod/busybox created
 ```
@@ -68,7 +68,7 @@ pod/busybox created
 Visualize os pods.
 
 ```
-# kubectl get pod
+kubectl get pod
 
 NAME                      READY     STATUS    RESTARTS   AGE
 busybox                   1/1       Running   0          12s
@@ -79,7 +79,7 @@ Pronto! Já subimos nosso pod.
 Vamos listar o nome do conteiner que está dentro do pod ``busybox``:
 
 ```
-# kubectl get pods busybox -n default -o jsonpath='{.spec.containers[*].name}*'
+kubectl get pods busybox -n default -o jsonpath='{.spec.containers[*].name}*'
 
 busy
 ```
@@ -87,13 +87,13 @@ busy
 Agora vamos adicionar um arquivo dentro do path ``/giropops`` diretamente no Pod criado:
 
 ```
-# kubectl exec -ti busybox -c busy -- touch /giropops/funciona
+kubectl exec -ti busybox -c busy -- touch /giropops/funciona
 ```
 
 Agora vamos listar esse diretório:
 
 ```
-# kubectl exec -ti busybox -c busy -- ls -l /giropops/
+kubectl exec -ti busybox -c busy -- ls -l /giropops/
 
 total 0
 -rw-r--r--    1 root     root             0 Jul  7 17:37 funciona
@@ -102,7 +102,7 @@ total 0
 Como podemos observar nosso arquivo foi criado corretamente. Vamos verificar se esse arquivo também foi criado no volume gerenciado pelo kubelet. Para isso precisamos descobrir em qual Nó está alocado o Pod.
 
 ```
-# kubectl get pod -o wide
+kubectl get pod -o wide
 
 NAME     READY     STATUS    RESTARTS   AGE  IP          NODE
 busybox  1/1       Running   0          1m   10.40.0.6   elliot-02
@@ -111,19 +111,19 @@ busybox  1/1       Running   0          1m   10.40.0.6   elliot-02
 Vamos acessar o shell do conteiner ``busy``, que está dentro do pod ``busybox``:
 
 ```
-# kubectl exec -ti busybox -c busy sh
+kubectl exec -ti busybox -c busy sh
 ```
 
 Liste o conteúdo do diretório giropops.
 
 ```
-# ls giropops
+ls giropops
 ```
 
 Agora vamos sair do pod e procurar o nosso volume dentro do Nó ``elliot-02``. Para isso acesse-o node via SSH e, em seguida, execute o comando:
 
 ```
-# find /var/lib/kubelet/pods/ -iname giropops-dir
+find /var/lib/kubelet/pods/ -iname giropops-dir
 
 /var/lib/kubelet/pods/7d33810f-8215-11e8-b889-42010a8a0002/volumes/kubernetes.io~empty-dir/giropops-dir
 ```
@@ -131,16 +131,16 @@ Agora vamos sair do pod e procurar o nosso volume dentro do Nó ``elliot-02``. P
 Vamos listar esse Path:
 
 ```
-# ls /var/lib/kubelet/pods/7d33810f-8215-11e8-b889-42010a8a0002/volumes/kubernetes.io~empty-dir/giropops-dir
+ls /var/lib/kubelet/pods/7d33810f-8215-11e8-b889-42010a8a0002/volumes/kubernetes.io~empty-dir/giropops-dir
 funciona
 ```
 
-O arquivo que criamos dentro do container está listado.
+O arquivo que criamos dentro do contêiner está listado.
 
 De volta ao nó ``elliot-01``, vamos para remover o Pod e listar novamente o diretório.
 
 ```
-# kubectl delete -f pod-emptydir.yaml
+kubectl delete -f pod-emptydir.yaml
 
 pod "busybox" deleted
 ```
@@ -148,7 +148,7 @@ pod "busybox" deleted
 Volte a acessar o Nó ``elliot-02`` e veja se o volume ainda existe:
 
 ```
-# ls /var/lib/kubelet/pods/7d...kubernetes.io~empty-dir/giropops-dir
+ls /var/lib/kubelet/pods/7d...kubernetes.io~empty-dir/giropops-dir
 
 No such file or directory
 ```
@@ -165,39 +165,39 @@ Um **PersistentVolumeClaim** (PVC) é semelhante a um Pod. Os Pods consomem recu
 
 Mas o que é um PVC? Nada mais é do que uma solicitação de armazenamento criada por um usuário.
 
-Vamos criar um ``PersistentVolume`` do tipo ``NFS``, para isso vamos instalar os pacotes necessários para criar um NFS Server no Linux:
+Vamos criar um ``PersistentVolume`` do tipo ``NFS``, para isso vamos instalar os pacotes necessários para criar um NFS Server no GNU/Linux:
 
 Vamos instalar os pacotes no node ``elliot-01``.
 
 No Debian/Ubuntu:
 
 ```
-# apt-get install -y nfs-kernel-server
+sudo apt-get install -y nfs-kernel-server
 ```
 
 No CentOS/RedHat tanto no servidor quanto nos nodes o pacote será o mesmo:
 
 ```
-# yum install -y nfs-utils
+yum install -y nfs-utils
 ```
 
 Agora vamos instalar o pacote ``nfs-common`` nos demais nodes da família Debian.
 
 ```
-# apt-get install -y nfs-common
+sudo apt-get install -y nfs-common
 ```
 
 Agora vamos montar um diretório no node ``elliot-01`` e dar as permissões necessárias para testar tudo isso que estamos falando:
 
 ```
-# mkdir /opt/giropops
-# chmod 1777 /opt/giropops/
+sudo mkdir /opt/giropops
+sudo chmod 1777 /opt/giropops/
 ```
 
 Ainda no node ``elliot-01``, vamos adicionar esse diretório no NFS Server e fazer a ativação do mesmo.
 
 ```
-# vim /etc/exports
+sudo vim /etc/exports
 ```
 
 Adicione a seguinte linha:
@@ -209,7 +209,7 @@ Adicione a seguinte linha:
 Aplique a configuração do NFS no node ``elliot-01``.
 
 ```
-# exportfs -a
+sudo exportfs -a
 ```
 
 Vamos fazer o restart do serviço do NFS no node ``elliot-01``.
@@ -217,7 +217,7 @@ Vamos fazer o restart do serviço do NFS no node ``elliot-01``.
 No Debian/Ubuntu:
 
 ```
-# systemctl restart nfs-kernel-server
+sudo systemctl restart nfs-kernel-server
 ```
 
 No CentOS/RedHat:
@@ -229,13 +229,13 @@ No CentOS/RedHat:
 Ainda no node ``elliot-01``, vamos criar um arquivo nesse diretório para nosso teste.
 
 ```
-# touch /opt/giropops/FUNCIONA
+sudo touch /opt/giropops/FUNCIONA
 ```
 
 Ainda no node ``elliot-01``, vamos criar o manifesto yaml do nosso ``PersistentVolume``. Lembre-se de alterar o IP address do campo server para o IP address do node ``elliot-01``.
 
 ```
-# vim primeiro-pv.yaml
+sudo vim primeiro-pv.yaml
 ```
 
 Informe o seguinte conteúdo:
@@ -260,7 +260,7 @@ spec:
 Agora vamos criar nosso ``PersistentVolume``.
 
 ```
-# kubectl create -f primeiro-pv.yaml
+kubectl create -f primeiro-pv.yaml
 
 persistentvolume/primeiro-pv created
 ```
@@ -268,7 +268,7 @@ persistentvolume/primeiro-pv created
 Visualizando os PVs:
 
 ```
-# kubectl get pv
+kubectl get pv
 
 NAME          CAPACITY   ACCESS MODES    RECLAIM POLICY   ...  AGE
 primeiro-pv   1Gi        RWX             Retain           ...  22s
@@ -277,7 +277,7 @@ primeiro-pv   1Gi        RWX             Retain           ...  22s
 Visualizando mais detalhes do PV recém criado.
 
 ```
-# kubectl describe pv primeiro-pv
+kubectl describe pv primeiro-pv
 
 Name:            primeiro-pv
 Labels:          <none>
@@ -304,7 +304,7 @@ Agora precisamos criar nosso ``PersitentVolumeClaim``, assim os Pods conseguem s
 Crie o seguinte arquivo.
 
 ```
-# vim primeiro-pvc.yaml
+vim primeiro-pvc.yaml
 ```
 
 Informe o seguinte conteúdo:
@@ -325,7 +325,7 @@ spec:
 Crie o ``PersitentVolumeClaim`` a partir do manifesto.
 
 ```
-# kubectl create -f primeiro-pvc.yaml
+kubectl create -f primeiro-pvc.yaml
 
 persistentvolumeclaim/primeiro-pvc created
 ```
@@ -333,7 +333,7 @@ persistentvolumeclaim/primeiro-pvc created
 Vamos listar nosso ``PersistentVolume``.
 
 ```
-# kubectl get pv
+kubectl get pv
 
 NAME         CAPACITY  ACCESS MOD  ... CLAIM                ...  AGE
 primeiro-pv  1Gi       RWX         ... default/primeiro-pvc ...  8m
@@ -342,7 +342,7 @@ primeiro-pv  1Gi       RWX         ... default/primeiro-pvc ...  8m
 Vamos listar nosso ``PersistentVolumeClaim``.
 
 ```
-# kubectl get pvc
+kubectl get pvc
 
 NAME          STATUS   VOLUME       CAPACITY   ACCESS MODES ...  AGE
 primeiro-pvc  Bound    primeiro-pv  1Gi        RWX          ...  3m
@@ -351,7 +351,7 @@ primeiro-pvc  Bound    primeiro-pv  1Gi        RWX          ...  3m
 Agora que já temos um ``PersistentVolume`` e um ``PersistentVolumeClaim`` vamos criar um deployment que irá consumir esse volume:
 
 ```
-# vim nfs-pv.yaml
+vim nfs-pv.yaml
 ```
 
 Informe o seguinte conteúdo:
@@ -405,7 +405,7 @@ spec:
 Crie o deployment a partir do manifesto.
 
 ```
-# kubectl create -f nfs-pv.yaml
+kubectl create -f nfs-pv.yaml
 
 deployment.apps/nginx created
 ```
@@ -413,7 +413,7 @@ deployment.apps/nginx created
 Visualize os detalhes do deployment.
 
 ```
-# kubectl describe deployment nginx
+kubectl describe deployment nginx
 
 Name:                   nginx
 Namespace:              default
@@ -458,12 +458,12 @@ Como podemos observar detalhando nosso pod, ele foi criado com o Volume NFS util
 Vamos detalhar nosso pod para verificar se está tudo certinho.
 
 ```
-# kubectl get pods -o wide
+kubectl get pods -o wide
 
 NAME           READY    STATUS   RESTARTS   AGE ...  NODE
 nginx-b4b...   1/1      Running  0          28s      elliot-02
 
-# kubectl describe pod nginx-b4bd77674-gwc9k
+kubectl describe pod nginx-b4bd77674-gwc9k
 
 Name:               nginx-b4bd77674-gwc9k
 Namespace:          default
@@ -494,22 +494,22 @@ Volumes:
 
 Tudo certo, não? O pod realmente montou o volume ``/giropops`` utilizando o volume ``nfs``.
 
-Agora vamos listar os arquivos dentro do path no container utilizando nosso exemplo que no caso está localizado no nó `elliot-02`:
+Agora vamos listar os arquivos dentro do path no contêiner utilizando nosso exemplo que no caso está localizado no nó `elliot-02`:
 
 ```
-# kubectl exec -ti nginx-b4bd77674-gwc9k -- ls /giropops/
+kubectl exec -ti nginx-b4bd77674-gwc9k -- ls /giropops/
 
 FUNCIONA
 ```
 
 Podemos ver o arquivos que lá no começo está listado no diretório.
 
-Agora vamos criar outro arquivo utilizando o próprio container com o comando ``kubectl exec`` e o parâmetro ``-- touch``.
+Agora vamos criar outro arquivo utilizando o próprio contêiner com o comando ``kubectl exec`` e o parâmetro ``-- touch``.
 
 ```
-# kubectl exec -ti nginx-b4bd77674-gwc9k -- touch /giropops/STRIGUS
+kubectl exec -ti nginx-b4bd77674-gwc9k -- touch /giropops/STRIGUS
 
-# kubectl exec -ti nginx-b4bd77674-gwc9k -- ls -la  /giropops/
+kubectl exec -ti nginx-b4bd77674-gwc9k -- ls -la  /giropops/
 
 total 4
 drwxr-xr-x. 2 root root 4096 Jul  7 23:13 .
@@ -518,10 +518,10 @@ drwxr-xr-x. 1 root root   44 Jul  7 22:53 ..
 -rw-r--r--. 1 root root    0 Jul  7 23:13 STRIGUS
 ```
 
-Listando dentro do container podemos observar que o arquivo foi criado, mas e dentro do nosso NFS Server? Vamos listar o diretório do NSF Server no ``elliot-01``.
+Listando dentro do contêiner podemos observar que o arquivo foi criado, mas e dentro do nosso NFS Server? Vamos listar o diretório do NSF Server no ``elliot-01``.
 
 ```
-# ls -la /opt/giropops/
+ls -la /opt/giropops/
 
 -rw-r--r-- 1 root root    0 Jul  7 22:07 FUNCIONA
 -rw-r--r-- 1 root root    0 Jul  7 23:13 STRIGUS
@@ -530,12 +530,12 @@ Listando dentro do container podemos observar que o arquivo foi criado, mas e de
 Viram? Nosso NFS server está funcionando corretamente, agora vamos apagar o deployment para ver o que acontece com o volume.
 
 ```
-# kubectl get deployment
+kubectl get deployment
 
 NAME                DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
 nginx               1         1         1            1           28m
 
-# kubectl delete deployment nginx
+kubectl delete deployment nginx
 
 deployment.extensions "nginx" deleted
 ```
@@ -543,7 +543,7 @@ deployment.extensions "nginx" deleted
 Agora vamos listar o diretório no NFS Server.
 
 ```
-# ls -la /opt/giropops/
+ls -la /opt/giropops/
 
 -rw-r--r-- 1 root root    0 Jul  7 22:07 FUNCIONA
 -rw-r--r-- 1 root root    0 Jul  7 23:13 STRIGUS
@@ -560,7 +560,7 @@ Mas para que podemos usar os **Cron Jobs****? As "Cron" são úteis para criar t
 Vamos criar um exemplo para ver como funciona, bora criar nosso manifesto:
 
 ```
-# vim primeiro-cron.yaml
+vim primeiro-cron.yaml
 ```
 
 Informe o seguinte conteúdo.
@@ -591,7 +591,7 @@ Nosso exemplo de ``CronJobs`` anterior imprime a hora atual e uma mensagem de de
 Vamos criar o ``CronJob`` a partir do manifesto.
 
 ```
-# kubectl create -f primeiro-cron.yaml
+kubectl create -f primeiro-cron.yaml
 
 cronjob.batch/giropops-cron created
 ```
@@ -599,7 +599,7 @@ cronjob.batch/giropops-cron created
 Agora vamos listar e detalhar melhor nosso ``Cronjob``.
 
 ```
-# kubectl get cronjobs
+kubectl get cronjobs
 
 NAME            SCHEDULE      SUSPEND   ACTIVE   LAST SCHEDULE   AGE
 giropops-cron   */1 * * * *   False     1        13s             2m
@@ -608,7 +608,7 @@ giropops-cron   */1 * * * *   False     1        13s             2m
 Vamos visualizar os detalhes do ``Cronjob`` ``giropops-cron``.
 
 ```
-# kubectl describe cronjobs.batch giropops-cron
+kubectl describe cronjobs.batch giropops-cron
 
 Name:                       giropops-cron
 Namespace:                  default
@@ -652,7 +652,7 @@ Olha que bacana, se observar no ``Events`` do cluster o ``cron`` já está agend
 Agora vamos ver esse ``cron`` funcionando através do comando ``kubectl get`` junto do parâmetro ``--watch`` para verificar a saida das tarefas, preste atenção que a tarefa vai ser criada em cerca de um minuto após a criação do ``CronJob``.
 
 ```
-# kubectl get jobs --watch
+kubectl get jobs --watch
 
 NAME                       DESIRED  SUCCESSFUL   AGE
 giropops-cron-1534979640   1         1            2m
@@ -662,7 +662,7 @@ giropops-cron-1534979700   1         1            1m
 Vamos visualizar o CronJob.
 
 ```
-# kubectl get cronjob giropops-cron
+kubectl get cronjob giropops-cron
 
 NAME           SCHEDULE      SUSPEND   ACTIVE    LAST SCHEDULE   AGE
 giropops-cron  */1 * * * *   False     1         26s             48m
@@ -673,7 +673,7 @@ Como podemos observar que nosso ``cron`` está funcionando corretamente. Para vi
 Para isso vamos listar os pods em execução e, em seguida, pegar os logs do mesmo.
 
 ```
-# kubectl get pods
+kubectl get pods
 
 NAME                            READY     STATUS      RESTARTS   AGE
 giropops-cron-1534979940-vcwdg  1/1       Running     0          25s
@@ -682,7 +682,7 @@ giropops-cron-1534979940-vcwdg  1/1       Running     0          25s
 Vamos visualizar os logs.
 
 ```
-# kubectl logs giropops-cron-1534979940-vcwdg
+kubectl logs giropops-cron-1534979940-vcwdg
 
 Wed Aug 22 23:19:06 UTC 2018
 LinuxTips VAIIII
@@ -693,7 +693,7 @@ O ``cron`` está executando corretamente as tarefas de imprimir a data e a frase
 Se executarmos um ``kubectl get pods`` poderemos ver os Pods criados e utilizados para executar as tarefas a todo minuto.
 
 ```
-# kubectl get pods
+kubectl get pods
 
 NAME                             READY    STATUS      RESTARTS   AGE
 giropops-cron-1534980360-cc9ng   0/1      Completed   0          2m
@@ -711,7 +711,7 @@ Fonte: https://kubernetes.io/docs/tasks/job/automated-tasks-with-cron-jobs/#jobs
 Agora vamos deletar nosso CronJob.
 
 ```
-# kubectl delete cronjob giropops-cron
+kubectl delete cronjob giropops-cron
 
 cronjob.batch "giropops-cron" deleted
 ```
@@ -723,13 +723,13 @@ Objetos do tipo **Secret** são normalmente utilizados para armazenar informaç�
 Vamos criar nosso primeiro objeto ``Secret`` utilizando o arquivo ``secret.txt`` que vamos criar logo a seguir.
 
 ```
-# echo -n "descomplicando-k8s" > secret.txt
+echo -n "descomplicando-k8s" > secret.txt
 ```
 
 Agora que já temos nosso arquivo ``secret.txt`` com o conteúdo ``descomplicando-k8s`` vamos criar nosso objeto ``Secret``.
 
 ```
-# kubectl create secret generic my-secret --from-file=secret.txt
+kubectl create secret generic my-secret --from-file=secret.txt
 
 secret/my-secret created
 ```
@@ -737,7 +737,7 @@ secret/my-secret created
 Vamos ver os detalher desse objeto para ver o que realmente aconteceu.
 
 ```
-# kubectl describe secret my-secret
+kubectl describe secret my-secret
 
 Name:         my-secret
 Namespace:    default
@@ -756,14 +756,14 @@ Observe que não é possível ver o conteúdo do arquivo utilizando o ``describe
 Para verificar o conteúdo de um ``Secret`` precisamos decodificar o arquivo gerado, para fazer isso temos que verificar o manifesto do do mesmo.
 
 ```
-# kubectl get secret
+kubectl get secret
 
 NAME              TYPE             DATA      AGE
 my-secret         Opaque           1         13m
 ```
 
 ```
-# kubectl get secret my-secret -o yaml
+kubectl get secret my-secret -o yaml
 
 apiVersion: v1
 data:
@@ -782,7 +782,7 @@ type: Opaque
 Agora que já temos a chave codificada basta decodificar usando ``Base64``.
 
 ```
-# echo 'ZGVzY29tcGxpY2FuZG8tazhz' | base64 --decode
+echo 'ZGVzY29tcGxpY2FuZG8tazhz' | base64 --decode
 
 descomplicando-k8s
 ```
@@ -790,7 +790,7 @@ descomplicando-k8s
 Tudo certo com nosso ``Secret``, agora vamos utilizar ele dentro de um Pod, para isso vamos precisar referenciar o ``Secret`` dentro do Pod utilizando volumes, vamos criar nosso manifesto.
 
 ```
-# vim pod-secret.yaml
+vim pod-secret.yaml
 ```
 
 Informe o seguinte conteúdo.
@@ -817,10 +817,10 @@ spec:
       secretName: my-secret
 ```
 
-Nesse manifesto vamos utilizar o volume ``my-volume-secret`` para montar dentro do container a Secret ``my-secret`` no diretório ``/tmp/giropos``.
+Nesse manifesto vamos utilizar o volume ``my-volume-secret`` para montar dentro do contêiner a Secret ``my-secret`` no diretório ``/tmp/giropos``.
 
 ```
-# kubectl create -f pod-secret.yaml
+kubectl create -f pod-secret.yaml
 
 pod/teste-secret created
 ```
@@ -828,11 +828,11 @@ pod/teste-secret created
 Vamos verificar se o ``Secret`` foi criado corretamente.
 
 ```
-# kubectl exec -ti teste-secret -- ls /tmp/giropops
+kubectl exec -ti teste-secret -- ls /tmp/giropops
 
 secret.txt
 
-# kubectl exec -ti teste-secret -- cat /tmp/giropops/secret.txt
+kubectl exec -ti teste-secret -- cat /tmp/giropops/secret.txt
 
 descomplicando-k8s
 ```
@@ -842,7 +842,7 @@ Sucesso, esse é um dos modos de colocar informações ou senha dentro de nossos
 Vamos dar uma olhada nesse cara, primeiro vamos criar um novo objeto ``Secret`` usando chave literal com chave e valor.
 
 ```
-# kubectl create secret generic my-literal-secret --from-literal user=linuxtips --from-literal password=catota
+kubectl create secret generic my-literal-secret --from-literal user=linuxtips --from-literal password=catota
 
 secret/my-literal-secret created
 ```
@@ -850,7 +850,7 @@ secret/my-literal-secret created
 Vamos ver os detalhes do objeto ``Secret`` ``my-literal-secret``.
 
 ```
-# kubectl describe secret my-literal-secret
+kubectl describe secret my-literal-secret
 
 Name:         my-literal-secret
 Namespace:    default
@@ -868,7 +868,7 @@ user:      9 bytes
 Acabamos de criar um objeto ``Secret`` com duas chaves, um ``user`` e outra ``password``, agora vamos referenciar essa chave dentro do nosso Pod utilizando variável de ambiente, para isso vamos criar nosso novo manifesto.
 
 ```
-# vim pod-secret-env.yaml
+vim pod-secret-env.yaml
 ```
 
 Informe o seguinte conteúdo.
@@ -902,14 +902,14 @@ spec:
 Vamos criar nosso pod.
 
 ```
-# kubectl create -f pod-secret-env.yaml
+kubectl create -f pod-secret-env.yaml
 pod/teste-secret-env created
 ```
 
-Agora vamos listar as variáveis de ambiente dentro do container para verificar se nosso Secret realmente foi criado.
+Agora vamos listar as variáveis de ambiente dentro do contêiner para verificar se nosso Secret realmente foi criado.
 
 ```
-# kubectl exec teste-secret-env -c busy-secret-env -it -- printenv
+kubectl exec teste-secret-env -c busy-secret-env -it -- printenv
 
 PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 HOSTNAME=teste-secret-env
@@ -927,46 +927,46 @@ KUBERNETES_PORT_443_TCP=tcp://10.96.0.1:443
 HOME=/root
 ```
 
-Viram? Agora podemos utilizar essa chave dentro do container como variável de ambiente, caso alguma aplicação dentro do container precise se conectar ao um banco de dados por exemplo utilizando usuário e senha, basta criar um ``secret`` com essas informações e referenciar dentro de um Pod depois é só consumir dentro do Pod como variável de ambiente ou um arquivo texto criando volumes.
+Viram? Agora podemos utilizar essa chave dentro do contêiner como variável de ambiente, caso alguma aplicação dentro do contêiner precise se conectar ao um banco de dados por exemplo utilizando usuário e senha, basta criar um ``secret`` com essas informações e referenciar dentro de um Pod depois é só consumir dentro do Pod como variável de ambiente ou um arquivo texto criando volumes.
 
 # ConfigMaps
 
-Os Objetos do tipo **ConfigMaps** são utilizados para separar arquivos de configuração do conteúdo da imagem de um container, assim podemos adicionar e alterar arquivos de configuração dentro dos Pods sem buildar uma nova imagem de container.
+Os Objetos do tipo **ConfigMaps** são utilizados para separar arquivos de configuração do conteúdo da imagem de um contêiner, assim podemos adicionar e alterar arquivos de configuração dentro dos Pods sem buildar uma nova imagem de contêiner.
 
 Para nosso exemplo vamos utilizar um ``ConfigMaps`` configurado com dois arquivos e  um valor literal.
 
 Vamos criar um diretório chamado ``frutas`` e nele vamos adicionar frutas e suas características.
 
 ```
-# mkdir frutas
+mkdir frutas
 
-# echo amarela > frutas/banana
+echo amarela > frutas/banana
 
-# echo vermelho > frutas/morango
+echo vermelho > frutas/morango
 
-# echo verde > frutas/limao
+echo verde > frutas/limao
 
-# echo "verde e vermelha" > frutas/melancia
+echo "verde e vermelha" > frutas/melancia
 
-# echo kiwi > predileta
+echo kiwi > predileta
 ```
 
 Crie o ``Configmap``.
 
 ```
-# kubectl create configmap cores-frutas --from-literal=uva=roxa --from-file=predileta --from-file=frutas/
+kubectl create configmap cores-frutas --from-literal=uva=roxa --from-file=predileta --from-file=frutas/
 ```
 
 Visualize o Configmap.
 
 ```
-# kubectl get configmap
+kubectl get configmap
 ```
 
 Vamos criar um pod para usar o Configmap.
 
 ```
-# vim pod-configmap.yaml
+vim pod-configmap.yaml
 ```
 
 Informe o seguinte conteúdo.
@@ -998,13 +998,13 @@ spec:
 Crie o pod a partir do manifesto.
 
 ```
-# kubectl create -f pod-configmap.yaml
+kubectl create -f pod-configmap.yaml
 ```
 
 Vamos criar um pod para usar outro Configmap.
 
 ```
-# vim pod-configmap-file.yaml
+vim pod-configmap-file.yaml
 ```
 
 Informe o seguinte conteúdo.
@@ -1034,7 +1034,7 @@ spec:
 Crie o pod a partir do manifesto.
 
 ```
-# kubectl create -f pod-configmap-file.yaml
+kubectl create -f pod-configmap-file.yaml
 ```
 
 # InitContainers
@@ -1045,7 +1045,7 @@ Crie o pod a partir do manifesto.
 Crie o seguinte arquivo.
 
 ```
-# vim nginx-initcontainer.yaml
+vim nginx-initcontainer.yaml
 ```
 
 Informe o seguinte conteúdo.
@@ -1084,7 +1084,7 @@ spec:
 Crie o pod a partir do manifesto.
 
 ```
-# kubectl create -f nginx-initcontainer.yaml
+kubectl create -f nginx-initcontainer.yaml
 
 pod/init-demo created
 ```
@@ -1092,13 +1092,13 @@ pod/init-demo created
 Visualize o conteúdo de um arquivo dentro de um conteiner do pod.
 
 ```
-# kubectl exec -ti init-demo -- cat /usr/share/nginx/html/index.html
+kubectl exec -ti init-demo -- cat /usr/share/nginx/html/index.html
 ```
 
 Vamos ver os detalhes do pod.
 
 ```
-# kubectl describe pod init-demo
+kubectl describe pod init-demo
 
 Name:               init-demo
 Namespace:          default
@@ -1183,7 +1183,7 @@ Events:
 Vamos remover o pod a partir do manifesto.
 
 ```
-# kubectl delete -f nginx-initcontainer.yaml
+kubectl delete -f nginx-initcontainer.yaml
 
 pod/init-demo deleted
 ```
@@ -1194,11 +1194,11 @@ pod/init-demo deleted
 > **Falta definir o conceito de RBAC...**
 
 ```
-# kubectl create serviceaccount jeferson
+kubectl create serviceaccount jeferson
 
-# kubectl create clusterrolebinding toskeria --serviceaccount=default:jeferson --clusterrole=cluster-admin
+kubectl create clusterrolebinding toskeria --serviceaccount=default:jeferson --clusterrole=cluster-admin
 
-# vim admin-user.yaml
+vim admin-user.yaml
 
 apiVersion: v1
 kind: ServiceAccount
@@ -1206,7 +1206,7 @@ metadata:
   name: admin-user
   namespace: kube-system
 
-# vim admin-cluster-role-binding.yaml
+vim admin-cluster-role-binding.yaml
 
 apiVersion: rbac.authorization.k8s.io/v1beta1
 kind: ClusterRoleBinding
@@ -1221,9 +1221,9 @@ subjects:
   name: admin-user
   namespace: kube-system
 
-# kubectl create -f admin-user.yaml
+kubectl create -f admin-user.yaml
 
-# kubectl create -f admin-cluster-role-binding.yaml
+kubectl create -f admin-cluster-role-binding.yaml
 ```
 
 # Helm
@@ -1253,25 +1253,25 @@ Fonte: https://helm.sh/docs/topics/v2_v3_migration
 Execute os seguintes comandos para instalar o Helm3 no node ``elliot-01``:
 
 ```
-# VERSION=v3.2.2
+VERSION=v3.2.2
 
-# HELM_TAR_FILE=helm-$VERSION-linux-amd64.tar.gz
+HELM_TAR_FILE=helm-$VERSION-linux-amd64.tar.gz
 
-# wget https://get.helm.sh/${HELM_TAR_FILE}
+wget https://get.helm.sh/${HELM_TAR_FILE}
 
-# tar -xvzf ${HELM_TAR_FILE}
+tar -xvzf ${HELM_TAR_FILE}
 
-# chmod +x linux-amd64/helm
+chmod +x linux-amd64/helm
 
-# cp linux-amd64/helm /usr/bin/helm
+sudo cp linux-amd64/helm /usr/bin/helm
 
-# rm -rf ${HELM_TAR_FILE} linux-amd64
+rm -rf ${HELM_TAR_FILE} linux-amd64
 ```
 
 Visualize a versão do Helm:
 
 ```
-$ helm version
+helm version
 ```
 
 ## Comandos Básicos do Helm 3
@@ -1279,13 +1279,13 @@ $ helm version
 Vamos adicionar o repositório oficial de Helm charts estáveis:
 
 ```
-$ helm repo add stable https://kubernetes-charts.storage.googleapis.com
+helm repo add stable https://kubernetes-charts.storage.googleapis.com
 ```
 
 Vamos listar os repositórios Helm adicionados:
 
 ```
-$ helm repo list
+helm repo list
 
 NAME    URL
 stable  https://kubernetes-charts.storage.googleapis.com/
@@ -1300,7 +1300,7 @@ Obs.: Para remover um repositório Helm, execute o comando: `helm repo remove NO
 Vamos obter a lista atualizada de Helm charts disponíveis para instalação utilizando todos os repositórios Helm adicionados. Seria o mesmo que executar o comando ``apt-get update``. Entendeu o porque da comparação?
 
 ```
-$ helm repo update
+helm repo update
 ```
 
 Por enquanto só temos um repositório adicionado. Se tívessemos adicionados mais, esse comando nos ajudaria muito.
@@ -1308,13 +1308,13 @@ Por enquanto só temos um repositório adicionado. Se tívessemos adicionados ma
 Agora vamos listar quais os charts estão disponíveis para ser instalados:
 
 ```
-$ helm search repo stable
+helm search repo stable
 ```
 
 Temos ainda a opção de listar os charts disponíveis a partir do Helm Hub (tipo o Docker Hub):
 
 ```
-$ helm search hub
+helm search hub
 ```
 
 ---
@@ -1326,7 +1326,7 @@ Obs.: O comando ``helm search repo`` pode ser utilizado para listar os charts em
 Vamos instalar o Prometheus utilizando o Helm. Mas antes vamos visualizar qual a versão do chart disponível para instalação:
 
 ```
-$ helm search repo prometheus
+helm search repo prometheus
 
 NAME                CHART VERSION   APP VERSION     DESCRIPTION
 stable/prometheus   11.4.0          2.18.1          Prometheus is a monitoring system and time seri...
@@ -1345,7 +1345,7 @@ Obs.: O comando ``helm search repo prometheus -l`` exibe todas as versões do ch
 Agora sim, vamos finalmente instalar o Prometheus no namespace ``default``:
 
 ```
-$ helm install meu-prometheus --version=11.4.0 stable/prometheus
+helm install meu-prometheus --version=11.4.0 stable/prometheus
 ```
 
 ---
@@ -1357,7 +1357,7 @@ Obs.: Se a opção ``-n NOME_NAMESPACE`` for utilizada, a aplicação será inst
 Liste as aplicações instaladas com o Helm no namespace ``default``:
 
 ```
-$ helm list
+helm list
 
 NAME           NAMESPACE REVISION UPDATED             STATUS   CHART             APP VERSION
 meu-prometheus default  1         2020-06-07 14:39:43 deployed prometheus-11.4.0 2.18.1
@@ -1368,7 +1368,7 @@ Simples como voar, não é mesmo?
 Mas quando vamos verificar o status dos Pods verá que eles estarão com status de Peding. Porque será?
 
 ```
-# kubectl get pods
+kubectl get pods
 
 NAME                                                 READY   STATUS      RESTARTS   AGE
 meu-prometheus-alertmanager-8657c8b9b8-kx4lw         0/2     Pending     0          7m51s
@@ -1392,15 +1392,17 @@ Vamos preparar os PVCs para o prometheus e alertmanager criando novos diretório
 elliot-01:
 
 ```
-#mkdir -p /opt/{alertmanager,prometheus}
-#chmod -R 777 /opt/alertmanager/
-#chmod -R 777 /opt/prometheus/
+sudo mkdir -p /opt/{alertmanager,prometheus}
+
+sudo chmod -R 777 /opt/alertmanager/
+
+sudo chmod -R 777 /opt/prometheus/
 ```
 
 Adicione as linhas para mapear os diretório para dentro do NFS:
 
 ```
-#vim /etc/exportfs
+sudo vim /etc/exportfs
 
     /opt/prometheus *(rw,sync,subtree_check,no_root_squash)
     /opt/alertmanager *(rw,sync,subtree_check,no_root_squash)
@@ -1410,7 +1412,9 @@ Feito isso atualize o mapeamento do NFS:
 ```
 exportfs -ar
 ```
+
 Valide rodando o comando exportfs -v
+
 ```
 exportfs -v
 
@@ -1421,12 +1425,13 @@ exportfs -v
 		<world>(rw,wdelay,no_root_squash,sec=sys,rw,secure,no_root_squash,no_all_squash)
 ```
 
-Agora para finalizar vamos fazer a criação do PV e PVC para que os nossos Pods possam montar
-o volume dentro deles executando o yaml abaixo:
+Agora para finalizar vamos fazer a criação do PV e PVC para que os nossos Pods possam montar o volume dentro deles executando o yaml a seguir:
 
 ```
-#vim volume-prometheus.yaml
+vim volume-prometheus.yaml
+```
 
+```yaml
 apiVersion: v1
 kind: PersistentVolume
 metadata:
@@ -1458,16 +1463,17 @@ spec:
     readOnly: false
 
 ```
+
 Agora crie os persistents volumes:
 
 ```
-# kubectl create -f volume-prometheus.yaml
+kubectl create -f volume-prometheus.yaml
 ```
 
 Valide se os PV e PVCs foram criados corretamente:
 
 ```
-#kubectl get pv,pvc
+kubectl get pv,pvc
 
 NAME      CAPACITY   ACCESS MODES   RECLAIM POLICY   STATUS   CLAIM   STORAGECLASS   REASON   AGE
 persistentvolume/meu-prometheus-alertmanager   8Gi  RWO Retain Bound default/meu-prometheus-alertmanager 12m
@@ -1476,13 +1482,12 @@ persistentvolume/meu-prometheus-server   8Gi  RWO Retain Bound default/meu-prome
 NAME    STATUS   VOLUME     CAPACITY   ACCESS MODES   STORAGECLASS   AGE
 persistentvolumeclaim/meu-prometheus-alertmanager   Bound    meu-prometheus-alertmanager   8Gi RWO 12m
 persistentvolumeclaim/meu-prometheus-server     Bound    meu-prometheus-server 8Gi  RWO  12m
-
 ```
 
 Agora valide se os Pods subiram:
 
 ```
-#kubectl get pods
+kubectl get pods
 
 meu-prometheus-alertmanager-8657c8b9b8-kx4lw         2/2     Running     0          17m
 meu-prometheus-kube-state-metrics-6864cf55db-zlbwg   1/1     Running     0          17m
@@ -1490,7 +1495,6 @@ meu-prometheus-node-exporter-692m6                   1/1     Running     0      
 meu-prometheus-node-exporter-qq8gf                   1/1     Running     0          17m
 meu-prometheus-pushgateway-667bdbcc56-9m4mr          1/1     Running     0          17m
 meu-prometheus-server-5bc59849fd-b29q490             2/2     Running     0          17m
-
 ```
 
 Top da Balada!
@@ -1498,7 +1502,7 @@ Top da Balada!
 Veja os detalhes do pod ``meu-prometheus-server-5bc59849fd-b29q490``:
 
 ```
-# kubect describe pod meu-prometheus-server-5bc59849fd-b29q490
+kubect describe pod meu-prometheus-server-5bc59849fd-b29q490
 
 Name:         meu-prometheus-server-5bc59849fd-b29q4
 Namespace:    default
@@ -1603,7 +1607,7 @@ Podemos ver nas linhas ``Liveness`` e ``Readness`` que o Prometheus está sendo 
 Obs.: Para quem está utilizando o kubectl e o helm instalado na sua máquina, pode criar um redirecionamento entre a porta 9090/TCP do pod e a porta 9091/TCP da sua máquina:
 
 ```
-# kubectl port-forward meu-prometheus-server-5bc59849fd-b29q4 --namespace default 9091:9090
+kubectl port-forward meu-prometheus-server-5bc59849fd-b29q4 --namespace default 9091:9090
 ```
 
 Agora acesse o navegador no endereço http://localhost:9091. Mágico não é mesmo?
@@ -1617,7 +1621,7 @@ https://kubernetes.io/docs/tasks/access-application-cluster/port-forward-access-
 Vamos visualizar os deployments:
 
 ```
-# kubectl get deployment
+kubectl get deployment
 
 NAME                                READY   UP-TO-DATE   AVAILABLE   AGE
 meu-prometheus-alertmanager         1/1     1            1           22m
@@ -1631,7 +1635,7 @@ Percebeu? Foi o Helm quem criou os deployments ao instalar a aplicação ``meu-p
 Visualize os replicaSet:
 
 ```
-# kubectl get replicaset
+kubectl get replicaset
 
 NAME                                           DESIRED   CURRENT   READY   AGE
 meu-prometheus-alertmanager-8657c8b9b8         1         1         1       25m
@@ -1643,7 +1647,7 @@ meu-prometheus-server-5bc59849fd               1         1         1       25m
 Visualize o services:
 
 ```
-# kubectl get services
+kubectl get services
 
 NAME                                TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)    AGE
 kubernetes                          ClusterIP   10.96.0.1        <none>        443/TCP    21d
@@ -1659,7 +1663,7 @@ O Helm também criou esses objetos no cluster ao instalar a aplicação ``meu-pr
 Vamos instalar o Grafana usando o Helm. Mas antes vamos visualizar qual a versão do chart mais recente:
 
 ```
-$ helm search repo grafana
+helm search repo grafana
 
 NAME            CHART VERSION   APP VERSION     DESCRIPTION
 stable/grafana  5.1.4           7.0.3           The leading tool for querying and visualizing
@@ -1668,7 +1672,7 @@ stable/grafana  5.1.4           7.0.3           The leading tool for querying an
 Agora sim, vamos instalar a aplicação ``meu-grafana``:
 
 ```
-$ helm install meu-grafana --version=5.1.4 stable/grafana
+helm install meu-grafana --version=5.1.4 stable/grafana
 
 NAME: meu-grafana
 LAST DEPLOYED: Sun Jun  7 15:10:43 2020
@@ -1701,14 +1705,14 @@ Observe que logo após a instalação do Grafana, tal como ocorreu com o Prometh
 Essas instruções podem ser visualizadas a qualquer momento usando os comandos:
 
 ```
-$ helm status meu-grafana
-$ helm status meu-prometheus
+helm status meu-grafana
+helm status meu-prometheus
 ```
 
 Vamos listar as aplicações instaladas pelo Helm em todos os namespaces:
 
 ```
-$ helm list --all
+helm list --all
 
 NAME            NAMESPACE REVISION UPDATED             STATUS   CHART             APP VERSION
 meu-grafana     default   1        2020-06-07 15:10:43 deployed grafana-5.1.4     7.0.3
@@ -1720,13 +1724,13 @@ Observe que a coluna **REVISION** mostra a revisão para cada aplicação instal
 Vamos remover a aplicação ``meu-prometheus``:
 
 ```
-$ helm uninstall meu-prometheus --keep-history
+helm uninstall meu-prometheus --keep-history
 ```
 
 Liste os pods:
 
 ```
-# kubectl get pods -A
+kubectl get pods -A
 ```
 
 O Prometheus foi removido, certo?
@@ -1734,7 +1738,7 @@ O Prometheus foi removido, certo?
 Vamos listar novamente as aplicações instaladas pelo Helm em todos os namespaces:
 
 ```
-$ helm list --all
+helm list --all
 
 NAME            NAMESPACE REVISION UPDATED             STATUS   CHART             APP VERSION
 meu-grafana     default   1        2020-06-07 15:10:43 deployed grafana-5.1.4     7.0.3
@@ -1743,7 +1747,7 @@ meu-grafana     default   1        2020-06-07 15:10:43 deployed grafana-5.1.4   
 Agora vamos fazer o rollback da remoção da aplicação ``meu-prometheus``, informando a **revision 1**:
 
 ```
-$ helm rollback meu-prometheus 1
+helm rollback meu-prometheus 1
 
 Rollback was a success! Happy Helming!
 ```
@@ -1751,7 +1755,7 @@ Rollback was a success! Happy Helming!
 Liste as aplicações instaladas pelo Helm em todos os namespaces:
 
 ```
-$ helm list --all
+helm list --all
 
 NAME            NAMESPACE REVISION UPDATED             STATUS   CHART             APP VERSION
 meu-grafana     default   1        2020-06-07 15:10:43 deployed grafana-5.1.4     7.0.3
@@ -1765,7 +1769,7 @@ A revision sempre é incrementada a cada alteração no deploy de uma aplicaçã
 Vamos visualizar o histórico de mudanças da aplicação ``meu-prometheus``:
 
 ```
-$ helm history meu-prometheus
+helm history meu-prometheus
 
 REVISION UPDATED                  STATUS       CHART             APP VERSION DESCRIPTION
 1        Sun Jun  7 15:25:43 2020 uninstalled  prometheus-11.4.0 2.18.1      Uninstallation complete
@@ -1775,13 +1779,14 @@ REVISION UPDATED                  STATUS       CHART             APP VERSION DES
 Se a aplicação for removida sem a opção `--keep-history`, o histórico será perdido e não será possível fazer rollback.
 
 Para testar isso, remova as aplicações ``meu-prometheus`` e ``meu-grafana`` com os seguites comandos:
+
 ```
-# helm uninstall meu-grafana
-# helm uninstall meu-prometheus
+helm uninstall meu-grafana
+helm uninstall meu-prometheus
 ```
 
 Liste as aplicações instaladas em todos os namespaces:
 
 ```
-$ helm list --all
+helm list --all
 ```

@@ -107,13 +107,13 @@ Então, para toda e qualquer interação com o ETCD vamos precisar utililizar es
 
 # Interagindo com o ETCD
 
-Para interagir com o ETCD vamos precisar o ``etcdctl`` ou utilizar o próprio container do etcd com o comando ```kubectl exec```
+Para interagir com o ETCD vamos precisar o ``etcdctl`` ou utilizar o próprio contêiner do etcd com o comando ```kubectl exec```
 
 Referência: https://github.com/etcd-io/etcd/tree/master/etcdctl
 
 Baixando a ultima versão do etcd:
 
-Linux:
+GNU/Linux:
 ```
 # ETCD_VER=v3.4.7
 
@@ -148,7 +148,7 @@ Como vimos anteriormente, vamos precisar utilizar os certificados para nos auten
 --cert
 ```
 
-Além disso vamos precisar do endpoint, caso esteja no container do ETCD seu endpoint será ``127.0.0.1:2379``.
+Além disso vamos precisar do endpoint, caso esteja no contêiner do ETCD seu endpoint será ``127.0.0.1:2379``.
 
 A sua URL para o endpoint vai estar na flag ```--advertise-client-urls``` nas configurações do ETCD.
 
