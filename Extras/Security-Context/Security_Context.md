@@ -52,6 +52,7 @@ kubectl exec busy-security-user -- id
 ```
 
 Output:
+
 ```
 uid=1000 gid=1000
 ```
@@ -110,7 +111,6 @@ spec:
   - name: sec-busy
     image: busybox
     command: [ "sh", "-c", "sleep 1h" ]
-
 ```
 
 ```
@@ -118,6 +118,7 @@ kubectl exec busy-security-cap -- date -s "18:00:00"
 ```
 
 Output
+
 ```
 date: can't set date: Operation not permitted
 ```
@@ -144,6 +145,7 @@ kubectl exec busy-security-cap -- date -s "18:00:00"
 ```
 
 Output:
+
 ```
 Sat May 16 18:00:00 UTC 2020
 ```

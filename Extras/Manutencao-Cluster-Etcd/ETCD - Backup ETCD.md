@@ -52,7 +52,7 @@ Toda informação que é apresentada ao usuário quando executado o comando ``ku
 Vejamos se o *pod etcd* foi criado com sucesso com o seguinte comando.
 
 ```
-# kubectl get pods -n kube-system
+kubectl get pods -n kube-system
 ```
 
 Output:
@@ -78,7 +78,7 @@ weave-net-xl7km                     2/2     Running   0          8d
 O ETCD, como os demais serviços do Kuberentes, utilizam certificados PKI para autenticação sobre TLS, essas chaves são declaradas no manifesto de configuração em:
 
 ```
-# kubectl describe pod etcd-docker-01 -n kube-system
+kubectl describe pod etcd-docker-01 -n kube-system
 ```
 
 Parâmetros:
@@ -92,7 +92,7 @@ Parâmetros:
 Essas chaves vão ser utilizadas pelos demais componentes do cluster como, por exemplo, o **API Server** possam conectar e fazerem alterações.
 
 ```
-# kubectl describe pod kube-apiserver -n kube-system
+kubectl describe pod kube-apiserver -n kube-system
 ```
 
 Parâmetros:
@@ -115,27 +115,27 @@ Baixando a ultima versão do etcd:
 
 GNU/Linux:
 ```
-# ETCD_VER=v3.4.7
+ETCD_VER=v3.4.7
 
-# GOOGLE_URL=https://storage.googleapis.com/etcd
+GOOGLE_URL=https://storage.googleapis.com/etcd
 
-# GITHUB_URL=https://github.com/etcd-io/etcd/releases/download
+GITHUB_URL=https://github.com/etcd-io/etcd/releases/download
 
-# DOWNLOAD_URL=${GOOGLE_URL}
+DOWNLOAD_URL=${GOOGLE_URL}
 
-# rm -f /tmp/etcd-${ETCD_VER}-linux-amd64.tar.gz
+rm -f /tmp/etcd-${ETCD_VER}-linux-amd64.tar.gz
 
-# rm -rf /tmp/etcd-download-test && mkdir -p /tmp/etcd-download-test
+rm -rf /tmp/etcd-download-test && mkdir -p /tmp/etcd-download-test
 
-# curl -L ${DOWNLOAD_URL}/${ETCD_VER}/etcd-${ETCD_VER}-linux-amd64.tar.gz -o /tmp/etcd-${ETCD_VER}-linux-amd64.tar.gz
+curl -L ${DOWNLOAD_URL}/${ETCD_VER}/etcd-${ETCD_VER}-linux-amd64.tar.gz -o /tmp/etcd-${ETCD_VER}-linux-amd64.tar.gz
 
-# tar xzvf /tmp/etcd-${ETCD_VER}-linux-amd64.tar.gz -C /tmp/etcd-download-test --strip-components=1
+tar xzvf /tmp/etcd-${ETCD_VER}-linux-amd64.tar.gz -C /tmp/etcd-download-test --strip-components=1
 
-# rm -f /tmp/etcd-${ETCD_VER}-linux-amd64.tar.gz
+rm -f /tmp/etcd-${ETCD_VER}-linux-amd64.tar.gz
 
-# /tmp/etcd-download-test/etcd --version
+/tmp/etcd-download-test/etcd --version
 
-# /tmp/etcd-download-test/etcdctl version
+/tmp/etcd-download-test/etcdctl version
 ```
 
 Referência: https://github.com/etcd-io/etcd/releases
@@ -166,7 +166,7 @@ get / --prefix --keys-only
 O comando ``kubectl exec`` ficará similar ao mostrado a seguir.
 
 ```
-# kubectl exec -it etcd-minikube -n kube-system \
+kubectl exec -it etcd-minikube -n kube-system \
 -- etcdctl --endpoints=https://127.0.0.1:2379 \
 --cacert=/var/lib/minikube/certs/etcd/ca.crt \
 --key=/var/lib/minikube/certs/etcd/server.key \
@@ -216,7 +216,7 @@ Aqui temos uma parte do conteúdo da  resposta do get no ``/`` do ETCD, onde li
 Em um exemplo um pouco mais prático, vamos listar apenas as chaves dos pods no namespace ``default``. O parâmetro para que o output contenha apenas as chaves é ```--keys-only```.
 
 ```
-# kubectl exec -it etcd-minikube -n kube-system \
+kubectl exec -it etcd-minikube -n kube-system \
 -- etcdctl --endpoints=https://127.0.0.1:2379 \
 --cacert=/var/lib/minikube/certs/etcd/ca.crt \
 --key=/var/lib/minikube/certs/etcd/server.key \
@@ -233,7 +233,7 @@ Output:
 Agora vamos ver os valores contidos na chave ``/registry/pods/default/nginx``, onde estão as configurações do pod. Vamos remover o parâmetro ```--keys-only``` para que possamos ver os valores da chave.
 
 ```
-# kubectl exec -it etcd-minikube -n kube-system \
+kubectl exec -it etcd-minikube -n kube-system \
 -- etcdctl --endpoints=https://127.0.0.1:2379 \
 --cacert=/var/lib/minikube/certs/etcd/ca.crt \
 --key=/var/lib/minikube/certs/etcd/server.key \
@@ -297,7 +297,7 @@ Esse snapshot, contém todos os dados do estado do cluster.
 Para realizar o snapshot do ETCD sem a autenticação **TLS habilitado**, precisamos executar o seguinte comando.
 
 ```
-# ETCDCTL_API=3 etcdctl \
+ETCDCTL_API=3 etcdctl \
 --endpoints $ENDPOINT \
 snapshot save snapshot.db
 ```
@@ -332,7 +332,7 @@ Além do ``--endpoits``, precisamos adicionar as chaves e certificados referente
 Logo, o comando ficará assim:
 
 ```
-# ETCDCTL_API=3 etcdctl \
+ETCDCTL_API=3 etcdctl \
 --cacert /var/lib/minikube/certs/etcd/ca.crt \
 --key /var/lib/minikube/certs/etcd/server.key \
 --cert /var/lib/minikube/certs/etcd/server.crt \
@@ -351,7 +351,7 @@ Porém, pode ser que você seja obrigado a salvar esse **snapshot** em um diret�
 Com isso, o comando ficaria assim:
 
 ```
-# ETCDCTL_API=3 etcdctl \
+ETCDCTL_API=3 etcdctl \
 --cacert /var/lib/minikube/certs/etcd/ca.crt \
 --key /var/lib/minikube/certs/etcd/server.key \
 --cert /var/lib/minikube/certs/etcd/server.crt \
