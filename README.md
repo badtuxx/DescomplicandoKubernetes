@@ -28,12 +28,10 @@ Veja os vídeos sobre Kubernetes e até outros temas legais no canal LinuxTips.
 
 
 <!-- TOC -->
-- [Descomplicando Kubernetes Day 1](day-1/DescomplicandoKubernetes-Day1.md)
-
-
+- [Descomplicando Kubernetes Day 1](day-1/DescomplicandoKubernetes-Day1.md#descomplicando-kubernetes-day-1)
   - [Sumário](day-1/DescomplicandoKubernetes-Day1.md#sumário)
 - [O quê preciso saber antes de começar?](day-1/DescomplicandoKubernetes-Day1.md#o-quê-preciso-saber-antes-de-começar)
-  - [Qual distro Linux devo usar?](day-1/DescomplicandoKubernetes-Day1.md#qual-distro-linux-devo-usar)
+  - [Qual distro GNU/Linux devo usar?](day-1/DescomplicandoKubernetes-Day1.md#qual-distro-gnulinux-devo-usar)
   - [Alguns sites que devemos visitar](day-1/DescomplicandoKubernetes-Day1.md#alguns-sites-que-devemos-visitar)
   - [E o k8s?](day-1/DescomplicandoKubernetes-Day1.md#e-o-k8s)
   - [Arquitetura do k8s](day-1/DescomplicandoKubernetes-Day1.md#arquitetura-do-k8s)
@@ -43,7 +41,7 @@ Veja os vídeos sobre Kubernetes e até outros temas legais no canal LinuxTips.
 - [Aviso sobre os comandos](day-1/DescomplicandoKubernetes-Day1.md#aviso-sobre-os-comandos)
 - [Minikube](day-1/DescomplicandoKubernetes-Day1.md#minikube)
   - [Requisitos básicos](day-1/DescomplicandoKubernetes-Day1.md#requisitos-básicos)
-  - [Instalação do Minikube no Linux](day-1/DescomplicandoKubernetes-Day1.md#instalação-do-minikube-no-linux)
+  - [Instalação do Minikube no GNU/Linux](day-1/DescomplicandoKubernetes-Day1.md#instalação-do-minikube-no-gnulinux)
   - [Instalação do Minikube no MacOS](day-1/DescomplicandoKubernetes-Day1.md#instalação-do-minikube-no-macos)
   - [kubectl: alias e autocomplete](day-1/DescomplicandoKubernetes-Day1.md#kubectl-alias-e-autocomplete)
   - [Instalação do Minikube no Microsoft Windows](day-1/DescomplicandoKubernetes-Day1.md#instalação-do-minikube-no-microsoft-windows)
@@ -65,7 +63,7 @@ Veja os vídeos sobre Kubernetes e até outros temas legais no canal LinuxTips.
     - [Instalando o Brew](day-1/DescomplicandoKubernetes-Day1.md#instalando-o-brew)
     - [Instalando o Microk8s via Brew](day-1/DescomplicandoKubernetes-Day1.md#instalando-o-microk8s-via-brew)
 - [Kind](day-1/DescomplicandoKubernetes-Day1.md#kind)
-  - [Instalação no Linux](day-1/DescomplicandoKubernetes-Day1.md#instalação-no-linux)
+  - [Instalação no GNU/Linux](day-1/DescomplicandoKubernetes-Day1.md#instalação-no-gnulinux)
   - [Instalaçao no MacOS](day-1/DescomplicandoKubernetes-Day1.md#instalaçao-no-macos)
   - [Instalação no Windows](day-1/DescomplicandoKubernetes-Day1.md#instalação-no-windows-1)
     - [Instalação no Windows via Chocolatey](day-1/DescomplicandoKubernetes-Day1.md#instalação-no-windows-via-chocolatey)
