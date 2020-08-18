@@ -19,7 +19,7 @@
 
 # O que preciso saber antes de começar?
 
-ETCD é um dos componentes fundamentais que fazem o kubernetes funcionar.
+ETCD é um dos componentes fundamentais que fazem o Kubernetes funcionar.
 
 # O que é o ETCD?
 
@@ -53,11 +53,7 @@ Vejamos se o *pod etcd* foi criado com sucesso com o seguinte comando.
 
 ```
 kubectl get pods -n kube-system
-```
 
-Output:
-
-```
 NAME                                READY   STATUS    RESTARTS   AGE
 coredns-66bff467f8-pfm2c            1/1     Running   0          8d
 coredns-66bff467f8-s8pk4            1/1     Running   0          8d
@@ -369,7 +365,7 @@ ETCDCTL_API=3 etcdctl \
 --endpoints 127.0.0.1:2379  \
 snapshot restore /tmp/snapshot.db
 
-mv /var/lib/etcd/member /var/lib/etcd/member.old
-mv /var/lib/etcd/default.etcd/member /var/lib/etcd/
+sudo mv /var/lib/etcd/member /var/lib/etcd/member.old
+sudo mv /var/lib/etcd/default.etcd/member /var/lib/etcd/
 ```
 
