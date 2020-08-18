@@ -106,7 +106,7 @@ Veja os vídeos sobre Kubernetes e até outros temas legais no canal LinuxTips.
   - [Criando um service ClusterIP](day-2/DescomplicandoKubernetes-Day2.md#criando-um-service-clusterip)
   - [Criando um service NodePort](day-2/DescomplicandoKubernetes-Day2.md#criando-um-service-nodeport)
   - [Criando um service LoadBalancer](day-2/DescomplicandoKubernetes-Day2.md#criando-um-service-loadbalancer)
-  - [EndPoint](day-2/DescomplicandoKubernetes-Day2.md#endpoint)
+  - [EndPoint]day-2/DescomplicandoKubernetes-Day2.md(#endpoint)
 - [Limitando Recursos](day-2/DescomplicandoKubernetes-Day2.md#limitando-recursos)
 - [Namespaces](day-2/DescomplicandoKubernetes-Day2.md#namespaces)
 - [Kubectl taint](day-2/DescomplicandoKubernetes-Day2.md#kubectl-taint)
