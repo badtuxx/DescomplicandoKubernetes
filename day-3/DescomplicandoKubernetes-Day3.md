@@ -22,17 +22,13 @@ O **Deployment** é um recurso com a responsabilidade de instruir o Kubernetes a
 
 Um Deployment é o responsável por gerenciar o seu **ReplicaSet** (que iremos falar logo menos), ou seja, o Deployment é quem vai determinar a configuração de sua aplicação e como ela será implementada. O Deployment é o controller que irá cuidar, por exemplo, uma instância de sua aplicação por algum motivo for interrompida. O Deployment controller irá identificar o problema com a instância e irá criar uma nova em seu lugar.
 
-Quando você utiliza o _kubectl create deployment_, você está realizando o deploy de um objeto chamado Deployment. Como outros objetos, o Deployment também pode ser criado através de um arquivo YAML ou de um JSON, conhecidos por manifestos.
+Quando você utiliza o ``kubectl create deployment``, você está realizando o deploy de um objeto chamado Deployment. Como outros objetos, o Deployment também pode ser criado através de um arquivo YAML ou de um JSON, conhecidos por manifestos.
 
-Se você deseja alterar alguma configuração de seus objetos, como o pod, você pode utilizar o _kubectl apply_, através de um manifesto, ou ainda através do _kubectl edit_.
-
-Normalmente, quando você faz uma alteração em seu Deployment, é criado uma nova versão do ReplicaSet, esse se tornando o ativo e fazendo com que seu antecessor seja desativado.
-
-As versões anteriores dos ReplicaSets são mantidas, possibilitando o _rollback_ em caso de falhas.
+Se você deseja alterar alguma configuração de seus objetos, como o pod, você pode utilizar o ``kubectl apply``, através de um manifesto, ou ainda através do ``kubectl edit``. Normalmente, quando você faz uma alteração em seu Deployment, é criado uma nova versão do ReplicaSet, esse se tornando o ativo e fazendo com que seu antecessor seja desativado. As versões anteriores dos ReplicaSets são mantidas, possibilitando o _rollback_ em caso de falhas.
 
 As **labels** são importantes para o gerenciamento do cluster, pois com elas é possível buscar ou selecionar recursos em seu cluster, fazendo com que você consiga organizar em pequenas categorias, facilitando assim a sua busca e organizando seus pods e seus recursos do cluster. As labels não são recursos do API server, elas são armazenadas no metadata em formato chave-valor.
 
-Antes nos tínhamos somente o RC, _Replication Controller_, que era um controle sobre o número de réplicas que determinado pod estava executando, o problema é que todo esse gerenciamento era feito do lado do client. Para solucionar esse problema, foi adicionado o objeto Deployment, que permite a atualização pelo lado do server. Deployments geram ReplicaSets, que oferecerem melhores opções do que o **ReplicationController**, e por esse motivo está sendo substituído.
+Antes nos tínhamos somente o RC, _Replication Controller_, que era um controle sobre o número de réplicas que determinado pod estava executando, o problema é que todo esse gerenciamento era feito do lado do client. Para solucionar esse problema, foi adicionado o objeto Deployment, que permite a atualização pelo lado do server. **Deployments** geram **ReplicaSets**, que oferecerem melhores opções do que o **ReplicationController**, e por esse motivo está sendo substituído.
 
 Podemos criar nossos deployments a partir do template: 
 ```
@@ -47,7 +43,7 @@ vim primeiro-deployment.yaml
 
 O conteúdo deve ser o seguinte:
 
-```
+```yaml
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -100,7 +96,7 @@ vim segundo-deployment.yaml
 
 O conteúdo deve ser o seguinte:
 
-```
+```yaml
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -449,7 +445,7 @@ kubectl label nodes elliot-03 disk=HDD --overwrite
 node/elliot-03 labeled
 ```
 
-Para saber as labels configuradas em cada node basta executar o seguinte comando.
+Para saber as labels configuradas em cada node basta executar o seguinte comando:
 
 No slave 1:
 
@@ -485,7 +481,7 @@ vim terceiro-deployment.yaml
 
 Informe o seguinte conteúdo:
 
-```
+```yaml
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -571,7 +567,7 @@ Abriu um editor, correto? Vamos alterar a label ``DC``. Vamos imaginar que esse 
 
 O conteúdo deve ser o seguinte:
 
-```
+```yaml
 spec:
   replicas: 1
   selector:
@@ -635,7 +631,7 @@ vim primeiro-replicaset.yaml
 
 O conteúdo deve ser o seguinte:
 
-```
+```yaml
 apiVersion: apps/v1
 kind: ReplicaSet
 metadata:
@@ -717,9 +713,7 @@ Events:
   Normal  SuccessfulCreate  31s   replicaset-controller  Created pod: replica-set-primeiro-7j59w
 ```
 
-Assim podemos ver todos os pods associados ao ReplicaSet, e se excluirmos um desses Pods, o que será que acontece?
-
-Vamos testar:
+Assim podemos ver todos os pods associados ao ReplicaSet, e se excluirmos um desses Pods, o que será que acontece? Vamos testar:
 
 ```
 kubectl delete pod replica-set-primeiro-6drmt
@@ -738,7 +732,7 @@ replica-set-primeiro-mg8q9   1/1       Running   0          1m
 replica-set-primeiro-s5dz2   1/1       Running   0          15s
 ```
 
-Percebeu que ele recriou outro Pod? O ReplicaSet faz com que sempre tenha 3 pods disponíveis.
+Percebeu que ele recriou outro Pod? O **ReplicaSet** faz com que sempre tenha 3 pods disponíveis.
 
 Vamos alterar para 4 réplicas e recriar o ReplicaSet, para isso vamos utilizar o ``kubectl edit`` visto anteriormente, assim podemos alterar o ReplicaSet já em execução.
 
@@ -748,7 +742,7 @@ kubectl edit rs replica-set-primeiro
 
 O conteúdo deve ser o seguinte:
 
-```
+```yaml
 apiVersion: apps/v1
 kind: ReplicaSet
 metadata:
@@ -796,9 +790,7 @@ kubectl get deployment.apps
 
 Perceba que não é listado um deployment relacionado ao ``replica-set-primeiro``.
 
-Agora vamos editar um dos pods e modificar a versão da imagem do Nginx que estamos utilizando no exemplo. Vamos alterar de ``image: nginx:1.7.9_`` para ``image: nginx:1.15.0`` utilizando o ``kubectl edit``.
-
-Editando o pod:
+Agora vamos editar um dos pods e modificar a versão da imagem do Nginx que estamos utilizando no exemplo. Vamos alterar de ``image: nginx:1.7.9_`` para ``image: nginx:1.15.0`` utilizando o ``kubectl edit``. Editando o pod:
 
 ```
 kubectl edit pod replica-set-primeiro-7j59w
@@ -806,7 +798,7 @@ kubectl edit pod replica-set-primeiro-7j59w
 
 O conteúdo deve ser o seguinte:
 
-```
+```yaml
 apiVersion: v1
 kind: Pod
 metadata:
@@ -943,7 +935,7 @@ vim primeiro-daemonset.yaml
 
 O conteúdo deve ser o seguinte:
 
-```
+```yaml
 apiVersion: apps/v1
 kind: DaemonSet
 metadata:
@@ -1207,7 +1199,7 @@ Perceba que trocamos o ``history`` por ``undo`` e o ``revision`` por ``to-revisi
 
 ---
 
-Obs.: Por padrão, o DaemonSet guarda apenas as 10 últimas revisions. Para alterar a quantidade máxima de revisions no nosso Daemonset, execute o seguinte comando.
+> OBS.: Por padrão, o DaemonSet guarda apenas as 10 últimas revisions. Para alterar a quantidade máxima de revisions no nosso Daemonset, execute o seguinte comando.
 Fonte: https://kubernetes.io/docs/concepts/workloads/controllers/deployment/#clean-up-policy
 
 ---
@@ -1258,7 +1250,7 @@ vim primeiro-daemonset.yaml
 
 O conteúdo deve ser o seguinte:
 
-```
+```yaml
 apiVersion: apps/v1
 kind: DaemonSet
 metadata:
