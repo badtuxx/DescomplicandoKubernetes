@@ -209,7 +209,21 @@ Adicione a seguinte linha:
 Aplique a configuração do NFS no node ``elliot-01``.
 
 ```
-# exportfs -ra
+# exportfs -a
+```
+
+Vamos fazer o restart do serviço do NFS no node ``elliot-01``.
+
+No Debian/Ubuntu:
+
+```
+# systemctl restart nfs-kernel-server
+```
+
+No CentOS/RedHat:
+
+```
+# systemctl restart nfs
 ```
 
 Ainda no node ``elliot-01``, vamos criar um arquivo nesse diretório para nosso teste.
@@ -1351,20 +1365,135 @@ meu-prometheus default  1         2020-06-07 14:39:43 deployed prometheus-11.4.0
 
 Simples como voar, não é mesmo?
 
-Visualize os pods:
+Mas quando vamos verificar o status dos Pods verá que eles estarão com status de Peding. Porque será?
 
 ```
 # kubectl get pods
 
 NAME                                                 READY   STATUS      RESTARTS   AGE
-meu-prometheus-alertmanager-8657c8b9b8-kx4lw         2/2     Running     0          7m51s
+meu-prometheus-alertmanager-8657c8b9b8-kx4lw         0/2     Pending     0          7m51s
 meu-prometheus-kube-state-metrics-6864cf55db-jm596   1/1     Running     0          7m51s
 meu-prometheus-node-exporter-5bcr8                   1/1     Running     0          7m51s
 meu-prometheus-node-exporter-hqpdx                   1/1     Running     0          7m51s
 meu-prometheus-node-exporter-qbzpd                   1/1     Running     0          7m51s
 meu-prometheus-pushgateway-667bdbcc56-6sbt9          1/1     Running     0          7m51s
-meu-prometheus-server-5bc59849fd-b29q4               2/2     Running     0          7m51s
+meu-prometheus-server-5bc59849fd-b29q4               0/2     Pending     0          7m51s
 ```
+
+Executando um describe do Pod ``meu-prometheus-server`` e verá que ele está pedindo um pvc.
+
+Events:
+  Type     Reason            Age                  From               Message
+  ----     ------            ----                 ----               -------
+  Warning  FailedScheduling  57s (x4 over 2m17s)  default-scheduler  running "VolumeBinding" filter plugin for pod "meu-prometheus-server-5bc59849fd-b29q4": pod has unbound immediate PersistentVolumeClaims
+
+Problema detectado. Ele não está conseguindo montar pois não existe um PersistentVolumeClaims para ele.
+Vamos preparar os PVCs para o prometheus e alertmanager criando novos diretórios no nosso querido NFS no
+elliot-01:
+
+```
+#mkdir -p /opt/{alertmanager,prometheus}
+#chmod -R 777 /opt/alertmanager/
+#chmod -R 777 /opt/prometheus/
+```
+
+Adicione as linhas para mapear os diretório para dentro do NFS:
+
+```
+#vim /etc/exportfs
+
+    /opt/prometheus *(rw,sync,subtree_check,no_root_squash)
+    /opt/alertmanager *(rw,sync,subtree_check,no_root_squash)
+```
+Feito isso atualize o mapeamento do NFS:
+
+```
+exportfs -ar
+```
+Valide rodando o comando exportfs -v
+```
+exportfs -v
+
+/opt/dados    	<world>(rw,wdelay,no_root_squash,sec=sys,rw,secure,no_root_squash,no_all_squash)
+/opt/prometheus
+		<world>(rw,wdelay,no_root_squash,sec=sys,rw,secure,no_root_squash,no_all_squash)
+/opt/alertmanager
+		<world>(rw,wdelay,no_root_squash,sec=sys,rw,secure,no_root_squash,no_all_squash)
+```
+
+Agora para finalizar vamos fazer a criação do PV e PVC para que os nossos Pods possam montar
+o volume dentro deles executando o yaml abaixo:
+
+```
+#vim volume-prometheus.yaml
+
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: meu-prometheus-server
+spec:
+  capacity:
+    storage: 8Gi
+  accessModes:
+  - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  nfs:
+    path: /opt/prometheus
+    server: 10.138.0.2
+    readOnly: false
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: meu-prometheus-alertmanager
+spec:
+  capacity:
+    storage: 8Gi
+  accessModes:
+  - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  nfs:
+    path: /opt/alertmanager
+    server: 10.138.0.2
+    readOnly: false
+
+```
+Agora crie os persistents volumes:
+
+```
+# kubectl create -f volume-prometheus.yaml
+```
+
+Valide se os PV e PVCs foram criados corretamente:
+
+```
+#kubectl get pv,pvc
+
+NAME      CAPACITY   ACCESS MODES   RECLAIM POLICY   STATUS   CLAIM   STORAGECLASS   REASON   AGE
+persistentvolume/meu-prometheus-alertmanager   8Gi  RWO Retain Bound default/meu-prometheus-alertmanager 12m
+persistentvolume/meu-prometheus-server   8Gi  RWO Retain Bound default/meu-prometheus-server 12m
+
+NAME    STATUS   VOLUME     CAPACITY   ACCESS MODES   STORAGECLASS   AGE
+persistentvolumeclaim/meu-prometheus-alertmanager   Bound    meu-prometheus-alertmanager   8Gi RWO 12m
+persistentvolumeclaim/meu-prometheus-server     Bound    meu-prometheus-server 8Gi  RWO  12m
+
+```
+
+Agora valide se os Pods subiram:
+
+```
+#kubectl get pods
+
+meu-prometheus-alertmanager-8657c8b9b8-kx4lw         2/2     Running     0          17m
+meu-prometheus-kube-state-metrics-6864cf55db-zlbwg   1/1     Running     0          17m
+meu-prometheus-node-exporter-692m6                   1/1     Running     0          17m
+meu-prometheus-node-exporter-qq8gf                   1/1     Running     0          17m
+meu-prometheus-pushgateway-667bdbcc56-9m4mr          1/1     Running     0          17m
+meu-prometheus-server-5bc59849fd-b29q490             2/2     Running     0          17m
+
+```
+
+Top da Balada!
 
 Veja os detalhes do pod ``meu-prometheus-server-5bc59849fd-b29q490``:
 

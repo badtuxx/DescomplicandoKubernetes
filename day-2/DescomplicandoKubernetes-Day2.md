@@ -235,7 +235,7 @@ Removendo o service.
 service "nginx-clusterip" deleted
 ```
 
-Agora vamos mudar um detalhe em nosso manifesto, vamos brincar com o nosso ``sessionaffinity``:
+Agora vamos mudar um detalhe em nosso manifesto, vamos brincar com o nosso ``sessionAffinity``:
 
 ```
 # vim primeiro-service-clusterip.yaml
@@ -299,7 +299,15 @@ Session Affinity:  ClientIP
 Events:            <none>
 ```
 
-Com isso, agora temos como manter a sessão, ou seja, ele irá manter a conexão com o mesmo pod, respeitando o IP de origem, do cliente.
+Com isso, agora temos como manter a sessão, ou seja, ele irá manter a conexão com o mesmo pod, respeitando o IP de origem do cliente.
+
+Caso precise, é possível alterar o valor do timeout para o ``sessionAffinity`` (O valor padrão é de 10800 segundos, ou seja 3 horas), apenas adicionando a configuração abaixo.
+
+```
+  sessionAffinityConfig:
+    clientIP:
+      timeoutSeconds: 10
+```
 
 Agora podemos remover o service:
 
@@ -901,7 +909,7 @@ No resource quota.
 No LimitRange resource.
 ```
 
-Como podemos ver nosso namespace ainda está cru sem configurações, vamos incrementar esse namespace e colocar limite de recursos, para isso vamos utilizar o ``LimitRange``.
+Como podemos ver, nosso namespace ainda está sem configurações, então iremos utilizar o ``LimitRange`` para adicionar limites de recursos.
 
 Vamos criar o manifesto do ``LimitRange``:
 
@@ -943,7 +951,7 @@ Listando o LimitRange.
 No resources found in default namespace.
 ```
 
-Opa, não encontramos não é mesmo? Mas claro esquecemos de passar nosso namespace na hora de listar.
+Opa, não encontramos não é mesmo? Mas claro, esquecemos de passar nosso namespace na hora de listar.
 
 ```
 # kubectl get limitrange -n primeiro-namespace
@@ -974,7 +982,7 @@ Container   cpu       -    -    500m             1              -
 Container   memory    -    -    80Mi             100Mi          -
 ```
 
-Como podemos observar adicionamos limites de memória e cpu para cada container que subir nesse Namespace, se algum container for criado dentro do Namespace sem as configurações de Limitrange o container vai pegar essa configuração default com limite de recursos.
+Como podemos observar, adicionamos limites de memória e cpu para cada container que subir nesse Namespace, se algum container for criado dentro do Namespace sem as configurações de Limitrange, o container irá herdar as configurações de limites de recursos do Namespace.
 
 Vamos criar um pod para verificar se o limite se aplicará.
 
@@ -995,7 +1003,7 @@ spec:
     image: nginx
 ```
 
-Agora vamos criar um pod fora do namespace default e outro dentro do namespace limitado (primeiro-namespace) e vamos observar os limites de recursos de cada container e como foram aplicados:
+Agora vamos criar um pod fora do namespace default e outro dentro do namespace limitado (primeiro-namespace), e vamos observar os limites de recursos de cada container e como foram aplicados:
 
 Criando o pod no namespace ``default``:
 
