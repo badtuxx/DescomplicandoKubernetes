@@ -320,7 +320,12 @@ A instalação do kubectl pode ser realizada efetuando o download [neste link](h
 
 ## Iniciando, parando e excluindo o Minikube
 
-Quando operando em conjunto com um *hypervisor*, o Minikube cria uma máquina virtual, onde dentro dela estarão todos os componentes do k8s para execução. Para realizar a inicialização desse ambiente, execute o comando:
+Quando operando em conjunto com um *hypervisor*, o Minikube cria uma máquina virtual, onde dentro dela estarão todos os componentes do k8s para execução. Para realizar a inicialização desse ambiente, antes de executar o minikube, precisamos setar o VirtualBox como padrão para subir este ambiente, para que isso aconteça execute o comando:
+
+```
+# minikube config set driver virtualbox
+```
+Caso não queria deixar o VirtualBox como padrão sempre que subir o ambiente novo, você deve digitar o comando ``minikube start --driver=virtualbox``. Mas como já setamos o VirtualBox como padrão para subir o ambiente do minikube, basta executar:
 
 ```
 # minikube start
@@ -343,7 +348,7 @@ Para excluir o ambiente:
 Uma vez iniciado, você deve ter uma saída na tela similar à seguinte:
 
 ```
-# minikube start
+# minikube start 
 
 🎉  minikube 1.10.0 is available! Download it: https://github.com/kubernetes/minikube/releases/tag/v1.10.0
 💡  To disable this notice, run: 'minikube config set WantUpdateNotification false'
