@@ -1441,3 +1441,34 @@ Visualizando os taints dos nodes:
 
 Taints:             <none>
 ```
+# Colocando o nó em modo de manutenção
+
+Para colocar o nó em manutenção iremos utilizar o ``cordon``.
+```
+# kubectl cordon elliot-02
+node/elliot-02 cordoned
+```
+Visualizando o node em manutenção.
+```
+# kubectl get nodes
+NAME        STATUS                      ROLES    AGE     VERSION
+elliot-01   Ready                       master   7d14h   v1.18.2
+elliot-02   Ready,SchedulingDisabled    <none>   7d14h   v1.18.2
+elliot-03   Ready                       <none>   7d14h   v1.18.2
+```
+Repare que o nó ``elliot-02`` ficou com o status ``Ready,SchedulingDisabled``, agora você pode fazer a manutenção no seu node tranquilamente.  
+Para retirar nó de modo de manutenção, iremos utilizar o ``uncordon``.
+```
+# kubectl uncordon elliot-02
+node/elliot-02 uncordoned
+```
+Visualizando novamente os nós.
+```
+# kubectl get nodes
+
+NAME           STATUS   ROLES    AGE     VERSION
+elliot-01   Ready    master   7d14h   v1.18.2
+elliot-02   Ready    <none>   7d14h   v1.18.2
+elliot-03   Ready    <none>   7d14h   v1.18.2
+```
+Pronto, agora seu nó não está mais em modo de manutenção.
