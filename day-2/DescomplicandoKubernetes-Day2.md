@@ -834,15 +834,24 @@ Agora no container, instale e execute o ``stress`` para simular a carga em nosso
 Instalando o comando stress.
 
 ```
-# apt-get update && apt-get install -y stress
+root@nginx-f89759699-77v8b:/# apt-get update && apt-get install -y stress
 ```
 
 Executando o ``stress``.
 
 ```
-# stress --vm 1 --vm-bytes 128M --cpu 1
+root@nginx-f89759699-77v8b:/# stress --vm 1 --vm-bytes 128M --cpu 1
 
 stress: info: [221] dispatching hogs: 1 cpu, 0 io, 1 vm, 0 hdd
+```
+
+Para acompanhar a quantidade de recurso que o pod está utilizando, podemos utilizar o kubectl top.
+
+```
+# kubectl top pod --namespace=default nginx-f89759699-77v8b
+NAME                     CPU(cores)   MEMORY(bytes)
+nginx-85f7fb6b45-b6dsk   201m         226Mi
+
 ```
 
 Aqui estamos _stressando_ o container, utilizando 128M de RAM e um core de CPU. Brinque de acordo com os limites que você estabeleceu.
