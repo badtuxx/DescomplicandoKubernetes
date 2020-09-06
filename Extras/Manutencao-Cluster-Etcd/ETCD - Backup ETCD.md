@@ -19,7 +19,7 @@
 
 # O que preciso saber antes de começar?
 
-ETCD é um dos componentes fundamentais que fazem o kubernetes funcionar.
+ETCD é um dos componentes fundamentais que fazem o Kubernetes funcionar.
 
 # O que é o ETCD?
 
@@ -52,12 +52,8 @@ Toda informação que é apresentada ao usuário quando executado o comando ``ku
 Vejamos se o *pod etcd* foi criado com sucesso com o seguinte comando.
 
 ```
-# kubectl get pods -n kube-system
-```
+kubectl get pods -n kube-system
 
-Output:
-
-```
 NAME                                READY   STATUS    RESTARTS   AGE
 coredns-66bff467f8-pfm2c            1/1     Running   0          8d
 coredns-66bff467f8-s8pk4            1/1     Running   0          8d
@@ -78,7 +74,7 @@ weave-net-xl7km                     2/2     Running   0          8d
 O ETCD, como os demais serviços do Kuberentes, utilizam certificados PKI para autenticação sobre TLS, essas chaves são declaradas no manifesto de configuração em:
 
 ```
-# kubectl describe pod etcd-docker-01 -n kube-system
+kubectl describe pod etcd-docker-01 -n kube-system
 ```
 
 Parâmetros:
@@ -92,7 +88,7 @@ Parâmetros:
 Essas chaves vão ser utilizadas pelos demais componentes do cluster como, por exemplo, o **API Server** possam conectar e fazerem alterações.
 
 ```
-# kubectl describe pod kube-apiserver -n kube-system
+kubectl describe pod kube-apiserver -n kube-system
 ```
 
 Parâmetros:
@@ -107,35 +103,35 @@ Então, para toda e qualquer interação com o ETCD vamos precisar utililizar es
 
 # Interagindo com o ETCD
 
-Para interagir com o ETCD vamos precisar o ``etcdctl`` ou utilizar o próprio container do etcd com o comando ```kubectl exec```
+Para interagir com o ETCD vamos precisar o ``etcdctl`` ou utilizar o próprio contêiner do etcd com o comando ```kubectl exec```
 
 Referência: https://github.com/etcd-io/etcd/tree/master/etcdctl
 
 Baixando a ultima versão do etcd:
 
-Linux:
+GNU/Linux:
 ```
-# ETCD_VER=v3.4.7
+ETCD_VER=v3.4.7
 
-# GOOGLE_URL=https://storage.googleapis.com/etcd
+GOOGLE_URL=https://storage.googleapis.com/etcd
 
-# GITHUB_URL=https://github.com/etcd-io/etcd/releases/download
+GITHUB_URL=https://github.com/etcd-io/etcd/releases/download
 
-# DOWNLOAD_URL=${GOOGLE_URL}
+DOWNLOAD_URL=${GOOGLE_URL}
 
-# rm -f /tmp/etcd-${ETCD_VER}-linux-amd64.tar.gz
+rm -f /tmp/etcd-${ETCD_VER}-linux-amd64.tar.gz
 
-# rm -rf /tmp/etcd-download-test && mkdir -p /tmp/etcd-download-test
+rm -rf /tmp/etcd-download-test && mkdir -p /tmp/etcd-download-test
 
-# curl -L ${DOWNLOAD_URL}/${ETCD_VER}/etcd-${ETCD_VER}-linux-amd64.tar.gz -o /tmp/etcd-${ETCD_VER}-linux-amd64.tar.gz
+curl -L ${DOWNLOAD_URL}/${ETCD_VER}/etcd-${ETCD_VER}-linux-amd64.tar.gz -o /tmp/etcd-${ETCD_VER}-linux-amd64.tar.gz
 
-# tar xzvf /tmp/etcd-${ETCD_VER}-linux-amd64.tar.gz -C /tmp/etcd-download-test --strip-components=1
+tar xzvf /tmp/etcd-${ETCD_VER}-linux-amd64.tar.gz -C /tmp/etcd-download-test --strip-components=1
 
-# rm -f /tmp/etcd-${ETCD_VER}-linux-amd64.tar.gz
+rm -f /tmp/etcd-${ETCD_VER}-linux-amd64.tar.gz
 
-# /tmp/etcd-download-test/etcd --version
+/tmp/etcd-download-test/etcd --version
 
-# /tmp/etcd-download-test/etcdctl version
+/tmp/etcd-download-test/etcdctl version
 ```
 
 Referência: https://github.com/etcd-io/etcd/releases
@@ -148,7 +144,7 @@ Como vimos anteriormente, vamos precisar utilizar os certificados para nos auten
 --cert
 ```
 
-Além disso vamos precisar do endpoint, caso esteja no container do ETCD seu endpoint será ``127.0.0.1:2379``.
+Além disso vamos precisar do endpoint, caso esteja no contêiner do ETCD seu endpoint será ``127.0.0.1:2379``.
 
 A sua URL para o endpoint vai estar na flag ```--advertise-client-urls``` nas configurações do ETCD.
 
@@ -166,7 +162,7 @@ get / --prefix --keys-only
 O comando ``kubectl exec`` ficará similar ao mostrado a seguir.
 
 ```
-# kubectl exec -it etcd-minikube -n kube-system \
+kubectl exec -it etcd-minikube -n kube-system \
 -- etcdctl --endpoints=https://127.0.0.1:2379 \
 --cacert=/var/lib/minikube/certs/etcd/ca.crt \
 --key=/var/lib/minikube/certs/etcd/server.key \
@@ -216,7 +212,7 @@ Aqui temos uma parte do conteúdo da  resposta do get no ``/`` do ETCD, onde li
 Em um exemplo um pouco mais prático, vamos listar apenas as chaves dos pods no namespace ``default``. O parâmetro para que o output contenha apenas as chaves é ```--keys-only```.
 
 ```
-# kubectl exec -it etcd-minikube -n kube-system \
+kubectl exec -it etcd-minikube -n kube-system \
 -- etcdctl --endpoints=https://127.0.0.1:2379 \
 --cacert=/var/lib/minikube/certs/etcd/ca.crt \
 --key=/var/lib/minikube/certs/etcd/server.key \
@@ -233,7 +229,7 @@ Output:
 Agora vamos ver os valores contidos na chave ``/registry/pods/default/nginx``, onde estão as configurações do pod. Vamos remover o parâmetro ```--keys-only``` para que possamos ver os valores da chave.
 
 ```
-# kubectl exec -it etcd-minikube -n kube-system \
+kubectl exec -it etcd-minikube -n kube-system \
 -- etcdctl --endpoints=https://127.0.0.1:2379 \
 --cacert=/var/lib/minikube/certs/etcd/ca.crt \
 --key=/var/lib/minikube/certs/etcd/server.key \
@@ -297,7 +293,7 @@ Esse snapshot, contém todos os dados do estado do cluster.
 Para realizar o snapshot do ETCD sem a autenticação **TLS habilitado**, precisamos executar o seguinte comando.
 
 ```
-# ETCDCTL_API=3 etcdctl \
+ETCDCTL_API=3 etcdctl \
 --endpoints $ENDPOINT \
 snapshot save snapshot.db
 ```
@@ -332,7 +328,7 @@ Além do ``--endpoits``, precisamos adicionar as chaves e certificados referente
 Logo, o comando ficará assim:
 
 ```
-# ETCDCTL_API=3 etcdctl \
+ETCDCTL_API=3 etcdctl \
 --cacert /var/lib/minikube/certs/etcd/ca.crt \
 --key /var/lib/minikube/certs/etcd/server.key \
 --cert /var/lib/minikube/certs/etcd/server.crt \
@@ -351,7 +347,7 @@ Porém, pode ser que você seja obrigado a salvar esse **snapshot** em um diret�
 Com isso, o comando ficaria assim:
 
 ```
-# ETCDCTL_API=3 etcdctl \
+ETCDCTL_API=3 etcdctl \
 --cacert /var/lib/minikube/certs/etcd/ca.crt \
 --key /var/lib/minikube/certs/etcd/server.key \
 --cert /var/lib/minikube/certs/etcd/server.crt \
@@ -369,7 +365,7 @@ ETCDCTL_API=3 etcdctl \
 --endpoints 127.0.0.1:2379  \
 snapshot restore /tmp/snapshot.db
 
-mv /var/lib/etcd/member /var/lib/etcd/member.old
-mv /var/lib/etcd/default.etcd/member /var/lib/etcd/
+sudo mv /var/lib/etcd/member /var/lib/etcd/member.old
+sudo mv /var/lib/etcd/default.etcd/member /var/lib/etcd/
 ```
 
