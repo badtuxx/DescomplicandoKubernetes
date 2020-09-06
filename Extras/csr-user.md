@@ -1,6 +1,6 @@
 ## Criando um usuário no Kubernetes 
 
-Para criar um usuário no Kubernetes, vamos precisar gerar um CSR para o usuario. O usuário que vamos utilizar como exemplo é o linuxtips.
+Para criar um usuário no Kubernetes, vamos precisar gerar um CSR (*Certificate Signing Request*) para o usuário. O usuário que vamos utilizar como exemplo é o ``linuxtips``.
 
 Comando para gerar o CSR:
 
@@ -10,7 +10,7 @@ openssl req -new -newkey rsa:4096 -nodes -keyout linuxtips.key -out linuxtips.cs
 
 Agora vamos fazer o request do CSR no cluster:
 
-``` 
+```
 cat <<EOF | kubectl apply -f -
 apiVersion: certificates.k8s.io/v1beta1
 kind: CertificateSigningRequest
@@ -24,43 +24,45 @@ spec:
   - client auth
 ``` 
 
-Para ver os CSR:
+Para ver os CSR criados, utilize o seguinte comando:
 
 ```
 kubectl get csr
 ```
 
-O mesmo está com o status Pending, vamos aprová-lo
+O CSR deverá estar com o status ``Pending``, vamos aprová-lo
 
 ```
 kubectl certificate approve linuxtips-csr
 ```
 
-Agora o certificado foi assinado pela CA do cluster, para pegar o certificado assinado vamos usar o seguinte comando:
+Agora o certificado foi assinado pela CA (*Certificate Authority*) do cluster, para pegar o certificado assinado vamos usar o seguinte comando:
 
 ```
 kubectl get csr linuxtips-csr -o jsonpath='{.status.certificate}' | base64 --decode > linuxtips.crt
 ```
 
-Será necessário para a configuração do kubeconfig a CA do cluster, para obtê-lá vamos extrai-lá do kubeconf atual que estamos utilizando:
+Será necessário para a configuração do ``kubeconfig`` o arquivo referente a CA do cluster, para obtê-lá vamos extrai-lá do ``kubeconf`` atual que estamos utilizando:
 
 ```
 kubectl config view -o jsonpath='{.clusters[0].cluster.certificate-authority-data}' --raw | base64 --decode - > ca.crt
 ```
 
-Feito isso vamos montar nosso kubeconfig para o novo usuário:
+Feito isso vamos montar nosso ``kubeconfig`` para o novo usuário:
 
 Vamos pegar as informações de IP cluster:
 
 ```
 kubectl config set-cluster $(kubectl config view -o jsonpath='{.clusters[0].name}') --server=$(kubectl config view -o jsonpath='{.clusters[0].cluster.server}') --certificate-authority=ca.crt --kubeconfig=linuxtips-config --embed-certs
 ```
-Agora setando as confs de user e key:
+
+Agora setando as confs de ``user`` e ``key``:
+
 ```
 kubectl config set-credentials linuxtips --client-certificate=linuxtips.crt --client-key=linuxtips.key --embed-certs --kubeconfig=linuxtips-config
 ```
 
-Agora definindo o context:
+Agora vamos definir o ``context linuxtips`` e, em seguida, vamos utilizá-lo:
 
 ```
 kubectl config set-context linuxtips --cluster=$(kubectl config view -o jsonpath='{.clusters[0].name}')  --user=linuxtips --kubeconfig=linuxtips-config
@@ -69,9 +71,11 @@ kubectl config set-context linuxtips --cluster=$(kubectl config view -o jsonpath
 ```
 kubectl config use-context linuxtips --kubeconfig=linuxtips-config
 ```
-Vamos ver um teste
+
+Vamos ver um teste:
+
 ```
-kubectl version --kubeconfig=bob-k8s-config
+kubectl version --kubeconfig=linuxtips-config
 ```
 
-Pronto ! Agora só associar um role com as permissões desejadas para o usuário
+Pronto! Agora só associar um ``role`` com as permissões desejadas para o usuário.

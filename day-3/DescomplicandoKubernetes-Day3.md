@@ -30,7 +30,8 @@ As **labels** são importantes para o gerenciamento do cluster, pois com elas é
 
 Antes nos tínhamos somente o RC, _Replication Controller_, que era um controle sobre o número de réplicas que determinado pod estava executando, o problema é que todo esse gerenciamento era feito do lado do client. Para solucionar esse problema, foi adicionado o objeto Deployment, que permite a atualização pelo lado do server. **Deployments** geram **ReplicaSets**, que oferecerem melhores opções do que o **ReplicationController**, e por esse motivo está sendo substituído.
 
-Podemos criar nossos deployments a partir do template: 
+Podemos criar nossos deployments a partir do template:
+
 ```
 kubectl create deployment --dry-run=client -o yaml --image=ngnix nginx-template > primeiro-deployment-template.yaml
 kubectl create -f primeiro-deployment-template.yaml
@@ -1210,7 +1211,7 @@ kubectl edit daemonsets.apps daemon-set-primeiro
 
 Altere a quantidade no parâmetro ``revisionHistoryLimit``:
 
-```
+```yaml
   revisionHistoryLimit: 10
 ```
 
