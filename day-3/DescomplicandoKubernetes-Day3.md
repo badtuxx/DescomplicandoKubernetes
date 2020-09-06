@@ -22,32 +22,28 @@ O **Deployment** é um recurso com a responsabilidade de instruir o Kubernetes a
 
 Um Deployment é o responsável por gerenciar o seu **ReplicaSet** (que iremos falar logo menos), ou seja, o Deployment é quem vai determinar a configuração de sua aplicação e como ela será implementada. O Deployment é o controller que irá cuidar, por exemplo, uma instância de sua aplicação por algum motivo for interrompida. O Deployment controller irá identificar o problema com a instância e irá criar uma nova em seu lugar.
 
-Quando você utiliza o _kubectl create deployment_, você está realizando o deploy de um objeto chamado Deployment. Como outros objetos, o Deployment também pode ser criado através de um arquivo YAML ou de um JSON, conhecidos por manifestos.
+Quando você utiliza o ``kubectl create deployment``, você está realizando o deploy de um objeto chamado Deployment. Como outros objetos, o Deployment também pode ser criado através de um arquivo YAML ou de um JSON, conhecidos por manifestos.
 
-Se você deseja alterar alguma configuração de seus objetos, como o pod, você pode utilizar o _kubectl apply_, através de um manifesto, ou ainda através do _kubectl edit_.
-
-Normalmente, quando você faz uma alteração em seu Deployment, é criado uma nova versão do ReplicaSet, esse se tornando o ativo e fazendo com que seu antecessor seja desativado.
-
-As versões anteriores dos ReplicaSets são mantidas, possibilitando o _rollback_ em caso de falhas.
+Se você deseja alterar alguma configuração de seus objetos, como o pod, você pode utilizar o ``kubectl apply``, através de um manifesto, ou ainda através do ``kubectl edit``. Normalmente, quando você faz uma alteração em seu Deployment, é criado uma nova versão do ReplicaSet, esse se tornando o ativo e fazendo com que seu antecessor seja desativado. As versões anteriores dos ReplicaSets são mantidas, possibilitando o _rollback_ em caso de falhas.
 
 As **labels** são importantes para o gerenciamento do cluster, pois com elas é possível buscar ou selecionar recursos em seu cluster, fazendo com que você consiga organizar em pequenas categorias, facilitando assim a sua busca e organizando seus pods e seus recursos do cluster. As labels não são recursos do API server, elas são armazenadas no metadata em formato chave-valor.
 
-Antes nos tínhamos somente o RC, _Replication Controller_, que era um controle sobre o número de réplicas que determinado pod estava executando, o problema é que todo esse gerenciamento era feito do lado do client. Para solucionar esse problema, foi adicionado o objeto Deployment, que permite a atualização pelo lado do server. Deployments geram ReplicaSets, que oferecerem melhores opções do que o **ReplicationController**, e por esse motivo está sendo substituído.
+Antes nos tínhamos somente o RC, _Replication Controller_, que era um controle sobre o número de réplicas que determinado pod estava executando, o problema é que todo esse gerenciamento era feito do lado do client. Para solucionar esse problema, foi adicionado o objeto Deployment, que permite a atualização pelo lado do server. **Deployments** geram **ReplicaSets**, que oferecerem melhores opções do que o **ReplicationController**, e por esse motivo está sendo substituído.
 
 Podemos criar nossos deployments a partir do template: 
 ```
-# kubectl create deployment --dry-run=client -o yaml --image=ngnix nginx-template > primeiro-deployment-template.yaml
-# kubectl create -f primeiro-deployment-template.yaml
+kubectl create deployment --dry-run=client -o yaml --image=ngnix nginx-template > primeiro-deployment-template.yaml
+kubectl create -f primeiro-deployment-template.yaml
 ```
 
 Vamos criar os nossos primeiros Deployments:
 ```
-# vim primeiro-deployment.yaml
+vim primeiro-deployment.yaml
 ```
 
 O conteúdo deve ser o seguinte:
 
-```
+```yaml
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -87,7 +83,7 @@ spec:
 Vamos criar o deployment a partir do manifesto:
 
 ```
-# kubectl create -f primeiro-deployment.yaml
+kubectl create -f primeiro-deployment.yaml
 
 deployment.extensions/primeiro-deployment created
 ```
@@ -95,12 +91,12 @@ deployment.extensions/primeiro-deployment created
 Crie um segundo deployment:
 
 ```
-# vim segundo-deployment.yaml
+vim segundo-deployment.yaml
 ```
 
 O conteúdo deve ser o seguinte:
 
-```
+```yaml
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -139,7 +135,7 @@ spec:
 Vamos criar o deployment a partir do manifesto:
 
 ```
-# kubectl create -f segundo-deployment.yaml
+kubectl create -f segundo-deployment.yaml
 
 deployment.extensions/segundo-deployment created
 ```
@@ -147,7 +143,7 @@ deployment.extensions/segundo-deployment created
 Visualizando os deployments:
 
 ```
-# kubectl get deployment
+kubectl get deployment
 
 NAME                DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
 primeiro-deployment  1         1         1            1           6m
@@ -157,7 +153,7 @@ segundo-deployment   1         1         1            1           1m
 Visualizando os pods:
 
 ```
-# kubectl get pods
+kubectl get pods
 
 NAME                                 READY  STATUS    RESTARTS   AGE
 primeiro-deployment-68c9dbf8b8-kjqpt 1/1    Running   0          19s
@@ -167,7 +163,7 @@ segundo-deployment-59db86c584-cf9pp  1/1    Running   0          15s
 Visualizando os detalhes do ``pod`` criado a partir do **primeiro deployment**:
 
 ```
-# kubectl describe pod primeiro-deployment-68c9dbf8b8-kjqpt
+kubectl describe pod primeiro-deployment-68c9dbf8b8-kjqpt
 
 Name:               primeiro-deployment-68c9dbf8b8-kjqpt
 Namespace:          default
@@ -224,7 +220,7 @@ Events:
 Visualizando os detalhes do ``pod`` criado a partir do **segundo deployment**:
 
 ```
-# kubectl describe pod segundo-deployment-59db86c584-cf9pp
+kubectl describe pod segundo-deployment-59db86c584-cf9pp
 
 Name:               segundo-deployment-59db86c584-cf9pp
 Namespace:          default
@@ -281,7 +277,7 @@ Events:
 Visualizando os detalhes do **primeiro deployment**:
 
 ```
-# kubectl describe deployment primeiro-deployment
+kubectl describe deployment primeiro-deployment
 
 Name:                   primeiro-deployment
 Namespace:              default
@@ -321,7 +317,7 @@ Events:
 Visualizando os detalhes do **segundo deployment**:
 
 ```
-# kubectl describe deployment segundo-deployment
+kubectl describe deployment segundo-deployment
 
 Name:                   segundo-deployment
 Namespace:              default
@@ -378,7 +374,7 @@ Primeiro vamos realizar uma pesquisa utilizando as labels ``dc=UK`` e ``dc=Nethe
 Pesquisando pela label ``UK``:
 
 ```
-# kubectl get pods -l dc=UK
+kubectl get pods -l dc=UK
 
 NAME                                 READY  STATUS   RESTARTS   AGE
 primeiro-deployment-68c9dbf8b8-kjqpt 1/1    Running  0          3m
@@ -387,7 +383,7 @@ primeiro-deployment-68c9dbf8b8-kjqpt 1/1    Running  0          3m
 Pesquisando pela label ``Netherlands``:
 
 ```
-# kubectl get pods -l dc=Netherlands
+kubectl get pods -l dc=Netherlands
 
 NAME                                READY STATUS    RESTARTS   AGE
 segundo-deployment-59db86c584-cf9pp 1/1   Running   0          4m
@@ -396,7 +392,7 @@ segundo-deployment-59db86c584-cf9pp 1/1   Running   0          4m
 Caso queira uma saída mais personalizada podemos listar da seguinte forma, veja:
 
 ```
-# kubectl get pod -L dc
+kubectl get pod -L dc
 
 NAME                         READY STATUS   RESTARTS AGE DC
 primeiro-deployment-68c9...  1/1   Running  0        5m  UK
@@ -412,7 +408,7 @@ Agora que temos essas informações vamos criar essas labels em nossos nodes, pa
 Criando a label ``disk`` com o valor ``SSD`` no slave 1:
 
 ```
-# kubectl label node elliot-02 disk=SSD
+kubectl label node elliot-02 disk=SSD
 
 node/elliot-02 labeled
 ```
@@ -420,7 +416,7 @@ node/elliot-02 labeled
 Criando a label ``dc`` com o valor ``UK`` no slave 1:
 
 ```
-# kubectl label node elliot-02 dc=UK
+kubectl label node elliot-02 dc=UK
 
 node/elliot-02 labeled
 ```
@@ -428,7 +424,7 @@ node/elliot-02 labeled
 Criando a label ``dc`` com o valor ``Netherlands`` no slave 2:
 
 ```
-# kubectl label node elliot-03 dc=Netherlands
+kubectl label node elliot-03 dc=Netherlands
 
 node/elliot-03 labeled
 ```
@@ -436,7 +432,7 @@ node/elliot-03 labeled
 Criando a label ``disk`` com o valor ``hdd`` no slave 2:
 
 ```
-# kubectl label nodes elliot-03 disk=hdd
+kubectl label nodes elliot-03 disk=hdd
 
 node/elliot-03 labeled
 ```
@@ -444,17 +440,17 @@ node/elliot-03 labeled
 Opa! Acabamos declarando o ``disk=hdd`` em letra minúscula, como arrumamos isso? Subscrevendo a label como no comando a seguir.
 
 ```
-# kubectl label nodes elliot-03 disk=HDD --overwrite
+kubectl label nodes elliot-03 disk=HDD --overwrite
 
 node/elliot-03 labeled
 ```
 
-Para saber as labels configuradas em cada node basta executar o seguinte comando.
+Para saber as labels configuradas em cada node basta executar o seguinte comando:
 
 No slave 1:
 
 ```
-# kubectl label nodes elliot-02 --list
+kubectl label nodes elliot-02 --list
 
 dc=UK
 disk=SSD
@@ -466,7 +462,7 @@ beta.kubernetes.io/os=linux
 No slave 2:
 
 ```
-# kubectl label nodes elliot-03 --list
+kubectl label nodes elliot-03 --list
 
 beta.kubernetes.io/os=linux
 dc=Netherlands
@@ -480,12 +476,12 @@ Agora, basta realizar o deploy novamente, porém antes vamos adicionar duas nova
 Crie o arquivo ``terceiro-deployment.yaml``:
 
 ```
-# vim terceiro-deployment.yaml
+vim terceiro-deployment.yaml
 ```
 
 Informe o seguinte conteúdo:
 
-```
+```yaml
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -527,7 +523,7 @@ spec:
 Crie o deployment a partir do manifesto:
 
 ```
-# kubectl create -f terceiro-deployment.yaml
+kubectl create -f terceiro-deployment.yaml
 
 deployment.extensions/terceiro-deployment created
 ```
@@ -535,7 +531,7 @@ deployment.extensions/terceiro-deployment created
 Visualizando os detalhes dos pods:
 
 ```
-# kubectl get pods -o wide
+kubectl get pods -o wide
 
 NAME                        READY STATUS  RESTARTS  AGE  IP           NODE
 primeiro-deployment-56d9... 1/1   Running  0      14m  172.17.0.4 elliot-03
@@ -546,13 +542,13 @@ terceiro-deployment-59cd... 1/1   Running  0      22s  172.17.0.6 elliot-02
 Removendo a label ``dc`` de um node slave:
 
 ```
-# kubectl label nodes elliot-02 dc-
+kubectl label nodes elliot-02 dc-
 ```
 
 Removendo uma determinada label de todos os nodes:
 
 ```
-# kubectl label nodes --all dc-
+kubectl label nodes --all dc-
 ```
 
 Agora imagine as infinitas possibilidades que isso poderá lhe proporcionar… Já estou pensando em várias, como por exemplo se é produção ou não, se consome muita CPU ou muita RAM, se precisa estar em determinado rack e por aí vai. 😃
@@ -564,14 +560,14 @@ Simples como voar, não?
 Agora vamos fazer o seguinte, vamos utilizar o comando ``kubectl edit`` para editar nosso primeiro deployment, digamos que a "quente" com o pod ainda em execução.
 
 ```
-# kubectl edit deployment primeiro-deployment
+kubectl edit deployment primeiro-deployment
 ```
 
 Abriu um editor, correto? Vamos alterar a label ``DC``. Vamos imaginar que esse Deployment agora rodará no ``DC`` de ``Netherlands``. Precisamos adicionar a ``Label`` e o ``nodeSelector``.
 
 O conteúdo deve ser o seguinte:
 
-```
+```yaml
 spec:
   replicas: 1
   selector:
@@ -613,7 +609,7 @@ Como podemos ver mudamos o valor da label ``dc`` e também modificamos o ``nodeS
 Veja se o resultado foi conforme esperado:
 
 ```
-# kubectl get pods -l dc=Netherlands -o wide
+kubectl get pods -l dc=Netherlands -o wide
 
 NAME                     READY  STATUS    RESTARTS  AGE ..NODE
 primeiro-deployment-7..  1/1    Running   0         3m    elliot-03
@@ -630,12 +626,12 @@ O **ReplicaSet** garante a quantidade solicitada de pods e os recursos necessár
 Vamos criar nosso primeiro ReplicarSet:
 
 ```
-# vim primeiro-replicaset.yaml
+vim primeiro-replicaset.yaml
 ```
 
 O conteúdo deve ser o seguinte:
 
-```
+```yaml
 apiVersion: apps/v1
 kind: ReplicaSet
 metadata:
@@ -660,7 +656,7 @@ spec:
 Crie o ReplicaSet a partir do manifesto:
 
 ```
-# kubectl create -f primeiro-replicaset.yaml
+kubectl create -f primeiro-replicaset.yaml
 
 replicaset.extensions/replica-set-primeiro created
 ```
@@ -668,7 +664,7 @@ replicaset.extensions/replica-set-primeiro created
 Visualizando o ReplicaSet:
 
 ```
-# kubectl get replicaset
+kubectl get replicaset
 
 NAME                   DESIRED   CURRENT   READY    AGE
 replica-set-primeiro   3         3         1        2s
@@ -677,7 +673,7 @@ replica-set-primeiro   3         3         1        2s
 Podemos observar os pods em execução:
 
 ```
-# kubectl get pods
+kubectl get pods
 
 NAME                         READY     STATUS    RESTARTS   AGE
 replica-set-primeiro-6drmt   1/1       Running   0          12s
@@ -690,7 +686,7 @@ Temos exatamente 3 pods do ``nginx`` rodando simultaneamente.
 Podemos obter mais informações do nosso ReplicaSet utilizando o comando ``describe``.
 
 ```
-# kubectl describe rs replica-set-primeiro
+kubectl describe rs replica-set-primeiro
 
 Name:         replica-set-primeiro
 Namespace:    default
@@ -717,12 +713,10 @@ Events:
   Normal  SuccessfulCreate  31s   replicaset-controller  Created pod: replica-set-primeiro-7j59w
 ```
 
-Assim podemos ver todos os pods associados ao ReplicaSet, e se excluirmos um desses Pods, o que será que acontece?
-
-Vamos testar:
+Assim podemos ver todos os pods associados ao ReplicaSet, e se excluirmos um desses Pods, o que será que acontece? Vamos testar:
 
 ```
-# kubectl delete pod replica-set-primeiro-6drmt
+kubectl delete pod replica-set-primeiro-6drmt
 
 pod "replica-set-primeiro-6drmt" deleted
 ```
@@ -730,7 +724,7 @@ pod "replica-set-primeiro-6drmt" deleted
 Agora vamos verificar novamente os Pods em execução:
 
 ```
-# kubectl get pods -l system=Giropops
+kubectl get pods -l system=Giropops
 
 NAME                         READY     STATUS    RESTARTS   AGE
 replica-set-primeiro-7j59w   1/1       Running   0          1m
@@ -738,17 +732,17 @@ replica-set-primeiro-mg8q9   1/1       Running   0          1m
 replica-set-primeiro-s5dz2   1/1       Running   0          15s
 ```
 
-Percebeu que ele recriou outro Pod? O ReplicaSet faz com que sempre tenha 3 pods disponíveis.
+Percebeu que ele recriou outro Pod? O **ReplicaSet** faz com que sempre tenha 3 pods disponíveis.
 
 Vamos alterar para 4 réplicas e recriar o ReplicaSet, para isso vamos utilizar o ``kubectl edit`` visto anteriormente, assim podemos alterar o ReplicaSet já em execução.
 
 ```
-# kubectl edit rs replica-set-primeiro
+kubectl edit rs replica-set-primeiro
 ```
 
 O conteúdo deve ser o seguinte:
 
-```
+```yaml
 apiVersion: apps/v1
 kind: ReplicaSet
 metadata:
@@ -779,7 +773,7 @@ replicaset.extensions/replica-set-primeiro edited
 Visualizando os detalhes dos pods:
 
 ```
-# kubectl get pods -l system=Giropops
+kubectl get pods -l system=Giropops
 
 NAME                         READY     STATUS    RESTARTS   AGE
 replica-set-primeiro-7j59w   1/1       Running   0          2m
@@ -791,22 +785,20 @@ replica-set-primeiro-s5dz2   1/1       Running   0          1m
 Veja que ele não cria um deployment para esse replicaset:
 
 ```
-# kubectl get deployment.apps
+kubectl get deployment.apps
 ```
 
 Perceba que não é listado um deployment relacionado ao ``replica-set-primeiro``.
 
-Agora vamos editar um dos pods e modificar a versão da imagem do Nginx que estamos utilizando no exemplo. Vamos alterar de ``image: nginx:1.7.9_`` para ``image: nginx:1.15.0`` utilizando o ``kubectl edit``.
-
-Editando o pod:
+Agora vamos editar um dos pods e modificar a versão da imagem do Nginx que estamos utilizando no exemplo. Vamos alterar de ``image: nginx:1.7.9_`` para ``image: nginx:1.15.0`` utilizando o ``kubectl edit``. Editando o pod:
 
 ```
-# kubectl edit pod replica-set-primeiro-7j59w
+kubectl edit pod replica-set-primeiro-7j59w
 ```
 
 O conteúdo deve ser o seguinte:
 
-```
+```yaml
 apiVersion: v1
 kind: Pod
 metadata:
@@ -826,7 +818,7 @@ pod/replica-set-primeiro-7j59w edited
 Agora vamos observar novamente os pods, como estão?
 
 ```
-# kubectl get pods -l system=Giropops
+kubectl get pods -l system=Giropops
 
 NAME                         READY     STATUS    RESTARTS   AGE
 replica-set-primeiro-7j59w   1/1       Running   1          8m
@@ -838,7 +830,7 @@ replica-set-primeiro-s5dz2   1/1       Running   0          7m
 Aparentemente nada aconteceu concordam? Vamos detalhar melhor esse pod que acabamos de alterar:
 
 ```
-# kubectl describe pod replica-set-primeiro-7j59w
+kubectl describe pod replica-set-primeiro-7j59w
 
 Name:               replica-set-primeiro-7j59w
 Namespace:          default
@@ -870,7 +862,7 @@ Como podemos observar ele alterou a imagem do nginx do **1.7.9** para **1.15.0**
 Vamos apagar o pod e ver se realmente acontece isso:
 
 ```
-# kubectl delete pod replica-set-primeiro-7j59w
+kubectl delete pod replica-set-primeiro-7j59w
 
 pod "replica-set-primeiro-7j59w" delete
 ```
@@ -878,7 +870,7 @@ pod "replica-set-primeiro-7j59w" delete
 Visualizando os pods:
 
 ```
-# kubectl get pods -l system=Giropops
+kubectl get pods -l system=Giropops
 
 NAME                         READY     STATUS    RESTARTS   AGE
 replica-set-primeiro-96hj7   1/1       Running   0          12m
@@ -890,7 +882,7 @@ replica-set-primeiro-xzfvg   1/1       Running   0          5s
 Visualizando os detalhes do pods:
 
 ```
-# kubectl describe pod replica-set-primeiro-xzfvg
+kubectl describe pod replica-set-primeiro-xzfvg
 
 Name:               replica-set-primeiro-xzfvg
 Namespace:          default
@@ -915,14 +907,14 @@ Olha só, o novo pod foi criado com a imagem configurada no replicaset.
 Agora vamos apagar nosso ReplicaSet:
 
 ```
-# kubectl get rs
+kubectl get rs
 
 NAME                   DESIRED   CURRENT   READY     AGE
 replica-set-primeiro   4         4         4         25m
 ```
 
 ```
-# kubectl delete rs replica-set-primeiro
+kubectl delete rs replica-set-primeiro
 
 replicaset.apps "replica-set-primeiro" deleted
 ```
@@ -938,12 +930,12 @@ Ele é bem interessante para serviços que necessitem rodar em todos os nodes do
 Vamos criar o nosso primeiro DaemonSet:
 
 ```
-# vim primeiro-daemonset.yaml
+vim primeiro-daemonset.yaml
 ```
 
 O conteúdo deve ser o seguinte:
 
-```
+```yaml
 apiVersion: apps/v1
 kind: DaemonSet
 metadata:
@@ -967,7 +959,7 @@ spec:
 Mas antes vamos permitir que todos os nossos nodes executem pods:
 
 ```
-# kubectl taint nodes --all node-role.kubernetes.io/master-
+kubectl taint nodes --all node-role.kubernetes.io/master-
 
 node/elliot-01 untainted
 taint "node-role.kubernetes.io/master:" not found
@@ -977,7 +969,7 @@ taint "node-role.kubernetes.io/master:" not found
 Agora podemos criar nosso DaemonSet:
 
 ```
-# kubectl create -f primeiro-daemonset.yaml
+kubectl create -f primeiro-daemonset.yaml
 
 daemonset.extensions/daemon-set-primeiro created
 ```
@@ -985,7 +977,7 @@ daemonset.extensions/daemon-set-primeiro created
 Vamos listar nossos DaemonSet:
 
 ```
-# kubectl get daemonset
+kubectl get daemonset
 
 NAME                  DESIRED  CURRENT  READY  UP-TO-DATE ... AGE
 daemon-set-primeiro   3        3        3      3              30s
@@ -994,7 +986,7 @@ daemon-set-primeiro   3        3        3      3              30s
 Visualizando os detalhes do DaemonSet:
 
 ```
-# kubectl describe ds daemon-set-primeiro
+kubectl describe ds daemon-set-primeiro
 
 Name:           daemon-set-primeiro
 Selector:       system=Strigus
@@ -1028,7 +1020,7 @@ Events:
 Visualizando os detalhes dos pods:
 
 ```
-# kubectl get pods -o wide
+kubectl get pods -o wide
 
 NAME                   READY   STATUS    RESTARTS  AGE  .. NODE
 daemon-set-primeiro..  1/1     Running   0         1m      elliot-01
@@ -1041,7 +1033,7 @@ Como podemos observar temos um pod por nó rodando nosso ``daemon-set-primeiro``
 Vamos alterar a imagem desse pod diretamente no DaemonSet, usando o comando ``kubectl set``:
 
 ```
-# kubectl set image ds daemon-set-primeiro nginx=nginx:1.15.0
+kubectl set image ds daemon-set-primeiro nginx=nginx:1.15.0
 
 daemonset.extensions/daemon-set-primeiro image updated
 ```
@@ -1049,7 +1041,7 @@ daemonset.extensions/daemon-set-primeiro image updated
 Vamos confirmar se a imagem foi realmente alterada:
 
 ```
-# kubectl describe ds daemon-set-primeiro
+kubectl describe ds daemon-set-primeiro
 
 Name:           daemon-set-primeiro
 Selector:       system=Strigus
@@ -1083,7 +1075,7 @@ Events:
 Agora vamos verificar se as imagens dos pods estão atualizadas:
 
 ```
-# kubectl get pods
+kubectl get pods
 
 NAME                        READY     STATUS    RESTARTS   AGE
 daemon-set-primeiro-jh2sp   1/1       Running   0          2m
@@ -1096,7 +1088,7 @@ Como podemos observar não tivemos nenhum restart nos pods.
 Vamos verificar a imagem executando em um dos pods:
 
 ```
-# kubectl describe pod daemon-set-primeiro-jh2sp | grep -i image:
+kubectl describe pod daemon-set-primeiro-jh2sp | grep -i image:
 
 Image:          nginx:1.7.9
 ```
@@ -1106,7 +1098,7 @@ Exatamente, Não conseguimos alterar informações do DaemonSet em execução.
 E se o pod for deletado?
 
 ```
-# kubectl delete pod daemon-set-primeiro-jh2sp
+kubectl delete pod daemon-set-primeiro-jh2sp
 
 pod "daemon-set-primeiro-jh2sp" deleted
 ```
@@ -1114,7 +1106,7 @@ pod "daemon-set-primeiro-jh2sp" deleted
 Visualizando os pods:
 
 ```
-# kubectl get pods
+kubectl get pods
 
 NAME                        READY     STATUS    RESTARTS   AGE
 daemon-set-primeiro-hp4qc   1/1       Running   0          3s
@@ -1125,7 +1117,7 @@ daemon-set-primeiro-t9rv9   1/1       Running   0          10m
 Vamos listar o novo Pod que foi criado, após deletarmos o Pod antigo:
 
 ```
-# kubectl describe pod daemon-set-primeiro-hp4qc | grep -i image:
+kubectl describe pod daemon-set-primeiro-hp4qc | grep -i image:
 
     Image:          nginx:1.15.0
 ```
@@ -1133,7 +1125,7 @@ Vamos listar o novo Pod que foi criado, após deletarmos o Pod antigo:
 Agora um Pod que já estava em execução:
 
 ```
-# kubectl describe pod daemon-set-primeiro-jl6f5 | grep -i image:
+kubectl describe pod daemon-set-primeiro-jl6f5 | grep -i image:
 
     Image:          nginx:1.7.9
 ```
@@ -1147,7 +1139,7 @@ Agora vamos imaginar que essa nossa última edição utilizando o comando ``kube
 É muito simples, para isso existe o _Rollout_. Com ele você pode verificar quais foram as modificações que aconteceram em seu Deployment ou DaemonSet, como se fosse um versionamento. Vejaaaa! (Com a voz do Nelson Rubens)
 
 ```
-# kubectl rollout history ds daemon-set-primeiro
+kubectl rollout history ds daemon-set-primeiro
 
 daemonsets "daemon-set-primeiro"
 REVISION  CHANGE-CAUSE
@@ -1162,7 +1154,7 @@ Veja como verificar os detalhes de cada uma dessas entradas, que são chamadas d
 Visualizando a revision 1:
 
 ```
-# kubectl rollout history ds daemon-set-primeiro --revision=1
+kubectl rollout history ds daemon-set-primeiro --revision=1
 
 daemonsets "daemon-set-primeiro" with revision #1
 Pod Template:
@@ -1180,7 +1172,7 @@ Pod Template:
 Visualizando a revision 2:
 
 ```
-# kubectl rollout history ds daemon-set-primeiro --revision=2
+kubectl rollout history ds daemon-set-primeiro --revision=2
 
 daemonsets "daemon-set-primeiro" with revision #2
 Pod Template:
@@ -1198,7 +1190,7 @@ Pod Template:
 Para voltar para a ``revision`` desejada, basta fazer o seguinte:
 
 ```
-# kubectl rollout undo ds daemon-set-primeiro --to-revision=1
+kubectl rollout undo ds daemon-set-primeiro --to-revision=1
 
 daemonset.extensions/daemon-set-primeiro rolled back
 ```
@@ -1207,13 +1199,13 @@ Perceba que trocamos o ``history`` por ``undo`` e o ``revision`` por ``to-revisi
 
 ---
 
-Obs.: Por padrão, o DaemonSet guarda apenas as 10 últimas revisions. Para alterar a quantidade máxima de revisions no nosso Daemonset, execute o seguinte comando.
+> OBS.: Por padrão, o DaemonSet guarda apenas as 10 últimas revisions. Para alterar a quantidade máxima de revisions no nosso Daemonset, execute o seguinte comando.
 Fonte: https://kubernetes.io/docs/concepts/workloads/controllers/deployment/#clean-up-policy
 
 ---
 
 ```
-# kubectl edit daemonsets.apps daemon-set-primeiro
+kubectl edit daemonsets.apps daemon-set-primeiro
 ```
 
 Altere a quantidade no parâmetro ``revisionHistoryLimit``:
@@ -1227,13 +1219,13 @@ Altere a quantidade no parâmetro ``revisionHistoryLimit``:
 Voltando à nossa linha de raciocínio, para acompanhar o rollout, execute o seguinte comando:
 
 ```
-# kubectl rollout status ds daemon-set-primeiro
+kubectl rollout status ds daemon-set-primeiro
 ```
 
 Vamos confirmar se já estamos executando a nova imagem e um dos nosso pods:
 
 ```
-# kubectl describe pod daemon-set-primeiro-hp4qc | grep -i image:
+kubectl describe pod daemon-set-primeiro-hp4qc | grep -i image:
 
 Image:          nginx:1.15.0
 ```
@@ -1245,7 +1237,7 @@ Vamos afinar esse nosso DamonSet, vamos adicionar o ``RollingUpdate`` e esse car
 Vamos lá, primeiro vamos remover o ``DaemonSet``, adicionar duas novas informações em nosso manifesto yaml e, em seguida, criar outro DaemonSet em seu lugar:
 
 ```
-# kubectl delete -f primeiro-daemonset.yaml
+kubectl delete -f primeiro-daemonset.yaml
 
 daemonset.extensions "daemon-set-primeiro" deleted
 ```
@@ -1253,12 +1245,12 @@ daemonset.extensions "daemon-set-primeiro" deleted
 Edite o arquivo ``primeiro-daemonset.yaml``.
 
 ```
-# vim primeiro-daemonset.yaml
+vim primeiro-daemonset.yaml
 ```
 
 O conteúdo deve ser o seguinte:
 
-```
+```yaml
 apiVersion: apps/v1
 kind: DaemonSet
 metadata:
@@ -1284,7 +1276,7 @@ spec:
 Crie o DaemonSet:
 
 ```
-# kubectl create -f primeiro-daemonset.yaml
+kubectl create -f primeiro-daemonset.yaml
 
 daemonset.extensions/daemon-set-primeiro created
 ```
@@ -1292,7 +1284,7 @@ daemonset.extensions/daemon-set-primeiro created
 Sucesso, vamos verificar se nosso DaemonSet foi inicializado certinho.
 
 ```
-# kubectl get daemonset
+kubectl get daemonset
 
 NAME                  DESIRED   CURRENT   READY  ...  AGE
 daemon-set-primeiro   3         3         3      ...  5m
@@ -1301,7 +1293,7 @@ daemon-set-primeiro   3         3         3      ...  5m
 Visualizando os detalhes do DaemonSet:
 
 ```
-# kubectl describe ds daemon-set-primeiro
+kubectl describe ds daemon-set-primeiro
 
 Name:           daemon-set-primeiro
 Selector:       system=DaemonOne
@@ -1336,7 +1328,7 @@ Events:
 Vamos verificar nossa recém adicionada configuração de ``RollingUpdate``:
 
 ```
-# kubectl get ds daemon-set-primeiro -o yaml | grep -A 2 Strategy
+kubectl get ds daemon-set-primeiro -o yaml | grep -A 2 Strategy
 
   updateStrategy:
     rollingUpdate:
@@ -1346,7 +1338,7 @@ Vamos verificar nossa recém adicionada configuração de ``RollingUpdate``:
 Agora com nosso DaemonSet já configurado, vamos alterar aquela mesma imagem do ``nginx`` e ver o que acontece de fato:
 
 ```
-# kubectl set image ds daemon-set-primeiro nginx=nginx:1.15.0
+kubectl set image ds daemon-set-primeiro nginx=nginx:1.15.0
 
 daemonset.extensions/daemon-set-primeiro image updated
 ```
@@ -1354,7 +1346,7 @@ daemonset.extensions/daemon-set-primeiro image updated
 Vamos listar o DaemonSet e os Pods para ter certeza de que nada se quebrou:
 
 ```
-# kubectl get daemonset
+kubectl get daemonset
 
 NAME                  DESIRED   CURRENT   READY  ...  AGE
 daemon-set-primeiro   3         3         3      ...  6m
@@ -1363,7 +1355,7 @@ daemon-set-primeiro   3         3         3      ...  6m
 Visualizando os pods:
 
 ```
-# kubectl get pods -o wide
+kubectl get pods -o wide
 
 NAME                       READY  STATUS    RESTARTS  AGE  NODE
 daemon-set-primeiro-7m...  1/1    Running   0         10s  elliot-02
@@ -1374,7 +1366,7 @@ daemon-set-primeiro-v5...  1/1    Running   0         10s  elliot-01
 Como podemos observar nosso DaemonSet se manteve o mesmo, porém os Pods foram recriados, vamos detalhar o DaemonSet para visualizar as alterações realizadas.
 
 ```
-# kubectl describe ds daemon-set-primeiro
+kubectl describe ds daemon-set-primeiro
 
 Name:           daemon-set-primeiro
 Selector:       system=DaemonOne
@@ -1416,7 +1408,7 @@ Olha que Bacana! Se observamos o campo **Events** podemos ver que o ``RollingUpd
 Podemos também verificar em um dos Pods se essa alteração realmente aconteceu.
 
 ```
-# kubectl describe pod daemon-set-primeiro-j788v | grep -i image:
+kubectl describe pod daemon-set-primeiro-j788v | grep -i image:
 
 Image:          nginx:1.15.0
 ```
@@ -1426,7 +1418,7 @@ Viram? Muito sensacional esse negócio de ``RollingUpdate``.
 Vamos verificar nosso histórico de modificações:
 
 ```
-# kubectl rollout history ds daemon-set-primeiro
+kubectl rollout history ds daemon-set-primeiro
 
 daemonsets "daemon-set-primeiro"
 REVISION  CHANGE-CAUSE
@@ -1439,7 +1431,7 @@ Sim, temos duas alterações. Vamos detalhar para saber qual é qual.
 Visualizando a revision 1:
 
 ```
-# kubectl rollout history ds daemon-set-primeiro --revision=1
+kubectl rollout history ds daemon-set-primeiro --revision=1
 
 daemonsets "daemon-set-primeiro" with revision #1
 Pod Template:
@@ -1457,7 +1449,7 @@ Pod Template:
 Visualizando a revision 2:
 
 ```
-# kubectl rollout history ds daemon-set-primeiro --revision=2
+kubectl rollout history ds daemon-set-primeiro --revision=2
 
 daemonsets "daemon-set-primeiro" with revision #2
 Pod Template:
@@ -1475,7 +1467,7 @@ Pod Template:
 Agora vamos realizar o rollback do nosso DaemonSet para a revision 1:
 
 ```
-# kubectl rollout undo ds daemon-set-primeiro --to-revision=1
+kubectl rollout undo ds daemon-set-primeiro --to-revision=1
 
 daemonset.extensions/daemon-set-primeiro rolled back
  kubectl rollout undo ds daem kubectl rollout undo ds daem
@@ -1484,7 +1476,7 @@ daemonset.extensions/daemon-set-primeiro rolled back
 Visualizando os pods:
 
 ```
-# kubectl get pods
+kubectl get pods
 
 NAME                        READY     STATUS    RESTARTS   AGE
 daemon-set-primeiro-c2jjk   1/1       Running   0          19s
@@ -1495,7 +1487,7 @@ daemon-set-primeiro-t6mr9   1/1       Running   0          19s
 Visualizando os detalhes dos pods:
 
 ```
-# kubectl describe pod daemon-set-primeiro-c2jjk | grep -i image:
+kubectl describe pod daemon-set-primeiro-c2jjk | grep -i image:
 
 Image:          nginx:1.7.9
 ```
@@ -1507,7 +1499,7 @@ Deu ruim?
 Basta retornar para a outra configuração:
 
 ```
-# kubectl rollout undo ds daemon-set-primeiro --to-revision=2
+kubectl rollout undo ds daemon-set-primeiro --to-revision=2
 
 daemonset.extensions/daemon-set-primeiro rolled back
 ```
@@ -1515,7 +1507,7 @@ daemonset.extensions/daemon-set-primeiro rolled back
 Visualizando o status do rollout:
 
 ```
-# kubectl rollout status ds daemon-set-primeiro
+kubectl rollout status ds daemon-set-primeiro
 
 daemon set "daemon-set-primeiro" successfully rolled out
 ```
@@ -1523,7 +1515,7 @@ daemon set "daemon-set-primeiro" successfully rolled out
 Visualizando os pods:
 
 ```
-# kubectl get pods
+kubectl get pods
 
 NAME                        READY     STATUS    RESTARTS   AGE
 daemon-set-primeiro-jzck9   1/1       Running   0          32s
@@ -1534,7 +1526,7 @@ daemon-set-primeiro-v5c86   1/1       Running   0          40s
 Visualizando os detalhes dos pods:
 
 ```
-# kubectl describe pod daemon-set-primeiro-jzck9 | grep  -i image:
+kubectl describe pod daemon-set-primeiro-jzck9 | grep  -i image:
 
 Image:          nginx:1.15.0
 ```
@@ -1542,7 +1534,7 @@ Image:          nginx:1.15.0
 Agora vamos deletar nosso DaemonSet:
 
 ```
-# kubectl delete ds daemon-set-primeiro
+kubectl delete ds daemon-set-primeiro
 
 daemonset.extensions "daemon-set-primeiro" deleted
 ```
