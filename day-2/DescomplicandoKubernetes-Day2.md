@@ -834,23 +834,22 @@ Agora no contêiner, instale e execute o ``stress`` para simular a carga em noss
 Instalando o comando stress:
 
 ```
-# apt-get update && apt-get install -y stress
+root@nginx-f89759699-77v8b:/# apt-get update && apt-get install -y stress
 ```
 
 Executando o ``stress``:
 
 ```
-# stress --vm 1 --vm-bytes 128M --cpu 1
+root@nginx-f89759699-77v8b:/# stress --vm 1 --vm-bytes 128M --cpu 1
 
 stress: info: [221] dispatching hogs: 1 cpu, 0 io, 1 vm, 0 hdd
 ```
-
 Aqui estamos _stressando_ o contêiner, utilizando 128M de RAM e um core de CPU. Brinque de acordo com os limites que você estabeleceu.
 
 Quando ultrapassar o limite configurado, você receberá um erro como mostrado ao executar o seguinte comando, pois ele não conseguirá alocar os recursos de memória:
 
 ```
-# stress --vm 1 --vm-bytes 512M --cpu 1
+stress --vm 1 --vm-bytes 512M --cpu 1
 
 stress: info: [230] dispatching hogs: 1 cpu, 0 io, 1 vm, 0 hdd
 stress: FAIL: [230] (415) <-- worker 232 got signal 9
@@ -858,13 +857,13 @@ stress: WARN: [230] (417) now reaping child worker processes
 stress: FAIL: [230] (451) failed run completed in 0s
 ```
 
-Saia do pod e remova o deployment:
+Para acompanhar a quantidade de recurso que o pod está utilizando, podemos utilizar o kubectl top. Lembre-se de executar esse comando no node e não no container. :)
 
 ```
-# exit
-kubectl delete deployment nginx
+kubectl top pod --namespace=default nginx-f89759699-77v8b
+NAME                     CPU(cores)   MEMORY(bytes)
+nginx-85f7fb6b45-b6dsk   201m         226Mi
 
-deployment.extensions "nginx" deleted
 ```
 
 # Namespaces
@@ -1441,6 +1440,7 @@ kubectl describe node elliot-01 | grep -i taint
 
 Taints:             <none>
 ```
+
 # Colocando o nó em modo de manutenção
 
 Para colocar o nó em manutenção iremos utilizar o ``cordon``.
