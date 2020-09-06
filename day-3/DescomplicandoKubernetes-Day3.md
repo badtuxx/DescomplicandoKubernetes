@@ -32,7 +32,7 @@ Antes nos tínhamos somente o RC, _Replication Controller_, que era um controle 
 
 Podemos criar nossos deployments a partir do template: 
 ```
-kubectl create deployment --dry-run=client -o yaml --image=ngix nginx-template > primeiro-deployment-template.yaml
+kubectl create deployment --dry-run=client -o yaml --image=ngnix nginx-template > primeiro-deployment-template.yaml
 kubectl create -f primeiro-deployment-template.yaml
 ```
 
