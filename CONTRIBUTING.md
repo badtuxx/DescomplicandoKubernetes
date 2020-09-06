@@ -70,3 +70,5 @@ Mas o VSCode (https://code.visualstudio.com), combinado com os plugins a seguir,
 * Markdown-lint: https://marketplace.visualstudio.com/items?itemName=DavidAnson.vscode-markdownlint
 * Markdown-toc: https://marketplace.visualstudio.com/items?itemName=AlanWalk.markdown-toc
 * Markdown-all-in-one: https://marketplace.visualstudio.com/items?itemName=yzhang.markdown-all-in-one
+* YAML: https://marketplace.visualstudio.com/items?itemName=redhat.vscode-yaml
+* Helm-intellisense: https://marketplace.visualstudio.com/items?itemName=Tim-Koehler.helm-intellisense
