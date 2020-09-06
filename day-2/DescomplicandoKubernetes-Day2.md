@@ -17,6 +17,7 @@
 - [Limitando Recursos](#limitando-recursos)
 - [Namespaces](#namespaces)
 - [Kubectl taint](#kubectl-taint)
+- [Colocando o nó em modo de manutenção](#colocando-o-nó-em-modo-de-manutenção)
 
 <!-- TOC -->
 
@@ -706,6 +707,7 @@ Removendo o service:
 
 ```
 kubectl delete service nginx
+
 service "nginx" deleted
 ```
 
@@ -834,13 +836,13 @@ Agora no contêiner, instale e execute o ``stress`` para simular a carga em noss
 Instalando o comando stress:
 
 ```
-root@nginx-f89759699-77v8b:/# apt-get update && apt-get install -y stress
+apt-get update && apt-get install -y stress
 ```
 
 Executando o ``stress``:
 
 ```
-root@nginx-f89759699-77v8b:/# stress --vm 1 --vm-bytes 128M --cpu 1
+stress --vm 1 --vm-bytes 128M --cpu 1
 
 stress: info: [221] dispatching hogs: 1 cpu, 0 io, 1 vm, 0 hdd
 ```
@@ -857,13 +859,13 @@ stress: WARN: [230] (417) now reaping child worker processes
 stress: FAIL: [230] (451) failed run completed in 0s
 ```
 
-Para acompanhar a quantidade de recurso que o pod está utilizando, podemos utilizar o kubectl top. Lembre-se de executar esse comando no node e não no container. :)
+Para acompanhar a quantidade de recurso que o pod está utilizando, podemos utilizar o ``kubectl top``. Lembre-se de executar esse comando no node e não no container. :)
 
 ```
 kubectl top pod --namespace=default nginx-f89759699-77v8b
+
 NAME                     CPU(cores)   MEMORY(bytes)
 nginx-85f7fb6b45-b6dsk   201m         226Mi
-
 ```
 
 # Namespaces
@@ -1444,31 +1446,42 @@ Taints:             <none>
 # Colocando o nó em modo de manutenção
 
 Para colocar o nó em manutenção iremos utilizar o ``cordon``.
+
 ```
-# kubectl cordon elliot-02
+kubectl cordon elliot-02
+
 node/elliot-02 cordoned
 ```
+
 Visualizando o node em manutenção.
+
 ```
-# kubectl get nodes
+kubectl get nodes
+
 NAME        STATUS                      ROLES    AGE     VERSION
 elliot-01   Ready                       master   7d14h   v1.18.2
 elliot-02   Ready,SchedulingDisabled    <none>   7d14h   v1.18.2
 elliot-03   Ready                       <none>   7d14h   v1.18.2
 ```
-Repare que o nó ``elliot-02`` ficou com o status ``Ready,SchedulingDisabled``, agora você pode fazer a manutenção no seu node tranquilamente.  
+
+Repare que o nó ``elliot-02`` ficou com o status ``Ready,SchedulingDisabled``, agora você pode fazer a manutenção no seu node tranquilamente.
 Para retirar nó de modo de manutenção, iremos utilizar o ``uncordon``.
+
 ```
-# kubectl uncordon elliot-02
+kubectl uncordon elliot-02
+
 node/elliot-02 uncordoned
 ```
+
 Visualizando novamente os nós.
+
 ```
-# kubectl get nodes
+kubectl get nodes
 
 NAME           STATUS   ROLES    AGE     VERSION
 elliot-01   Ready    master   7d14h   v1.18.2
 elliot-02   Ready    <none>   7d14h   v1.18.2
 elliot-03   Ready    <none>   7d14h   v1.18.2
 ```
+
 Pronto, agora seu nó não está mais em modo de manutenção.
