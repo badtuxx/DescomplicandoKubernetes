@@ -1,42 +1,37 @@
-# Descomplicando o Kubernetes
-
-O conteúdo desse material é dividido em 06 partes. (day-1 até o day-6)
-
-O material é dividido em 06 partes justamente para facilitar o aprendizado. A ídeia é o aluno focar o aprendizado por etapas, e por esse motivo recomendamos que ele mude para a próxima parte somente quando estiver totalmente confortável com o conteúdo atual.
-
-Nesse material você terá contato com conteúdo do iniciante ao avançado sobre Kubernetes, e agora que ele se tornou aberto, com a ajuda de todos vamos construir o maior e mais completo material sobre Kubernetes do mundo.
-
-Contamos com sua ajuda para tornar esse material ainda mais completo, colabore!
-
 <!-- TOC -->
 
 - [Descomplicando o Kubernetes](#descomplicando-o-kubernetes)
-- [Sobre](#sobre)
+- [Índice](#índice)
 
 <!-- TOC -->
 
-# Sobre
+# Descomplicando o Kubernetes
 
 O conteúdo deste repositório inicialmente era privado e pertencia a [LinuxTips](https://www.linuxtips.io), onde somente os alunos do curso [Descomplicando o Kubernetes](https://www.linuxtips.io/product-page/descomplicando-o-kubernetes) tinham acesso.
 
 Devido a pandemia do [Coronavirus (COVID-19)](https://coronavirus.jhu.edu/map.html) e inspirado na iniciativa do [Guia Foca GNU/Linux](https://guiafoca.org), de [Gleydson Mazioli da Silva](https:///twitter.com/gleydsonmazioli), [Jeferson Fernando](https://twitter.com/badtux_) liberou o acesso público a este repositório como forma de ajudar no combate a pandemia incentivando as pessoas a ficarem em casa adquirindo o conhecimento e se aprimorando na profissão para poderem contribuir no local de trabalho ou mesmo se prepararem para novas oportunidades.
 
+O conteúdo desse material é dividido em 6 partes (day-1 até o day-6), para facilitar o aprendizado. A ídeia é o aluno focar o aprendizado por etapas e por esse motivo recomendamos que ele mude para a próxima parte somente quando estiver totalmente confortável com o conteúdo atual.
+
+Nesse material você terá contato com conteúdos que abordam do nível iniciante ao avançado sobre Kubernetes, e agora que ele se tornou aberto, com a ajuda de todos vamos construir o maior e mais completo material sobre Kubernetes do mundo.
+
 Futuramente o conteúdo deste repositório se tornará um livro, com o nome de todas as pessoas que contribuiram para o projeto. O valor que será arrecado com a venda do livro, será totalmente destinado para alguma organização que ajude as quebradas e pessoas com problemas financeiros e/ou problemas com acesso a informação, como por exemplo, a [Bienal da Quebrada](https://twitter.com/bienalquebrada).
+
+Contamos com sua ajuda para tornar esse material ainda mais completo, colabore! Para contribuir com melhorias no conteúdo, siga as instruções deste [tutorial](CONTRIBUTING.md).
 
 Veja os vídeos sobre Kubernetes e até outros temas legais no canal LinuxTips.
 
 * https://www.youtube.com/user/linuxtipscanal/videos
 * https://www.youtube.com/user/linuxtipscanal/playlists
 
-Para contribuir com melhorias no conteúdo, siga as instruções deste [tutorial](CONTRIBUTING.md).
+# Índice
+
 
 <!-- TOC -->
-- [Descomplicando Kubernetes Day 1](day-1/DescomplicandoKubernetes-Day1.md)
-
-
+- [Descomplicando Kubernetes Day 1](day-1/DescomplicandoKubernetes-Day1.md#descomplicando-kubernetes-day-1)
   - [Sumário](day-1/DescomplicandoKubernetes-Day1.md#sumário)
 - [O quê preciso saber antes de começar?](day-1/DescomplicandoKubernetes-Day1.md#o-quê-preciso-saber-antes-de-começar)
-  - [Qual distro Linux devo usar?](day-1/DescomplicandoKubernetes-Day1.md#qual-distro-linux-devo-usar)
+  - [Qual distro GNU/Linux devo usar?](day-1/DescomplicandoKubernetes-Day1.md#qual-distro-gnulinux-devo-usar)
   - [Alguns sites que devemos visitar](day-1/DescomplicandoKubernetes-Day1.md#alguns-sites-que-devemos-visitar)
   - [E o k8s?](day-1/DescomplicandoKubernetes-Day1.md#e-o-k8s)
   - [Arquitetura do k8s](day-1/DescomplicandoKubernetes-Day1.md#arquitetura-do-k8s)
@@ -46,7 +41,7 @@ Para contribuir com melhorias no conteúdo, siga as instruções deste [tutorial
 - [Aviso sobre os comandos](day-1/DescomplicandoKubernetes-Day1.md#aviso-sobre-os-comandos)
 - [Minikube](day-1/DescomplicandoKubernetes-Day1.md#minikube)
   - [Requisitos básicos](day-1/DescomplicandoKubernetes-Day1.md#requisitos-básicos)
-  - [Instalação do Minikube no Linux](day-1/DescomplicandoKubernetes-Day1.md#instalação-do-minikube-no-linux)
+  - [Instalação do Minikube no GNU/Linux](day-1/DescomplicandoKubernetes-Day1.md#instalação-do-minikube-no-gnulinux)
   - [Instalação do Minikube no MacOS](day-1/DescomplicandoKubernetes-Day1.md#instalação-do-minikube-no-macos)
   - [kubectl: alias e autocomplete](day-1/DescomplicandoKubernetes-Day1.md#kubectl-alias-e-autocomplete)
   - [Instalação do Minikube no Microsoft Windows](day-1/DescomplicandoKubernetes-Day1.md#instalação-do-minikube-no-microsoft-windows)
@@ -68,7 +63,7 @@ Para contribuir com melhorias no conteúdo, siga as instruções deste [tutorial
     - [Instalando o Brew](day-1/DescomplicandoKubernetes-Day1.md#instalando-o-brew)
     - [Instalando o Microk8s via Brew](day-1/DescomplicandoKubernetes-Day1.md#instalando-o-microk8s-via-brew)
 - [Kind](day-1/DescomplicandoKubernetes-Day1.md#kind)
-  - [Instalação no Linux](day-1/DescomplicandoKubernetes-Day1.md#instalação-no-linux)
+  - [Instalação no GNU/Linux](day-1/DescomplicandoKubernetes-Day1.md#instalação-no-gnulinux)
   - [Instalaçao no MacOS](day-1/DescomplicandoKubernetes-Day1.md#instalaçao-no-macos)
   - [Instalação no Windows](day-1/DescomplicandoKubernetes-Day1.md#instalação-no-windows-1)
     - [Instalação no Windows via Chocolatey](day-1/DescomplicandoKubernetes-Day1.md#instalação-no-windows-via-chocolatey)
@@ -111,7 +106,7 @@ Para contribuir com melhorias no conteúdo, siga as instruções deste [tutorial
   - [Criando um service ClusterIP](day-2/DescomplicandoKubernetes-Day2.md#criando-um-service-clusterip)
   - [Criando um service NodePort](day-2/DescomplicandoKubernetes-Day2.md#criando-um-service-nodeport)
   - [Criando um service LoadBalancer](day-2/DescomplicandoKubernetes-Day2.md#criando-um-service-loadbalancer)
-  - [EndPoint](day-2/DescomplicandoKubernetes-Day2.md#endpoint)
+  - [EndPoint](day-2/DescomplicandoKubernetes-Day2.md#endpoit)
 - [Limitando Recursos](day-2/DescomplicandoKubernetes-Day2.md#limitando-recursos)
 - [Namespaces](day-2/DescomplicandoKubernetes-Day2.md#namespaces)
 - [Kubectl taint](day-2/DescomplicandoKubernetes-Day2.md#kubectl-taint)
@@ -149,4 +144,3 @@ Para contribuir com melhorias no conteúdo, siga as instruções deste [tutorial
   - [Comandos Básicos do Helm 3](day-4/DescomplicandoKubernetes-Day4.md#comandos-básicos-do-helm-3)
 
 <!-- TOC -->
-
