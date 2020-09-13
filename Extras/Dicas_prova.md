@@ -43,3 +43,36 @@
    * ``alias k=kubectl``
    * ``alias kn=kubectl get no``
    * ``alias kp=kubectl get po``
+
+
+# ETCD
+
+Para a prova do CKA é bem relevante saber como o ETCD funciona.
+
+O assunto do ETCD está relacionado aos 11% do Cluster Maintenance.
+
+Porém, pode ser que você seja obrigado a salvar esse **snapshot** em um diretório específico. Exemplo: ``/tmp/``.
+
+Com isso, o comando ficaria assim:
+
+```
+ETCDCTL_API=3 etcdctl \
+--cacert /var/lib/minikube/certs/etcd/ca.crt \
+--key /var/lib/minikube/certs/etcd/server.key \
+--cert /var/lib/minikube/certs/etcd/server.crt \
+--endpoints [127.0.0.1:2379]  \
+snapshot save /tmp/snapshot.db
+```
+
+Para fazer o restore usando o arquivo de backup /tmp/snapshot.db podemos executar os seguintes comandos:
+
+```
+ETCDCTL_API=3 etcdctl \
+--cacert /var/lib/minikube/certs/etcd/ca.crt \
+--key /var/lib/minikube/certs/etcd/server.key \
+--cert /var/lib/minikube/certs/etcd/server.crt \
+--endpoints 127.0.0.1:2379  \
+snapshot restore /tmp/snapshot.db
+
+sudo mv /var/lib/etcd/member /var/lib/etcd/member.old
+sudo mv /var/lib/etcd/default.etcd/member /var/lib/etcd/
