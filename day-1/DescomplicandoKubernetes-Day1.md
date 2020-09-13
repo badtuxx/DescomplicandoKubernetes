@@ -150,24 +150,21 @@ A figura a seguir mostra a arquitetura interna de componentes do k8s.
 ## Portas que devemos nos preocupar
 
 **MASTER**
+**Protocol|Direction|Port Range|Purpose|Used By**
+----------|---------|----------|-------|----------
+TCP|Inbound|6443*|Kubernetes API server|All
+TCP|Inbound|2379-2380|etcd server client API|kube-apiserver, etcd
+TCP|Inbound|10250|Kubelet API|Self, Control plane
+TCP|Inbound|10251|kube-scheduler|Self
+TCP|Inbound|10252|kube-controller-manager|Self
 
-* API Server: 6443 TCP
-
-* Controller Manager: 10252 TCP
-
-* etcd: 2379-2380 TCP
-
-* Kubelet: 10250 TCP, 10255 TCP
-
-* NodePort Services: 30000-32767 TCP
-
-* Scheduler: 10251 TCP
+* Toda porta marcada por * é customizável, você precisa se certificar que a porta alterada também esteja aberta.
 
 **WORKERS**
-
-* Kubelet: 10250 TCP, 12255 TCP
-
-* NodePort Services: 30000-32767 TCP
+**Protocol|Direction|Port Range|Purpose|Used By**
+----------|---------|----------|-------|---------
+TCP|Inbound|10250|Kubelet API|Self, Control plane
+TCP|Inbound|30000-32767|NodePort|Services†	All
 
 Caso você opte pelo [Weave](https://weave.works) como *pod network*, devem ser liberadas também as portas 6783 e 6784 TCP.
 
