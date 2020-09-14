@@ -34,7 +34,7 @@ git checkout -b BRANCH_NAME
 git branch
 ```
 
-* A branch em uso está com um '*' antes do nome.
+* A branch em uso contém o '*' antes do nome.
 * Faça as alterações necessárias.
 * Teste suas alterações (se necessário).
 * Commit as suas alterações na branch recém criada, de preferência faça um commit para cada arquivo editado/criado.
