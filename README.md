@@ -95,6 +95,8 @@ Veja os vídeos sobre Kubernetes e até outros temas legais no canal LinuxTips.
 
 <!-- TOC -->
 
+
+
 <!-- TOC -->
 
 - [Descomplicando Kubernetes Day 2](day-2/DescomplicandoKubernetes-Day2.md#descomplicando-kubernetes-day-2)
@@ -113,6 +115,8 @@ Veja os vídeos sobre Kubernetes e até outros temas legais no canal LinuxTips.
 
 <!-- TOC -->
 
+
+
 <!-- TOC -->
 
 - [Descomplicando Kubernetes Day 3](day-3/DescomplicandoKubernetes-Day3.md#descomplicando-kubernetes-day-3)
@@ -127,6 +131,8 @@ Veja os vídeos sobre Kubernetes e até outros temas legais no canal LinuxTips.
 
 <!-- TOC -->
 
+
+
 <!-- TOC -->
 
 - [Descomplicando Kubernetes Day 4](day-4/DescomplicandoKubernetes-Day4.md#descomplicando-kubernetes-day-4)
@@ -138,9 +144,39 @@ Veja os vídeos sobre Kubernetes e até outros temas legais no canal LinuxTips.
 - [Secrets](day-4/DescomplicandoKubernetes-Day4.md#secrets)
 - [ConfigMaps](day-4/DescomplicandoKubernetes-Day4.md#configmaps)
 - [InitContainers](day-4/DescomplicandoKubernetes-Day4.md#initcontainers)
+- [Criando um usuário no Kubernetes](day-4/DescomplicandoKubernetes-Day4.md#criando-um-usuário-no-kubernetes)
 - [RBAC](day-4/DescomplicandoKubernetes-Day4.md#rbac)
 - [Helm](day-4/DescomplicandoKubernetes-Day4.md#helm)
   - [Instalando o Helm 3](day-4/DescomplicandoKubernetes-Day4.md#instalando-o-helm-3)
   - [Comandos Básicos do Helm 3](day-4/DescomplicandoKubernetes-Day4.md#comandos-básicos-do-helm-3)
+
+<!-- TOC -->
+
+
+
+<!-- TOC -->
+
+- [Descomplicando Kubernetes Day 5](day-5/DescomplicandoKubernetes-Day5.md#descomplicando-kubernetes-day-5)
+  - [Sumário](day-5/DescomplicandoKubernetes-Day5.md#sumário)
+- [Ingress](day-5/DescomplicandoKubernetes-Day5.md#ingress)
+
+<!-- TOC -->
+
+
+
+<!-- TOC -->
+- [Descomplicando Kubernetes Day 6](day-6/DescomplicandoKubernetes-Day6.md#descomplicando-kubernetes-day-6)
+  - [Sumário](day-6/DescomplicandoKubernetes-Day6.md#sumário)
+- [Security Context](day-6/DescomplicandoKubernetes-Day6.md#security-context)
+  - [Utilizando o security Context](day-6/DescomplicandoKubernetes-Day6.md#utilizando-o-security-context)
+  - [Capabilities](day-6/DescomplicandoKubernetes-Day6.md#capabilities)
+- [Manutenção do Cluster ETCD](day-6/DescomplicandoKubernetes-Day6.md#manutenção-do-cluster-etcd)
+  - [O que preciso saber antes de começar?](day-6/DescomplicandoKubernetes-Day6.md#o-que-preciso-saber-antes-de-começar)
+  - [O que é o ETCD?](day-6/DescomplicandoKubernetes-Day6.md#o-que-é-o-etcd)
+  - [ETCD no Kubernetes](day-6/DescomplicandoKubernetes-Day6.md#etcd-no-kubernetes)
+  - [Certificados ETCD](day-6/DescomplicandoKubernetes-Day6.md#certificados-etcd)
+  - [Interagindo com o ETCD](day-6/DescomplicandoKubernetes-Day6.md#interagindo-com-o-etcd)
+  - [Backup do ETCD no Kubernetes](day-6/DescomplicandoKubernetes-Day6.md#backup-do-etcd-no-kubernetes)
+- [Dicas para os exames](day-6/DescomplicandoKubernetes-Day6.md#dicas-para-os-exames)
 
 <!-- TOC -->
