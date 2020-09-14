@@ -77,7 +77,7 @@ busybox                   1/1       Running   0          12s
 
 Pronto! Já subimos nosso pod.
 
-Vamos listar o nome do conteiner que está dentro do pod ``busybox``:
+Vamos listar o nome do contêiner que está dentro do pod ``busybox``:
 
 ```
 kubectl get pods busybox -n default -o jsonpath='{.spec.containers[*].name}*'
@@ -109,7 +109,7 @@ NAME     READY     STATUS    RESTARTS   AGE  IP          NODE
 busybox  1/1       Running   0          1m   10.40.0.6   elliot-02
 ```
 
-Vamos acessar o shell do conteiner ``busy``, que está dentro do pod ``busybox``:
+Vamos acessar o shell do contêiner ``busy``, que está dentro do pod ``busybox``:
 
 ```
 kubectl exec -ti busybox -c busy sh
@@ -1099,7 +1099,7 @@ kubectl create -f nginx-initcontainer.yaml
 pod/init-demo created
 ```
 
-Visualize o conteúdo de um arquivo dentro de um conteiner do pod.
+Visualize o conteúdo de um arquivo dentro de um contêiner do pod.
 
 ```
 kubectl exec -ti init-demo -- cat /usr/share/nginx/html/index.html
