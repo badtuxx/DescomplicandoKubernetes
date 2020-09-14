@@ -1,13 +1,29 @@
 
+# Descomplicando Kubernetes Day 5
+
+## Sumário
+
+<!-- TOC -->
+
+- [Descomplicando Kubernetes Day 5](#descomplicando-kubernetes-day-5)
+  - [Sumário](#sumário)
+- [Ingress](#ingress)
+- [RASCUNHO](#rascunho)
+<!-- TOC -->
+
 # Ingress
 
-Normalmente quando rodamos um Pod no kubernetes, todo o tráfego é roteado somente pela rede do cluster, e todo tráfego externo acaba sendo descartado ou encaminhado para outro local. Um ingress é um conjunto de regras para permitir que as conexões externas de entrada atinjam os serviços dentro do cluster
+Normalmente quando executamos um Pod no Kubernetes, todo o tráfego é roteado somente pela rede do cluster, e todo tráfego externo acaba sendo descartado ou encaminhado para outro local. Um ingress é um conjunto de regras para permitir que as conexões externas de entrada atinjam os serviços dentro do cluster
 
-Vamos criar nosso primeiro Ingress, primeiro vamos gerar dois deployment e dois services:
-
+Vamos criar nosso primeiro Ingress, mas primeiro vamos gerar dois deployments e dois services:
 
 ```
-# vim app1.yaml
+vim deployment1.yaml
+```
+
+Informe o seguinte conteúdo:
+
+```yaml
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
@@ -27,8 +43,15 @@ spec:
           value: GIROPOPS
         ports:
         - containerPort: 80
+```
 
-# vim app2.yaml
+```
+vim deployment2.yaml
+```
+
+Informe o seguinte conteúdo:
+
+```yaml
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
@@ -48,8 +71,15 @@ spec:
           value: STRIGUS
         ports:
         - containerPort: 80
+```
 
-# vim svc-app1.yaml
+```
+vim svc-app1.yaml
+```
+
+Informe o seguinte conteúdo:
+
+```yaml
 apiVersion: v1
 kind: Service
 metadata:
@@ -61,8 +91,15 @@ spec:
     targetPort: 80
   selector:
     app: app1
+```
 
-# vim svc-app2.yaml
+```
+vim svc-app2.yaml
+```
+
+Informe o seguine conteúdo:
+
+```yaml
 apiVersion: v1
 kind: Service
 metadata:
@@ -74,70 +111,97 @@ spec:
     targetPort: 80
   selector:
     app: app2
+```
 
-# kubectl create -f app1.yaml
+Vamos criar os deployments e services no cluster com os seguintes comandos:
+
+```
+kubectl create -f deployment1.yaml
+
 deployment.extensions/app2 created
+```
 
-# kubectl create -f app2.yaml
+```
+kubectl create -f deployment2.yaml
+
 deployment.extensions/app2 created
+```
 
-# kubectl create -f svc-app1.yaml
+```
+kubectl create -f svc-app1.yaml
+
 deployment.extensions/svc-app1 created
+```
 
-# kubectl create -f svc-app2.yaml
+```
+kubectl create -f svc-app2.yaml
+
 deployment.extensions/svc-app2 created
 ```
 
+Acabamos de criar dois Pods com imagens de um site estático.
 
-Acabamos de criar dois Pods com imagens de um site estático. 
-
+Vamos visualizar os deployments:
 
 ```
-# kubectl get deploy
+kubectl get deploy
+
 NAME      DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
 app1      2         2         2            2           3m
 app2      2         2         2            2           3m
+```
 
-# kubectl get services
+Vamos visualizar os services:
+
+```
+kubectl get services
+
 NAME         TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)   AGE
 appsvc1      ClusterIP   10.107.228.40   <none>        80/TCP    2m
 appsvc2      ClusterIP   10.97.250.131   <none>        80/TCP    2m
 kubernetes   ClusterIP   10.96.0.1       <none>        443/TCP   11d
-
-
 ```
 
-
-Vamos listar os Endpoints desses Pods:
-
+Vamos listar os Endpoints dos services:
 
 ```
-# kubectl get ep
+kubectl get ep
+
 NAME         ENDPOINTS                     AGE
 appsvc1      10.44.0.11:80,10.44.0.12:80   4m
 appsvc2      10.32.0.4:80,10.44.0.13:80    4m
 kubernetes   10.142.0.5:6443               11d
 ```
 
-
-Agora vamos acessar os sites e ver se tudo deu certo com as Env que  configuramos no Deployment.
-
+Agora vamos acessar os sites e ver se tudo deu certo com as variáveis de ambiente que  configuramos nos Deployments.
 
 ```
-# curl 10.44.0.11
+curl 10.44.0.11
+
 ...
 <h1 id="toc_0">Hello GIROPOPS!</h1>
 
 <p>This is being served from a <b>docker</b><br>
 container running Nginx.</p>
+```
 
-# curl  10.32.0.4
+```
+curl  10.32.0.4
 h1 id="toc_0">Hello STRIGUS!</h1>
 
 <p>This is being served from a <b>docker</b><br>
 container running Nginx.</p>
+```
 
-# vim default-backend.yaml
+Vamos criar um deployment para o backend:
+
+```
+vim default-backend.yaml
+```
+
+Informe o seguinte conteúdo:
+
+```yaml
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
@@ -153,6 +217,11 @@ spec:
       containers:
       - name: default-backend
         image: gcr.io/google_containers/defaultbackend:1.0
+        readinessProbe:
+          httpGet:
+            path: /healthz
+            port: 8080
+            scheme: HTTP
         livenessProbe:
           httpGet:
             path: /healthz
@@ -169,26 +238,42 @@ spec:
           requests:
             cpu: 10m
             memory: 20Mi
+```
 
-terminationGracePeriodSeconds => Tempo em segundos que ele irá aguardar o pod ser finalizado com o sinal SIGTERM, antes de realizar a finalização forçada com o sinal de SIGKILL.
+Atenção para os seguintes parâmetros no arquivo anterior:
 
-Liveness Probe => Verifica se o pod continua em execuç˜ão, caso não esteja, o kubelet irá remover o container e iniciará outro em seu lugar.
+* **terminationGracePeriodSeconds** => Tempo em segundos que ele irá aguardar o pod ser finalizado com o sinal SIGTERM, antes de realizar a finalização forçada com o sinal de SIGKILL.
+* **livenessProbe** => Verifica se o pod continua em execução, caso não esteja, o ``kubelet`` irá remover o contêiner e iniciará outro em seu lugar.
+* **readnessProbe** => Verifica se o container está pronto para receber requisições vindas do service.
+* **initialDelaySeconds** => Diz ao ``kubelet`` quantos segundos ele deverá aguardar para realizar a execução da primeira checagem da livenessProbe
+* **timeoutSeconds** => Tempo em segundos que será considerado o timeout da execução da probe, o valor padrão é 1.
+* **periodSeconds** => Determina de quanto em quanto tempo será realizada a verificação do livenessProbe.
 
-Readness Probe => Verifica se o container está pronto para receber requisições vindas do service.
+Crie o namespace ``ingress``:
 
-initialDelaySeconds => Diz ao kubelet quantos segundos ele deverá aguardar para realizar a execução da primeira checagem da Liveness Probe
+```
+kubectl create namespace ingress
 
-timeoutSeconds => Tempo em segundos que será considerado o timeout da execução da probe, o valor padrão é 1.
-
-PeriodSeconds => Determina de quanto em quanto tempo será realizada a verificação do Liveness Probe
-
-# kubectl create namespace ingress
 namespace/ingress created
+```
 
-# kubectl create -f default-backend.yaml -n ingress
+Crie o deployment do backend no namespace ``ingress``:
+
+```
+kubectl create -f default-backend.yaml -n ingress
+
 deployment.extensions/default-backend created
+```
 
-# vim default-backend-service.yaml
+Crie um arquivo para definir um service para o backend:
+
+```
+vim default-backend-service.yaml
+```
+
+Informe o seguinte conteúdo:
+
+```yaml
 apiVersion: v1
 kind: Service
 metadata:
@@ -200,34 +285,73 @@ spec:
     targetPort: 8080
   selector:
     app: default-backend
+```
 
-# kubectl create -f default-backend-service.yaml -n ingress
+Crie o service para o backend no namespace ``ingress``:
+
+```
+kubectl create -f default-backend-service.yaml -n ingress
+
 service/default-http-backend created
+```
 
-# kubectl get deployments.
+Visualize novamente os deployments no namespace ``default``:
+
+```
+kubectl get deployments.
+
 NAME      DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
 app1      2         2         2            2           29m
 app2      2         2         2            2           28m
+```
 
-# kubectl get deployments. -n ingress
+Visualize o deployment no namespace ``ingress``:
+
+```
+kubectl get deployments. -n ingress
+
 NAME              DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
 default-backend   2         2         2            2           27s
+```
 
-# kubectl get service
+Visualize novamente os services no namespace ``default``:
+
+```
+kubectl get service
+
 NAME         TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)   AGE
 appsvc1      ClusterIP   10.98.174.69    <none>        80/TCP    28m
 appsvc2      ClusterIP   10.96.193.198   <none>        80/TCP    28m
 kubernetes   ClusterIP   10.96.0.1       <none>        443/TCP   11d
+```
 
-# kubectl get service -n ingress
+Visualize o service no namespace ``ingress``:
+
+```
+kubectl get service -n ingress
+
 NAME              TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)   AGE
 default-backend   ClusterIP   10.99.233.157   <none>        80/TCP    38s
+```
 
-# kubectl get ep -n ingress
+Visualize o endpoint no namespace ``ingress``:
+
+```
+kubectl get ep -n ingress
+
 NAME              ENDPOINTS                        AGE
 default-backend   10.32.0.14:8080,10.40.0.4:8080   2m
+```
 
-# vim nginx-ingress-controller-config-map.yaml
+Agora crie o um arquivo para definir um ``configMap`` a ser utilizado pela nossa aplicação:
+
+```
+vim nginx-ingress-controller-config-map.yaml
+```
+
+Informe o seguinte conteúdo:
+
+```yaml
 apiVersion: v1
 kind: ConfigMap
 metadata:
@@ -236,15 +360,30 @@ metadata:
     app: nginx-ingress-lb
 data:
   enable-vts-status: 'true'
+```
 
-# kubectl create -f nginx-ingress-controller-config-map.yaml -n ingress
+Crie o configMap no namespace ``ingress``:
+
+```
+kubectl create -f nginx-ingress-controller-config-map.yaml -n ingress
+
 configmap/nginx-ingress-controller-conf created
+```
 
-# kubectl get configmaps -n ingress
+Visualize o configMap no namespace ``ingress``:
+
+```
+kubectl get configmaps -n ingress
+
 NAME                            DATA      AGE
 nginx-ingress-controller-conf   1         20s
+```
 
-# kubectl describe configmaps nginx-ingress-controller-conf -n ingress
+Visualize os detalhes do configMap recém criado no namespace ``ingress``:
+
+```
+kubectl describe configmaps nginx-ingress-controller-conf -n ingress
+
 Name:         nginx-ingress-controller-conf
 Namespace:    ingress
 Labels:       app=nginx-ingress-lb
@@ -255,8 +394,17 @@ enable-vts-status:
 ----
 true
 Events:  <none>
+```
 
-# vim nginx-ingress-controller-roles.yaml
+Vamos criar um arquivo para definir as permissões para o nosso deployment:
+
+```
+vim nginx-ingress-controller-roles.yaml
+```
+
+Informe o seguinte conteúdo:
+
+```yaml
 apiVersion: v1
 kind: ServiceAccount
 metadata:
@@ -328,19 +476,39 @@ subjects:
 - kind: ServiceAccount
   name: nginx
   namespace: ingress
+```
 
-# kubectl create -f nginx-ingress-controller-roles.yaml -n ingress
+Aplique as permissões no namespace ``ingress`` com o seguinte comando:
+
+```
+kubectl create -f nginx-ingress-controller-roles.yaml -n ingress
+
 serviceaccount/nginx created
+```
 
-# kubectl get serviceaccounts
-NAME      SECRETS   AGE
-default   1         12d
+Visualize os serviceAccount e roles recém criados no namespace ``ingress`` com os seguintes comandos:
 
-# kubectl get clusterrole -n ingress
+```
+kubectl get serviceaccounts -n ingress
+```
 
-# kubectl get clusterrolebindings -n ingress
+```
+kubectl get clusterrole -n ingress
+```
 
-# vim nginx-ingress-controller-deployment.yaml
+```
+kubectl get clusterrolebindings -n ingress
+```
+
+Agora crie um arquivo para definir outro deployment:
+
+```
+vim nginx-ingress-controller-deployment.yaml
+```
+
+Informe o seguinte conteúdo:
+
+```yaml
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
@@ -388,16 +556,31 @@ spec:
           ports:
             - containerPort: 80
             - containerPort: 18080
+```
 
-# kubectl create -f nginx-ingress-controller-deployment.yaml -n ingress
+Crie o deployment no namespace ``ingress``:
+
+```
+kubectl create -f nginx-ingress-controller-deployment.yaml -n ingress
+
 deployment.extensions/nginx-ingress-controller created
+```
 
-# kubectl get deployments -n ingress
+Visualize o deployment recém criado no namespace ``ingress``:
+
+```
+kubectl get deployments -n ingress
+
 NAME                       DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
 default-backend            2         2         2            2           53m
 nginx-ingress-controller   1         1         1            1           23s
+```
 
-# kubectl get pods --all-namespaces
+Visualize todos os pods:
+
+```
+kubectl get pods --all-namespaces
+
 NAMESPACE     NAME                                        READY     STATUS    RESTARTS   AGE
 default       app1-6b65555ff9-s7dh4                       1/1       Running   0          1h
 default       app1-6b65555ff9-z6wj6                       1/1       Running   0          1h
@@ -406,8 +589,17 @@ default       app2-d956f58df-fsjtf                        1/1       Running   0 
 ingress       default-backend-5cb55f8865-2wp5m            1/1       Running   0          54m
 ingress       default-backend-5cb55f8865-9jgr4            1/1       Running   0          54m
 ingress       nginx-ingress-controller-65fbdc747b-mlb9k   1/1       Running   0          1m
+```
 
-# vim nginx-ingress.yaml
+Agora crie um arquivo para definir o ingress que redirecionará para o backend:
+
+```
+vim nginx-ingress.yaml
+```
+
+Informe o seguinte conteúdo:
+
+```yaml
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
@@ -421,8 +613,17 @@ spec:
           serviceName: nginx-ingress
           servicePort: 18080
         path: /nginx_status
+```
 
-# vim app-ingress.yaml
+Agora crie um arquivo para definir o ingress que redirecionará para os serviços das aplicações que criamos no início desta seção:
+
+```
+vim app-ingress.yaml
+```
+
+Informe o seguinte conteúdo:
+
+```yaml
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
@@ -442,22 +643,43 @@ spec:
           serviceName: appsvc2
           servicePort: 80
         path: /app2
+```
 
-# kubectl create -f nginx-ingress.yaml -n ingress
+Crie os ingresses no namespace ``ingress`` e ``default`` com os seguintes comandos, respectivamente:
+
+```
+kubectl create -f nginx-ingress.yaml -n ingress
+
 ingress.extensions/nginx-ingress created
+```
 
-# kubectl create -f app-ingress.yaml
+```
+kubectl create -f app-ingress.yaml
+
 ingress.extensions/app-ingress created
+```
 
-# kubectl get ingresses
-NAME          HOSTS                                        ADDRESS   PORTS     AGE
-app-ingress   ec2-54-159-116-229.compute-1.amazonaws.com             80        16s
+Visualize os ingresses recém criados:
 
-# kubectl get ingresses -n ingress
+```
+kubectl get ingresses -n ingress
+
 NAME            HOSTS                                        ADDRESS   PORTS     AGE
 nginx-ingress   ec2-54-159-116-229.compute-1.amazonaws.com             80        35s
+```
 
-# kubectl describe ingresses.extensions nginx-ingress -n ingress
+```
+kubectl get ingresses
+
+NAME          HOSTS                                        ADDRESS   PORTS     AGE
+app-ingress   ec2-54-159-116-229.compute-1.amazonaws.com             80        16s
+```
+
+Visualize os detalhes do ingress que redireciona para o backend no namespace ``ingress``:
+
+```
+kubectl describe ingresses.extensions nginx-ingress -n ingress
+
 Name:             nginx-ingress
 Namespace:        ingress
 Address:
@@ -472,8 +694,13 @@ Events:
   Type    Reason  Age   From                      Message
   ----    ------  ----  ----                      -------
   Normal  CREATE  50s   nginx-ingress-controller  Ingress ingress/nginx-ingress
+```
 
-# kubectl describe ingresses.extensions app-ingress
+Visualize os detalhes do ingress que redireciona para a aplicação no namespace ``default``:
+
+```
+kubectl describe ingresses.extensions app-ingress
+
 Name:             app-ingress
 Namespace:        default
 Address:
@@ -490,8 +717,17 @@ Events:
   Type    Reason  Age   From                      Message
   ----    ------  ----  ----                      -------
   Normal  CREATE  1m    nginx-ingress-controller  Ingress default/app-ingress
+```
 
-# vim nginx-ingress-controller-service.yaml
+Crie um arquivo para definir um service do tipo nodePort:
+
+```
+vim nginx-ingress-controller-service.yaml
+```
+
+Informe o seguinte conteúdo:
+
+```yaml
 apiVersion: v1
 kind: Service
 metadata:
@@ -507,13 +743,15 @@ spec:
       name: http-mgmt
   selector:
     app: nginx-ingress-lb
-
-# kubectl create -f nginx-ingress-controller-service.yaml -n=ingress
 ```
 
+Agora crie o service do tipo nodePort:
 
-Pronto, agora você já pode acessar suas apps pela URL que você configurou. Abra o navegador e adicione os seguintes endereços:
+```
+kubectl create -f nginx-ingress-controller-service.yaml -n=ingress
+```
 
+Pronto! Agora você já pode acessar suas apps pela URL que você configurou. Abra o navegador e adicione os seguintes endereços:
 
 ```
 http://SEU-ENDEREÇO:30000/app1
@@ -523,9 +761,7 @@ http://SEU-ENDEREÇO:30000/app2
 http://SEU-ENDEREÇO:32000/nginx_status
 ```
 
-
 Ou ainda via curl:
-
 
 ```
 # curl http://SEU-ENDEREÇO:30000/app1
@@ -535,15 +771,13 @@ Ou ainda via curl:
 # curl http://SEU-ENDEREÇO:32000/nginx_status
 ```
 
+---
 
-
-
-**EXTRA**
+# RASCUNHO
 
 Caso você queira fazer a instalação utilizando o repositório do Jeferson, ao invés de criar todos os arquivos, abaixo os comandos necessários para realizar o deploy:
 
 Criando o Cluster:
-
 
 ```
 # curl -fsSL https://get.docker.com | bash
@@ -562,17 +796,13 @@ Criando o Cluster:
 # kubectl get nodes
 ```
 
-
 Realizando o clone do repositório:
 
-
 ```
-# git clone https://github.com/badtuxx/ingress.git
+git clone https://github.com/badtuxx/ingress.git
 ```
-
 
 Iniciando o deploy de nossa app e também do Nginx Ingress.
-
 
 ```
 # cd ingress/
@@ -603,11 +833,7 @@ Iniciando o deploy de nossa app e também do Nginx Ingress.
 # kubectl get deploy -n ingress
 ```
 
-
-
-
-Pronto, agora você já pode acessar suas apps pela URL que você configurou. Abra o navegador e adicione os seguintes endereços:
-
+Pronto! Agora você já pode acessar suas apps pela URL que você configurou. Abra o navegador e adicione os seguintes endereços:
 
 ```
 http://SEU-ENDEREÇO:30000/app1
@@ -617,13 +843,12 @@ http://SEU-ENDEREÇO:30000/app2
 http://SEU-ENDEREÇO:32000/nginx_status
 ```
 
-
 Ou ainda via curl:
 
-
 ```
-# curl http://SEU-ENDEREÇO:30000/app1
+curl http://SEU-ENDEREÇO:30000/app1
 
-# curl http://SEU-ENDEREÇO:30000/app2
+curl http://SEU-ENDEREÇO:30000/app2
 
-# curl http://SEU-ENDEREÇO:32000/nginx_status
+curl http://SEU-ENDEREÇO:32000/nginx_status
+```

@@ -13,7 +13,7 @@
 - [Secrets](#secrets)
 - [ConfigMaps](#configmaps)
 - [InitContainers](#initcontainers)
-- [Criando um usuário no Kubernetes](#criando-um-usuário-no-Kubernetes)
+- [Criando um usuário no Kubernetes](#criando-um-usuário-no-kubernetes)
 - [RBAC](#rbac)
 - [Helm](#helm)
   - [Instalando o Helm 3](#instalando-o-helm-3)
@@ -1197,7 +1197,6 @@ kubectl delete -f nginx-initcontainer.yaml
 
 pod/init-demo deleted
 ```
-
 
 # Criando um usuário no Kubernetes 
 
