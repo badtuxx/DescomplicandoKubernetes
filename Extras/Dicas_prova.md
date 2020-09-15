@@ -1,4 +1,12 @@
-## Dicas CKA/CKAD
+<!-- TOC -->
+
+- [Dicas CKA/CKAD](#dicas-ckackad)
+- [ETCD](#etcd)
+- [Referências](#referências)
+
+<!-- TOC -->
+
+# Dicas CKA/CKAD
 
  * Estar bem familiarizado com todos objetos dentro do k8s (pod, deploy, replicaSet, jobs, pv, pvc, statefulSet ...)
 
@@ -44,7 +52,6 @@
    * ``alias kn=kubectl get no``
    * ``alias kp=kubectl get po``
 
-
 # ETCD
 
 Para a prova do CKA é bem relevante saber como o ETCD funciona.
@@ -76,3 +83,22 @@ snapshot restore /tmp/snapshot.db
 
 sudo mv /var/lib/etcd/member /var/lib/etcd/member.old
 sudo mv /var/lib/etcd/default.etcd/member /var/lib/etcd/
+```
+
+# Referências
+
+A seguir estão alguns links com dicas e questões de estudo para a certificação:
+
+* https://docs.linuxfoundation.org/tc-docs/certification/faq-cka-ckad
+* https://docs.linuxfoundation.org/tc-docs/certification/tips-cka-and-ckad
+* https://www.cncf.io/certification/cka/
+* https://www.cncf.io/certification/ckad/
+* https://blog.nativecloud.dev/what-changes-with-certified-kubernetes-administrator-in-september-2020/
+* https://dev.to/aurelievache/tips-about-certified-kubernetes-application-developers-ckad-exam-287g
+* https://www.linkedin.com/pulse/kubernetes-certification-cka-ckad-exam-tips-gineesh-madapparambath/?articleId=6662722107232911361
+* https://github.com/dgkanatsios/CKAD-exercises
+* https://dev.to/liptanbiswas/ckad-practice-questions-4mpn
+* https://github.com/twajr/ckad-prep-notes?utm_sq=gi8psj8vrn
+* https://medium.com/faun/be-fast-with-kubectl-1-18-ckad-cka-31be00acc443
+* https://medium.com/faun/how-to-pass-certified-kubernetes-administrator-cka-exam-on-first-attempt-36c0ceb4c9e
+* https://medium.com/@yitaek/getting-kubernetes-certified-the-mostly-free-way-41c8b68c8ed4

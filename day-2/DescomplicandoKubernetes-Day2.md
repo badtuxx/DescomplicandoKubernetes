@@ -859,7 +859,7 @@ stress: WARN: [230] (417) now reaping child worker processes
 stress: FAIL: [230] (451) failed run completed in 0s
 ```
 
-Para acompanhar a quantidade de recurso que o pod está utilizando, podemos utilizar o ``kubectl top``. Lembre-se de executar esse comando no node e não no container. :)
+Para acompanhar a quantidade de recurso que o pod está utilizando, podemos utilizar o ``kubectl top``. Lembre-se de executar esse comando no node e não no contêiner. :)
 
 ```
 kubectl top pod --namespace=default nginx-f89759699-77v8b

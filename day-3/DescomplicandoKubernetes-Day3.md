@@ -858,7 +858,7 @@ Successfully assigned default/replica-set-primeiro-7j59w to elliot-02
   Normal  Pulled     1m               kubelet, elliot-02  Successfully pulled image "nginx:1.15.0"
 ```
 
-Como podemos observar ele alterou a imagem do nginx do **1.7.9** para **1.15.0**, como o replicaset não tem um deployment ele apenas destruiu o container sem destruir o pod, então a configuração passada manualmente é uma configuração válida, mas caso o pod seja removido o ReplicaSet vai recriá-lo com as configurações originais.
+Como podemos observar ele alterou a imagem do nginx do **1.7.9** para **1.15.0**, como o replicaset não tem um deployment ele apenas destruiu o contêiner sem destruir o pod, então a configuração passada manualmente é uma configuração válida, mas caso o pod seja removido o ReplicaSet vai recriá-lo com as configurações originais.
 
 Vamos apagar o pod e ver se realmente acontece isso:
 

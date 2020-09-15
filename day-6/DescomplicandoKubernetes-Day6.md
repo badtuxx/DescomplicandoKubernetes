@@ -7,15 +7,15 @@
 - [Descomplicando Kubernetes Day 6](#descomplicando-kubernetes-day-6)
   - [Sumário](#sumário)
 - [Security Context](#security-context)
-- [Utilizando o security Context](#utilizando-o-security-context)
-- [Capabilities](#capabilities)
-- [Manutenção do Cluster ETCD](#manutenção-do-cluster-ETCD)
-- [O que preciso saber antes de começar?](#o-que-preciso-saber-antes-de-começar)
-- [O que é o ETCD?](#o-que-é-o-etcd)
-- [ETCD no Kubernetes](#etcd-no-kubernetes)
-- [Certificados ETCD](#certificados-etcd)
-- [Interagindo com o ETCD](#interagindo-com-o-etcd)
-- [Backup do ETCD no Kubernetes](#backup-do-etcd-no-kubernetes)
+  - [Utilizando o security Context](#utilizando-o-security-context)
+  - [Capabilities](#capabilities)
+- [Manutenção do Cluster ETCD](#manutenção-do-cluster-etcd)
+  - [O que preciso saber antes de começar?](#o-que-preciso-saber-antes-de-começar)
+  - [O que é o ETCD?](#o-que-é-o-etcd)
+  - [ETCD no Kubernetes](#etcd-no-kubernetes)
+  - [Certificados ETCD](#certificados-etcd)
+  - [Interagindo com o ETCD](#interagindo-com-o-etcd)
+  - [Backup do ETCD no Kubernetes](#backup-do-etcd-no-kubernetes)
 - [Dicas para os exames](#dicas-para-os-exames)
 
 <!-- TOC -->
@@ -31,11 +31,11 @@
 * Se o contêiner pode escalar privilégios;
 * Utilizar SELinux/APPArmor.
 
-# Utilizando o security Context
+## Utilizando o security Context
 
 Para utilizar essa configuração precisamos incluir o bloco ``securityCotext`` no manifesto do pod.
 
-Primeiro vamos definir um usuário e grupo para nosso contêiner através das flags ``runAsUser`` e ``runAsGroup``. O usuário e grupo devem ser informados por ``UID``. Exemplo: ``1000``.
+Primeiro vamos definir um usuário e grupo para nosso contêiner através das *flags* ``runAsUser`` e ``runAsGroup``. O usuário e grupo devem ser informados por ``UID``. Exemplo: ``1000``.
 
 ```yaml
 apiVersion: v1
@@ -92,7 +92,7 @@ uid=2000 gid=1000
 
 As configurações declaradas em contêineres sempre serão prioritárias e irão sobrescrever as demais.
 
-# Capabilities
+## Capabilities
 
 Nos sistemas UNIX existem basicamente duas categorias de processos: **processos privilegiados** que são executados como o ``UID 0`` (``root`` ou superusuario) e os **não privilegiados** que possuem o ``UID`` **diferente** de ``0``.
 
@@ -152,23 +152,23 @@ Sat May 16 18:00:00 UTC 2020
 
 # Manutenção do Cluster ETCD
 
-# O que preciso saber antes de começar?
+## O que preciso saber antes de começar?
 
 ETCD é um dos componentes fundamentais que fazem o Kubernetes funcionar.
 
-# O que é o ETCD?
+## O que é o ETCD?
 
 Basicamente, o ETCD é um database de armazenamento de chave-valor de alta disponibilidade.
 
 Em um banco de dados relacional, nós temos colunas e dentro das colunas nós temos o tipo de informação que está sendo armazenada;
 
-| ![Banco de dados relacional](../../images/relational-database-chart.jpg) |
+| ![Banco de dados relacional](../images/relational-database-chart.jpg) |
 |:---------------------------------------------------------------------------------------------:|
 | *Banco de dados relacional [Ref: hswstatic.com](https://cdn.hswstatic.com/gif/relational-database-chart.jpg)*                                                                      |
 
 Em um banco de dados de chave-valor, quando consultamos e obtemos a chave, é retornado o valor atribuido à aquela chave.
 
-| ![Banco de dados chave valor](../../images/KeyValue.png) |
+| ![Banco de dados chave valor](../images/KeyValue.png) |
 |:---------------------------------------------------------------------------------------------:|
 | *Banco de dados chave-valor [Ref: Wikimedia.org](https://upload.wikimedia.org/wikipedia/commons/5/5b/KeyValue.PNG)*                                                                      |
 
@@ -176,7 +176,7 @@ Quando consultamos a chave ``k1``, o resultado  retornado é o valor: ``AAA,BBB,
 
 Quando consultamos a chave ``k5``, o resultado retornado é o valor: ``3,ZZZ,5623``
 
-# ETCD no Kubernetes
+## ETCD no Kubernetes
 
 No kubernetes, o ETCD é responsável por registrar todo tipo de informação do cluster, tais como: ``nodes``, ``roles``, ``pods``, ``configs``, ``accounts``, ``secrets``, etc.
 
@@ -204,7 +204,7 @@ weave-net-fvttp                     2/2     Running   0          8d
 weave-net-xl7km                     2/2     Running   0          8d
 ```
 
-# Certificados ETCD
+## Certificados ETCD
 
 O ETCD, como os demais serviços do Kuberentes, utilizam certificados PKI para autenticação sobre TLS, essas chaves são declaradas no manifesto de configuração em:
 
@@ -236,7 +236,7 @@ Parâmetros:
 
 Então, para toda e qualquer interação com o ETCD vamos precisar utililizar esses certificados para nos autenticar.
 
-# Interagindo com o ETCD
+## Interagindo com o ETCD
 
 Para interagir com o ETCD vamos precisar o ``etcdctl`` ou utilizar o próprio contêiner do etcd com o comando ```kubectl exec```
 
@@ -245,6 +245,7 @@ Referência: https://github.com/etcd-io/etcd/tree/master/etcdctl
 Baixando a ultima versão do etcd:
 
 GNU/Linux:
+
 ```
 ETCD_VER=v3.4.7
 
@@ -417,7 +418,7 @@ BestEffortZb
 
 Isso foi um pouco de como podemos interagir diretamente com o ETCD.
 
-# Backup do ETCD no Kubernetes
+## Backup do ETCD no Kubernetes
 
 Como sabemos, o ETCD é responsável por armazenar todo tipo de informação sobre o estado do nosso cluster.
 

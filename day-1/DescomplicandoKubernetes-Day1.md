@@ -150,8 +150,9 @@ A figura a seguir mostra a arquitetura interna de componentes do k8s.
 ## Portas que devemos nos preocupar
 
 **MASTER**
-**Protocol|Direction|Port Range|Purpose|Used By**
-----------|---------|----------|-------|----------
+
+Protocol|Direction|Port Range|Purpose|Used By
+--------|---------|----------|-------|-------
 TCP|Inbound|6443*|Kubernetes API server|All
 TCP|Inbound|2379-2380|etcd server client API|kube-apiserver, etcd
 TCP|Inbound|10250|Kubelet API|Self, Control plane
@@ -161,10 +162,11 @@ TCP|Inbound|10252|kube-controller-manager|Self
 * Toda porta marcada por * é customizável, você precisa se certificar que a porta alterada também esteja aberta.
 
 **WORKERS**
-**Protocol|Direction|Port Range|Purpose|Used By**
-----------|---------|----------|-------|---------
+
+Protocol|Direction|Port Range|Purpose|Used By
+--------|---------|----------|-------|-------
 TCP|Inbound|10250|Kubelet API|Self, Control plane
-TCP|Inbound|30000-32767|NodePort|Services†	All
+TCP|Inbound|30000-32767|NodePort|Services All
 
 Caso você opte pelo [Weave](https://weave.works) como *pod network*, devem ser liberadas também as portas 6783 e 6784 TCP.
 
@@ -697,8 +699,8 @@ kind: Cluster
 apiVersion: kind.x-k8s.io/v1alpha4
 nodes:
   - role: control-plane
-  - role: worker1
-  - role: worker2
+  - role: worker
+  - role: worker
 EOF
 ```
 
