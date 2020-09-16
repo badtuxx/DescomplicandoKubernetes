@@ -24,20 +24,23 @@ vim deployment1.yaml
 Informe o seguinte conteúdo:
 
 ```yaml
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: app1
 spec:
   replicas: 2
+  selector:
+    matchLabels:
+      app: app1
   template:
     metadata:
       labels:
         app: app1
     spec:
       containers:
-      - name: app1
-        image: dockersamples/static-site
+      - image: dockersamples/static-site
+        name: app1
         env:
         - name: AUTHOR
           value: GIROPOPS
@@ -52,20 +55,23 @@ vim deployment2.yaml
 Informe o seguinte conteúdo:
 
 ```yaml
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: app2
 spec:
   replicas: 2
+  selector:
+    matchLabels:
+      app: app2
   template:
     metadata:
       labels:
         app: app2
     spec:
       containers:
-      - name: app2
-        image: dockersamples/static-site
+      - image: dockersamples/static-site
+        name: app2
         env:
         - name: AUTHOR
           value: STRIGUS
