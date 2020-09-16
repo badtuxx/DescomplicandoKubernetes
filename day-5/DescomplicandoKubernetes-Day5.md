@@ -208,12 +208,15 @@ vim default-backend.yaml
 Informe o seguinte conteúdo:
 
 ```yaml
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: default-backend
 spec:
   replicas: 2
+  selector:
+    matchLabels:
+      app: default-backend
   template:
     metadata:
       labels:
@@ -223,11 +226,6 @@ spec:
       containers:
       - name: default-backend
         image: gcr.io/google_containers/defaultbackend:1.0
-        readinessProbe:
-          httpGet:
-            path: /healthz
-            port: 8080
-            scheme: HTTP
         livenessProbe:
           httpGet:
             path: /healthz
