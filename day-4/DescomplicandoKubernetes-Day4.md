@@ -1045,7 +1045,6 @@ REDIS_MASTER_SERVICE_PORT='6379'
 SHLVL='1'
 TERM='xterm'
 frutas='kiwi'
-/ #
 ```
 
 Vamos criar um pod utilizando utilizando mais de uma variável.
