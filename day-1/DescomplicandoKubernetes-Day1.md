@@ -431,7 +431,7 @@ multinode-demo       Ready     master    5m        v1.18.3
 multinode-demo-m02   Ready     <none>    4m        v1.18.3
 ```
 
-Claramente, como a intenção do Minikube é executar o k8s em apenas um nó, é natural que seja apresentado apenas uma linha na saída do comando anterior.
+Inicialmente, a intenção do Minikube é executar o k8s em apenas um nó, porem a partir da versão 1.10.1 e possivel usar a função de multi-node(Experimental).
 
 Caso os comandos anteriores tenham sido executados sem erro, a instalação do Minikube terá sido realizada com sucesso.
 
