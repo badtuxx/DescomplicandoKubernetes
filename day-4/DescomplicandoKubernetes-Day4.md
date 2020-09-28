@@ -253,7 +253,7 @@ spec:
   - ReadWriteMany
   persistentVolumeReclaimPolicy: Retain
   nfs:
-    path: /opt/giropops
+    path: /opt/dados
     server: 10.138.0.2
     readOnly: false
 ```
