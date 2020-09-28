@@ -191,8 +191,8 @@ sudo apt-get install -y nfs-common
 Agora vamos montar um diretório no node ``elliot-01`` e dar as permissões necessárias para testar tudo isso que estamos falando:
 
 ```
-sudo mkdir /opt/giropops
-sudo chmod 1777 /opt/giropops/
+sudo mkdir /opt/dados
+sudo chmod 1777 /opt/dados/
 ```
 
 Ainda no node ``elliot-01``, vamos adicionar esse diretório no NFS Server e fazer a ativação do mesmo.
@@ -204,7 +204,7 @@ sudo vim /etc/exports
 Adicione a seguinte linha:
 
 ```
-/opt/giropops *(rw,sync,no_root_squash,subtree_check)
+/opt/dados *(rw,sync,no_root_squash,subtree_check)
 ```
 
 Aplique a configuração do NFS no node ``elliot-01``.
@@ -230,7 +230,7 @@ No CentOS/RedHat:
 Ainda no node ``elliot-01``, vamos criar um arquivo nesse diretório para nosso teste.
 
 ```
-sudo touch /opt/giropops/FUNCIONA
+sudo touch /opt/dados/FUNCIONA
 ```
 
 Ainda no node ``elliot-01``, vamos criar o manifesto ``yaml`` do nosso ``PersistentVolume``. Lembre-se de alterar o IP address do campo server para o IP address do node ``elliot-01``.
@@ -295,7 +295,7 @@ Message:
 Source:
     Type:      NFS (an NFS mount that lasts the lifetime of a pod)
     Server:    10.138.0.2
-    Path:      /opt/giropops
+    Path:      /opt/dados
     ReadOnly:  false
 Events:        <none>
 ```
@@ -524,7 +524,7 @@ drwxr-xr-x. 1 root root   44 Jul  7 22:53 ..
 Listando dentro do contêiner podemos observar que o arquivo foi criado, mas e dentro do nosso NFS Server? Vamos listar o diretório do NSF Server no ``elliot-01``.
 
 ```
-ls -la /opt/giropops/
+ls -la /opt/dados/
 
 -rw-r--r-- 1 root root    0 Jul  7 22:07 FUNCIONA
 -rw-r--r-- 1 root root    0 Jul  7 23:13 STRIGUS
@@ -550,7 +550,7 @@ deployment.extensions "nginx" deleted
 Agora vamos listar o diretório no NFS Server.
 
 ```
-ls -la /opt/giropops/
+ls -la /opt/dados/
 
 -rw-r--r-- 1 root root    0 Jul  7 22:07 FUNCIONA
 -rw-r--r-- 1 root root    0 Jul  7 23:13 STRIGUS
