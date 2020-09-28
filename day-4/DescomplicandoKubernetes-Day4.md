@@ -730,7 +730,7 @@ Objetos do tipo **Secret** são normalmente utilizados para armazenar informaç�
 Vamos criar nosso primeiro objeto ``Secret`` utilizando o arquivo ``secret.txt`` que vamos criar logo a seguir.
 
 ```
-echo -n "descomplicando-k8s" > secret.txt
+echo -n "giropops strigus girus" > secret.txt
 ```
 
 Agora que já temos nosso arquivo ``secret.txt`` com o conteúdo ``descomplicando-k8s`` vamos criar nosso objeto ``Secret``.
@@ -774,7 +774,7 @@ kubectl get secret my-secret -o yaml
 
 apiVersion: v1
 data:
-  secret.txt: ZGVzY29tcGxpY2FuZG8tazhz
+  secret.txt: Z2lyb3BvcHMgc3RyaWd1cyBnaXJ1cw==
 kind: Secret
 metadata:
   creationTimestamp: 2018-08-26T17:10:14Z
@@ -789,9 +789,9 @@ type: Opaque
 Agora que já temos a chave codificada basta decodificar usando ``Base64``.
 
 ```
-echo 'ZGVzY29tcGxpY2FuZG8tazhz' | base64 --decode
+echo 'Z2lyb3BvcHMgc3RyaWd1cyBnaXJ1cw==' | base64 --decode
 
-descomplicando-k8s
+giropops strigus girus
 ```
 
 Tudo certo com nosso ``Secret``, agora vamos utilizar ele dentro de um Pod, para isso vamos precisar referenciar o ``Secret`` dentro do Pod utilizando volumes, vamos criar nosso manifesto.
