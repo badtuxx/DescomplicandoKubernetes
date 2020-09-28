@@ -806,7 +806,7 @@ Informe o seguinte conteúdo:
 apiVersion: v1
 kind: Pod
 metadata:
-  name: teste-secret
+  name: test-secret
   namespace: default
 spec:
   containers:
@@ -829,21 +829,21 @@ Nesse manifesto vamos utilizar o volume ``my-volume-secret`` para montar dentro 
 ```
 kubectl create -f pod-secret.yaml
 
-pod/teste-secret created
+pod/test-secret created
 ```
 
 Vamos verificar se o ``Secret`` foi criado corretamente:
 
 ```
-kubectl exec -ti teste-secret -- ls /tmp/giropops
+kubectl exec -ti test-secret -- ls /tmp/giropops
 
 secret.txt
 ```
 
 ```
-kubectl exec -ti teste-secret -- cat /tmp/giropops/secret.txt
+kubectl exec -ti test-secret -- cat /tmp/giropops/secret.txt
 
-descomplicando-k8s
+giropops strigus girus
 ```
 
 Sucesso! Esse é um dos modos de colocar informações ou senha dentro de nossos Pods, mas existe um jeito ainda mais bacana utilizando os Secrets como variável de ambiente.
