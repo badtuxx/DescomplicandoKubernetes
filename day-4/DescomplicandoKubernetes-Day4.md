@@ -1346,22 +1346,10 @@ Para obter mais informações sobre o Helm, acesse os seguintes links:
 
 ## Instalando o Helm 3
 
-Execute os seguintes comandos para instalar o Helm3 no node ``elliot-01``:
+Execute o seguinte comando para instalar o Helm3 no node ``elliot-01``:
 
 ```
-VERSION=v3.3.4
-
-HELM_TAR_FILE=helm-$VERSION-linux-amd64.tar.gz
-
-wget https://get.helm.sh/${HELM_TAR_FILE}
-
-tar -xvzf ${HELM_TAR_FILE}
-
-chmod +x linux-amd64/helm
-
-sudo cp linux-amd64/helm /usr/bin/helm
-
-rm -rf ${HELM_TAR_FILE} linux-amd64
+curl https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3 | bash/
 ```
 
 Visualize a versão do Helm:
