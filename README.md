@@ -146,6 +146,8 @@ Veja os vídeos sobre Kubernetes e até outros temas legais no canal LinuxTips.
 - [InitContainers](day-4/DescomplicandoKubernetes-Day4.md#initcontainers)
 - [Criando um usuário no Kubernetes](day-4/DescomplicandoKubernetes-Day4.md#criando-um-usuário-no-kubernetes)
 - [RBAC](day-4/DescomplicandoKubernetes-Day4.md#rbac)
+  - [Role e ClusterRole](day-4/DescomplicandoKubernetes-Day4.md#role-e-clusterrole)
+  - [RoleBinding e ClusterRoleBinding](day-4/DescomplicandoKubernetes-Day4.md#rolebinding-e-clusterrolebinding)
 - [Helm](day-4/DescomplicandoKubernetes-Day4.md#helm)
   - [Instalando o Helm 3](day-4/DescomplicandoKubernetes-Day4.md#instalando-o-helm-3)
   - [Comandos Básicos do Helm 3](day-4/DescomplicandoKubernetes-Day4.md#comandos-básicos-do-helm-3)
