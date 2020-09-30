@@ -1049,10 +1049,14 @@ kubectl create -f pod-configmap-file.yaml
 
 # InitContainers
 
-> **Seção em construção...**
-> **Falta definir o conceito de Init Containers...**
+O objeto do tipo **Init Containers** são um ou mais containers que são executados antes do container de um aplicativo em um Pod. Os containers de inicialização podem conter utilitários ou scripts de configuração não presentes em uma imagem de aplicativo.
 
-Crie o seguinte arquivo:
+- Os containers de inicialização sempre são executados até a conclusão.
+- Cada container init deve ser concluído com sucesso antes que o próximo comece.
+
+Se o container init de um pod falhar, o Kubernetes reiniciará repetidamente o pod até que o container init tenha êxito. No entanto, se o pod tiver o `restartPolicy` como `Never` o Kubernetes não reiniciará o pod, e o container principal não irá ser executado.
+
+Crie o pod a partir do manifesto:
 
 ```
 vim nginx-initcontainer.yaml
@@ -1186,7 +1190,19 @@ Events:
   Normal  Started    2m59s  kubelet, k8s3      Started container
 ```
 
-Vamos remover o pod a partir do manifesto:
+Coletando os logs do container init:
+
+```
+kubectl logs init-demo -c install 
+Connecting to linuxtips.io (23.236.62.147:80)
+Connecting to www.linuxtips.io (35.247.254.172:443)
+wget: note: TLS certificate validation not implemented
+saving to '/work-dir/index.html'
+index.html           100% |********************************|  765k  0:00:00 ETA
+'/work-dir/index.html' saved
+```
+
+E por último vamos remover o pod a partir do manifesto:
 
 ```
 kubectl delete -f nginx-initcontainer.yaml
