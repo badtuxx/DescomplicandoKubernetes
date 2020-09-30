@@ -1054,7 +1054,7 @@ O objeto do tipo **Init Containers** são um ou mais containers que são executa
 - Os containers de inicialização sempre são executados até a conclusão.
 - Cada container init deve ser concluído com sucesso antes que o próximo comece.
 
-Se o container init de um pod falhar, o Kubernetes reiniciará repetidamente o pod até que o container init tenha êxito. No entanto, se o pod tiver o `restartPolicy` como `Never` o Kubernetes não reiniciará o pod, e o container principal não irá ser executado.
+Se o container init de um pod falhar, o Kubernetes reiniciará repetidamente o pod até que o container init tenha êxito. No entanto, se o pod tiver o ``restartPolicy`` como ``Never`` o Kubernetes não reiniciará o pod, e o container principal não irá ser executado.
 
 Crie o pod a partir do manifesto:
 
