@@ -1077,11 +1077,7 @@ spec:
   initContainers:
   - name: install
     image: busybox
-    command:
-    - wget
-    - "-O"
-    - "/work-dir/index.html"
-    - http://kubernetes.io
+    command: ['wget','-O','/work-dir/index.html','http://linuxtips.io']
     volumeMounts:
     - name: workdir
       mountPath: "/work-dir"
