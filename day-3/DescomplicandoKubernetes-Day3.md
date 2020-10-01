@@ -624,7 +624,7 @@ Com certeza, esse pod foi criado no node ``elliot-03``, pois havíamos dito que 
 
 O **ReplicaSet** garante a quantidade solicitada de pods e os recursos necessários para um Deployment. Uma vez que o Deployment é criado, é o ReplicaSet que controla a quantidade de pods em execução, caso algum pod seja finalizado, ele que irá detectar e solicitar que outro pod seja executado em seu lugar, garantindo assim a quantidade de réplicas solicitadas.
 
-Vamos criar nosso primeiro ReplicarSet:
+Vamos criar nosso primeiro ReplicaSet:
 
 ```
 vim primeiro-replicaset.yaml
@@ -1233,7 +1233,7 @@ Image:          nginx:1.15.0
 
 Não funcionou, por quê? Porque teremos que matar o Pod para ele ser recriado com as novas configuração.
 
-Vamos afinar esse nosso DamonSet, vamos adicionar o ``RollingUpdate`` e esse cara vai atualizar automaticamente os Pods quando houver alguma alteração.
+Vamos afinar esse nosso DaemonSet, vamos adicionar o ``RollingUpdate`` e esse cara vai atualizar automaticamente os Pods quando houver alguma alteração.
 
 Vamos lá, primeiro vamos remover o ``DaemonSet``, adicionar duas novas informações em nosso manifesto yaml e, em seguida, criar outro DaemonSet em seu lugar:
 
