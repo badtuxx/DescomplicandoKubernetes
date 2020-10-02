@@ -119,7 +119,7 @@ Assim como os demais orquestradores disponíveis, o k8s também segue um modelo 
 
 Embora exista a exigência de no mínimo três nós para a execução do k8s em um ambiente padrão, existem soluções para se executar o k8s em um único nó. Alguns exemplos são:
 
-* [Kind](https://github.com/kubernetes/minikube): Uma ferramenta para execução de contêineres Docker que simulam o funcionamento de um cluster Kubernetes. É utilizado para fins didáticos, de desenvolvimento e testes. O **Kind não deve ser utilizado para produção**;
+* [Kind](https://kind.sigs.k8s.io/docs/user/quick-start): Uma ferramenta para execução de contêineres Docker que simulam o funcionamento de um cluster Kubernetes. É utilizado para fins didáticos, de desenvolvimento e testes. O **Kind não deve ser utilizado para produção**;
 
 * [Minikube](https://github.com/kubernetes/minikube): ferramenta para implementar um *cluster* Kubernetes localmente com apenas um nó. Muito utilizado para fins didáticos, de desenvolvimento e testes. O **Minikube não deve ser utilizado para produção**;
 
@@ -371,6 +371,12 @@ Caso não queria deixar o VirtualBox como padrão sempre que subir o ambiente no
 minikube start
 ```
 
+Para criar um cluster com multi-node basta executar:
+
+``` 
+minikube start --nodes 2 -p multinode-demo
+```
+
 Caso deseje parar o ambiente:
 
 ```
@@ -411,14 +417,21 @@ kubectl get nodes
 
 A saída será similar ao conteúdo a seguir:
 
+um node:
 ```
 kubectl get nodes
 
 NAME       STATUS   ROLES    AGE   VERSION
 minikube   Ready    master   8d    v1.18.0
 ```
+multi-nodes:
+```
+NAME                 STATUS    ROLES     AGE       VERSION
+multinode-demo       Ready     master    5m        v1.18.3
+multinode-demo-m02   Ready     <none>    4m        v1.18.3
+```
 
-Claramente, como a intenção do Minikube é executar o k8s em apenas um nó, é natural que seja apresentado apenas uma linha na saída do comando anterior.
+Inicialmente, a intenção do Minikube é executar o k8s em apenas um nó, porem a partir da versão 1.10.1 e possivel usar a função de multi-node(Experimental).
 
 Caso os comandos anteriores tenham sido executados sem erro, a instalação do Minikube terá sido realizada com sucesso.
 

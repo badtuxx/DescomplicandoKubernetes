@@ -466,6 +466,7 @@ rules:
   - configmaps
   verbs:
   - get
+  - create
 ---
 kind: ClusterRoleBinding
 apiVersion: rbac.authorization.k8s.io/v1beta1

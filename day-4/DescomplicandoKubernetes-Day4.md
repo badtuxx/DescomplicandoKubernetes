@@ -193,8 +193,8 @@ sudo apt-get install -y nfs-common
 Agora vamos montar um diretório no node ``elliot-01`` e dar as permissões necessárias para testar tudo isso que estamos falando:
 
 ```
-sudo mkdir /opt/giropops
-sudo chmod 1777 /opt/giropops/
+sudo mkdir /opt/dados
+sudo chmod 1777 /opt/dados/
 ```
 
 Ainda no node ``elliot-01``, vamos adicionar esse diretório no NFS Server e fazer a ativação do mesmo.
@@ -206,7 +206,7 @@ sudo vim /etc/exports
 Adicione a seguinte linha:
 
 ```
-/opt/giropops *(rw,sync,no_root_squash,subtree_check)
+/opt/dados *(rw,sync,no_root_squash,subtree_check)
 ```
 
 Aplique a configuração do NFS no node ``elliot-01``.
@@ -232,7 +232,7 @@ No CentOS/RedHat:
 Ainda no node ``elliot-01``, vamos criar um arquivo nesse diretório para nosso teste.
 
 ```
-sudo touch /opt/giropops/FUNCIONA
+sudo touch /opt/dados/FUNCIONA
 ```
 
 Ainda no node ``elliot-01``, vamos criar o manifesto ``yaml`` do nosso ``PersistentVolume``. Lembre-se de alterar o IP address do campo server para o IP address do node ``elliot-01``.
@@ -255,7 +255,7 @@ spec:
   - ReadWriteMany
   persistentVolumeReclaimPolicy: Retain
   nfs:
-    path: /opt/giropops
+    path: /opt/dados
     server: 10.138.0.2
     readOnly: false
 ```
@@ -297,7 +297,7 @@ Message:
 Source:
     Type:      NFS (an NFS mount that lasts the lifetime of a pod)
     Server:    10.138.0.2
-    Path:      /opt/giropops
+    Path:      /opt/dados
     ReadOnly:  false
 Events:        <none>
 ```
@@ -526,7 +526,7 @@ drwxr-xr-x. 1 root root   44 Jul  7 22:53 ..
 Listando dentro do contêiner podemos observar que o arquivo foi criado, mas e dentro do nosso NFS Server? Vamos listar o diretório do NSF Server no ``elliot-01``.
 
 ```
-ls -la /opt/giropops/
+ls -la /opt/dados/
 
 -rw-r--r-- 1 root root    0 Jul  7 22:07 FUNCIONA
 -rw-r--r-- 1 root root    0 Jul  7 23:13 STRIGUS
@@ -552,7 +552,7 @@ deployment.extensions "nginx" deleted
 Agora vamos listar o diretório no NFS Server.
 
 ```
-ls -la /opt/giropops/
+ls -la /opt/dados/
 
 -rw-r--r-- 1 root root    0 Jul  7 22:07 FUNCIONA
 -rw-r--r-- 1 root root    0 Jul  7 23:13 STRIGUS
@@ -732,7 +732,7 @@ Objetos do tipo **Secret** são normalmente utilizados para armazenar informaç�
 Vamos criar nosso primeiro objeto ``Secret`` utilizando o arquivo ``secret.txt`` que vamos criar logo a seguir.
 
 ```
-echo -n "descomplicando-k8s" > secret.txt
+echo -n "giropops strigus girus" > secret.txt
 ```
 
 Agora que já temos nosso arquivo ``secret.txt`` com o conteúdo ``descomplicando-k8s`` vamos criar nosso objeto ``Secret``.
@@ -776,7 +776,7 @@ kubectl get secret my-secret -o yaml
 
 apiVersion: v1
 data:
-  secret.txt: ZGVzY29tcGxpY2FuZG8tazhz
+  secret.txt: Z2lyb3BvcHMgc3RyaWd1cyBnaXJ1cw==
 kind: Secret
 metadata:
   creationTimestamp: 2018-08-26T17:10:14Z
@@ -791,9 +791,9 @@ type: Opaque
 Agora que já temos a chave codificada basta decodificar usando ``Base64``.
 
 ```
-echo 'ZGVzY29tcGxpY2FuZG8tazhz' | base64 --decode
+echo 'Z2lyb3BvcHMgc3RyaWd1cyBnaXJ1cw==' | base64 --decode
 
-descomplicando-k8s
+giropops strigus girus
 ```
 
 Tudo certo com nosso ``Secret``, agora vamos utilizar ele dentro de um Pod, para isso vamos precisar referenciar o ``Secret`` dentro do Pod utilizando volumes, vamos criar nosso manifesto.
@@ -808,7 +808,7 @@ Informe o seguinte conteúdo:
 apiVersion: v1
 kind: Pod
 metadata:
-  name: teste-secret
+  name: test-secret
   namespace: default
 spec:
   containers:
@@ -831,21 +831,21 @@ Nesse manifesto vamos utilizar o volume ``my-volume-secret`` para montar dentro 
 ```
 kubectl create -f pod-secret.yaml
 
-pod/teste-secret created
+pod/test-secret created
 ```
 
 Vamos verificar se o ``Secret`` foi criado corretamente:
 
 ```
-kubectl exec -ti teste-secret -- ls /tmp/giropops
+kubectl exec -ti test-secret -- ls /tmp/giropops
 
 secret.txt
 ```
 
 ```
-kubectl exec -ti teste-secret -- cat /tmp/giropops/secret.txt
+kubectl exec -ti test-secret -- cat /tmp/giropops/secret.txt
 
-descomplicando-k8s
+giropops strigus girus
 ```
 
 Sucesso! Esse é um dos modos de colocar informações ou senha dentro de nossos Pods, mas existe um jeito ainda mais bacana utilizando os Secrets como variável de ambiente.
@@ -952,15 +952,15 @@ Vamos criar um diretório chamado ``frutas`` e nele vamos adicionar frutas e sua
 ```
 mkdir frutas
 
-echo amarela > frutas/banana
+echo -n amarela > frutas/banana
 
-echo vermelho > frutas/morango
+echo -n vermelho > frutas/morango
 
-echo verde > frutas/limao
+echo -n verde > frutas/limao
 
-echo "verde e vermelha" > frutas/melancia
+echo -n "verde e vermelha" > frutas/melancia
 
-echo kiwi > predileta
+echo -n kiwi > predileta
 ```
 
 Crie o ``Configmap``.
@@ -1002,9 +1002,6 @@ spec:
         configMapKeyRef:
           name: cores-frutas
           key: predileta
-#    envFrom:
-#    - configMapRef:
-#        name: cores-frutas
 ```
 
 Crie o pod a partir do manifesto.
@@ -1012,8 +1009,64 @@ Crie o pod a partir do manifesto.
 ```
 kubectl create -f pod-configmap.yaml
 ```
+Após a criação, execute o comando ``set`` dentro do container, para listar as variáveis de ambiente e conferir se foi criada a variável de acordo com a ``key=predileta`` que definimos em nosso arquivo yaml.
 
-Vamos criar um pod para usar outro Configmap:
+Repare no final da saída do comando ``set`` a env ``frutas='kiwi'``.
+
+```
+kubectl exec -ti busybox-configmap -- sh 
+/ # set
+...
+frutas='kiwi'
+```
+
+Vamos criar um pod utilizando utilizando mais de uma variável.
+
+```
+vim pod-configmap-env.yaml
+```
+
+Informe o seguinte conteúdo:
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: busybox-configmap-env
+  namespace: default
+spec:
+  containers:
+  - image: busybox
+    name: busy-configmap
+    command:
+      - sleep
+      - "3600"
+    envFrom:
+    - configMapRef:
+        name: cores-frutas
+```
+
+Crie o pod a partir do manifesto.
+
+```
+kubectl create -f pod-configmap-env.yaml
+```
+
+Vamos entrar no container e executar o comando ``set`` novamente para listar as variáveis, repare que foi criada todas as variáveis.
+
+```
+kubectl exec -ti busybox-configmap-env -- sh
+/ # set
+...
+banana='amarela'
+limao='verde'
+melancia='verde e vermelha'
+morango='vermelho'
+predileta='kiwi'
+uva='roxa'
+```
+
+Agora vamos criar um pod para usar outro Configmap, só que dessa vez utilizando volume:
 
 ```
 vim pod-configmap-file.yaml
@@ -1048,13 +1101,31 @@ Crie o pod a partir do manifesto.
 ```
 kubectl create -f pod-configmap-file.yaml
 ```
+Após a criação do pod, vamos conferir o nosso configmap como arquivos.
+
+```
+kubectl exec -ti busybox-configmap-file -- sh
+/ # ls -lh /etc/frutas/
+total 0      
+lrwxrwxrwx    1 root     root          13 Sep 23 04:56 banana -> ..data/banana
+lrwxrwxrwx    1 root     root          12 Sep 23 04:56 limao -> ..data/limao
+lrwxrwxrwx    1 root     root          15 Sep 23 04:56 melancia -> ..data/melancia
+lrwxrwxrwx    1 root     root          14 Sep 23 04:56 morango -> ..data/morango
+lrwxrwxrwx    1 root     root          16 Sep 23 04:56 predileta -> ..data/predileta
+lrwxrwxrwx    1 root     root          10 Sep 23 04:56 uva -> ..data/uva
+```
+
 
 # InitContainers
 
-> **Seção em construção...**
-> **Falta definir o conceito de Init Containers...**
+O objeto do tipo **Init Containers** são um ou mais containers que são executados antes do container de um aplicativo em um Pod. Os containers de inicialização podem conter utilitários ou scripts de configuração não presentes em uma imagem de aplicativo.
 
-Crie o seguinte arquivo:
+- Os containers de inicialização sempre são executados até a conclusão.
+- Cada container init deve ser concluído com sucesso antes que o próximo comece.
+
+Se o container init de um pod falhar, o Kubernetes reiniciará repetidamente o pod até que o container init tenha êxito. No entanto, se o pod tiver o ``restartPolicy`` como ``Never`` o Kubernetes não reiniciará o pod, e o container principal não irá ser executado.
+
+Crie o pod a partir do manifesto:
 
 ```
 vim nginx-initcontainer.yaml
@@ -1079,11 +1150,7 @@ spec:
   initContainers:
   - name: install
     image: busybox
-    command:
-    - wget
-    - "-O"
-    - "/work-dir/index.html"
-    - http://kubernetes.io
+    command: ['wget','-O','/work-dir/index.html','http://linuxtips.io']
     volumeMounts:
     - name: workdir
       mountPath: "/work-dir"
@@ -1192,7 +1259,19 @@ Events:
   Normal  Started    2m59s  kubelet, k8s3      Started container
 ```
 
-Vamos remover o pod a partir do manifesto:
+Coletando os logs do container init:
+
+```
+kubectl logs init-demo -c install 
+Connecting to linuxtips.io (23.236.62.147:80)
+Connecting to www.linuxtips.io (35.247.254.172:443)
+wget: note: TLS certificate validation not implemented
+saving to '/work-dir/index.html'
+index.html           100% |********************************|  765k  0:00:00 ETA
+'/work-dir/index.html' saved
+```
+
+E por último vamos remover o pod a partir do manifesto:
 
 ```
 kubectl delete -f nginx-initcontainer.yaml
@@ -1550,22 +1629,10 @@ Para obter mais informações sobre o Helm, acesse os seguintes links:
 
 ## Instalando o Helm 3
 
-Execute os seguintes comandos para instalar o Helm3 no node ``elliot-01``:
+Execute o seguinte comando para instalar o Helm3 no node ``elliot-01``:
 
 ```
-VERSION=v3.2.2
-
-HELM_TAR_FILE=helm-$VERSION-linux-amd64.tar.gz
-
-wget https://get.helm.sh/${HELM_TAR_FILE}
-
-tar -xvzf ${HELM_TAR_FILE}
-
-chmod +x linux-amd64/helm
-
-sudo cp linux-amd64/helm /usr/bin/helm
-
-rm -rf ${HELM_TAR_FILE} linux-amd64
+curl https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3 | bash/
 ```
 
 Visualize a versão do Helm:
