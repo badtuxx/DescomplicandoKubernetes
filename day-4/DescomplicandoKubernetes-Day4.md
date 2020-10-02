@@ -191,8 +191,8 @@ sudo apt-get install -y nfs-common
 Agora vamos montar um diretório no node ``elliot-01`` e dar as permissões necessárias para testar tudo isso que estamos falando:
 
 ```
-sudo mkdir /opt/giropops
-sudo chmod 1777 /opt/giropops/
+sudo mkdir /opt/dados
+sudo chmod 1777 /opt/dados/
 ```
 
 Ainda no node ``elliot-01``, vamos adicionar esse diretório no NFS Server e fazer a ativação do mesmo.
@@ -204,7 +204,7 @@ sudo vim /etc/exports
 Adicione a seguinte linha:
 
 ```
-/opt/giropops *(rw,sync,no_root_squash,subtree_check)
+/opt/dados *(rw,sync,no_root_squash,subtree_check)
 ```
 
 Aplique a configuração do NFS no node ``elliot-01``.
@@ -230,7 +230,7 @@ No CentOS/RedHat:
 Ainda no node ``elliot-01``, vamos criar um arquivo nesse diretório para nosso teste.
 
 ```
-sudo touch /opt/giropops/FUNCIONA
+sudo touch /opt/dados/FUNCIONA
 ```
 
 Ainda no node ``elliot-01``, vamos criar o manifesto ``yaml`` do nosso ``PersistentVolume``. Lembre-se de alterar o IP address do campo server para o IP address do node ``elliot-01``.
@@ -253,7 +253,7 @@ spec:
   - ReadWriteMany
   persistentVolumeReclaimPolicy: Retain
   nfs:
-    path: /opt/giropops
+    path: /opt/dados
     server: 10.138.0.2
     readOnly: false
 ```
@@ -295,7 +295,7 @@ Message:
 Source:
     Type:      NFS (an NFS mount that lasts the lifetime of a pod)
     Server:    10.138.0.2
-    Path:      /opt/giropops
+    Path:      /opt/dados
     ReadOnly:  false
 Events:        <none>
 ```
@@ -524,7 +524,7 @@ drwxr-xr-x. 1 root root   44 Jul  7 22:53 ..
 Listando dentro do contêiner podemos observar que o arquivo foi criado, mas e dentro do nosso NFS Server? Vamos listar o diretório do NSF Server no ``elliot-01``.
 
 ```
-ls -la /opt/giropops/
+ls -la /opt/dados/
 
 -rw-r--r-- 1 root root    0 Jul  7 22:07 FUNCIONA
 -rw-r--r-- 1 root root    0 Jul  7 23:13 STRIGUS
@@ -550,7 +550,7 @@ deployment.extensions "nginx" deleted
 Agora vamos listar o diretório no NFS Server.
 
 ```
-ls -la /opt/giropops/
+ls -la /opt/dados/
 
 -rw-r--r-- 1 root root    0 Jul  7 22:07 FUNCIONA
 -rw-r--r-- 1 root root    0 Jul  7 23:13 STRIGUS
@@ -730,7 +730,7 @@ Objetos do tipo **Secret** são normalmente utilizados para armazenar informaç�
 Vamos criar nosso primeiro objeto ``Secret`` utilizando o arquivo ``secret.txt`` que vamos criar logo a seguir.
 
 ```
-echo -n "descomplicando-k8s" > secret.txt
+echo -n "giropops strigus girus" > secret.txt
 ```
 
 Agora que já temos nosso arquivo ``secret.txt`` com o conteúdo ``descomplicando-k8s`` vamos criar nosso objeto ``Secret``.
@@ -774,7 +774,7 @@ kubectl get secret my-secret -o yaml
 
 apiVersion: v1
 data:
-  secret.txt: ZGVzY29tcGxpY2FuZG8tazhz
+  secret.txt: Z2lyb3BvcHMgc3RyaWd1cyBnaXJ1cw==
 kind: Secret
 metadata:
   creationTimestamp: 2018-08-26T17:10:14Z
@@ -789,9 +789,9 @@ type: Opaque
 Agora que já temos a chave codificada basta decodificar usando ``Base64``.
 
 ```
-echo 'ZGVzY29tcGxpY2FuZG8tazhz' | base64 --decode
+echo 'Z2lyb3BvcHMgc3RyaWd1cyBnaXJ1cw==' | base64 --decode
 
-descomplicando-k8s
+giropops strigus girus
 ```
 
 Tudo certo com nosso ``Secret``, agora vamos utilizar ele dentro de um Pod, para isso vamos precisar referenciar o ``Secret`` dentro do Pod utilizando volumes, vamos criar nosso manifesto.
@@ -806,7 +806,7 @@ Informe o seguinte conteúdo:
 apiVersion: v1
 kind: Pod
 metadata:
-  name: teste-secret
+  name: test-secret
   namespace: default
 spec:
   containers:
@@ -829,21 +829,21 @@ Nesse manifesto vamos utilizar o volume ``my-volume-secret`` para montar dentro 
 ```
 kubectl create -f pod-secret.yaml
 
-pod/teste-secret created
+pod/test-secret created
 ```
 
 Vamos verificar se o ``Secret`` foi criado corretamente:
 
 ```
-kubectl exec -ti teste-secret -- ls /tmp/giropops
+kubectl exec -ti test-secret -- ls /tmp/giropops
 
 secret.txt
 ```
 
 ```
-kubectl exec -ti teste-secret -- cat /tmp/giropops/secret.txt
+kubectl exec -ti test-secret -- cat /tmp/giropops/secret.txt
 
-descomplicando-k8s
+giropops strigus girus
 ```
 
 Sucesso! Esse é um dos modos de colocar informações ou senha dentro de nossos Pods, mas existe um jeito ainda mais bacana utilizando os Secrets como variável de ambiente.
@@ -1370,7 +1370,7 @@ metadata:
 
 vim admin-cluster-role-binding.yaml
 
-apiVersion: rbac.authorization.k8s.io/v1beta1
+apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
   name: admin-user
@@ -1413,22 +1413,10 @@ Para obter mais informações sobre o Helm, acesse os seguintes links:
 
 ## Instalando o Helm 3
 
-Execute os seguintes comandos para instalar o Helm3 no node ``elliot-01``:
+Execute o seguinte comando para instalar o Helm3 no node ``elliot-01``:
 
 ```
-VERSION=v3.2.2
-
-HELM_TAR_FILE=helm-$VERSION-linux-amd64.tar.gz
-
-wget https://get.helm.sh/${HELM_TAR_FILE}
-
-tar -xvzf ${HELM_TAR_FILE}
-
-chmod +x linux-amd64/helm
-
-sudo cp linux-amd64/helm /usr/bin/helm
-
-rm -rf ${HELM_TAR_FILE} linux-amd64
+curl https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3 | bash/
 ```
 
 Visualize a versão do Helm:
