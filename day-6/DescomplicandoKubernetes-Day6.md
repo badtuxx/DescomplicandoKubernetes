@@ -52,7 +52,7 @@ spec:
     command: [ "sh", "-c", "sleep 1h" ]
 ```
 
-No exemplo anterior utilizamos o user/grup ID ``1000`` para o contêiner.
+No exemplo anterior utilizamos o user/group ID ``1000`` para o contêiner.
 
 Vamos executar o comando a seguir para verificar com o ``id`` nosso usuário e grupo.
 
@@ -102,7 +102,7 @@ Começando no kernel 2.2, o GNU/Linux dividiu as formas tradicionais de privilé
 
 Um pouco mais sobre capabilities está disponível na página: http://man7.org/linux/man-pages/man7/capabilities.7.html
 
-Para demonstar, vamos fazer um teste tentando alterar a hora de um contêiner:
+Para demonstrar, vamos fazer um teste tentando alterar a hora de um contêiner:
 
 ```yaml
 apiVersion: v1
@@ -206,7 +206,7 @@ weave-net-xl7km                     2/2     Running   0          8d
 
 ## Certificados ETCD
 
-O ETCD, como os demais serviços do Kuberentes, utilizam certificados PKI para autenticação sobre TLS, essas chaves são declaradas no manifesto de configuração em:
+O ETCD, como os demais serviços do Kubernetes, utilizam certificados PKI para autenticação sobre TLS, essas chaves são declaradas no manifesto de configuração em:
 
 ```
 kubectl describe pod etcd-docker-01 -n kube-system
@@ -234,7 +234,7 @@ Parâmetros:
 --etcd-keyfile
 ```
 
-Então, para toda e qualquer interação com o ETCD vamos precisar utililizar esses certificados para nos autenticar.
+Então, para toda e qualquer interação com o ETCD vamos precisar utilizar esses certificados para nos autenticar.
 
 ## Interagindo com o ETCD
 

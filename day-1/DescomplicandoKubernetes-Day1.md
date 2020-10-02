@@ -28,7 +28,7 @@
   - [Logs](#logs)
 - [Microk8s](#microk8s)
   - [Requisitos básicos](#requisitos-básicos-1)
-  - [Instalaçao do MicroK8s no GNU/Linux](#instalaçao-do-microk8s-no-gnulinux)
+  - [Instalação do MicroK8s no GNU/Linux](#instalação-do-microk8s-no-gnulinux)
     - [Versões que suportam Snap](#versões-que-suportam-snap)
   - [Instalação no Windows](#instalação-no-windows)
     - [Instalando o Chocolatey](#instalando-o-chocolatey)
@@ -39,7 +39,7 @@
     - [Instalando o Microk8s via Brew](#instalando-o-microk8s-via-brew)
 - [Kind](#kind)
   - [Instalação no GNU/Linux](#instalação-no-gnulinux)
-  - [Instalaçao no MacOS](#instalaçao-no-macos)
+  - [Instalação no MacOS](#instalação-no-macos)
   - [Instalação no Windows](#instalação-no-windows-1)
     - [Instalação no Windows via Chocolatey](#instalação-no-windows-via-chocolatey)
   - [Criando um cluster com o Kind](#criando-um-cluster-com-o-kind)
@@ -100,7 +100,7 @@ Como Kubernetes é uma palavra difícil de se pronunciar - e de se escrever - a 
 
 **Versão longa:**
 
-Praticamente todo software desenvolvido na Google é executado em contêiner [2](https://www.enterpriseai.news/2014/05/28/google-runs-software-containers/). A Google já gerencia contêineres em larga escala há mais de uma década, quando não se falava tanto sobre isso. Para atender a demanda interna, alguns desenvolvedores do Google construiram três sistemas diferentes de gerenciamento de contêineres: **Borg**, **Omega** e **Kubernetes**. Cada sistema teve o desenvolvimento bastante influenciado pelo antecessor, embora fosse desenvolvido por diferentes razões.
+Praticamente todo software desenvolvido na Google é executado em contêiner [2](https://www.enterpriseai.news/2014/05/28/google-runs-software-containers/). A Google já gerencia contêineres em larga escala há mais de uma década, quando não se falava tanto sobre isso. Para atender a demanda interna, alguns desenvolvedores do Google construíram três sistemas diferentes de gerenciamento de contêineres: **Borg**, **Omega** e **Kubernetes**. Cada sistema teve o desenvolvimento bastante influenciado pelo antecessor, embora fosse desenvolvido por diferentes razões.
 
 O primeiro sistema de gerenciamento de contêineres desenvolvido no Google foi o Borg, construído para gerenciar serviços de longa duração e jobs em lote, que anteriormente eram tratados por dois sistemas:  **Babysitter** e **Global Work Queue**. O último influenciou fortemente a arquitetura do Borg, mas estava focado em execução de jobs em lote. O Borg continua sendo o principal sistema de gerenciamento de contêineres dentro do Google por causa de sua escala, variedade de recursos e robustez extrema.
 
@@ -200,10 +200,10 @@ $ comando1
 # comando2
 ```
 
-> O prompt que inicia com o caracter "$", indica que o comando deve ser executado com um usuário comum do sistema operacional.
+> O prompt que inicia com o caractere "$", indica que o comando deve ser executado com um usuário comum do sistema operacional.
 >
-> O prompt que inicia com o caracter "#", indica que o comando deve ser executado com o usuário **root**.
-> 
+> O prompt que inicia com o caractere "#", indica que o comando deve ser executado com o usuário **root**.
+>
 > Você não deve copiar/colar o prompt, apenas o comando. :-)
 
 # Minikube
@@ -243,7 +243,7 @@ Há a possibilidade de não utilizar um *hypervisor* para a instalação do Mini
 Efetue o download e a instalação do ``Minikube`` utilizando os seguintes comandos.
 
 ```
-curl -Lo minikube https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64 
+curl -Lo minikube https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
 
 chmod +x ./minikube
 
@@ -301,7 +301,7 @@ minikube version
 Ou:
 
 ```
-curl -Lo minikube https://storage.googleapis.com/minikube/releases/latest/minikube-darwin-amd64 
+curl -Lo minikube https://storage.googleapis.com/minikube/releases/latest/minikube-darwin-amd64
 
 chmod +x ./minikube
 
@@ -480,7 +480,7 @@ Existem alguns tipos de instalação do Microk8s:
 * MacOS - Brew;
 * RaspBerry.
 
-## Instalaçao do MicroK8s no GNU/Linux
+## Instalação do MicroK8s no GNU/Linux
 
 ### Versões que suportam Snap
 
@@ -542,7 +542,7 @@ microk8s-vm             RUNNING           10.72.145.216    Ubuntu 18.04 LTS
 # multipass shell microk8s-vm
 ```
 
-Se quiser utilizar o Microk8s sem utilizar um shell criado pelo multipass utilize a seguine expressão.
+Se quiser utilizar o Microk8s sem utilizar um shell criado pelo multipass utilize a seguinte expressão.
 
 PowerShell Admin:
 
@@ -594,7 +594,7 @@ microk8s kubectl <command>
 
 # Kind
 
-O Kind (Kubernertes in Docker) é outra alternativa para executar o Kubernetes num ambiente local para testes e aprendizado, mas não é recomendado para uso em produção.
+O Kind (Kubernetes in Docker) é outra alternativa para executar o Kubernetes num ambiente local para testes e aprendizado, mas não é recomendado para uso em produção.
 
 ## Instalação no GNU/Linux
 
@@ -608,7 +608,7 @@ chmod +x ./kind
 sudo mv ./kind /usr/local/bin/kind
 ```
 
-## Instalaçao no MacOS
+## Instalação no MacOS
 
 Para fazer a instalação no MacOS, execute o seguinte comando.
 
@@ -791,7 +791,7 @@ NAME        STATUS   ROLES    AGE   VERSION
 elliot-01   Ready    master   15s   v1.18.2+k3s1
 ```
 
-Vamos ver os pods em execuçâo:
+Vamos ver os pods em execução:
 
 ```
 kubectl get pods
@@ -815,7 +815,7 @@ kube-system   svclb-traefik-t49cs                      2/2     Running     0    
 kube-system   traefik-758cd5fc85-jwvmc                 1/1     Running     0          6m12s
 ```
 
-Aí estão os pods que estão executando por padrãot, que o próprio k8s cria para executar seus próprios componentes internos. Mas temos muito mais coisas além dos pods, vamos conferir tudo que está rodando no nosso lindo k3s:
+Aí estão os pods que estão executando por padrão, que o próprio k8s cria para executar seus próprios componentes internos. Mas temos muito mais coisas além dos pods, vamos conferir tudo que está rodando no nosso lindo k3s:
 
 ```
 kubectl get all --all-namespaces

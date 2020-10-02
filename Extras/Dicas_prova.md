@@ -15,19 +15,19 @@
     * create    - ex: ``kubectl crete nginx --image nginx -o yaml``
     * dry-run   - ex: ``kubectl crete nginx --image nginx -o yaml``
     * json-path - ex: ``kubectl get nodes -o jsonpath='{.items[*].status.addresses[?(@.type=="ExternalIP")].address}'``
- 
+
  * Básico no VIM:
-    * Copiar 
+    * Copiar
     * Editar
     * Substituir
     * Deletar
 
  * Dominar um pouco de shell para manipular saídas:
-    * ">"  
+    * ">"
     * ">>"
     * ``awk '{print $}'``
     * ``grep``
-    
+
  * Gerência de tempo:
     * Não gaste todo seu tempo em uma única questão, se não resolver em 2x tentativas passe para próxima questão e após ver/fazer as outras questões volte nela.
 
@@ -45,8 +45,8 @@
    * Ver logs
    * Procurar arquivos
    * tmux/screen
-   
-    
+
+
  * Fazer alias ajuda a ganhar tempo:
    * ``alias k=kubectl``
    * ``alias kn=kubectl get no``

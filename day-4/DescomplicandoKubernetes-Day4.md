@@ -658,7 +658,7 @@ Events:
 
 Olha que bacana, se observar no ``Events`` do cluster o ``cron`` já está agendando e executando as tarefas.
 
-Agora vamos ver esse ``cron`` funcionando através do comando ``kubectl get`` junto do parâmetro ``--watch`` para verificar a saida das tarefas, preste atenção que a tarefa vai ser criada em cerca de um minuto após a criação do ``CronJob``.
+Agora vamos ver esse ``cron`` funcionando através do comando ``kubectl get`` junto do parâmetro ``--watch`` para verificar a saída das tarefas, preste atenção que a tarefa vai ser criada em cerca de um minuto após a criação do ``CronJob``.
 
 ```
 kubectl get jobs --watch
@@ -1279,7 +1279,7 @@ kubectl delete -f nginx-initcontainer.yaml
 pod/init-demo deleted
 ```
 
-# Criando um usuário no Kubernetes 
+# Criando um usuário no Kubernetes
 
 Para criar um usuário no Kubernetes, vamos precisar gerar um CSR (*Certificate Signing Request*) para o usuário. O usuário que vamos utilizar como exemplo é o ``linuxtips``.
 
@@ -1303,7 +1303,7 @@ spec:
   request: $(cat linuxtips.csr | base64 | tr -d '\n')
   usages:
   - client auth
-``` 
+```
 
 Para ver os CSR criados, utilize o seguinte comando:
 
@@ -1617,7 +1617,7 @@ Para obter mais informações sobre o Helm, acesse os seguintes links:
 * https://helm.sh
 * https://helm.sh/docs/intro/quickstart
 * https://www.youtube.com/watch?v=Zzwq9FmZdsU&t=2s
-* https://helm.sh/docs/topics/architecture 
+* https://helm.sh/docs/topics/architecture
 
 ---
 
@@ -1670,7 +1670,7 @@ Vamos obter a lista atualizada de Helm charts disponíveis para instalação uti
 helm repo update
 ```
 
-Por enquanto só temos um repositório adicionado. Se tívessemos adicionados mais, esse comando nos ajudaria muito.
+Por enquanto só temos um repositório adicionado. Se tivéssemos adicionados mais, esse comando nos ajudaria muito.
 
 Agora vamos listar quais os charts estão disponíveis para ser instalados:
 
@@ -1717,7 +1717,7 @@ helm install meu-prometheus --version=11.4.0 stable/prometheus
 
 ---
 
-> OBS.: Se a opção ``-n NOME_NAMESPACE`` for utilizada, a aplicação será instalada no namespace específico. O Helm na vesão 3 não cria o namespace. É necessário criá-lo antes e já vimos como fazer isso no dia 2.
+> OBS.: Se a opção ``-n NOME_NAMESPACE`` for utilizada, a aplicação será instalada no namespace específico. O Helm na versão 3 não cria o namespace. É necessário criá-lo antes e já vimos como fazer isso no dia 2.
 
 ---
 
@@ -1932,10 +1932,10 @@ Containers:
       /var/run/secrets/kubernetes.io/serviceaccount from meu-prometheus-server-token-g5w82 (ro)
 Conditions:
   Type              Status
-  Initialized       True 
-  Ready             True 
-  ContainersReady   True 
-  PodScheduled      True 
+  Initialized       True
+  Ready             True
+  ContainersReady   True
+  PodScheduled      True
 Volumes:
   config-volume:
     Type:      ConfigMap (a volume populated by a ConfigMap)
@@ -1943,7 +1943,7 @@ Volumes:
     Optional:  false
   storage-volume:
     Type:       EmptyDir (a temporary directory that shares a pod's lifetime)
-    Medium:     
+    Medium:
     SizeLimit:  <unset>
   meu-prometheus-server-token-g5w82:
     Type:        Secret (a volume populated by a Secret)
@@ -1979,7 +1979,7 @@ kubectl port-forward meu-prometheus-server-5bc59849fd-b29q4 --namespace default 
 
 Agora acesse o navegador no endereço http://localhost:9091. Mágico não é mesmo?
 
-O comando ``kubectl port-forward`` cria um redicionamento do tráfego 9091/TCP da sua máquina para a porta 9090 do pod que está no seu cluster. Saiba mais em:
+O comando ``kubectl port-forward`` cria um redirecionamento do tráfego 9091/TCP da sua máquina para a porta 9090 do pod que está no seu cluster. Saiba mais em:
 
 https://kubernetes.io/docs/tasks/access-application-cluster/port-forward-access-application-cluster/#forward-a-local-port-to-a-port-on-the-pod
 
@@ -2145,7 +2145,7 @@ REVISION UPDATED                  STATUS       CHART             APP VERSION DES
 
 Se a aplicação for removida sem a opção `--keep-history`, o histórico será perdido e não será possível fazer rollback.
 
-Para testar isso, remova as aplicações ``meu-prometheus`` e ``meu-grafana`` com os seguites comandos:
+Para testar isso, remova as aplicações ``meu-prometheus`` e ``meu-grafana`` com os seguintes comandos:
 
 ```
 helm uninstall meu-grafana
