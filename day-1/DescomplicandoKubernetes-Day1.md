@@ -355,7 +355,7 @@ Caso a linha a seguir também esteja presente, não é necessária a instalaçã
 Hyper-V Requirements:     A hypervisor has been detected. Features required for Hyper-V will not be displayed.:     A hypervisor has been detected. Features required for Hyper-V will not be displayed.
 ```
 
-A instalação do ``kubectl`` pode ser realizada efetuando o download [neste link](https://storage.googleapis.com/kubernetes-release/release/v1.18.0/bin/windows/amd64/kubectl.exe). Feito isso, também deve ser realizado download e a instalação de um *hypervisor* (preferencialmente o [Oracle VirtualBox](https://www.virtualbox.org)), caso no passo anterior não tenha sido acusada a presença de um. Finalmente, efetue o download do instalador do Minikube [aqui](https://github.com/kubernetes/minikube/releases/latest) e execute-o.
+A instalação do ``kubectl`` pode ser realizada efetuando o download [neste link](https://storage.googleapis.com/kubernetes-release/release/v1.19.1/bin/windows/amd64/kubectl.exe). Feito isso, também deve ser realizado download e a instalação de um *hypervisor* (preferencialmente o [Oracle VirtualBox](https://www.virtualbox.org)), caso no passo anterior não tenha sido acusada a presença de um. Finalmente, efetue o download do instalador do Minikube [aqui](https://github.com/kubernetes/minikube/releases/latest) e execute-o.
 
 ## Iniciando, parando e excluindo o Minikube
 
@@ -404,7 +404,7 @@ minikube start
 ✨  Using the virtualbox driver based on existing profile
 👍  Starting control plane node m01 in cluster minikube
 🔄  Restarting existing virtualbox VM for "minikube" ...
-🐳  Preparing Kubernetes v1.18.0 on Docker 19.03.8 ...
+🐳  Preparing Kubernetes v1.19.1 on Docker 19.03.8 ...
 🌟  Enabling addons: default-storageclass, storage-provisioner
 🏄  Done! kubectl is now configured to use "minikube"
 ```
@@ -417,21 +417,24 @@ kubectl get nodes
 
 A saída será similar ao conteúdo a seguir:
 
-um node:
+Para um node:
+
 ```
 kubectl get nodes
 
 NAME       STATUS   ROLES    AGE   VERSION
-minikube   Ready    master   8d    v1.18.0
-```
-multi-nodes:
-```
-NAME                 STATUS    ROLES     AGE       VERSION
-multinode-demo       Ready     master    5m        v1.18.3
-multinode-demo-m02   Ready     <none>    4m        v1.18.3
+minikube   Ready    master   8d    v1.19.1
 ```
 
-Inicialmente, a intenção do Minikube é executar o k8s em apenas um nó, porem a partir da versão 1.10.1 e possivel usar a função de multi-node(Experimental).
+Para multi-nodes:
+
+```
+NAME                 STATUS    ROLES     AGE       VERSION
+multinode-demo       Ready     master    5m        v1.19.1
+multinode-demo-m02   Ready     <none>    4m        v1.19.1
+```
+
+Inicialmente, a intenção do Minikube é executar o k8s em apenas um nó, porém a partir da versão 1.10.1 e possível usar a função de multi-node (Experimental).
 
 Caso os comandos anteriores tenham sido executados sem erro, a instalação do Minikube terá sido realizada com sucesso.
 
@@ -601,7 +604,7 @@ O Kind (Kubernetes in Docker) é outra alternativa para executar o Kubernetes nu
 Para fazer a instalação no GNU/Linux, execute os seguintes comandos.
 
 ```
-curl -Lo ./kind https://kind.sigs.k8s.io/dl/v0.8.1/kind-$(uname)-amd64
+curl -Lo ./kind https://kind.sigs.k8s.io/dl/v0.9.0/kind-$(uname)-amd64
 
 chmod +x ./kind
 
@@ -642,7 +645,7 @@ Após realizar a instalação do Kind, vamos iniciar o nosso cluster.
 kind create cluster
 
 Creating cluster "kind" ...
- ✓ Ensuring node image (kindest/node:v1.18.2) 🖼
+ ✓ Ensuring node image (kindest/node:v1.19.1) 🖼
  ✓ Preparing nodes 📦
  ✓ Writing configuration 📜
  ✓ Starting control-plane 🕹️
@@ -662,7 +665,7 @@ Thanks for using kind! 😊
 kind create cluster --name giropops
 
 Creating cluster "giropops" ...
- ✓ Ensuring node image (kindest/node:v1.18.2) 🖼
+ ✓ Ensuring node image (kindest/node:v1.19.1) 🖼
  ✓ Preparing nodes 📦
  ✓ Writing configuration 📜
  ✓ Starting control-plane 🕹️
@@ -691,7 +694,7 @@ Liste os nodes do cluster.
 kubectl get nodes
 
 NAME                 STATUS   ROLES    AGE     VERSION
-kind-control-plane   Ready    master   3m51s   v1.18.2
+kind-control-plane   Ready    master   3m51s   v1.19.1
 ```
 
 ### Criando um cluster com múltiplos nós locais com o Kind
@@ -723,7 +726,7 @@ Crie um cluster chamado ``kind-multinodes`` utilizando as especificações defin
 kind create cluster --name kind-multinodes --config ./kind-3nodes.yaml
 
 Creating cluster "kind-multinodes" ...
- ✓ Ensuring node image (kindest/node:v1.18.2) 🖼
+ ✓ Ensuring node image (kindest/node:v1.19.1) 🖼
  ✓ Preparing nodes 📦 📦 📦
  ✓ Writing configuration 📜
  ✓ Starting control-plane 🕹️
@@ -744,9 +747,9 @@ Valide a criação do cluster com o comando a seguir.
 kubectl get nodes
 
 NAME                            STATUS   ROLES    AGE     VERSION
-kind-multinodes-control-plane   Ready    master   3m3s    v1.18.2
-kind-multinodes-worker1          Ready    <none>   2m30s   v1.18.2
-kind-multinodes-worker2         Ready    <none>   2m30s   v1.18.2
+kind-multinodes-control-plane   Ready    master   3m3s    v1.19.1
+kind-multinodes-worker1          Ready    <none>   2m30s   v1.19.1
+kind-multinodes-worker2         Ready    <none>   2m30s   v1.19.1
 ```
 
 Mais informações sobre o Kind estão disponíveis em: https://kind.sigs.k8s.io
@@ -765,9 +768,9 @@ Para instalar o k3s, basta executar o seguinte comando:
 curl -sfL https://get.k3s.io | sh -
 
 [INFO]  Finding release for channel stable
-[INFO]  Using v1.18.2+k3s1 as release
-[INFO]  Downloading hash https://github.com/rancher/k3s/releases/download/v1.18.2+k3s1/sha256sum-arm.txt
-[INFO]  Downloading binary https://github.com/rancher/k3s/releases/download/v1.18.2+k3s1/k3s-armhf
+[INFO]  Using v1.19.1+k3s1 as release
+[INFO]  Downloading hash https://github.com/rancher/k3s/releases/download/v1.19.1+k3s1/sha256sum-arm.txt
+[INFO]  Downloading binary https://github.com/rancher/k3s/releases/download/v1.19.1+k3s1/k3s-armhf
 [INFO]  Verifying binary download
 [INFO]  Installing k3s to /usr/local/bin/k3s
 [INFO]  Creating /usr/local/bin/kubectl symlink to k3s
@@ -788,7 +791,7 @@ Vamos ver se está tudo certo com o nosso node master.
 kubectl get nodes
 
 NAME        STATUS   ROLES    AGE   VERSION
-elliot-01   Ready    master   15s   v1.18.2+k3s1
+elliot-01   Ready    master   15s   v1.19.1+k3s1
 ```
 
 Vamos ver os pods em execução:
@@ -901,9 +904,9 @@ O comando ficará mais ou menos assim (lembre-se de trocar pelo seu IP e Token):
 # curl -sfL https://get.k3s.io | K3S_URL=https://192.168.86.101:6443 K3S_TOKEN=K10bded4a17f7674c322febfb517cde93afaa48c35b74528d9d2b7d20ec8e41a1ad::server:9d2c12e1112ecdc0d1f9a2fd0e2933fe sh -
 
 [INFO]  Finding release for channel stable
-[INFO]  Using v1.18.2+k3s1 as release
-[INFO]  Downloading hash https://github.com/rancher/k3s/releases/download/v1.18.2+k3s1/sha256sum-arm.txt
-[INFO]  Downloading binary https://github.com/rancher/k3s/releases/download/v1.18.2+k3s1/k3s-armhf
+[INFO]  Using v1.19.1+k3s1 as release
+[INFO]  Downloading hash https://github.com/rancher/k3s/releases/download/v1.19.1+k3s1/sha256sum-arm.txt
+[INFO]  Downloading binary https://github.com/rancher/k3s/releases/download/v1.19.1+k3s1/k3s-armhf
 [INFO]  Verifying binary download
 [INFO]  Installing k3s to /usr/local/bin/k3s
 [INFO]  Creating /usr/local/bin/kubectl symlink to k3s
@@ -924,8 +927,8 @@ Perfeito! Agora vamos ver se esse node está no nosso cluster mesmo:
 kubectl get nodes
 
 NAME        STATUS   ROLES    AGE     VERSION
-elliot-02   Ready    <none>   5m27s   v1.18.2+k3s1
-elliot-01   Ready    master   34m     v1.18.2+k3s1
+elliot-02   Ready    <none>   5m27s   v1.19.1+k3s1
+elliot-01   Ready    master   34m     v1.19.1+k3s1
 ```
 
 Olha ele ali, ``elliot-02`` já está lindo de bonito em nosso cluster, mágico não?
@@ -936,9 +939,9 @@ Quer adicionar mais nodes? Só copiar e colar aquele mesmo comando com o IP do m
 kubectl get nodes
 
 NAME        STATUS   ROLES    AGE   VERSION
-elliot-02   Ready    <none>   10m   v1.18.2+k3s1
-elliot-01   Ready    master   39m   v1.18.2+k3s1
-elliot-03   Ready    <none>   68s   v1.18.2+k3s1
+elliot-02   Ready    <none>   10m   v1.19.1+k3s1
+elliot-01   Ready    master   39m   v1.19.1+k3s1
+elliot-03   Ready    <none>   68s   v1.19.1+k3s1
 ```
 
 Todos os elliots saudáveis!!!
@@ -1259,9 +1262,9 @@ Para verificar se a instalação está funcionando, e se os nós estão se comun
 
 ```
 NAME        STATUS   ROLES    AGE   VERSION
-elliot-01   Ready    master   8d    v1.18.2
-elliot-02   Ready    <none>   8d    v1.18.2
-elliot-03   Ready    <none>   8d    v1.18.2
+elliot-01   Ready    master   8d    v1.19.1
+elliot-02   Ready    <none>   8d    v1.19.1
+elliot-03   Ready    <none>   8d    v1.19.1
 ```
 
 # Primeiros passos no k8s
