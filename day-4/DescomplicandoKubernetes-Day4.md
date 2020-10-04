@@ -1009,7 +1009,8 @@ Crie o pod a partir do manifesto.
 ```
 kubectl create -f pod-configmap.yaml
 ```
-Após a criação, execute o comando ``set`` dentro do container, para listar as variáveis de ambiente e conferir se foi criada a variável de acordo com a ``key=predileta`` que definimos em nosso arquivo yaml.
+
+Após a criação, execute o comando ``set`` dentro do contêiner, para listar as variáveis de ambiente e conferir se foi criada a variável de acordo com a ``key=predileta`` que definimos em nosso arquivo yaml.
 
 Repare no final da saída do comando ``set`` a env ``frutas='kiwi'``.
 
@@ -1020,7 +1021,7 @@ kubectl exec -ti busybox-configmap -- sh
 frutas='kiwi'
 ```
 
-Vamos criar um pod utilizando utilizando mais de uma variável.
+Vamos criar um pod utilizando utilizando mais de uma variável:
 
 ```
 vim pod-configmap-env.yaml
@@ -1046,16 +1047,17 @@ spec:
         name: cores-frutas
 ```
 
-Crie o pod a partir do manifesto.
+Crie o pod a partir do manifesto:
 
 ```
 kubectl create -f pod-configmap-env.yaml
 ```
 
-Vamos entrar no container e executar o comando ``set`` novamente para listar as variáveis, repare que foi criada todas as variáveis.
+Vamos entrar no contêiner e executar o comando ``set`` novamente para listar as variáveis, repare que foi criada todas as variáveis.
 
 ```
 kubectl exec -ti busybox-configmap-env -- sh
+
 / # set
 ...
 banana='amarela'
@@ -1101,6 +1103,7 @@ Crie o pod a partir do manifesto.
 ```
 kubectl create -f pod-configmap-file.yaml
 ```
+
 Após a criação do pod, vamos conferir o nosso configmap como arquivos.
 
 ```
@@ -1115,17 +1118,16 @@ lrwxrwxrwx    1 root     root          16 Sep 23 04:56 predileta -> ..data/predi
 lrwxrwxrwx    1 root     root          10 Sep 23 04:56 uva -> ..data/uva
 ```
 
-
 # InitContainers
 
-O objeto do tipo **Init Containers** são um ou mais containers que são executados antes do container de um aplicativo em um Pod. Os containers de inicialização podem conter utilitários ou scripts de configuração não presentes em uma imagem de aplicativo.
+O objeto do tipo **InitContainers** são um ou mais contêineres que são executados antes do contêiner de um aplicativo em um Pod. Os contêineres de inicialização podem conter utilitários ou scripts de configuração não presentes em uma imagem de aplicativo.
 
-- Os containers de inicialização sempre são executados até a conclusão.
-- Cada container init deve ser concluído com sucesso antes que o próximo comece.
+- Os contêineres de inicialização sempre são executados até a conclusão.
+- Cada contêiner init deve ser concluído com sucesso antes que o próximo comece.
 
-Se o container init de um pod falhar, o Kubernetes reiniciará repetidamente o pod até que o container init tenha êxito. No entanto, se o pod tiver o ``restartPolicy`` como ``Never`` o Kubernetes não reiniciará o pod, e o container principal não irá ser executado.
+Se o contêiner init de um Pod falhar, o Kubernetes reiniciará repetidamente o Pod até que o contêiner init tenha êxito. No entanto, se o Pod tiver o ``restartPolicy`` como ``Never``, o Kubernetes não reiniciará o Pod, e o contêiner principal não irá ser executado.
 
-Crie o pod a partir do manifesto:
+Crie o Pod a partir do manifesto:
 
 ```
 vim nginx-initcontainer.yaml
@@ -1168,13 +1170,13 @@ kubectl create -f nginx-initcontainer.yaml
 pod/init-demo created
 ```
 
-Visualize o conteúdo de um arquivo dentro de um contêiner do pod.
+Visualize o conteúdo de um arquivo dentro de um contêiner do Pod.
 
 ```
 kubectl exec -ti init-demo -- cat /usr/share/nginx/html/index.html
 ```
 
-Vamos ver os detalhes do pod.
+Vamos ver os detalhes do Pod:
 
 ```
 kubectl describe pod init-demo
@@ -1259,10 +1261,11 @@ Events:
   Normal  Started    2m59s  kubelet, k8s3      Started container
 ```
 
-Coletando os logs do container init:
+Coletando os logs do contêiner init:
 
 ```
-kubectl logs init-demo -c install 
+kubectl logs init-demo -c install
+
 Connecting to linuxtips.io (23.236.62.147:80)
 Connecting to www.linuxtips.io (35.247.254.172:443)
 wget: note: TLS certificate validation not implemented
@@ -1271,7 +1274,7 @@ index.html           100% |********************************|  765k  0:00:00 ETA
 '/work-dir/index.html' saved
 ```
 
-E por último vamos remover o pod a partir do manifesto:
+E por último vamos remover o Pod a partir do manifesto:
 
 ```
 kubectl delete -f nginx-initcontainer.yaml
@@ -1364,25 +1367,28 @@ Pronto! Agora só associar um ``role`` com as permissões desejadas para o usuá
 
 # RBAC
 
-O controle de acesso baseado em funções (Role-based access control - RBAC) é um método de controlar o acesso aos recursos do Kubernetes com base nas funções dos administradores individuais em sua organização.
+O controle de acesso baseado em funções (*Role-based Access Control* - RBAC) é um método para fazer o controle de acesso aos recursos do Kubernetes com base nas funções dos administradores individuais em sua organização.
 
 A autorização RBAC usa o ``rbac.authorization.k8s.io`` para conduzir as decisões de autorização, permitindo que você configure políticas dinamicamente por meio da API Kubernetes.
 
 ## Role e ClusterRole
+
 Um RBAC ``Role`` ou ``ClusterRole`` contém regras que representam um conjunto de permissões. As permissões são puramente aditivas (não há regras de "negação").
 
 - Uma ``Role`` sempre define permissões em um determinado namespace, ao criar uma função, você deve especificar o namespace ao qual ela pertence.
 - O ``ClusterRole``, por outro lado, é um recurso sem namespaces.
 
-Você pode usar um ClusterRole para:
-1. Definir permissões em recursos com namespace e ser concedido dentro de namespaces individuais.
-2. Definir permissões em recursos com namespaces e ser concedido em todos os namespaces.
-3. Definir permissões em recursos com escopo de cluster.
+Você pode usar um ``ClusterRole`` para:
+
+* Definir permissões em recursos com namespace e ser concedido dentro de namespaces individuais;
+* Definir permissões em recursos com namespaces e ser concedido em todos os namespaces;
+* Definir permissões em recursos com escopo de cluster.
 
 Se você quiser definir uma função em um namespace, use uma ``Role``, caso queria definir uma função em todo o cluster, use um ``ClusterRole``. :)
 
 ## RoleBinding e ClusterRoleBinding
-Uma ``RoleBinding`` concede as permissões definidas em uma função a um usuário ou conjunto de usuários. Ele contém uma lista de assuntos (usuários, grupos ou contas de serviço) e uma referência à função que está sendo concedida. Um RoleBinding concede permissões dentro de um namespace específico, enquanto um ClusterRoleBinding concede esse acesso a todo o cluster.
+
+Uma ``RoleBinding`` concede as permissões definidas em uma função a um usuário ou conjunto de usuários. Ele contém uma lista de assuntos (usuários, grupos ou contas de serviço) e uma referência à função que está sendo concedida. Um ``RoleBinding`` concede permissões dentro de um namespace específico, enquanto um ``ClusterRoleBinding`` concede esse acesso a todo o cluster.
 
 Um RoleBinding pode fazer referência a qualquer papel no mesmo namespace. Como alternativa, um RoleBinding pode fazer referência a um ClusterRole e vincular esse ClusterRole ao namespace do RoleBinding. Se você deseja vincular um ClusterRole a todos os namespaces em seu cluster, use um ClusterRoleBinding.
 
@@ -1392,6 +1398,7 @@ Primeiro vamos exibir as ClusterRoles:
 
 ```
 kubectl get clusterrole
+
 NAME                                                                   CREATED AT
 admin                                                                  2020-09-20T04:35:27Z
 calico-kube-controllers                                                2020-09-20T04:35:34Z
@@ -1455,12 +1462,14 @@ system:public-info-viewer                                              2020-09-2
 system:volume-scheduler                                                2020-09-20T04:35:28Z
 view                                                                   2020-09-20T04:35:28Z
 ```
-Lembra logo acima que falamos que para associar uma ClusterRole, precisamos criar uma ClusterRoleBinding.
 
-Para ver a função de cada uma delas você pode executar o describe, como fizemos do cluster-admin, repare em Resources ``*.*`` ou seja a ServiceAccount que pertence a este grupo, pode fazer tudo dentro do cluster.
+Lembra que falamos anteriormente que para associar uma ``ClusterRole``, precisamos criar uma ``ClusterRoleBinding``?
+
+Para ver a função de cada uma delas, você pode executar o ``describe``, como fizemos para o **cluster-admin**, repare em ``Resources`` que tem o ``*.*``, ou seja, a ``ServiceAccount`` que pertence a este grupo, pode fazer tudo dentro do cluster.
 
 ```
-kubectl describe clusterrole cluster-admin 
+kubectl describe clusterrole cluster-admin
+
 Name:         cluster-admin
 Labels:       kubernetes.io/bootstrapping=rbac-defaults
 Annotations:  rbac.authorization.kubernetes.io/autoupdate: true
@@ -1480,14 +1489,18 @@ kubectl create serviceaccount jeferson
 Conferindo se a ``ServiceAccount`` foi criada:
 
 ```
-kubectl get serviceaccounts 
+kubectl get serviceaccounts
+
 NAME      SECRETS   AGE
 default   1         10d
 jeferson  1         10s
 ```
 
+Visualizando detalhes da ``ServiceAccount``:
+
 ```
 kubectl describe serviceaccounts jeferson
+
 Name:                jeferson
 Namespace:           default
 Labels:              <none>
@@ -1498,7 +1511,7 @@ Tokens:              jeferson-token-h8dz6
 Events:              <none>
 ```
 
-Crie uma ``ClusterRoleBinding`` e associe a ``ServiceAccount`` jeferson e com a função cluster-admin ``ClusterRole``:
+Crie uma ``ClusterRoleBinding`` e associe a ``ServiceAccount`` **jeferson** e com a função ``ClusterRole`` **cluster-admin**:
 
 ```
 kubectl create clusterrolebinding toskeria --serviceaccount=default:jeferson --clusterrole=cluster-admin
@@ -1508,14 +1521,16 @@ Exibindo a ``ClusterRoleBinding`` que acabamos de criar:
 
 ```
 kubectl get clusterrolebindings.rbac.authorization.k8s.io toskeria
+
 NAME       ROLE                        AGE
 toskeria   ClusterRole/cluster-admin   118m
 ```
 
-Vamos mandar um ``describe`` do ``ClusterRoleBinding`` toskeira.
+Vamos mandar um ``describe`` do ``ClusterRoleBinding`` **toskeira**.
 
 ```
-kubectl describe clusterrolebindings.rbac.authorization.k8s.io toskeria 
+kubectl describe clusterrolebindings.rbac.authorization.k8s.io toskeria
+
 Name:         toskeria
 Labels:       <none>
 Annotations:  <none>
@@ -1528,7 +1543,7 @@ Subjects:
   ServiceAccount  jeferson  default
 ```
 
-Agora iremos criar uma ``ServiceAccount`` admin-user a partir do arquivo yaml.
+Agora iremos criar um ``ServiceAccount`` **admin-user** a partir do manifesto ``admin-user.yaml``.
 
 Crie o arquivo:
 
@@ -1538,7 +1553,7 @@ vim admin-user.yaml
 
 Informe o seguinte conteúdo:
 
-```
+```yaml
 apiVersion: v1
 kind: ServiceAccount
 metadata:
@@ -1555,12 +1570,13 @@ kubectl create -f admin-user.yaml
 Checando se a ``ServiceAccount`` foi criada:
 
 ```
-kubectl get serviceaccounts --namespace=kube-system admin-user 
+kubectl get serviceaccounts --namespace=kube-system admin-user
+
 NAME         SECRETS   AGE
 admin-user   1         10s
 ```
 
-Agora iremos associar o ``admin-user`` ao ``cluster-admin`` também a partir do arquivo yaml.
+Agora iremos associar o **admin-user** ao **cluster-admin** também a partir do manifesto ``admin-cluster-role-binding.yaml``.
 
 Crie o arquivo:
 
@@ -1570,7 +1586,7 @@ vim admin-cluster-role-binding.yaml
 
 Informe o seguinte conteúdo:
 
-```
+```yaml
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
@@ -1588,21 +1604,23 @@ subjects:
 Crie o ``ClusterRoleBinding`` partir do manifesto.
 
 ```
-kubectl create -f admin-cluster-role-binding.yaml 
+kubectl create -f admin-cluster-role-binding.yaml
+
 clusterrolebinding.rbac.authorization.k8s.io/admin-user created
 ```
 
-Cheque se o ``ClusterRoleBinding`` foi criado :
+Cheque se o ``ClusterRoleBinding`` foi criado:
 
 ```
 kubectl get clusterrolebindings.rbac.authorization.k8s.io admin-user
+
 NAME         ROLE                        AGE
 admin-user   ClusterRole/cluster-admin   21m
 ```
 
-Pronto, agora o usuário ``admin-user`` foi associado ao ``ClusterRoleBinding`` ``admin-user`` com a função cluster-admin.
+Pronto! Agora o usuário **admin-user** foi associado ao ``ClusterRoleBinding`` **admin-user** com a função **cluster-admin**.
 
-Lembrando que toda vez que me referi ao ServiceAccount, eu me refiro à uma conta de usuário.
+Lembrando que toda vez que nos referirmos ao ``ServiceAccount``, estamos referindo à uma conta de usuário.
 
 # Helm
 
