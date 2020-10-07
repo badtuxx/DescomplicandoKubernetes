@@ -416,7 +416,7 @@ metadata:
   namespace: ingress
 ---
 kind: ClusterRole
-apiVersion: rbac.authorization.k8s.io/v1beta1
+apiVersion: rbac.authorization.k8s.io/v1
 metadata:
   name: nginx-role
 rules:
@@ -469,7 +469,7 @@ rules:
   - create
 ---
 kind: ClusterRoleBinding
-apiVersion: rbac.authorization.k8s.io/v1beta1
+apiVersion: rbac.authorization.k8s.io/v1
 metadata:
   name: nginx-role
   namespace: ingress
@@ -514,12 +514,15 @@ vim nginx-ingress-controller-deployment.yaml
 Informe o seguinte conteúdo:
 
 ```yaml
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: nginx-ingress-controller
 spec:
   replicas: 1
+  selector:
+    matchLabels:
+      app: nginx-ingress-lb
   revisionHistoryLimit: 3
   template:
     metadata:
@@ -605,19 +608,22 @@ vim nginx-ingress.yaml
 Informe o seguinte conteúdo:
 
 ```yaml
-apiVersion: extensions/v1beta1
+apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: nginx-ingress
 spec:
   rules:
-  - host: ec2-54-198-119-88.compute-1.amazonaws.com # Mude para o seu endereço
+  - host: ec2-54-198-119-88.compute-1.amazonaws.com # Mude para o seu endereço dns
     http:
       paths:
       - backend:
-          serviceName: nginx-ingress
-          servicePort: 18080
+          service:
+            name: nginx-ingress
+            port:
+              number: 18080
         path: /nginx_status
+        pathType: Prefix
 ```
 
 Agora crie um arquivo para definir o ingress que redirecionará para os serviços das aplicações que criamos no início desta seção:
@@ -629,7 +635,7 @@ vim app-ingress.yaml
 Informe o seguinte conteúdo:
 
 ```yaml
-apiVersion: extensions/v1beta1
+apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   annotations:
@@ -637,17 +643,23 @@ metadata:
   name: app-ingress
 spec:
   rules:
-  - host: ec2-54-198-119-88.compute-1.amazonaws.com # Mude para o seu endereço
+  - host: ec2-54-198-119-88.compute-1.amazonaws.com # Mude para o seu endereço dns
     http:
       paths:
       - backend:
-          serviceName: appsvc1
-          servicePort: 80
+          service:
+            name: appsvc1
+            port:
+              number: 80
         path: /app1
+        pathType: Prefix
       - backend:
-          serviceName: appsvc2
-          servicePort: 80
+          service:
+            name: appsvc2
+            port:
+              number: 80
         path: /app2
+        pathType: Prefix
 ```
 
 Crie os ingresses no namespace ``ingress`` e ``default`` com os seguintes comandos, respectivamente:
