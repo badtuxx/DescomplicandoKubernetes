@@ -406,7 +406,7 @@ O **Node Selector** é uma forma de classificar nossos nodes como por exemplo no
 
 Agora que temos essas informações vamos criar essas labels em nossos nodes, para utilizar o ``nodeSelector``.
 
-Criando a label ``disk`` com o valor ``SSD`` no slave 1:
+Criando a label ``disk`` com o valor ``SSD`` no worker 1:
 
 ```
 kubectl label node elliot-02 disk=SSD
@@ -414,7 +414,7 @@ kubectl label node elliot-02 disk=SSD
 node/elliot-02 labeled
 ```
 
-Criando a label ``dc`` com o valor ``UK`` no slave 1:
+Criando a label ``dc`` com o valor ``UK`` no worker 1:
 
 ```
 kubectl label node elliot-02 dc=UK
@@ -422,7 +422,7 @@ kubectl label node elliot-02 dc=UK
 node/elliot-02 labeled
 ```
 
-Criando a label ``dc`` com o valor ``Netherlands`` no slave 2:
+Criando a label ``dc`` com o valor ``Netherlands`` no worker 2:
 
 ```
 kubectl label node elliot-03 dc=Netherlands
@@ -430,7 +430,7 @@ kubectl label node elliot-03 dc=Netherlands
 node/elliot-03 labeled
 ```
 
-Criando a label ``disk`` com o valor ``hdd`` no slave 2:
+Criando a label ``disk`` com o valor ``hdd`` no worker 2:
 
 ```
 kubectl label nodes elliot-03 disk=hdd
@@ -448,7 +448,7 @@ node/elliot-03 labeled
 
 Para saber as labels configuradas em cada node basta executar o seguinte comando:
 
-No slave 1:
+No worker 1:
 
 ```
 kubectl label nodes elliot-02 --list
@@ -460,7 +460,7 @@ beta.kubernetes.io/arch=amd64
 beta.kubernetes.io/os=linux
 ```
 
-No slave 2:
+No worker 2:
 
 ```
 kubectl label nodes elliot-03 --list
@@ -540,7 +540,7 @@ segundo-deployment-869f...  1/1   Running  0      14m  172.17.0.5 elliot-03
 terceiro-deployment-59cd... 1/1   Running  0      22s  172.17.0.6 elliot-02
 ```
 
-Removendo a label ``dc`` de um node slave:
+Removendo a label ``dc`` de um node worker:
 
 ```
 kubectl label nodes elliot-02 dc-
