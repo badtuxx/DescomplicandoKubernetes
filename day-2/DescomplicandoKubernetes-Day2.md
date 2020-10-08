@@ -1163,9 +1163,9 @@ nginx-85f7fb6b45-cbmtr   1/1     Running   0          6m7s    10.46.0.2   elliot
 nginx-85f7fb6b45-rprz5   1/1     Running   0          6m7s    10.32.0.2   elliot-02   <none>           <none>
 ```
 
-Vamos adicionar a marca ``NoSchedule`` aos nós slave também para ver como eles se comportam.
+Vamos adicionar a marca ``NoSchedule`` aos nós worker também para ver como eles se comportam.
 
-Node slave 1:
+Node worker 1:
 
 ```
 kubectl taint node elliot-02 key1=value1:NoSchedule
@@ -1173,7 +1173,7 @@ kubectl taint node elliot-02 key1=value1:NoSchedule
 node/elliot-02 tainted
 ```
 
-Node slave 2:
+Node worker 2:
 
 ```
 kubectl taint node elliot-03 key1=value1:NoSchedule
@@ -1181,7 +1181,7 @@ kubectl taint node elliot-03 key1=value1:NoSchedule
 node/elliot-03 tainted
 ```
 
-Visualizando a label Taint no node slave 1:
+Visualizando a label Taint no node worker 1:
 
 ```
 kubectl describe node elliot-02 | grep -i taint
@@ -1189,7 +1189,7 @@ kubectl describe node elliot-02 | grep -i taint
 Taints:             key1=value1:NoSchedule
 ```
 
-Visualizando a label Taint no node slave 2:
+Visualizando a label Taint no node worker 2:
 
 ```
 kubectl describe node elliot-03 | grep -i taint
@@ -1222,9 +1222,9 @@ nginx-85f7fb6b45-rprz5   1/1     Running   0          7m46s   10.32.0.2   elliot
 
 Como podemos ver, as nova réplicas ficaram órfãs esperando aparece um nó com as prioridades adequadas para o Scheduler.
 
-Vamos remover esse Taint dos nossos nós slave:
+Vamos remover esse Taint dos nossos nós worker:
 
-Removendo o taint do slave 1:
+Removendo o taint do worker 1:
 
 ```
 kubectl taint node elliot-02 key1:NoSchedule-
@@ -1232,7 +1232,7 @@ kubectl taint node elliot-02 key1:NoSchedule-
 node/elliot-02 untainted
 ```
 
-Removendo o taint do slave 2:
+Removendo o taint do worker 2:
 
 ```
 kubectl taint node elliot-03 key1:NoSchedule-
@@ -1257,7 +1257,7 @@ nginx-85f7fb6b45-rprz5   1/1     Running   0          8m40s   10.32.0.2   elliot
 
 Existem vários tipos de marcas que podemos usar para classificar os nós, vamos testar uma outra chamada ``NoExecute``, que impede o Scheduler de agendar Pods nesses nós.
 
-Adicionando a marca ``NoExecute`` no slave 1:
+Adicionando a marca ``NoExecute`` no worker 1:
 
 ```
 kubectl taint node elliot-02 key1=value1:NoExecute
@@ -1265,7 +1265,7 @@ kubectl taint node elliot-02 key1=value1:NoExecute
 node/elliot-02 tainted
 ```
 
-Adicionando a marca ``NoExecute`` no slave 2:
+Adicionando a marca ``NoExecute`` no worker 2:
 
 ```
 kubectl taint node elliot-03 key1=value1:NoExecute
@@ -1286,11 +1286,11 @@ nginx-85f7fb6b45-hb4dp   0/1     Pending   0          20s
 nginx-85f7fb6b45-l6zln   0/1     Pending   0          20s
 ```
 
-Como podemos ver todos os Pods estão órfãs. Porque o nó ``master`` tem a marca taint ``NoScheduler`` default do kubernetes e os nós Slave tem a marca ``NoExecute``.
+Como podemos ver todos os Pods estão órfãs. Porque o nó ``master`` tem a marca taint ``NoScheduler`` default do kubernetes e os nós worker tem a marca ``NoExecute``.
 
 Vamos diminuir a quantidade de réplicas para ver o que acontece.
 
-Reduzindo a quantidade de réplicas no slave 1:
+Reduzindo a quantidade de réplicas no worker 1:
 
 ```
 kubectl scale deployment nginx --replicas=1
@@ -1298,7 +1298,7 @@ kubectl scale deployment nginx --replicas=1
 deployment.apps/nginx scaled
 ```
 
-Reduzindo a quantidade de réplicas no slave 2:
+Reduzindo a quantidade de réplicas no worker 2:
 
 ```
 kubectl get pods
@@ -1306,9 +1306,9 @@ kubectl get pods
 nginx-85f7fb6b45-drmzz   0/1     Pending   0          43s
 ```
 
-Vamos remover o taint ``NoExecute`` do nós slaves.
+Vamos remover o taint ``NoExecute`` do nós workers.
 
-Removendo o taint no slave 1:
+Removendo o taint no worker 1:
 
 ```
 kubectl taint node elliot-02 key1:NoExecute-
@@ -1316,7 +1316,7 @@ kubectl taint node elliot-02 key1:NoExecute-
 node/elliot-02 untainted
 ```
 
-Removendo o taint no slave 2:
+Removendo o taint no worker 2:
 
 ```
 kubectl taint node elliot-03 key1:NoExecute-
@@ -1335,7 +1335,7 @@ nginx-85f7fb6b45-drmzz   1/1     Running   0          76s
 
 Agora temos um nó operando normalmente.
 
-Mas e se nossos Slaves ficarem indisponíveis, podemos rodar Pods no nó master?
+Mas e se nossos workers ficarem indisponíveis, podemos rodar Pods no nó master?
 
 Claro que podemos, vamos configurar nosso nó master para que o Scheduler consiga agenda Pods nele.
 
@@ -1373,9 +1373,9 @@ nginx-85f7fb6b45-drmzz   1/1     Running   0          114s   10.46.0.1   elliot-
 nginx-85f7fb6b45-rstvq   1/1     Running   0          9s     10.46.0.2   elliot-03          <none>           <none>
 ```
 
-Vamos adicionar o Taint ``NoExecute`` nos nós slave para ver o que acontece.
+Vamos adicionar o Taint ``NoExecute`` nos nós worker para ver o que acontece.
 
-Adicionando o taint no slave 1:
+Adicionando o taint no worker 1:
 
 ```
 kubectl taint node elliot-02 key1=value1:NoExecute
@@ -1383,7 +1383,7 @@ kubectl taint node elliot-02 key1=value1:NoExecute
 node/elliot-02 tainted
 ```
 
-Adicionando o taint no slave 2:
+Adicionando o taint no worker 2:
 
 ```
 kubectl taint node elliot-03 key1=value1:NoExecute

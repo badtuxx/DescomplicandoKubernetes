@@ -316,10 +316,10 @@ Execute o seguinte comando para configurar o alias e autocomplete para o ``kubec
 
 No Bash:
 
-```
-source <(kubectl completion bash)
+```bash
+source <(kubectl completion bash) # configura o autocomplete na sua sessão atual (antes, certifique-se de ter instalado o pacote bash-completion).
 
-echo "source <(kubectl completion bash)"
+echo "source <(kubectl completion bash)" >> ~/.bashrc # add autocomplete permanentemente ao seu shell.
 ```
 
 Crie o alias ``k`` para ``kubectl``:
