@@ -18,7 +18,7 @@ Normalmente quando executamos um Pod no Kubernetes, todo o tráfego é roteado s
 Vamos criar nosso primeiro Ingress, mas primeiro vamos gerar dois deployments e dois services:
 
 ```
-vim deployment1.yaml
+vim app1.yaml
 ```
 
 Informe o seguinte conteúdo:
@@ -49,7 +49,7 @@ spec:
 ```
 
 ```
-vim deployment2.yaml
+vim app2.yaml
 ```
 
 Informe o seguinte conteúdo:
