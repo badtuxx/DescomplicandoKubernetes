@@ -17,7 +17,7 @@ Normalmente quando executamos um Pod no Kubernetes, todo o tráfego é roteado s
 
 Vamos criar nosso primeiro Ingress, mas primeiro vamos gerar dois deployments e dois services:
 
-```
+```bash
 vim app1.yaml
 ```
 
@@ -48,7 +48,7 @@ spec:
         - containerPort: 80
 ```
 
-```
+```bash
 vim app2.yaml
 ```
 
@@ -79,7 +79,21 @@ spec:
         - containerPort: 80
 ```
 
+Vamos criar os deployments no cluster com os seguintes comandos:
+
+```bash
+kubectl create -f app1.yaml 
+
+deployment.apps/app1 created
 ```
+
+```bash
+kubectl create -f app2.yaml 
+
+deployment.apps/app2 created
+```
+
+```bash
 vim svc-app1.yaml
 ```
 
@@ -99,7 +113,7 @@ spec:
     app: app1
 ```
 
-```
+```bash
 vim svc-app2.yaml
 ```
 
@@ -119,37 +133,25 @@ spec:
     app: app2
 ```
 
-Vamos criar os deployments e services no cluster com os seguintes comandos:
+Vamos criar os services no cluster com os seguintes comandos:
 
-```
-kubectl create -f deployment1.yaml
+```bash
+kubectl create -f svc-app1.yaml 
 
-deployment.extensions/app2 created
-```
-
-```
-kubectl create -f deployment2.yaml
-
-deployment.extensions/app2 created
+service/appsvc1 created
 ```
 
-```
-kubectl create -f svc-app1.yaml
+```bash
+kubectl create -f svc-app2.yaml 
 
-deployment.extensions/svc-app1 created
-```
-
-```
-kubectl create -f svc-app2.yaml
-
-deployment.extensions/svc-app2 created
+service/appsvc2 created
 ```
 
 Acabamos de criar dois Pods com imagens de um site estático.
 
 Vamos visualizar os deployments:
 
-```
+```bash
 kubectl get deploy
 
 NAME      DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
@@ -159,7 +161,7 @@ app2      2         2         2            2           3m
 
 Vamos visualizar os services:
 
-```
+```bash
 kubectl get services
 
 NAME         TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)   AGE
@@ -170,7 +172,7 @@ kubernetes   ClusterIP   10.96.0.1       <none>        443/TCP   11d
 
 Vamos listar os Endpoints dos services:
 
-```
+```bash
 kubectl get ep
 
 NAME         ENDPOINTS                     AGE
@@ -181,7 +183,7 @@ kubernetes   10.142.0.5:6443               11d
 
 Agora vamos acessar os sites e ver se tudo deu certo com as variáveis de ambiente que  configuramos nos Deployments.
 
-```
+```bash
 curl 10.44.0.11
 
 ...
@@ -191,7 +193,7 @@ curl 10.44.0.11
 container running Nginx.</p>
 ```
 
-```
+```bash
 curl  10.32.0.4
 h1 id="toc_0">Hello STRIGUS!</h1>
 
