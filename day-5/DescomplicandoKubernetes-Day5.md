@@ -402,10 +402,10 @@ true
 Events:  <none>
 ```
 
-Vamos criar um arquivo para definir as permissões para o nosso deployment:
+Vamos criar os arquivos para definir as permissões para o nosso deployment:
 
-```
-vim nginx-ingress-controller-roles.yaml
+```bash
+vim nginx-ingress-controller-service-account.yaml
 ```
 
 Informe o seguinte conteúdo:
@@ -416,9 +416,17 @@ kind: ServiceAccount
 metadata:
   name: nginx
   namespace: ingress
----
+```
+
+```bash
+vim nginx-ingress-controller-clusterrole.yaml
+```
+
+Informe o seguinte conteúdo:
+
+```yaml
 kind: ClusterRole
-apiVersion: rbac.authorization.k8s.io/v1beta1
+apiVersion: rbac.authorization.k8s.io/v1
 metadata:
   name: nginx-role
 rules:
@@ -468,9 +476,18 @@ rules:
   - configmaps
   verbs:
   - get
----
+  - create
+```
+
+```bash
+vim nginx-ingress-controller-clusterrolebinding.yaml
+```
+
+Informe o seguinte conteúdo:
+
+```yaml
 kind: ClusterRoleBinding
-apiVersion: rbac.authorization.k8s.io/v1beta1
+apiVersion: rbac.authorization.k8s.io/v1
 metadata:
   name: nginx-role
   namespace: ingress
@@ -484,43 +501,58 @@ subjects:
   namespace: ingress
 ```
 
-Aplique as permissões no namespace ``ingress`` com o seguinte comando:
+Aplique as permissões no namespace ``ingress`` com os seguintes comandos:
 
-```
-kubectl create -f nginx-ingress-controller-roles.yaml -n ingress
+```bash
+kubectl create -f nginx-ingress-controller-service-account.yaml -n ingress 
 
 serviceaccount/nginx created
 ```
 
+```bash
+kubectl create -f nginx-ingress-controller-clusterrole.yaml -n ingress
+
+clusterrole.rbac.authorization.k8s.io/nginx-role created
+```
+
+```bash
+kubectl create -f nginx-ingress-controller-clusterrolebinding.yaml -n ingress 
+
+clusterrolebinding.rbac.authorization.k8s.io/nginx-role created
+```
+
 Visualize os serviceAccount e roles recém criados no namespace ``ingress`` com os seguintes comandos:
 
-```
+```bash
 kubectl get serviceaccounts -n ingress
 ```
 
-```
+```bash
 kubectl get clusterrole -n ingress
 ```
 
-```
+```bash
 kubectl get clusterrolebindings -n ingress
 ```
 
 Agora crie um arquivo para definir outro deployment:
 
-```
+```bash
 vim nginx-ingress-controller-deployment.yaml
 ```
 
 Informe o seguinte conteúdo:
 
 ```yaml
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: nginx-ingress-controller
 spec:
   replicas: 1
+  selector:
+    matchLabels:
+      app: nginx-ingress-lb
   revisionHistoryLimit: 3
   template:
     metadata:
@@ -566,15 +598,15 @@ spec:
 
 Crie o deployment no namespace ``ingress``:
 
-```
+```bash
 kubectl create -f nginx-ingress-controller-deployment.yaml -n ingress
 
-deployment.extensions/nginx-ingress-controller created
+deployment.apps/nginx-ingress-controller created
 ```
 
 Visualize o deployment recém criado no namespace ``ingress``:
 
-```
+```bash
 kubectl get deployments -n ingress
 
 NAME                       DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
@@ -584,7 +616,7 @@ nginx-ingress-controller   1         1         1            1           23s
 
 Visualize todos os pods:
 
-```
+```bash
 kubectl get pods --all-namespaces
 
 NAMESPACE     NAME                                        READY     STATUS    RESTARTS   AGE
@@ -599,38 +631,41 @@ ingress       nginx-ingress-controller-65fbdc747b-mlb9k   1/1       Running   0 
 
 Agora crie um arquivo para definir o ingress que redirecionará para o backend:
 
-```
+```bash
 vim nginx-ingress.yaml
 ```
 
 Informe o seguinte conteúdo:
 
 ```yaml
-apiVersion: extensions/v1beta1
+apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: nginx-ingress
 spec:
   rules:
-  - host: ec2-54-198-119-88.compute-1.amazonaws.com # Mude para o seu endereço
+  - host: ec2-54-198-119-88.compute-1.amazonaws.com # Mude para o seu endereço dns
     http:
       paths:
       - backend:
-          serviceName: nginx-ingress
-          servicePort: 18080
+          service:
+            name: nginx-ingress
+            port:
+              number: 18080
         path: /nginx_status
+        pathType: Prefix
 ```
 
 Agora crie um arquivo para definir o ingress que redirecionará para os serviços das aplicações que criamos no início desta seção:
 
-```
+```bash
 vim app-ingress.yaml
 ```
 
 Informe o seguinte conteúdo:
 
 ```yaml
-apiVersion: extensions/v1beta1
+apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   annotations:
@@ -638,43 +673,49 @@ metadata:
   name: app-ingress
 spec:
   rules:
-  - host: ec2-54-198-119-88.compute-1.amazonaws.com # Mude para o seu endereço
+  - host: ec2-54-198-119-88.compute-1.amazonaws.com # Mude para o seu endereço dns
     http:
       paths:
       - backend:
-          serviceName: appsvc1
-          servicePort: 80
+          service:
+            name: appsvc1
+            port:
+              number: 80
         path: /app1
+        pathType: Prefix
       - backend:
-          serviceName: appsvc2
-          servicePort: 80
+          service:
+            name: appsvc2
+            port:
+              number: 80
         path: /app2
+        pathType: Prefix
 ```
 
 Crie os ingresses no namespace ``ingress`` e ``default`` com os seguintes comandos, respectivamente:
 
-```
+```bash
 kubectl create -f nginx-ingress.yaml -n ingress
 
-ingress.extensions/nginx-ingress created
+ingress.networking.k8s.io/nginx-ingress created
 ```
 
-```
+```bash
 kubectl create -f app-ingress.yaml
 
-ingress.extensions/app-ingress created
+ingress.networking.k8s.io/app-ingress created
 ```
 
 Visualize os ingresses recém criados:
 
-```
+```bash
 kubectl get ingresses -n ingress
 
 NAME            HOSTS                                        ADDRESS   PORTS     AGE
 nginx-ingress   ec2-54-159-116-229.compute-1.amazonaws.com             80        35s
 ```
 
-```
+```bash
 kubectl get ingresses
 
 NAME          HOSTS                                        ADDRESS   PORTS     AGE
@@ -683,7 +724,7 @@ app-ingress   ec2-54-159-116-229.compute-1.amazonaws.com             80        1
 
 Visualize os detalhes do ingress que redireciona para o backend no namespace ``ingress``:
 
-```
+```bash
 kubectl describe ingresses.extensions nginx-ingress -n ingress
 
 Name:             nginx-ingress
@@ -704,7 +745,7 @@ Events:
 
 Visualize os detalhes do ingress que redireciona para a aplicação no namespace ``default``:
 
-```
+```bash
 kubectl describe ingresses.extensions app-ingress
 
 Name:             app-ingress
@@ -727,7 +768,7 @@ Events:
 
 Crie um arquivo para definir um service do tipo nodePort:
 
-```
+```bash
 vim nginx-ingress-controller-service.yaml
 ```
 
@@ -753,8 +794,10 @@ spec:
 
 Agora crie o service do tipo nodePort:
 
-```
+```bash
 kubectl create -f nginx-ingress-controller-service.yaml -n=ingress
+
+service/nginx-ingress created
 ```
 
 Pronto! Agora você já pode acessar suas apps pela URL que você configurou. Abra o navegador e adicione os seguintes endereços:
