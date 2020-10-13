@@ -203,7 +203,7 @@ container running Nginx.</p>
 
 Vamos criar um deployment para o backend:
 
-```
+```bash
 vim default-backend.yaml
 ```
 
@@ -257,7 +257,7 @@ Atenção para os seguintes parâmetros no arquivo anterior:
 
 Crie o namespace ``ingress``:
 
-```
+```bash
 kubectl create namespace ingress
 
 namespace/ingress created
@@ -265,15 +265,15 @@ namespace/ingress created
 
 Crie o deployment do backend no namespace ``ingress``:
 
-```
-kubectl create -f default-backend.yaml -n ingress
+```bash
+kubectl create -f default-backend.yaml -n ingress 
 
-deployment.extensions/default-backend created
+deployment.apps/default-backend created
 ```
 
 Crie um arquivo para definir um service para o backend:
 
-```
+```bash
 vim default-backend-service.yaml
 ```
 
@@ -295,15 +295,15 @@ spec:
 
 Crie o service para o backend no namespace ``ingress``:
 
-```
-kubectl create -f default-backend-service.yaml -n ingress
+```bash
+kubectl create -f default-backend-service.yaml -n ingress 
 
-service/default-http-backend created
+service/default-backend created
 ```
 
 Visualize novamente os deployments no namespace ``default``:
 
-```
+```bash
 kubectl get deployments.
 
 NAME      DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
@@ -313,7 +313,7 @@ app2      2         2         2            2           28m
 
 Visualize o deployment no namespace ``ingress``:
 
-```
+```bash
 kubectl get deployments. -n ingress
 
 NAME              DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
@@ -322,7 +322,7 @@ default-backend   2         2         2            2           27s
 
 Visualize novamente os services no namespace ``default``:
 
-```
+```bash
 kubectl get service
 
 NAME         TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)   AGE
@@ -333,7 +333,7 @@ kubernetes   ClusterIP   10.96.0.1       <none>        443/TCP   11d
 
 Visualize o service no namespace ``ingress``:
 
-```
+```bash
 kubectl get service -n ingress
 
 NAME              TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)   AGE
@@ -342,7 +342,7 @@ default-backend   ClusterIP   10.99.233.157   <none>        80/TCP    38s
 
 Visualize o endpoint no namespace ``ingress``:
 
-```
+```bash
 kubectl get ep -n ingress
 
 NAME              ENDPOINTS                        AGE
@@ -351,7 +351,7 @@ default-backend   10.32.0.14:8080,10.40.0.4:8080   2m
 
 Agora crie o um arquivo para definir um ``configMap`` a ser utilizado pela nossa aplicação:
 
-```
+```bash
 vim nginx-ingress-controller-config-map.yaml
 ```
 
@@ -370,7 +370,7 @@ data:
 
 Crie o configMap no namespace ``ingress``:
 
-```
+```bash
 kubectl create -f nginx-ingress-controller-config-map.yaml -n ingress
 
 configmap/nginx-ingress-controller-conf created
@@ -378,7 +378,7 @@ configmap/nginx-ingress-controller-conf created
 
 Visualize o configMap no namespace ``ingress``:
 
-```
+```bash
 kubectl get configmaps -n ingress
 
 NAME                            DATA      AGE
@@ -387,8 +387,8 @@ nginx-ingress-controller-conf   1         20s
 
 Visualize os detalhes do configMap recém criado no namespace ``ingress``:
 
-```
-kubectl describe configmaps nginx-ingress-controller-conf -n ingress
+```bash
+kubectl describe configmaps -n ingress nginx-ingress-controller-conf
 
 Name:         nginx-ingress-controller-conf
 Namespace:    ingress
