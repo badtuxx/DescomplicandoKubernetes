@@ -1136,7 +1136,11 @@ Execute o comando a seguir também apenas no nó *master* para a inicialização
 # kubeadm init
 ```
 
-A opção _--apiserver-advertise-address_ informa qual o endereço IP em que o servidor de API irá escutar. Caso este parâmetro não seja informado, a interface de rede padrão será usada.
+A opção _--apiserver-advertise-address_ informa qual o endereço IP em que o servidor de API irá escutar. Caso este parâmetro não seja informado, a interface de rede padrão será usada. Opcionalmente, você também pode passar o cidr com a opção _--pod-network-cidr_. O comando obedecerá a seguinte sintaxe:
+
+```
+kubeadm init --apiserver-advertise-address 192.168.99.2 --pod-network-cidr 192.168.99.0/24
+```
 
 A saída do comando será algo similar ao mostrado a seguir.
 
@@ -1151,6 +1155,31 @@ To start using your cluster, you need to run the following as a regular user:
 ...
 kubeadm join --token 39c341.a3bc3c4dd49758d5 IP_DO_MASTER:6443 --discovery-token-ca-cert-hash sha256:37092
 ...
+```
+
+Caso o servidor possua mais de uma interface de rede, você pode verificar se o IP interno do nó do seu cluster corresponde ao IP da interface esperada com o seguinte comando:
+
+```
+kubectl describe node elliot-1 | grep InternalIP
+```
+
+A saída será algo similar a seguir:
+
+```
+InternalIP:  192.168.99.2
+```
+
+Caso o Ip não corresponda ao da interface de rede escolhida, você pode ir até o arquivo localizado em _/etc/systemd/system/kubelet.service.d/10-kubeadm.conf_ com o editor da sua preferência, procurar por _KUBELET_CONFIG_ARGS_ e adicionar no final a instrução --node-ip=<IP Da sua preferência>. O trecho alterado será semelhante abaixo:
+
+```
+Environment="KUBELET_CONFIG_ARGS=--config=/var/lib/kubelet/config.yaml --node-ip=192.168.99.2"
+```
+
+Salve o arquivo e execute os comandos abaixo para reiniciar a configuração e consequentemente o kubelet.
+
+```
+systemctl daemon-reload
+systemctl restart kubelet
 ```
 
 ## Configuração do arquivo de contextos do kubectl
