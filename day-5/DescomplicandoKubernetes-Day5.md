@@ -117,7 +117,7 @@ spec:
 vim svc-app2.yaml
 ```
 
-Informe o seguine conteúdo:
+Informe o seguinte conteúdo:
 
 ```yaml
 apiVersion: v1

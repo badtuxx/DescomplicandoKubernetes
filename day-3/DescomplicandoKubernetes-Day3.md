@@ -406,7 +406,7 @@ O **Node Selector** é uma forma de classificar nossos nodes como por exemplo no
 
 Agora que temos essas informações vamos criar essas labels em nossos nodes, para utilizar o ``nodeSelector``.
 
-Criando a label ``disk`` com o valor ``SSD`` no slave 1:
+Criando a label ``disk`` com o valor ``SSD`` no worker 1:
 
 ```
 kubectl label node elliot-02 disk=SSD
@@ -414,7 +414,7 @@ kubectl label node elliot-02 disk=SSD
 node/elliot-02 labeled
 ```
 
-Criando a label ``dc`` com o valor ``UK`` no slave 1:
+Criando a label ``dc`` com o valor ``UK`` no worker 1:
 
 ```
 kubectl label node elliot-02 dc=UK
@@ -422,7 +422,7 @@ kubectl label node elliot-02 dc=UK
 node/elliot-02 labeled
 ```
 
-Criando a label ``dc`` com o valor ``Netherlands`` no slave 2:
+Criando a label ``dc`` com o valor ``Netherlands`` no worker 2:
 
 ```
 kubectl label node elliot-03 dc=Netherlands
@@ -430,7 +430,7 @@ kubectl label node elliot-03 dc=Netherlands
 node/elliot-03 labeled
 ```
 
-Criando a label ``disk`` com o valor ``hdd`` no slave 2:
+Criando a label ``disk`` com o valor ``hdd`` no worker 2:
 
 ```
 kubectl label nodes elliot-03 disk=hdd
@@ -448,7 +448,7 @@ node/elliot-03 labeled
 
 Para saber as labels configuradas em cada node basta executar o seguinte comando:
 
-No slave 1:
+No worker 1:
 
 ```
 kubectl label nodes elliot-02 --list
@@ -460,7 +460,7 @@ beta.kubernetes.io/arch=amd64
 beta.kubernetes.io/os=linux
 ```
 
-No slave 2:
+No worker 2:
 
 ```
 kubectl label nodes elliot-03 --list
@@ -540,7 +540,7 @@ segundo-deployment-869f...  1/1   Running  0      14m  172.17.0.5 elliot-03
 terceiro-deployment-59cd... 1/1   Running  0      22s  172.17.0.6 elliot-02
 ```
 
-Removendo a label ``dc`` de um node slave:
+Removendo a label ``dc`` de um node worker:
 
 ```
 kubectl label nodes elliot-02 dc-
@@ -624,7 +624,7 @@ Com certeza, esse pod foi criado no node ``elliot-03``, pois havíamos dito que 
 
 O **ReplicaSet** garante a quantidade solicitada de pods e os recursos necessários para um Deployment. Uma vez que o Deployment é criado, é o ReplicaSet que controla a quantidade de pods em execução, caso algum pod seja finalizado, ele que irá detectar e solicitar que outro pod seja executado em seu lugar, garantindo assim a quantidade de réplicas solicitadas.
 
-Vamos criar nosso primeiro ReplicarSet:
+Vamos criar nosso primeiro ReplicaSet:
 
 ```
 vim primeiro-replicaset.yaml
@@ -1233,7 +1233,7 @@ Image:          nginx:1.15.0
 
 Não funcionou, por quê? Porque teremos que matar o Pod para ele ser recriado com as novas configuração.
 
-Vamos afinar esse nosso DamonSet, vamos adicionar o ``RollingUpdate`` e esse cara vai atualizar automaticamente os Pods quando houver alguma alteração.
+Vamos afinar esse nosso DaemonSet, vamos adicionar o ``RollingUpdate`` e esse cara vai atualizar automaticamente os Pods quando houver alguma alteração.
 
 Vamos lá, primeiro vamos remover o ``DaemonSet``, adicionar duas novas informações em nosso manifesto yaml e, em seguida, criar outro DaemonSet em seu lugar:
 

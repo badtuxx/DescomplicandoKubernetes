@@ -28,7 +28,7 @@
   - [Logs](#logs)
 - [Microk8s](#microk8s)
   - [Requisitos básicos](#requisitos-básicos-1)
-  - [Instalaçao do MicroK8s no GNU/Linux](#instalaçao-do-microk8s-no-gnulinux)
+  - [Instalação do MicroK8s no GNU/Linux](#instalação-do-microk8s-no-gnulinux)
     - [Versões que suportam Snap](#versões-que-suportam-snap)
   - [Instalação no Windows](#instalação-no-windows)
     - [Instalando o Chocolatey](#instalando-o-chocolatey)
@@ -39,7 +39,7 @@
     - [Instalando o Microk8s via Brew](#instalando-o-microk8s-via-brew)
 - [Kind](#kind)
   - [Instalação no GNU/Linux](#instalação-no-gnulinux)
-  - [Instalaçao no MacOS](#instalaçao-no-macos)
+  - [Instalação no MacOS](#instalação-no-macos)
   - [Instalação no Windows](#instalação-no-windows-1)
     - [Instalação no Windows via Chocolatey](#instalação-no-windows-via-chocolatey)
   - [Criando um cluster com o Kind](#criando-um-cluster-com-o-kind)
@@ -100,7 +100,7 @@ Como Kubernetes é uma palavra difícil de se pronunciar - e de se escrever - a 
 
 **Versão longa:**
 
-Praticamente todo software desenvolvido na Google é executado em contêiner [2](https://www.enterpriseai.news/2014/05/28/google-runs-software-containers/). A Google já gerencia contêineres em larga escala há mais de uma década, quando não se falava tanto sobre isso. Para atender a demanda interna, alguns desenvolvedores do Google construiram três sistemas diferentes de gerenciamento de contêineres: **Borg**, **Omega** e **Kubernetes**. Cada sistema teve o desenvolvimento bastante influenciado pelo antecessor, embora fosse desenvolvido por diferentes razões.
+Praticamente todo software desenvolvido na Google é executado em contêiner [2](https://www.enterpriseai.news/2014/05/28/google-runs-software-containers/). A Google já gerencia contêineres em larga escala há mais de uma década, quando não se falava tanto sobre isso. Para atender a demanda interna, alguns desenvolvedores do Google construíram três sistemas diferentes de gerenciamento de contêineres: **Borg**, **Omega** e **Kubernetes**. Cada sistema teve o desenvolvimento bastante influenciado pelo antecessor, embora fosse desenvolvido por diferentes razões.
 
 O primeiro sistema de gerenciamento de contêineres desenvolvido no Google foi o Borg, construído para gerenciar serviços de longa duração e jobs em lote, que anteriormente eram tratados por dois sistemas:  **Babysitter** e **Global Work Queue**. O último influenciou fortemente a arquitetura do Borg, mas estava focado em execução de jobs em lote. O Borg continua sendo o principal sistema de gerenciamento de contêineres dentro do Google por causa de sua escala, variedade de recursos e robustez extrema.
 
@@ -119,7 +119,7 @@ Assim como os demais orquestradores disponíveis, o k8s também segue um modelo 
 
 Embora exista a exigência de no mínimo três nós para a execução do k8s em um ambiente padrão, existem soluções para se executar o k8s em um único nó. Alguns exemplos são:
 
-* [Kind](https://github.com/kubernetes/minikube): Uma ferramenta para execução de contêineres Docker que simulam o funcionamento de um cluster Kubernetes. É utilizado para fins didáticos, de desenvolvimento e testes. O **Kind não deve ser utilizado para produção**;
+* [Kind](https://kind.sigs.k8s.io/docs/user/quick-start): Uma ferramenta para execução de contêineres Docker que simulam o funcionamento de um cluster Kubernetes. É utilizado para fins didáticos, de desenvolvimento e testes. O **Kind não deve ser utilizado para produção**;
 
 * [Minikube](https://github.com/kubernetes/minikube): ferramenta para implementar um *cluster* Kubernetes localmente com apenas um nó. Muito utilizado para fins didáticos, de desenvolvimento e testes. O **Minikube não deve ser utilizado para produção**;
 
@@ -200,10 +200,10 @@ $ comando1
 # comando2
 ```
 
-> O prompt que inicia com o caracter "$", indica que o comando deve ser executado com um usuário comum do sistema operacional.
+> O prompt que inicia com o caractere "$", indica que o comando deve ser executado com um usuário comum do sistema operacional.
 >
-> O prompt que inicia com o caracter "#", indica que o comando deve ser executado com o usuário **root**.
-> 
+> O prompt que inicia com o caractere "#", indica que o comando deve ser executado com o usuário **root**.
+>
 > Você não deve copiar/colar o prompt, apenas o comando. :-)
 
 # Minikube
@@ -243,7 +243,7 @@ Há a possibilidade de não utilizar um *hypervisor* para a instalação do Mini
 Efetue o download e a instalação do ``Minikube`` utilizando os seguintes comandos.
 
 ```
-curl -Lo minikube https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64 
+curl -Lo minikube https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
 
 chmod +x ./minikube
 
@@ -301,7 +301,7 @@ minikube version
 Ou:
 
 ```
-curl -Lo minikube https://storage.googleapis.com/minikube/releases/latest/minikube-darwin-amd64 
+curl -Lo minikube https://storage.googleapis.com/minikube/releases/latest/minikube-darwin-amd64
 
 chmod +x ./minikube
 
@@ -316,10 +316,10 @@ Execute o seguinte comando para configurar o alias e autocomplete para o ``kubec
 
 No Bash:
 
-```
-source <(kubectl completion bash)
+```bash
+source <(kubectl completion bash) # configura o autocomplete na sua sessão atual (antes, certifique-se de ter instalado o pacote bash-completion).
 
-echo "source <(kubectl completion bash)"
+echo "source <(kubectl completion bash)" >> ~/.bashrc # add autocomplete permanentemente ao seu shell.
 ```
 
 Crie o alias ``k`` para ``kubectl``:
@@ -355,7 +355,7 @@ Caso a linha a seguir também esteja presente, não é necessária a instalaçã
 Hyper-V Requirements:     A hypervisor has been detected. Features required for Hyper-V will not be displayed.:     A hypervisor has been detected. Features required for Hyper-V will not be displayed.
 ```
 
-A instalação do ``kubectl`` pode ser realizada efetuando o download [neste link](https://storage.googleapis.com/kubernetes-release/release/v1.18.0/bin/windows/amd64/kubectl.exe). Feito isso, também deve ser realizado download e a instalação de um *hypervisor* (preferencialmente o [Oracle VirtualBox](https://www.virtualbox.org)), caso no passo anterior não tenha sido acusada a presença de um. Finalmente, efetue o download do instalador do Minikube [aqui](https://github.com/kubernetes/minikube/releases/latest) e execute-o.
+A instalação do ``kubectl`` pode ser realizada efetuando o download [neste link](https://storage.googleapis.com/kubernetes-release/release/v1.19.1/bin/windows/amd64/kubectl.exe). Feito isso, também deve ser realizado download e a instalação de um *hypervisor* (preferencialmente o [Oracle VirtualBox](https://www.virtualbox.org)), caso no passo anterior não tenha sido acusada a presença de um. Finalmente, efetue o download do instalador do Minikube [aqui](https://github.com/kubernetes/minikube/releases/latest) e execute-o.
 
 ## Iniciando, parando e excluindo o Minikube
 
@@ -369,6 +369,12 @@ Caso não queria deixar o VirtualBox como padrão sempre que subir o ambiente no
 
 ```
 minikube start
+```
+
+Para criar um cluster com multi-node basta executar:
+
+``` 
+minikube start --nodes 2 -p multinode-demo
 ```
 
 Caso deseje parar o ambiente:
@@ -398,7 +404,7 @@ minikube start
 ✨  Using the virtualbox driver based on existing profile
 👍  Starting control plane node m01 in cluster minikube
 🔄  Restarting existing virtualbox VM for "minikube" ...
-🐳  Preparing Kubernetes v1.18.0 on Docker 19.03.8 ...
+🐳  Preparing Kubernetes v1.19.1 on Docker 19.03.8 ...
 🌟  Enabling addons: default-storageclass, storage-provisioner
 🏄  Done! kubectl is now configured to use "minikube"
 ```
@@ -411,14 +417,24 @@ kubectl get nodes
 
 A saída será similar ao conteúdo a seguir:
 
+Para um node:
+
 ```
 kubectl get nodes
 
 NAME       STATUS   ROLES    AGE   VERSION
-minikube   Ready    master   8d    v1.18.0
+minikube   Ready    master   8d    v1.19.1
 ```
 
-Claramente, como a intenção do Minikube é executar o k8s em apenas um nó, é natural que seja apresentado apenas uma linha na saída do comando anterior.
+Para multi-nodes:
+
+```
+NAME                 STATUS    ROLES     AGE       VERSION
+multinode-demo       Ready     master    5m        v1.19.1
+multinode-demo-m02   Ready     <none>    4m        v1.19.1
+```
+
+Inicialmente, a intenção do Minikube é executar o k8s em apenas um nó, porém a partir da versão 1.10.1 e possível usar a função de multi-node (Experimental).
 
 Caso os comandos anteriores tenham sido executados sem erro, a instalação do Minikube terá sido realizada com sucesso.
 
@@ -467,7 +483,7 @@ Existem alguns tipos de instalação do Microk8s:
 * MacOS - Brew;
 * RaspBerry.
 
-## Instalaçao do MicroK8s no GNU/Linux
+## Instalação do MicroK8s no GNU/Linux
 
 ### Versões que suportam Snap
 
@@ -529,7 +545,7 @@ microk8s-vm             RUNNING           10.72.145.216    Ubuntu 18.04 LTS
 # multipass shell microk8s-vm
 ```
 
-Se quiser utilizar o Microk8s sem utilizar um shell criado pelo multipass utilize a seguine expressão.
+Se quiser utilizar o Microk8s sem utilizar um shell criado pelo multipass utilize a seguinte expressão.
 
 PowerShell Admin:
 
@@ -581,21 +597,21 @@ microk8s kubectl <command>
 
 # Kind
 
-O Kind (Kubernertes in Docker) é outra alternativa para executar o Kubernetes num ambiente local para testes e aprendizado, mas não é recomendado para uso em produção.
+O Kind (Kubernetes in Docker) é outra alternativa para executar o Kubernetes num ambiente local para testes e aprendizado, mas não é recomendado para uso em produção.
 
 ## Instalação no GNU/Linux
 
 Para fazer a instalação no GNU/Linux, execute os seguintes comandos.
 
 ```
-curl -Lo ./kind https://kind.sigs.k8s.io/dl/v0.8.1/kind-$(uname)-amd64
+curl -Lo ./kind https://kind.sigs.k8s.io/dl/v0.9.0/kind-$(uname)-amd64
 
 chmod +x ./kind
 
 sudo mv ./kind /usr/local/bin/kind
 ```
 
-## Instalaçao no MacOS
+## Instalação no MacOS
 
 Para fazer a instalação no MacOS, execute o seguinte comando.
 
@@ -629,7 +645,7 @@ Após realizar a instalação do Kind, vamos iniciar o nosso cluster.
 kind create cluster
 
 Creating cluster "kind" ...
- ✓ Ensuring node image (kindest/node:v1.18.2) 🖼
+ ✓ Ensuring node image (kindest/node:v1.19.1) 🖼
  ✓ Preparing nodes 📦
  ✓ Writing configuration 📜
  ✓ Starting control-plane 🕹️
@@ -649,7 +665,7 @@ Thanks for using kind! 😊
 kind create cluster --name giropops
 
 Creating cluster "giropops" ...
- ✓ Ensuring node image (kindest/node:v1.18.2) 🖼
+ ✓ Ensuring node image (kindest/node:v1.19.1) 🖼
  ✓ Preparing nodes 📦
  ✓ Writing configuration 📜
  ✓ Starting control-plane 🕹️
@@ -678,7 +694,7 @@ Liste os nodes do cluster.
 kubectl get nodes
 
 NAME                 STATUS   ROLES    AGE     VERSION
-kind-control-plane   Ready    master   3m51s   v1.18.2
+kind-control-plane   Ready    master   3m51s   v1.19.1
 ```
 
 ### Criando um cluster com múltiplos nós locais com o Kind
@@ -710,7 +726,7 @@ Crie um cluster chamado ``kind-multinodes`` utilizando as especificações defin
 kind create cluster --name kind-multinodes --config ./kind-3nodes.yaml
 
 Creating cluster "kind-multinodes" ...
- ✓ Ensuring node image (kindest/node:v1.18.2) 🖼
+ ✓ Ensuring node image (kindest/node:v1.19.1) 🖼
  ✓ Preparing nodes 📦 📦 📦
  ✓ Writing configuration 📜
  ✓ Starting control-plane 🕹️
@@ -731,9 +747,9 @@ Valide a criação do cluster com o comando a seguir.
 kubectl get nodes
 
 NAME                            STATUS   ROLES    AGE     VERSION
-kind-multinodes-control-plane   Ready    master   3m3s    v1.18.2
-kind-multinodes-worker1          Ready    <none>   2m30s   v1.18.2
-kind-multinodes-worker2         Ready    <none>   2m30s   v1.18.2
+kind-multinodes-control-plane   Ready    master   3m3s    v1.19.1
+kind-multinodes-worker1          Ready    <none>   2m30s   v1.19.1
+kind-multinodes-worker2         Ready    <none>   2m30s   v1.19.1
 ```
 
 Mais informações sobre o Kind estão disponíveis em: https://kind.sigs.k8s.io
@@ -752,9 +768,9 @@ Para instalar o k3s, basta executar o seguinte comando:
 curl -sfL https://get.k3s.io | sh -
 
 [INFO]  Finding release for channel stable
-[INFO]  Using v1.18.2+k3s1 as release
-[INFO]  Downloading hash https://github.com/rancher/k3s/releases/download/v1.18.2+k3s1/sha256sum-arm.txt
-[INFO]  Downloading binary https://github.com/rancher/k3s/releases/download/v1.18.2+k3s1/k3s-armhf
+[INFO]  Using v1.19.1+k3s1 as release
+[INFO]  Downloading hash https://github.com/rancher/k3s/releases/download/v1.19.1+k3s1/sha256sum-arm.txt
+[INFO]  Downloading binary https://github.com/rancher/k3s/releases/download/v1.19.1+k3s1/k3s-armhf
 [INFO]  Verifying binary download
 [INFO]  Installing k3s to /usr/local/bin/k3s
 [INFO]  Creating /usr/local/bin/kubectl symlink to k3s
@@ -775,10 +791,10 @@ Vamos ver se está tudo certo com o nosso node master.
 kubectl get nodes
 
 NAME        STATUS   ROLES    AGE   VERSION
-elliot-01   Ready    master   15s   v1.18.2+k3s1
+elliot-01   Ready    master   15s   v1.19.1+k3s1
 ```
 
-Vamos ver os pods em execuçâo:
+Vamos ver os pods em execução:
 
 ```
 kubectl get pods
@@ -802,7 +818,7 @@ kube-system   svclb-traefik-t49cs                      2/2     Running     0    
 kube-system   traefik-758cd5fc85-jwvmc                 1/1     Running     0          6m12s
 ```
 
-Aí estão os pods que estão executando por padrãot, que o próprio k8s cria para executar seus próprios componentes internos. Mas temos muito mais coisas além dos pods, vamos conferir tudo que está rodando no nosso lindo k3s:
+Aí estão os pods que estão executando por padrão, que o próprio k8s cria para executar seus próprios componentes internos. Mas temos muito mais coisas além dos pods, vamos conferir tudo que está rodando no nosso lindo k3s:
 
 ```
 kubectl get all --all-namespaces
@@ -888,9 +904,9 @@ O comando ficará mais ou menos assim (lembre-se de trocar pelo seu IP e Token):
 # curl -sfL https://get.k3s.io | K3S_URL=https://192.168.86.101:6443 K3S_TOKEN=K10bded4a17f7674c322febfb517cde93afaa48c35b74528d9d2b7d20ec8e41a1ad::server:9d2c12e1112ecdc0d1f9a2fd0e2933fe sh -
 
 [INFO]  Finding release for channel stable
-[INFO]  Using v1.18.2+k3s1 as release
-[INFO]  Downloading hash https://github.com/rancher/k3s/releases/download/v1.18.2+k3s1/sha256sum-arm.txt
-[INFO]  Downloading binary https://github.com/rancher/k3s/releases/download/v1.18.2+k3s1/k3s-armhf
+[INFO]  Using v1.19.1+k3s1 as release
+[INFO]  Downloading hash https://github.com/rancher/k3s/releases/download/v1.19.1+k3s1/sha256sum-arm.txt
+[INFO]  Downloading binary https://github.com/rancher/k3s/releases/download/v1.19.1+k3s1/k3s-armhf
 [INFO]  Verifying binary download
 [INFO]  Installing k3s to /usr/local/bin/k3s
 [INFO]  Creating /usr/local/bin/kubectl symlink to k3s
@@ -911,8 +927,8 @@ Perfeito! Agora vamos ver se esse node está no nosso cluster mesmo:
 kubectl get nodes
 
 NAME        STATUS   ROLES    AGE     VERSION
-elliot-02   Ready    <none>   5m27s   v1.18.2+k3s1
-elliot-01   Ready    master   34m     v1.18.2+k3s1
+elliot-02   Ready    <none>   5m27s   v1.19.1+k3s1
+elliot-01   Ready    master   34m     v1.19.1+k3s1
 ```
 
 Olha ele ali, ``elliot-02`` já está lindo de bonito em nosso cluster, mágico não?
@@ -923,9 +939,9 @@ Quer adicionar mais nodes? Só copiar e colar aquele mesmo comando com o IP do m
 kubectl get nodes
 
 NAME        STATUS   ROLES    AGE   VERSION
-elliot-02   Ready    <none>   10m   v1.18.2+k3s1
-elliot-01   Ready    master   39m   v1.18.2+k3s1
-elliot-03   Ready    <none>   68s   v1.18.2+k3s1
+elliot-02   Ready    <none>   10m   v1.19.1+k3s1
+elliot-01   Ready    master   39m   v1.19.1+k3s1
+elliot-03   Ready    <none>   68s   v1.19.1+k3s1
 ```
 
 Todos os elliots saudáveis!!!
@@ -1120,7 +1136,11 @@ Execute o comando a seguir também apenas no nó *master* para a inicialização
 # kubeadm init
 ```
 
-A opção _--apiserver-advertise-address_ informa qual o endereço IP em que o servidor de API irá escutar. Caso este parâmetro não seja informado, a interface de rede padrão será usada.
+A opção _--apiserver-advertise-address_ informa qual o endereço IP em que o servidor de API irá escutar. Caso este parâmetro não seja informado, a interface de rede padrão será usada. Opcionalmente, você também pode passar o cidr com a opção _--pod-network-cidr_. O comando obedecerá a seguinte sintaxe:
+
+```
+kubeadm init --apiserver-advertise-address 192.168.99.2 --pod-network-cidr 192.168.99.0/24
+```
 
 A saída do comando será algo similar ao mostrado a seguir.
 
@@ -1135,6 +1155,31 @@ To start using your cluster, you need to run the following as a regular user:
 ...
 kubeadm join --token 39c341.a3bc3c4dd49758d5 IP_DO_MASTER:6443 --discovery-token-ca-cert-hash sha256:37092
 ...
+```
+
+Caso o servidor possua mais de uma interface de rede, você pode verificar se o IP interno do nó do seu cluster corresponde ao IP da interface esperada com o seguinte comando:
+
+```
+kubectl describe node elliot-1 | grep InternalIP
+```
+
+A saída será algo similar a seguir:
+
+```
+InternalIP:  192.168.99.2
+```
+
+Caso o Ip não corresponda ao da interface de rede escolhida, você pode ir até o arquivo localizado em _/etc/systemd/system/kubelet.service.d/10-kubeadm.conf_ com o editor da sua preferência, procurar por _KUBELET_CONFIG_ARGS_ e adicionar no final a instrução --node-ip=<IP Da sua preferência>. O trecho alterado será semelhante abaixo:
+
+```
+Environment="KUBELET_CONFIG_ARGS=--config=/var/lib/kubelet/config.yaml --node-ip=192.168.99.2"
+```
+
+Salve o arquivo e execute os comandos abaixo para reiniciar a configuração e consequentemente o kubelet.
+
+```
+systemctl daemon-reload
+systemctl restart kubelet
 ```
 
 ## Configuração do arquivo de contextos do kubectl
@@ -1246,9 +1291,9 @@ Para verificar se a instalação está funcionando, e se os nós estão se comun
 
 ```
 NAME        STATUS   ROLES    AGE   VERSION
-elliot-01   Ready    master   8d    v1.18.2
-elliot-02   Ready    <none>   8d    v1.18.2
-elliot-03   Ready    <none>   8d    v1.18.2
+elliot-01   Ready    master   8d    v1.19.1
+elliot-02   Ready    <none>   8d    v1.19.1
+elliot-03   Ready    <none>   8d    v1.19.1
 ```
 
 # Primeiros passos no k8s

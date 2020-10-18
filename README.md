@@ -11,11 +11,11 @@ O conteúdo deste repositório inicialmente era privado e pertencia a [LinuxTips
 
 Devido a pandemia do [Coronavirus (COVID-19)](https://coronavirus.jhu.edu/map.html) e inspirado na iniciativa do [Guia Foca GNU/Linux](https://guiafoca.org), de [Gleydson Mazioli da Silva](https:///twitter.com/gleydsonmazioli), [Jeferson Fernando](https://twitter.com/badtux_) liberou o acesso público a este repositório como forma de ajudar no combate a pandemia incentivando as pessoas a ficarem em casa adquirindo o conhecimento e se aprimorando na profissão para poderem contribuir no local de trabalho ou mesmo se prepararem para novas oportunidades.
 
-O conteúdo desse material é dividido em 6 partes (day-1 até o day-6), para facilitar o aprendizado. A ídeia é o aluno focar o aprendizado por etapas e por esse motivo recomendamos que ele mude para a próxima parte somente quando estiver totalmente confortável com o conteúdo atual.
+O conteúdo desse material é dividido em 6 partes (day-1 até o day-6), para facilitar o aprendizado. A ideia é o aluno focar o aprendizado por etapas e por esse motivo recomendamos que ele mude para a próxima parte somente quando estiver totalmente confortável com o conteúdo atual.
 
 Nesse material você terá contato com conteúdos que abordam do nível iniciante ao avançado sobre Kubernetes, e agora que ele se tornou aberto, com a ajuda de todos vamos construir o maior e mais completo material sobre Kubernetes do mundo.
 
-Futuramente o conteúdo deste repositório se tornará um livro, com o nome de todas as pessoas que contribuiram para o projeto. O valor que será arrecado com a venda do livro, será totalmente destinado para alguma organização que ajude as quebradas e pessoas com problemas financeiros e/ou problemas com acesso a informação, como por exemplo, a [Bienal da Quebrada](https://twitter.com/bienalquebrada).
+Futuramente o conteúdo deste repositório se tornará um livro, com o nome de todas as pessoas que contribuíram para o projeto. O valor que será arrecado com a venda do livro, será totalmente destinado para alguma organização que ajude as quebradas e pessoas com problemas financeiros e/ou problemas com acesso a informação, como por exemplo, a [Bienal da Quebrada](https://twitter.com/bienalquebrada).
 
 Contamos com sua ajuda para tornar esse material ainda mais completo, colabore! Para contribuir com melhorias no conteúdo, siga as instruções deste [tutorial](CONTRIBUTING.md).
 
@@ -53,7 +53,7 @@ Veja os vídeos sobre Kubernetes e até outros temas legais no canal LinuxTips.
   - [Logs](day-1/DescomplicandoKubernetes-Day1.md#logs)
 - [Microk8s](day-1/DescomplicandoKubernetes-Day1.md#microk8s)
   - [Requisitos básicos](day-1/DescomplicandoKubernetes-Day1.md#requisitos-básicos-1)
-  - [Instalaçao do MicroK8s no GNU/Linux](day-1/DescomplicandoKubernetes-Day1.md#instalaçao-do-microk8s-no-gnulinux)
+  - [Instalação do MicroK8s no GNU/Linux](day-1/DescomplicandoKubernetes-Day1.md#instalação-do-microk8s-no-gnulinux)
     - [Versões que suportam Snap](day-1/DescomplicandoKubernetes-Day1.md#versões-que-suportam-snap)
   - [Instalação no Windows](day-1/DescomplicandoKubernetes-Day1.md#instalação-no-windows)
     - [Instalando o Chocolatey](day-1/DescomplicandoKubernetes-Day1.md#instalando-o-chocolatey)
@@ -64,7 +64,7 @@ Veja os vídeos sobre Kubernetes e até outros temas legais no canal LinuxTips.
     - [Instalando o Microk8s via Brew](day-1/DescomplicandoKubernetes-Day1.md#instalando-o-microk8s-via-brew)
 - [Kind](day-1/DescomplicandoKubernetes-Day1.md#kind)
   - [Instalação no GNU/Linux](day-1/DescomplicandoKubernetes-Day1.md#instalação-no-gnulinux)
-  - [Instalaçao no MacOS](day-1/DescomplicandoKubernetes-Day1.md#instalaçao-no-macos)
+  - [Instalação no MacOS](day-1/DescomplicandoKubernetes-Day1.md#instalação-no-macos)
   - [Instalação no Windows](day-1/DescomplicandoKubernetes-Day1.md#instalação-no-windows-1)
     - [Instalação no Windows via Chocolatey](day-1/DescomplicandoKubernetes-Day1.md#instalação-no-windows-via-chocolatey)
   - [Criando um cluster com o Kind](day-1/DescomplicandoKubernetes-Day1.md#criando-um-cluster-com-o-kind)
@@ -146,6 +146,8 @@ Veja os vídeos sobre Kubernetes e até outros temas legais no canal LinuxTips.
 - [InitContainers](day-4/DescomplicandoKubernetes-Day4.md#initcontainers)
 - [Criando um usuário no Kubernetes](day-4/DescomplicandoKubernetes-Day4.md#criando-um-usuário-no-kubernetes)
 - [RBAC](day-4/DescomplicandoKubernetes-Day4.md#rbac)
+  - [Role e ClusterRole](day-4/DescomplicandoKubernetes-Day4.md#role-e-clusterrole)
+  - [RoleBinding e ClusterRoleBinding](day-4/DescomplicandoKubernetes-Day4.md#rolebinding-e-clusterrolebinding)
 - [Helm](day-4/DescomplicandoKubernetes-Day4.md#helm)
   - [Instalando o Helm 3](day-4/DescomplicandoKubernetes-Day4.md#instalando-o-helm-3)
   - [Comandos Básicos do Helm 3](day-4/DescomplicandoKubernetes-Day4.md#comandos-básicos-do-helm-3)

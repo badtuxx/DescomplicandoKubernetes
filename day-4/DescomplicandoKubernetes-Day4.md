@@ -15,6 +15,8 @@
 - [InitContainers](#initcontainers)
 - [Criando um usuário no Kubernetes](#criando-um-usuário-no-kubernetes)
 - [RBAC](#rbac)
+  - [Role e ClusterRole](#role-e-clusterrole)
+  - [RoleBinding e ClusterRoleBinding](#rolebinding-e-clusterrolebinding)
 - [Helm](#helm)
   - [Instalando o Helm 3](#instalando-o-helm-3)
   - [Comandos Básicos do Helm 3](#comandos-básicos-do-helm-3)
@@ -656,7 +658,7 @@ Events:
 
 Olha que bacana, se observar no ``Events`` do cluster o ``cron`` já está agendando e executando as tarefas.
 
-Agora vamos ver esse ``cron`` funcionando através do comando ``kubectl get`` junto do parâmetro ``--watch`` para verificar a saida das tarefas, preste atenção que a tarefa vai ser criada em cerca de um minuto após a criação do ``CronJob``.
+Agora vamos ver esse ``cron`` funcionando através do comando ``kubectl get`` junto do parâmetro ``--watch`` para verificar a saída das tarefas, preste atenção que a tarefa vai ser criada em cerca de um minuto após a criação do ``CronJob``.
 
 ```
 kubectl get jobs --watch
@@ -950,15 +952,15 @@ Vamos criar um diretório chamado ``frutas`` e nele vamos adicionar frutas e sua
 ```
 mkdir frutas
 
-echo amarela > frutas/banana
+echo -n amarela > frutas/banana
 
-echo vermelho > frutas/morango
+echo -n vermelho > frutas/morango
 
-echo verde > frutas/limao
+echo -n verde > frutas/limao
 
-echo "verde e vermelha" > frutas/melancia
+echo -n "verde e vermelha" > frutas/melancia
 
-echo kiwi > predileta
+echo -n kiwi > predileta
 ```
 
 Crie o ``Configmap``.
@@ -1000,9 +1002,6 @@ spec:
         configMapKeyRef:
           name: cores-frutas
           key: predileta
-#    envFrom:
-#    - configMapRef:
-#        name: cores-frutas
 ```
 
 Crie o pod a partir do manifesto.
@@ -1011,7 +1010,65 @@ Crie o pod a partir do manifesto.
 kubectl create -f pod-configmap.yaml
 ```
 
-Vamos criar um pod para usar outro Configmap:
+Após a criação, execute o comando ``set`` dentro do contêiner, para listar as variáveis de ambiente e conferir se foi criada a variável de acordo com a ``key=predileta`` que definimos em nosso arquivo yaml.
+
+Repare no final da saída do comando ``set`` a env ``frutas='kiwi'``.
+
+```
+kubectl exec -ti busybox-configmap -- sh 
+/ # set
+...
+frutas='kiwi'
+```
+
+Vamos criar um pod utilizando utilizando mais de uma variável:
+
+```
+vim pod-configmap-env.yaml
+```
+
+Informe o seguinte conteúdo:
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: busybox-configmap-env
+  namespace: default
+spec:
+  containers:
+  - image: busybox
+    name: busy-configmap
+    command:
+      - sleep
+      - "3600"
+    envFrom:
+    - configMapRef:
+        name: cores-frutas
+```
+
+Crie o pod a partir do manifesto:
+
+```
+kubectl create -f pod-configmap-env.yaml
+```
+
+Vamos entrar no contêiner e executar o comando ``set`` novamente para listar as variáveis, repare que foi criada todas as variáveis.
+
+```
+kubectl exec -ti busybox-configmap-env -- sh
+
+/ # set
+...
+banana='amarela'
+limao='verde'
+melancia='verde e vermelha'
+morango='vermelho'
+predileta='kiwi'
+uva='roxa'
+```
+
+Agora vamos criar um pod para usar outro Configmap, só que dessa vez utilizando volume:
 
 ```
 vim pod-configmap-file.yaml
@@ -1047,12 +1104,30 @@ Crie o pod a partir do manifesto.
 kubectl create -f pod-configmap-file.yaml
 ```
 
+Após a criação do pod, vamos conferir o nosso configmap como arquivos.
+
+```
+kubectl exec -ti busybox-configmap-file -- sh
+/ # ls -lh /etc/frutas/
+total 0      
+lrwxrwxrwx    1 root     root          13 Sep 23 04:56 banana -> ..data/banana
+lrwxrwxrwx    1 root     root          12 Sep 23 04:56 limao -> ..data/limao
+lrwxrwxrwx    1 root     root          15 Sep 23 04:56 melancia -> ..data/melancia
+lrwxrwxrwx    1 root     root          14 Sep 23 04:56 morango -> ..data/morango
+lrwxrwxrwx    1 root     root          16 Sep 23 04:56 predileta -> ..data/predileta
+lrwxrwxrwx    1 root     root          10 Sep 23 04:56 uva -> ..data/uva
+```
+
 # InitContainers
 
-> **Seção em construção...**
-> **Falta definir o conceito de Init Containers...**
+O objeto do tipo **InitContainers** são um ou mais contêineres que são executados antes do contêiner de um aplicativo em um Pod. Os contêineres de inicialização podem conter utilitários ou scripts de configuração não presentes em uma imagem de aplicativo.
 
-Crie o seguinte arquivo:
+- Os contêineres de inicialização sempre são executados até a conclusão.
+- Cada contêiner init deve ser concluído com sucesso antes que o próximo comece.
+
+Se o contêiner init de um Pod falhar, o Kubernetes reiniciará repetidamente o Pod até que o contêiner init tenha êxito. No entanto, se o Pod tiver o ``restartPolicy`` como ``Never``, o Kubernetes não reiniciará o Pod, e o contêiner principal não irá ser executado.
+
+Crie o Pod a partir do manifesto:
 
 ```
 vim nginx-initcontainer.yaml
@@ -1077,11 +1152,7 @@ spec:
   initContainers:
   - name: install
     image: busybox
-    command:
-    - wget
-    - "-O"
-    - "/work-dir/index.html"
-    - http://kubernetes.io
+    command: ['wget','-O','/work-dir/index.html','http://linuxtips.io']
     volumeMounts:
     - name: workdir
       mountPath: "/work-dir"
@@ -1099,13 +1170,13 @@ kubectl create -f nginx-initcontainer.yaml
 pod/init-demo created
 ```
 
-Visualize o conteúdo de um arquivo dentro de um contêiner do pod.
+Visualize o conteúdo de um arquivo dentro de um contêiner do Pod.
 
 ```
 kubectl exec -ti init-demo -- cat /usr/share/nginx/html/index.html
 ```
 
-Vamos ver os detalhes do pod.
+Vamos ver os detalhes do Pod:
 
 ```
 kubectl describe pod init-demo
@@ -1190,7 +1261,20 @@ Events:
   Normal  Started    2m59s  kubelet, k8s3      Started container
 ```
 
-Vamos remover o pod a partir do manifesto:
+Coletando os logs do contêiner init:
+
+```
+kubectl logs init-demo -c install
+
+Connecting to linuxtips.io (23.236.62.147:80)
+Connecting to www.linuxtips.io (35.247.254.172:443)
+wget: note: TLS certificate validation not implemented
+saving to '/work-dir/index.html'
+index.html           100% |********************************|  765k  0:00:00 ETA
+'/work-dir/index.html' saved
+```
+
+E por último vamos remover o Pod a partir do manifesto:
 
 ```
 kubectl delete -f nginx-initcontainer.yaml
@@ -1198,7 +1282,7 @@ kubectl delete -f nginx-initcontainer.yaml
 pod/init-demo deleted
 ```
 
-# Criando um usuário no Kubernetes 
+# Criando um usuário no Kubernetes
 
 Para criar um usuário no Kubernetes, vamos precisar gerar um CSR (*Certificate Signing Request*) para o usuário. O usuário que vamos utilizar como exemplo é o ``linuxtips``.
 
@@ -1222,7 +1306,7 @@ spec:
   request: $(cat linuxtips.csr | base64 | tr -d '\n')
   usages:
   - client auth
-``` 
+```
 
 Para ver os CSR criados, utilize o seguinte comando:
 
@@ -1281,28 +1365,228 @@ kubectl version --kubeconfig=linuxtips-config
 Pronto! Agora só associar um ``role`` com as permissões desejadas para o usuário.
 
 
-
-
 # RBAC
 
-> **Seção em construção...**
-> **Falta definir o conceito de RBAC...**
+O controle de acesso baseado em funções (*Role-based Access Control* - RBAC) é um método para fazer o controle de acesso aos recursos do Kubernetes com base nas funções dos administradores individuais em sua organização.
+
+A autorização RBAC usa o ``rbac.authorization.k8s.io`` para conduzir as decisões de autorização, permitindo que você configure políticas dinamicamente por meio da API Kubernetes.
+
+## Role e ClusterRole
+
+Um RBAC ``Role`` ou ``ClusterRole`` contém regras que representam um conjunto de permissões. As permissões são puramente aditivas (não há regras de "negação").
+
+- Uma ``Role`` sempre define permissões em um determinado namespace, ao criar uma função, você deve especificar o namespace ao qual ela pertence.
+- O ``ClusterRole``, por outro lado, é um recurso sem namespaces.
+
+Você pode usar um ``ClusterRole`` para:
+
+* Definir permissões em recursos com namespace e ser concedido dentro de namespaces individuais;
+* Definir permissões em recursos com namespaces e ser concedido em todos os namespaces;
+* Definir permissões em recursos com escopo de cluster.
+
+Se você quiser definir uma função em um namespace, use uma ``Role``, caso queria definir uma função em todo o cluster, use um ``ClusterRole``. :)
+
+## RoleBinding e ClusterRoleBinding
+
+Uma ``RoleBinding`` concede as permissões definidas em uma função a um usuário ou conjunto de usuários. Ele contém uma lista de assuntos (usuários, grupos ou contas de serviço) e uma referência à função que está sendo concedida. Um ``RoleBinding`` concede permissões dentro de um namespace específico, enquanto um ``ClusterRoleBinding`` concede esse acesso a todo o cluster.
+
+Um RoleBinding pode fazer referência a qualquer papel no mesmo namespace. Como alternativa, um RoleBinding pode fazer referência a um ClusterRole e vincular esse ClusterRole ao namespace do RoleBinding. Se você deseja vincular um ClusterRole a todos os namespaces em seu cluster, use um ClusterRoleBinding.
+
+Com o ``ClusterRoleBinding`` você pode associar uma conta de serviço a uma determinada ClusterRole.
+
+Primeiro vamos exibir as ClusterRoles:
+
+```
+kubectl get clusterrole
+
+NAME                                                                   CREATED AT
+admin                                                                  2020-09-20T04:35:27Z
+calico-kube-controllers                                                2020-09-20T04:35:34Z
+calico-node                                                            2020-09-20T04:35:34Z
+cluster-admin                                                          2020-09-20T04:35:27Z
+edit                                                                   2020-09-20T04:35:27Z
+kubeadm:get-nodes                                                      2020-09-20T04:35:30Z
+system:aggregate-to-admin                                              2020-09-20T04:35:28Z
+system:aggregate-to-edit                                               2020-09-20T04:35:28Z
+system:aggregate-to-view                                               2020-09-20T04:35:28Z
+system:auth-delegator                                                  2020-09-20T04:35:28Z
+system:basic-user                                                      2020-09-20T04:35:27Z
+system:certificates.k8s.io:certificatesigningrequests:nodeclient       2020-09-20T04:35:28Z
+system:certificates.k8s.io:certificatesigningrequests:selfnodeclient   2020-09-20T04:35:28Z
+system:certificates.k8s.io:kube-apiserver-client-approver              2020-09-20T04:35:28Z
+system:certificates.k8s.io:kube-apiserver-client-kubelet-approver      2020-09-20T04:35:28Z
+system:certificates.k8s.io:kubelet-serving-approver                    2020-09-20T04:35:28Z
+system:certificates.k8s.io:legacy-unknown-approver                     2020-09-20T04:35:28Z
+system:controller:attachdetach-controller                              2020-09-20T04:35:28Z
+system:controller:certificate-controller                               2020-09-20T04:35:28Z
+system:controller:clusterrole-aggregation-controller                   2020-09-20T04:35:28Z
+system:controller:cronjob-controller                                   2020-09-20T04:35:28Z
+system:controller:daemon-set-controller                                2020-09-20T04:35:28Z
+system:controller:deployment-controller                                2020-09-20T04:35:28Z
+system:controller:disruption-controller                                2020-09-20T04:35:28Z
+system:controller:endpoint-controller                                  2020-09-20T04:35:28Z
+system:controller:endpointslice-controller                             2020-09-20T04:35:28Z
+system:controller:endpointslicemirroring-controller                    2020-09-20T04:35:28Z
+system:controller:expand-controller                                    2020-09-20T04:35:28Z
+system:controller:generic-garbage-collector                            2020-09-20T04:35:28Z
+system:controller:horizontal-pod-autoscaler                            2020-09-20T04:35:28Z
+system:controller:job-controller                                       2020-09-20T04:35:28Z
+system:controller:namespace-controller                                 2020-09-20T04:35:28Z
+system:controller:node-controller                                      2020-09-20T04:35:28Z
+system:controller:persistent-volume-binder                             2020-09-20T04:35:28Z
+system:controller:pod-garbage-collector                                2020-09-20T04:35:28Z
+system:controller:pv-protection-controller                             2020-09-20T04:35:28Z
+system:controller:pvc-protection-controller                            2020-09-20T04:35:28Z
+system:controller:replicaset-controller                                2020-09-20T04:35:28Z
+system:controller:replication-controller                               2020-09-20T04:35:28Z
+system:controller:resourcequota-controller                             2020-09-20T04:35:28Z
+system:controller:route-controller                                     2020-09-20T04:35:28Z
+system:controller:service-account-controller                           2020-09-20T04:35:28Z
+system:controller:service-controller                                   2020-09-20T04:35:28Z
+system:controller:statefulset-controller                               2020-09-20T04:35:28Z
+system:controller:ttl-controller                                       2020-09-20T04:35:28Z
+system:coredns                                                         2020-09-20T04:35:30Z
+system:discovery                                                       2020-09-20T04:35:27Z
+system:heapster                                                        2020-09-20T04:35:28Z
+system:kube-aggregator                                                 2020-09-20T04:35:28Z
+system:kube-controller-manager                                         2020-09-20T04:35:28Z
+system:kube-dns                                                        2020-09-20T04:35:28Z
+system:kube-scheduler                                                  2020-09-20T04:35:28Z
+system:kubelet-api-admin                                               2020-09-20T04:35:28Z
+system:node                                                            2020-09-20T04:35:28Z
+system:node-bootstrapper                                               2020-09-20T04:35:28Z
+system:node-problem-detector                                           2020-09-20T04:35:28Z
+system:node-proxier                                                    2020-09-20T04:35:28Z
+system:persistent-volume-provisioner                                   2020-09-20T04:35:28Z
+system:public-info-viewer                                              2020-09-20T04:35:27Z
+system:volume-scheduler                                                2020-09-20T04:35:28Z
+view                                                                   2020-09-20T04:35:28Z
+```
+
+Lembra que falamos anteriormente que para associar uma ``ClusterRole``, precisamos criar uma ``ClusterRoleBinding``?
+
+Para ver a função de cada uma delas, você pode executar o ``describe``, como fizemos para o **cluster-admin**, repare em ``Resources`` que tem o ``*.*``, ou seja, a ``ServiceAccount`` que pertence a este grupo, pode fazer tudo dentro do cluster.
+
+```
+kubectl describe clusterrole cluster-admin
+
+Name:         cluster-admin
+Labels:       kubernetes.io/bootstrapping=rbac-defaults
+Annotations:  rbac.authorization.kubernetes.io/autoupdate: true
+PolicyRule:
+  Resources  Non-Resource URLs  Resource Names  Verbs
+  ---------  -----------------  --------------  -----
+  *.*        []                 []              [*]
+             [*]                []              [*]
+```
+
+Vamos criar uma ``ServiceAccount`` na unha para ser administrador do nosso cluster:
 
 ```
 kubectl create serviceaccount jeferson
+```
 
+Conferindo se a ``ServiceAccount`` foi criada:
+
+```
+kubectl get serviceaccounts
+
+NAME      SECRETS   AGE
+default   1         10d
+jeferson  1         10s
+```
+
+Visualizando detalhes da ``ServiceAccount``:
+
+```
+kubectl describe serviceaccounts jeferson
+
+Name:                jeferson
+Namespace:           default
+Labels:              <none>
+Annotations:         <none>
+Image pull secrets:  <none>
+Mountable secrets:   jeferson-token-h8dz6
+Tokens:              jeferson-token-h8dz6
+Events:              <none>
+```
+
+Crie uma ``ClusterRoleBinding`` e associe a ``ServiceAccount`` **jeferson** e com a função ``ClusterRole`` **cluster-admin**:
+
+```
 kubectl create clusterrolebinding toskeria --serviceaccount=default:jeferson --clusterrole=cluster-admin
+```
 
+Exibindo a ``ClusterRoleBinding`` que acabamos de criar:
+
+```
+kubectl get clusterrolebindings.rbac.authorization.k8s.io toskeria
+
+NAME       ROLE                        AGE
+toskeria   ClusterRole/cluster-admin   118m
+```
+
+Vamos mandar um ``describe`` do ``ClusterRoleBinding`` **toskeira**.
+
+```
+kubectl describe clusterrolebindings.rbac.authorization.k8s.io toskeria
+
+Name:         toskeria
+Labels:       <none>
+Annotations:  <none>
+Role:
+  Kind:  ClusterRole
+  Name:  cluster-admin
+Subjects:
+  Kind            Name      Namespace
+  ----            ----      ---------
+  ServiceAccount  jeferson  default
+```
+
+Agora iremos criar um ``ServiceAccount`` **admin-user** a partir do manifesto ``admin-user.yaml``.
+
+Crie o arquivo:
+
+```
 vim admin-user.yaml
+```
 
+Informe o seguinte conteúdo:
+
+```yaml
 apiVersion: v1
 kind: ServiceAccount
 metadata:
   name: admin-user
   namespace: kube-system
+```
 
+Crie a ``ServiceAccount`` partir do manifesto.
+
+```
+kubectl create -f admin-user.yaml
+```
+
+Checando se a ``ServiceAccount`` foi criada:
+
+```
+kubectl get serviceaccounts --namespace=kube-system admin-user
+
+NAME         SECRETS   AGE
+admin-user   1         10s
+```
+
+Agora iremos associar o **admin-user** ao **cluster-admin** também a partir do manifesto ``admin-cluster-role-binding.yaml``.
+
+Crie o arquivo:
+
+```
 vim admin-cluster-role-binding.yaml
+```
 
+Informe o seguinte conteúdo:
+
+```yaml
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
@@ -1315,11 +1599,28 @@ subjects:
 - kind: ServiceAccount
   name: admin-user
   namespace: kube-system
-
-kubectl create -f admin-user.yaml
-
-kubectl create -f admin-cluster-role-binding.yaml
 ```
+
+Crie o ``ClusterRoleBinding`` partir do manifesto.
+
+```
+kubectl create -f admin-cluster-role-binding.yaml
+
+clusterrolebinding.rbac.authorization.k8s.io/admin-user created
+```
+
+Cheque se o ``ClusterRoleBinding`` foi criado:
+
+```
+kubectl get clusterrolebindings.rbac.authorization.k8s.io admin-user
+
+NAME         ROLE                        AGE
+admin-user   ClusterRole/cluster-admin   21m
+```
+
+Pronto! Agora o usuário **admin-user** foi associado ao ``ClusterRoleBinding`` **admin-user** com a função **cluster-admin**.
+
+Lembrando que toda vez que nos referirmos ao ``ServiceAccount``, estamos referindo à uma conta de usuário.
 
 # Helm
 
@@ -1334,7 +1635,7 @@ Para obter mais informações sobre o Helm, acesse os seguintes links:
 * https://helm.sh
 * https://helm.sh/docs/intro/quickstart
 * https://www.youtube.com/watch?v=Zzwq9FmZdsU&t=2s
-* https://helm.sh/docs/topics/architecture 
+* https://helm.sh/docs/topics/architecture
 
 ---
 
@@ -1387,7 +1688,7 @@ Vamos obter a lista atualizada de Helm charts disponíveis para instalação uti
 helm repo update
 ```
 
-Por enquanto só temos um repositório adicionado. Se tívessemos adicionados mais, esse comando nos ajudaria muito.
+Por enquanto só temos um repositório adicionado. Se tivéssemos adicionados mais, esse comando nos ajudaria muito.
 
 Agora vamos listar quais os charts estão disponíveis para ser instalados:
 
@@ -1434,7 +1735,7 @@ helm install meu-prometheus --version=11.4.0 stable/prometheus
 
 ---
 
-> OBS.: Se a opção ``-n NOME_NAMESPACE`` for utilizada, a aplicação será instalada no namespace específico. O Helm na vesão 3 não cria o namespace. É necessário criá-lo antes e já vimos como fazer isso no dia 2.
+> OBS.: Se a opção ``-n NOME_NAMESPACE`` for utilizada, a aplicação será instalada no namespace específico. O Helm na versão 3 não cria o namespace. É necessário criá-lo antes e já vimos como fazer isso no dia 2.
 
 ---
 
@@ -1649,10 +1950,10 @@ Containers:
       /var/run/secrets/kubernetes.io/serviceaccount from meu-prometheus-server-token-g5w82 (ro)
 Conditions:
   Type              Status
-  Initialized       True 
-  Ready             True 
-  ContainersReady   True 
-  PodScheduled      True 
+  Initialized       True
+  Ready             True
+  ContainersReady   True
+  PodScheduled      True
 Volumes:
   config-volume:
     Type:      ConfigMap (a volume populated by a ConfigMap)
@@ -1660,7 +1961,7 @@ Volumes:
     Optional:  false
   storage-volume:
     Type:       EmptyDir (a temporary directory that shares a pod's lifetime)
-    Medium:     
+    Medium:
     SizeLimit:  <unset>
   meu-prometheus-server-token-g5w82:
     Type:        Secret (a volume populated by a Secret)
@@ -1696,7 +1997,7 @@ kubectl port-forward meu-prometheus-server-5bc59849fd-b29q4 --namespace default 
 
 Agora acesse o navegador no endereço http://localhost:9091. Mágico não é mesmo?
 
-O comando ``kubectl port-forward`` cria um redicionamento do tráfego 9091/TCP da sua máquina para a porta 9090 do pod que está no seu cluster. Saiba mais em:
+O comando ``kubectl port-forward`` cria um redirecionamento do tráfego 9091/TCP da sua máquina para a porta 9090 do pod que está no seu cluster. Saiba mais em:
 
 https://kubernetes.io/docs/tasks/access-application-cluster/port-forward-access-application-cluster/#forward-a-local-port-to-a-port-on-the-pod
 
@@ -1862,7 +2163,7 @@ REVISION UPDATED                  STATUS       CHART             APP VERSION DES
 
 Se a aplicação for removida sem a opção `--keep-history`, o histórico será perdido e não será possível fazer rollback.
 
-Para testar isso, remova as aplicações ``meu-prometheus`` e ``meu-grafana`` com os seguites comandos:
+Para testar isso, remova as aplicações ``meu-prometheus`` e ``meu-grafana`` com os seguintes comandos:
 
 ```
 helm uninstall meu-grafana
