@@ -17,7 +17,7 @@ Normalmente quando executamos um Pod no Kubernetes, todo o tráfego é roteado s
 
 Vamos criar nosso primeiro Ingress, mas primeiro vamos gerar dois deployments e dois services:
 
-```bash
+```
 vim app1.yaml
 ```
 
@@ -48,7 +48,7 @@ spec:
         - containerPort: 80
 ```
 
-```bash
+```
 vim app2.yaml
 ```
 
@@ -81,19 +81,19 @@ spec:
 
 Vamos criar os deployments no cluster com os seguintes comandos:
 
-```bash
+```
 kubectl create -f app1.yaml 
 
 deployment.apps/app1 created
 ```
 
-```bash
+```
 kubectl create -f app2.yaml 
 
 deployment.apps/app2 created
 ```
 
-```bash
+```
 vim svc-app1.yaml
 ```
 
@@ -113,7 +113,7 @@ spec:
     app: app1
 ```
 
-```bash
+```
 vim svc-app2.yaml
 ```
 
@@ -135,13 +135,13 @@ spec:
 
 Vamos criar os services no cluster com os seguintes comandos:
 
-```bash
+```
 kubectl create -f svc-app1.yaml 
 
 service/appsvc1 created
 ```
 
-```bash
+```
 kubectl create -f svc-app2.yaml 
 
 service/appsvc2 created
@@ -151,7 +151,7 @@ Acabamos de criar dois Pods com imagens de um site estático.
 
 Vamos visualizar os deployments:
 
-```bash
+```
 kubectl get deploy
 
 NAME      DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
@@ -161,7 +161,7 @@ app2      2         2         2            2           3m
 
 Vamos visualizar os services:
 
-```bash
+```
 kubectl get services
 
 NAME         TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)   AGE
@@ -172,7 +172,7 @@ kubernetes   ClusterIP   10.96.0.1       <none>        443/TCP   11d
 
 Vamos listar os Endpoints dos services:
 
-```bash
+```
 kubectl get ep
 
 NAME         ENDPOINTS                     AGE
@@ -183,7 +183,7 @@ kubernetes   10.142.0.5:6443               11d
 
 Agora vamos acessar os sites e ver se tudo deu certo com as variáveis de ambiente que  configuramos nos Deployments.
 
-```bash
+```
 curl 10.44.0.11
 
 ...
@@ -193,7 +193,7 @@ curl 10.44.0.11
 container running Nginx.</p>
 ```
 
-```bash
+```
 curl  10.32.0.4
 h1 id="toc_0">Hello STRIGUS!</h1>
 
@@ -203,7 +203,7 @@ container running Nginx.</p>
 
 Vamos criar um deployment para o backend:
 
-```bash
+```
 vim default-backend.yaml
 ```
 
@@ -257,7 +257,7 @@ Atenção para os seguintes parâmetros no arquivo anterior:
 
 Crie o namespace ``ingress``:
 
-```bash
+```
 kubectl create namespace ingress
 
 namespace/ingress created
@@ -265,7 +265,7 @@ namespace/ingress created
 
 Crie o deployment do backend no namespace ``ingress``:
 
-```bash
+```
 kubectl create -f default-backend.yaml -n ingress 
 
 deployment.apps/default-backend created
@@ -273,7 +273,7 @@ deployment.apps/default-backend created
 
 Crie um arquivo para definir um service para o backend:
 
-```bash
+```
 vim default-backend-service.yaml
 ```
 
@@ -295,7 +295,7 @@ spec:
 
 Crie o service para o backend no namespace ``ingress``:
 
-```bash
+```
 kubectl create -f default-backend-service.yaml -n ingress 
 
 service/default-backend created
@@ -303,7 +303,7 @@ service/default-backend created
 
 Visualize novamente os deployments no namespace ``default``:
 
-```bash
+```
 kubectl get deployments.
 
 NAME      DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
@@ -313,7 +313,7 @@ app2      2         2         2            2           28m
 
 Visualize o deployment no namespace ``ingress``:
 
-```bash
+```
 kubectl get deployments. -n ingress
 
 NAME              DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
@@ -322,7 +322,7 @@ default-backend   2         2         2            2           27s
 
 Visualize novamente os services no namespace ``default``:
 
-```bash
+```
 kubectl get service
 
 NAME         TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)   AGE
@@ -333,7 +333,7 @@ kubernetes   ClusterIP   10.96.0.1       <none>        443/TCP   11d
 
 Visualize o service no namespace ``ingress``:
 
-```bash
+```
 kubectl get service -n ingress
 
 NAME              TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)   AGE
@@ -342,7 +342,7 @@ default-backend   ClusterIP   10.99.233.157   <none>        80/TCP    38s
 
 Visualize o endpoint no namespace ``ingress``:
 
-```bash
+```
 kubectl get ep -n ingress
 
 NAME              ENDPOINTS                        AGE
@@ -351,7 +351,7 @@ default-backend   10.32.0.14:8080,10.40.0.4:8080   2m
 
 Agora crie o um arquivo para definir um ``configMap`` a ser utilizado pela nossa aplicação:
 
-```bash
+```
 vim nginx-ingress-controller-config-map.yaml
 ```
 
@@ -370,7 +370,7 @@ data:
 
 Crie o configMap no namespace ``ingress``:
 
-```bash
+```
 kubectl create -f nginx-ingress-controller-config-map.yaml -n ingress
 
 configmap/nginx-ingress-controller-conf created
@@ -378,7 +378,7 @@ configmap/nginx-ingress-controller-conf created
 
 Visualize o configMap no namespace ``ingress``:
 
-```bash
+```
 kubectl get configmaps -n ingress
 
 NAME                            DATA      AGE
@@ -387,7 +387,7 @@ nginx-ingress-controller-conf   1         20s
 
 Visualize os detalhes do configMap recém criado no namespace ``ingress``:
 
-```bash
+```
 kubectl describe configmaps nginx-ingress-controller-conf -n ingress
 
 Name:         nginx-ingress-controller-conf
@@ -404,7 +404,7 @@ Events:  <none>
 
 Vamos criar os arquivos para definir as permissões para o nosso deployment:
 
-```bash
+```
 vim nginx-ingress-controller-service-account.yaml
 ```
 
@@ -418,7 +418,7 @@ metadata:
   namespace: ingress
 ```
 
-```bash
+```
 vim nginx-ingress-controller-clusterrole.yaml
 ```
 
@@ -479,7 +479,7 @@ rules:
   - create
 ```
 
-```bash
+```
 vim nginx-ingress-controller-clusterrolebinding.yaml
 ```
 
@@ -503,19 +503,19 @@ subjects:
 
 Aplique as permissões no namespace ``ingress`` com os seguintes comandos:
 
-```bash
+```
 kubectl create -f nginx-ingress-controller-service-account.yaml -n ingress 
 
 serviceaccount/nginx created
 ```
 
-```bash
+```
 kubectl create -f nginx-ingress-controller-clusterrole.yaml -n ingress
 
 clusterrole.rbac.authorization.k8s.io/nginx-role created
 ```
 
-```bash
+```
 kubectl create -f nginx-ingress-controller-clusterrolebinding.yaml -n ingress 
 
 clusterrolebinding.rbac.authorization.k8s.io/nginx-role created
@@ -523,21 +523,21 @@ clusterrolebinding.rbac.authorization.k8s.io/nginx-role created
 
 Visualize os serviceAccount e roles recém criados no namespace ``ingress`` com os seguintes comandos:
 
-```bash
+```
 kubectl get serviceaccounts -n ingress
 ```
 
-```bash
+```
 kubectl get clusterrole -n ingress
 ```
 
-```bash
+```
 kubectl get clusterrolebindings -n ingress
 ```
 
 Agora crie um arquivo para definir outro deployment:
 
-```bash
+```
 vim nginx-ingress-controller-deployment.yaml
 ```
 
@@ -598,7 +598,7 @@ spec:
 
 Crie o deployment no namespace ``ingress``:
 
-```bash
+```
 kubectl create -f nginx-ingress-controller-deployment.yaml -n ingress
 
 deployment.apps/nginx-ingress-controller created
@@ -606,7 +606,7 @@ deployment.apps/nginx-ingress-controller created
 
 Visualize o deployment recém criado no namespace ``ingress``:
 
-```bash
+```
 kubectl get deployments -n ingress
 
 NAME                       DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
@@ -616,7 +616,7 @@ nginx-ingress-controller   1         1         1            1           23s
 
 Visualize todos os pods:
 
-```bash
+```
 kubectl get pods --all-namespaces
 
 NAMESPACE     NAME                                        READY     STATUS    RESTARTS   AGE
@@ -631,7 +631,7 @@ ingress       nginx-ingress-controller-65fbdc747b-mlb9k   1/1       Running   0 
 
 Agora crie um arquivo para definir o ingress que redirecionará para o backend:
 
-```bash
+```
 vim nginx-ingress.yaml
 ```
 
@@ -658,7 +658,7 @@ spec:
 
 Agora crie um arquivo para definir o ingress que redirecionará para os serviços das aplicações que criamos no início desta seção:
 
-```bash
+```
 vim app-ingress.yaml
 ```
 
@@ -694,13 +694,13 @@ spec:
 
 Crie os ingresses no namespace ``ingress`` e ``default`` com os seguintes comandos, respectivamente:
 
-```bash
+```
 kubectl create -f nginx-ingress.yaml -n ingress
 
 ingress.networking.k8s.io/nginx-ingress created
 ```
 
-```bash
+```
 kubectl create -f app-ingress.yaml
 
 ingress.networking.k8s.io/app-ingress created
@@ -708,14 +708,14 @@ ingress.networking.k8s.io/app-ingress created
 
 Visualize os ingresses recém criados:
 
-```bash
+```
 kubectl get ingresses -n ingress
 
 NAME            HOSTS                                        ADDRESS   PORTS     AGE
 nginx-ingress   ec2-54-159-116-229.compute-1.amazonaws.com             80        35s
 ```
 
-```bash
+```
 kubectl get ingresses
 
 NAME          HOSTS                                        ADDRESS   PORTS     AGE
@@ -724,7 +724,7 @@ app-ingress   ec2-54-159-116-229.compute-1.amazonaws.com             80        1
 
 Visualize os detalhes do ingress que redireciona para o backend no namespace ``ingress``:
 
-```bash
+```
 kubectl describe ingresses.extensions nginx-ingress -n ingress
 
 Name:             nginx-ingress
@@ -745,7 +745,7 @@ Events:
 
 Visualize os detalhes do ingress que redireciona para a aplicação no namespace ``default``:
 
-```bash
+```
 kubectl describe ingresses.extensions app-ingress
 
 Name:             app-ingress
@@ -768,7 +768,7 @@ Events:
 
 Crie um arquivo para definir um service do tipo nodePort:
 
-```bash
+```
 vim nginx-ingress-controller-service.yaml
 ```
 
@@ -794,7 +794,7 @@ spec:
 
 Agora crie o service do tipo nodePort:
 
-```bash
+```
 kubectl create -f nginx-ingress-controller-service.yaml -n=ingress
 
 service/nginx-ingress created
