@@ -388,7 +388,7 @@ nginx-ingress-controller-conf   1         20s
 Visualize os detalhes do configMap recém criado no namespace ``ingress``:
 
 ```bash
-kubectl describe configmaps -n ingress nginx-ingress-controller-conf
+kubectl describe configmaps nginx-ingress-controller-conf -n ingress
 
 Name:         nginx-ingress-controller-conf
 Namespace:    ingress
