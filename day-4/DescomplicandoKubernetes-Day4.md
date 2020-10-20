@@ -1650,7 +1650,7 @@ Para obter mais informações sobre o Helm, acesse os seguintes links:
 Execute o seguinte comando para instalar o Helm3 no node ``elliot-01``:
 
 ```
-curl https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3 | bash/
+curl https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3 | bash -
 ```
 
 Visualize a versão do Helm:
