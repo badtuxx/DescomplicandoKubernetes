@@ -1665,6 +1665,7 @@ Vamos adicionar o repositório oficial de Helm charts estáveis:
 
 ```
 helm repo add stable https://kubernetes-charts.storage.googleapis.com
+helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
 ```
 
 Vamos listar os repositórios Helm adicionados:
@@ -1674,6 +1675,7 @@ helm repo list
 
 NAME    URL
 stable  https://kubernetes-charts.storage.googleapis.com/
+prometheus-community    https://prometheus-community.github.io/helm-charts
 ```
 
 ---
@@ -1711,10 +1713,14 @@ helm search hub
 Vamos instalar o Prometheus utilizando o Helm. Mas antes vamos visualizar qual a versão do chart disponível para instalação:
 
 ```
-helm search repo prometheus
+helm search repo prometheus-community
 
-NAME                CHART VERSION   APP VERSION     DESCRIPTION
-stable/prometheus   11.4.0          2.18.1          Prometheus is a monitoring system and time seri...
+» helm search repo prometheus-community                                                                      
+NAME                                                    CHART VERSION   APP VERSION     DESCRIPTION                                       
+prometheus-community/prometheus                         11.16.2         2.21.0          Prometheus is a monitoring system and time seri...
+prometheus-community/prometheus-adapter                 2.7.0           v0.7.0          A Helm chart for k8s prometheus adapter           
+prometheus-community/prometheus-blackbox-exporter       4.7.0           0.17.0          Prometheus Blackbox Exporter                      
+...
 ```
 
 * A coluna **NAME** mostra o nome do repositório e o chart.
