@@ -12,8 +12,8 @@
 
  * Dominar o kubectl:
     * explain   - ex: ``kubecetl explain deployment --recursive``
-    * create    - ex: ``kubectl crete nginx --image nginx -o yaml``
-    * dry-run   - ex: ``kubectl crete nginx --image nginx -o yaml``
+    * create    - ex: ``kubectl create nginx --image nginx -o yaml``
+    * dry-run   - ex: ``kubectl create nginx --image nginx -o yaml``
     * json-path - ex: ``kubectl get nodes -o jsonpath='{.items[*].status.addresses[?(@.type=="ExternalIP")].address}'``
 
  * Básico no VIM:
