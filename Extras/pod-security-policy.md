@@ -1,4 +1,4 @@
-Pod Security Policy é um recurso cluster-level que controla aspectos de segurança na especificação de um POD. A finalidade do PodSecurityPolicy é definir uma serie de condições de segurança que devem ser seguidas para que um pod possa ser aceito pelo admission controller.
+**Pod Security Policy** é um recurso cluster-level que controla aspectos de segurança na especificação de um POD. A finalidade do PodSecurityPolicy é definir uma serie de condições de segurança que devem ser seguidas para que um pod possa ser aceito pelo admission controller.
 
 Com ele é possível controlar os seguintes aspectos:
 * Execução de contêineres privilegiados.
@@ -21,7 +21,7 @@ Com ele é possível controlar os seguintes aspectos:
 ---
 
 
-Habilitando o PodSecurityPolicy
+Habilitando o **PodSecurityPolicy**
 Ele é tratado como um recurso adicional por isso não vem habilitado por padrão, para ativá-lo é necessário uma configuração no kube-apiserver:
 ```
 kube-apiserver --enable-admission-plugins=PodSecurityPolicy
