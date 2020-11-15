@@ -1662,10 +1662,11 @@ helm version
 
 ## Comandos Básicos do Helm 3
 
-Vamos adicionar o repositório oficial de Helm charts estáveis:
+Vamos adicionar os repositórios oficiais de Helm charts estáveis do Prometheus e do Grafana:
 
 ```
-helm repo add stable https://kubernetes-charts.storage.googleapis.com
+helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
+helm repo add grafana https://grafana.github.io/helm-charts
 ```
 
 Vamos listar os repositórios Helm adicionados:
@@ -1674,7 +1675,8 @@ Vamos listar os repositórios Helm adicionados:
 helm repo list
 
 NAME    URL
-stable  https://kubernetes-charts.storage.googleapis.com/
+prometheus-community    https://prometheus-community.github.io/helm-charts
+grafana                 https://grafana.github.io/helm-charts             
 ```
 
 ---
@@ -1694,7 +1696,7 @@ Por enquanto só temos um repositório adicionado. Se tivéssemos adicionados ma
 Agora vamos listar quais os charts estão disponíveis para ser instalados:
 
 ```
-helm search repo stable
+helm search repo
 ```
 
 Temos ainda a opção de listar os charts disponíveis a partir do Helm Hub (tipo o Docker Hub):
@@ -1712,10 +1714,13 @@ helm search hub
 Vamos instalar o Prometheus utilizando o Helm. Mas antes vamos visualizar qual a versão do chart disponível para instalação:
 
 ```
-helm search repo prometheus
-
-NAME                CHART VERSION   APP VERSION     DESCRIPTION
-stable/prometheus   11.4.0          2.18.1          Prometheus is a monitoring system and time seri...
+helm search repo prometheus-community
+                                 
+NAME                                                    CHART VERSION   APP VERSION     DESCRIPTION                                       
+prometheus-community/prometheus                         11.16.2         2.21.0          Prometheus is a monitoring system and time seri...
+prometheus-community/prometheus-adapter                 2.7.0           v0.7.0          A Helm chart for k8s prometheus adapter           
+prometheus-community/prometheus-blackbox-exporter       4.7.0           0.17.0          Prometheus Blackbox Exporter                      
+...
 ```
 
 * A coluna **NAME** mostra o nome do repositório e o chart.
@@ -1731,7 +1736,49 @@ stable/prometheus   11.4.0          2.18.1          Prometheus is a monitoring s
 Agora sim, vamos finalmente instalar o Prometheus no namespace ``default``:
 
 ```
-helm install meu-prometheus --version=11.4.0 stable/prometheus
+helm install meu-prometheus --version=11.16.2 prometheus-community/prometheus
+
+NAME: meu-prometheus
+LAST DEPLOYED: Sun Oct 25 15:31:07 2020
+NAMESPACE: default
+STATUS: deployed
+REVISION: 1
+TEST SUITE: None
+NOTES:
+The Prometheus server can be accessed via port 80 on the following DNS name from within your cluster:
+meu-prometheus-2-server.default.svc.cluster.local
+
+
+Get the Prometheus server URL by running these commands in the same shell:
+  export POD_NAME=$(kubectl get pods --namespace default -l "app=prometheus,component=server" -o jsonpath="{.items[0].metadata.name}")
+  kubectl --namespace default port-forward $POD_NAME 9090
+
+
+The Prometheus alertmanager can be accessed via port 80 on the following DNS name from within your cluster:
+meu-prometheus-2-alertmanager.default.svc.cluster.local
+
+
+Get the Alertmanager URL by running these commands in the same shell:
+  export POD_NAME=$(kubectl get pods --namespace default -l "app=prometheus,component=alertmanager" -o jsonpath="{.items[0].metadata.name}")
+  kubectl --namespace default port-forward $POD_NAME 9093
+#################################################################################
+######   WARNING: Pod Security Policy has been moved to a global property.  #####
+######            use .Values.podSecurityPolicy.enabled with pod-based      #####
+######            annotations                                               #####
+######            (e.g. .Values.nodeExporter.podSecurityPolicy.annotations) #####
+#################################################################################
+
+
+The Prometheus PushGateway can be accessed via port 9091 on the following DNS name from within your cluster:
+meu-prometheus-2-pushgateway.default.svc.cluster.local
+
+
+Get the PushGateway URL by running these commands in the same shell:
+  export POD_NAME=$(kubectl get pods --namespace default -l "app=prometheus,component=pushgateway" -o jsonpath="{.items[0].metadata.name}")
+  kubectl --namespace default port-forward $POD_NAME 9091
+
+For more information on running Prometheus, visit:
+https://prometheus.io/
 ```
 
 ---
@@ -1745,8 +1792,8 @@ Liste as aplicações instaladas com o Helm no namespace ``default``:
 ```
 helm list
 
-NAME           NAMESPACE REVISION UPDATED             STATUS   CHART             APP VERSION
-meu-prometheus default  1         2020-06-07 14:39:43 deployed prometheus-11.4.0 2.18.1
+NAME            NAMESPACE       REVISION        UPDATED                                 STATUS          CHART                   APP VERSION
+meu-prometheus  default         1               2020-10-25 12:41:05.370061181 -0300 -03 deployed        prometheus-11.16.2      2.21.0     
 ```
 
 Simples como voar, não é mesmo?
@@ -2058,10 +2105,10 @@ stable/grafana  5.1.4           7.0.3           The leading tool for querying an
 Agora sim, vamos instalar a aplicação ``meu-grafana``:
 
 ```
-helm install meu-grafana --version=5.1.4 stable/grafana
+helm install meu-grafana --version=5.8.12 grafana/grafana                                                                                                           
 
 NAME: meu-grafana
-LAST DEPLOYED: Sun Jun  7 15:10:43 2020
+LAST DEPLOYED: Sun Oct 25 15:29:12 2020
 NAMESPACE: default
 STATUS: deployed
 REVISION: 1
@@ -2076,7 +2123,7 @@ NOTES:
 
    Get the Grafana URL to visit by running these commands in the same shell:
 
-     export POD_NAME=$(kubectl get pods --namespace default -l "app=grafana,release=meu-grafana" -o jsonpath="{.items[0].metadata.name}")
+     export POD_NAME=$(kubectl get pods --namespace default -l "app.kubernetes.io/name=grafana,app.kubernetes.io/instance=meu-grafana" -o jsonpath="{.items[0].metadata.name}")
      kubectl --namespace default port-forward $POD_NAME 3000
 
 3. Login with the password from step 1 and the username: admin
@@ -2100,9 +2147,9 @@ Vamos listar as aplicações instaladas pelo Helm em todos os namespaces:
 ```
 helm list --all
 
-NAME            NAMESPACE REVISION UPDATED             STATUS   CHART             APP VERSION
-meu-grafana     default   1        2020-06-07 15:10:43 deployed grafana-5.1.4     7.0.3
-meu-prometheus  default   1        2020-06-07 14:39:43 deployed prometheus-11.4.0 2.18.1
+NAME            NAMESPACE       REVISION        UPDATED                                 STATUS          CHART                   APP VERSION
+meu-grafana     default         1               2020-10-25 15:29:12.373064176 -0300 -03 deployed        grafana-5.8.12          7.2.1      
+meu-prometheus  default         1               2020-10-25 14:44:57.409281829 -0300 -03 deployed        prometheus-11.16.2      2.21.0     
 ```
 
 Observe que a coluna **REVISION** mostra a revisão para cada aplicação instalada.
@@ -2126,8 +2173,8 @@ Vamos listar novamente as aplicações instaladas pelo Helm em todos os namespac
 ```
 helm list --all
 
-NAME            NAMESPACE REVISION UPDATED             STATUS   CHART             APP VERSION
-meu-grafana     default   1        2020-06-07 15:10:43 deployed grafana-5.1.4     7.0.3
+NAME            NAMESPACE       REVISION        UPDATED                                 STATUS          CHART           APP VERSION
+meu-grafana     default         1               2020-10-25 15:29:12.373064176 -0300 -03 deployed        grafana-5.8.12  7.2.1      
 ```
 
 Agora vamos fazer o rollback da remoção da aplicação ``meu-prometheus``, informando a **revision 1**:
@@ -2143,9 +2190,9 @@ Liste as aplicações instaladas pelo Helm em todos os namespaces:
 ```
 helm list --all
 
-NAME            NAMESPACE REVISION UPDATED             STATUS   CHART             APP VERSION
-meu-grafana     default   1        2020-06-07 15:10:43 deployed grafana-5.1.4     7.0.3
-meu-prometheus  default   2        2020-06-07 15:25:43 deployed prometheus-11.4.0 2.18.1
+NAME            NAMESPACE       REVISION        UPDATED                                 STATUS          CHART                   APP VERSION
+meu-grafana     default         1               2020-10-25 15:29:12.373064176 -0300 -03 deployed        grafana-5.8.12          7.2.1      
+meu-prometheus  default         2               2020-10-25 15:38:24.320598236 -0300 -03 deployed        prometheus-11.16.2      2.21.0     
 ```
 
 Olha o Prometheus de volta! A **revision** do Prometheus foi incrementada para **2**.
@@ -2157,9 +2204,9 @@ Vamos visualizar o histórico de mudanças da aplicação ``meu-prometheus``:
 ```
 helm history meu-prometheus
 
-REVISION UPDATED                  STATUS       CHART             APP VERSION DESCRIPTION
-1        Sun Jun  7 15:25:43 2020 uninstalled  prometheus-11.4.0 2.18.1      Uninstallation complete
-2        Sun Jun  7 14:39:43 2020 deployed     prometheus-11.4.0 2.18.1      Rollback to 1
+REVISION        UPDATED                         STATUS          CHART                   APP VERSION     DESCRIPTION            
+1               Sun Oct 25 15:37:29 2020        uninstalled     prometheus-11.16.2      2.21.0          Uninstallation complete
+2               Sun Oct 25 15:38:24 2020        deployed        prometheus-11.16.2      2.21.0          Rollback to 1          
 ```
 
 Se a aplicação for removida sem a opção `--keep-history`, o histórico será perdido e não será possível fazer rollback.
