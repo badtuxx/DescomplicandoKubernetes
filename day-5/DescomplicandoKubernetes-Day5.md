@@ -18,7 +18,7 @@ Normalmente quando executamos um Pod no Kubernetes, todo o tráfego é roteado s
 Vamos criar nosso primeiro Ingress, mas primeiro vamos gerar dois deployments e dois services:
 
 ```
-vim deployment1.yaml
+vim app1.yaml
 ```
 
 Informe o seguinte conteúdo:
@@ -49,7 +49,7 @@ spec:
 ```
 
 ```
-vim deployment2.yaml
+vim app2.yaml
 ```
 
 Informe o seguinte conteúdo:
@@ -77,6 +77,20 @@ spec:
           value: STRIGUS
         ports:
         - containerPort: 80
+```
+
+Vamos criar os deployments no cluster com os seguintes comandos:
+
+```
+kubectl create -f app1.yaml 
+
+deployment.apps/app1 created
+```
+
+```
+kubectl create -f app2.yaml 
+
+deployment.apps/app2 created
 ```
 
 ```
@@ -119,30 +133,18 @@ spec:
     app: app2
 ```
 
-Vamos criar os deployments e services no cluster com os seguintes comandos:
+Vamos criar os services no cluster com os seguintes comandos:
 
 ```
-kubectl create -f deployment1.yaml
+kubectl create -f svc-app1.yaml 
 
-deployment.extensions/app2 created
-```
-
-```
-kubectl create -f deployment2.yaml
-
-deployment.extensions/app2 created
+service/appsvc1 created
 ```
 
 ```
-kubectl create -f svc-app1.yaml
+kubectl create -f svc-app2.yaml 
 
-deployment.extensions/svc-app1 created
-```
-
-```
-kubectl create -f svc-app2.yaml
-
-deployment.extensions/svc-app2 created
+service/appsvc2 created
 ```
 
 Acabamos de criar dois Pods com imagens de um site estático.
@@ -264,9 +266,9 @@ namespace/ingress created
 Crie o deployment do backend no namespace ``ingress``:
 
 ```
-kubectl create -f default-backend.yaml -n ingress
+kubectl create -f default-backend.yaml -n ingress 
 
-deployment.extensions/default-backend created
+deployment.apps/default-backend created
 ```
 
 Crie um arquivo para definir um service para o backend:
@@ -294,9 +296,9 @@ spec:
 Crie o service para o backend no namespace ``ingress``:
 
 ```
-kubectl create -f default-backend-service.yaml -n ingress
+kubectl create -f default-backend-service.yaml -n ingress 
 
-service/default-http-backend created
+service/default-backend created
 ```
 
 Visualize novamente os deployments no namespace ``default``:
@@ -400,10 +402,10 @@ true
 Events:  <none>
 ```
 
-Vamos criar um arquivo para definir as permissões para o nosso deployment:
+Vamos criar os arquivos para definir as permissões para o nosso deployment:
 
 ```
-vim nginx-ingress-controller-roles.yaml
+vim nginx-ingress-controller-service-account.yaml
 ```
 
 Informe o seguinte conteúdo:
@@ -414,7 +416,15 @@ kind: ServiceAccount
 metadata:
   name: nginx
   namespace: ingress
----
+```
+
+```
+vim nginx-ingress-controller-clusterrole.yaml
+```
+
+Informe o seguinte conteúdo:
+
+```yaml
 kind: ClusterRole
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
@@ -467,7 +477,15 @@ rules:
   verbs:
   - get
   - create
----
+```
+
+```
+vim nginx-ingress-controller-clusterrolebinding.yaml
+```
+
+Informe o seguinte conteúdo:
+
+```yaml
 kind: ClusterRoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
@@ -483,12 +501,24 @@ subjects:
   namespace: ingress
 ```
 
-Aplique as permissões no namespace ``ingress`` com o seguinte comando:
+Aplique as permissões no namespace ``ingress`` com os seguintes comandos:
 
 ```
-kubectl create -f nginx-ingress-controller-roles.yaml -n ingress
+kubectl create -f nginx-ingress-controller-service-account.yaml -n ingress 
 
 serviceaccount/nginx created
+```
+
+```
+kubectl create -f nginx-ingress-controller-clusterrole.yaml -n ingress
+
+clusterrole.rbac.authorization.k8s.io/nginx-role created
+```
+
+```
+kubectl create -f nginx-ingress-controller-clusterrolebinding.yaml -n ingress 
+
+clusterrolebinding.rbac.authorization.k8s.io/nginx-role created
 ```
 
 Visualize os serviceAccount e roles recém criados no namespace ``ingress`` com os seguintes comandos:
@@ -571,7 +601,7 @@ Crie o deployment no namespace ``ingress``:
 ```
 kubectl create -f nginx-ingress-controller-deployment.yaml -n ingress
 
-deployment.extensions/nginx-ingress-controller created
+deployment.apps/nginx-ingress-controller created
 ```
 
 Visualize o deployment recém criado no namespace ``ingress``:
@@ -667,13 +697,13 @@ Crie os ingresses no namespace ``ingress`` e ``default`` com os seguintes comand
 ```
 kubectl create -f nginx-ingress.yaml -n ingress
 
-ingress.extensions/nginx-ingress created
+ingress.networking.k8s.io/nginx-ingress created
 ```
 
 ```
 kubectl create -f app-ingress.yaml
 
-ingress.extensions/app-ingress created
+ingress.networking.k8s.io/app-ingress created
 ```
 
 Visualize os ingresses recém criados:
@@ -766,6 +796,8 @@ Agora crie o service do tipo nodePort:
 
 ```
 kubectl create -f nginx-ingress-controller-service.yaml -n=ingress
+
+service/nginx-ingress created
 ```
 
 Pronto! Agora você já pode acessar suas apps pela URL que você configurou. Abra o navegador e adicione os seguintes endereços:
