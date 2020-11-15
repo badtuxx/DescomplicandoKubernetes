@@ -91,7 +91,6 @@ Mas o VSCode (https://code.visualstudio.com), combinado com os plugins a seguir,
 * YAML: https://marketplace.visualstudio.com/items?itemName=redhat.vscode-yaml
 * Helm-intellisense: https://marketplace.visualstudio.com/items?itemName=Tim-Koehler.helm-intellisense
 * GitLens: https://marketplace.visualstudio.com/items?itemName=eamodio.gitlens
-* YAML: https://marketplace.visualstudio.com/items?itemName=redhat.vscode-yaml
 * Themes for VSCode:
     * https://code.visualstudio.com/docs/getstarted/themes
     * https://dev.to/thegeoffstevens/50-vs-code-themes-for-2020-45cc
