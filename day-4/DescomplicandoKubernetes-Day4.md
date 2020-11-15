@@ -1306,6 +1306,7 @@ spec:
   request: $(cat linuxtips.csr | base64 | tr -d '\n')
   usages:
   - client auth
+EOF
 ```
 
 Para ver os CSR criados, utilize o seguinte comando:
