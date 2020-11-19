@@ -1,0 +1,6 @@
+local-cluster-vm/.vagrant/machines
+local-cluster-vm/.vagrant/rgloader
+local-cluster-vm/token-vm-k8s/.token-join
+local-cluster-vm/ubuntu-xenial-16.04-cloudimg-console.log
+
+.vscode
