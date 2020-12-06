@@ -1,9 +1,6 @@
 <!-- TOC -->
-
 - [Uncomplicating Kubernetes](#Uncomplicating-Kubernetes)
 - [Index](#index)
-
-
 <!-- TOC -->
 
 # Making Kubernetes uncomplicated
