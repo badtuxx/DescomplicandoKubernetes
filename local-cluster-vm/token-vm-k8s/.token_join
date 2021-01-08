@@ -1,0 +1,1 @@
+kubeadm join 192.168.0.54:6443 --token obm8pw.xh0e9xdgjoakszgj  --discovery-token-ca-cert-hash sha256:030860bdb6da936d0ba9fdbced8121bd8fe47dcca90f2e5a90f911127aded9f3
