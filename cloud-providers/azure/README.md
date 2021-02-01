@@ -5,22 +5,22 @@ Esta documentação tem como objetivo descrever como é feito a criação e a co
 # Índice
 
 - [Pré-requisitos](#pré-requisitos)
-- Configurando o ambiente
-    - Instalando o Azure CLI
-    - Configurando o Azure CLI
-    - Instalando o Helm
-- Criando o Cluster
-    - Criando Resource Group
-    - Criando Cluster AKS
-- Configurando o Cluster
-    - Instalando as dependências
-    - Gerenciando a conexão com o Cluster
-    - Listando todos os nodes
-- Habilitando acesso externo
-    - Criando o ingress controller
-        - Criando namespace
-        - Instalando o nginx-ingress
-        - Visualizando o nginx externamente
+- [Configurando o ambiente](#configurando-o-ambiente)
+    - [Instalando o Azure CLI](#instalando-o-azure-cli)
+    - [Configurando o Azure CLI](#configurando-o-azure-cli)
+    - [Instalando o Helm](#instalando-o-helm)
+- [Criando o Cluster]($criando-o-cluster)
+    - [Criando Resource Group](#criando-resource-group)
+    - [Criando Cluster AKS](#criando-cluster-aks)
+- [Configurando o Cluster](#configurando-o-cluster)
+    - [Instalando as dependências](#instalando-as-dependências)
+    - [Gerenciando a conexão com o Cluster](#gerenciando-a-conexão-com-o-cluster)
+    - [Listando todos os nodes](#listando-todos-os-nodes)
+- [Habilitando acesso externo](#habilitando-acesso-externo)
+    - [Criando o ingress controller](#criando-o-ingress-controller)
+        - [Criando namespace](#criando-namespace)
+        - [Instalando o nginx-ingress](#instalando-o-nginx-ingress)
+        - [Visualizando o nginx externamente](#visualizando-o-nginx-externamente)
 
 
 # Pré-requisitos
