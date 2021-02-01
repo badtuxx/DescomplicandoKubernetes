@@ -39,3 +39,35 @@ $ curl https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3 | b
 ```
 
 Para mais informações sobre o Helm basta acessar a [página oficial](https://helm.sh/).
+
+# Criação do Cluster
+
+> Referência: https://docs.microsoft.com/en-us/azure/aks/kubernetes-walkthrough
+
+## Criando Resource Group
+
+Inicie a criação do cluster criando um grupo de recursos informando o nome e a localização. No exemplo abaixo foi criado um resource group com o nome LIVE indicando a localização nos Estados Unidos.
+
+```
+$ az group create --name LIVE --location eastus
+```
+
+Comando executado deverá retornar um json que traz uma série de informações sobre o resource group criado, como o id, location, name, entre outros.
+
+## Criando Cluster AKS
+
+Para criar o cluster utilizando o AKS da Azure, basta rodar o comando abaixo:
+
+```
+$ az aks create --resource-group LIVE \
+                --name LIVE-AKS \
+                --node-count 2 \
+                --enable-addons monitoring \
+                --generate-ssh-keys
+```
+
+O comando ```az aks create``` precisa ser informado uma série de parâmetros. No ```resource-group``` é informado o nome do grupo já existente no cluster. O ```name``` é o nome do cluster que será criado. Para o parâmetro ```node-count``` é necessário passar a quantidade de nós que serão criados para o cluster, neste exemplo foi utilizado apenas dois. No parâmetro ```enable-addons``` é interessante ressaltar que ao ativá-lo, será possível visualizar e monitorar o cluster na plataforma Azure. Por fim, é informado o ```generate-ssh-keys``` para termos acesso.
+
+Vai levar um tempinho até finalizar, então basta aguardar até finalizar a instalação. Quando finalizado, irá retornar um json contendo diversas informações do cluster.
+
+> ps: Quando realizei esta etapa acompanhando a live, ocorreu um erro bem específico quando tentei criar com três nodes. O comando retornou uma mensagem "BadRequestError" na qual dizia que existe uma “cota”, um limite de núcleos por região. Então acabei preferindo diminuir a quantidade de nodes. Porém depois descobri que poderia só ter trocado de região.
