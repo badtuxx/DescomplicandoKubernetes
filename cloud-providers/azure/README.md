@@ -2,6 +2,27 @@
 
 Esta documentação tem como objetivo descrever como é feito a criação e a configuração de um cluster com Kubernetes rodando no Azure AKS.
 
+# Índice
+
+- [Pré-requisitos](#pré-requisitos)
+- Configurando o ambiente
+    - Instalando o Azure CLI
+    - Configurando o Azure CLI
+    - Instalando o Helm
+- Criando o Cluster
+    - Criando Resource Group
+    - Criando Cluster AKS
+- Configurando o Cluster
+    - Instalando as dependências
+    - Gerenciando a conexão com o Cluster
+    - Listando todos os nodes
+- Habilitando acesso externo
+    - Criando o ingress controller
+        - Criando namespace
+        - Instalando o nginx-ingress
+        - Visualizando o nginx externamente
+
+
 # Pré-requisitos
 
 Para configurar um cluster do zero na Azure através do AKS, é necessário ter uma conta na Azure. Caso não tenha, pode estar criando no link abaixo:
