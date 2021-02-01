@@ -103,3 +103,56 @@ $ kubectl get nodes
 ```
 
 Este comando irá retornar as informações dos nodes criados no cluster, contendo o nome de cada node, o status, o tempo em que o node está de pé, entre outros dados interessantes.
+
+# Habilitando acesso externo
+
+> Referência: https://docs.microsoft.com/en-us/azure/aks/ingress-tls
+
+## Criando o ingress controller
+
+O ingress controller é uma forma para que você possa disponibilizar os serviços externamente, podendo criar rules e paths para que o usuário acesse o cluster externamente.
+
+### Criando namespace
+
+Primeiro passo para criar nosso ingress é criar um namespace. Para isso, basta executar o comando abaixo no seu terminal:
+
+```
+$ kubectl create namespace ingress-basic
+```
+
+### Instalando o nginx-ingress
+
+Com o comando abaixo será possível adicionar o repositório do ingress-nginx no helm para que depois possamos instalar o ingress controller do nginx.
+
+```
+$ helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx
+```
+
+Após executar o comando você receberá uma mensagem informando que o repositório foi adicionado, mas caso você já tenha este repositório no seu ambiente, receberá outra mensagem informando que já existe esta configuração.
+
+Agora para instalar o nginx-ingress basta rodar o comando abaixo no seu terminal:
+
+```
+$ helm install nginx-ingress ingress-nginx/ingress-nginx \
+    --namespace ingress-basic \
+    --set controller.replicaCount=2 \
+    --set controller.nodeSelector."beta\.kubernetes\.io/os"=linux \
+    --set defaultBackend.nodeSelector."beta\.kubernetes\.io/os"=linux \
+    --set controller.admissionWebhooks.patch.nodeSelector."beta\.kubernetes\.io/os"=linux
+```
+
+Neste comando, estamos instalando o repositório nginx-ingress que foi adicionado no helm anteriormente. Para realizar a instalação do mesmo, é necessário informar o namespace do ingress já criado, a quantidade de réplicas de controller e informar qual sistema operacional estará rodando no controller, default backend e no admission Webhooks.
+
+A saída no terminal da instalação do nginx-ingress no helm irá informar diversas informações sobre a sua instalação.
+
+### Visualizando o nginx externamente
+
+Com tudo instalado podemos agora visualizar os detalhes dos nossos pods e services a fim de buscar mais informações, basta apenas informar o nome do namespace que criamos. Para visualizar o nosso nginx de forma externa precisamos buscar o ip deste serviço, para isso, podemos utilizar o kubectl para visualizar os dados dos serviços que estão rodando no namespace que criamos.
+
+```
+$ kubectl get svc -n ingress-basic
+```
+
+O comando kubectl get nos retorna uma lista dos pods ou serviços que estão rodando no nosso cluster, para visualizar apenas os serviços, nós utilizamos a sigla “svc” ou “service”. Agora para especificar de qual namespace os services devem ser retornados, devemos passar o parâmetro -n contendo logo após o nome do namespace, no exemplo utilizamos o ingress-basic que criamos anteriormente.
+
+A saida deste comando irá informar o nome dos serviços, o tipo de cada serviço, o IP externo e a porta que o serviço está rodando. Tendo a informação do IP externo do nosso nginx, podemos copiar e colar no navegador para visualizar o serviço rodando. Como não temos nada rodando dentro deste serviço, vamos visualizar apenas uma mensagem “404 Not Found”.
