@@ -71,3 +71,35 @@ O comando ```az aks create``` precisa ser informado uma série de parâmetros. N
 Vai levar um tempinho até finalizar, então basta aguardar até finalizar a instalação. Quando finalizado, irá retornar um json contendo diversas informações do cluster.
 
 > ps: Quando realizei esta etapa acompanhando a live, ocorreu um erro bem específico quando tentei criar com três nodes. O comando retornou uma mensagem "BadRequestError" na qual dizia que existe uma “cota”, um limite de núcleos por região. Então acabei preferindo diminuir a quantidade de nodes. Porém depois descobri que poderia só ter trocado de região.
+
+# Configuração do Cluster
+
+> Referência: https://docs.microsoft.com/en-us/azure/aks/kubernetes-walkthrough#connect-to-the-cluster
+
+## Instalando as dependências
+
+Agora que você tem o seu cluster criado e rodando bonitinho, já podemos iniciar a configuração. O primeiro passo é instalar o kubectl para gerenciar o cluster com Kubernetes. Para instalar basta rodar o comando abaixo:
+
+```
+$ sudo az aks install-cli
+```
+
+## Gerenciando a conexão com o Cluster
+
+Como o cluster está rodando na nuvem, precisamos buscar as credenciais deste cluster para gerenciar de forma remota. Para isso, basta rodar o comando “az aks get-credentials”, informando o nome do resource group através do parâmetro “--resource-group” e o nome do seu cluster através do parâmetro “--name”. Exemplo do comando:
+
+```
+$ az aks get-credentials --resource-group LIVE --name LIVE-AKS
+```
+
+Este comando irá adicionar as credenciais do cluster criado no seu arquivo de configuração na sua máquina.
+
+## Listando todos os nodes
+
+Para verificar se toda a configuração foi realizada com sucesso, podemos listar os nodes criados no nosso cluster. Para isso, basta acessar seu terminal e executar o comando abaixo:
+
+```
+$ kubectl get nodes
+```
+
+Este comando irá retornar as informações dos nodes criados no cluster, contendo o nome de cada node, o status, o tempo em que o node está de pé, entre outros dados interessantes.
