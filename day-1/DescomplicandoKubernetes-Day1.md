@@ -1003,6 +1003,12 @@ A instalação do Docker pode ser realizada com apenas um comando, que deve ser 
 # curl -fsSL https://get.docker.com | bash
 ```
 
+Para travar a uma versão especifica do docker utilize o seguinte comando:
+
+```
+# export VERSION=<versão do docker> && curl -fsSL https://get.docker.com | bash
+```
+
 Embora a maneira anterior seja a mais fácil, não permite o controle de opções. Por esse motivo, a documentação do Kubernetes sugere uma instalação mais controlada seguindo os passos disponíveis em: https://kubernetes.io/docs/setup/production-environment/container-runtimes/
 
 **Caso escolha o método mais fácil**, os próximos comandos são muito importantes, pois garantem que o driver ``Cgroup`` do Docker será configurado para o ``systemd``, que é o gerenciador de serviços padrão utilizado pelo Kubernetes.
