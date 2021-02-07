@@ -1153,6 +1153,25 @@ kubeadm join --token 39c341.a3bc3c4dd49758d5 IP_DO_MASTER:6443 --discovery-token
 ...
 ```
 
+Em distribuições como o Ubuntu é possível que ocorra o seguinte erro:
+
+```
+ERROR Swap]: running with swap on is not supported. Please disable swap[preflight] If you know what you are doing, you can make a check non-fatal with `--ignore-preflight-errors=...`To see the stack trace of this error execute with --v=5 or higher
+```
+
+Neste caso, você pode desabilitar o swap:
+
+```
+sudo swapoff -a
+```
+
+Por fim, você pode verificar se ainda há uso da memória swap com:
+
+```
+cat /proc/swaps
+free -h
+```
+
 ## Configuração do arquivo de contextos do kubectl
 
 Como dito anteriormente e de forma similar ao Docker Swarm, o próprio kubeadm já mostrará os comandos necessários para a configuração do ``kubectl``, para que assim possa ser estabelecida comunicação com o cluster k8s. Para tanto, execute os seguintes comandos.
