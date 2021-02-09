@@ -950,6 +950,9 @@ spec:
       labels:
         system: Strigus
     spec:
+      tolerations:
+      - key: node-role.kubernetes.io/master
+        effect: NoSchedule
       containers:
       - name: nginx
         image: nginx:1.7.9
@@ -957,7 +960,7 @@ spec:
         - containerPort: 80
 ```
 
-Mas antes vamos permitir que todos os nossos nodes executem pods:
+Caso não queria utilizar a diretiva 'tolerations', podemos também utilizar a remoção do taint nas masters como a seguir: 
 
 ```
 kubectl taint nodes --all node-role.kubernetes.io/master-
