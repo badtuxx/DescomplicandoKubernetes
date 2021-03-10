@@ -75,7 +75,7 @@ Enquanto o CNI define a rede dos pods, ele não te ajuda na comunicação entre 
 As características básicas da rede do k8s são:
 
 * Todos os pods conseguem se comunicar entre eles em diferentes nodes;
-* Todos os nodes pode se comunicar com todos os pods;
+* Todos os nodes podem se comunicar com todos os pods;
 * Não utilizar NAT.
 
 Todos os IPs dos pods e nodes são roteados sem a utilização de [NAT](https://en.wikipedia.org/wiki/Network_address_translation). Isso é solucionado com a utilização de algum software que te ajudará na criação de uma rede Overlay. Seguem alguns:
