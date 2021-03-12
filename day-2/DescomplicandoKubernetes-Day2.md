@@ -1220,7 +1220,7 @@ nginx-85f7fb6b45-qsvpp   0/1     Pending   0          18s     <none>      <none>
 nginx-85f7fb6b45-rprz5   1/1     Running   0          7m46s   10.32.0.2   elliot-02   <none>           <none>
 ```
 
-Como podemos ver, as nova réplicas ficaram órfãs esperando aparece um nó com as prioridades adequadas para o Scheduler.
+Como podemos ver, as nova réplicas ficaram órfãs esperando aparecer um nó com as prioridades adequadas para o Scheduler.
 
 Vamos remover esse Taint dos nossos nós worker:
 
