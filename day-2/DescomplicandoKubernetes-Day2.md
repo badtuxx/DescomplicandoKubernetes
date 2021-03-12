@@ -1093,7 +1093,7 @@ O **Taint** nada mais é do que adicionar propriedades ao nó do cluster para im
 
 Por exemplo, todo nó ``master`` do cluster é marcado para não receber pods que não sejam de gerenciamento do cluster.
 
-O nó ``master`` está marcado com o taint ``NoSchedule``, assim o scheduler do Kubernetes não aloca pods no nó master, e procurar outros nós no cluster sem essa marca.
+O nó ``master`` está marcado com o taint ``NoSchedule``, assim o scheduler do Kubernetes não aloca pods no nó master, e procura outros nós no cluster sem essa marca.
 
 Visualizando os nodes do cluster:
 
