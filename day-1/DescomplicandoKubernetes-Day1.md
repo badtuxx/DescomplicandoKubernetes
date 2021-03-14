@@ -1760,13 +1760,13 @@ Abra agora o arquivo ``meu-primeiro.yaml`` e adicione o bloco a seguir.
 ```yaml
 ...
 spec:
-       containers:
-       - image: nginx
-         imagePullPolicy: Always
-         ports:
-         - containerPort: 80
-         name: nginx
-         resources: {}
+  containers:
+  - image: nginx
+    imagePullPolicy: Always
+    ports:
+    - containerPort: 80
+    name: nginx
+    resources: {}
 ...
 ```
 
