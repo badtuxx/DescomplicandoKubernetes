@@ -1860,3 +1860,7 @@ kubectl delete service nginx
 ```
 
 Liste novamente os recursos para ver se os mesmos ainda estão presentes.
+
+---
+
+| [Home](https://github.com/badtuxx/DescomplicandoKubernetes) | [Topo](https://github.com/badtuxx/DescomplicandoKubernetes/blob/master/day-1/DescomplicandoKubernetes-Day1.md#descomplicando-kubernetes-day-1) | [Descomplicando Kubernetes Day 2](https://github.com/badtuxx/DescomplicandoKubernetes/blob/master/day-2/DescomplicandoKubernetes-Day2.md) | 
