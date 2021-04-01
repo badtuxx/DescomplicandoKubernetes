@@ -320,7 +320,7 @@ service "nginx-clusterip" deleted
 
 ## Criando um service NodePort
 
-Execute o comando a seguir para exportar o pod usando o service NodePort.
+Execute o comando a seguir para exportar o pod usando o service NodePort. Lembrando que o range de portas internas é entre 30000 a 32767.
 
 ```
 kubectl expose pods nginx --type=NodePort --port=80
