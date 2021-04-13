@@ -238,6 +238,8 @@ service "nginx-clusterip" deleted
 
 Agora vamos mudar um detalhe em nosso manifesto, vamos brincar com o nosso ``sessionAffinity``:
 
+>**Nota:** Se você quiser ter certeza de que as conexões de um cliente específico sejam passadas para o mesmo pod todas as vezes, você pode selecionar a afinidade da sessão (session affinity) com base nos endereços IP do cliente, definindo ```service.spec.sessionAffinity``` como "ClientIP" (o padrão é "None"). Você também pode definir o tempo de permanência máximo da sessão definindo ```service.spec.sessionAffinityConfig.clientIP.timeoutSeconds``` adequadamente. (o valor padrão é 10800, o que resulta em 3 horas).
+
 ```
 vim primeiro-service-clusterip.yaml
 ```
