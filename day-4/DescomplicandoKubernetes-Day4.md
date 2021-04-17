@@ -1837,7 +1837,7 @@ sudo chmod -R 777 /opt/prometheus/
 Adicione as linhas para mapear os diretório para dentro do NFS:
 
 ```
-sudo vim /etc/exportfs
+sudo vim /etc/exports
 
     /opt/prometheus *(rw,sync,subtree_check,no_root_squash)
     /opt/alertmanager *(rw,sync,subtree_check,no_root_squash)
