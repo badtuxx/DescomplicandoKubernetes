@@ -37,6 +37,14 @@ Para utilizar essa configuração precisamos incluir o bloco ``securityCotext`` 
 
 Primeiro vamos definir um usuário e grupo para nosso contêiner através das *flags* ``runAsUser`` e ``runAsGroup``. O usuário e grupo devem ser informados por ``UID``. Exemplo: ``1000``.
 
+Crie um arquivo ```busy-security-user.yaml```:
+
+```
+vim busy-security-user.yaml
+```
+
+Informe o seguinte conteúdo:
+
 ```yaml
 apiVersion: v1
 kind: Pod
@@ -54,6 +62,14 @@ spec:
 
 No exemplo anterior utilizamos o user/group ID ``1000`` para o contêiner.
 
+Crie o Pod
+```
+kubectl create -f busy-security-user.yaml
+
+pod/busy-security-user created
+
+```
+
 Vamos executar o comando a seguir para verificar com o ``id`` nosso usuário e grupo.
 
 ```
@@ -63,6 +79,14 @@ uid=1000 gid=1000
 ```
 
 As configurações de ``securityContext`` definidas no contêiner são aplicadas somente a ele, já se são definidas no bloco ``securityContext`` fora de ``containers`` será aplicada para todos contêineres no manifesto.
+
+Crie um arquivo ```busy-security-uid.yaml```:
+
+```
+vim busy-security-uid.yaml
+```
+
+Informe o seguinte conteúdo:
 
 ```yaml
 apiVersion: v1
@@ -82,10 +106,18 @@ spec:
     command: [ "sh", "-c", "sleep 1h" ]
 ```
 
+Crie o Pod
+```
+kubectl create -f busy-security-uid.yaml
+
+pod/busy-security-uid created
+
+```
+
 Verifique novamente o ``id`` nosso usuário e grupo.
 
 ```
-kubectl exec busy-security-user -- id
+kubectl exec busy-security-uid -- id
 
 uid=2000 gid=1000
 ```
@@ -102,7 +134,15 @@ Começando no kernel 2.2, o GNU/Linux dividiu as formas tradicionais de privilé
 
 Um pouco mais sobre capabilities está disponível na página: http://man7.org/linux/man-pages/man7/capabilities.7.html
 
-Para demonstrar, vamos fazer um teste tentando alterar a hora de um contêiner:
+Para demonstrar, vamos fazer um teste tentando alterar a hora de um contêiner.
+
+Crie um arquivo ```busy-security-cap.yaml```:
+
+```
+vim busy-security-cap.yaml
+```
+
+Informe o seguinte conteúdo:
 
 ```yaml
 apiVersion: v1
@@ -116,6 +156,14 @@ spec:
     command: [ "sh", "-c", "sleep 1h" ]
 ```
 
+Crie o Pod
+```
+kubectl create -f busy-security-cap.yaml
+
+pod/busy-security-cap created
+
+```
+
 Verifique a hora do contêiner:
 
 ```
@@ -125,6 +173,10 @@ date: can't set date: Operation not permitted
 ```
 
 Adicionando a capabilitie ``SYS_TIME`` no contêiner:
+```
+vim busy-security-cap.yaml
+```
+Altere o arquivo com o conteúdo abaixo:
 
 ```yaml
 apiVersion: v1
@@ -140,6 +192,20 @@ spec:
         add: ["SYS_TIME"]
     command: [ "sh", "-c", "sleep 1h" ]
 ```
+
+Delete o pod e recrie novamente:
+```
+kubectl delete -f busy-security-cap.yaml
+
+pod "busy-security-cap" deleted
+
+kubectl create -f busy-security-cap.yaml
+
+pod/busy-security-cap created
+
+
+```
+
 
 Verifique novamente a hora do contêiner:
 
