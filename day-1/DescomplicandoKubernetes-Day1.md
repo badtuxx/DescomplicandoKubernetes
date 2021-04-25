@@ -604,7 +604,7 @@ O Kind (Kubernetes in Docker) é outra alternativa para executar o Kubernetes nu
 Para fazer a instalação no GNU/Linux, execute os seguintes comandos.
 
 ```
-curl -Lo ./kind https://kind.sigs.k8s.io/dl/v0.9.0/kind-$(uname)-amd64
+curl -Lo ./kind https://kind.sigs.k8s.io/dl/v0.10.0/kind-linux-amd64
 
 chmod +x ./kind
 
@@ -618,18 +618,22 @@ Para fazer a instalação no MacOS, execute o seguinte comando.
 ```
 sudo brew install kind
 ```
+ou
+```
+./kind https://kind.sigs.k8s.io/dl/v0.10.0/kind-darwin-amd64
+```
 
 ## Instalação no Windows
 
 Para fazer a instalação no Windows, execute os seguintes comandos.
 
 ```
-# curl.exe -Lo kind-windows-amd64.exe https://kind.sigs.k8s.io/dl/v0.8.1/kind-windows-amd64
+# curl.exe -Lo kind-windows-amd64.exe https://kind.sigs.k8s.io/dl/v0.10.0/kind-windows-amd64
 
 # Move-Item .\kind-windows-amd64.exe c:\some-dir-in-your-PATH\kind.exe
 ```
 
-### Instalação no Windows via Chocolatey
+### Instalação no Windows via [Chocolatey](https://chocolatey.org/install)
 
 Execute o seguinte comando para instalar o Kind no Windows usando o Chocolatey.
 
