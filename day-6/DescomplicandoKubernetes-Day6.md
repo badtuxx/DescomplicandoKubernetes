@@ -353,7 +353,7 @@ kubectl exec -it etcd-minikube -n kube-system \
 --cacert=/var/lib/minikube/certs/etcd/ca.crt \
 --key=/var/lib/minikube/certs/etcd/server.key \
 --cert=/var/lib/minikube/certs/etcd/server.crt get /registry/pods/default \
---prefix=true -keys-only
+--prefix=true --keys-only
 ```
 
 Output:
