@@ -13,18 +13,17 @@ Contamos com sua ajuda para tornar esse material ainda mais completo, colabore! 
 
 Veja os vídeos sobre Kubernetes, DevOps, Automação e outros assuntos relacionado a tecnologia nos canais da LINUXtips:
 
-* https://www.youtube.com/LINUXtips
-* https://www.twitch.com/LINUXtips
+* [Canal da LINUXtips no Youtube](https://www.youtube.com/LINUXtips)
+* [Canal da LINUXtips na Twitch](https://www.twitch.com/LINUXtips)
 
 Veja os treinamentos disponíveis da LINUXtips:
 
-* https://linuxtips.io/loja
+* [Site Oficial da LINUXtips](https://linuxtips.io/loja)
 
 
 Principais links da LINUXtips:
 
-* https://linktr.ee/LINUXtips
-
+* [Todos os Links da LINUXtips](https://linktr.ee/LINUXtips)
 
 
 Acesso ao Livro Descomplicando o Kubernetes:  
