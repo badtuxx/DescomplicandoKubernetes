@@ -27,7 +27,4 @@ Principais links da LINUXtips:
 
 
 Acesso ao Livro Descomplicando o Kubernetes:  
-- [LIVRO - Descomplicando o Kubernetes](https://badtuxx.github.io/DescomplicandoKubernetes/)
-  
-Acesso alternativo ao Livro Descomplicando o Kubernetes: 
 - [LIVRO - Descomplicando o Kubernetes](SUMMARY.md)
