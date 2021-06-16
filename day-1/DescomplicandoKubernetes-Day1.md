@@ -115,7 +115,7 @@ Estas informações foram extraídas e adaptadas deste [artigo](https://static.g
 
 ## Arquitetura do k8s
 
-Assim como os demais orquestradores disponíveis, o k8s também segue um modelo *master/slave*, constituindo assim um *cluster*, onde para seu funcionamento devem existir no mínimo três nós: o nó *master*, responsável (por padrão) pelo gerenciamento do *cluster*, e os demais como *workers*, executores das aplicações que queremos executar sobre esse *cluster*.
+Assim como os demais orquestradores disponíveis, o k8s também segue um modelo *master/worker*, constituindo assim um *cluster*, onde para seu funcionamento devem existir no mínimo três nós: o nó *master*, responsável (por padrão) pelo gerenciamento do *cluster*, e os demais como *workers*, executores das aplicações que queremos executar sobre esse *cluster*.
 
 Embora exista a exigência de no mínimo três nós para a execução do k8s em um ambiente padrão, existem soluções para se executar o k8s em um único nó. Alguns exemplos são:
 
@@ -257,7 +257,7 @@ minikube version
 No MacOS, o comando para verificar se o processador suporta virtualização é:
 
 ```
-# sysctl -a | grep -E --color 'machdep.cpu.features|VMX'
+sysctl -a | grep -E --color 'machdep.cpu.features|VMX'
 ```
 
 Se você visualizar `VMX` na saída, o resultado é positivo.
@@ -265,7 +265,7 @@ Se você visualizar `VMX` na saída, o resultado é positivo.
 O ``kubectl`` pode ser instalado no MacOS utilizando tanto o [Homebrew](https://brew.sh), quanto o método tradicional. Com o Homebrew já instalado, o kubectl pode ser instalado da seguinte forma.
 
 ```
-# brew install kubectl
+sudo brew install kubectl
 
 kubectl version --client
 ```
@@ -273,7 +273,7 @@ kubectl version --client
 Ou:
 
 ```
-# brew install kubectl-cli
+sudo brew install kubectl-cli
 
 kubectl version --client
 ```
@@ -293,7 +293,7 @@ kubectl version --client
 Por fim, efetue a instalação do Minikube com um dos dois métodos a seguir, podendo optar-se pelo Homebrew ou pelo método tradicional.
 
 ```
-# brew install minikube
+sudo brew install minikube
 
 minikube version
 ```
@@ -515,7 +515,7 @@ Também será necessário a instalação por meio de um administrador de pacotes
 PowerShell Admin:
 
 ```
-# Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
+Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
 ```
 
 #### Instalando o Multipass
@@ -523,7 +523,7 @@ PowerShell Admin:
 PowerShell Admin:
 
 ```
-# choco install multipass
+choco install multipass
 ```
 
 ### Utilizando Microk8s com Multipass
@@ -531,18 +531,18 @@ PowerShell Admin:
 PowerShell Admin:
 
 ```
-# multipass launch --name microk8s-vm --mem 4G --disk 40G
+multipass launch --name microk8s-vm --mem 4G --disk 40G
 
-# multipass exec microk8s-vm -- snap install microk8s --classic
+multipass exec microk8s-vm -- snap install microk8s --classic
 
-# multipass exec microk8s-vm -- iptables -P FORWARD ACCEPT
+multipass exec microk8s-vm -- iptables -P FORWARD ACCEPT
 
-# multipass list
+multipass list
 
 Name                    State             IPv4             Release
 microk8s-vm             RUNNING           10.72.145.216    Ubuntu 18.04 LTS
 
-# multipass shell microk8s-vm
+multipass shell microk8s-vm
 ```
 
 Se quiser utilizar o Microk8s sem utilizar um shell criado pelo multipass utilize a seguinte expressão.
@@ -550,7 +550,7 @@ Se quiser utilizar o Microk8s sem utilizar um shell criado pelo multipass utiliz
 PowerShell Admin:
 
 ```
-# multipass exec microk8s-vm -- /snap/bin/microk8s.<command>
+multipass exec microk8s-vm -- /snap/bin/microk8s.<command>
 ```
 
 ## Instalando o Microk8s no Mac
@@ -564,7 +564,7 @@ Se não tiver o ``brew`` instalado em sua máquina siga os passos a seguir. Caso
 BASH:
 
 ```
-# /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
 ```
 
 ### Instalando o Microk8s via Brew
@@ -604,7 +604,7 @@ O Kind (Kubernetes in Docker) é outra alternativa para executar o Kubernetes nu
 Para fazer a instalação no GNU/Linux, execute os seguintes comandos.
 
 ```
-curl -Lo ./kind https://kind.sigs.k8s.io/dl/v0.9.0/kind-$(uname)-amd64
+curl -Lo ./kind https://kind.sigs.k8s.io/dl/v0.11.1/kind-linux-amd64
 
 chmod +x ./kind
 
@@ -619,22 +619,30 @@ Para fazer a instalação no MacOS, execute o seguinte comando.
 sudo brew install kind
 ```
 
+ou
+
+```
+curl -Lo ./kind https://kind.sigs.k8s.io/dl/v0.11.1/kind-darwin-amd64
+chmod +x ./kind
+mv ./kind /some-dir-in-your-PATH/kind
+```
+
 ## Instalação no Windows
 
 Para fazer a instalação no Windows, execute os seguintes comandos.
 
 ```
-# curl.exe -Lo kind-windows-amd64.exe https://kind.sigs.k8s.io/dl/v0.8.1/kind-windows-amd64
+curl.exe -Lo kind-windows-amd64.exe https://kind.sigs.k8s.io/dl/v0.11.1/kind-windows-amd64
 
-# Move-Item .\kind-windows-amd64.exe c:\some-dir-in-your-PATH\kind.exe
+Move-Item .\kind-windows-amd64.exe c:\some-dir-in-your-PATH\kind.exe
 ```
 
-### Instalação no Windows via Chocolatey
+### Instalação no Windows via [Chocolatey](https://chocolatey.org/install)
 
 Execute o seguinte comando para instalar o Kind no Windows usando o Chocolatey.
 
 ```
-# choco install kind
+choco install kind
 ```
 
 ## Criando um cluster com o Kind
@@ -645,18 +653,19 @@ Após realizar a instalação do Kind, vamos iniciar o nosso cluster.
 kind create cluster
 
 Creating cluster "kind" ...
- ✓ Ensuring node image (kindest/node:v1.19.1) 🖼
- ✓ Preparing nodes 📦
- ✓ Writing configuration 📜
- ✓ Starting control-plane 🕹️
- ✓ Installing CNI 🔌
- ✓ Installing StorageClass 💾
+ ✓ Ensuring node image (kindest/node:v1.21.1) 🖼
+ ✓ Preparing nodes 📦 📦 📦  
+ ✓ Writing configuration 📜 
+ ✓ Starting control-plane 🕹️ 
+ ✓ Installing CNI 🔌 
+ ✓ Installing StorageClass 💾 
+ ✓ Joining worker nodes 🚜 
 Set kubectl context to "kind-kind"
 You can now use your cluster with:
 
 kubectl cluster-info --context kind-kind
 
-Thanks for using kind! 😊
+Have a nice day! 👋
 ```
 
 É possível criar mais de um cluster e personalizar o seu nome.
@@ -665,18 +674,19 @@ Thanks for using kind! 😊
 kind create cluster --name giropops
 
 Creating cluster "giropops" ...
- ✓ Ensuring node image (kindest/node:v1.19.1) 🖼
- ✓ Preparing nodes 📦
- ✓ Writing configuration 📜
- ✓ Starting control-plane 🕹️
- ✓ Installing CNI 🔌
- ✓ Installing StorageClass 💾
+ ✓ Ensuring node image (kindest/node:v1.21.1) 🖼
+ ✓ Preparing nodes 📦 📦 📦  
+ ✓ Writing configuration 📜 
+ ✓ Starting control-plane 🕹️ 
+ ✓ Installing CNI 🔌 
+ ✓ Installing StorageClass 💾 
+ ✓ Joining worker nodes 🚜 
 Set kubectl context to "kind-giropops"
 You can now use your cluster with:
 
 kubectl cluster-info --context kind-giropops
 
-Thanks for using kind! 😊
+Have a nice day! 👋
 ```
 
 Para visualizar os seus clusters utilizando o kind, execute o comando a seguir.
@@ -693,8 +703,8 @@ Liste os nodes do cluster.
 ```
 kubectl get nodes
 
-NAME                 STATUS   ROLES    AGE     VERSION
-kind-control-plane   Ready    master   3m51s   v1.19.1
+NAME                 STATUS   ROLES                  AGE     VERSION
+kind-control-plane   Ready    control-plane,master   2m46s   v1.21.1
 ```
 
 ### Criando um cluster com múltiplos nós locais com o Kind
@@ -710,7 +720,7 @@ kind delete clusters $(kind get clusters)
 Crie um arquivo de configuração para definir quantos e o tipo de nós no cluster que você deseja. No exemplo a seguir, será criado o arquivo de configuração ``kind-3nodes.yaml`` para especificar um cluster com 1 nó master (que executará o control plane) e 2 workers.
 
 ```
-cat << EOF > kind-3nodes.yaml
+cat << EOF > $HOME/kind-3nodes.yaml
 kind: Cluster
 apiVersion: kind.x-k8s.io/v1alpha4
 nodes:
@@ -723,22 +733,22 @@ EOF
 Crie um cluster chamado ``kind-multinodes`` utilizando as especificações definidas no arquivo ``kind-3nodes.yaml``.
 
 ```
-kind create cluster --name kind-multinodes --config ./kind-3nodes.yaml
+kind create cluster --name kind-multinodes --config $HOME/kind-3nodes.yaml
 
 Creating cluster "kind-multinodes" ...
- ✓ Ensuring node image (kindest/node:v1.19.1) 🖼
- ✓ Preparing nodes 📦 📦 📦
- ✓ Writing configuration 📜
- ✓ Starting control-plane 🕹️
- ✓ Installing CNI 🔌
- ✓ Installing StorageClass 💾
- ✓ Joining worker nodes 🚜
+ ✓ Ensuring node image (kindest/node:v1.21.1) 🖼
+ ✓ Preparing nodes 📦 📦 📦  
+ ✓ Writing configuration 📜 
+ ✓ Starting control-plane 🕹️ 
+ ✓ Installing CNI 🔌 
+ ✓ Installing StorageClass 💾 
+ ✓ Joining worker nodes 🚜 
 Set kubectl context to "kind-kind-multinodes"
 You can now use your cluster with:
 
 kubectl cluster-info --context kind-kind-multinodes
 
-Have a question, bug, or feature request? Let us know! https://kind.sigs.k8s.io/#community 🙂
+Have a nice day! 👋
 ```
 
 Valide a criação do cluster com o comando a seguir.
@@ -746,10 +756,10 @@ Valide a criação do cluster com o comando a seguir.
 ```
 kubectl get nodes
 
-NAME                            STATUS   ROLES    AGE     VERSION
-kind-multinodes-control-plane   Ready    master   3m3s    v1.19.1
-kind-multinodes-worker1          Ready    <none>   2m30s   v1.19.1
-kind-multinodes-worker2         Ready    <none>   2m30s   v1.19.1
+NAME                            STATUS   ROLES                  AGE     VERSION
+kind-multinodes-control-plane   Ready    control-plane,master   2m46s   v1.21.1
+kind-multinodes-worker          Ready    <none>                 2m16s   v1.21.1
+kind-multinodes-worker2         Ready    <none>                 2m16s   v1.21.1
 ```
 
 Mais informações sobre o Kind estão disponíveis em: https://kind.sigs.k8s.io
@@ -760,7 +770,7 @@ Mais informações sobre o Kind estão disponíveis em: https://kind.sigs.k8s.io
 
 Vamos aprender como instalar o renomado k3s e adicionar nodes no seu cluster!
 
-Nesse exemplo eu estou usando o Raspberry Pi 4, a *master* com 4GB de memória RAM e 4 cores, e 2 workers com 2GB de memória RAM e 4 cores.
+Nesse exemplo eu estou usando o Raspberry Pi 4, o *master* com 4GB de memória RAM e 4 cores, e 2 workers com 2GB de memória RAM e 4 cores.
 
 Para instalar o k3s, basta executar o seguinte comando:
 
@@ -895,13 +905,13 @@ Legal! Agora que você já tem o Token e o IP da master, bora para o outro node.
 Já no outro node, nós vamos executar o comando para que ele seja adicionado:
 
 ```
-# curl -sfL https://get.k3s.io | K3S_URL=https://myserver:6443 K3S_TOKEN=XXX sh -
+curl -sfL https://get.k3s.io | K3S_URL=https://myserver:6443 K3S_TOKEN=XXX sh -
 ```
 
 O comando ficará mais ou menos assim (lembre-se de trocar pelo seu IP e Token):
 
 ```
-# curl -sfL https://get.k3s.io | K3S_URL=https://192.168.86.101:6443 K3S_TOKEN=K10bded4a17f7674c322febfb517cde93afaa48c35b74528d9d2b7d20ec8e41a1ad::server:9d2c12e1112ecdc0d1f9a2fd0e2933fe sh -
+curl -sfL https://get.k3s.io | K3S_URL=https://192.168.86.101:6443 K3S_TOKEN=K10bded4a17f7674c322febfb517cde93afaa48c35b74528d9d2b7d20ec8e41a1ad::server:9d2c12e1112ecdc0d1f9a2fd0e2933fe sh -
 
 [INFO]  Finding release for channel stable
 [INFO]  Using v1.19.1+k3s1 as release
@@ -992,7 +1002,7 @@ sudo apt upgrade -y
 Em distribuições Red Hat e baseadas, use o seguinte comando.
 
 ```
-# yum upgrade -y
+sudo yum upgrade -y
 ```
 
 ## Instalação do Docker e do Kubernetes
@@ -1000,7 +1010,13 @@ Em distribuições Red Hat e baseadas, use o seguinte comando.
 A instalação do Docker pode ser realizada com apenas um comando, que deve ser executado nos três nós:
 
 ```
-# curl -fsSL https://get.docker.com | bash
+curl -fsSL https://get.docker.com | bash
+```
+
+Para travar a uma versão especifica do docker utilize o seguinte comando:
+
+```
+export VERSION=<versão do docker> && curl -fsSL https://get.docker.com | bash
 ```
 
 Embora a maneira anterior seja a mais fácil, não permite o controle de opções. Por esse motivo, a documentação do Kubernetes sugere uma instalação mais controlada seguindo os passos disponíveis em: https://kubernetes.io/docs/setup/production-environment/container-runtimes/
@@ -1010,7 +1026,7 @@ Embora a maneira anterior seja a mais fácil, não permite o controle de opçõe
 Para a família Debian, execute o seguinte comando:
 
 ```
-# cat > /etc/docker/daemon.json <<EOF
+cat > /etc/docker/daemon.json <<EOF
 {
   "exec-opts": ["native.cgroupdriver=systemd"],
   "log-driver": "json-file",
@@ -1025,7 +1041,7 @@ EOF
 Para a família Red Hat, execute o seguinte comando:
 
 ```
-# cat > /etc/docker/daemon.json <<EOF
+cat > /etc/docker/daemon.json <<EOF
 {
   "exec-opts": ["native.cgroupdriver=systemd"],
   "log-driver": "json-file",
@@ -1049,14 +1065,14 @@ sudo mkdir -p /etc/systemd/system/docker.service.d
 Agora basta reiniciar o Docker.
 
 ```
-# systemctl daemon-reload
-# systemctl restart docker
+sudo systemctl daemon-reload
+sudo systemctl restart docker
 ```
 
 Para finalizar, verifique se o driver ``Cgroup`` foi corretamente definido.
 
 ```
-# docker info | grep -i cgroup
+docker info | grep -i cgroup
 ```
 
 Se a saída foi ``Cgroup Driver: systemd``, tudo certo!
@@ -1066,15 +1082,15 @@ O próximo passo é efetuar a adição dos repositórios do k8s e efetuar a inst
 Em distribuições Debian e baseadas, isso pode ser realizado com os comandos a seguir.
 
 ```
-# apt-get update && apt-get install -y apt-transport-https gnupg2
+sudo apt-get update && sudo apt-get install -y apt-transport-https gnupg2
 
-# curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add -
+curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
 
-# echo "deb http://apt.kubernetes.io/ kubernetes-xenial main" > /etc/apt/sources.list.d/kubernetes.list
+sudo echo "deb http://apt.kubernetes.io/ kubernetes-xenial main" > /etc/apt/sources.list.d/kubernetes.list
 
-# apt-get update
+sudo apt-get update
 
-# apt-get install -y kubelet kubeadm kubectl
+sudo apt-get install -y kubelet kubeadm kubectl
 ```
 
 Já em distribuições Red Hat e baseadas, adicione o repositório do k8s criando o arquivo ``/etc/yum.repos.d/kubernetes.repo`` com o conteúdo a seguir:
@@ -1092,17 +1108,17 @@ gpgkey=https://packages.cloud.google.com/yum/doc/yum-key.gpg https://packages.cl
 Os comandos a seguir desativam o *firewall*, instalam os pacotes do k8s e ativam o serviço do mesmo.
 
 ```
-# setenforce 0
+sudo setenforce 0
 
-# systemctl stop firewalld
+sudo systemctl stop firewalld
 
-# systemctl disable firewalld
+sudo systemctl disable firewalld
 
-# yum install -y kubelet kubeadm kubectl
+sudo yum install -y kubelet kubeadm kubectl
 
-# systemctl enable docker && systemctl start docker
+sudo systemctl enable docker && sudo systemctl start docker
 
-# systemctl enable kubelet && systemctl start kubelet
+sudo systemctl enable kubelet && sudo systemctl start kubelet
 ```
 
 Ainda em distribuições Red Hat e baseadas, é necessário a configuração de alguns parâmetros extras no kernel por meio do **sysctl**. Estes podem ser setados criando o arquivo ``/etc/sysctl.d/k8s.conf`` com o seguinte conteúdo.
@@ -1115,7 +1131,7 @@ net.bridge.bridge-nf-call-iptables = 1
 Em ambas distribuições GNU/Linux também é necessário desativar a memória swap em todos os nós com o comando a seguir.
 
 ```
-# swapoff -a
+sudo swapoff -a
 ```
 
 Além de comentar a linha referente à mesma no arquivo ```/etc/fstab```.
@@ -1127,13 +1143,13 @@ Após esses procedimentos, é interessante a reinicialização de todos os nós 
 Antes de inicializarmos o *cluster*, vamos efetuar o *download* das imagens que serão utilizadas, executando o comando a seguir no nó que será o *master*.
 
 ```
-# kubeadm config images pull
+sudo kubeadm config images pull
 ```
 
 Execute o comando a seguir também apenas no nó *master* para a inicialização do cluster. Caso tudo esteja bem, será apresentada ao término de sua execução o comando que deve ser executado nos demais nós para ingressar no *cluster*.
 
 ```
-# kubeadm init
+sudo kubeadm init
 ```
 
 A opção _--apiserver-advertise-address_ informa qual o endereço IP em que o servidor de API irá escutar. Caso este parâmetro não seja informado, a interface de rede padrão será usada. Opcionalmente, você também pode passar o cidr com a opção _--pod-network-cidr_. O comando obedecerá a seguinte sintaxe:
@@ -1178,8 +1194,8 @@ Environment="KUBELET_CONFIG_ARGS=--config=/var/lib/kubelet/config.yaml --node-ip
 Salve o arquivo e execute os comandos abaixo para reiniciar a configuração e consequentemente o kubelet.
 
 ```
-systemctl daemon-reload
-systemctl restart kubelet
+sudo systemctl daemon-reload
+sudo systemctl restart kubelet
 ```
 
 ## Configuração do arquivo de contextos do kubectl
@@ -1236,7 +1252,7 @@ Exemplo: Se o IP for `10.96.0.1` a rede é `10.96.0.0`) e a `INTERFACE` com a in
 Exemplo de comando para adicionar uma rota:
 
 ```
-# ip route add 10.96.0.0/16 dev eth1
+sudo ip route add 10.96.0.0/16 dev eth1
 ```
 
 Adicione a rota nas configurações de rede para que seja criada durante o boot.
@@ -1250,7 +1266,7 @@ Mais informações sobre *pod networking* serão abordados nos demais dias do tr
 Caso você ainda não tenha reiniciado os nós que compõem o seu *cluster*, você pode carregar os módulos do kernel necessários com o seguinte comando.
 
 ```
-# modprobe br_netfilter ip_vs_rr ip_vs_wrr ip_vs_sh nf_conntrack_ipv4 ip_vs
+sudo modprobe br_netfilter ip_vs_rr ip_vs_wrr ip_vs_sh nf_conntrack_ipv4 ip_vs
 ```
 
 No curso, nós iremos utilizar o **Weave-net**, que pode ser instalado com o comando a seguir.
@@ -1326,7 +1342,7 @@ Annotations:        kubeadm.alpha.kubernetes.io/cri-socket: /var/run/dockershim.
 Para visualizar novamente o *token* para inserção de novos nós, execute o seguinte comando.
 
 ```
-# kubeadm token create --print-join-command
+sudo kubeadm token create --print-join-command
 ```
 
 ## Ativando o autocomplete
@@ -1340,7 +1356,7 @@ sudo apt install -y bash-completion
 Em sistemas Red Hat e baseados, execute:
 
 ```
-# yum install -y bash-completion
+sudo yum install -y bash-completion
 ```
 
 Feito isso, execute o seguinte comando.
