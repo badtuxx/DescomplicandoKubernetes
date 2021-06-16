@@ -181,7 +181,7 @@ sudo apt-get install -y nfs-kernel-server
 No CentOS/RedHat tanto no servidor quanto nos nodes o pacote será o mesmo:
 
 ```
-yum install -y nfs-utils
+sudo yum install -y nfs-utils
 ```
 
 Agora vamos instalar o pacote ``nfs-common`` nos demais nodes da família Debian.
@@ -226,7 +226,7 @@ sudo systemctl restart nfs-kernel-server
 No CentOS/RedHat:
 
 ```
-# systemctl restart nfs
+sudo systemctl restart nfs
 ```
 
 Ainda no node ``elliot-01``, vamos criar um arquivo nesse diretório para nosso teste.
@@ -1837,7 +1837,7 @@ sudo chmod -R 777 /opt/prometheus/
 Adicione as linhas para mapear os diretório para dentro do NFS:
 
 ```
-sudo vim /etc/exportfs
+sudo vim /etc/exports
 
     /opt/prometheus *(rw,sync,subtree_check,no_root_squash)
     /opt/alertmanager *(rw,sync,subtree_check,no_root_squash)
