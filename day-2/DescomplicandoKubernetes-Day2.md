@@ -75,7 +75,7 @@ Enquanto o CNI define a rede dos pods, ele não te ajuda na comunicação entre 
 As características básicas da rede do k8s são:
 
 * Todos os pods conseguem se comunicar entre eles em diferentes nodes;
-* Todos os nodes pode se comunicar com todos os pods;
+* Todos os nodes podem se comunicar com todos os pods;
 * Não utilizar NAT.
 
 Todos os IPs dos pods e nodes são roteados sem a utilização de [NAT](https://en.wikipedia.org/wiki/Network_address_translation). Isso é solucionado com a utilização de algum software que te ajudará na criação de uma rede Overlay. Seguem alguns:
@@ -238,6 +238,8 @@ service "nginx-clusterip" deleted
 
 Agora vamos mudar um detalhe em nosso manifesto, vamos brincar com o nosso ``sessionAffinity``:
 
+> **Nota:** Se você quiser ter certeza de que as conexões de um cliente específico sejam passadas para o mesmo pod todas as vezes, você pode selecionar a afinidade da sessão (*session affinity*) com base nos endereços IP do cliente, definindo ``service.spec.sessionAffinity`` como ``ClientIP`` (o padrão é ``None``). Você também pode definir o tempo de permanência máximo da sessão definindo ``service.spec.sessionAffinityConfig.clientIP.timeoutSeconds`` adequadamente (o valor padrão é 10800 segundos, o que resulta em 3 horas).
+
 ```
 vim primeiro-service-clusterip.yaml
 ```
@@ -320,7 +322,7 @@ service "nginx-clusterip" deleted
 
 ## Criando um service NodePort
 
-Execute o comando a seguir para exportar o pod usando o service NodePort.
+Execute o comando a seguir para exportar o pod usando o service NodePort. Lembrando que o range de portas internas é entre 30000/TCP a 32767/TCP.
 
 ```
 kubectl expose pods nginx --type=NodePort --port=80
@@ -1093,7 +1095,7 @@ O **Taint** nada mais é do que adicionar propriedades ao nó do cluster para im
 
 Por exemplo, todo nó ``master`` do cluster é marcado para não receber pods que não sejam de gerenciamento do cluster.
 
-O nó ``master`` está marcado com o taint ``NoSchedule``, assim o scheduler do Kubernetes não aloca pods no nó master, e procurar outros nós no cluster sem essa marca.
+O nó ``master`` está marcado com o taint ``NoSchedule``, assim o scheduler do Kubernetes não aloca pods no nó master, e procura outros nós no cluster sem essa marca.
 
 Visualizando os nodes do cluster:
 
@@ -1220,7 +1222,7 @@ nginx-85f7fb6b45-qsvpp   0/1     Pending   0          18s     <none>      <none>
 nginx-85f7fb6b45-rprz5   1/1     Running   0          7m46s   10.32.0.2   elliot-02   <none>           <none>
 ```
 
-Como podemos ver, as nova réplicas ficaram órfãs esperando aparece um nó com as prioridades adequadas para o Scheduler.
+Como podemos ver, as nova réplicas ficaram órfãs esperando aparecer um nó com as prioridades adequadas para o Scheduler.
 
 Vamos remover esse Taint dos nossos nós worker:
 
