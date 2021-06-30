@@ -604,7 +604,7 @@ O Kind (Kubernetes in Docker) é outra alternativa para executar o Kubernetes nu
 Para fazer a instalação no GNU/Linux, execute os seguintes comandos.
 
 ```
-curl -Lo ./kind https://kind.sigs.k8s.io/dl/v0.9.0/kind-$(uname)-amd64
+curl -Lo ./kind https://kind.sigs.k8s.io/dl/v0.11.1/kind-linux-amd64
 
 chmod +x ./kind
 
