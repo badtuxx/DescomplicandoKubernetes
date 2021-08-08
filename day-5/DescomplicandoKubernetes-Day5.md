@@ -813,11 +813,11 @@ http://SEU-ENDEREÇO:32000/nginx_status
 Ou ainda via curl:
 
 ```
-# curl http://SEU-ENDEREÇO:30000/app1
+curl http://SEU-ENDEREÇO:30000/app1
 
-# curl http://SEU-ENDEREÇO:30000/app2
+curl http://SEU-ENDEREÇO:30000/app2
 
-# curl http://SEU-ENDEREÇO:32000/nginx_status
+curl http://SEU-ENDEREÇO:32000/nginx_status
 ```
 
 ---
@@ -829,20 +829,20 @@ Caso você queira fazer a instalação utilizando o repositório do Jeferson, ao
 Criando o Cluster:
 
 ```
-# curl -fsSL https://get.docker.com | bash
-# vim /etc/modules-load.d/k8s.conf
-# apt-get update && apt-get install -y apt-transport-https
-# curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add -
-# echo "deb http://apt.kubernetes.io/ kubernetes-xenial main" >  /etc/apt/sources.list.d/kubernetes.list
-# apt-get update
-# apt-get install -y kubelet kubeadm kubectl
-# kubeadm config images pull
-# kubeadm init
-# mkdir -p $HOME/.kube
-# kubectl apply -f "https://cloud.weave.works/k8s/net?k8s-version=$(kubectl version | base64 | tr -d '\n')"
-# cat /etc/modules-load.d/k8s.conf
-# modprobe br_netfilter ip_vs_rr ip_vs_wrr ip_vs_sh nf_conntrack_ipv4 ip_vs
-# kubectl get nodes
+curl -fsSL https://get.docker.com | bash
+vim /etc/modules-load.d/k8s.conf
+sudo apt-get update && sudo apt-get install -y apt-transport-https
+curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
+sudo echo "deb http://apt.kubernetes.io/ kubernetes-xenial main" >  /etc/apt/sources.list.d/kubernetes.list
+sudo apt-get update
+sudo apt-get install -y kubelet kubeadm kubectl
+sudo kubeadm config images pull
+sudo kubeadm init
+mkdir -p $HOME/.kube
+kubectl apply -f "https://cloud.weave.works/k8s/net?k8s-version=$(kubectl version | base64 | tr -d '\n')"
+cat /etc/modules-load.d/k8s.conf
+sudo modprobe br_netfilter ip_vs_rr ip_vs_wrr ip_vs_sh nf_conntrack_ipv4 ip_vs
+kubectl get nodes
 ```
 
 Realizando o clone do repositório:
@@ -854,32 +854,32 @@ git clone https://github.com/badtuxx/ingress.git
 Iniciando o deploy de nossa app e também do Nginx Ingress.
 
 ```
-# cd ingress/
-# kubectl create -f app-deployment.yaml
-# kubectl create -f app-service.yaml
-# kubectl get pods
-# kubectl get ep
-# kubectl create namespace ingress
-# kubectl create -f default-backend-deployment.yaml -n ingress
-# kubectl create -f default-backend-service.yaml -n ingress
-# kubectl get deployments. -n ingress
-# kubectl get service
-# kubectl get service -n ingress
-# kubectl create -f nginx-ingress-controller-config-map.yaml -n ingress
-# kubectl create -f nginx-ingress-controller-roles.yaml -n ingress
-# kubectl create -f nginx-ingress-controller-deployment.yaml -n ingress
-# kubectl create -f nginx-ingress-controller-service.yaml -n=ingress
-# kubectl get pods
-# kubectl get pods -n ingress
-# kubectl create -f nginx-ingress.yaml -n ingress
-# kubectl create -f app-ingress.yaml
-# kubectl get pods -n ingress
-# kubectl get pods
-# kubectl get services
-# kubectl get services -n ingress
-# kubectl get ingress
-# kubectl get deploy
-# kubectl get deploy -n ingress
+cd ingress/
+kubectl create -f app-deployment.yaml
+kubectl create -f app-service.yaml
+kubectl get pods
+kubectl get ep
+kubectl create namespace ingress
+kubectl create -f default-backend-deployment.yaml -n ingress
+kubectl create -f default-backend-service.yaml -n ingress
+kubectl get deployments. -n ingress
+kubectl get service
+kubectl get service -n ingress
+kubectl create -f nginx-ingress-controller-config-map.yaml -n ingress
+kubectl create -f nginx-ingress-controller-roles.yaml -n ingress
+kubectl create -f nginx-ingress-controller-deployment.yaml -n ingress
+kubectl create -f nginx-ingress-controller-service.yaml -n=ingress
+kubectl get pods
+kubectl get pods -n ingress
+kubectl create -f nginx-ingress.yaml -n ingress
+kubectl create -f app-ingress.yaml
+kubectl get pods -n ingress
+kubectl get pods
+kubectl get services
+kubectl get services -n ingress
+kubectl get ingress
+kubectl get deploy
+kubectl get deploy -n ingress
 ```
 
 Pronto! Agora você já pode acessar suas apps pela URL que você configurou. Abra o navegador e adicione os seguintes endereços:

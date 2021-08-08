@@ -42,13 +42,13 @@ git branch
 
 ```git push --set-upstream origin BRANCH_NAME```.
 
-* Crie um Pull Request (PR) para a branch `master` do repositório original. Veja este [tutorial](https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/creating-a-pull-request-from-a-fork)
+* Crie um Pull Request (PR) para a branch `main` do repositório original. Veja este [tutorial](https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/creating-a-pull-request-from-a-fork)
 * Atualize o conteúdo com as sugestões do revisor (se necessário).
 * Depois de aprovado e realizado o merge do seu PR, atualize as mudanças no seu repositório local com os comandos a seguir.
 
 ```bash
-git checkout master
-git pull upstream master
+git checkout main
+git pull upstream main
 ```
 
 * Remova a branch local após a aprovação e merge do seu PR, usando o comando:
@@ -57,10 +57,10 @@ git pull upstream master
 git branch -d BRANCH_NAME
 ```
 
-* Atualize a branch ``master`` do seu repositório local.
+* Atualize a branch ``main`` do seu repositório local.
 
 ```
-git push origin master
+git push origin main
 ```
 
 * Envie a exclusão da branch local para o seu repositório no GitHub com o comando:
@@ -72,8 +72,8 @@ git push --delete origin BRANCH_NAME
 * Para manter seu fork em sincronia com o repositório original, execute estes comandos:
 
 ```
-git pull upstream master
-git push origin master
+git pull upstream main
+git push origin main
 ```
 
 Referência:
