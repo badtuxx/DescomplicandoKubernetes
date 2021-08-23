@@ -1368,7 +1368,7 @@ kubectl completion bash > /etc/bash_completion.d/kubectl
 Efetue *logoff* e *login* para carregar o *autocomplete*. Caso não deseje, execute:
 
 ```
-source < (kubectl completion bash)
+source <(kubectl completion bash)
 ```
 
 ## Verificando os namespaces e pods
