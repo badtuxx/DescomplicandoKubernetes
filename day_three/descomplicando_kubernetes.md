@@ -1,11 +1,7 @@
-# Descomplicando Kubernetes Day 3
+# Descomplicando Kubernetes dia 3
 
 ## Sumário
 
-<!-- TOC -->
-
-- [Descomplicando Kubernetes Day 3](#descomplicando-kubernetes-day-3)
-  - [Sumário](#sumário)
 - [Deployments](#deployments)
   - [Filtrando por Labels](#filtrando-por-labels)
   - [Node Selector](#node-selector)
@@ -13,8 +9,6 @@
 - [ReplicaSet](#replicaset)
 - [DaemonSet](#daemonset)
 - [Rollouts e Rollbacks](#rollouts-e-rollbacks)
-
-<!-- TOC -->
 
 # Deployments
 

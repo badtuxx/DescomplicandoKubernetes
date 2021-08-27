@@ -1,15 +1,10 @@
 
-# Descomplicando Kubernetes Day 5
+# Descomplicando Kubernetes dia 5
 
 ## Sumário
 
-<!-- TOC -->
-
-- [Descomplicando Kubernetes Day 5](#descomplicando-kubernetes-day-5)
-  - [Sumário](#sumário)
 - [Ingress](#ingress)
 - [RASCUNHO](#rascunho)
-<!-- TOC -->
 
 # Ingress
 

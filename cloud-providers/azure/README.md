@@ -60,7 +60,7 @@ Helm é um gerenciador de pacotes do Kubernetes que vamos utilizar neste tutoria
 curl https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3 | bash
 ```
 
-Para mais informações sobre o Helm acesse o conteúdo da Seção [Helm](day-4/DescomplicandoKubernetes-Day4.md#helm) ou acesse a [página oficial](https://helm.sh/).
+Para mais informações sobre o Helm acesse o conteúdo da Seção [Helm](day_four/descomplicando_kubernetes.md#helm) ou acesse a [página oficial](https://helm.sh/).
 
 # Criação do Cluster
 

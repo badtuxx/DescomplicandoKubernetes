@@ -9,7 +9,7 @@ The content of this repository was initially private and belonged to [LinuxTips]
 
 Due to the [Coronavirus (COVID-19)](https://coronavirus.jhu.edu/map.html) and inspired by the [Foca GNU/Linux Guide](https://guiafoca.org), from [Gleydson Mazioli da Silva](https://twitter.com/gleydsonmazioli), and [Jeferson Fernando](https://twitter.com/badtux_) released public access to this repository as a way to help fight the pandemic by encouraging people staying at home acquiring knowledge and improving themselves in the profession to be able to contribute in the workplace or even prepare for new opportunities.
 
-The content of this material is divided into 6 parts (day-1 to day-6) to facilitate learning. The idea is for the student to focus on learning in stages and for that reason we recommend that he move to the next part only when he is totally comfortable with the current content.
+The content of this material is divided into 6 parts (day_one to day_six) to facilitate learning. The idea is for the student to focus on learning in stages and for that reason we recommend that he move to the next part only when he is totally comfortable with the current content.
 
 In this material you will have contact with contents that cover from beginner to advanced level on Kubernetes, and now that it has become open, with the help of everyone we will build the largest and most complete material on Kubernetes in the world.
 

@@ -1,11 +1,7 @@
-# Descomplicando Kubernetes Day 2
+# Descomplicando Kubernetes dia 2
 
 ## Sumário
 
-<!-- TOC -->
-
-- [Descomplicando Kubernetes Day 2](#descomplicando-kubernetes-day-2)
-  - [Sumário](#sumário)
 - [Componentes do K8s](#componentes-do-k8s)
 - [Principais Comandos](#principais-comandos)
 - [Container Network Interface](#container-network-interface)
@@ -18,8 +14,6 @@
 - [Namespaces](#namespaces)
 - [Kubectl taint](#kubectl-taint)
 - [Colocando o nó em modo de manutenção](#colocando-o-nó-em-modo-de-manutenção)
-
-<!-- TOC -->
 
 # Componentes do K8s
 

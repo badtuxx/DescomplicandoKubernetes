@@ -1,11 +1,7 @@
-# Descomplicando Kubernetes Day 4
+# Descomplicando Kubernetes dia 4
 
 ## Sumário
 
-<!-- TOC -->
-
-- [Descomplicando Kubernetes Day 4](#descomplicando-kubernetes-day-4)
-  - [Sumário](#sumário)
 - [Volumes](#volumes)
   - [Empty-Dir](#empty-dir)
   - [Persistent Volume](#persistent-volume)
@@ -20,8 +16,6 @@
 - [Helm](#helm)
   - [Instalando o Helm 3](#instalando-o-helm-3)
   - [Comandos Básicos do Helm 3](#comandos-básicos-do-helm-3)
-
-<!-- TOC -->
 
 # Volumes
 

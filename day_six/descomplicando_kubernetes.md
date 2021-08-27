@@ -3,9 +3,6 @@
 
 ## Sumário
 
-<!-- TOC -->
-- [Descomplicando Kubernetes Day 6](#descomplicando-kubernetes-day-6)
-  - [Sumário](#sumário)
 - [Security Context](#security-context)
   - [Utilizando o security Context](#utilizando-o-security-context)
   - [Capabilities](#capabilities)
@@ -17,9 +14,6 @@
   - [Interagindo com o ETCD](#interagindo-com-o-etcd)
   - [Backup do ETCD no Kubernetes](#backup-do-etcd-no-kubernetes)
 - [Dicas para os exames](#dicas-para-os-exames)
-
-<!-- TOC -->
-
 
 # Security Context
 

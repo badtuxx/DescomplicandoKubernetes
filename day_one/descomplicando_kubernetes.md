@@ -1,10 +1,7 @@
-# Descomplicando Kubernetes Day 1
+# Descomplicando Kubernetes dia 1
 
 ## Sumário
 
-<!-- TOC -->
-- [Descomplicando Kubernetes Day 1](#descomplicando-kubernetes-day-1)
-  - [Sumário](#sumário)
 - [O quê preciso saber antes de começar?](#o-quê-preciso-saber-antes-de-começar)
   - [Qual distro GNU/Linux devo usar?](#qual-distro-gnulinux-devo-usar)
   - [Alguns sites que devemos visitar](#alguns-sites-que-devemos-visitar)
@@ -67,8 +64,6 @@
   - [Socorro, são muitas opções!](#socorro-são-muitas-opções)
   - [Expondo o pod](#expondo-o-pod)
   - [Limpando tudo e indo para casa](#limpando-tudo-e-indo-para-casa)
-
-<!-- TOC -->
 
 # O quê preciso saber antes de começar?
 
@@ -342,7 +337,7 @@ echo "[[ $commands[kubectl] ]] && source <(kubectl completion zsh)"
 
 No Microsoft Windows, você deve executar o comando `systeminfo` no prompt de comando ou no terminal. Caso o retorno deste comando seja semelhante com o descrito a seguir, então a virtualização é suportada.
 
-```textile
+```
 Hyper-V Requirements:     VM Monitor Mode Extensions: Yes
                           Virtualization Enabled In Firmware: Yes
                           Second Level Address Translation: Yes
@@ -351,7 +346,7 @@ Hyper-V Requirements:     VM Monitor Mode Extensions: Yes
 
 Caso a linha a seguir também esteja presente, não é necessária a instalação de um *hypervisor* como o Oracle VirtualBox:
 
-```textile
+```
 Hyper-V Requirements:     A hypervisor has been detected. Features required for Hyper-V will not be displayed.:     A hypervisor has been detected. Features required for Hyper-V will not be displayed.
 ```
 
@@ -980,7 +975,7 @@ Como já dito anteriormente, o Minikube é ótimo para desenvolvedores, estudos 
 
 O k8s requer que certos módulos do kernel GNU/Linux estejam carregados para seu pleno funcionamento, e que esses módulos sejam carregados no momento da inicialização do computador. Para tanto, crie o arquivo ``/etc/modules-load.d/k8s.conf`` com o seguinte conteúdo em todos os seus nós.
 
-```textile
+```
 br_netfilter
 ip_vs
 ip_vs_rr
