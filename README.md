@@ -18,7 +18,7 @@ Veja os vídeos sobre Kubernetes, DevOps, Automação e outros assuntos relacion
 
 Veja os treinamentos disponíveis da LINUXtips:
 
-* [Site Oficial da LINUXtips](https://linuxtips.io/loja)
+* [Site Oficial da LINUXtips](https://linuxtips.io)
 
 
 Principais links da LINUXtips:
