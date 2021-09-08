@@ -15,3 +15,6 @@
 * [Cloud providers](extras/cloud-providers/cloud-providers.md)
 * [Dicas para o exame](extras/exame_tips.md)
 * [Pod security policy](extras/pod_security_policy.md)
+
+## Contribuir
+* [Como ajudar](CONTRIBUTING.md)

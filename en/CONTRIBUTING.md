@@ -1,10 +1,3 @@
-<!-- TOC -->
-
-- [Contribuindo](#contribuindo)
-- [Dica](#dica)
-
-<!-- TOC -->
-
 # Contribuindo
 
 Sua contribuição é muito bem vinda!
