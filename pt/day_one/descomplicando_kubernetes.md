@@ -163,7 +163,7 @@ Protocol|Direction|Port Range|Purpose|Used By
 TCP|Inbound|10250|Kubelet API|Self, Control plane
 TCP|Inbound|30000-32767|NodePort|Services All
 
-Caso você opte pelo [Weave](https://weave.works) como *pod network*, devem ser liberadas também as portas 6783 e 6784 TCP.
+Caso você opte pelo [Weave](https://weave.works) como *pod network*, devem ser liberadas também as portas 6783 (TCP) e 6783/6784 (UDP).
 
 ## Tá, mas qual tipo de aplicação eu devo rodar sobre o k8s?
 
