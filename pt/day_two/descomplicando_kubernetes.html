@@ -1,0 +1,1382 @@
+
+<!DOCTYPE HTML>
+<html lang="pt" >
+    <head>
+        <meta charset="UTF-8">
+        <title>Descomplicando Kubernetes dia 2 · HonKit</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="HonKit 3.6.20">
+        
+        
+        
+    
+    <link rel="stylesheet" href="../../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="../day_three/descomplicando_kubernetes.html" />
+    
+    
+    <link rel="prev" href="../day_one/descomplicando_kubernetes.html" />
+    
+
+    </head>
+    <body>
+        
+<div class="book honkit-cloak">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="Escreva para pesquisar" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        <li class="header">Sobre</li>
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../">
+            
+                <a href="../">
+            
+                    
+                    Introdução
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="header">Capítulos</li>
+        
+        
+    
+        <li class="chapter " data-level="2.1" data-path="../day_one/descomplicando_kubernetes.html">
+            
+                <a href="../day_one/descomplicando_kubernetes.html">
+            
+                    
+                    Descomplicando Kubernetes dia 1
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="2.2" data-path="descomplicando_kubernetes.html">
+            
+                <a href="descomplicando_kubernetes.html">
+            
+                    
+                    Descomplicando Kubernetes dia 2
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.3" data-path="../day_three/descomplicando_kubernetes.html">
+            
+                <a href="../day_three/descomplicando_kubernetes.html">
+            
+                    
+                    Descomplicando Kubernetes dia 3
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.4" data-path="../day_four/descomplicando_kubernetes.html">
+            
+                <a href="../day_four/descomplicando_kubernetes.html">
+            
+                    
+                    Descomplicando Kubernetes dia 4
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.5" data-path="../day_five/descomplicando_kubernetes.html">
+            
+                <a href="../day_five/descomplicando_kubernetes.html">
+            
+                    
+                    Descomplicando Kubernetes dia 5
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.6" data-path="../day_six/descomplicando_kubernetes.html">
+            
+                <a href="../day_six/descomplicando_kubernetes.html">
+            
+                    
+                    Descomplicando Kubernetes dia 6
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="header">Extras</li>
+        
+        
+    
+        <li class="chapter " data-level="3.1" data-path="../extras/cloud-providers/cloud-providers.html">
+            
+                <a href="../extras/cloud-providers/cloud-providers.html">
+            
+                    
+                    Cloud providers
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.2" data-path="../extras/exame_tips.html">
+            
+                <a href="../extras/exame_tips.html">
+            
+                    
+                    Dicas para o exame
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.3" data-path="../extras/pod_security_policy.html">
+            
+                <a href="../extras/pod_security_policy.html">
+            
+                    
+                    Pod security policy
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="header">Contribuir</li>
+        
+        
+    
+        <li class="chapter " data-level="4.1" data-path="../CONTRIBUTING.html">
+            
+                <a href="../CONTRIBUTING.html">
+            
+                    
+                    Como ajudar
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://github.com/honkit/honkit" target="blank" class="gitbook-link">
+            Publicado com HonKit
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href=".." >Descomplicando Kubernetes dia 2</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h1 id="descomplicando-kubernetes-dia-2">Descomplicando Kubernetes dia 2</h1>
+<h2 id="sumário">Sumário</h2>
+<ul>
+<li><a href="#componentes-do-k8s">Componentes do K8s</a></li>
+<li><a href="#principais-comandos">Principais Comandos</a></li>
+<li><a href="#container-network-interface">Container Network Interface</a></li>
+<li><a href="#services">Services</a><ul>
+<li><a href="#criando-um-service-clusterip">Criando um service ClusterIP</a></li>
+<li><a href="#criando-um-service-nodeport">Criando um service NodePort</a></li>
+<li><a href="#criando-um-service-loadbalancer">Criando um service LoadBalancer</a></li>
+<li><a href="#endpoint">EndPoint</a></li>
+</ul>
+</li>
+<li><a href="#limitando-recursos">Limitando Recursos</a></li>
+<li><a href="#namespaces">Namespaces</a></li>
+<li><a href="#kubectl-taint">Kubectl taint</a></li>
+<li><a href="#colocando-o-nó-em-modo-de-manutenção">Colocando o nó em modo de manutenção</a></li>
+</ul>
+<h1 id="componentes-do-k8s">Componentes do K8s</h1>
+<p><strong>O k8s tem os seguintes componentes principais:</strong></p>
+<ul>
+<li>Master node</li>
+<li>Worker node</li>
+<li>Services</li>
+<li>Controllers</li>
+<li>Pods</li>
+<li>Namespaces e quotas</li>
+<li>Network e policies</li>
+<li>Storage</li>
+</ul>
+<p><strong><a href="https://kubernetes.io/docs/concepts/overview/components/#kube-apiserver" target="_blank">kube-apiserver</a></strong> é a central de operações do cluster k8s. Todas as chamadas, internas ou externas são tratadas por ele. Ele é o único que conecta no ETCD.</p>
+<p><strong><a href="https://kubernetes.io/docs/concepts/overview/components/#kube-apiserver" target="_blank">kube-scheduller</a></strong> usa um algoritmo para verificar em qual node o pod deverá ser hospedado. Ele verifica os recursos disponíveis do node para verificar qual o melhor node para receber aquele pod.</p>
+<p>No <strong><a href="https://kubernetes.io/docs/concepts/overview/components/#etcd" target="_blank">ETCD</a></strong> são armazenados o estado do cluster, rede e outras informações persistentes.</p>
+<p><strong><a href="https://kubernetes.io/docs/concepts/overview/components/#cloud-controller-manager" target="_blank">kube-controller-manager</a></strong> é o controle principal que interage com o <code>kube-apiserver</code> para determinar o seu estado. Se o estado não bate, o manager irá contactar o controller necessário para checar seu estado desejado. Tem diversos controllers em uso como: os endpoints, namespace e replication.</p>
+<p>O <strong><a href="https://kubernetes.io/docs/concepts/overview/components/#kubelet" target="_blank">kubelet</a></strong> interage com o Docker instalado no node e garante que os contêineres que precisavam estar em execução realmente estão.</p>
+<p>O <strong><a href="https://kubernetes.io/docs/concepts/overview/components/#kube-proxy" target="_blank">kube-proxy</a></strong> é o responsável por gerenciar a rede para os contêineres, é o responsável por expor portas dos mesmos.</p>
+<p><strong><a href="http://supervisord.org/" target="_blank">Supervisord</a></strong> é o responsável por monitorar e restabelecer, se necessário, o <code>kubelet</code> e o Docker. Por esse motivo, quando existe algum problema em relação ao kubelet, como por exemplo o uso do driver <code>cgroup</code> diferente do que está rodando no Docker, você perceberá que ele ficará tentando subir o kubelet frequentemente.</p>
+<p><strong><a href="https://kubernetes.io/docs/concepts/workloads/pods/pod-overview/" target="_blank">Pod</a></strong> é a menor unidade que você irá tratar no k8s. Você poderá ter mais de um contêiner por Pod, porém vale lembrar que eles dividirão os mesmos recursos, como por exemplo IP. Uma das boas razões para se ter mais de um contêiner em um Pod é o fato de você ter os logs consolidados.</p>
+<p>O Pod, por poder possuir diversos contêineres, muitas das vezes se assemelha a uma VM, onde você poderia ter diversos serviços rodando compartilhando o mesmo IP e demais recursos.</p>
+<p><strong><a href="https://kubernetes.io/docs/concepts/services-networking/service/" target="_blank">Services</a></strong> é uma forma de você expor a comunicação através de um <strong>NodePort</strong> ou <strong>LoadBalancer</strong> para distribuir as requisições entre diversos Pods daquele Deployment. Funciona como um balanceador de carga.</p>
+<h1 id="principais-comandos">Principais Comandos</h1>
+<p>A figura a seguir mostra a estrutura dos principais comandos do <code>kubectl</code>.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center"><img src="../../images/kubernetes_commands.png" alt="Principais Comandos"></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><em>Principais comandos <a href="https://uploaddeimagens.com.br/images/002/667/919/full/Kubernetes-Comandos.png" target="_blank">Ref: uploaddeimagens.com.br</a></em></td>
+</tr>
+</tbody>
+</table>
+<h1 id="container-network-interface">Container Network Interface</h1>
+<p>Para prover a rede para os contêineres, o k8s utiliza a especificação do <strong>CNI</strong>, Container Network Interface.</p>
+<p>CNI é uma especificação que reúne algumas bibliotecas para o desenvolvimento de plugins para configuração e gerenciamento de redes para os contêineres. Ele provê uma interface comum entre as diversas soluções de rede para o k8s. Você encontra diversos plugins para AWS, GCP, Cloud Foundry entre outros.</p>
+<p>Mais informações em: <a href="https://github.com/containernetworking/cni" target="_blank">https://github.com/containernetworking/cni</a></p>
+<p>Enquanto o CNI define a rede dos pods, ele não te ajuda na comunicação entre os pods de diferentes nodes.</p>
+<p>As características básicas da rede do k8s são:</p>
+<ul>
+<li>Todos os pods conseguem se comunicar entre eles em diferentes nodes;</li>
+<li>Todos os nodes podem se comunicar com todos os pods;</li>
+<li>Não utilizar NAT.</li>
+</ul>
+<p>Todos os IPs dos pods e nodes são roteados sem a utilização de <a href="https://en.wikipedia.org/wiki/Network_address_translation" target="_blank">NAT</a>. Isso é solucionado com a utilização de algum software que te ajudará na criação de uma rede Overlay. Seguem alguns:</p>
+<ul>
+<li><a href="https://www.weave.works/docs/net/latest/kube-addon/" target="_blank">Weave</a></li>
+<li><a href="https://github.com/coreos/flannel/blob/master/Documentation/kubernetes.md" target="_blank">Flannel</a></li>
+<li><a href="https://github.com/tigera/canal/tree/master/k8s-install" target="_blank">Canal</a></li>
+<li><a href="https://docs.projectcalico.org/latest/introduction/" target="_blank">Calico</a></li>
+<li><a href="http://romana.io/" target="_blank">Romana</a></li>
+<li><a href="https://github.com/nuagenetworks/nuage-kubernetes/blob/v5.1.1-1/docs/kubernetes-1-installation.rst" target="_blank">Nuage</a></li>
+<li><a href="http://contiv.github.io/" target="_blank">Contiv</a></li>
+</ul>
+<p>Mais informações em: <a href="https://kubernetes.io/docs/concepts/cluster-administration/addons/" target="_blank">https://kubernetes.io/docs/concepts/cluster-administration/addons/</a></p>
+<h1 id="services">Services</h1>
+<h2 id="criando-um-service-clusterip">Criando um service ClusterIP</h2>
+<p>Vamos criar um pod a partir de um pod template utilizando os seguintes comandos:</p>
+<pre><code>kubectl run nginx --image nginx --dry-run=client -o yaml &gt; pod-template.yaml
+kubectl create -f pod-template.yaml
+pod/nginx created
+</code></pre><p>Expondo o pod do Nginx.</p>
+<pre><code>kubectl expose pod nginx --port=80
+
+service/nginx exposed
+</code></pre><p>Obtendo informações do service.</p>
+<pre><code>kubectl get svc
+
+NAME         TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)   AGE
+kubernetes   ClusterIP   10.96.0.1        &lt;none&gt;        443/TCP   25m
+nginx        ClusterIP   10.104.209.243   &lt;none&gt;        80/TCP    7m15s
+</code></pre><p>Execute o seguinte comando para visualizar mais detalhes do service <code>nginx</code>.</p>
+<pre><code>kubectl describe service nginx
+
+Name:              nginx
+Namespace:         default
+Labels:            run=nginx
+Annotations:       &lt;none&gt;
+Selector:          run=nginx
+Type:              ClusterIP
+IP:                10.104.209.243
+Port:              &lt;unset&gt;  80/TCP
+TargetPort:        80/TCP
+Endpoints:         10.46.0.0:80
+Session Affinity:  None
+Events:            &lt;none&gt;
+</code></pre><p>Acessando o Ningx. Altere o IP do cluster no comando a seguir de acordo com o seu ambiente.</p>
+<pre><code>curl 10.104.209.243
+
+...
+&lt;title&gt;Welcome to nginx!&lt;/title&gt;
+...
+</code></pre><p>Acesse o log do Nginx.</p>
+<pre><code>kubectl logs -f nginx
+
+10.40.0.0 - - [10/May/2020:17:31:56 +0000] &quot;GET / HTTP/1.1&quot; 200 612 &quot;-&quot; &quot;curl/7.58.0&quot; &quot;-&quot;
+</code></pre><p>Remova o serviço criado anteriormente.</p>
+<pre><code>kubectl delete svc nginx
+
+service &quot;nginx&quot; deleted
+</code></pre><p>Agora vamos criar nosso service <code>ClusterIP</code>, porém vamos criar um arquivo yaml com suas definições:</p>
+<pre><code>vim primeiro-service-clusterip.yaml
+</code></pre><p>Informe o seguinte conteúdo:</p>
+<pre><code class="lang-yaml"><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">v1</span>
+<span class="hljs-attr">kind:</span> <span class="hljs-string">Service</span>
+<span class="hljs-attr">metadata:</span>
+  <span class="hljs-attr">labels:</span>
+    <span class="hljs-attr">run:</span> <span class="hljs-string">nginx</span>
+  <span class="hljs-attr">name:</span> <span class="hljs-string">nginx-clusterip</span>
+  <span class="hljs-attr">namespace:</span> <span class="hljs-string">default</span>
+<span class="hljs-attr">spec:</span>
+  <span class="hljs-attr">ports:</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-attr">port:</span> <span class="hljs-number">80</span>
+    <span class="hljs-attr">protocol:</span> <span class="hljs-string">TCP</span>
+    <span class="hljs-attr">targetPort:</span> <span class="hljs-number">80</span>
+  <span class="hljs-attr">selector:</span>
+    <span class="hljs-attr">run:</span> <span class="hljs-string">nginx</span>
+  <span class="hljs-attr">type:</span> <span class="hljs-string">ClusterIP</span>
+</code></pre>
+<p>Criando o service:</p>
+<pre><code>kubectl create -f primeiro-service-clusterip.yaml
+
+service/nginx-clusterip created
+</code></pre><p>Obtendo informações do service:</p>
+<pre><code>kubectl get services
+
+NAME              TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)   AGE
+kubernetes        ClusterIP   10.96.0.1       &lt;none&gt;        443/TCP   28m
+nginx-clusterip   ClusterIP   10.109.70.243   &lt;none&gt;        80/TCP    71s
+</code></pre><p>Visualizando os detalhes do service:</p>
+<pre><code>kubectl describe service nginx-clusterip
+
+Name:              nginx-clusterip
+Namespace:         default
+Labels:            run=nginx
+Annotations:       &lt;none&gt;
+Selector:          run=nginx
+Type:              ClusterIP
+IP:                10.109.70.243
+Port:              &lt;unset&gt;  80/TCP
+TargetPort:        80/TCP
+Endpoints:         10.46.0.1:80
+Session Affinity:  None
+Events:            &lt;none&gt;
+</code></pre><p>Removendo o service:</p>
+<pre><code>kubectl delete -f primeiro-service-clusterip.yaml
+
+service &quot;nginx-clusterip&quot; deleted
+</code></pre><p>Agora vamos mudar um detalhe em nosso manifesto, vamos brincar com o nosso <code>sessionAffinity</code>:</p>
+<blockquote>
+<p><strong>Nota:</strong> Se você quiser ter certeza de que as conexões de um cliente específico sejam passadas para o mesmo pod todas as vezes, você pode selecionar a afinidade da sessão (<em>session affinity</em>) com base nos endereços IP do cliente, definindo <code>service.spec.sessionAffinity</code> como <code>ClientIP</code> (o padrão é <code>None</code>). Você também pode definir o tempo de permanência máximo da sessão definindo <code>service.spec.sessionAffinityConfig.clientIP.timeoutSeconds</code> adequadamente (o valor padrão é 10800 segundos, o que resulta em 3 horas).</p>
+</blockquote>
+<pre><code>vim primeiro-service-clusterip.yaml
+</code></pre><p>O conteúdo deve ser o seguinte:</p>
+<pre><code class="lang-yaml"><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">v1</span>
+<span class="hljs-attr">kind:</span> <span class="hljs-string">Service</span>
+<span class="hljs-attr">metadata:</span>
+  <span class="hljs-attr">labels:</span>
+    <span class="hljs-attr">run:</span> <span class="hljs-string">nginx</span>
+  <span class="hljs-attr">name:</span> <span class="hljs-string">nginx-clusterip</span>
+  <span class="hljs-attr">namespace:</span> <span class="hljs-string">default</span>
+<span class="hljs-attr">spec:</span>
+  <span class="hljs-attr">ports:</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-attr">port:</span> <span class="hljs-number">80</span>
+    <span class="hljs-attr">protocol:</span> <span class="hljs-string">TCP</span>
+    <span class="hljs-attr">targetPort:</span> <span class="hljs-number">80</span>
+  <span class="hljs-attr">selector:</span>
+    <span class="hljs-attr">run:</span> <span class="hljs-string">nginx</span>
+  <span class="hljs-attr">sessionAffinity:</span> <span class="hljs-string">ClientIP</span>
+  <span class="hljs-attr">type:</span> <span class="hljs-string">ClusterIP</span>
+</code></pre>
+<p>Criando o service novamente:</p>
+<pre><code>kubectl create -f primeiro-service-clusterip.yaml
+
+service/nginx-clusterip created
+</code></pre><p>Obtendo informações do service:</p>
+<pre><code>kubectl get services
+
+NAME              TYPE        CLUSTER-IP     EXTERNAL-IP   PORT(S)   AGE
+kubernetes        ClusterIP   10.96.0.1      &lt;none&gt;        443/TCP   29m
+nginx-clusterip   ClusterIP   10.96.44.114   &lt;none&gt;        80/TCP    7s
+</code></pre><p>Visualizando os detalhes do service:</p>
+<pre><code>kubectl describe service nginx
+
+Name:              nginx-clusterip
+Namespace:         default
+Labels:            run=nginx
+Annotations:       &lt;none&gt;
+Selector:          run=nginx
+Type:              ClusterIP
+IP:                10.96.44.114
+Port:              &lt;unset&gt;  80/TCP
+TargetPort:        80/TCP
+Endpoints:         10.46.0.1:80
+Session Affinity:  ClientIP
+Events:            &lt;none&gt;
+</code></pre><p>Com isso, agora temos como manter a sessão, ou seja, ele irá manter a conexão com o mesmo pod, respeitando o IP de origem do cliente.</p>
+<p>Caso precise, é possível alterar o valor do timeout para o <code>sessionAffinity</code> (O valor padrão é de 10800 segundos, ou seja 3 horas), apenas adicionando a configuração abaixo.</p>
+<pre><code>  sessionAffinityConfig:
+    clientIP:
+      timeoutSeconds: 10
+</code></pre><p>Agora podemos remover o service:</p>
+<pre><code>kubectl delete -f primeiro-service-clusterip.yaml
+
+service &quot;nginx-clusterip&quot; deleted
+</code></pre><h2 id="criando-um-service-nodeport">Criando um service NodePort</h2>
+<p>Execute o comando a seguir para exportar o pod usando o service NodePort. Lembrando que o range de portas internas é entre 30000/TCP a 32767/TCP.</p>
+<pre><code>kubectl expose pods nginx --type=NodePort --port=80
+
+service/nginx exposed
+</code></pre><p>Obtendo informações do service:</p>
+<pre><code>kubectl get svc
+
+NAME         TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)        AGE
+kubernetes   ClusterIP   10.96.0.1       &lt;none&gt;        443/TCP        29m
+nginx        NodePort    10.101.42.230   &lt;none&gt;        80:31858/TCP   5s
+</code></pre><p>Removendo o service:</p>
+<pre><code>kubectl delete svc nginx
+
+service &quot;nginx&quot; deleted
+</code></pre><p>Agora vamos criar um service NodePort, porém vamos criar um manifesto yaml com suas definições.</p>
+<pre><code>vim primeiro-service-nodeport.yaml
+</code></pre><p>O conteúdo deve ser o seguinte.</p>
+<pre><code class="lang-yaml"><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">v1</span>
+<span class="hljs-attr">kind:</span> <span class="hljs-string">Service</span>
+<span class="hljs-attr">metadata:</span>
+  <span class="hljs-attr">labels:</span>
+    <span class="hljs-attr">run:</span> <span class="hljs-string">nginx</span>
+  <span class="hljs-attr">name:</span> <span class="hljs-string">nginx-nodeport</span>
+  <span class="hljs-attr">namespace:</span> <span class="hljs-string">default</span>
+<span class="hljs-attr">spec:</span>
+  <span class="hljs-attr">externalTrafficPolicy:</span> <span class="hljs-string">Cluster</span>
+  <span class="hljs-attr">ports:</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-attr">nodePort:</span> <span class="hljs-number">31111</span>
+    <span class="hljs-attr">port:</span> <span class="hljs-number">80</span>
+    <span class="hljs-attr">protocol:</span> <span class="hljs-string">TCP</span>
+    <span class="hljs-attr">targetPort:</span> <span class="hljs-number">80</span>
+  <span class="hljs-attr">selector:</span>
+    <span class="hljs-attr">run:</span> <span class="hljs-string">nginx</span>
+  <span class="hljs-attr">sessionAffinity:</span> <span class="hljs-string">None</span>
+  <span class="hljs-attr">type:</span> <span class="hljs-string">NodePort</span>
+</code></pre>
+<p>Criando o service:</p>
+<pre><code>kubectl create -f primeiro-service-nodeport.yaml
+
+service/nginx-nodeport created
+</code></pre><p>Obtendo informações do service:</p>
+<pre><code>kubectl get services
+
+NAME             TYPE        CLUSTER-IP     EXTERNAL-IP   PORT(S)        AGE
+kubernetes       ClusterIP   10.96.0.1      &lt;none&gt;        443/TCP        30m
+nginx-nodeport   NodePort    10.102.91.81   &lt;none&gt;        80:31111/TCP   7s
+</code></pre><p>Visualizando os detalhes do service:</p>
+<pre><code>kubectl describe service nginx
+
+Name:                     nginx-nodeport
+Namespace:                default
+Labels:                   run=nginx
+Annotations:              &lt;none&gt;
+Selector:                 run=nginx
+Type:                     NodePort
+IP:                       10.102.91.81
+Port:                     &lt;unset&gt;  80/TCP
+TargetPort:               80/TCP
+NodePort:                 &lt;unset&gt;  31111/TCP
+Endpoints:                10.46.0.1:80
+Session Affinity:         None
+External Traffic Policy:  Cluster
+Events:                   &lt;none&gt;
+</code></pre><p>Removendo o service:</p>
+<pre><code>kubectl delete -f primeiro-service-nodeport.yaml
+
+service &quot;nginx-nodeport&quot; deleted
+</code></pre><h2 id="criando-um-service-loadbalancer">Criando um service LoadBalancer</h2>
+<p>Execute o comando a seguir para exportar o pod usando o service LoadBalancer.</p>
+<pre><code>kubectl expose pod nginx --type=LoadBalancer --port=80
+
+service/nginx exposed
+</code></pre><p>Obtendo informações do service:</p>
+<pre><code>kubectl get svc
+
+NAME         TYPE           CLUSTER-IP      EXTERNAL-IP   PORT(S)        AGE
+kubernetes   ClusterIP      10.96.0.1       &lt;none&gt;        443/TCP        32m
+nginx        LoadBalancer   10.110.198.89   &lt;pending&gt;     80:30728/TCP   4s
+</code></pre><p>Removendo o service:</p>
+<pre><code>kubectl delete svc nginx
+
+service &quot;nginx&quot; deleted
+</code></pre><p>Agora vamos criar service LoadBalancer, porém vamos criar um yaml com suas definições.</p>
+<pre><code>vim primeiro-service-loadbalancer.yaml
+</code></pre><p>O conteúdo deve ser o seguinte.</p>
+<pre><code class="lang-yaml"><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">v1</span>
+<span class="hljs-attr">kind:</span> <span class="hljs-string">Service</span>
+<span class="hljs-attr">metadata:</span>
+  <span class="hljs-attr">labels:</span>
+    <span class="hljs-attr">run:</span> <span class="hljs-string">nginx</span>
+  <span class="hljs-attr">name:</span> <span class="hljs-string">nginx-loadbalancer</span>
+  <span class="hljs-attr">namespace:</span> <span class="hljs-string">default</span>
+<span class="hljs-attr">spec:</span>
+  <span class="hljs-attr">externalTrafficPolicy:</span> <span class="hljs-string">Cluster</span>
+  <span class="hljs-attr">ports:</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-attr">nodePort:</span> <span class="hljs-number">31222</span>
+    <span class="hljs-attr">port:</span> <span class="hljs-number">80</span>
+    <span class="hljs-attr">protocol:</span> <span class="hljs-string">TCP</span>
+    <span class="hljs-attr">targetPort:</span> <span class="hljs-number">80</span>
+  <span class="hljs-attr">selector:</span>
+    <span class="hljs-attr">run:</span> <span class="hljs-string">nginx</span>
+  <span class="hljs-attr">sessionAffinity:</span> <span class="hljs-string">None</span>
+  <span class="hljs-attr">type:</span> <span class="hljs-string">LoadBalancer</span>
+</code></pre>
+<p>Criando o service:</p>
+<pre><code>kubectl create -f primeiro-service-loadbalancer.yaml
+
+service/nginx-loadbalancer created
+</code></pre><p>Obtendo informações do service:</p>
+<pre><code>kubectl get services
+
+NAME                 TYPE           CLUSTER-IP     EXTERNAL-IP   PORT(S)        AGE
+kubernetes           ClusterIP      10.96.0.1      &lt;none&gt;        443/TCP        33m
+nginx-loadbalancer   LoadBalancer   10.96.67.165   &lt;pending&gt;     80:31222/TCP   4s
+</code></pre><p>Visualizando informações do service:</p>
+<pre><code>kubectl describe service nginx
+
+Name:                     nginx-loadbalancer
+Namespace:                default
+Labels:                   run=nginx
+Annotations:              &lt;none&gt;
+Selector:                 run=nginx
+Type:                     LoadBalancer
+IP:                       10.96.67.165
+Port:                     &lt;unset&gt;  80/TCP
+TargetPort:               80/TCP
+NodePort:                 &lt;unset&gt;  31222/TCP
+Endpoints:                10.46.0.1:80
+Session Affinity:         None
+External Traffic Policy:  Cluster
+Events:                   &lt;none&gt;
+</code></pre><p>Removendo o service:</p>
+<pre><code>kubectl delete -f primeiro-service-loadbalancer.yaml
+
+service &quot;nginx-loadbalancer&quot; deleted
+</code></pre><h2 id="endpoint">EndPoint</h2>
+<p>Sempre que criamos um service, automaticamente é criado um endpoint. O endpoint nada mais é do que o IP do pod que o service irá utilizar, por exemplo, quando criamos um service do tipo ClusterIP temos o seu IP, correto?</p>
+<p>Agora, quando batemos nesse IP ele redireciona a conexão para o <strong>Pod</strong> através desse IP, o <strong>EndPoint</strong>.</p>
+<p>Para listar os EndPoints criados, execute o comando:</p>
+<pre><code>kubectl get endpoints
+
+NAME         ENDPOINTS         AGE
+kubernetes   10.142.0.5:6443   4d
+</code></pre><p>Vamos verificar esse endpoint com mais detalhes.</p>
+<pre><code>kubectl describe endpoints kubernetes
+
+Name:         kubernetes
+Namespace:    default
+Labels:       &lt;none&gt;
+Annotations:  &lt;none&gt;
+Subsets:
+  Addresses:          172.31.17.67
+  NotReadyAddresses:  &lt;none&gt;
+  Ports:
+    Name   Port  Protocol
+    ----   ----  --------
+    https  6443  TCP
+
+Events:  &lt;none&gt;
+</code></pre><p>Vamos fazer um exemplo, para isso, vamos realizar a criação de um deployment, aumentar o número de réplicas para 3 e na sequência um service para que possamos ver com mais detalhes os endpoints que serão criados.</p>
+<pre><code>kubectl create deployment nginx --image=nginx
+
+deployment.apps/nginx created
+</code></pre><p>Observando os deployments:</p>
+<pre><code>kubectl get deployments.apps
+
+NAME    READY   UP-TO-DATE   AVAILABLE   AGE
+nginx   1/1     1            1           5s
+</code></pre><p>Escalando o deployment nginx para 3 réplicas:</p>
+<pre><code>kubectl scale deployment nginx --replicas=3
+
+deployment.apps/nginx scaled
+</code></pre><p>Observando os deployments:</p>
+<pre><code>kubectl get deployments.apps
+
+NAME    READY   UP-TO-DATE   AVAILABLE   AGE
+nginx   3/3     3            3           1m5s
+</code></pre><p>Expondo o deployment nginx:</p>
+<pre><code>kubectl expose deployment nginx --port=80
+
+service/nginx exposed
+</code></pre><p>Visualizando o service:</p>
+<pre><code>kubectl get svc
+
+NAME         TYPE        CLUSTER-IP     EXTERNAL-IP   PORT(S)   AGE
+kubernetes   ClusterIP   10.96.0.1      &lt;none&gt;        443/TCP   40m
+nginx        ClusterIP   10.98.153.22   &lt;none&gt;        80/TCP    6s
+</code></pre><p>Acessando o <code>nginx</code>:</p>
+<pre><code>curl 10.98.153.22
+
+...
+&lt;h1&gt;Welcome to nginx!&lt;/h1&gt;
+...
+</code></pre><p>Visualizando os endpoints:</p>
+<pre><code>kubectl get endpoints
+
+NAME         ENDPOINTS                                AGE
+kubernetes   172.31.17.67:6443                        44m
+nginx        10.32.0.2:80,10.32.0.3:80,10.46.0.2:80   3m31s
+</code></pre><p>Visualizando os detalhes do endpoint <code>nginx</code>:</p>
+<pre><code>kubectl describe endpoints nginx
+
+Name:         nginx
+Namespace:    default
+Labels:       app=nginx
+Annotations:  endpoints.kubernetes.io/last-change-trigger-time: 2020-05-10T17:47:05Z
+Subsets:
+  Addresses:          10.32.0.2,10.32.0.3,10.46.0.2
+  NotReadyAddresses:  &lt;none&gt;
+  Ports:
+    Name     Port  Protocol
+    ----     ----  --------
+    &lt;unset&gt;  80    TCP
+
+Events:  &lt;none&gt;
+</code></pre><p>Visualizando o endpoint no formato YAML.</p>
+<pre><code>kubectl get endpoints -o yaml
+
+apiVersion: v1
+items:
+- apiVersion: v1
+  kind: Endpoints
+  metadata:
+    creationTimestamp: &quot;2020-05-10T17:06:12Z&quot;
+    managedFields:
+    - apiVersion: v1
+      fieldsType: FieldsV1
+      fieldsV1:
+        f:subsets: {}
+      manager: kube-apiserver
+      operation: Update
+      time: &quot;2020-05-10T17:06:12Z&quot;
+    name: kubernetes
+    namespace: default
+    resourceVersion: &quot;163&quot;
+    selfLink: /api/v1/namespaces/default/endpoints/kubernetes
+    uid: 39f1e237-f9cc-4553-a32d-95402ff52f6c
+...
+    - ip: 10.46.0.2
+      nodeName: elliot-03
+      targetRef:
+        kind: Pod
+        name: nginx-f89759699-dmt4t
+        namespace: default
+        resourceVersion: &quot;6805&quot;
+        uid: 6a9c4639-78ee-44c6-8eb1-4fd90d308189
+    ports:
+    - port: 80
+      protocol: TCP
+kind: List
+metadata:
+  resourceVersion: &quot;&quot;
+  selfLink: &quot;&quot;
+</code></pre><p>Removendo o deployment <code>nginx</code>:</p>
+<pre><code>kubectl delete deployment nginx
+
+deployment.apps &quot;nginx&quot; deleted
+</code></pre><p>Removendo o service:</p>
+<pre><code>kubectl delete service nginx
+
+service &quot;nginx&quot; deleted
+</code></pre><h1 id="limitando-recursos">Limitando Recursos</h1>
+<p>Quando criamos um Pod podemos especificar a quantidade de CPU e Memória (RAM) que pode ser consumida em cada contêiner. Quando algum contêiner contém a configuração de limite de recursos o Scheduler fica responsável por alocar esse contêiner no melhor nó possível de acordo com os recursos disponíveis.</p>
+<p>Podemos configurar dois tipos de recursos, CPU que é especificada em <strong>unidades de núcleos</strong> e Memória que é especificada em <strong>unidades de bytes</strong>.</p>
+<p>Vamos criar nosso primeiro Deployment com limite de recursos, para isso vamos subir a imagem de um <code>nginx</code> e copiar o <code>yaml</code> do deployment com o seguinte comando.</p>
+<pre><code>kubectl create deployment nginx --image=nginx
+
+deployment.apps/nginx created
+</code></pre><p>Escalando o deployment para 3 réplicas:</p>
+<pre><code>kubectl scale deployment nginx --replicas=3
+
+deployment.apps/nginx scaled
+</code></pre><p>Obtendo a lista de deployments:</p>
+<pre><code>kubectl get deployments
+
+NAME    READY   UP-TO-DATE   AVAILABLE   AGE
+nginx   3/3     3            3           24s
+</code></pre><p>Crie o seguinte arquivo:</p>
+<pre><code>vim deployment-limitado.yaml
+</code></pre><p>O conteúdo deve ser o seguinte.</p>
+<pre><code class="lang-yaml"><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">apps/v1</span>
+<span class="hljs-attr">kind:</span> <span class="hljs-string">Deployment</span>
+<span class="hljs-attr">metadata:</span>
+  <span class="hljs-attr">labels:</span>
+    <span class="hljs-attr">app:</span> <span class="hljs-string">nginx</span>
+  <span class="hljs-attr">name:</span> <span class="hljs-string">nginx</span>
+  <span class="hljs-attr">namespace:</span> <span class="hljs-string">default</span>
+<span class="hljs-attr">spec:</span>
+  <span class="hljs-attr">progressDeadlineSeconds:</span> <span class="hljs-number">600</span>
+  <span class="hljs-attr">replicas:</span> <span class="hljs-number">3</span>
+  <span class="hljs-attr">revisionHistoryLimit:</span> <span class="hljs-number">10</span>
+  <span class="hljs-attr">selector:</span>
+    <span class="hljs-attr">matchLabels:</span>
+      <span class="hljs-attr">app:</span> <span class="hljs-string">nginx</span>
+  <span class="hljs-attr">strategy:</span>
+    <span class="hljs-attr">rollingUpdate:</span>
+      <span class="hljs-attr">maxSurge:</span> <span class="hljs-number">25</span><span class="hljs-string">%</span>
+      <span class="hljs-attr">maxUnavailable:</span> <span class="hljs-number">25</span><span class="hljs-string">%</span>
+    <span class="hljs-attr">type:</span> <span class="hljs-string">RollingUpdate</span>
+  <span class="hljs-attr">template:</span>
+    <span class="hljs-attr">metadata:</span>
+      <span class="hljs-attr">creationTimestamp:</span> <span class="hljs-literal">null</span>
+      <span class="hljs-attr">labels:</span>
+        <span class="hljs-attr">app:</span> <span class="hljs-string">nginx</span>
+    <span class="hljs-attr">spec:</span>
+      <span class="hljs-attr">containers:</span>
+      <span class="hljs-bullet">-</span> <span class="hljs-attr">image:</span> <span class="hljs-string">nginx</span>
+        <span class="hljs-attr">imagePullPolicy:</span> <span class="hljs-string">Always</span>
+        <span class="hljs-attr">name:</span> <span class="hljs-string">nginx</span>
+   <span class="hljs-comment"># Adicione as seguintes linhas</span>
+        <span class="hljs-attr">resources:</span>
+          <span class="hljs-attr">limits:</span>
+            <span class="hljs-attr">memory:</span> <span class="hljs-string">&quot;256Mi&quot;</span>
+            <span class="hljs-attr">cpu:</span> <span class="hljs-string">&quot;200m&quot;</span>
+          <span class="hljs-attr">requests:</span>
+            <span class="hljs-attr">memory:</span> <span class="hljs-string">&quot;128Mi&quot;</span>
+            <span class="hljs-attr">cpu:</span> <span class="hljs-string">&quot;50m&quot;</span>
+        <span class="hljs-attr">terminationMessagePath:</span> <span class="hljs-string">/dev/termination-log</span>
+        <span class="hljs-attr">terminationMessagePolicy:</span> <span class="hljs-string">File</span>
+      <span class="hljs-attr">dnsPolicy:</span> <span class="hljs-string">ClusterFirst</span>
+      <span class="hljs-attr">restartPolicy:</span> <span class="hljs-string">Always</span>
+      <span class="hljs-attr">schedulerName:</span> <span class="hljs-string">default-scheduler</span>
+      <span class="hljs-attr">securityContext:</span> {}
+      <span class="hljs-attr">terminationGracePeriodSeconds:</span> <span class="hljs-number">30</span>
+</code></pre>
+<blockquote>
+<p>Atenção! <strong>1 core de CPU</strong> corresponde a <code>1000m</code> (1000 milicore). Ao especificar <code>200m</code>, estamos querendo reservar 20% de 1 core da CPU. Se fosse informado o valor <code>0.2</code> teria o mesmo efeito, ou seja, seria reservado 20% de 1 core da CPU.</p>
+</blockquote>
+<p>Vamos remover o deployment do <code>nginx</code>:</p>
+<pre><code>kubectl delete deployments.apps nginx
+</code></pre><p>Agora vamos criar nosso deployment e verificar os recursos.</p>
+<pre><code>kubectl create -f deployment-limitado.yaml
+
+deployment.apps/nginx created
+</code></pre><p>Vamos acessar um contêiner e testar a configuração:</p>
+<pre><code>kubectl get pod
+
+NAME                    READY   STATUS    RESTARTS   AGE
+nginx                   1/1     Running   0          12m
+nginx-f89759699-77v8b   1/1     Running   0          117s
+nginx-f89759699-ffbgh   1/1     Running   0          117s
+nginx-f89759699-vzvlt   1/1     Running   0          2m2s
+</code></pre><p>Acessando o shell de um pod:</p>
+<pre><code>kubectl exec -ti nginx-f89759699-77v8b -- /bin/bash
+</code></pre><p>Agora no contêiner, instale e execute o <code>stress</code> para simular a carga em nossos recursos, no caso CPU e memória.</p>
+<p>Instalando o comando stress:</p>
+<pre><code>apt-get update &amp;&amp; apt-get install -y stress
+</code></pre><p>Executando o <code>stress</code>:</p>
+<pre><code>stress --vm 1 --vm-bytes 128M --cpu 1
+
+stress: info: [221] dispatching hogs: 1 cpu, 0 io, 1 vm, 0 hdd
+</code></pre><p>Aqui estamos <em>stressando</em> o contêiner, utilizando 128M de RAM e um core de CPU. Brinque de acordo com os limites que você estabeleceu.</p>
+<p>Quando ultrapassar o limite configurado, você receberá um erro como mostrado ao executar o seguinte comando, pois ele não conseguirá alocar os recursos de memória:</p>
+<pre><code>stress --vm 1 --vm-bytes 512M --cpu 1
+
+stress: info: [230] dispatching hogs: 1 cpu, 0 io, 1 vm, 0 hdd
+stress: FAIL: [230] (415) &lt;-- worker 232 got signal 9
+stress: WARN: [230] (417) now reaping child worker processes
+stress: FAIL: [230] (451) failed run completed in 0s
+</code></pre><p>Para acompanhar a quantidade de recurso que o pod está utilizando, podemos utilizar o <code>kubectl top</code>. Lembre-se de executar esse comando no node e não no contêiner. :)</p>
+<pre><code>kubectl top pod --namespace=default nginx-f89759699-77v8b
+
+NAME                     CPU(cores)   MEMORY(bytes)
+nginx-85f7fb6b45-b6dsk   201m         226Mi
+</code></pre><h1 id="namespaces">Namespaces</h1>
+<p>No kubernetes temos um cara chamado de Namespaces como já vimos anteriormente.</p>
+<p>Mas o que é um Namespace? Nada mais é do que um cluster virtual dentro do próprio cluster físico do Kubernetes. Namespaces são uma maneira de dividir recursos de um cluster entre vários ambientes, equipes ou projetos.</p>
+<p>Vamos criar nosso primeiro namespaces:</p>
+<pre><code>kubectl create namespace primeiro-namespace
+
+namespace/primeiro-namespace created
+</code></pre><p>Vamos listar todos os namespaces do kubernetes:</p>
+<pre><code>kubectl get namespaces
+
+NAME                 STATUS   AGE
+default              Active   55m
+kube-node-lease      Active   56m
+kube-public          Active   56m
+kube-system          Active   56m
+primeiro-namespace   Active   5s
+</code></pre><p>Pegando mais informações do nosso namespace:</p>
+<pre><code>kubectl describe namespace primeiro-namespace
+
+Name:         primeiro-namespace
+Labels:       &lt;none&gt;
+Annotations:  &lt;none&gt;
+Status:       Active
+
+No resource quota.
+
+No LimitRange resource.
+</code></pre><p>Como podemos ver, nosso namespace ainda está sem configurações, então iremos utilizar o <code>LimitRange</code> para adicionar limites de recursos.</p>
+<p>Vamos criar o manifesto do <code>LimitRange</code>:</p>
+<pre><code>vim limitando-recursos.yaml
+</code></pre><p>O conteúdo deve ser o seguinte.</p>
+<pre><code class="lang-yaml"><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">v1</span>
+<span class="hljs-attr">kind:</span> <span class="hljs-string">LimitRange</span>
+<span class="hljs-attr">metadata:</span>
+  <span class="hljs-attr">name:</span> <span class="hljs-string">limitando-recursos</span>
+<span class="hljs-attr">spec:</span>
+  <span class="hljs-attr">limits:</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-attr">default:</span>
+      <span class="hljs-attr">cpu:</span> <span class="hljs-number">1</span>
+      <span class="hljs-attr">memory:</span> <span class="hljs-string">100Mi</span>
+    <span class="hljs-attr">defaultRequest:</span>
+      <span class="hljs-attr">cpu:</span> <span class="hljs-number">0.5</span>
+      <span class="hljs-attr">memory:</span> <span class="hljs-string">80Mi</span>
+    <span class="hljs-attr">type:</span> <span class="hljs-string">Container</span>
+</code></pre>
+<p>Agora vamos adicionar esse <code>LimitRange</code> ao Namespace:</p>
+<pre><code>kubectl create -f limitando-recursos.yaml -n primeiro-namespace
+
+limitrange/limitando-recursos created
+</code></pre><p>Listando o <code>LimitRange</code>:</p>
+<pre><code>kubectl get limitranges
+
+No resources found in default namespace.
+</code></pre><p>Opa! Não encontramos não é mesmo? Mas claro, esquecemos de passar nosso namespace na hora de listar:</p>
+<pre><code>kubectl get limitrange -n primeiro-namespace
+
+NAME                 CREATED AT
+limitando-recursos   2020-05-10T18:02:51Z
+</code></pre><p>Ou:</p>
+<pre><code>kubectl get limitrange --all-namespaces
+
+NAMESPACE            NAME                 CREATED AT
+primeiro-namespace   limitando-recursos   2020-05-10T18:02:51Z
+</code></pre><p>Vamos dar um describe no <code>LimitRange</code>:</p>
+<pre><code>kubectl describe limitrange -n primeiro-namespace
+
+Name:       limitando-recursos
+Namespace:  primeiro-namespace
+Type        Resource  Min  Max  Default Request  Default Limit  Max Limit/Request Ratio
+----        --------  ---  ---  ---------------  -------------  -----------------------
+Container   cpu       -    -    500m             1              -
+Container   memory    -    -    80Mi             100Mi          -
+</code></pre><p>Como podemos observar, adicionamos limites de memória e cpu para cada contêiner que subir nesse <code>Namespace</code>, se algum contêiner for criado dentro do <code>Namespace</code> sem as configurações de <code>Limitrange</code>, o contêiner irá herdar as configurações de limites de recursos do Namespace.</p>
+<p>Vamos criar um pod para verificar se o limite se aplicará:</p>
+<pre><code>vim pod-limitrange.yaml
+</code></pre><p>O conteúdo deve ser o seguinte.</p>
+<pre><code class="lang-yaml"><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">v1</span>
+<span class="hljs-attr">kind:</span> <span class="hljs-string">Pod</span>
+<span class="hljs-attr">metadata:</span>
+  <span class="hljs-attr">name:</span> <span class="hljs-string">limit-pod</span>
+<span class="hljs-attr">spec:</span>
+  <span class="hljs-attr">containers:</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">meu-container</span>
+    <span class="hljs-attr">image:</span> <span class="hljs-string">nginx</span>
+</code></pre>
+<p>Agora vamos criar um pod fora do namespace default e outro dentro do namespace limitado (primeiro-namespace), e vamos observar os limites de recursos de cada contêiner e como foram aplicados:</p>
+<p>Criando o pod no namespace <code>default</code>:</p>
+<pre><code>kubectl create -f pod-limitrange.yaml
+
+pod/limit-pod created
+</code></pre><p>Criando o pod no namespace <code>primeiro-namespace</code>:</p>
+<pre><code>kubectl create -f pod-limitrange.yaml -n primeiro-namespace
+
+pod/limit-pod created
+</code></pre><p>Vamos listar esses pods e na sequência ver mais detalhes :</p>
+<pre><code>kubectl get pods --all-namespaces
+
+NAMESPACE            NAME                                      READY   STATUS    RESTARTS   AGE
+default              limit-pod                                 1/1     Running   0          10s
+primeiro-namespace   limit-pod                                 1/1     Running   0          5s
+</code></pre><p>Vamos ver mais detalhes do pod no namespace <code>default</code>.</p>
+<pre><code>kubectl describe pod limit-pod
+
+Name:         limit-pod
+Namespace:    default
+Priority:     0
+Node:         elliot-02/172.31.19.123
+Start Time:   Sun, 10 May 2020 18:03:52 +0000
+Labels:       &lt;none&gt;
+Annotations:  &lt;none&gt;
+Status:       Running
+IP:           10.32.0.4
+IPs:
+  IP:  10.32.0.4
+Containers:
+  meu-container:
+    Container ID:   docker://19850dc935ffa41b1754cb58ab60ec5bb3616bbbe6a958abe1b2575bd26ee73d
+    Image:          nginx
+...
+</code></pre><p>Vamos ver mais detalhes do pod no namespace <code>primeiro-namespace</code>.</p>
+<pre><code>kubectl describe pod limit-pod -n primeiro-namespace
+
+Name:         limit-pod
+Namespace:    primeiro-namespace
+Priority:     0
+Node:         elliot-03/172.31.24.60
+Start Time:   Sun, 10 May 2020 18:03:57 +0000
+Labels:       &lt;none&gt;
+Annotations:  kubernetes.io/limit-ranger:
+                LimitRanger plugin set: cpu, memory request for container meu-container; cpu, memory limit for container meu-container
+Status:       Running
+IP:           10.46.0.3
+IPs:
+  IP:  10.46.0.3
+Containers:
+  meu-container:
+    Container ID:   docker://ad3760837d71955df47263a2031d4238da2e94002ce4a0631475d301faf1ddef
+    Image:          nginx
+...
+    Limits:
+      cpu:     1
+      memory:  100Mi
+    Requests:
+      cpu:        500m
+      memory:     80Mi
+</code></pre><p>Como podemos ver o <strong>Pod</strong> no namespace <code>primeiro-namespace</code> está com limit de recursos configurados.</p>
+<h1 id="kubectl-taint">Kubectl taint</h1>
+<p>O <strong>Taint</strong> nada mais é do que adicionar propriedades ao nó do cluster para impedir que os pods sejam alocados em nós inapropriados.</p>
+<p>Por exemplo, todo nó <code>master</code> do cluster é marcado para não receber pods que não sejam de gerenciamento do cluster.</p>
+<p>O nó <code>master</code> está marcado com o taint <code>NoSchedule</code>, assim o scheduler do Kubernetes não aloca pods no nó master, e procura outros nós no cluster sem essa marca.</p>
+<p>Visualizando os nodes do cluster:</p>
+<pre><code>kubectl get nodes
+
+NAME           STATUS   ROLES    AGE     VERSION
+elliot-01   Ready    master   7d14h   v1.18.2
+elliot-02   Ready    &lt;none&gt;   7d14h   v1.18.2
+elliot-03   Ready    &lt;none&gt;   7d14h   v1.18.2
+</code></pre><p>Visualizando as labels Taints do node <code>master</code>:</p>
+<pre><code>kubectl describe node elliot-01 | grep -i taint
+
+Taints:             node-role.kubernetes.io/master:NoSchedule
+</code></pre><p><strong>Vamos testar algumas coisas e permitir que o nó master rode outros pods.</strong></p>
+<p>Primeiro vamos rodar 3 réplicas de <code>nginx</code>:</p>
+<pre><code>kubectl create deployment nginx --image=nginx
+
+deployment.apps/nginx created
+</code></pre><p>Visualizando os deployments:</p>
+<pre><code>kubectl get deployments.apps
+
+NAME    READY   UP-TO-DATE   AVAILABLE   AGE
+nginx   1/1     1            1           5s
+</code></pre><p>Escalando o deployment do nginx para 3 réplicas:</p>
+<pre><code>kubectl scale deployment nginx --replicas=3
+
+deployment.apps/nginx scaled
+</code></pre><p>Visualizando novamente os deployments:</p>
+<pre><code>kubectl get deployments.apps
+
+NAME    READY   UP-TO-DATE   AVAILABLE   AGE
+nginx   3/3     3            3           1m5s
+</code></pre><p>Visualizando os detalhes dos pods:</p>
+<pre><code>kubectl get pods -o wide
+
+NAME                     READY   STATUS    RESTARTS   AGE     IP          NODE               NOMINATED NODE   READINESS GATES
+limit-pod                1/1     Running   0          3m44s   10.32.0.4   elliot-02   &lt;none&gt;           &lt;none&gt;
+nginx                    1/1     Running   0          25m     10.46.0.1   elliot-03    &lt;none&gt;           &lt;none&gt;
+nginx-85f7fb6b45-9bzwc   1/1     Running   0          6m7s    10.32.0.3   elliot-02   &lt;none&gt;           &lt;none&gt;
+nginx-85f7fb6b45-cbmtr   1/1     Running   0          6m7s    10.46.0.2   elliot-03    &lt;none&gt;           &lt;none&gt;
+nginx-85f7fb6b45-rprz5   1/1     Running   0          6m7s    10.32.0.2   elliot-02   &lt;none&gt;           &lt;none&gt;
+</code></pre><p>Vamos adicionar a marca <code>NoSchedule</code> aos nós worker também para ver como eles se comportam.</p>
+<p>Node worker 1:</p>
+<pre><code>kubectl taint node elliot-02 key1=value1:NoSchedule
+
+node/elliot-02 tainted
+</code></pre><p>Node worker 2:</p>
+<pre><code>kubectl taint node elliot-03 key1=value1:NoSchedule
+
+node/elliot-03 tainted
+</code></pre><p>Visualizando a label Taint no node worker 1:</p>
+<pre><code>kubectl describe node elliot-02 | grep -i taint
+
+Taints:             key1=value1:NoSchedule
+</code></pre><p>Visualizando a label Taint no node worker 2:</p>
+<pre><code>kubectl describe node elliot-03 | grep -i taint
+
+Taints:             key1=value1:NoSchedule
+</code></pre><p>Agora vamos aumentar a quantidade de réplicas:</p>
+<pre><code>kubectl scale deployment nginx --replicas=5
+
+deployment.apps/nginx scaled
+</code></pre><p>Visualizando os detalhes dos pods:</p>
+<pre><code>kubectl get pods  -o wide
+
+NAME                     READY   STATUS    RESTARTS   AGE     IP          NODE               NOMINATED NODE   READINESS GATES
+limit-pod                1/1     Running   0          5m23s   10.32.0.4   elliot-02   &lt;none&gt;           &lt;none&gt;
+nginx                    1/1     Running   0          27m     10.46.0.1   elliot-03    &lt;none&gt;           &lt;none&gt;
+nginx-85f7fb6b45-9bzwc   1/1     Running   0          7m46s   10.32.0.3   elliot-02   &lt;none&gt;           &lt;none&gt;
+nginx-85f7fb6b45-cbmtr   1/1     Running   0          7m46s   10.46.0.2   elliot-03    &lt;none&gt;           &lt;none&gt;
+nginx-85f7fb6b45-qnhtl   0/1     Pending   0          18s     &lt;none&gt;      &lt;none&gt;             &lt;none&gt;           &lt;none&gt;
+nginx-85f7fb6b45-qsvpp   0/1     Pending   0          18s     &lt;none&gt;      &lt;none&gt;             &lt;none&gt;           &lt;none&gt;
+nginx-85f7fb6b45-rprz5   1/1     Running   0          7m46s   10.32.0.2   elliot-02   &lt;none&gt;           &lt;none&gt;
+</code></pre><p>Como podemos ver, as nova réplicas ficaram órfãs esperando aparecer um nó com as prioridades adequadas para o Scheduler.</p>
+<p>Vamos remover esse Taint dos nossos nós worker:</p>
+<p>Removendo o taint do worker 1:</p>
+<pre><code>kubectl taint node elliot-02 key1:NoSchedule-
+
+node/elliot-02 untainted
+</code></pre><p>Removendo o taint do worker 2:</p>
+<pre><code>kubectl taint node elliot-03 key1:NoSchedule-
+
+node/elliot-03 untainted
+</code></pre><p>Visualizando os detalhes dos pods:</p>
+<pre><code>kubectl get pods  -o wide
+
+NAME                     READY   STATUS    RESTARTS   AGE     IP          NODE               NOMINATED NODE   READINESS GATES
+limit-pod                1/1     Running   0          6m17s   10.32.0.4   elliot-02          &lt;none&gt;           &lt;none&gt;
+nginx                    1/1     Running   0          27m     10.46.0.1   elliot-03          &lt;none&gt;           &lt;none&gt;
+nginx-85f7fb6b45-9bzwc   1/1     Running   0          8m40s   10.32.0.3   elliot-02          &lt;none&gt;           &lt;none&gt;
+nginx-85f7fb6b45-cbmtr   1/1     Running   0          8m40s   10.46.0.2   elliot-03          &lt;none&gt;           &lt;none&gt;
+nginx-85f7fb6b45-qnhtl   1/1     Running   0          72s     10.46.0.5   elliot-03          &lt;none&gt;           &lt;none&gt;
+nginx-85f7fb6b45-qsvpp   1/1     Running   0          72s     10.46.0.4   elliot-03          &lt;none&gt;           &lt;none&gt;
+nginx-85f7fb6b45-rprz5   1/1     Running   0          8m40s   10.32.0.2   elliot-02          &lt;none&gt;           &lt;none&gt;
+</code></pre><p>Existem vários tipos de marcas que podemos usar para classificar os nós, vamos testar uma outra chamada <code>NoExecute</code>, que impede o Scheduler de agendar Pods nesses nós.</p>
+<p>Adicionando a marca <code>NoExecute</code> no worker 1:</p>
+<pre><code>kubectl taint node elliot-02 key1=value1:NoExecute
+
+node/elliot-02 tainted
+</code></pre><p>Adicionando a marca <code>NoExecute</code> no worker 2:</p>
+<pre><code>kubectl taint node elliot-03 key1=value1:NoExecute
+
+node/elliot-03 tainted
+</code></pre><p>Visualizando os detalhes dos pods:</p>
+<pre><code>kubectl get pods
+
+NAME                     READY   STATUS    RESTARTS   AGE
+nginx-85f7fb6b45-87sq5   0/1     Pending   0          20s
+nginx-85f7fb6b45-8q99g   0/1     Pending   0          20s
+nginx-85f7fb6b45-drmzz   0/1     Pending   0          20s
+nginx-85f7fb6b45-hb4dp   0/1     Pending   0          20s
+nginx-85f7fb6b45-l6zln   0/1     Pending   0          20s
+</code></pre><p>Como podemos ver todos os Pods estão órfãs. Porque o nó <code>master</code> tem a marca taint <code>NoScheduler</code> default do kubernetes e os nós worker tem a marca <code>NoExecute</code>.</p>
+<p>Vamos diminuir a quantidade de réplicas para ver o que acontece.</p>
+<p>Reduzindo a quantidade de réplicas no worker 1:</p>
+<pre><code>kubectl scale deployment nginx --replicas=1
+
+deployment.apps/nginx scaled
+</code></pre><p>Reduzindo a quantidade de réplicas no worker 2:</p>
+<pre><code>kubectl get pods
+
+nginx-85f7fb6b45-drmzz   0/1     Pending   0          43s
+</code></pre><p>Vamos remover o taint <code>NoExecute</code> do nós workers.</p>
+<p>Removendo o taint no worker 1:</p>
+<pre><code>kubectl taint node elliot-02 key1:NoExecute-
+
+node/elliot-02 untainted
+</code></pre><p>Removendo o taint no worker 2:</p>
+<pre><code>kubectl taint node elliot-03 key1:NoExecute-
+
+node/elliot-03 untainted
+</code></pre><p>Visualizando os detalhes dos pods:</p>
+<pre><code>kubectl get pods
+
+NAME                     READY   STATUS    RESTARTS   AGE
+nginx-85f7fb6b45-drmzz   1/1     Running   0          76s
+</code></pre><p>Agora temos um nó operando normalmente.</p>
+<p>Mas e se nossos workers ficarem indisponíveis, podemos rodar Pods no nó master?</p>
+<p>Claro que podemos, vamos configurar nosso nó master para que o Scheduler consiga agenda Pods nele.</p>
+<pre><code>kubectl taint nodes --all node-role.kubernetes.io/master-
+
+node/elliot-01 untainted
+</code></pre><p>Visualizando a marca taint no nó master.</p>
+<pre><code>kubectl describe node elliot-01 | grep -i taint
+
+Taints:             &lt;none&gt;
+</code></pre><p>Agora vamos aumentar a quantidade de réplicas do nosso pod <code>nginx</code>.</p>
+<pre><code>kubectl scale deployment nginx --replicas=4
+
+deployment.apps/nginx scaled
+</code></pre><p>Visualizando os detalhes dos pods:</p>
+<pre><code>kubectl get pods -o wide
+
+NAME                     READY   STATUS    RESTARTS   AGE    IP          NODE               NOMINATED NODE   READINESS GATES
+nginx-85f7fb6b45-2c6dm   1/1     Running   0          9s     10.32.0.2   elliot-02          &lt;none&gt;           &lt;none&gt;
+nginx-85f7fb6b45-4jzcn   1/1     Running   0          9s     10.32.0.3   elliot-02          &lt;none&gt;           &lt;none&gt;
+nginx-85f7fb6b45-drmzz   1/1     Running   0          114s   10.46.0.1   elliot-03          &lt;none&gt;           &lt;none&gt;
+nginx-85f7fb6b45-rstvq   1/1     Running   0          9s     10.46.0.2   elliot-03          &lt;none&gt;           &lt;none&gt;
+</code></pre><p>Vamos adicionar o Taint <code>NoExecute</code> nos nós worker para ver o que acontece.</p>
+<p>Adicionando o taint no worker 1:</p>
+<pre><code>kubectl taint node elliot-02 key1=value1:NoExecute
+
+node/elliot-02 tainted
+</code></pre><p>Adicionando o taint no worker 2:</p>
+<pre><code>kubectl taint node elliot-03 key1=value1:NoExecute
+
+node/elliot-03 tainted
+</code></pre><p>Visualizando os detalhes do pods:</p>
+<pre><code>kubectl get pods -o wide
+
+NAME                     READY   STATUS    RESTARTS   AGE   IP          NODE              NOMINATED NODE   READINESS GATES
+nginx-85f7fb6b45-49knz   1/1     Running   0          14s   10.40.0.5   elliot-01         &lt;none&gt;           &lt;none&gt;
+nginx-85f7fb6b45-4cm9x   1/1     Running   0          14s   10.40.0.4   elliot-01         &lt;none&gt;           &lt;none&gt;
+nginx-85f7fb6b45-kppnd   1/1     Running   0          14s   10.40.0.6   elliot-01         &lt;none&gt;           &lt;none&gt;
+nginx-85f7fb6b45-rjlmj   1/1     Running   0          14s   10.40.0.3   elliot-01         &lt;none&gt;           &lt;none&gt;
+</code></pre><p>Removendo o deployment <code>nginx</code>:</p>
+<pre><code>kubectl delete deployment nginx
+
+deployment.extensions &quot;nginx&quot; deleted
+</code></pre><p>O Scheduler alocou tudo no nó <code>master</code>, como podemos ver o Taint pode ser usado para ajustar configurações de qual Pod deve ser alocado em qual nó.</p>
+<p>Vamos permitir que nosso Scheduler aloque e execute os Pods em todos os nós:</p>
+<p>Removendo o taint <code>NoSchedule</code> em todos os nós do cluster:</p>
+<pre><code>kubectl taint node --all key1:NoSchedule-
+
+node/elliot-01 untainted
+node/elliot-02 untainted
+node/elliot-03 untainted
+</code></pre><p>Removendo o taint <code>NoExecute</code> em todos os nós do cluster:</p>
+<pre><code>kubectl taint node --all key1:NoExecute-
+
+node/kube-worker1 untainted
+node/kube-worker2 untainted
+error: taint &quot;key1:NoExecute&quot; not found
+</code></pre><p>Visualizando os taints dos nodes:</p>
+<pre><code>kubectl describe node elliot-01 | grep -i taint
+
+Taints:             &lt;none&gt;
+</code></pre><h1 id="colocando-o-nó-em-modo-de-manutenção">Colocando o nó em modo de manutenção</h1>
+<p>Para colocar o nó em manutenção iremos utilizar o <code>cordon</code>.</p>
+<pre><code>kubectl cordon elliot-02
+
+node/elliot-02 cordoned
+</code></pre><p>Visualizando o node em manutenção.</p>
+<pre><code>kubectl get nodes
+
+NAME        STATUS                      ROLES    AGE     VERSION
+elliot-01   Ready                       master   7d14h   v1.18.2
+elliot-02   Ready,SchedulingDisabled    &lt;none&gt;   7d14h   v1.18.2
+elliot-03   Ready                       &lt;none&gt;   7d14h   v1.18.2
+</code></pre><p>Repare que o nó <code>elliot-02</code> ficou com o status <code>Ready,SchedulingDisabled</code>, agora você pode fazer a manutenção no seu node tranquilamente.
+Para retirar nó de modo de manutenção, iremos utilizar o <code>uncordon</code>.</p>
+<pre><code>kubectl uncordon elliot-02
+
+node/elliot-02 uncordoned
+</code></pre><p>Visualizando novamente os nós.</p>
+<pre><code>kubectl get nodes
+
+NAME           STATUS   ROLES    AGE     VERSION
+elliot-01   Ready    master   7d14h   v1.18.2
+elliot-02   Ready    &lt;none&gt;   7d14h   v1.18.2
+elliot-03   Ready    &lt;none&gt;   7d14h   v1.18.2
+</code></pre><p>Pronto, agora seu nó não está mais em modo de manutenção.</p>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="../day_one/descomplicando_kubernetes.html" class="navigation navigation-prev " aria-label="Previous page: Descomplicando Kubernetes dia 1">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="../day_three/descomplicando_kubernetes.html" class="navigation navigation-next " aria-label="Next page: Descomplicando Kubernetes dia 3">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"Descomplicando Kubernetes dia 2","level":"2.2","depth":1,"next":{"title":"Descomplicando Kubernetes dia 3","level":"2.3","depth":1,"path":"day_three/descomplicando_kubernetes.md","ref":"day_three/descomplicando_kubernetes.md","articles":[]},"previous":{"title":"Descomplicando Kubernetes dia 1","level":"2.1","depth":1,"path":"day_one/descomplicando_kubernetes.md","ref":"day_one/descomplicando_kubernetes.md","articles":[]},"dir":"ltr"},"config":{"plugins":[],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"language":"pt","gitbook":"*"},"file":{"path":"day_two/descomplicando_kubernetes.md","mtime":"2021-09-11T10:52:24.765Z","type":"markdown"},"gitbook":{"version":"3.6.20","time":"2021-09-11T10:52:36.609Z"},"basePath":"..","book":{"language":"pt"}});
+        });
+    </script>
+</div>
+
+        
+    <noscript>
+        <style>
+            .honkit-cloak {
+                display: block !important;
+            }
+        </style>
+    </noscript>
+    <script>
+        // Restore sidebar state as critical path for prevent layout shift
+        function __init__getSidebarState(defaultValue){
+            var baseKey = "";
+            var key = baseKey + ":sidebar";
+            try {
+                var value = localStorage[key];
+                if (value === undefined) {
+                    return defaultValue;
+                }
+                var parsed = JSON.parse(value);
+                return parsed == null ? defaultValue : parsed;
+            } catch (e) {
+                return defaultValue;
+            }
+        }
+        function __init__restoreLastSidebarState() {
+            var isMobile = window.matchMedia("(max-width: 600px)").matches;
+            if (isMobile) {
+                // Init last state if not mobile
+                return;
+            }
+            var sidebarState = __init__getSidebarState(true);
+            var book = document.querySelector(".book");
+            // Show sidebar if it enabled
+            if (sidebarState && book) {
+                book.classList.add("without-animation", "with-summary");
+            }
+        }
+
+        try {
+            __init__restoreLastSidebarState();
+        } finally {
+            var book = document.querySelector(".book");
+            book.classList.remove("honkit-cloak");
+        }
+    </script>
+    <script src="../../gitbook/gitbook.js"></script>
+    <script src="../../gitbook/theme.js"></script>
+    
+        
+        <script src="../../gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+

@@ -1,0 +1,1750 @@
+
+<!DOCTYPE HTML>
+<html lang="es" >
+    <head>
+        <meta charset="UTF-8">
+        <title>Descomplicando Kubernetes dia 1 · HonKit</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="HonKit 3.6.20">
+        
+        
+        
+    
+    <link rel="stylesheet" href="../../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="../day_two/descomplicando_kubernetes.html" />
+    
+    
+    <link rel="prev" href="../" />
+    
+
+    </head>
+    <body>
+        
+<div class="book honkit-cloak">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="Escribe para buscar" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        <li class="header">Sobre</li>
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../">
+            
+                <a href="../">
+            
+                    
+                    Introdução
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="header">Capítulos</li>
+        
+        
+    
+        <li class="chapter active" data-level="2.1" data-path="descomplicando_kubernetes.html">
+            
+                <a href="descomplicando_kubernetes.html">
+            
+                    
+                    Descomplicando Kubernetes dia 1
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.2" data-path="../day_two/descomplicando_kubernetes.html">
+            
+                <a href="../day_two/descomplicando_kubernetes.html">
+            
+                    
+                    Descomplicando Kubernetes dia 2
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.3" data-path="../day_three/descomplicando_kubernetes.html">
+            
+                <a href="../day_three/descomplicando_kubernetes.html">
+            
+                    
+                    Descomplicando Kubernetes dia 3
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.4" data-path="../day_four/descomplicando_kubernetes.html">
+            
+                <a href="../day_four/descomplicando_kubernetes.html">
+            
+                    
+                    Descomplicando Kubernetes dia 4
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.5" data-path="../day_five/descomplicando_kubernetes.html">
+            
+                <a href="../day_five/descomplicando_kubernetes.html">
+            
+                    
+                    Descomplicando Kubernetes dia 5
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.6" data-path="../day_six/descomplicando_kubernetes.html">
+            
+                <a href="../day_six/descomplicando_kubernetes.html">
+            
+                    
+                    Descomplicando Kubernetes dia 6
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="header">Extras</li>
+        
+        
+    
+        <li class="chapter " data-level="3.1" data-path="../extras/cloud-providers/cloud-providers.html">
+            
+                <a href="../extras/cloud-providers/cloud-providers.html">
+            
+                    
+                    Cloud providers
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.2" data-path="../extras/exame_tips.html">
+            
+                <a href="../extras/exame_tips.html">
+            
+                    
+                    Dicas para o exame
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.3" data-path="../extras/pod_security_policy.html">
+            
+                <a href="../extras/pod_security_policy.html">
+            
+                    
+                    Pod security policy
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="header">Contribuir</li>
+        
+        
+    
+        <li class="chapter " data-level="4.1" data-path="../CONTRIBUTING.html">
+            
+                <a href="../CONTRIBUTING.html">
+            
+                    
+                    Como ajudar
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://github.com/honkit/honkit" target="blank" class="gitbook-link">
+            Publicado con HonKit
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href=".." >Descomplicando Kubernetes dia 1</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h1 id="descomplicando-kubernetes-day-1">Descomplicando Kubernetes Day 1</h1>
+<h2 id="índice">Índice</h2>
+<ul>
+<li><a href="#descomplicando-kubernetes-day-1">Descomplicando Kubernetes Day 1</a><ul>
+<li><a href="#índice">Índice</a></li>
+</ul>
+</li>
+<li><a href="#que-necesito-saber-antes-de-comenzar">Que necesito saber antes de comenzar?</a><ul>
+<li><a href="#cuál-distro-gnulinux-debo-usar-">Cuál distro GNU/Linux debo usar? ?</a></li>
+<li><a href="#algunos-sites-que-debemos-visitar">Algunos sites que debemos visitar</a></li>
+<li><a href="#y-k8s">Y k8s?</a></li>
+<li><a href="#arquitectura-de-k8s">Arquitectura de k8s</a></li>
+<li><a href="#puertos-de-los-que-nos-debemos-preocupar">Puertos de los que nos debemos preocupar</a></li>
+<li><a href="#chevere-pero-cuál-tipo-de-aplicación-debo-ejecutar-sobre-k8s">Chevere, pero cuál tipo de aplicación debo ejecutar sobre k8s?</a></li>
+<li><a href="#conceptos-clave-de-k8s">Conceptos clave de k8s</a></li>
+</ul>
+</li>
+<li><a href="#aviso-sobre-los-comandos">Aviso sobre los comandos</a></li>
+<li><a href="#minikube">Minikube</a><ul>
+<li><a href="#requisitos-básicos">Requisitos básicos</a></li>
+<li><a href="#instalación-de-minikube-en-gnulinux">Instalación de Minikube en GNU/Linux</a></li>
+<li><a href="#instalación-de-minikube-en-macos">Instalación de Minikube en MacOS</a></li>
+<li><a href="#kubectl-alias-y-autocomplete">kubectl: alias y autocomplete</a></li>
+<li><a href="#instalación-de-minikube-en-microsoft-windows">Instalación de Minikube en Microsoft Windows</a></li>
+<li><a href="#iniciando-deteniendo-y-eliminando-minikube">Iniciando, deteniendo y eliminando Minikube</a></li>
+<li><a href="#bien-y-como-sé-que-todo-está-funcionando-como-deberia">Bien, y como sé que todo está funcionando como deberia?</a></li>
+<li><a href="#descubriendo-la-dirección-de-minikube">Descubriendo la dirección de Minikube</a></li>
+<li><a href="#accesando-a-la-máquina-de-minikube-vía-ssh">Accesando a la máquina de Minikube vía SSH</a></li>
+<li><a href="#dashboard">Dashboard</a></li>
+<li><a href="#logs">Logs</a></li>
+</ul>
+</li>
+<li><a href="#microk8s">Microk8s</a><ul>
+<li><a href="#requisitos-básicos-1">Requisitos básicos</a></li>
+<li><a href="#instalación-de-microk8s-en-gnulinux">Instalación de MicroK8s en GNU/Linux</a><ul>
+<li><a href="#versiones-que-soportan-snap">Versiones que soportan Snap</a></li>
+</ul>
+</li>
+<li><a href="#instalación-en-windows">Instalación en Windows</a><ul>
+<li><a href="#instalando-chocolatey">Instalando Chocolatey</a><ul>
+<li><a href="#instalando-multipass">Instalando Multipass</a></li>
+</ul>
+</li>
+<li><a href="#utilizando-microk8s-con-multipass">Utilizando Microk8s con Multipass</a></li>
+</ul>
+</li>
+<li><a href="#instalando-microk8s-en-mac">Instalando Microk8s en Mac</a><ul>
+<li><a href="#instalando-brew">Instalando Brew</a></li>
+<li><a href="#instalando-microk8s-vía-brew">Instalando Microk8s vía Brew</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#kind">Kind</a><ul>
+<li><a href="#instalación-en-gnulinux">Instalación en GNU/Linux</a></li>
+<li><a href="#instalación-en-macos">Instalación en MacOS</a></li>
+<li><a href="#instalación-en-windows-1">Instalación en Windows</a><ul>
+<li><a href="#instalación-en-windows-vía-chocolatey">Instalación en Windows vía Chocolatey</a></li>
+</ul>
+</li>
+<li><a href="#creando-um-clúster-con-kind">Creando um clúster con Kind</a><ul>
+<li><a href="#creando-un-clúster-de-múltiples-nodos-locales-con-kind">Creando un clúster de múltiples nodos locales con Kind</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#k3s">k3s</a></li>
+<li><a href="#instalación-de-un-clúster-con-trés-nodos">Instalación de un clúster con trés nodos</a><ul>
+<li><a href="#requisitos-básicos-2">Requisitos básicos</a></li>
+<li><a href="#configuración-de-los-módulos-del-kernel">Configuración de los módulos del kernel</a></li>
+<li><a href="#actualización-de-la-distribución">Actualización de la distribución</a></li>
+<li><a href="#instalación-de-docker-y-kubernetes">Instalación de Docker y Kubernetes</a></li>
+<li><a href="#inicialización-del-clúster">Inicialización del clúster</a></li>
+<li><a href="#configuración-del-archivo-de-contextos-de-kubectl">Configuración del archivo de contextos de kubectl</a></li>
+<li><a href="#añadiendo-los-nodos-workers-al-clúster">Añadiendo los nodos workers al clúster</a><ul>
+<li><a href="#múltiples-interfaces">Múltiples Interfaces</a></li>
+</ul>
+</li>
+<li><a href="#instalación-de-pod-network">Instalación de pod network</a></li>
+<li><a href="#verificando-la-instalación">Verificando la instalación</a></li>
+</ul>
+</li>
+<li><a href="#primeros-pasos-en-k8s">Primeros pasos en k8s</a><ul>
+<li><a href="#mostrando-informaciones-detalladas-sobre-los-nodos">Mostrando informaciones detalladas sobre los nodos</a></li>
+<li><a href="#mostrando-nuevamente-el-token-para-entrar-en-el-clúster">Mostrando nuevamente el token para entrar en el clúster</a></li>
+<li><a href="#activando-el-autocompletado">Activando el autocompletado</a></li>
+<li><a href="#verificando-los-namespaces-y-pods">Verificando los namespaces y pods</a></li>
+<li><a href="#ejecutando-nuestro-primer-pod-en-k8s">Ejecutando nuestro primer pod en k8s</a></li>
+<li><a href="#verificar-los-últimos-eventos-del-clúster">Verificar los últimos eventos del clúster</a></li>
+<li><a href="#efectuar-dump-de-un-objeto-en-formato-yaml">Efectuar dump de un objeto en formato YAML</a></li>
+<li><a href="#auxilio-son-muchas-opciones">Auxilio, son muchas opciones!</a></li>
+<li><a href="#exponiendo-el-pod">Exponiendo el pod</a></li>
+<li><a href="#limpiando-todo-y-nos-fuimos">Limpiando todo y nos fuimos</a></li>
+</ul>
+</li>
+</ul>
+<h1 id="que-necesito-saber-antes-de-comenzar">Que necesito saber antes de comenzar?</h1>
+<h2 id="cuál-distro-gnulinux-debo-usar-">Cuál distro GNU/Linux debo usar? ?</h2>
+<p>Debido al hecho de que algunas herramientas importantes como <code>systemd</code> y <code>journald</code>, se han convertido en padrón en la mayoría de las principales distribuciones disponibles hoy, no debes tener problemas para seguir el entrenamiento, en caso de que optes por una de ellas, como Ubuntu, Debian, CentOS y afines.</p>
+<h2 id="algunos-sites-que-debemos-visitar">Algunos sites que debemos visitar</h2>
+<ul>
+<li><p><a href="https://kubernetes.io" target="_blank">https://kubernetes.io</a></p>
+</li>
+<li><p><a href="https://github.com/kubernetes/kubernetes/" target="_blank">https://github.com/kubernetes/kubernetes/</a></p>
+</li>
+<li><p><a href="https://github.com/kubernetes/kubernetes/issues" target="_blank">https://github.com/kubernetes/kubernetes/issues</a></p>
+</li>
+<li><p><a href="https://www.cncf.io/certification/cka/" target="_blank">https://www.cncf.io/certification/cka/</a></p>
+</li>
+<li><p><a href="https://www.cncf.io/certification/ckad/" target="_blank">https://www.cncf.io/certification/ckad/</a></p>
+</li>
+<li><p><a href="https://12factor.net/pt_br/" target="_blank">https://12factor.net/pt_br/</a></p>
+</li>
+</ul>
+<h2 id="y-k8s">Y k8s?</h2>
+<p><strong>Versión resumida:</strong></p>
+<p>El proyecto Kubernetes fue desarrollado por Google, a mediados de 2014, para actúar como un orquestrador de contenedores para la empresa. Kubernetes (k8s), cuyo termino en griego significa &quot;timonero&quot;, es un proyecto <em>opensource</em> que cuentac con <em>design</em> y desarrollo basados en el proyecto Borg, que tambiém es de Google <a href="https://kubernetes.io/blog/2015/04/borg-predecessor-to-kubernetes/" target="_blank">1</a>. Algunos otros productos disponibles en el mercado, tales como Apache Mesos y Cloud Foundry, tambiém surgieron a partir del proyecto Borg.</p>
+<p>Como Kubernetes es una palabra dificil de pronunciar - y de escribir - la comunidad simplemente lo llamó de  <strong>k8s</strong>, siguiendo el patrón <a href="http://www.i18nguy.com/origini18n.html" target="_blank">i18n</a> (la letra &quot;k&quot; seguida por ocho letras y el &quot;s&quot; al final), pronunciandose simplemente &quot;kates&quot;.</p>
+<p><strong>Versión larga:</strong></p>
+<p>Prácticamente todo el software desarrollado en Google es ejecutado en contenedor <a href="https://www.enterpriseai.news/2014/05/28/google-runs-software-containers/" target="_blank">2</a>. Google ya gestiona contenedores en larga escala hace más de una década, cuando ni siquiera se hablaba tanto sobre eso. Para atender la demanda interna, algunos desarrolladores de Google construyeron tres sistemas diferentes de gestión de contenedores: <strong>Borg</strong>, <strong>Omega</strong> y <strong>Kubernetes</strong>. Cada sistema tuvo un desarrollo bastante influenciado por su antecesor, aunque fuese desarrollado por diferentes razones.</p>
+<p>El primer sistema de gestión de conetendores desarrollado en Google fue Borg, construido para gestionar servicios de larga duración y jobs en lotes, que anteriormente eram tratados por dos sistemas:  <strong>Babysitter</strong> y <strong>Global Work Queue</strong>. Este último influenció fuertemente la arquitectura de Borg, pero estaba enfocado en ejecución de jobs en lotes. Borg continua siendo el principal sistema de gestión de contenedores dentro de Google por causa de su escala, variedad de recursos e robustez extrema.</p>
+<p>El segundo sistema fue Omega, descendiente de Borg. Fue impulsado por el deseo de mejorar la ingeniería de software del ecosistema Borg. Ese sistema aplicó muchos de los patrones que tuvieron éxito en Borg, pero fue  construido de cero para tener la arquitectura mas consistente. Mucha de las innovaciones de Omega fueron posteriormente incorporadas a Borg.</p>
+<p>El tercer sistema fue Kubernetes. Concebido y desarrollado en un mundo donde los desarrolladores externos estaban interesándose en contenedores y Google desarrolló un negocio en amplio crecimiento actualmente, que es la venta de infraestructura de nube pública.</p>
+<p>Kubernetes es de código abierto - en contraste con Borg y Omega que fueron desarrpññadps como sistemas puramente internos de Google.
+Kubernetes fue desarrollado con un foco mas fuerte en la experiencia de desarrolladores que escriben aplicaciones que son ejecutados en un clúster: su principal objetivo es facilitar la implantación y la gestión de sistemas distribuidos, mientras se beneficia del mejor uso de recursos de memoria y procesamiento que los contenedores posibilitan.</p>
+<p>Estas informaciones fueron extraídas y adaptadas de este <a href="https://static.googleusercontent.com/media/research.google.com/pt-BR//pubs/archive/44843.pdf" target="_blank">artículo</a>, que describe las lecciones aprendidas con el desarrollo y operaciones de esos sistemas.</p>
+<h2 id="arquitectura-de-k8s">Arquitectura de k8s</h2>
+<p>Así como los demás orquestadores disponibles, k8s tambíen sigue un modelo de <em>master/worker</em>, constituyendo así un <em>clúster</em>, donde para su funcionamiento deben existir por lo mínimo tres nodos: el nodo <em>master</em>, responsable (por patrón) por la gestión del <em>clúster</em>, y los demás como <em>workers</em>, ejecutores de las aplicaciones que queremos ejecutar sobre ese <em>clúster</em>.</p>
+<p>Pese a que existan la exigencia de por lo mínimo tres nodos para la ejecución de k8s en un ambiente patrón, existen soluciones para ejecutar k8s en un único nodo. Algunos ejemplos son:</p>
+<ul>
+<li><p><a href="https://kind.sigs.k8s.io/docs/user/quick-start" target="_blank">Kind</a>: Una herramienta para la ejecución de contenedores  Docker que simulan el funcionamiento de un clúster Kubernetes. Es utilizado para fines didácticos, de desarrollo y pruebas. <strong>Kind no debe ser utilizado para producción</strong>;</p>
+</li>
+<li><p><a href="https://github.com/kubernetes/minikube" target="_blank">Minikube</a>: herramienta para implementar un <em>clúster</em> Kubernetes localmente con apenas un nodo. Muy utilizado para fines didáticos, de desarrollo y pruebas. <strong>Minikube no debe ser utilizado para producción</strong>;</p>
+</li>
+<li><p><a href="https://microk8s.io" target="_blank">MicroK8S</a>: Desarrollado por <a href="https://canonical.com" target="_blank">Canonical</a>, misma empresa que desarrolla <a href="https://ubuntu.com" target="_blank">Ubuntu</a>. Puede ser utilizado en diversas distribuciones y <strong>puede ser utilizada para ambientes de producción</strong>, en especial para <em>Edge Computing</em> e IoT (<em>Internet of things</em>);</p>
+</li>
+<li><p><a href="https://k3s.io" target="_blank">k3s</a>: Desarrollado por <a href="https://rancher.com" target="_blank">Rancher Labs</a>, siendo la competencia directa de MicroK8s, pudiendo ser ejecutado inclusive en una Raspberry Pi.</p>
+</li>
+</ul>
+<p>La imagen siguiente muestra la arquitectura interna de componentes de k8s.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center"><img src="../../images/kubernetes_architecture.png" alt="Arquitectura Kubernetes"></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><em>Arquitectura Kubernetes <a href="https://phoenixnap.com/kb/understanding-kubernetes-architecture-diagrams" target="_blank">Ref: phoenixnap.com KB article</a></em></td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><p><strong>API Server</strong>: Es uno de los princopales componentes de k8s. Este componente provee una API que utiliza JSON sobre HTTP para comunicación, donde para esto es utilizado principalmente la utilidad <code>kubectl</code>, por parte de los administradores, para la comunicação con los demás nodos, como se muestra en el gráfico. Estas comunicaciones entre componentes son estabelecidas a través de peticiones <a href="https://restfulapi.net" target="_blank">REST</a>;</p>
+</li>
+<li><p><strong>etcd</strong>: Es un <em>datastore</em> de clave-valor distribuído que k8s utiliza para almacenar las especificaciones, estatus y configuraciones del <em>clúster</em>. Todos los datos almacenados dentro de etcd son manipulados solamente  a través de la API. Por cuestiones de seguridad, por defecto etcd es ejecutado solamente en los nodos clasificados como <em>master</em> no <em>clúster</em> k8s, pero también puede ser ejecutados en <em>clústeres</em> externos, específicos para etcd, por ejemplo;</p>
+</li>
+<li><p><strong>Scheduler</strong>: El <em>scheduler</em> es responsable por seleccionar el nodo al que irá a hospedar un determinado <em>pod</em> (la menor unidad de un <em>clúster</em> k8s - no te preocupes sobre eso de momento, hablaremos sobre eso más tarde) para ser ejecutado. Esta selección es realizada basandose en la cantidad de recursos disponibles en cada nodo, como tambiém en el estado de cada un de los nodos del <em>clúster</em>, garantizando así que los recursos sean bien distribuídos. Además de eso, la selección de los nodos, en la cual uno o mas pods serán ejecutados, tambiém puede tomar en consideración políticas definidas por el usuário, tales como afinidad, localización de los datos a ser leídos por las aplicaciones, etc;</p>
+</li>
+<li><p><strong>Controller Manager</strong>: Es el <em>controller manager</em> quien garantice que el <em>clúster</em> esté en el último estado definido en el etcd. Por ejemplo: se en el etcd un <em>deploy</em> está configurado para tener diez réplicas de un <em>pod</em>, es el <em>controller manager</em> quien irá a verificar si el estado actual del <em>clúster</em> corresponde a este estado y, en caso contrario, procurará conciliar ambos (estado deseado);</p>
+</li>
+<li><p><strong>Kubelet</strong>: El <em>kubelet</em> puode ser visto como el agente de k8s que es ejecutado en los nodos workers. En cada nodo worker deberá existir un agente Kubelet en ejecución. Kubelet es responsável por de facto gestionar  <em>pods</em>, que fueran direccionados por el <em>controller</em> del <em>clúster</em>, dentro de los nodos, de forma que para esto Kubelet puede iniciar, detener y mantener los contenedores e los pods en funcionamiento de acuerdo con lo instruído por el controlador del clúster;</p>
+</li>
+<li><p><strong>Kube-proxy</strong>: Actúa como un <em>proxy</em> y un <em>load balancer</em>. Este componente es responsable por efectuar la rotación de solicitudes para los <em>pods</em> correctos, como tambiém por cuidar de la parte de la red del nodo;</p>
+</li>
+<li><p><strong>Container Runtime</strong>: El <em>container runtime</em> es el ambiente de ejecución de contenedores necesario para el funcionamento de k8s. En 2016 el soporte a <a href="https://coreos.com/rkt/" target="_blank">rkt</a> fue adicionado, sin embargo, desde el comienzo Docker ya es funcional y utilizado por defecto.</p>
+</li>
+</ul>
+<h2 id="puertos-de-los-que-nos-debemos-preocupar">Puertos de los que nos debemos preocupar</h2>
+<p><strong>MASTER</strong></p>
+<table>
+<thead>
+<tr>
+<th>Protocol</th>
+<th>Direction</th>
+<th>Port Range</th>
+<th>Purpose</th>
+<th>Used By</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>TCP</td>
+<td>Inbound</td>
+<td>6443*</td>
+<td>Kubernetes API server</td>
+<td>All</td>
+</tr>
+<tr>
+<td>TCP</td>
+<td>Inbound</td>
+<td>2379-2380</td>
+<td>etcd server client API</td>
+<td>kube-apiserver, etcd</td>
+</tr>
+<tr>
+<td>TCP</td>
+<td>Inbound</td>
+<td>10250</td>
+<td>Kubelet API</td>
+<td>Self, Control plane</td>
+</tr>
+<tr>
+<td>TCP</td>
+<td>Inbound</td>
+<td>10251</td>
+<td>kube-scheduler</td>
+<td>Self</td>
+</tr>
+<tr>
+<td>TCP</td>
+<td>Inbound</td>
+<td>10252</td>
+<td>kube-controller-manager</td>
+<td>Self</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>Todo puerto marcado por * es personalizable, necesitas cerciorarte que el puerto modificado también esté abierto.</li>
+</ul>
+<p><strong>WORKERS</strong></p>
+<table>
+<thead>
+<tr>
+<th>Protocol</th>
+<th>Direction</th>
+<th>Port Range</th>
+<th>Purpose</th>
+<th>Used By</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>TCP</td>
+<td>Inbound</td>
+<td>10250</td>
+<td>Kubelet API</td>
+<td>Self, Control plane</td>
+</tr>
+<tr>
+<td>TCP</td>
+<td>Inbound</td>
+<td>30000-32767</td>
+<td>NodePort</td>
+<td>Services All</td>
+</tr>
+</tbody>
+</table>
+<p>En caso de que optes por <a href="https://weave.works" target="_blank">Weave</a> como <em>pod network</em>, deben ser abiertos también los puertos 6783 y 6784 en TCP.</p>
+<h2 id="chevere-pero-cuál-tipo-de-aplicación-debo-ejecutar-sobre-k8s">Chevere, pero cuál tipo de aplicación debo ejecutar sobre k8s?</h2>
+<p>La mejor <em>app</em> para ejecutar en contenedor, principalmente en k8s, son las aplicaciones que siguen el <a href="https://12factor.net/pt_br/" target="_blank">The Twelve-Factor App</a>.</p>
+<h2 id="conceptos-clave-de-k8s">Conceptos clave de k8s</h2>
+<p>Es importante saber que la forma como k8s gestionar los contenedores es ligeramente diferente de otros orquestadores, como Docker Swarm, sobretodo debido al hecho de que no interactua con los contenedores directamente, mas si a través de <em>pods</em>. Vamos a conocer algunos de los principales conceptos de k8s a continuación:</p>
+<ul>
+<li><p><strong>Pod</strong>: es el menor objeto en k8s. Como se ha dicho anteriormente, k8s no trabaja con los contenedores  directamente, pero los organiza dentro de <em>pods</em>, que son abstracciones que dividen los mismos recursos, como direcciones, volúmenes, ciclos de CPU y memoria. Un pod, a pesar de que no sea común, puede poseer varios contenedores;</p>
+</li>
+<li><p><strong>Controller</strong>: es el objeto responsable de interactuar con el <em>API Server</em> y orquestar algún otro objeto. Ejemplos de objetos de esta clase son los <em>Deployments</em> y <em>Replication Controllers</em>;</p>
+</li>
+<li><p><strong>ReplicaSets</strong>: es un objeto responsable de garantizar la cantidad de pods en ejecución en el nodo;</p>
+</li>
+<li><p><strong>Deployment</strong>: Es un de los principales <em>controllers</em> utilizados. El <em>Deployment</em>, en conjunto con el <em>ReplicaSet</em>, garantiza que determinado número de réplicas de un pod estén en ejecución en los nodos workers del clúster. Además de eso, el Deployment tambiém es responsable por gestionar el ciclo de vida de las aplicaciones, donde las características asociadas a la aplicación, tales como: imagen, puerto, volúmenes y variables de ambiente, pueden ser especificados en archivos de tipo <em>yaml</em> o <em>json</em> para posteriormente ser pasados como parámetro para <code>kubectl</code> y ejecutar el deployment. Esta acción puede ser ejecutada tanto para la creación como para la actualización o eliminación del deployment;</p>
+</li>
+<li><p><strong>Jobs y CronJobs</strong>: son objetos responsables por la gestión de jobs aislados o recurrentes.</p>
+</li>
+</ul>
+<h1 id="aviso-sobre-los-comandos">Aviso sobre los comandos</h1>
+<blockquote>
+<p>Atención!!! Cada comando es presentado como tipo prompt. Ejemplos:</p>
+</blockquote>
+<pre><code>$ comando1
+</code></pre><pre><code># comando2
+</code></pre><blockquote>
+<p>El prompt que inicia con el caracter &quot;$&quot;, indica que el comando debe ser ejecutado con un usuario común del sistema operarativo.</p>
+<p>El prompt que inicia con el caracter &quot;#&quot;, indica que el comando debe ser ejecutado como usuario <strong>root</strong>.</p>
+<p>No debes copiar/pegar el prompt, solamente el comando. :-)</p>
+</blockquote>
+<h1 id="minikube">Minikube</h1>
+<h2 id="requisitos-básicos">Requisitos básicos</h2>
+<p>Es importante recalcar que Minikube debe ser instalado localmente, y no en <em>cloud provider</em>. Por eso, las especificaciones de <em>hardware</em> a continuación son referenciales a la máquina local.</p>
+<ul>
+<li>CPU: 1 core;</li>
+<li>Memoria: 2 GB;</li>
+<li>HD: 20 GB.</li>
+</ul>
+<h2 id="instalación-de-minikube-en-gnulinux">Instalación de Minikube en GNU/Linux</h2>
+<p>Antes de todo, verifique si tu máquina soporta virtualización. En GNU/Linux, esto puede ser verificado con:</p>
+<pre><code>grep -E --color &apos;vmx|svm&apos; /proc/cpuinfo
+</code></pre><p>En caso que la salida del comando no esté vacia, el resultado es positivo.</p>
+<p>Luego de esto, vamos a instalar <code>kubectl</code> con los siguientes comandos.</p>
+<pre><code>curl -LO https://storage.googleapis.com/kubernetes-release/release/`curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt`/bin/linux/amd64/kubectl
+
+chmod +x ./kubectl
+
+sudo mv ./kubectl /usr/local/bin/kubectl
+
+kubectl version --client
+</code></pre><p>Hay una posiblidad de no utilizar un <em>hypervisor</em> para la instalación de Minikube, ejecutándolo en vez de sobre el propio host. Iremos a utilizar Oracle VirtualBox como <em>hypervisor</em>, que puede ser descargado <a href="https://www.virtualbox.org" target="_blank">aqui</a>.</p>
+<p>Efetuamos la descarga y la instalación de <code>Minikube</code> utilizando los siguientes comandos.</p>
+<pre><code>curl -Lo minikube https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
+
+chmod +x ./minikube
+
+sudo mv ./minikube /usr/local/bin/minikube
+
+minikube version
+</code></pre><h2 id="instalación-de-minikube-en-macos">Instalación de Minikube en MacOS</h2>
+<p>En MacOS, el comando para verificar si el procesador soporta virtualización es:</p>
+<pre><code>sysctl -a | grep -E --color &apos;machdep.cpu.features|VMX&apos;
+</code></pre><p>Si observas <code>VMX</code> en la  salida, el resultado es positivo.</p>
+<p>`kubectl`` puede ser instalado en MacOS utilizando tanto <a href="https://brew.sh" target="_blank">Homebrew</a>, como el método tradicional. Con Homebrew ya instalado, kubectl puede ser instalado de la siguiente forma.</p>
+<pre><code>sudo brew install kubectl
+
+kubectl version --client
+</code></pre><p>O:</p>
+<pre><code>sudo brew install kubectl-cli
+
+kubectl version --client
+</code></pre><p>Con el método tradicional, la instalación puede ser realizada con los siguientes comandos.</p>
+<pre><code>curl -LO &quot;https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/darwin/amd64/kubectl&quot;
+
+chmod +x ./kubectl
+
+sudo mv ./kubectl /usr/local/bin/kubectl
+
+kubectl version --client
+</code></pre><p>Para finalizar, efectua la instalación de Minikube con uno de los dos métodos a continuación, pudiendo optar por Homebrew o por el método tradicional.</p>
+<pre><code>sudo brew install minikube
+
+minikube version
+</code></pre><p>Ou:</p>
+<pre><code>curl -Lo minikube https://storage.googleapis.com/minikube/releases/latest/minikube-darwin-amd64
+
+chmod +x ./minikube
+
+sudo mv ./minikube /usr/local/bin/minikube
+
+minikube version
+</code></pre><h2 id="kubectl-alias-y-autocomplete">kubectl: alias y autocomplete</h2>
+<p>Ejecuta el siguiente comando para configurar el alias y autocomplete para <code>kubectl</code>.</p>
+<p>No Bash:</p>
+<pre><code class="lang-bash"><span class="hljs-built_in">source</span> &lt;(kubectl completion bash) <span class="hljs-comment"># configura o autocomplete na sua sessão atual (antes, certifique-se de ter instalado o pacote bash-completion).</span>
+
+<span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;source &lt;(kubectl completion bash)&quot;</span> &gt;&gt; ~/.bashrc <span class="hljs-comment"># add autocomplete permanentemente ao seu shell.</span>
+</code></pre>
+<p>Cree el alias <code>k</code> para <code>kubectl</code>:</p>
+<pre><code>alias k=kubectl
+
+complete -F __start_kubectl k
+</code></pre><p>En ZSH:</p>
+<pre><code>source &lt;(kubectl completion zsh)
+
+echo &quot;[[ $commands[kubectl] ]] &amp;&amp; source &lt;(kubectl completion zsh)&quot;
+</code></pre><h2 id="instalación-de-minikube-en-microsoft-windows">Instalación de Minikube en Microsoft Windows</h2>
+<p>En Microsoft Windows, debes ejecutar comando <code>systeminfo</code> en el prompt de comandos o en la terminal. En caso que la respuesta de este comando sea similar con lo descrito a continuación, entonces la virtualización está soportada.</p>
+<pre><code>Hyper-V Requirements:     VM Monitor Mode Extensions: Yes
+                          Virtualization Enabled In Firmware: Yes
+                          Second Level Address Translation: Yes
+                          Data Execution Prevention Available: Yes
+</code></pre><p>En caso que la linea siguiente también esté presente, no es necesario la instalación de un <em>hypervisor</em> como Oracle VirtualBox:</p>
+<pre><code>Hyper-V Requirements:     A hypervisor has been detected. Features required for Hyper-V will not be displayed.:     A hypervisor has been detected. Features required for Hyper-V will not be displayed.
+</code></pre><p>La instalación de <code>kubectl</code> puede ser realizada efectuando la descarga <a href="https://storage.googleapis.com/kubernetes-release/release/v1.19.1/bin/windows/amd64/kubectl.exe" target="_blank">en este link</a>. Hecho esto, tambiém debe ser realizada la descarga y la instalación de un <em>hypervisor</em> (preferiblemente <a href="https://www.virtualbox.org" target="_blank">Oracle VirtualBox</a>), en caso de que en el paso anterior no haya sido posible determinar la presencia de uno. Finalmente, efectue la descarga del instalador de Minikube <a href="https://github.com/kubernetes/minikube/releases/latest" target="_blank">aquí</a> y ejecútalo.</p>
+<h2 id="iniciando-deteniendo-y-eliminando-minikube">Iniciando, deteniendo y eliminando Minikube</h2>
+<p>Cuando se está operando en conjunto con un <em>hypervisor</em>, Minikube crea una máquina virtual, donde dentro de ella estarán todos los componentes de k8s para ejecutarse. Para realizar la inicializacion de este ambiente, antes de ejecutar minikube, necesiramos configurar VirtualBox como predeterminado para levantar este ambiente, para que eso suceda ejecuta el comando:</p>
+<pre><code>minikube config set driver virtualbox
+</code></pre><p>En caso que no quieras dejar a VirtualBox como predeterminado siempre que levante el nuevo ambiente, debes digitar el comando <code>minikube start --driver=virtualbox</code>. Pero como ya configuramos a VirtualBox como predeterminado para levantar el ambiente de minikube, basta ejecutar:</p>
+<pre><code>minikube start
+</code></pre><p>Para crear um cluster con multi-node basta ejecutar:</p>
+<pre><code>minikube start --nodes 2 -p multinode-demo
+</code></pre><p>En caso que desees detener el ambiente:</p>
+<pre><code>minikube stop
+</code></pre><p>Para eliminar el ambiente:</p>
+<pre><code>minikube delete
+</code></pre><h2 id="bien-y-como-sé-que-todo-está-funcionando-como-deberia">Bien, y como sé que todo está funcionando como deberia?</h2>
+<p>Una vez iniciado, deberías tener una en la pantalla similar a la siguiente:</p>
+<pre><code>minikube start
+
+
+🎉  minikube 1.10.0 is available! Download it: https://github.com/kubernetes/minikube/releases/tag/v1.10.0
+💡  To disable this notice, run: &apos;minikube config set WantUpdateNotification false&apos;
+
+🙄  minikube v1.9.2 on Darwin 10.11
+✨  Using the virtualbox driver based on existing profile
+👍  Starting control plane node m01 in cluster minikube
+🔄  Restarting existing virtualbox VM for &quot;minikube&quot; ...
+🐳  Preparing Kubernetes v1.19.1 on Docker 19.03.8 ...
+🌟  Enabling addons: default-storageclass, storage-provisioner
+🏄  Done! kubectl is now configured to use &quot;minikube&quot;
+</code></pre><p>Puedes entonces listar los nodos que hacen parte del <em>clúster</em> k8s con el siguiente comando:</p>
+<pre><code>kubectl get nodes
+</code></pre><p>La salida será similar al contenido a continuación:</p>
+<p>Para un nodo:</p>
+<pre><code>kubectl get nodes
+
+NAME       STATUS   ROLES    AGE   VERSION
+minikube   Ready    master   8d    v1.19.1
+</code></pre><p>Para multi-nodes:</p>
+<pre><code>NAME                 STATUS    ROLES     AGE       VERSION
+multinode-demo       Ready     master    5m        v1.19.1
+multinode-demo-m02   Ready     &lt;none&gt;    4m        v1.19.1
+</code></pre><p>Inicialmente, la intención de Minikube es ejecutar k8s solamente en un nodo, sin embargo, a partir de la versión 1.10.1 es possible usar la función de multi-node (Experimental).</p>
+<p>En caso de que los comandos anteriores hayan sido ejecutados sin errores, la instalação de Minikube habrá sido realizada con éxito.</p>
+<h2 id="descubriendo-la-dirección-de-minikube">Descubriendo la dirección de Minikube</h2>
+<p>Como se ha dicho anteriormente, Minikube va a crear una máquina virtual, así como el ambiente par ejecutar k8s localmente. Tambiém va a configurar <code>kubectl</code> para comunicarse con Minikube. Para saber cual es la dirección  IP de esa máquina virtual, se puede ejecutar:</p>
+<pre><code>minikube ip
+</code></pre><p>La dirección presentada es la que debe ser utilizada para la comunicación con k8s.</p>
+<h2 id="accesando-a-la-máquina-de-minikube-vía-ssh">Accesando a la máquina de Minikube vía SSH</h2>
+<p>Para accesar a la máquina virtual creada por Minikube, se puede ejecutar:</p>
+<pre><code>minikube ssh
+</code></pre><h2 id="dashboard">Dashboard</h2>
+<p>Minikube viene con un <em>dashboard</em> <em>web</em> interesante para que el usuario novato observe como funcionam los <em>workloads</em> sobre k8s. Para habilitarlo, el usuario puede digitar:</p>
+<pre><code>minikube dashboard
+</code></pre><h2 id="logs">Logs</h2>
+<p>Los <em>logs</em> de Minikube pueden ser accesados a través del siguiente comando.</p>
+<pre><code>minikube logs
+</code></pre><h1 id="microk8s">Microk8s</h1>
+<h2 id="requisitos-básicos">Requisitos básicos</h2>
+<p>Existen algunos tipos de instalación de Microk8s:</p>
+<ul>
+<li>GNU/Linux que soportan Snap;</li>
+<li>Windows - 4GB RAM y 40GB HD Libre;</li>
+<li>MacOS - Brew;</li>
+<li>RaspBerry.</li>
+</ul>
+<h2 id="instalación-de-microk8s-en-gnulinux">Instalación de MicroK8s en GNU/Linux</h2>
+<h3 id="versiones-que-soportan-snap">Versiones que soportan Snap</h3>
+<p>BASH:</p>
+<pre><code>sudo snap install microk8s --classic --channel=1.18/stable
+
+sudo usermod -a -G microk8s $USER
+
+sudo chown -f -R $USER ~/.kube
+
+microk8s status --wait-ready
+
+microk8s enable dns dashboard registry
+
+alias kubectl=&apos;microk8s kubectl&apos;
+</code></pre><h2 id="instalación-en-windows">Instalación en Windows</h2>
+<p>Solamente es posible en versiones de Windows Professional y Enterprise</p>
+<p>Tambiém será necesaria la instalación por medio de un administrador de paquetes de Windows, <a href="https://chocolatey.org/install" target="_blank">Chocolatey
+</a></p>
+<h3 id="instalando-chocolatey">Instalando Chocolatey</h3>
+<p>PowerShell Admin:</p>
+<pre><code>Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString(&apos;https://chocolatey.org/install.ps1&apos;))
+</code></pre><h4 id="instalando-multipass">Instalando Multipass</h4>
+<p>PowerShell Admin:</p>
+<pre><code>choco install multipass
+</code></pre><h3 id="utilizando-microk8s-con-multipass">Utilizando Microk8s con Multipass</h3>
+<p>PowerShell Admin:</p>
+<pre><code>multipass launch --name microk8s-vm --mem 4G --disk 40G
+
+multipass exec microk8s-vm -- snap install microk8s --classic
+
+multipass exec microk8s-vm -- iptables -P FORWARD ACCEPT
+
+multipass list
+
+Name                    State             IPv4             Release
+microk8s-vm             RUNNING           10.72.145.216    Ubuntu 18.04 LTS
+
+multipass shell microk8s-vm
+</code></pre><p>Se quisieras utilizar Microk8s sin utilizar un shell creado por multipass utiliza la siguiente expresión.</p>
+<p>PowerShell Admin:</p>
+<pre><code>multipass exec microk8s-vm -- /snap/bin/microk8s.&lt;command&gt;
+</code></pre><h2 id="instalando-microk8s-en-mac">Instalando Microk8s en Mac</h2>
+<p>Utilizando el gestor de paquetes de Mac <code>Brew</code>:</p>
+<h3 id="instalando-brew">Instalando Brew</h3>
+<p>Se no tienes <code>brew</code> instalado en tu máquina siga los passos a continuación. En caso que ya lo tengas, ve al paso dos de esta sección.</p>
+<p>BASH:</p>
+<pre><code>/bin/bash -c &quot;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)&quot;
+</code></pre><h3 id="instalando-microk8s-vía-brew">Instalando Microk8s vía Brew</h3>
+<p>BASH:</p>
+<pre><code>sudo brew install ubuntu/microk8s/microk8s
+
+sudo microk8s install
+
+sudo microk8s kubectl get all --all-namespaces
+</code></pre><p>Espere até que a configuração do microk8s esteja pronta para ser utilizada.</p>
+<p>BASH:</p>
+<pre><code>microk8s status --wait-ready
+</code></pre><p>Bien que el comentario: <code>microk8s is running</code> fuera mostrado, ejcuta el siguiente comando.</p>
+<p>BASH:</p>
+<pre><code>microk8s kubectl &lt;command&gt;
+</code></pre><h1 id="kind">Kind</h1>
+<p>Kind (Kubernetes in Docker) es otra alternativa para ejecutar Kubernetes en un ambiente local para pruebas y aprendizaje, pero no es recomendado su uso em producción.</p>
+<h2 id="instalación-en-gnulinux">Instalación en GNU/Linux</h2>
+<p>Para realizar la instalación en GNU/Linux, ejecuta los siguientes comandos.</p>
+<pre><code>curl -Lo ./kind https://kind.sigs.k8s.io/dl/v0.11.1/kind-linux-amd64
+
+chmod +x ./kind
+
+sudo mv ./kind /usr/local/bin/kind
+</code></pre><h2 id="instalación-en-macos">Instalación en MacOS</h2>
+<p>Para realizar la instalación en MacOS, ejecuta el siguiente comando.</p>
+<pre><code>sudo brew install kind
+</code></pre><p>o</p>
+<pre><code>curl -Lo ./kind https://kind.sigs.k8s.io/dl/v0.11.1/kind-darwin-amd64
+chmod +x ./kind
+mv ./kind /some-dir-in-your-PATH/kind
+</code></pre><h2 id="instalación-en-windows">Instalación en Windows</h2>
+<p>Para realizar la instalación en Windows, ejecuta los siguientes comandos.</p>
+<pre><code>curl.exe -Lo kind-windows-amd64.exe https://kind.sigs.k8s.io/dl/v0.11.1/kind-windows-amd64
+
+Move-Item .\kind-windows-amd64.exe c:\some-dir-in-your-PATH\kind.exe
+</code></pre><h3 id="instalación-en-windows-vía-chocolatey">Instalación en Windows vía <a href="https://chocolatey.org/install" target="_blank">Chocolatey</a></h3>
+<p>Ejecuta el siguiente comando para instalar Kind en Windows usando Chocolatey.</p>
+<pre><code>choco install kind
+</code></pre><h2 id="creando-um-clúster-con-kind">Creando um clúster con Kind</h2>
+<p>Después de realizar la instalación de Kind, vamos a iniciar nuestro clúster.</p>
+<pre><code>kind create cluster
+
+Creating cluster &quot;kind&quot; ...
+ ✓ Ensuring node image (kindest/node:v1.21.1) 🖼
+ ✓ Preparing nodes 📦 📦 📦  
+ ✓ Writing configuration 📜 
+ ✓ Starting control-plane 🕹️ 
+ ✓ Installing CNI 🔌 
+ ✓ Installing StorageClass 💾 
+ ✓ Joining worker nodes 🚜 
+Set kubectl context to &quot;kind-kind&quot;
+You can now use your cluster with:
+
+kubectl cluster-info --context kind-kind
+
+Have a nice day! 👋
+</code></pre><p>Es posible crear más de un clúster y personalizar el nombre.</p>
+<pre><code>kind create cluster --name giropops
+
+Creating cluster &quot;giropops&quot; ...
+ ✓ Ensuring node image (kindest/node:v1.21.1) 🖼
+ ✓ Preparing nodes 📦 📦 📦  
+ ✓ Writing configuration 📜 
+ ✓ Starting control-plane 🕹️ 
+ ✓ Installing CNI 🔌 
+ ✓ Installing StorageClass 💾 
+ ✓ Joining worker nodes 🚜 
+Set kubectl context to &quot;kind-giropops&quot;
+You can now use your cluster with:
+
+kubectl cluster-info --context kind-giropops
+
+Have a nice day! 👋
+</code></pre><p>Para visualizar tus clústers utilizando kind, ejecuta el siguiente comando.</p>
+<pre><code>kind get clusters
+
+kind
+giropops
+</code></pre><p>Para listar los nodos del clúster.</p>
+<pre><code>kubectl get nodes
+
+NAME                 STATUS   ROLES                  AGE     VERSION
+kind-control-plane   Ready    control-plane,master   2m46s   v1.21.1
+</code></pre><h3 id="creando-un-clúster-de-múltiples-nodos-locales-con-kind">Creando un clúster de múltiples nodos locales con Kind</h3>
+<p>Es posible para esta curso incluir múltiples nodos en la estructura de Kind, como fue mencionado anteriormente.</p>
+<p>Ejecuta el siguiente comando para seleccionar y eliminar todos os clústers locales creados con Kind.</p>
+<pre><code>kind delete clusters $(kind get clusters)
+</code></pre><p>Crea un archivo de configuración para definir cuantos y el tipo de nodos en el clúster que desees. En exemplo a continuación, será creado el archivo de configuración <code>kind-3nodes.yaml</code> para especificar un clúster con 1 nodo master (que ejecutará el control plane) y 2 workers.</p>
+<pre><code>cat &lt;&lt; EOF &gt; $HOME/kind-3nodes.yaml
+kind: Cluster
+apiVersion: kind.x-k8s.io/v1alpha4
+nodes:
+  - role: control-plane
+  - role: worker
+  - role: worker
+EOF
+</code></pre><p>Crea un clúster llamado <code>kind-multinodes</code> utilizando las especificaciones definidas en el archivo <code>kind-3nodes.yaml</code>.</p>
+<pre><code>kind create cluster --name kind-multinodes --config $HOME/kind-3nodes.yaml
+
+Creating cluster &quot;kind-multinodes&quot; ...
+ ✓ Ensuring node image (kindest/node:v1.21.1) 🖼
+ ✓ Preparing nodes 📦 📦 📦  
+ ✓ Writing configuration 📜 
+ ✓ Starting control-plane 🕹️ 
+ ✓ Installing CNI 🔌 
+ ✓ Installing StorageClass 💾 
+ ✓ Joining worker nodes 🚜 
+Set kubectl context to &quot;kind-kind-multinodes&quot;
+You can now use your cluster with:
+
+kubectl cluster-info --context kind-kind-multinodes
+
+Have a nice day! 👋
+</code></pre><p>Verifica la creación del clúster con el siguiente comando.</p>
+<pre><code>kubectl get nodes
+
+NAME                            STATUS   ROLES                  AGE     VERSION
+kind-multinodes-control-plane   Ready    control-plane,master   2m46s   v1.21.1
+kind-multinodes-worker          Ready    &lt;none&gt;                 2m16s   v1.21.1
+kind-multinodes-worker2         Ready    &lt;none&gt;                 2m16s   v1.21.1
+</code></pre><p>Para mas información sobre Kind: <a href="https://kind.sigs.k8s.io" target="_blank">https://kind.sigs.k8s.io</a></p>
+<p>! Referencias: <a href="https://kubernetes.io/blog/2020/05/21/wsl-docker-kubernetes-on-the-windows-desktop/" target="_blank">kind multi-cluster</a></p>
+<h1 id="k3s">k3s</h1>
+<p>Vamos a aprender como instalar k3s y adicionar nodos en el clúster!</p>
+<p>En este ejemplo estoy usando un Raspberry Pi 4, el nodo <em>master</em> con 4GB de memoria RAM y 4 cores, y 2 workers con 2GB de memoria RAM y 4 cores.</p>
+<p>Para instalar k3s, basta ejecutar el siguiente comando:</p>
+<pre><code>curl -sfL https://get.k3s.io | sh -
+
+[INFO]  Finding release for channel stable
+[INFO]  Using v1.19.1+k3s1 as release
+[INFO]  Downloading hash https://github.com/rancher/k3s/releases/download/v1.19.1+k3s1/sha256sum-arm.txt
+[INFO]  Downloading binary https://github.com/rancher/k3s/releases/download/v1.19.1+k3s1/k3s-armhf
+[INFO]  Verifying binary download
+[INFO]  Installing k3s to /usr/local/bin/k3s
+[INFO]  Creating /usr/local/bin/kubectl symlink to k3s
+[INFO]  Creating /usr/local/bin/crictl symlink to k3s
+[INFO]  Creating /usr/local/bin/ctr symlink to k3s
+[INFO]  Creating killall script /usr/local/bin/k3s-killall.sh
+[INFO]  Creating uninstall script /usr/local/bin/k3s-uninstall.sh
+[INFO]  env: Creating environment file /etc/systemd/system/k3s.service.env
+[INFO]  systemd: Creating service file /etc/systemd/system/k3s.service
+[INFO]  systemd: Enabling k3s unit
+Created symlink /etc/systemd/system/multi-user.target.wants/k3s.service → /etc/systemd/system/k3s.service.
+[INFO]  systemd: Starting k3s
+</code></pre><p>Vamos a ver si está todo correcto con nuestro nodo master.</p>
+<pre><code>kubectl get nodes
+
+NAME        STATUS   ROLES    AGE   VERSION
+elliot-01   Ready    master   15s   v1.19.1+k3s1
+</code></pre><p>Vamos a ver los pods que se están ejecutando:</p>
+<pre><code>kubectl get pods
+
+No resources found in default namespace.
+</code></pre><p>Humm! Parece que no tenemos ninguno, pero será realmente así?</p>
+<p>Vamos a verificar nuevamente:</p>
+<pre><code>kubectl get pods --all-namespaces
+
+NAMESPACE     NAME                                     READY   STATUS      RESTARTS   AGE
+kube-system   metrics-server-7566d596c8-rdn5f          1/1     Running     0          7m5s
+kube-system   local-path-provisioner-6d59f47c7-mfp89   1/1     Running     0          7m5s
+kube-system   coredns-8655855d6-ns4d4                  1/1     Running     0          7m5s
+kube-system   helm-install-traefik-mqmp4               0/1     Completed   2          7m5s
+kube-system   svclb-traefik-t49cs                      2/2     Running     0          6m11s
+kube-system   traefik-758cd5fc85-jwvmc                 1/1     Running     0          6m12s
+</code></pre><p>Ahí están los pods que se están ejecutando por defecto, que el propio k8s crea para ejecutar sus propios componentes internos. Pero tenemos mucho más cosas además de los pods, vamos a revisar que todo está ejecutándose en nuestro lindo k3s:</p>
+<pre><code>kubectl get all --all-namespaces
+
+NAMESPACE     NAME                                         READY   STATUS      RESTARTS   AGE
+kube-system   pod/metrics-server-7566d596c8-rdn5f          1/1     Running     0          11m
+kube-system   pod/local-path-provisioner-6d59f47c7-mfp89   1/1     Running     0          11m
+kube-system   pod/coredns-8655855d6-ns4d4                  1/1     Running     0          11m
+kube-system   pod/helm-install-traefik-mqmp4               0/1     Completed   2          11m
+kube-system   pod/svclb-traefik-t49cs                      2/2     Running     0          10m
+kube-system   pod/traefik-758cd5fc85-jwvmc                 1/1     Running     0          10m
+
+NAMESPACE     NAME                         TYPE           CLUSTER-IP     EXTERNAL-IP      PORT(S)                      AGE
+default       service/kubernetes           ClusterIP      10.43.0.1      &lt;none&gt;           443/TCP                      12m
+kube-system   service/kube-dns             ClusterIP      10.43.0.10     &lt;none&gt;           53/UDP,53/TCP,9153/TCP       12m
+kube-system   service/metrics-server       ClusterIP      10.43.181.42   &lt;none&gt;           443/TCP                      12m
+kube-system   service/traefik-prometheus   ClusterIP      10.43.207.57   &lt;none&gt;           9100/TCP                     10m
+kube-system   service/traefik              LoadBalancer   10.43.232.43   192.168.86.101   80:30953/TCP,443:31363/TCP   10m
+
+NAMESPACE     NAME                           DESIRED   CURRENT   READY   UP-TO-DATE   AVAILABLE   NODE SELECTOR   AGE
+kube-system   daemonset.apps/svclb-traefik   1         1         1       1            1           &lt;none&gt;          10m
+
+NAMESPACE     NAME                                     READY   UP-TO-DATE   AVAILABLE   AGE
+kube-system   deployment.apps/metrics-server           1/1     1            1           12m
+kube-system   deployment.apps/local-path-provisioner   1/1     1            1           12m
+kube-system   deployment.apps/coredns                  1/1     1            1           12m
+kube-system   deployment.apps/traefik                  1/1     1            1           10m
+
+NAMESPACE     NAME                                               DESIRED   CURRENT   READY   AGE
+kube-system   replicaset.apps/metrics-server-7566d596c8          1         1         1       11m
+kube-system   replicaset.apps/local-path-provisioner-6d59f47c7   1         1         1       11m
+kube-system   replicaset.apps/coredns-8655855d6                  1         1         1       11m
+kube-system   replicaset.apps/traefik-758cd5fc85                 1         1         1       10m
+
+NAMESPACE     NAME                             COMPLETIONS   DURATION   AGE
+kube-system   job.batch/helm-install-traefik   1/1           55s        11m
+</code></pre><p>Muy chevere, bacán y sensacional, verdad?</p>
+<p>Sin embargo, aún tenemos solo 1 nodo, queremos adicionar más nodos para que tengamos alta disponibilidad para nuestras aplicaciones.</p>
+<p>Para hacer esto, primero vamos a tomar el Token de nuestro clúster pues iremos a utilizalo para adicionar los otros nodos en nuestro clúster.</p>
+<pre><code># cat /var/lib/rancher/k3s/server/node-token
+
+K10bded4a17f7674c322febfb517cde93afaa48c35b74528d9d2b7d20ec8e41a1ad::server:9d2c12e1112ecdc0d1f9a2fd0e2933fe
+</code></pre><p>Magic, encontramos nuestro Token.</p>
+<p>Ahora finalmente vamos a adicionar más nodos a nuestro clúster.</p>
+<p>Calma, antes toma la IP del master:</p>
+<pre><code>ifconfig
+
+...
+eth0: flags=4163&lt;UP,BROADCAST,RUNNING,MULTICAST&gt;  mtu 1500
+        inet 192.168.86.101  netmask 255.255.255.0  broadcast 192.168.86.255
+        inet6 fe80::f58b:e4b:c74e:cbd  prefixlen 64  scopeid 0x20&lt;link&gt;
+        ether dc:a6:32:08:c5:6d  txqueuelen 1000  (Ethernet)
+        RX packets 117526  bytes 161460044 (153.9 MiB)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 17418  bytes 1180417 (1.1 MiB)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+...
+</code></pre><p>Excelente! Ahora que ya tienes el Token y la IP del master, vamos el otro nodo.</p>
+<p>Ya en el otro nodo, vamos a ejecutar el comando para que sea adicionado:</p>
+<pre><code>curl -sfL https://get.k3s.io | K3S_URL=https://myserver:6443 K3S_TOKEN=XXX sh -
+</code></pre><p>El comando quedará más o menos así (recuerda de cambiarlo por tu IP y Token):</p>
+<pre><code>curl -sfL https://get.k3s.io | K3S_URL=https://192.168.86.101:6443 K3S_TOKEN=K10bded4a17f7674c322febfb517cde93afaa48c35b74528d9d2b7d20ec8e41a1ad::server:9d2c12e1112ecdc0d1f9a2fd0e2933fe sh -
+
+[INFO]  Finding release for channel stable
+[INFO]  Using v1.19.1+k3s1 as release
+[INFO]  Downloading hash https://github.com/rancher/k3s/releases/download/v1.19.1+k3s1/sha256sum-arm.txt
+[INFO]  Downloading binary https://github.com/rancher/k3s/releases/download/v1.19.1+k3s1/k3s-armhf
+[INFO]  Verifying binary download
+[INFO]  Installing k3s to /usr/local/bin/k3s
+[INFO]  Creating /usr/local/bin/kubectl symlink to k3s
+[INFO]  Creating /usr/local/bin/crictl symlink to k3s
+[INFO]  Creating /usr/local/bin/ctr symlink to k3s
+[INFO]  Creating killall script /usr/local/bin/k3s-killall.sh
+[INFO]  Creating uninstall script /usr/local/bin/k3s-agent-uninstall.sh
+[INFO]  env: Creating environment file /etc/systemd/system/k3s-agent.service.env
+[INFO]  systemd: Creating service file /etc/systemd/system/k3s-agent.service
+[INFO]  systemd: Enabling k3s-agent unit
+Created symlink /etc/systemd/system/multi-user.target.wants/k3s-agent.service → /etc/systemd/system/k3s-agent.service.
+[INFO]  systemd: Starting k3s-agent
+</code></pre><p>Perfecto! Ahora vamos a ver si ese nodo está en nuestro clúster:</p>
+<pre><code>kubectl get nodes
+
+NAME        STATUS   ROLES    AGE     VERSION
+elliot-02   Ready    &lt;none&gt;   5m27s   v1.19.1+k3s1
+elliot-01   Ready    master   34m     v1.19.1+k3s1
+</code></pre><p>Observa allí, <code>elliot-02</code> ya está lindo de bonito en nuestro clúster, mágico, verdad?</p>
+<p>Quieres adicionar más nodos? Es solo copiar y pegar aquel mismo comando con el IP del master y nuestro Token en el próximo nodo.</p>
+<pre><code>kubectl get nodes
+
+NAME        STATUS   ROLES    AGE   VERSION
+elliot-02   Ready    &lt;none&gt;   10m   v1.19.1+k3s1
+elliot-01   Ready    master   39m   v1.19.1+k3s1
+elliot-03   Ready    &lt;none&gt;   68s   v1.19.1+k3s1
+</code></pre><p>Todos los elliots saludables!!!</p>
+<p>Listo!!! Ahora tenemos un clúster con 3 nodos trabajando, y las posibilidades son infinitas, diviertete.</p>
+<p>Para saber más detalhes accese a la documentación oficial de k3s:</p>
+<ul>
+<li><a href="https://k3s.io/" target="_blank">https://k3s.io/</a></li>
+<li><a href="https://rancher.com/docs/k3s/latest/en/" target="_blank">https://rancher.com/docs/k3s/latest/en/</a></li>
+<li><a href="https://github.com/rancher/k3s" target="_blank">https://github.com/rancher/k3s</a></li>
+</ul>
+<h1 id="instalación-de-un-clúster-con-trés-nodos">Instalación de un clúster con trés nodos</h1>
+<h2 id="requisitos-básicos">Requisitos básicos</h2>
+<p>Como ya se ha dicho anteriormente, Minikube es excelente para desarrolladores, estudiar y probar, pero no tiene como propósito su ejecución en un ambiente de producción. Dicho esto, la instalación de un <em>clúster</em> k8s para el entrenamiento irá a requerir de por lo menos trés máquinas, físicas o virtuales, cada una con mínimo la siguiente configuración:</p>
+<ul>
+<li><p>Distribuición: Debian, Ubuntu, CentOS, Red Hat, Fedora, SuSE;</p>
+</li>
+<li><p>Procesamiento: 2 <em>cores</em>;</p>
+</li>
+<li><p>Memoria: 2GB.</p>
+</li>
+</ul>
+<h2 id="configuración-de-los-módulos-del-kernel">Configuración de los módulos del kernel</h2>
+<p>k8s requiere que ciertos módulos del kernel GNU/Linux estén cargados para su pleno funcionamiento, y que esos  módulos sean cargados al momento de iniciar el computador. Para tal cosa, cree el archivo <code>/etc/modules-load.d/k8s.conf</code> con el siguiente contenido en todos tus nodos.</p>
+<pre><code>br_netfilter
+ip_vs
+ip_vs_rr
+ip_vs_sh
+ip_vs_wrr
+nf_conntrack_ipv4
+</code></pre><h2 id="actualización-de-la-distribución">Actualización de la distribución</h2>
+<p>En las distribuciones basadas en Debian, como Ubuntu, ejecuta el comando a continuación, en cada uno de tus nodos, para ejecutar la actualización del sistema.</p>
+<pre><code>sudo apt update
+
+sudo apt upgrade -y
+</code></pre><p>En distribuciones basadas en Red Hat, usa el siguiente comando.</p>
+<pre><code>sudo yum upgrade -y
+</code></pre><h2 id="instalación-de-docker-y-kubernetes">Instalación de Docker y Kubernetes</h2>
+<p>La instalación de Docker puede ser realizada con un comando solamente, que debe ser ejecutado en los trés nodos:</p>
+<pre><code>curl -fsSL https://get.docker.com | bash
+</code></pre><p>Para instalar una versión de Docker específica utiliza el siguiente comando:</p>
+<pre><code>export VERSION=&lt;versão do docker&gt; &amp;&amp; curl -fsSL https://get.docker.com | bash
+</code></pre><p>A pesar que la forma anterior sea las más fácil, no permite el control de las opciones. Por este motivo, la documentación de Kubernetes sugiere una instalación más controlada siguiendo los pasos dispobles en: <a href="https://kubernetes.io/docs/setup/production-environment/container-runtimes/" target="_blank">https://kubernetes.io/docs/setup/production-environment/container-runtimes/</a></p>
+<p><strong>En Caso que escojas el método más fácil</strong>, los próximos comandos son de mucha importancia, pues garantizan que el <code>Cgroup</code> de Docker será configurado para <code>systemd</code>, que es el gestor de servicios por defecto utilizado por Kubernetes.</p>
+<p>Para la familia Debian, ejecuta el siguiente comando:</p>
+<pre><code>cat &gt; /etc/docker/daemon.json &lt;&lt;EOF
+{
+  &quot;exec-opts&quot;: [&quot;native.cgroupdriver=systemd&quot;],
+  &quot;log-driver&quot;: &quot;json-file&quot;,
+  &quot;log-opts&quot;: {
+    &quot;max-size&quot;: &quot;100m&quot;
+  },
+  &quot;storage-driver&quot;: &quot;overlay2&quot;
+}
+EOF
+</code></pre><p>Para la familia Red Hat, ejecuta el siguiente comando:</p>
+<pre><code>cat &gt; /etc/docker/daemon.json &lt;&lt;EOF
+{
+  &quot;exec-opts&quot;: [&quot;native.cgroupdriver=systemd&quot;],
+  &quot;log-driver&quot;: &quot;json-file&quot;,
+  &quot;log-opts&quot;: {
+    &quot;max-size&quot;: &quot;100m&quot;
+  },
+  &quot;storage-driver&quot;: &quot;overlay2&quot;,
+  &quot;storage-opts&quot;: [
+    &quot;overlay2.override_kernel_check=true&quot;
+  ]
+}
+EOF
+</code></pre><p>Los pasos a seguir son iguales para ambas familias.</p>
+<pre><code>sudo mkdir -p /etc/systemd/system/docker.service.d
+</code></pre><p>Ahora basta reiniciar Docker.</p>
+<pre><code>sudo systemctl daemon-reload
+sudo systemctl restart docker
+</code></pre><p>Para finalizar, verifica si el driver <code>Cgroup</code> fue correctamente definido.</p>
+<pre><code>docker info | grep -i cgroup
+</code></pre><p>Si la salida fue <code>Cgroup Driver: systemd</code>, todo está correcto!</p>
+<p>El próximo paso es efectuar la adición de los repositorios de k8s y efectuar la instalación de <code>kubeadm</code>.</p>
+<p>En distribuciones basadas en Debian, esto puede ser realizado con los comandos a continiación.</p>
+<pre><code>sudo apt-get update &amp;&amp; sudo apt-get install -y apt-transport-https gnupg2
+
+curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
+
+sudo echo &quot;deb http://apt.kubernetes.io/ kubernetes-xenial main&quot; &gt; /etc/apt/sources.list.d/kubernetes.list
+
+sudo apt-get update
+
+sudo apt-get install -y kubelet kubeadm kubectl
+</code></pre><p>Ya en distribuciones basadas en Red Hat, adiciona el repositorio de k8s creando el archivo <code>/etc/yum.repos.d/kubernetes.repo</code> con el siguiente contenido:</p>
+<pre><code>[kubernetes]
+name=Kubernetes
+baseurl=https://packages.cloud.google.com/yum/repos/kubernetes-el7-x86_64
+enabled=1
+gpgcheck=1
+repo_gpgcheck=1
+gpgkey=https://packages.cloud.google.com/yum/doc/yum-key.gpg https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
+</code></pre><p>Los siguientes comando desactivan el <em>firewall</em>, instalan los paquetes de k8s y activan el servicios del mismo.</p>
+<pre><code>sudo setenforce 0
+
+sudo systemctl stop firewalld
+
+sudo systemctl disable firewalld
+
+sudo yum install -y kubelet kubeadm kubectl
+
+sudo systemctl enable docker &amp;&amp; sudo systemctl start docker
+
+sudo systemctl enable kubelet &amp;&amp; sudo systemctl start kubelet
+</code></pre><p>También en las distribuciones basadas en Red Hat, es necesaria la configuración de algunos parámetros extras en kernel por medio de <strong>sysctl</strong>. Estos puoden ser configurados creando el archivo <code>/etc/sysctl.d/k8s.conf</code> con el siguiente contenido.</p>
+<pre><code>net.bridge.bridge-nf-call-ip6tables = 1
+net.bridge.bridge-nf-call-iptables = 1
+</code></pre><p>En ambas distribuciones GNU/Linux tambiém es necesario desactivar la memoria swap en todos los nodos con el siguiente comando.</p>
+<pre><code>sudo swapoff -a
+</code></pre><p>Además de comentar la linea referente a la misma en el archivo <code>/etc/fstab</code>.</p>
+<p>Después de estos procedimientos, es interesante el reinicio de todos los nodos del <em>clúster</em>.</p>
+<h2 id="inicialización-del-clúster">Inicialización del clúster</h2>
+<p>Antes que inicialicemos el <em>clúster</em>, vamos a efectuar la <em>descarga</em> de las imagens que serán utilizadas, ejecutando el comando a continuación en el nodo que será el <em>master</em>.</p>
+<pre><code>sudo kubeadm config images pull
+</code></pre><p>Ejecuta el comando a continuación tambiém solo en el nodo <em>master</em> para la inicialización del clúster. En caso todo esté bien, será mostrada al terminar la ejecución el comando que debe ser ejecutado en los demás nodos para ingresar en el <em>clúster</em>.</p>
+<pre><code>sudo kubeadm init
+</code></pre><p>La opción <em>--apiserver-advertise-address</em> informa cual es la dirección IP en que el servidor API irá a escuchar. En caso que este parámetro no sea informado, la interfaz de red por defecto será usada. Opcionalmente, puedes pasar el cidr con la opción <em>--pod-network-cidr</em>. El comando obedecerá a la siguiente sintaxis:</p>
+<pre><code>kubeadm init --apiserver-advertise-address 192.168.99.2 --pod-network-cidr 192.168.99.0/24
+</code></pre><p>La salida del comando será algo similar a lo mostrado a continuación.</p>
+<pre><code>    [WARNING SystemVerification]: docker version is greater than the most recently validated version. Docker version: 18.05.0-ce. Max validated version: 17.03
+...
+To start using your cluster, you need to run the following as a regular user:
+
+  mkdir -p $HOME/.kube
+  sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+  sudo chown $(id -u):$(id -g) $HOME/.kube/config
+...
+kubeadm join --token 39c341.a3bc3c4dd49758d5 IP_DO_MASTER:6443 --discovery-token-ca-cert-hash sha256:37092
+...
+</code></pre><p>En caso que el servidor tenga más de una interfaz de red, puedes verificar si el IP interno del nodo del clúster corresponde a la IP de la interfaz esperada con el siguiente comando:</p>
+<pre><code>kubectl describe node elliot-1 | grep InternalIP
+</code></pre><p>La salida será algo similar a lo siguiente:</p>
+<pre><code>InternalIP:  192.168.99.2
+</code></pre><p>En caso que la IP no corresponda al de la interfaz de red seleccionada, puedes ir hasta el archivo localizado en <em>/etc/systemd/system/kubelet.service.d/10-kubeadm.conf</em> con el editor de tu preferencia, buscar por <em>KUBELET_CONFIG_ARGS</em> y añadir al final la instrucción --node-ip=<ip da sua preferência>. La linea alterada será parecido a esto:</ip></p>
+<pre><code>Environment=&quot;KUBELET_CONFIG_ARGS=--config=/var/lib/kubelet/config.yaml --node-ip=192.168.99.2&quot;
+</code></pre><p>Guarda el archivo y ejecuta los comandos debajo para reiniciar la configuración y consecuentemente kubelet.</p>
+<pre><code>sudo systemctl daemon-reload
+sudo systemctl restart kubelet
+</code></pre><h2 id="configuración-del-archivo-de-contextos-de-kubectl">Configuración del archivo de contextos de kubectl</h2>
+<p>Como fue dicho anteriormente y de manera similar en Docker Swarm, el propio kubeadm ya mostrará los comandos necesarios para la configuración de <code>kubectl</code>, para que pueda establecerse la comunicación con el clúster k8s. Para esto, ejecuta los siguientes comandos.</p>
+<pre><code>mkdir -p $HOME/.kube
+
+cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+
+sudo chown $(id -u):$(id -g) $HOME/.kube/config
+</code></pre><h2 id="añadiendo-los-nodos-workers-al-clúster">Añadiendo los nodos workers al clúster</h2>
+<p>Para añadir los nodos <em>workers</em> al <em>clúster</em>, basta ejecutar la linha que comienza com <code>kubeadm join</code> en los mismo.</p>
+<h3 id="múltiples-interfaces">Múltiples Interfaces</h3>
+<p>En caso que algún de los nodos que serán utilizados tenga más de una interfaz de red, verifica si consigue alcanzar el <code>service</code> de <code>Kubernetes</code> a través da ruta predefinida.</p>
+<p>Para verificar, será necesario tomar la dirección IP interna del <code>service</code> Kubernetes a través del comando <code>kubectl get services kubernetes</code>. Luego de obtener la IP, basta ir al nodo que será ingresado al clúster y ejecutar el comando <code>curl -k https://SERVICE</code> modificando <code>SERVICE</code> para la IP del <code>service</code>. Ejemplo: <code>curl -k https://10.96.0.1</code>.</p>
+<p>En caso que la salida sea algo parecido con el ejemplo a continuación, la conexion está ocurriendo normalmente.</p>
+<pre><code class="lang-json">{
+  <span class="hljs-string">&quot;kind&quot;</span>: <span class="hljs-string">&quot;Status&quot;</span>,
+  <span class="hljs-string">&quot;apiVersion&quot;</span>: <span class="hljs-string">&quot;v1&quot;</span>,
+  <span class="hljs-string">&quot;metadata&quot;</span>: {
+
+  },
+  <span class="hljs-string">&quot;status&quot;</span>: <span class="hljs-string">&quot;Failure&quot;</span>,
+  <span class="hljs-string">&quot;message&quot;</span>: <span class="hljs-string">&quot;forbidden: User \&quot;system:anonymous\&quot; cannot get path \&quot;/\&quot;&quot;</span>,
+  <span class="hljs-string">&quot;reason&quot;</span>: <span class="hljs-string">&quot;Forbidden&quot;</span>,
+  <span class="hljs-string">&quot;details&quot;</span>: {
+
+  },
+  <span class="hljs-string">&quot;code&quot;</span>: <span class="hljs-number">403</span>
+}
+</code></pre>
+<p>En caso que la salida no sea parecida con el ejemplo, será necesario adicionar una rota con el siguiente comando.</p>
+<pre><code class="lang-shell">ip route add REDE_DO_SERVICE/16 dev INTERFACE
+</code></pre>
+<p>Substituye <code>REDE_DO SERVICE</code> con la rede del <code>service</code> (generalmente es una IP que finaliza en 0).</p>
+<p>Ejemplo: Si la IP fuese <code>10.96.0.1</code> la red es <code>10.96.0.0</code>) y la <code>INTERFACE</code> con la interface del nodo que tiene acceso al <code>master</code> del clúster.</p>
+<p>Ejemplo del comando para añadir una ruta:</p>
+<pre><code>sudo ip route add 10.96.0.0/16 dev eth1
+</code></pre><p>Añade la rota en la configuración de red para que sea creada durante el arranque.</p>
+<h2 id="instalación-de-pod-network">Instalación de pod network</h2>
+<p>Para los usuarios de Docker Swarm, hay una diferencia entre los dos orquestadores: k8s por defecto no provee una solución de <em>networking</em> <em>out-of-the-box</em>. Para que esto ocurra, debe ser instalada una solução de <em>pod networking</em> como <em>add-on</em>. Existen diversas opciones disponibles, cada cual con sus funcionalidades, tales como: <a href="https://github.com/coreos/flannel" target="_blank">Flannel</a>, <a href="http://docs.projectcalico.org/" target="_blank">Calico</a>, <a href="http://romana.io" target="_blank">Romana</a>, <a href="https://www.weave.works/products/weave-net/" target="_blank">Weave-net</a>, entre otros.</p>
+<p>Más información sobre <em>pod networking</em> será abordada en los demás días de entrenamiento.</p>
+<p>En caso que no hayas reiniciado los nodos que componen el <em>clúster</em>, puedes cargar los módulos del kernel necesarios con el siguiente comando.</p>
+<pre><code>sudo modprobe br_netfilter ip_vs_rr ip_vs_wrr ip_vs_sh nf_conntrack_ipv4 ip_vs
+</code></pre><p>En este curso, vamos a utilizar <strong>Weave-net</strong>, que puede ser instalado con el siguiente comando.</p>
+<pre><code>kubectl apply -f &quot;https://cloud.weave.works/k8s/net?k8s-version=$(kubectl version | base64 | tr -d &apos;\n&apos;)&quot;
+</code></pre><p>Para verificar si el <em>pod network</em> fue creado con éxito, ejecuta el siguiente comando.</p>
+<pre><code>kubectl get pods -n kube-system
+</code></pre><p>Elresultado debe ser parecido al mostrado a continuación.</p>
+<pre><code>NAME                                READY   STATUS    RESTARTS   AGE
+coredns-66bff467f8-pfm2c            1/1     Running   0          8d
+coredns-66bff467f8-s8pk4            1/1     Running   0          8d
+etcd-docker-01                      1/1     Running   0          8d
+kube-apiserver-docker-01            1/1     Running   0          8d
+kube-controller-manager-docker-01   1/1     Running   0          8d
+kube-proxy-mdcgf                    1/1     Running   0          8d
+kube-proxy-q9cvf                    1/1     Running   0          8d
+kube-proxy-vf8mq                    1/1     Running   0          8d
+kube-scheduler-docker-01            1/1     Running   0          8d
+weave-net-7dhpf                     2/2     Running   0          8d
+weave-net-fvttp                     2/2     Running   0          8d
+weave-net-xl7km                     2/2     Running   0          8d
+</code></pre><p>Puedes observar que hay trés contenedores de Weave-net ejecutándose proveyendo la <em>pod network</em> para nuestro <em>clúster</em>.</p>
+<h2 id="verificando-la-instalación">Verificando la instalación</h2>
+<p>Para verificar si la instalación está funcionando, y si los nodos se están comunicando, ejecuta el comando <code>kubectl get nodes</code> en el nodo master, debe mostrar algo como la siguiente salida.</p>
+<pre><code>NAME        STATUS   ROLES    AGE   VERSION
+elliot-01   Ready    master   8d    v1.19.1
+elliot-02   Ready    &lt;none&gt;   8d    v1.19.1
+elliot-03   Ready    &lt;none&gt;   8d    v1.19.1
+</code></pre><h1 id="primeros-pasos-en-k8s">Primeros pasos en k8s</h1>
+<h2 id="mostrando-informaciones-detalladas-sobre-los-nodos">Mostrando informaciones detalladas sobre los nodos</h2>
+<pre><code>kubectl describe node [nome_do_no]
+</code></pre><p>Ejemplo:</p>
+<pre><code>kubectl describe node elliot-02
+
+Name:               elliot-02
+Roles:              &lt;none&gt;
+Labels:             beta.kubernetes.io/arch=amd64
+                    beta.kubernetes.io/os=linux
+                    kubernetes.io/arch=amd64
+                    kubernetes.io/hostname=elliot-02
+                    kubernetes.io/os=linux
+Annotations:        kubeadm.alpha.kubernetes.io/cri-socket: /var/run/dockershim.sock
+                    node.alpha.kubernetes.io/ttl: 0
+                    volumes.kubernetes.io/controller-managed-attach-detach: true
+</code></pre><h2 id="mostrando-nuevamente-el-token-para-entrar-en-el-clúster">Mostrando nuevamente el token para entrar en el clúster</h2>
+<p>Para visualizar nuevamente el <em>token</em> para agregar nuevos nodos, ejecuta el siguiente comando.</p>
+<pre><code>sudo kubeadm token create --print-join-command
+</code></pre><h2 id="activando-el-autocompletado">Activando el autocompletado</h2>
+<p>En distribuciones basadas en Debian, cerciorate que el paquete <code>bash-completion</code> esté instalado. Instalalo con el comando a continuación.</p>
+<pre><code>sudo apt install -y bash-completion
+</code></pre><p>En sistemas basados en Red Hat, ejecuta:</p>
+<pre><code>sudo yum install -y bash-completion
+</code></pre><p>Hecho esto, ejecuta el siguiente comando.</p>
+<pre><code>kubectl completion bash &gt; /etc/bash_completion.d/kubectl
+</code></pre><p>Efectua <em>logoff</em> y <em>login</em> para cargar el <em>autocompletado</em>. En caso que no quieras cerrar e iniciar sesión de nuevo y quieras cargalo de inmediato, ejecuta:</p>
+<pre><code>source &lt;(kubectl completion bash)
+</code></pre><h2 id="verificando-los-namespaces-y-pods">Verificando los namespaces y pods</h2>
+<p>k8s organiza todo dentro de <em>namespaces</em>. Por medio de ellos, pueden ser realizadas limitaciones de seguridad y de recursos dentro del <em>clúster</em>, tales como <em>pods</em>, <em>replication controllers</em> y diversos otros. Para visualizar los <em>namespaces</em> disponibles en el <em>clúster</em>, digita:</p>
+<pre><code>kubectl get namespaces
+
+NAME              STATUS   AGE
+default           Active   8d
+kube-node-lease   Active   8d
+kube-public       Active   8d
+kube-system       Active   8d
+</code></pre><p>Vamos a listar los <em>pods</em> del <em>namespace</em> <strong>kube-system</strong> utilizando el siguiente comando.</p>
+<pre><code>kubectl get pod -n kube-system
+
+NAME                                READY   STATUS    RESTARTS   AGE
+coredns-66bff467f8-pfm2c            1/1     Running   0          8d
+coredns-66bff467f8-s8pk4            1/1     Running   0          8d
+etcd-docker-01                      1/1     Running   0          8d
+kube-apiserver-docker-01            1/1     Running   0          8d
+kube-controller-manager-docker-01   1/1     Running   0          8d
+kube-proxy-mdcgf                    1/1     Running   0          8d
+kube-proxy-q9cvf                    1/1     Running   0          8d
+kube-proxy-vf8mq                    1/1     Running   0          8d
+kube-scheduler-docker-01            1/1     Running   0          8d
+weave-net-7dhpf                     2/2     Running   0          8d
+weave-net-fvttp                     2/2     Running   0          8d
+weave-net-xl7km                     2/2     Running   0          8d
+</code></pre><p>Será que hay algún <em>pod</em> escondido en algún <em>namespace</em>? Es posible listar todos los <em>pods</em> de todos los <em>namespaces</em> con el comando a continuación.</p>
+<pre><code>kubectl get pods --all-namespaces
+</code></pre><p>Hay la possibilidad, de utilizar el comando con la opción <code>-o wide</code>, que muestra más informaciones sobre el recurso, inclusive en cual nodo el <em>pod</em> está siendo ejecutado. Ejemplo:</p>
+<pre><code>kubectl get pods --all-namespaces -o wide
+
+NAMESPACE     NAME                                READY   STATUS    RESTARTS   AGE   IP             NODE        NOMINATED NODE   READINESS GATES
+default       nginx                               1/1     Running   0          24m   10.44.0.1      docker-02   &lt;none&gt;           &lt;none&gt;
+kube-system   coredns-66bff467f8-pfm2c            1/1     Running   0          8d    10.32.0.3      docker-01   &lt;none&gt;           &lt;none&gt;
+kube-system   coredns-66bff467f8-s8pk4            1/1     Running   0          8d    10.32.0.2      docker-01   &lt;none&gt;           &lt;none&gt;
+kube-system   etcd-docker-01                      1/1     Running   0          8d    172.16.83.14   docker-01   &lt;none&gt;           &lt;none&gt;
+kube-system   kube-apiserver-docker-01            1/1     Running   0          8d    172.16.83.14   docker-01   &lt;none&gt;           &lt;none&gt;
+kube-system   kube-controller-manager-docker-01   1/1     Running   0          8d    172.16.83.14   docker-01   &lt;none&gt;           &lt;none&gt;
+kube-system   kube-proxy-mdcgf                    1/1     Running   0          8d    172.16.83.14   docker-01   &lt;none&gt;           &lt;none&gt;
+kube-system   kube-proxy-q9cvf                    1/1     Running   0          8d    172.16.83.12   docker-03   &lt;none&gt;           &lt;none&gt;
+kube-system   kube-proxy-vf8mq                    1/1     Running   0          8d    172.16.83.13   docker-02   &lt;none&gt;           &lt;none&gt;
+kube-system   kube-scheduler-docker-01            1/1     Running   0          8d    172.16.83.14   docker-01   &lt;none&gt;           &lt;none&gt;
+kube-system   weave-net-7dhpf                     2/2     Running   0          8d    172.16.83.12   docker-03   &lt;none&gt;           &lt;none&gt;
+kube-system   weave-net-fvttp                     2/2     Running   0          8d    172.16.83.13   docker-02   &lt;none&gt;           &lt;none&gt;
+kube-system   weave-net-xl7km                     2/2     Running   0          8d    172.16.83.14   docker-01   &lt;none&gt;           &lt;none&gt;
+</code></pre><h2 id="ejecutando-nuestro-primer-pod-en-k8s">Ejecutando nuestro primer pod en k8s</h2>
+<p>Iremos a iniciar nuestro primer pod <em>pod</em> en k8s. Para esto, ejecutaremos el siguiente comando.</p>
+<pre><code>kubectl run nginx --image nginx
+
+pod/nginx created
+</code></pre><p>Listando los <em>pods</em> con <code>kubectl get pods</code>, obtendremos a siguiente salida.</p>
+<pre><code>NAME    READY   STATUS    RESTARTS   AGE
+nginx   1/1     Running   0          66s
+</code></pre><p>Vamos a observar ahora la descripción de ese objeto dentro del <em>clúster</em>.</p>
+<pre><code>kubectl describe pod nginx
+
+Name:         nginx
+Namespace:    default
+Priority:     0
+Node:         docker-02/172.16.83.13
+Start Time:   Tue, 12 May 2020 02:29:38 -0300
+Labels:       run=nginx
+Annotations:  &lt;none&gt;
+Status:       Running
+IP:           10.44.0.1
+IPs:
+  IP:  10.44.0.1
+Containers:
+  nginx:
+    Container ID:   docker://2719e2bc023944ee8f34db538094c96b24764a637574c703e232908b46b12a9f
+    Image:          nginx
+    Image ID:       docker-pullable://nginx@sha256:86ae264c3f4acb99b2dee4d0098c40cb8c46dcf9e1148f05d3a51c4df6758c12
+    Port:           &lt;none&gt;
+    Host Port:      &lt;none&gt;
+    State:          Running
+      Started:      Tue, 12 May 2020 02:29:42 -0300
+</code></pre><h2 id="verificar-los-últimos-eventos-del-clúster">Verificar los últimos eventos del clúster</h2>
+<p>Puedes verificar cuales son los últimos eventos del <em>clúster</em> con el comando <code>kubectl get events</code>. Serán mostrados eventos como: el <em>download</em> de imágenes de Docker Hub (o de cualquier otro <em>registry</em> configurado), la creación/eliminación de <em>pods</em>, etc.</p>
+<p>La siguiente salda muestra el resultado de la creación de nuestro contenedor con Nginx.</p>
+<pre><code>LAST SEEN   TYPE     REASON      OBJECT      MESSAGE
+5m34s       Normal   Scheduled   pod/nginx   Successfully assigned default/nginx to docker-02
+5m33s       Normal   Pulling     pod/nginx   Pulling image &quot;nginx&quot;
+5m31s       Normal   Pulled      pod/nginx   Successfully pulled image &quot;nginx&quot;
+5m30s       Normal   Created     pod/nginx   Created container nginx
+5m30s       Normal   Started     pod/nginx   Started container nginx
+</code></pre><p>En el resultado do comando anterior es posible observar que la ejecução de nginx ocurrió en <em>namespace</em> default y que la imagem <strong>nginx</strong> no existia en el repositorio local y, siendo así, tuvo que hacer el download de la imagem.</p>
+<h2 id="efectuar-dump-de-un-objeto-en-formato-yaml">Efectuar dump de un objeto en formato YAML</h2>
+<p>Así como cuando se está trabajando con <em>stacks</em> en Docker Swarm, normalmente los recursos en k8s son declarados en archivos <strong>YAML</strong> o <strong>JSON</strong> y luego manipulados a través de <code>kubectl</code>.</p>
+<p>Para ahorrarnos el trabajo de escribir el archivo entero, se puede como <em>template</em> el <em>dump</em> de un objeto ya existente en k8s, como es mostrado a continuación.</p>
+<pre><code>kubectl get pod nginx -o yaml &gt; mi-primer.yaml
+</code></pre><p>Será creado un nuevo archivo llamado <code>mi-primer.yaml</code>, que es el resultado del redireccionamento de la salida del comando <code>kubectl get pod nginx -o yaml</code>.</p>
+<p>Abriendo el archivo con <code>vim mi-primer.yaml</code> (puedes utilizar el editor que prefieras), tendremos el siguiente contenido.</p>
+<pre><code class="lang-yaml"><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">v1</span>
+<span class="hljs-attr">kind:</span> <span class="hljs-string">Pod</span>
+<span class="hljs-attr">metadata:</span>
+  <span class="hljs-attr">creationTimestamp:</span> <span class="hljs-string">&quot;2020-05-12T05:29:38Z&quot;</span>
+  <span class="hljs-attr">labels:</span>
+    <span class="hljs-attr">run:</span> <span class="hljs-string">nginx</span>
+  <span class="hljs-attr">managedFields:</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-attr">apiVersion:</span> <span class="hljs-string">v1</span>
+    <span class="hljs-attr">fieldsType:</span> <span class="hljs-string">FieldsV1</span>
+    <span class="hljs-attr">fieldsV1:</span>
+      <span class="hljs-attr">f:metadata:</span>
+        <span class="hljs-attr">f:labels:</span>
+          <span class="hljs-string">.:</span> {}
+          <span class="hljs-attr">f:run:</span> {}
+      <span class="hljs-attr">f:spec:</span>
+        <span class="hljs-attr">f:containers:</span>
+          <span class="hljs-string">k:{&quot;name&quot;:&quot;nginx&quot;}:</span>
+            <span class="hljs-string">.:</span> {}
+            <span class="hljs-attr">f:image:</span> {}
+            <span class="hljs-attr">f:imagePullPolicy:</span> {}
+            <span class="hljs-attr">f:name:</span> {}
+            <span class="hljs-attr">f:resources:</span> {}
+            <span class="hljs-attr">f:terminationMessagePath:</span> {}
+            <span class="hljs-attr">f:terminationMessagePolicy:</span> {}
+        <span class="hljs-attr">f:dnsPolicy:</span> {}
+        <span class="hljs-attr">f:enableServiceLinks:</span> {}
+        <span class="hljs-attr">f:restartPolicy:</span> {}
+        <span class="hljs-attr">f:schedulerName:</span> {}
+        <span class="hljs-attr">f:securityContext:</span> {}
+        <span class="hljs-attr">f:terminationGracePeriodSeconds:</span> {}
+    <span class="hljs-attr">manager:</span> <span class="hljs-string">kubectl</span>
+    <span class="hljs-attr">operation:</span> <span class="hljs-string">Update</span>
+    <span class="hljs-attr">time:</span> <span class="hljs-string">&quot;2020-05-12T05:29:38Z&quot;</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-attr">apiVersion:</span> <span class="hljs-string">v1</span>
+    <span class="hljs-attr">fieldsType:</span> <span class="hljs-string">FieldsV1</span>
+    <span class="hljs-attr">fieldsV1:</span>
+      <span class="hljs-attr">f:status:</span>
+        <span class="hljs-attr">f:conditions:</span>
+          <span class="hljs-string">k:{&quot;type&quot;:&quot;ContainersReady&quot;}:</span>
+            <span class="hljs-string">.:</span> {}
+            <span class="hljs-attr">f:lastProbeTime:</span> {}
+            <span class="hljs-attr">f:lastTransitionTime:</span> {}
+            <span class="hljs-attr">f:status:</span> {}
+            <span class="hljs-attr">f:type:</span> {}
+          <span class="hljs-string">k:{&quot;type&quot;:&quot;Initialized&quot;}:</span>
+            <span class="hljs-string">.:</span> {}
+            <span class="hljs-attr">f:lastProbeTime:</span> {}
+            <span class="hljs-attr">f:lastTransitionTime:</span> {}
+            <span class="hljs-attr">f:status:</span> {}
+            <span class="hljs-attr">f:type:</span> {}
+          <span class="hljs-string">k:{&quot;type&quot;:&quot;Ready&quot;}:</span>
+            <span class="hljs-string">.:</span> {}
+            <span class="hljs-attr">f:lastProbeTime:</span> {}
+            <span class="hljs-attr">f:lastTransitionTime:</span> {}
+            <span class="hljs-attr">f:status:</span> {}
+            <span class="hljs-attr">f:type:</span> {}
+        <span class="hljs-attr">f:containerStatuses:</span> {}
+        <span class="hljs-attr">f:hostIP:</span> {}
+        <span class="hljs-attr">f:phase:</span> {}
+        <span class="hljs-attr">f:podIP:</span> {}
+        <span class="hljs-attr">f:podIPs:</span>
+          <span class="hljs-string">.:</span> {}
+          <span class="hljs-string">k:{&quot;ip&quot;:&quot;10.44.0.1&quot;}:</span>
+            <span class="hljs-string">.:</span> {}
+            <span class="hljs-attr">f:ip:</span> {}
+        <span class="hljs-attr">f:startTime:</span> {}
+    <span class="hljs-attr">manager:</span> <span class="hljs-string">kubelet</span>
+    <span class="hljs-attr">operation:</span> <span class="hljs-string">Update</span>
+    <span class="hljs-attr">time:</span> <span class="hljs-string">&quot;2020-05-12T05:29:43Z&quot;</span>
+  <span class="hljs-attr">name:</span> <span class="hljs-string">nginx</span>
+  <span class="hljs-attr">namespace:</span> <span class="hljs-string">default</span>
+  <span class="hljs-attr">resourceVersion:</span> <span class="hljs-string">&quot;1673991&quot;</span>
+  <span class="hljs-attr">selfLink:</span> <span class="hljs-string">/api/v1/namespaces/default/pods/nginx</span>
+  <span class="hljs-attr">uid:</span> <span class="hljs-string">36506f7b-1f3b-4ee8-b063-de3e6d31bea9</span>
+<span class="hljs-attr">spec:</span>
+  <span class="hljs-attr">containers:</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-attr">image:</span> <span class="hljs-string">nginx</span>
+    <span class="hljs-attr">imagePullPolicy:</span> <span class="hljs-string">Always</span>
+    <span class="hljs-attr">name:</span> <span class="hljs-string">nginx</span>
+    <span class="hljs-attr">resources:</span> {}
+    <span class="hljs-attr">terminationMessagePath:</span> <span class="hljs-string">/dev/termination-log</span>
+    <span class="hljs-attr">terminationMessagePolicy:</span> <span class="hljs-string">File</span>
+    <span class="hljs-attr">volumeMounts:</span>
+    <span class="hljs-bullet">-</span> <span class="hljs-attr">mountPath:</span> <span class="hljs-string">/var/run/secrets/kubernetes.io/serviceaccount</span>
+      <span class="hljs-attr">name:</span> <span class="hljs-string">default-token-nkz89</span>
+      <span class="hljs-attr">readOnly:</span> <span class="hljs-literal">true</span>
+  <span class="hljs-attr">dnsPolicy:</span> <span class="hljs-string">ClusterFirst</span>
+  <span class="hljs-attr">enableServiceLinks:</span> <span class="hljs-literal">true</span>
+  <span class="hljs-attr">nodeName:</span> <span class="hljs-string">docker-02</span>
+  <span class="hljs-attr">priority:</span> <span class="hljs-number">0</span>
+  <span class="hljs-attr">restartPolicy:</span> <span class="hljs-string">Always</span>
+  <span class="hljs-attr">schedulerName:</span> <span class="hljs-string">default-scheduler</span>
+  <span class="hljs-attr">securityContext:</span> {}
+  <span class="hljs-attr">serviceAccount:</span> <span class="hljs-string">default</span>
+  <span class="hljs-attr">serviceAccountName:</span> <span class="hljs-string">default</span>
+  <span class="hljs-attr">terminationGracePeriodSeconds:</span> <span class="hljs-number">30</span>
+  <span class="hljs-attr">tolerations:</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-attr">effect:</span> <span class="hljs-string">NoExecute</span>
+    <span class="hljs-attr">key:</span> <span class="hljs-string">node.kubernetes.io/not-ready</span>
+    <span class="hljs-attr">operator:</span> <span class="hljs-string">Exists</span>
+    <span class="hljs-attr">tolerationSeconds:</span> <span class="hljs-number">300</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-attr">effect:</span> <span class="hljs-string">NoExecute</span>
+    <span class="hljs-attr">key:</span> <span class="hljs-string">node.kubernetes.io/unreachable</span>
+    <span class="hljs-attr">operator:</span> <span class="hljs-string">Exists</span>
+    <span class="hljs-attr">tolerationSeconds:</span> <span class="hljs-number">300</span>
+  <span class="hljs-attr">volumes:</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">default-token-nkz89</span>
+    <span class="hljs-attr">secret:</span>
+      <span class="hljs-attr">defaultMode:</span> <span class="hljs-number">420</span>
+      <span class="hljs-attr">secretName:</span> <span class="hljs-string">default-token-nkz89</span>
+<span class="hljs-attr">status:</span>
+  <span class="hljs-attr">conditions:</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-attr">lastProbeTime:</span> <span class="hljs-literal">null</span>
+    <span class="hljs-attr">lastTransitionTime:</span> <span class="hljs-string">&quot;2020-05-12T05:29:38Z&quot;</span>
+    <span class="hljs-attr">status:</span> <span class="hljs-string">&quot;True&quot;</span>
+    <span class="hljs-attr">type:</span> <span class="hljs-string">Initialized</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-attr">lastProbeTime:</span> <span class="hljs-literal">null</span>
+    <span class="hljs-attr">lastTransitionTime:</span> <span class="hljs-string">&quot;2020-05-12T05:29:43Z&quot;</span>
+    <span class="hljs-attr">status:</span> <span class="hljs-string">&quot;True&quot;</span>
+    <span class="hljs-attr">type:</span> <span class="hljs-string">Ready</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-attr">lastProbeTime:</span> <span class="hljs-literal">null</span>
+    <span class="hljs-attr">lastTransitionTime:</span> <span class="hljs-string">&quot;2020-05-12T05:29:43Z&quot;</span>
+    <span class="hljs-attr">status:</span> <span class="hljs-string">&quot;True&quot;</span>
+    <span class="hljs-attr">type:</span> <span class="hljs-string">ContainersReady</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-attr">lastProbeTime:</span> <span class="hljs-literal">null</span>
+    <span class="hljs-attr">lastTransitionTime:</span> <span class="hljs-string">&quot;2020-05-12T05:29:38Z&quot;</span>
+    <span class="hljs-attr">status:</span> <span class="hljs-string">&quot;True&quot;</span>
+    <span class="hljs-attr">type:</span> <span class="hljs-string">PodScheduled</span>
+  <span class="hljs-attr">containerStatuses:</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-attr">containerID:</span> <span class="hljs-string">docker://2719e2bc023944ee8f34db538094c96b24764a637574c703e232908b46b12a9f</span>
+    <span class="hljs-attr">image:</span> <span class="hljs-string">nginx:latest</span>
+    <span class="hljs-attr">imageID:</span> <span class="hljs-string">docker-pullable://nginx@sha256:86ae264c3f4acb99b2dee4d0098c40cb8c46dcf9e1148f05d3a51c4df6758c12</span>
+    <span class="hljs-attr">lastState:</span> {}
+    <span class="hljs-attr">name:</span> <span class="hljs-string">nginx</span>
+    <span class="hljs-attr">ready:</span> <span class="hljs-literal">true</span>
+    <span class="hljs-attr">restartCount:</span> <span class="hljs-number">0</span>
+    <span class="hljs-attr">started:</span> <span class="hljs-literal">true</span>
+    <span class="hljs-attr">state:</span>
+      <span class="hljs-attr">running:</span>
+        <span class="hljs-attr">startedAt:</span> <span class="hljs-string">&quot;2020-05-12T05:29:42Z&quot;</span>
+  <span class="hljs-attr">hostIP:</span> <span class="hljs-number">172.16</span><span class="hljs-number">.83</span><span class="hljs-number">.13</span>
+  <span class="hljs-attr">phase:</span> <span class="hljs-string">Running</span>
+  <span class="hljs-attr">podIP:</span> <span class="hljs-number">10.44</span><span class="hljs-number">.0</span><span class="hljs-number">.1</span>
+  <span class="hljs-attr">podIPs:</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-attr">ip:</span> <span class="hljs-number">10.44</span><span class="hljs-number">.0</span><span class="hljs-number">.1</span>
+  <span class="hljs-attr">qosClass:</span> <span class="hljs-string">BestEffort</span>
+  <span class="hljs-attr">startTime:</span> <span class="hljs-string">&quot;2020-05-12T05:29:38Z&quot;</span>
+</code></pre>
+<p>Observando el archivo anterior, notamos que este refleja el <strong>estado</strong> del <em>pod</em>. Nosotros deseamos utilizar tal archiivo solamente como un modelo, y siendo así, podemos borras las entradas que almacenan datos de estado de ese <em>pod</em>, como <em>status</em> y todas las demás configuraciones que son específicas de el. El archivo final quedaŕa con un contenido similar a este:</p>
+<pre><code class="lang-yaml">  <span class="hljs-attr">apiVersion:</span> <span class="hljs-string">v1</span>
+  <span class="hljs-attr">kind:</span> <span class="hljs-string">Pod</span>
+  <span class="hljs-attr">metadata:</span>
+    <span class="hljs-attr">creationTimestamp:</span> <span class="hljs-literal">null</span>
+    <span class="hljs-attr">labels:</span>
+      <span class="hljs-attr">run:</span> <span class="hljs-string">nginx</span>
+    <span class="hljs-attr">name:</span> <span class="hljs-string">nginx</span>
+  <span class="hljs-attr">spec:</span>
+    <span class="hljs-attr">containers:</span>
+    <span class="hljs-bullet">-</span> <span class="hljs-attr">image:</span> <span class="hljs-string">nginx</span>
+      <span class="hljs-attr">name:</span> <span class="hljs-string">nginx</span>
+      <span class="hljs-attr">resources:</span> {}
+    <span class="hljs-attr">dnsPolicy:</span> <span class="hljs-string">ClusterFirst</span>
+    <span class="hljs-attr">restartPolicy:</span> <span class="hljs-string">Always</span>
+  <span class="hljs-attr">status:</span> {}
+</code></pre>
+<p>Vamos ahora a eliminar nuestro <em>pod</em> com el siguiente comando.</p>
+<pre><code>kubectl delete pod nginx
+</code></pre><p>La salida debe ser algo como:</p>
+<pre><code>pod &quot;nginx&quot; deleted
+</code></pre><p>Vamos a recrearlo, ahora a partir de nuestro archivo YAML.</p>
+<pre><code>kubectl create -f mi-primer.yaml
+
+pod/nginx created
+</code></pre><p>Observa que no fue necesario informar a <code>kubectl</code> cual tipo de recurso seria creado, pues eso ya está contenido dentro del archivo.</p>
+<p>Listando los <em>pods</em> disponibles con el siguiente comando.</p>
+<pre><code>kubectl get pods
+</code></pre><p>Se debe obtener una salida similar a esta:</p>
+<pre><code>NAME    READY   STATUS    RESTARTS   AGE
+nginx   1/1     Running   0          109s
+</code></pre><p>Otra forma de crear un archivo de <em>template</em> es a través de la opción<code>--dry-run</code> de <code>kubectl</code>, con un funcionamento ligeramente diferente dependiendo del tipo de recurso que será creado. Ejemplos:</p>
+<p>Para la creación del template de un <em>pod</em>:</p>
+<pre><code>kubectl run meu-nginx --image nginx --dry-run=client -o yaml &gt; pod-template.yaml
+</code></pre><p>Para la creación del <em>template</em> de un <em>deployment</em>:</p>
+<pre><code>kubectl create deployment meu-nginx --image=nginx --dry-run=client -o yaml &gt; deployment-template.yaml
+</code></pre><p>La ventaja de este método es que no hay la necesidad de limpiar el archivo, ya que son presentados solamente las opciones necesarias del recurso.</p>
+<h2 id="auxilio-son-muchas-opciones">Auxilio, son muchas opciones!</h2>
+<p>Calma, eso lo sabemos. Pero <code>kubectl</code> te puede auxiliar un poco en relación a eso. Contiene la opción <code>explain</code>, que puedes utilizar en caso que necesites ayuda con alguna opción en específico de los archivos de recurso. A continuación algunos ejemplos de sintaxis.</p>
+<pre><code>kubectl explain [recurso]
+
+kubectl explain [recurso.ruta.para.spec]
+
+kubectl explain [recurso.ruta.para.spec] --recursive
+</code></pre><p>Ejemplos:</p>
+<pre><code>kubectl explain deployment
+
+kubectl explain pod --recursive
+
+kubectl explain deployment.spec.template.spec
+</code></pre><h2 id="exponiendo-el-pod">Exponiendo el pod</h2>
+<p>Los dispositivos fuera del <em>clúster</em>, por defecto, no consiguen accesar a los <em>pods</em> creados, como es común en otros sistemas de contenedores. Para exponer un <em>pod</em>, ejecute el comando a continuación.</p>
+<pre><code>kubectl expose pod nginx
+</code></pre><p>Será mostrado el siguiente mensaje de error:</p>
+<pre><code>error: couldn&apos;t find port via --port flag or introspection
+See &apos;kubectl expose -h&apos; for help and examples
+</code></pre><p>Este error ocurre debido al hecho de que k8s não sabe cual es el puerto de destino del contenedor que debe ser expuesto (en nuestro caso, el 80/TCP). Para configurarlo, vamos primeramente a eliminar nuestro <em>pod</em> antiguo:</p>
+<pre><code>kubectl delete -f mi-primer.yaml
+</code></pre><p>Abre ahora el archivo <code>mi-primer.yaml</code> e incluye el bloque siguiente.</p>
+<pre><code class="lang-yaml"><span class="hljs-string">...</span>
+<span class="hljs-attr">spec:</span>
+       <span class="hljs-attr">containers:</span>
+       <span class="hljs-bullet">-</span> <span class="hljs-attr">image:</span> <span class="hljs-string">nginx</span>
+         <span class="hljs-attr">imagePullPolicy:</span> <span class="hljs-string">Always</span>
+         <span class="hljs-attr">ports:</span>
+         <span class="hljs-bullet">-</span> <span class="hljs-attr">containerPort:</span> <span class="hljs-number">80</span>
+         <span class="hljs-attr">name:</span> <span class="hljs-string">nginx</span>
+         <span class="hljs-attr">resources:</span> {}
+<span class="hljs-string">...</span>
+</code></pre>
+<blockquote>
+<p>Atención!! Los archivos YAML utilizan para su tabulación dos espacios y no <em>tab</em>.</p>
+</blockquote>
+<p>Realizada la modificación en el archivo, guardalo y crea nuevamente el <em>pod</em> con el siguiente comando.</p>
+<pre><code>kubectl create -f mi-primer.yaml
+
+pod/nginx created
+</code></pre><p>Lista el pod.</p>
+<pre><code>kubectl get pod nginx
+
+NAME    READY   STATUS    RESTARTS   AGE
+nginx   1/1     Running   0          32s
+</code></pre><p>El comando a continuación crea un objeto de k8s llamado <em>Service</em>, que es utilizado justamente para exponer <em>pods</em> para su acceso externo.</p>
+<pre><code>kubectl expose pod nginx
+</code></pre><p>Podemos listar todos los <em>services</em> con el siguiente comando.</p>
+<pre><code>kubectl get services
+
+NAME         TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)   AGE
+kubernetes   ClusterIP   10.96.0.1       &lt;none&gt;        443/TCP   8d
+nginx        ClusterIP   10.105.41.192   &lt;none&gt;        80/TCP    2m30s
+</code></pre><p>Como se puede observar, hay dos <em>services</em> en nuestro <em>clúster</em>: el primeiro es para uso del propio k8s, mientras que el segundo fue el que acabamos de crear. Utilizando <code>curl</code> contra la dirección IP mostrado en la columna <em>CLUSTER-IP</em>, nos debe mostrar la pantalla principal de Nginx.</p>
+<pre><code>curl 10.105.41.192
+
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+&lt;title&gt;Welcome to nginx!&lt;/title&gt;
+&lt;style&gt;
+    body {
+        width: 35em;
+        margin: 0 auto;
+        font-family: Tahoma, Verdana, Arial, sans-serif;
+    }
+&lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;h1&gt;Welcome to nginx!&lt;/h1&gt;
+&lt;p&gt;If you see this page, the nginx web server is successfully installed and
+working. Further configuration is required.&lt;/p&gt;
+
+&lt;p&gt;For online documentation and support please refer to
+&lt;a href=&quot;http://nginx.org/&quot;&gt;nginx.org&lt;/a&gt;.&lt;br/&gt;
+Commercial support is available at
+&lt;a href=&quot;http://nginx.com/&quot;&gt;nginx.com&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;Thank you for using nginx.&lt;/em&gt;&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre><p>Este <em>pod</em> está disponible para accederlo a partir de cualquier nodo del <em>clúster</em>.</p>
+<h2 id="limpiando-todo-y-nos-fuimos">Limpiando todo y nos fuimos</h2>
+<p>Para mostrar todos los recursos reciém creados, se puede utilizar una de las siguintes opções a continuación.</p>
+<pre><code>kubectl get all
+
+kubectl get pod,service
+
+kubectl get pod,svc
+</code></pre><p>Nota que k8s nos disponibiliza algunas abreviaciones de sus recursos. Con el tiempo te irás a familiriazar con ellas. Para eliminar los recursos creados, úedes ejecutar los siguientes comandos.</p>
+<pre><code>kubectl delete -f mi-primer.yaml
+
+kubectl delete service nginx
+</code></pre><p>Lista nuevamente los recursos para ver si los mismos aún están presentes.</p>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="../" class="navigation navigation-prev " aria-label="Previous page: Introdução">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="../day_two/descomplicando_kubernetes.html" class="navigation navigation-next " aria-label="Next page: Descomplicando Kubernetes dia 2">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"Descomplicando Kubernetes dia 1","level":"2.1","depth":1,"next":{"title":"Descomplicando Kubernetes dia 2","level":"2.2","depth":1,"path":"day_two/descomplicando_kubernetes.md","ref":"day_two/descomplicando_kubernetes.md","articles":[]},"previous":{"title":"Introdução","level":"1.1","depth":1,"path":"README.md","ref":"README.md","articles":[]},"dir":"ltr"},"config":{"plugins":[],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"language":"es","gitbook":"*"},"file":{"path":"day_one/descomplicando_kubernetes.md","mtime":"2021-09-11T10:52:24.761Z","type":"markdown"},"gitbook":{"version":"3.6.20","time":"2021-09-11T10:52:36.609Z"},"basePath":"..","book":{"language":"es"}});
+        });
+    </script>
+</div>
+
+        
+    <noscript>
+        <style>
+            .honkit-cloak {
+                display: block !important;
+            }
+        </style>
+    </noscript>
+    <script>
+        // Restore sidebar state as critical path for prevent layout shift
+        function __init__getSidebarState(defaultValue){
+            var baseKey = "";
+            var key = baseKey + ":sidebar";
+            try {
+                var value = localStorage[key];
+                if (value === undefined) {
+                    return defaultValue;
+                }
+                var parsed = JSON.parse(value);
+                return parsed == null ? defaultValue : parsed;
+            } catch (e) {
+                return defaultValue;
+            }
+        }
+        function __init__restoreLastSidebarState() {
+            var isMobile = window.matchMedia("(max-width: 600px)").matches;
+            if (isMobile) {
+                // Init last state if not mobile
+                return;
+            }
+            var sidebarState = __init__getSidebarState(true);
+            var book = document.querySelector(".book");
+            // Show sidebar if it enabled
+            if (sidebarState && book) {
+                book.classList.add("without-animation", "with-summary");
+            }
+        }
+
+        try {
+            __init__restoreLastSidebarState();
+        } finally {
+            var book = document.querySelector(".book");
+            book.classList.remove("honkit-cloak");
+        }
+    </script>
+    <script src="../../gitbook/gitbook.js"></script>
+    <script src="../../gitbook/theme.js"></script>
+    
+        
+        <script src="../../gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+

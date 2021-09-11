@@ -1,0 +1,1524 @@
+
+<!DOCTYPE HTML>
+<html lang="pt" >
+    <head>
+        <meta charset="UTF-8">
+        <title>Descomplicando Kubernetes dia 3 · HonKit</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="HonKit 3.6.20">
+        
+        
+        
+    
+    <link rel="stylesheet" href="../../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="../day_four/descomplicando_kubernetes.html" />
+    
+    
+    <link rel="prev" href="../day_two/descomplicando_kubernetes.html" />
+    
+
+    </head>
+    <body>
+        
+<div class="book honkit-cloak">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="Escreva para pesquisar" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        <li class="header">Sobre</li>
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../">
+            
+                <a href="../">
+            
+                    
+                    Introdução
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="header">Capítulos</li>
+        
+        
+    
+        <li class="chapter " data-level="2.1" data-path="../day_one/descomplicando_kubernetes.html">
+            
+                <a href="../day_one/descomplicando_kubernetes.html">
+            
+                    
+                    Descomplicando Kubernetes dia 1
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.2" data-path="../day_two/descomplicando_kubernetes.html">
+            
+                <a href="../day_two/descomplicando_kubernetes.html">
+            
+                    
+                    Descomplicando Kubernetes dia 2
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="2.3" data-path="descomplicando_kubernetes.html">
+            
+                <a href="descomplicando_kubernetes.html">
+            
+                    
+                    Descomplicando Kubernetes dia 3
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.4" data-path="../day_four/descomplicando_kubernetes.html">
+            
+                <a href="../day_four/descomplicando_kubernetes.html">
+            
+                    
+                    Descomplicando Kubernetes dia 4
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.5" data-path="../day_five/descomplicando_kubernetes.html">
+            
+                <a href="../day_five/descomplicando_kubernetes.html">
+            
+                    
+                    Descomplicando Kubernetes dia 5
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.6" data-path="../day_six/descomplicando_kubernetes.html">
+            
+                <a href="../day_six/descomplicando_kubernetes.html">
+            
+                    
+                    Descomplicando Kubernetes dia 6
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="header">Extras</li>
+        
+        
+    
+        <li class="chapter " data-level="3.1" data-path="../extras/cloud-providers/cloud-providers.html">
+            
+                <a href="../extras/cloud-providers/cloud-providers.html">
+            
+                    
+                    Cloud providers
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.2" data-path="../extras/exame_tips.html">
+            
+                <a href="../extras/exame_tips.html">
+            
+                    
+                    Dicas para o exame
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.3" data-path="../extras/pod_security_policy.html">
+            
+                <a href="../extras/pod_security_policy.html">
+            
+                    
+                    Pod security policy
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="header">Contribuir</li>
+        
+        
+    
+        <li class="chapter " data-level="4.1" data-path="../CONTRIBUTING.html">
+            
+                <a href="../CONTRIBUTING.html">
+            
+                    
+                    Como ajudar
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://github.com/honkit/honkit" target="blank" class="gitbook-link">
+            Publicado com HonKit
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href=".." >Descomplicando Kubernetes dia 3</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h1 id="descomplicando-kubernetes-dia-3">Descomplicando Kubernetes dia 3</h1>
+<h2 id="sumário">Sumário</h2>
+<ul>
+<li><a href="#deployments">Deployments</a><ul>
+<li><a href="#filtrando-por-labels">Filtrando por Labels</a></li>
+<li><a href="#node-selector">Node Selector</a></li>
+<li><a href="#kubectl-edit">Kubectl Edit</a></li>
+</ul>
+</li>
+<li><a href="#replicaset">ReplicaSet</a></li>
+<li><a href="#daemonset">DaemonSet</a></li>
+<li><a href="#rollouts-e-rollbacks">Rollouts e Rollbacks</a></li>
+</ul>
+<h1 id="deployments">Deployments</h1>
+<p>O <strong>Deployment</strong> é um recurso com a responsabilidade de instruir o Kubernetes a criar, atualizar e monitorar a saúde das instâncias de suas aplicações.</p>
+<p>Um Deployment é o responsável por gerenciar o seu <strong>ReplicaSet</strong> (que iremos falar logo menos), ou seja, o Deployment é quem vai determinar a configuração de sua aplicação e como ela será implementada. O Deployment é o controller que irá cuidar, por exemplo, uma instância de sua aplicação por algum motivo for interrompida. O Deployment controller irá identificar o problema com a instância e irá criar uma nova em seu lugar.</p>
+<p>Quando você utiliza o <code>kubectl create deployment</code>, você está realizando o deploy de um objeto chamado Deployment. Como outros objetos, o Deployment também pode ser criado através de um arquivo YAML ou de um JSON, conhecidos por manifestos.</p>
+<p>Se você deseja alterar alguma configuração de seus objetos, como o pod, você pode utilizar o <code>kubectl apply</code>, através de um manifesto, ou ainda através do <code>kubectl edit</code>. Normalmente, quando você faz uma alteração em seu Deployment, é criado uma nova versão do ReplicaSet, esse se tornando o ativo e fazendo com que seu antecessor seja desativado. As versões anteriores dos ReplicaSets são mantidas, possibilitando o <em>rollback</em> em caso de falhas.</p>
+<p>As <strong>labels</strong> são importantes para o gerenciamento do cluster, pois com elas é possível buscar ou selecionar recursos em seu cluster, fazendo com que você consiga organizar em pequenas categorias, facilitando assim a sua busca e organizando seus pods e seus recursos do cluster. As labels não são recursos do API server, elas são armazenadas no metadata em formato chave-valor.</p>
+<p>Antes nos tínhamos somente o RC, <em>Replication Controller</em>, que era um controle sobre o número de réplicas que determinado pod estava executando, o problema é que todo esse gerenciamento era feito do lado do client. Para solucionar esse problema, foi adicionado o objeto Deployment, que permite a atualização pelo lado do server. <strong>Deployments</strong> geram <strong>ReplicaSets</strong>, que oferecerem melhores opções do que o <strong>ReplicationController</strong>, e por esse motivo está sendo substituído.</p>
+<p>Podemos criar nossos deployments a partir do template:</p>
+<pre><code>kubectl create deployment --dry-run=client -o yaml --image=nginx nginx-template &gt; primeiro-deployment-template.yaml
+kubectl create -f primeiro-deployment-template.yaml
+</code></pre><p>Vamos criar os nossos primeiros Deployments:</p>
+<pre><code>vim primeiro-deployment.yaml
+</code></pre><p>O conteúdo deve ser o seguinte:</p>
+<pre><code class="lang-yaml"><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">apps/v1</span>
+<span class="hljs-attr">kind:</span> <span class="hljs-string">Deployment</span>
+<span class="hljs-attr">metadata:</span>
+  <span class="hljs-attr">labels:</span>
+    <span class="hljs-attr">run:</span> <span class="hljs-string">nginx</span>
+    <span class="hljs-attr">app:</span> <span class="hljs-string">giropops</span>
+  <span class="hljs-attr">name:</span> <span class="hljs-string">primeiro-deployment</span>
+  <span class="hljs-attr">namespace:</span> <span class="hljs-string">default</span>
+<span class="hljs-attr">spec:</span>
+  <span class="hljs-attr">replicas:</span> <span class="hljs-number">1</span>
+  <span class="hljs-attr">selector:</span>
+    <span class="hljs-attr">matchLabels:</span>
+      <span class="hljs-attr">run:</span> <span class="hljs-string">nginx</span>
+  <span class="hljs-attr">template:</span>
+    <span class="hljs-attr">metadata:</span>
+      <span class="hljs-attr">labels:</span>
+        <span class="hljs-attr">run:</span> <span class="hljs-string">nginx</span>
+        <span class="hljs-attr">dc:</span> <span class="hljs-string">UK</span>
+    <span class="hljs-attr">spec:</span>
+      <span class="hljs-attr">containers:</span>
+      <span class="hljs-bullet">-</span> <span class="hljs-attr">image:</span> <span class="hljs-string">nginx</span>
+        <span class="hljs-attr">imagePullPolicy:</span> <span class="hljs-string">Always</span>
+        <span class="hljs-attr">name:</span> <span class="hljs-string">nginx2</span>
+        <span class="hljs-attr">ports:</span>
+        <span class="hljs-bullet">-</span> <span class="hljs-attr">containerPort:</span> <span class="hljs-number">80</span>
+          <span class="hljs-attr">protocol:</span> <span class="hljs-string">TCP</span>
+        <span class="hljs-attr">resources:</span> {}
+        <span class="hljs-attr">terminationMessagePath:</span> <span class="hljs-string">/dev/termination-log</span>
+        <span class="hljs-attr">terminationMessagePolicy:</span> <span class="hljs-string">File</span>
+      <span class="hljs-attr">dnsPolicy:</span> <span class="hljs-string">ClusterFirst</span>
+      <span class="hljs-attr">restartPolicy:</span> <span class="hljs-string">Always</span>
+      <span class="hljs-attr">schedulerName:</span> <span class="hljs-string">default-scheduler</span>
+      <span class="hljs-attr">securityContext:</span> {}
+      <span class="hljs-attr">terminationGracePeriodSeconds:</span> <span class="hljs-number">30</span>
+</code></pre>
+<p>Vamos criar o deployment a partir do manifesto:</p>
+<pre><code>kubectl create -f primeiro-deployment.yaml
+
+deployment.extensions/primeiro-deployment created
+</code></pre><p>Crie um segundo deployment:</p>
+<pre><code>vim segundo-deployment.yaml
+</code></pre><p>O conteúdo deve ser o seguinte:</p>
+<pre><code class="lang-yaml"><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">apps/v1</span>
+<span class="hljs-attr">kind:</span> <span class="hljs-string">Deployment</span>
+<span class="hljs-attr">metadata:</span>
+  <span class="hljs-attr">labels:</span>
+    <span class="hljs-attr">run:</span> <span class="hljs-string">nginx</span>
+  <span class="hljs-attr">name:</span> <span class="hljs-string">segundo-deployment</span>
+  <span class="hljs-attr">namespace:</span> <span class="hljs-string">default</span>
+<span class="hljs-attr">spec:</span>
+  <span class="hljs-attr">replicas:</span> <span class="hljs-number">1</span>
+  <span class="hljs-attr">selector:</span>
+    <span class="hljs-attr">matchLabels:</span>
+      <span class="hljs-attr">run:</span> <span class="hljs-string">nginx</span>
+  <span class="hljs-attr">template:</span>
+    <span class="hljs-attr">metadata:</span>
+      <span class="hljs-attr">labels:</span>
+        <span class="hljs-attr">run:</span> <span class="hljs-string">nginx</span>
+        <span class="hljs-attr">dc:</span> <span class="hljs-string">Netherlands</span>
+    <span class="hljs-attr">spec:</span>
+      <span class="hljs-attr">containers:</span>
+      <span class="hljs-bullet">-</span> <span class="hljs-attr">image:</span> <span class="hljs-string">nginx</span>
+        <span class="hljs-attr">imagePullPolicy:</span> <span class="hljs-string">Always</span>
+        <span class="hljs-attr">name:</span> <span class="hljs-string">nginx2</span>
+        <span class="hljs-attr">ports:</span>
+        <span class="hljs-bullet">-</span> <span class="hljs-attr">containerPort:</span> <span class="hljs-number">80</span>
+          <span class="hljs-attr">protocol:</span> <span class="hljs-string">TCP</span>
+        <span class="hljs-attr">resources:</span> {}
+        <span class="hljs-attr">terminationMessagePath:</span> <span class="hljs-string">/dev/termination-log</span>
+        <span class="hljs-attr">terminationMessagePolicy:</span> <span class="hljs-string">File</span>
+      <span class="hljs-attr">dnsPolicy:</span> <span class="hljs-string">ClusterFirst</span>
+      <span class="hljs-attr">restartPolicy:</span> <span class="hljs-string">Always</span>
+      <span class="hljs-attr">schedulerName:</span> <span class="hljs-string">default-scheduler</span>
+      <span class="hljs-attr">securityContext:</span> {}
+      <span class="hljs-attr">terminationGracePeriodSeconds:</span> <span class="hljs-number">30</span>
+</code></pre>
+<p>Vamos criar o deployment a partir do manifesto:</p>
+<pre><code>kubectl create -f segundo-deployment.yaml
+
+deployment.extensions/segundo-deployment created
+</code></pre><p>Visualizando os deployments:</p>
+<pre><code>kubectl get deployment
+
+NAME                DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
+primeiro-deployment  1         1         1            1           6m
+segundo-deployment   1         1         1            1           1m
+</code></pre><p>Visualizando os pods:</p>
+<pre><code>kubectl get pods
+
+NAME                                 READY  STATUS    RESTARTS   AGE
+primeiro-deployment-68c9dbf8b8-kjqpt 1/1    Running   0          19s
+segundo-deployment-59db86c584-cf9pp  1/1    Running   0          15s
+</code></pre><p>Visualizando os detalhes do <code>pod</code> criado a partir do <strong>primeiro deployment</strong>:</p>
+<pre><code>kubectl describe pod primeiro-deployment-68c9dbf8b8-kjqpt
+
+Name:               primeiro-deployment-68c9dbf8b8-kjqpt
+Namespace:          default
+Priority:           0
+PriorityClassName:  &lt;none&gt;
+Node:               elliot-02/10.138.0.3
+Start Time:         Sat, 04 Aug 2018 00:45:29 +0000
+Labels:             dc=UK
+                    pod-template-hash=2475869464
+                    run=nginx
+Annotations:        &lt;none&gt;
+Status:             Running
+IP:                 10.46.0.1
+Controlled By:      ReplicaSet/primeiro-deployment-68c9dbf8b8
+Containers:
+  nginx2:
+    Container ID:   docker://963ec997a0aa4aa3cecabdb3c59f67d80e7010c51eac23735524899f7f2dd4f9
+    Image:          nginx
+    Image ID:       docker-pullable://nginx@sha256:d85914d547a6c92faa39ce7058bd7529baacab7e0cd4255442b04577c4d1f424
+    Port:           80/TCP
+    Host Port:      0/TCP
+    State:          Running
+      Started:      Sat, 04 Aug 2018 00:45:36 +0000
+    Ready:          True
+    Restart Count:  0
+    Environment:    &lt;none&gt;
+    Mounts:
+      /var/run/secrets/kubernetes.io/serviceaccount from default-token-np77m (ro)
+Conditions:
+  Type              Status
+  Initialized       True
+  Ready             True
+  ContainersReady   True
+  PodScheduled      True
+Volumes:
+  default-token-np77m:
+    Type:        Secret (a volume populated by a Secret)
+    SecretName:  default-token-np77m
+    Optional:    false
+QoS Class:       BestEffort
+Node-Selectors:  &lt;none&gt;
+Tolerations:     node.kubernetes.io/not-ready:NoExecute for 300s
+                 node.kubernetes.io/unreachable:NoExecute for 300s
+Events:
+  Type    Reason     Age   From                Message
+  ----    ------     ----  ----                -------
+  Normal  Scheduled  51s   default-scheduler   Successfully assigned default/primeiro-deployment-68c9dbf8b8-kjqpt to elliot-02
+  Normal  Pulling    50s   kubelet, elliot-02  pulling image &quot;nginx&quot;
+  Normal  Pulled     44s   kubelet, elliot-02  Successfully pulled image &quot;nginx&quot;
+  Normal  Created    44s   kubelet, elliot-02  Created container
+  Normal  Started    44s   kubelet, elliot-02  Started container
+</code></pre><p>Visualizando os detalhes do <code>pod</code> criado a partir do <strong>segundo deployment</strong>:</p>
+<pre><code>kubectl describe pod segundo-deployment-59db86c584-cf9pp
+
+Name:               segundo-deployment-59db86c584-cf9pp
+Namespace:          default
+Priority:           0
+PriorityClassName:  &lt;none&gt;
+Node:               elliot-02/10.138.0.3
+Start Time:         Sat, 04 Aug 2018 00:45:49 +0000
+Labels:             dc=Netherlands
+                    pod-template-hash=1586427140
+                    run=nginx
+Annotations:        &lt;none&gt;
+Status:             Running
+IP:                 10.46.0.2
+Controlled By:      ReplicaSet/segundo-deployment-59db86c584
+Containers:
+  nginx2:
+    Container ID:   docker://a9e6b5463341e62eff9e45c8c0aace14195f35e41be088ca386949500a1f2bb0
+    Image:          nginx
+    Image ID:       docker-pullable://nginx@sha256:d85914d547a6c92faa39ce7058bd7529baacab7e0cd4255442b04577c4d1f424
+    Port:           80/TCP
+    Host Port:      0/TCP
+    State:          Running
+      Started:      Sat, 04 Aug 2018 00:45:51 +0000
+    Ready:          True
+    Restart Count:  0
+    Environment:    &lt;none&gt;
+    Mounts:
+      /var/run/secrets/kubernetes.io/serviceaccount from default-token-np77m (ro)
+Conditions:
+  Type              Status
+  Initialized       True
+  Ready             True
+  ContainersReady   True
+  PodScheduled      True
+Volumes:
+  default-token-np77m:
+    Type:        Secret (a volume populated by a Secret)
+    SecretName:  default-token-np77m
+    Optional:    false
+QoS Class:       BestEffort
+Node-Selectors:  &lt;none&gt;
+Tolerations:     node.kubernetes.io/not-ready:NoExecute for 300s
+                 node.kubernetes.io/unreachable:NoExecute for 300s
+Events:
+  Type    Reason     Age   From                Message
+  ----    ------     ----  ----                -------
+  Normal  Scheduled  2m    default-scheduler   Successfully assigned default/segundo-deployment-59db86c584-cf9pp to elliot-02
+  Normal  Pulling    2m    kubelet, elliot-02  pulling image &quot;nginx&quot;
+  Normal  Pulled     2m    kubelet, elliot-02  Successfully pulled image &quot;nginx&quot;
+  Normal  Created    2m    kubelet, elliot-02  Created container
+  Normal  Started    2m    kubelet, elliot-02  Started container
+</code></pre><p>Visualizando os detalhes do <strong>primeiro deployment</strong>:</p>
+<pre><code>kubectl describe deployment primeiro-deployment
+
+Name:                   primeiro-deployment
+Namespace:              default
+CreationTimestamp:      Sat, 04 Aug 2018 00:45:29 +0000
+Labels:                 app=giropops
+                        run=nginx
+Annotations:            deployment.kubernetes.io/revision=1
+Selector:               run=nginx
+Replicas:               1 desired | 1 updated | 1 total | 1 available | 0 unavailable
+StrategyType:           RollingUpdate
+MinReadySeconds:        0
+RollingUpdateStrategy:  1 max unavailable, 1 max surge
+Pod Template:
+  Labels:  dc=UK
+           run=nginx
+  Containers:
+   nginx2:
+    Image:        nginx
+    Port:         80/TCP
+    Host Port:    0/TCP
+    Environment:  &lt;none&gt;
+    Mounts:       &lt;none&gt;
+  Volumes:        &lt;none&gt;
+Conditions:
+  Type           Status  Reason
+  ----           ------  ------
+  Available      True    MinimumReplicasAvailable
+  Progressing    True    NewReplicaSetAvailable
+OldReplicaSets:  &lt;none&gt;
+NewReplicaSet:   primeiro-deployment-68c9dbf8b8 (1/1 replicas created)
+Events:
+  Type    Reason             Age   From                   Message
+  ----    ------             ----  ----                   -------
+  Normal  ScalingReplicaSet  3m    deployment-controller  Scaled up replica set primeiro-deployment-68c9dbf8b8 to 1
+</code></pre><p>Visualizando os detalhes do <strong>segundo deployment</strong>:</p>
+<pre><code>kubectl describe deployment segundo-deployment
+
+Name:                   segundo-deployment
+Namespace:              default
+CreationTimestamp:      Sat, 04 Aug 2018 00:45:49 +0000
+Labels:                 run=nginx
+Annotations:            deployment.kubernetes.io/revision=1
+Selector:               run=nginx
+Replicas:               1 desired | 1 updated | 1 total | 1 available | 0 unavailable
+StrategyType:           RollingUpdate
+MinReadySeconds:        0
+RollingUpdateStrategy:  1 max unavailable, 1 max surge
+Pod Template:
+  Labels:  dc=Netherlands
+           run=nginx
+  Containers:
+   nginx2:
+    Image:        nginx
+    Port:         80/TCP
+    Host Port:    0/TCP
+    Environment:  &lt;none&gt;
+    Mounts:       &lt;none&gt;
+  Volumes:        &lt;none&gt;
+Conditions:
+  Type           Status  Reason
+  ----           ------  ------
+  Available      True    MinimumReplicasAvailable
+  Progressing    True    NewReplicaSetAvailable
+OldReplicaSets:  &lt;none&gt;
+NewReplicaSet:   segundo-deployment-59db86c584 (1/1 replicas created)
+Events:
+  Type    Reason             Age   From                   Message
+  ----    ------             ----  ----                   -------
+  Normal  ScalingReplicaSet  3m    deployment-controller  Scaled up replica set segundo-deployment-59db86c584 to 1
+</code></pre><h2 id="filtrando-por-labels">Filtrando por Labels</h2>
+<p>Quando criamos nossos Deployments adicionamos as seguintes labels:</p>
+<pre><code>  labels:
+    run: nginx
+    dc: UK
+---
+  labels:
+    run: nginx
+    dc: Netherlands
+</code></pre><p>As Labels são utilizadas para a organização do cluster, vamos listar nossos pods procurando pelas Labels.</p>
+<p>Primeiro vamos realizar uma pesquisa utilizando as labels <code>dc=UK</code> e <code>dc=Netherlands</code>:</p>
+<p>Pesquisando pela label <code>UK</code>:</p>
+<pre><code>kubectl get pods -l dc=UK
+
+NAME                                 READY  STATUS   RESTARTS   AGE
+primeiro-deployment-68c9dbf8b8-kjqpt 1/1    Running  0          3m
+</code></pre><p>Pesquisando pela label <code>Netherlands</code>:</p>
+<pre><code>kubectl get pods -l dc=Netherlands
+
+NAME                                READY STATUS    RESTARTS   AGE
+segundo-deployment-59db86c584-cf9pp 1/1   Running   0          4m
+</code></pre><p>Caso queira uma saída mais personalizada podemos listar da seguinte forma, veja:</p>
+<pre><code>kubectl get pod -L dc
+
+NAME                         READY STATUS   RESTARTS AGE DC
+primeiro-deployment-68c9...  1/1   Running  0        5m  UK
+segundo-deployment-59db ...  1/1   Running  0        5m  Netherlands
+</code></pre><h2 id="node-selector">Node Selector</h2>
+<p>O <strong>Node Selector</strong> é uma forma de classificar nossos nodes como por exemplo nosso node <code>elliot-02</code> que possui disco <strong>SSD</strong> e está localizado no DataCenter <code>UK</code>, e o node <code>elliot-03</code> que possui disco <strong>HDD</strong> e está localizado no DataCenter <code>Netherlands</code>.</p>
+<p>Agora que temos essas informações vamos criar essas labels em nossos nodes, para utilizar o <code>nodeSelector</code>.</p>
+<p>Criando a label <code>disk</code> com o valor <code>SSD</code> no worker 1:</p>
+<pre><code>kubectl label node elliot-02 disk=SSD
+
+node/elliot-02 labeled
+</code></pre><p>Criando a label <code>dc</code> com o valor <code>UK</code> no worker 1:</p>
+<pre><code>kubectl label node elliot-02 dc=UK
+
+node/elliot-02 labeled
+</code></pre><p>Criando a label <code>dc</code> com o valor <code>Netherlands</code> no worker 2:</p>
+<pre><code>kubectl label node elliot-03 dc=Netherlands
+
+node/elliot-03 labeled
+</code></pre><p>Criando a label <code>disk</code> com o valor <code>hdd</code> no worker 2:</p>
+<pre><code>kubectl label nodes elliot-03 disk=hdd
+
+node/elliot-03 labeled
+</code></pre><p>Opa! Acabamos declarando o <code>disk=hdd</code> em letra minúscula, como arrumamos isso? Subscrevendo a label como no comando a seguir.</p>
+<pre><code>kubectl label nodes elliot-03 disk=HDD --overwrite
+
+node/elliot-03 labeled
+</code></pre><p>Para saber as labels configuradas em cada node basta executar o seguinte comando:</p>
+<p>No worker 1:</p>
+<pre><code>kubectl label nodes elliot-02 --list
+
+dc=UK
+disk=SSD
+kubernetes.io/hostname=elliot-02
+beta.kubernetes.io/arch=amd64
+beta.kubernetes.io/os=linux
+</code></pre><p>No worker 2:</p>
+<pre><code>kubectl label nodes elliot-03 --list
+
+beta.kubernetes.io/os=linux
+dc=Netherlands
+disk=HDD
+kubernetes.io/hostname=elliot-03
+beta.kubernetes.io/arch=amd64
+</code></pre><p>Agora, basta realizar o deploy novamente, porém antes vamos adicionar duas novas opções ao YAML e vamos ver a mágica acontecer. O nosso pod irá ser criado no node <code>elliot-02</code>, onde possui a label <code>disk=SSD</code>.</p>
+<p>Crie o arquivo <code>terceiro-deployment.yaml</code>:</p>
+<pre><code>vim terceiro-deployment.yaml
+</code></pre><p>Informe o seguinte conteúdo:</p>
+<pre><code class="lang-yaml"><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">apps/v1</span>
+<span class="hljs-attr">kind:</span> <span class="hljs-string">Deployment</span>
+<span class="hljs-attr">metadata:</span>
+  <span class="hljs-attr">labels:</span>
+    <span class="hljs-attr">run:</span> <span class="hljs-string">nginx</span>
+  <span class="hljs-attr">name:</span> <span class="hljs-string">terceiro-deployment</span>
+  <span class="hljs-attr">namespace:</span> <span class="hljs-string">default</span>
+<span class="hljs-attr">spec:</span>
+  <span class="hljs-attr">replicas:</span> <span class="hljs-number">1</span>
+  <span class="hljs-attr">selector:</span>
+    <span class="hljs-attr">matchLabels:</span>
+      <span class="hljs-attr">run:</span> <span class="hljs-string">nginx</span>
+  <span class="hljs-attr">template:</span>
+    <span class="hljs-attr">metadata:</span>
+      <span class="hljs-attr">creationTimestamp:</span> <span class="hljs-literal">null</span>
+      <span class="hljs-attr">labels:</span>
+        <span class="hljs-attr">run:</span> <span class="hljs-string">nginx</span>
+        <span class="hljs-attr">dc:</span> <span class="hljs-string">Netherlands</span>
+    <span class="hljs-attr">spec:</span>
+      <span class="hljs-attr">containers:</span>
+      <span class="hljs-bullet">-</span> <span class="hljs-attr">image:</span> <span class="hljs-string">nginx</span>
+        <span class="hljs-attr">imagePullPolicy:</span> <span class="hljs-string">Always</span>
+        <span class="hljs-attr">name:</span> <span class="hljs-string">nginx2</span>
+        <span class="hljs-attr">ports:</span>
+        <span class="hljs-bullet">-</span> <span class="hljs-attr">containerPort:</span> <span class="hljs-number">80</span>
+          <span class="hljs-attr">protocol:</span> <span class="hljs-string">TCP</span>
+        <span class="hljs-attr">resources:</span> {}
+        <span class="hljs-attr">terminationMessagePath:</span> <span class="hljs-string">/dev/termination-log</span>
+        <span class="hljs-attr">terminationMessagePolicy:</span> <span class="hljs-string">File</span>
+      <span class="hljs-attr">dnsPolicy:</span> <span class="hljs-string">ClusterFirst</span>
+      <span class="hljs-attr">restartPolicy:</span> <span class="hljs-string">Always</span>
+      <span class="hljs-attr">schedulerName:</span> <span class="hljs-string">default-scheduler</span>
+      <span class="hljs-attr">securityContext:</span> {}
+      <span class="hljs-attr">terminationGracePeriodSeconds:</span> <span class="hljs-number">30</span>
+      <span class="hljs-attr">nodeSelector:</span>
+        <span class="hljs-attr">disk:</span> <span class="hljs-string">SSD</span>
+</code></pre>
+<p>Crie o deployment a partir do manifesto:</p>
+<pre><code>kubectl create -f terceiro-deployment.yaml
+
+deployment.extensions/terceiro-deployment created
+</code></pre><p>Visualizando os detalhes dos pods:</p>
+<pre><code>kubectl get pods -o wide
+
+NAME                        READY STATUS  RESTARTS  AGE  IP           NODE
+primeiro-deployment-56d9... 1/1   Running  0      14m  172.17.0.4 elliot-03
+segundo-deployment-869f...  1/1   Running  0      14m  172.17.0.5 elliot-03
+terceiro-deployment-59cd... 1/1   Running  0      22s  172.17.0.6 elliot-02
+</code></pre><p>Removendo a label <code>dc</code> de um node worker:</p>
+<pre><code>kubectl label nodes elliot-02 dc-
+</code></pre><p>Removendo uma determinada label de todos os nodes:</p>
+<pre><code>kubectl label nodes --all dc-
+</code></pre><p>Agora imagine as infinitas possibilidades que isso poderá lhe proporcionar… Já estou pensando em várias, como por exemplo se é produção ou não, se consome muita CPU ou muita RAM, se precisa estar em determinado rack e por aí vai. 😃</p>
+<p>Simples como voar, não?</p>
+<h2 id="kubectl-edit">Kubectl Edit</h2>
+<p>Agora vamos fazer o seguinte, vamos utilizar o comando <code>kubectl edit</code> para editar nosso primeiro deployment, digamos que a &quot;quente&quot; com o pod ainda em execução.</p>
+<pre><code>kubectl edit deployment primeiro-deployment
+</code></pre><p>Abriu um editor, correto? Vamos alterar a label <code>DC</code>. Vamos imaginar que esse Deployment agora rodará no <code>DC</code> de <code>Netherlands</code>. Precisamos adicionar a <code>Label</code> e o <code>nodeSelector</code>.</p>
+<p>O conteúdo deve ser o seguinte:</p>
+<pre><code class="lang-yaml"><span class="hljs-attr">spec:</span>
+  <span class="hljs-attr">replicas:</span> <span class="hljs-number">1</span>
+  <span class="hljs-attr">selector:</span>
+    <span class="hljs-attr">matchLabels:</span>
+      <span class="hljs-attr">run:</span> <span class="hljs-string">nginx</span>
+  <span class="hljs-attr">strategy:</span>
+    <span class="hljs-attr">rollingUpdate:</span>
+      <span class="hljs-attr">maxSurge:</span> <span class="hljs-number">1</span>
+      <span class="hljs-attr">maxUnavailable:</span> <span class="hljs-number">1</span>
+    <span class="hljs-attr">type:</span> <span class="hljs-string">RollingUpdate</span>
+  <span class="hljs-attr">template:</span>
+    <span class="hljs-attr">metadata:</span>
+      <span class="hljs-attr">creationTimestamp:</span> <span class="hljs-literal">null</span>
+      <span class="hljs-attr">labels:</span>
+        <span class="hljs-attr">dc:</span> <span class="hljs-string">Netherlands</span>
+        <span class="hljs-attr">app:</span> <span class="hljs-string">giropops</span>
+        <span class="hljs-attr">run:</span> <span class="hljs-string">nginx</span>
+<span class="hljs-attr">spec:</span>
+      <span class="hljs-attr">containers:</span>
+      <span class="hljs-bullet">-</span> <span class="hljs-attr">image:</span> <span class="hljs-string">nginx</span>
+        <span class="hljs-attr">imagePullPolicy:</span> <span class="hljs-string">Always</span>
+        <span class="hljs-attr">name:</span> <span class="hljs-string">nginx2</span>
+        <span class="hljs-attr">ports:</span>
+        <span class="hljs-bullet">-</span> <span class="hljs-attr">containerPort:</span> <span class="hljs-number">80</span>
+          <span class="hljs-attr">protocol:</span> <span class="hljs-string">TCP</span>
+        <span class="hljs-attr">resources:</span> {}
+        <span class="hljs-attr">terminationMessagePath:</span> <span class="hljs-string">/dev/termination-log</span>
+        <span class="hljs-attr">terminationMessagePolicy:</span> <span class="hljs-string">File</span>
+      <span class="hljs-attr">dnsPolicy:</span> <span class="hljs-string">ClusterFirst</span>
+      <span class="hljs-attr">nodeSelector:</span>
+        <span class="hljs-attr">dc:</span> <span class="hljs-string">Netherlands</span>
+<span class="hljs-string">...</span>
+
+<span class="hljs-string">deployment.extensions/primeiro-deployment</span> <span class="hljs-string">edited</span>
+</code></pre>
+<p>Como podemos ver mudamos o valor da label <code>dc</code> e também modificamos o <code>nodeSelector</code>, onde ele agora subirá no node que tiver a label <code>dc</code> com o valor <code>Netherlands</code>, fácil! 😀</p>
+<p>Veja se o resultado foi conforme esperado:</p>
+<pre><code>kubectl get pods -l dc=Netherlands -o wide
+
+NAME                     READY  STATUS    RESTARTS  AGE ..NODE
+primeiro-deployment-7..  1/1    Running   0         3m    elliot-03
+segundo-deployment-5..   1/1    Running   0         49m   elliot-02
+terceiro-deployment-5..  1/1    Running   0         14m   elliot-02
+</code></pre><p>Com certeza, esse pod foi criado no node <code>elliot-03</code>, pois havíamos dito que ele possuía essa label anteriormente.</p>
+<h1 id="replicaset">ReplicaSet</h1>
+<p>O <strong>ReplicaSet</strong> garante a quantidade solicitada de pods e os recursos necessários para um Deployment. Uma vez que o Deployment é criado, é o ReplicaSet que controla a quantidade de pods em execução, caso algum pod seja finalizado, ele que irá detectar e solicitar que outro pod seja executado em seu lugar, garantindo assim a quantidade de réplicas solicitadas.</p>
+<p>Vamos criar nosso primeiro ReplicaSet:</p>
+<pre><code>vim primeiro-replicaset.yaml
+</code></pre><p>O conteúdo deve ser o seguinte:</p>
+<pre><code class="lang-yaml"><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">apps/v1</span>
+<span class="hljs-attr">kind:</span> <span class="hljs-string">ReplicaSet</span>
+<span class="hljs-attr">metadata:</span>
+  <span class="hljs-attr">name:</span> <span class="hljs-string">replica-set-primeiro</span>
+<span class="hljs-attr">spec:</span>
+  <span class="hljs-attr">replicas:</span> <span class="hljs-number">3</span>
+  <span class="hljs-attr">selector:</span>
+    <span class="hljs-attr">matchLabels:</span>
+      <span class="hljs-attr">system:</span> <span class="hljs-string">Giropops</span>
+  <span class="hljs-attr">template:</span>
+    <span class="hljs-attr">metadata:</span>
+      <span class="hljs-attr">labels:</span>
+        <span class="hljs-attr">system:</span> <span class="hljs-string">Giropops</span>
+    <span class="hljs-attr">spec:</span>
+      <span class="hljs-attr">containers:</span>
+      <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">nginx</span>
+        <span class="hljs-attr">image:</span> <span class="hljs-string">nginx:1.7.9</span>
+        <span class="hljs-attr">ports:</span>
+        <span class="hljs-bullet">-</span> <span class="hljs-attr">containerPort:</span> <span class="hljs-number">80</span>
+</code></pre>
+<p>Crie o ReplicaSet a partir do manifesto:</p>
+<pre><code>kubectl create -f primeiro-replicaset.yaml
+
+replicaset.extensions/replica-set-primeiro created
+</code></pre><p>Visualizando o ReplicaSet:</p>
+<pre><code>kubectl get replicaset
+
+NAME                   DESIRED   CURRENT   READY    AGE
+replica-set-primeiro   3         3         1        2s
+</code></pre><p>Podemos observar os pods em execução:</p>
+<pre><code>kubectl get pods
+
+NAME                         READY     STATUS    RESTARTS   AGE
+replica-set-primeiro-6drmt   1/1       Running   0          12s
+replica-set-primeiro-7j59w   1/1       Running   0          12s
+replica-set-primeiro-mg8q9   1/1       Running   0          12s
+</code></pre><p>Temos exatamente 3 pods do <code>nginx</code> rodando simultaneamente.</p>
+<p>Podemos obter mais informações do nosso ReplicaSet utilizando o comando <code>describe</code>.</p>
+<pre><code>kubectl describe rs replica-set-primeiro
+
+Name:         replica-set-primeiro
+Namespace:    default
+Selector:     system=Giropops
+Labels:       system=Giropops
+Annotations:  &lt;none&gt;
+Replicas:     3 current / 3 desired
+Pods Status:  3 Running / 0 Waiting / 0 Succeeded / 0 Failed
+Pod Template:
+  Labels:  system=Giropops
+  Containers:
+   nginx:
+    Image:        nginx:1.7.9
+    Port:         80/TCP
+    Host Port:    0/TCP
+    Environment:  &lt;none&gt;
+    Mounts:       &lt;none&gt;
+  Volumes:        &lt;none&gt;
+Events:
+  Type    Reason            Age   From                   Message
+  ----    ------            ----  ----                   -------
+  Normal  SuccessfulCreate  31s   replicaset-controller  Created pod: replica-set-primeiro-mg8q9
+  Normal  SuccessfulCreate  31s   replicaset-controller  Created pod: replica-set-primeiro-6drmt
+  Normal  SuccessfulCreate  31s   replicaset-controller  Created pod: replica-set-primeiro-7j59w
+</code></pre><p>Assim podemos ver todos os pods associados ao ReplicaSet, e se excluirmos um desses Pods, o que será que acontece? Vamos testar:</p>
+<pre><code>kubectl delete pod replica-set-primeiro-6drmt
+
+pod &quot;replica-set-primeiro-6drmt&quot; deleted
+</code></pre><p>Agora vamos verificar novamente os Pods em execução:</p>
+<pre><code>kubectl get pods -l system=Giropops
+
+NAME                         READY     STATUS    RESTARTS   AGE
+replica-set-primeiro-7j59w   1/1       Running   0          1m
+replica-set-primeiro-mg8q9   1/1       Running   0          1m
+replica-set-primeiro-s5dz2   1/1       Running   0          15s
+</code></pre><p>Percebeu que ele recriou outro Pod? O <strong>ReplicaSet</strong> faz com que sempre tenha 3 pods disponíveis.</p>
+<p>Vamos alterar para 4 réplicas e recriar o ReplicaSet, para isso vamos utilizar o <code>kubectl edit</code> visto anteriormente, assim podemos alterar o ReplicaSet já em execução.</p>
+<pre><code>kubectl edit rs replica-set-primeiro
+</code></pre><p>O conteúdo deve ser o seguinte:</p>
+<pre><code class="lang-yaml"><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">apps/v1</span>
+<span class="hljs-attr">kind:</span> <span class="hljs-string">ReplicaSet</span>
+<span class="hljs-attr">metadata:</span>
+  <span class="hljs-attr">creationTimestamp:</span> <span class="hljs-number">2018-07-05T04:32:42Z</span>
+  <span class="hljs-attr">generation:</span> <span class="hljs-number">2</span>
+  <span class="hljs-attr">labels:</span>
+    <span class="hljs-attr">system:</span> <span class="hljs-string">Giropops</span>
+  <span class="hljs-attr">name:</span> <span class="hljs-string">replica-set-primeiro</span>
+  <span class="hljs-attr">namespace:</span> <span class="hljs-string">default</span>
+  <span class="hljs-attr">resourceVersion:</span> <span class="hljs-string">&quot;471758&quot;</span>
+  <span class="hljs-attr">selfLink:</span> <span class="hljs-string">/apis/extensions/v1beta1/namespaces/default/replicasets/replica-set-primeiro</span>
+  <span class="hljs-attr">uid:</span> <span class="hljs-string">753290c1-800c-11e8-b889-42010a8a0002</span>
+<span class="hljs-attr">spec:</span>
+  <span class="hljs-attr">replicas:</span> <span class="hljs-number">4</span>
+  <span class="hljs-attr">selector:</span>
+    <span class="hljs-attr">matchLabels:</span>
+      <span class="hljs-attr">system:</span> <span class="hljs-string">Giropops</span>
+  <span class="hljs-attr">template:</span>
+    <span class="hljs-attr">metadata:</span>
+      <span class="hljs-attr">creationTimestamp:</span> <span class="hljs-literal">null</span>
+      <span class="hljs-attr">labels:</span>
+        <span class="hljs-attr">system:</span> <span class="hljs-string">Giropops</span>
+<span class="hljs-string">...</span>
+
+<span class="hljs-string">replicaset.extensions/replica-set-primeiro</span> <span class="hljs-string">edited</span>
+</code></pre>
+<p>Visualizando os detalhes dos pods:</p>
+<pre><code>kubectl get pods -l system=Giropops
+
+NAME                         READY     STATUS    RESTARTS   AGE
+replica-set-primeiro-7j59w   1/1       Running   0          2m
+replica-set-primeiro-96hj7   1/1       Running   0          10s
+replica-set-primeiro-mg8q9   1/1       Running   0          2m
+replica-set-primeiro-s5dz2   1/1       Running   0          1m
+</code></pre><p>Veja que ele não cria um deployment para esse replicaset:</p>
+<pre><code>kubectl get deployment.apps
+</code></pre><p>Perceba que não é listado um deployment relacionado ao <code>replica-set-primeiro</code>.</p>
+<p>Agora vamos editar um dos pods e modificar a versão da imagem do Nginx que estamos utilizando no exemplo. Vamos alterar de <code>image: nginx:1.7.9_</code> para <code>image: nginx:1.15.0</code> utilizando o <code>kubectl edit</code>. Editando o pod:</p>
+<pre><code>kubectl edit pod replica-set-primeiro-7j59w
+</code></pre><p>O conteúdo deve ser o seguinte:</p>
+<pre><code class="lang-yaml"><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">v1</span>
+<span class="hljs-attr">kind:</span> <span class="hljs-string">Pod</span>
+<span class="hljs-attr">metadata:</span>
+  <span class="hljs-attr">name:</span> <span class="hljs-string">replica-set-primeiro</span>
+<span class="hljs-string">...</span>
+    <span class="hljs-attr">spec:</span>
+      <span class="hljs-attr">containers:</span>
+      <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">nginx</span>
+        <span class="hljs-attr">image:</span> <span class="hljs-string">nginx:1.15.0</span>
+        <span class="hljs-attr">ports:</span>
+        <span class="hljs-bullet">-</span> <span class="hljs-attr">containerPort:</span> <span class="hljs-number">80</span>
+<span class="hljs-string">...</span>
+
+<span class="hljs-string">pod/replica-set-primeiro-7j59w</span> <span class="hljs-string">edited</span>
+</code></pre>
+<p>Agora vamos observar novamente os pods, como estão?</p>
+<pre><code>kubectl get pods -l system=Giropops
+
+NAME                         READY     STATUS    RESTARTS   AGE
+replica-set-primeiro-7j59w   1/1       Running   1          8m
+replica-set-primeiro-96hj7   1/1       Running   0          6m
+replica-set-primeiro-mg8q9   1/1       Running   0          8m
+replica-set-primeiro-s5dz2   1/1       Running   0          7m
+</code></pre><p>Aparentemente nada aconteceu concordam? Vamos detalhar melhor esse pod que acabamos de alterar:</p>
+<pre><code>kubectl describe pod replica-set-primeiro-7j59w
+
+Name:               replica-set-primeiro-7j59w
+Namespace:          default
+Priority:           0
+PriorityClassName:  &lt;none&gt;
+Node:               elliot-02/10.138.0.3
+Start Time:         Sat, 04 Aug 2018 01:47:56 +0000
+Labels:             system=Giropops
+Annotations:        &lt;none&gt;
+Status:             Running
+IP:                 10.46.0.2
+Controlled By:      ReplicaSet/replica-set-primeiro
+Containers:
+  nginx:
+    Container ID:   docker://6991b627cf4d6daca039ab9d6336929c0de1fc279c55a451cf9c7304e1c46504
+    Image:          nginx:1.15.0
+...
+Successfully assigned default/replica-set-primeiro-7j59w to elliot-02
+  Normal  Pulled     9m               kubelet, elliot-02  Container image &quot;nginx:1.7.9&quot; already present on machine
+  Normal  Killing    1m               kubelet, elliot-02  Killing container with id docker://nginx:Container spec hash changed (3238050430 vs 811632170).. Container will be killed and recreated.
+  Normal  Pulling    1m               kubelet, elliot-02  pulling image &quot;nginx:1.15.0&quot;
+  Normal  Created    1m (x2 over 9m)  kubelet, elliot-02  Created container
+  Normal  Started    1m (x2 over 9m)  kubelet, elliot-02  Started container
+  Normal  Pulled     1m               kubelet, elliot-02  Successfully pulled image &quot;nginx:1.15.0&quot;
+</code></pre><p>Como podemos observar ele alterou a imagem do nginx do <strong>1.7.9</strong> para <strong>1.15.0</strong>, como o replicaset não tem um deployment ele apenas destruiu o contêiner sem destruir o pod, então a configuração passada manualmente é uma configuração válida, mas caso o pod seja removido o ReplicaSet vai recriá-lo com as configurações originais.</p>
+<p>Vamos apagar o pod e ver se realmente acontece isso:</p>
+<pre><code>kubectl delete pod replica-set-primeiro-7j59w
+
+pod &quot;replica-set-primeiro-7j59w&quot; delete
+</code></pre><p>Visualizando os pods:</p>
+<pre><code>kubectl get pods -l system=Giropops
+
+NAME                         READY     STATUS    RESTARTS   AGE
+replica-set-primeiro-96hj7   1/1       Running   0          12m
+replica-set-primeiro-mg8q9   1/1       Running   0          14m
+replica-set-primeiro-s5dz2   1/1       Running   0          13m
+replica-set-primeiro-xzfvg   1/1       Running   0          5s
+</code></pre><p>Visualizando os detalhes do pods:</p>
+<pre><code>kubectl describe pod replica-set-primeiro-xzfvg
+
+Name:               replica-set-primeiro-xzfvg
+Namespace:          default
+Priority:           0
+PriorityClassName:  &lt;none&gt;
+Node:               elliot-02/10.138.0.3
+Start Time:         Sat, 04 Aug 2018 02:02:35 +0000
+Labels:             system=Giropops
+Annotations:        &lt;none&gt;
+Status:             Running
+IP:                 10.46.0.2
+Controlled By:      ReplicaSet/replica-set-primeiro
+Containers:
+  nginx:
+    Container ID:   docker://e8b88065640ba3ea346c93bb368ae6b7fb7b1d9507a948d891ca632df0dfc071
+    Image:          nginx:1.7.9
+...
+</code></pre><p>Olha só, o novo pod foi criado com a imagem configurada no replicaset.</p>
+<p>Agora vamos apagar nosso ReplicaSet:</p>
+<pre><code>kubectl get rs
+
+NAME                   DESIRED   CURRENT   READY     AGE
+replica-set-primeiro   4         4         4         25m
+</code></pre><pre><code>kubectl delete rs replica-set-primeiro
+
+replicaset.apps &quot;replica-set-primeiro&quot; deleted
+</code></pre><h1 id="daemonset">DaemonSet</h1>
+<p><strong>DaemonSet</strong> é basicamente a mesma coisa do que o ReplicaSet, com a diferença que quando você utiliza o DaemonSet você não especifica o número de réplicas, ele subirá um pod por node em seu cluster.</p>
+<p>É sempre interessante quando criar usar e abusar das labels, assim você conseguirá ter melhor flexibilidade na distribuição mais adequada de sua aplicação.</p>
+<p>Ele é bem interessante para serviços que necessitem rodar em todos os nodes do cluster, como por exemplo, coletores de logs e agentes de monitoração.</p>
+<p>Vamos criar o nosso primeiro DaemonSet:</p>
+<pre><code>vim primeiro-daemonset.yaml
+</code></pre><p>O conteúdo deve ser o seguinte:</p>
+<pre><code class="lang-yaml"><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">apps/v1</span>
+<span class="hljs-attr">kind:</span> <span class="hljs-string">DaemonSet</span>
+<span class="hljs-attr">metadata:</span>
+  <span class="hljs-attr">name:</span> <span class="hljs-string">daemon-set-primeiro</span>
+<span class="hljs-attr">spec:</span>
+  <span class="hljs-attr">selector:</span>
+    <span class="hljs-attr">matchLabels:</span>
+      <span class="hljs-attr">system:</span> <span class="hljs-string">Strigus</span>
+  <span class="hljs-attr">template:</span>
+    <span class="hljs-attr">metadata:</span>
+      <span class="hljs-attr">labels:</span>
+        <span class="hljs-attr">system:</span> <span class="hljs-string">Strigus</span>
+    <span class="hljs-attr">spec:</span>
+      <span class="hljs-attr">tolerations:</span>
+      <span class="hljs-bullet">-</span> <span class="hljs-attr">key:</span> <span class="hljs-string">node-role.kubernetes.io/master</span>
+        <span class="hljs-attr">effect:</span> <span class="hljs-string">NoSchedule</span>
+      <span class="hljs-attr">containers:</span>
+      <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">nginx</span>
+        <span class="hljs-attr">image:</span> <span class="hljs-string">nginx:1.7.9</span>
+        <span class="hljs-attr">ports:</span>
+        <span class="hljs-bullet">-</span> <span class="hljs-attr">containerPort:</span> <span class="hljs-number">80</span>
+</code></pre>
+<p>Caso não queria utilizar a diretiva &apos;tolerations&apos;, podemos também utilizar a remoção do taint nas masters como a seguir:</p>
+<pre><code>kubectl taint nodes --all node-role.kubernetes.io/master-
+
+node/elliot-01 untainted
+taint &quot;node-role.kubernetes.io/master:&quot; not found
+taint &quot;node-role.kubernetes.io/master:&quot; not found
+</code></pre><p>Agora podemos criar nosso DaemonSet:</p>
+<pre><code>kubectl create -f primeiro-daemonset.yaml
+
+daemonset.extensions/daemon-set-primeiro created
+</code></pre><p>Vamos listar nossos DaemonSet:</p>
+<pre><code>kubectl get daemonset
+
+NAME                  DESIRED  CURRENT  READY  UP-TO-DATE ... AGE
+daemon-set-primeiro   3        3        3      3              30s
+</code></pre><p>Visualizando os detalhes do DaemonSet:</p>
+<pre><code>kubectl describe ds daemon-set-primeiro
+
+Name:           daemon-set-primeiro
+Selector:       system=Strigus
+Node-Selector:  &lt;none&gt;
+Labels:         system=Strigus
+Annotations:    &lt;none&gt;
+Desired Number of Nodes Scheduled: 3
+Current Number of Nodes Scheduled: 3
+Number of Nodes Scheduled with Up-to-date Pods: 3
+Number of Nodes Scheduled with Available Pods: 3
+Number of Nodes Misscheduled: 0
+Pods Status:  3 Running / 0 Waiting / 0 Succeeded / 0 Failed
+Pod Template:
+  Labels:  system=Strigus
+  Containers:
+   nginx:
+    Image:        nginx:1.7.9
+    Port:         80/TCP
+    Host Port:    0/TCP
+    Environment:  &lt;none&gt;
+    Mounts:       &lt;none&gt;
+  Volumes:        &lt;none&gt;
+Events:
+  Type    Reason            Age   From                  Message
+  ----    ------            ----  ----                  -------
+  Normal  SuccessfulCreate  41s    daemonset-controller  Created pod: daemon-set-primeiro-jl6f5
+  Normal  SuccessfulCreate  412    daemonset-controller  Created pod: daemon-set-primeiro-jh2sp
+  Normal  SuccessfulCreate  412    daemonset-controller  Created pod: daemon-set-primeiro-t9rv9
+</code></pre><p>Visualizando os detalhes dos pods:</p>
+<pre><code>kubectl get pods -o wide
+
+NAME                   READY   STATUS    RESTARTS  AGE  .. NODE
+daemon-set-primeiro..  1/1     Running   0         1m      elliot-01
+daemon-set-primeiro..  1/1     Running   0         1m      elliot-02
+daemon-set-primeiro..  1/1     Running   0         1m      elliot-03
+</code></pre><p>Como podemos observar temos um pod por nó rodando nosso <code>daemon-set-primeiro</code>.</p>
+<p>Vamos alterar a imagem desse pod diretamente no DaemonSet, usando o comando <code>kubectl set</code>:</p>
+<pre><code>kubectl set image ds daemon-set-primeiro nginx=nginx:1.15.0
+
+daemonset.extensions/daemon-set-primeiro image updated
+</code></pre><p>Vamos confirmar se a imagem foi realmente alterada:</p>
+<pre><code>kubectl describe ds daemon-set-primeiro
+
+Name:           daemon-set-primeiro
+Selector:       system=Strigus
+Node-Selector:  &lt;none&gt;
+Labels:         system=Strigus
+Annotations:    &lt;none&gt;
+Desired Number of Nodes Scheduled: 3
+Current Number of Nodes Scheduled: 3
+Number of Nodes Scheduled with Up-to-date Pods: 0
+Number of Nodes Scheduled with Available Pods: 3
+Number of Nodes Misscheduled: 0
+Pods Status:  3 Running / 0 Waiting / 0 Succeeded / 0 Failed
+Pod Template:
+  Labels:  system=Strigus
+  Containers:
+   nginx:
+    Image:        nginx:1.15.0
+    Port:         80/TCP
+    Host Port:    0/TCP
+    Environment:  &lt;none&gt;
+    Mounts:       &lt;none&gt;
+  Volumes:        &lt;none&gt;
+Events:
+  Type    Reason            Age   From                  Message
+  ----    ------            ----  ----                  -------
+  Normal  SuccessfulCreate  2m    daemonset-controller  Created pod: daemon-set-primeiro-jl6f5
+  Normal  SuccessfulCreate  2m    daemonset-controller  Created pod: daemon-set-primeiro-jh2sp
+  Normal  SuccessfulCreate  2m    daemonset-controller  Created pod: daemon-set-primeiro-t9rv9
+</code></pre><p>Agora vamos verificar se as imagens dos pods estão atualizadas:</p>
+<pre><code>kubectl get pods
+
+NAME                        READY     STATUS    RESTARTS   AGE
+daemon-set-primeiro-jh2sp   1/1       Running   0          2m
+daemon-set-primeiro-jl6f5   1/1       Running   0          2m
+daemon-set-primeiro-t9rv9   1/1       Running   0          2m
+</code></pre><p>Como podemos observar não tivemos nenhum restart nos pods.</p>
+<p>Vamos verificar a imagem executando em um dos pods:</p>
+<pre><code>kubectl describe pod daemon-set-primeiro-jh2sp | grep -i image:
+
+Image:          nginx:1.7.9
+</code></pre><p>Exatamente, Não conseguimos alterar informações do DaemonSet em execução.</p>
+<p>E se o pod for deletado?</p>
+<pre><code>kubectl delete pod daemon-set-primeiro-jh2sp
+
+pod &quot;daemon-set-primeiro-jh2sp&quot; deleted
+</code></pre><p>Visualizando os pods:</p>
+<pre><code>kubectl get pods
+
+NAME                        READY     STATUS    RESTARTS   AGE
+daemon-set-primeiro-hp4qc   1/1       Running   0          3s
+daemon-set-primeiro-jl6f5   1/1       Running   0          10m
+daemon-set-primeiro-t9rv9   1/1       Running   0          10m
+</code></pre><p>Vamos listar o novo Pod que foi criado, após deletarmos o Pod antigo:</p>
+<pre><code>kubectl describe pod daemon-set-primeiro-hp4qc | grep -i image:
+
+    Image:          nginx:1.15.0
+</code></pre><p>Agora um Pod que já estava em execução:</p>
+<pre><code>kubectl describe pod daemon-set-primeiro-jl6f5 | grep -i image:
+
+    Image:          nginx:1.7.9
+</code></pre><p>Como podemos observar, para atualizar todos os pods do DaemonSet precisamos recriá-lo ou destruir todos os pods relacionado a ele, mas isso não é muito ruim? Sim, é bem ruim. Para melhorar nossas vidas temos a opção <code>RollingUpdate</code> que vamos ver no próximo capítulo.</p>
+<h1 id="rollouts-e-rollbacks">Rollouts e Rollbacks</h1>
+<p>Agora vamos imaginar que essa nossa última edição utilizando o comando <code>kubectl set</code> no DaemonSet não foi correta e precisamos voltar a configuração anterior, onde a versão da imagem era outra, como faremos?</p>
+<p>É muito simples, para isso existe o <em>Rollout</em>. Com ele você pode verificar quais foram as modificações que aconteceram em seu Deployment ou DaemonSet, como se fosse um versionamento. Vejaaaa! (Com a voz do Nelson Rubens)</p>
+<pre><code>kubectl rollout history ds daemon-set-primeiro
+
+daemonsets &quot;daemon-set-primeiro&quot;
+REVISION  CHANGE-CAUSE
+1         &lt;none&gt;
+2         &lt;none&gt;
+</code></pre><p>Ele irá mostrar duas linhas, a primeira que é a original, com a imagem do <code>nginx:1.7.9</code> e a segunda já com a imagem <code>nginx:1.15.0</code>. As informações não estão muito detalhadas concordam?</p>
+<p>Veja como verificar os detalhes de cada uma dessas entradas, que são chamadas de <strong>revision</strong>.</p>
+<p>Visualizando a revision 1:</p>
+<pre><code>kubectl rollout history ds daemon-set-primeiro --revision=1
+
+daemonsets &quot;daemon-set-primeiro&quot; with revision #1
+Pod Template:
+  Labels:    system=DaemonOne
+  Containers:
+   nginx:
+    Image:    nginx:1.7.9
+    Port:    80/TCP
+    Host Port:    0/TCP
+    Environment:    &lt;none&gt;
+    Mounts:    &lt;none&gt;
+  Volumes:    &lt;none&gt;
+</code></pre><p>Visualizando a revision 2:</p>
+<pre><code>kubectl rollout history ds daemon-set-primeiro --revision=2
+
+daemonsets &quot;daemon-set-primeiro&quot; with revision #2
+Pod Template:
+  Labels:    system=DaemonOne
+  Containers:
+   nginx:
+    Image:    nginx:1.15.0
+    Port:    80/TCP
+    Host Port:    0/TCP
+    Environment:    &lt;none&gt;
+    Mounts:    &lt;none&gt;
+  Volumes:    &lt;none&gt;
+</code></pre><p>Para voltar para a <code>revision</code> desejada, basta fazer o seguinte:</p>
+<pre><code>kubectl rollout undo ds daemon-set-primeiro --to-revision=1
+
+daemonset.extensions/daemon-set-primeiro rolled back
+</code></pre><p>Perceba que trocamos o <code>history</code> por <code>undo</code> e o <code>revision</code> por <code>to-revision</code>, assim faremos o <strong>rollback</strong> em nosso DaemonSet, e voltamos a versão da imagem que desejamos. 😃</p>
+<hr>
+<blockquote>
+<p>OBS.: Por padrão, o DaemonSet guarda apenas as 10 últimas revisions. Para alterar a quantidade máxima de revisions no nosso Daemonset, execute o seguinte comando.
+Fonte: <a href="https://kubernetes.io/docs/concepts/workloads/controllers/deployment/#clean-up-policy" target="_blank">https://kubernetes.io/docs/concepts/workloads/controllers/deployment/#clean-up-policy</a></p>
+</blockquote>
+<hr>
+<pre><code>kubectl edit daemonsets.apps daemon-set-primeiro
+</code></pre><p>Altere a quantidade no parâmetro <code>revisionHistoryLimit</code>:</p>
+<pre><code class="lang-yaml">  <span class="hljs-attr">revisionHistoryLimit:</span> <span class="hljs-number">10</span>
+</code></pre>
+<hr>
+<p>Voltando à nossa linha de raciocínio, para acompanhar o rollout, execute o seguinte comando:</p>
+<pre><code>kubectl rollout status ds daemon-set-primeiro
+</code></pre><p>Vamos confirmar se já estamos executando a nova imagem e um dos nosso pods:</p>
+<pre><code>kubectl describe pod daemon-set-primeiro-hp4qc | grep -i image:
+
+Image:          nginx:1.15.0
+</code></pre><p>Não funcionou, por quê? Porque teremos que matar o Pod para ele ser recriado com as novas configuração.</p>
+<p>Vamos afinar esse nosso DaemonSet, vamos adicionar o <code>RollingUpdate</code> e esse cara vai atualizar automaticamente os Pods quando houver alguma alteração.</p>
+<p>Vamos lá, primeiro vamos remover o <code>DaemonSet</code>, adicionar duas novas informações em nosso manifesto yaml e, em seguida, criar outro DaemonSet em seu lugar:</p>
+<pre><code>kubectl delete -f primeiro-daemonset.yaml
+
+daemonset.extensions &quot;daemon-set-primeiro&quot; deleted
+</code></pre><p>Edite o arquivo <code>primeiro-daemonset.yaml</code>.</p>
+<pre><code>vim primeiro-daemonset.yaml
+</code></pre><p>O conteúdo deve ser o seguinte:</p>
+<pre><code class="lang-yaml"><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">apps/v1</span>
+<span class="hljs-attr">kind:</span> <span class="hljs-string">DaemonSet</span>
+<span class="hljs-attr">metadata:</span>
+  <span class="hljs-attr">name:</span> <span class="hljs-string">daemon-set-primeiro</span>
+<span class="hljs-attr">spec:</span>
+  <span class="hljs-attr">selector:</span>
+    <span class="hljs-attr">matchLabels:</span>
+      <span class="hljs-attr">system:</span> <span class="hljs-string">Strigus</span>
+  <span class="hljs-attr">template:</span>
+    <span class="hljs-attr">metadata:</span>
+      <span class="hljs-attr">labels:</span>
+        <span class="hljs-attr">system:</span> <span class="hljs-string">Strigus</span>
+    <span class="hljs-attr">spec:</span>
+      <span class="hljs-attr">containers:</span>
+      <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">nginx</span>
+        <span class="hljs-attr">image:</span> <span class="hljs-string">nginx:1.7.9</span>
+        <span class="hljs-attr">ports:</span>
+        <span class="hljs-bullet">-</span> <span class="hljs-attr">containerPort:</span> <span class="hljs-number">80</span>
+  <span class="hljs-attr">updateStrategy:</span>
+    <span class="hljs-attr">type:</span> <span class="hljs-string">RollingUpdate</span>
+</code></pre>
+<p>Crie o DaemonSet:</p>
+<pre><code>kubectl create -f primeiro-daemonset.yaml
+
+daemonset.extensions/daemon-set-primeiro created
+</code></pre><p>Sucesso, vamos verificar se nosso DaemonSet foi inicializado certinho.</p>
+<pre><code>kubectl get daemonset
+
+NAME                  DESIRED   CURRENT   READY  ...  AGE
+daemon-set-primeiro   3         3         3      ...  5m
+</code></pre><p>Visualizando os detalhes do DaemonSet:</p>
+<pre><code>kubectl describe ds daemon-set-primeiro
+
+Name:           daemon-set-primeiro
+Selector:       system=DaemonOne
+Node-Selector:  &lt;none&gt;
+Labels:         system=DaemonOne
+Annotations:    &lt;none&gt;
+Desired Number of Nodes Scheduled: 3
+Current Number of Nodes Scheduled: 3
+Number of Nodes Scheduled with Up-to-date Pods: 3
+Number of Nodes Scheduled with Available Pods: 3
+Number of Nodes Misscheduled: 0
+Pods Status:  3 Running / 0 Waiting / 0 Succeeded / 0 Failed
+Pod Template:
+  Labels:  system=DaemonOne
+  Containers:
+   nginx:
+    Image:        nginx:1.7.9
+    Port:         80/TCP
+    Host Port:    0/TCP
+    Environment:  &lt;none&gt;
+    Mounts:       &lt;none&gt;
+  Volumes:        &lt;none&gt;
+Events:
+  Type    Reason            Age   From                  Message
+  ----    ------            ----  ----                  -------
+  Normal  SuccessfulCreate  5m    daemonset-controller  Created pod: daemon-set-primeiro-52k8k
+  Normal  SuccessfulCreate  5m    daemonset-controller  Created pod: daemon-set-primeiro-6sln2
+  Normal  SuccessfulCreate  5m    daemonset-controller  Created pod: daemon-set-primeiro-9v2w9
+    daemonset-controller  Created pod: daemon-set-primeiro-9dktj
+</code></pre><p>Vamos verificar nossa recém adicionada configuração de <code>RollingUpdate</code>:</p>
+<pre><code>kubectl get ds daemon-set-primeiro -o yaml | grep -A 2 Strategy
+
+  updateStrategy:
+    rollingUpdate:
+      maxUnavailable: 1
+</code></pre><p>Agora com nosso DaemonSet já configurado, vamos alterar aquela mesma imagem do <code>nginx</code> e ver o que acontece de fato:</p>
+<pre><code>kubectl set image ds daemon-set-primeiro nginx=nginx:1.15.0
+
+daemonset.extensions/daemon-set-primeiro image updated
+</code></pre><p>Vamos listar o DaemonSet e os Pods para ter certeza de que nada se quebrou:</p>
+<pre><code>kubectl get daemonset
+
+NAME                  DESIRED   CURRENT   READY  ...  AGE
+daemon-set-primeiro   3         3         3      ...  6m
+</code></pre><p>Visualizando os pods:</p>
+<pre><code>kubectl get pods -o wide
+
+NAME                       READY  STATUS    RESTARTS  AGE  NODE
+daemon-set-primeiro-7m...  1/1    Running   0         10s  elliot-02
+daemon-set-primeiro-j7...  1/1    Running   0         10s  elliot-03
+daemon-set-primeiro-v5...  1/1    Running   0         10s  elliot-01
+</code></pre><p>Como podemos observar nosso DaemonSet se manteve o mesmo, porém os Pods foram recriados, vamos detalhar o DaemonSet para visualizar as alterações realizadas.</p>
+<pre><code>kubectl describe ds daemon-set-primeiro
+
+Name:           daemon-set-primeiro
+Selector:       system=DaemonOne
+Node-Selector:  &lt;none&gt;
+Labels:         system=DaemonOne
+Annotations:    &lt;none&gt;
+Desired Number of Nodes Scheduled: 3
+Current Number of Nodes Scheduled: 3
+Number of Nodes Scheduled with Up-to-date Pods: 3
+Number of Nodes Scheduled with Available Pods: 3
+Number of Nodes Misscheduled: 0
+Pods Status:  3 Running / 0 Waiting / 0 Succeeded / 0 Failed
+Pod Template:
+  Labels:  system=DaemonOne
+  Containers:
+   nginx:
+    Image:        nginx:1.15.0
+    Port:         80/TCP
+    Host Port:    0/TCP
+    Environment:  &lt;none&gt;
+    Mounts:       &lt;none&gt;
+  Volumes:        &lt;none&gt;
+Events:
+  Type    Reason            Age   From                  Message
+  ----    ------            ----  ----                  -------
+  Normal  SuccessfulCreate  8m   daemonset-controller  Created pod: daemon-set-primeiro-52k8k
+  Normal  SuccessfulCreate  8m   daemonset-controller  Created pod: daemon-set-primeiro-6sln2
+  Normal  SuccessfulCreate  8m   daemonset-controller  Created pod: daemon-set-primeiro-9v2w9
+  Normal  SuccessfulDelete  10m   daemonset-controller  Deleted pod: daemon-set-primeiro-6sln2
+  Normal  SuccessfulCreate  1m   daemonset-controller  Created pod: daemon-set-primeiro-j788v
+  Normal  SuccessfulDelete  10m   daemonset-controller  Deleted pod: daemon-set-primeiro-52k8k
+  Normal  SuccessfulCreate  1m   daemonset-controller  Created pod: daemon-set-primeiro-7mpwr
+  Normal  SuccessfulDelete  10m   daemonset-controller  Deleted pod: daemon-set-primeiro-9v2w9
+  Normal  SuccessfulCreate  1m   daemonset-controller  Created pod: daemon-set-primeiro-v5m47
+</code></pre><p>Olha que Bacana! Se observamos o campo <strong>Events</strong> podemos ver que o <code>RollingUpdate</code> matou os pods antigos e recriou com a nova imagem que alteramos utilizando o <code>kubectl set</code>.</p>
+<p>Podemos também verificar em um dos Pods se essa alteração realmente aconteceu.</p>
+<pre><code>kubectl describe pod daemon-set-primeiro-j788v | grep -i image:
+
+Image:          nginx:1.15.0
+</code></pre><p>Viram? Muito sensacional esse negócio de <code>RollingUpdate</code>.</p>
+<p>Vamos verificar nosso histórico de modificações:</p>
+<pre><code>kubectl rollout history ds daemon-set-primeiro
+
+daemonsets &quot;daemon-set-primeiro&quot;
+REVISION  CHANGE-CAUSE
+1         &lt;none&gt;
+2         &lt;none&gt;
+</code></pre><p>Sim, temos duas alterações. Vamos detalhar para saber qual é qual.</p>
+<p>Visualizando a revision 1:</p>
+<pre><code>kubectl rollout history ds daemon-set-primeiro --revision=1
+
+daemonsets &quot;daemon-set-primeiro&quot; with revision #1
+Pod Template:
+  Labels:    system=DaemonOne
+  Containers:
+   nginx:
+    Image:    nginx:1.7.9
+    Port:    80/TCP
+    Host Port:    0/TCP
+    Environment:    &lt;none&gt;
+    Mounts:    &lt;none&gt;
+  Volumes:    &lt;none&gt;
+</code></pre><p>Visualizando a revision 2:</p>
+<pre><code>kubectl rollout history ds daemon-set-primeiro --revision=2
+
+daemonsets &quot;daemon-set-primeiro&quot; with revision #2
+Pod Template:
+  Labels:    system=DaemonOne
+  Containers:
+   nginx:
+    Image:    nginx:1.15.0
+    Port:    80/TCP
+    Host Port:    0/TCP
+    Environment:    &lt;none&gt;
+    Mounts:    &lt;none&gt;
+  Volumes:    &lt;none&gt;
+</code></pre><p>Agora vamos realizar o rollback do nosso DaemonSet para a revision 1:</p>
+<pre><code>kubectl rollout undo ds daemon-set-primeiro --to-revision=1
+
+daemonset.extensions/daemon-set-primeiro rolled back
+ kubectl rollout undo ds daem kubectl rollout undo ds daem
+</code></pre><p>Visualizando os pods:</p>
+<pre><code>kubectl get pods
+
+NAME                        READY     STATUS    RESTARTS   AGE
+daemon-set-primeiro-c2jjk   1/1       Running   0          19s
+daemon-set-primeiro-hrn48   1/1       Running   0          19s
+daemon-set-primeiro-t6mr9   1/1       Running   0          19s
+</code></pre><p>Visualizando os detalhes dos pods:</p>
+<pre><code>kubectl describe pod daemon-set-primeiro-c2jjk | grep -i image:
+
+Image:          nginx:1.7.9
+</code></pre><p>Sensacional não?</p>
+<p>Deu ruim?</p>
+<p>Basta retornar para a outra configuração:</p>
+<pre><code>kubectl rollout undo ds daemon-set-primeiro --to-revision=2
+
+daemonset.extensions/daemon-set-primeiro rolled back
+</code></pre><p>Visualizando o status do rollout:</p>
+<pre><code>kubectl rollout status ds daemon-set-primeiro
+
+daemon set &quot;daemon-set-primeiro&quot; successfully rolled out
+</code></pre><p>Visualizando os pods:</p>
+<pre><code>kubectl get pods
+
+NAME                        READY     STATUS    RESTARTS   AGE
+daemon-set-primeiro-jzck9   1/1       Running   0          32s
+daemon-set-primeiro-td7h5   1/1       Running   0          29s
+daemon-set-primeiro-v5c86   1/1       Running   0          40s
+</code></pre><p>Visualizando os detalhes dos pods:</p>
+<pre><code>kubectl describe pod daemon-set-primeiro-jzck9 | grep  -i image:
+
+Image:          nginx:1.15.0
+</code></pre><p>Agora vamos deletar nosso DaemonSet:</p>
+<pre><code>kubectl delete ds daemon-set-primeiro
+
+daemonset.extensions &quot;daemon-set-primeiro&quot; deleted
+</code></pre>
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="../day_two/descomplicando_kubernetes.html" class="navigation navigation-prev " aria-label="Previous page: Descomplicando Kubernetes dia 2">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="../day_four/descomplicando_kubernetes.html" class="navigation navigation-next " aria-label="Next page: Descomplicando Kubernetes dia 4">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"Descomplicando Kubernetes dia 3","level":"2.3","depth":1,"next":{"title":"Descomplicando Kubernetes dia 4","level":"2.4","depth":1,"path":"day_four/descomplicando_kubernetes.md","ref":"day_four/descomplicando_kubernetes.md","articles":[]},"previous":{"title":"Descomplicando Kubernetes dia 2","level":"2.2","depth":1,"path":"day_two/descomplicando_kubernetes.md","ref":"day_two/descomplicando_kubernetes.md","articles":[]},"dir":"ltr"},"config":{"plugins":[],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"language":"pt","gitbook":"*"},"file":{"path":"day_three/descomplicando_kubernetes.md","mtime":"2021-09-11T10:52:24.765Z","type":"markdown"},"gitbook":{"version":"3.6.20","time":"2021-09-11T10:52:36.609Z"},"basePath":"..","book":{"language":"pt"}});
+        });
+    </script>
+</div>
+
+        
+    <noscript>
+        <style>
+            .honkit-cloak {
+                display: block !important;
+            }
+        </style>
+    </noscript>
+    <script>
+        // Restore sidebar state as critical path for prevent layout shift
+        function __init__getSidebarState(defaultValue){
+            var baseKey = "";
+            var key = baseKey + ":sidebar";
+            try {
+                var value = localStorage[key];
+                if (value === undefined) {
+                    return defaultValue;
+                }
+                var parsed = JSON.parse(value);
+                return parsed == null ? defaultValue : parsed;
+            } catch (e) {
+                return defaultValue;
+            }
+        }
+        function __init__restoreLastSidebarState() {
+            var isMobile = window.matchMedia("(max-width: 600px)").matches;
+            if (isMobile) {
+                // Init last state if not mobile
+                return;
+            }
+            var sidebarState = __init__getSidebarState(true);
+            var book = document.querySelector(".book");
+            // Show sidebar if it enabled
+            if (sidebarState && book) {
+                book.classList.add("without-animation", "with-summary");
+            }
+        }
+
+        try {
+            __init__restoreLastSidebarState();
+        } finally {
+            var book = document.querySelector(".book");
+            book.classList.remove("honkit-cloak");
+        }
+    </script>
+    <script src="../../gitbook/gitbook.js"></script>
+    <script src="../../gitbook/theme.js"></script>
+    
+        
+        <script src="../../gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+

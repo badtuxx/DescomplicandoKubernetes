@@ -1,0 +1,819 @@
+
+<!DOCTYPE HTML>
+<html lang="pt" >
+    <head>
+        <meta charset="UTF-8">
+        <title>Descomplicando Kubernetes dia 6 · HonKit</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="HonKit 3.6.20">
+        
+        
+        
+    
+    <link rel="stylesheet" href="../../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="../extras/cloud-providers/cloud-providers.html" />
+    
+    
+    <link rel="prev" href="../day_five/descomplicando_kubernetes.html" />
+    
+
+    </head>
+    <body>
+        
+<div class="book honkit-cloak">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="Escreva para pesquisar" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        <li class="header">Sobre</li>
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../">
+            
+                <a href="../">
+            
+                    
+                    Introdução
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="header">Capítulos</li>
+        
+        
+    
+        <li class="chapter " data-level="2.1" data-path="../day_one/descomplicando_kubernetes.html">
+            
+                <a href="../day_one/descomplicando_kubernetes.html">
+            
+                    
+                    Descomplicando Kubernetes dia 1
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.2" data-path="../day_two/descomplicando_kubernetes.html">
+            
+                <a href="../day_two/descomplicando_kubernetes.html">
+            
+                    
+                    Descomplicando Kubernetes dia 2
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.3" data-path="../day_three/descomplicando_kubernetes.html">
+            
+                <a href="../day_three/descomplicando_kubernetes.html">
+            
+                    
+                    Descomplicando Kubernetes dia 3
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.4" data-path="../day_four/descomplicando_kubernetes.html">
+            
+                <a href="../day_four/descomplicando_kubernetes.html">
+            
+                    
+                    Descomplicando Kubernetes dia 4
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.5" data-path="../day_five/descomplicando_kubernetes.html">
+            
+                <a href="../day_five/descomplicando_kubernetes.html">
+            
+                    
+                    Descomplicando Kubernetes dia 5
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="2.6" data-path="descomplicando_kubernetes.html">
+            
+                <a href="descomplicando_kubernetes.html">
+            
+                    
+                    Descomplicando Kubernetes dia 6
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="header">Extras</li>
+        
+        
+    
+        <li class="chapter " data-level="3.1" data-path="../extras/cloud-providers/cloud-providers.html">
+            
+                <a href="../extras/cloud-providers/cloud-providers.html">
+            
+                    
+                    Cloud providers
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.2" data-path="../extras/exame_tips.html">
+            
+                <a href="../extras/exame_tips.html">
+            
+                    
+                    Dicas para o exame
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.3" data-path="../extras/pod_security_policy.html">
+            
+                <a href="../extras/pod_security_policy.html">
+            
+                    
+                    Pod security policy
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="header">Contribuir</li>
+        
+        
+    
+        <li class="chapter " data-level="4.1" data-path="../CONTRIBUTING.html">
+            
+                <a href="../CONTRIBUTING.html">
+            
+                    
+                    Como ajudar
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://github.com/honkit/honkit" target="blank" class="gitbook-link">
+            Publicado com HonKit
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href=".." >Descomplicando Kubernetes dia 6</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h1 id="descomplicando-kubernetes-day-6">Descomplicando Kubernetes Day 6</h1>
+<h2 id="sumário">Sumário</h2>
+<ul>
+<li><a href="#security-context">Security Context</a><ul>
+<li><a href="#utilizando-o-security-context">Utilizando o security Context</a></li>
+<li><a href="#capabilities">Capabilities</a></li>
+</ul>
+</li>
+<li><a href="#manutenção-do-cluster-etcd">Manutenção do Cluster ETCD</a><ul>
+<li><a href="#o-que-preciso-saber-antes-de-começar">O que preciso saber antes de começar?</a></li>
+<li><a href="#o-que-é-o-etcd">O que é o ETCD?</a></li>
+<li><a href="#etcd-no-kubernetes">ETCD no Kubernetes</a></li>
+<li><a href="#certificados-etcd">Certificados ETCD</a></li>
+<li><a href="#interagindo-com-o-etcd">Interagindo com o ETCD</a></li>
+<li><a href="#backup-do-etcd-no-kubernetes">Backup do ETCD no Kubernetes</a></li>
+</ul>
+</li>
+<li><a href="#dicas-para-os-exames">Dicas para os exames</a></li>
+</ul>
+<h1 id="security-context">Security Context</h1>
+<p><strong>Security Context</strong> são um conjunto de configurações onde definimos privilégios e acessos a um pod. Essas configurações incluem:</p>
+<ul>
+<li>Definir o usuário e grupo do contêiner;</li>
+<li>Se o contêiner será um contêiner privilegiado;</li>
+<li>Linux Capabilities;</li>
+<li>Se o contêiner pode escalar privilégios;</li>
+<li>Utilizar SELinux/APPArmor.</li>
+</ul>
+<h2 id="utilizando-o-security-context">Utilizando o security Context</h2>
+<p>Para utilizar essa configuração precisamos incluir o bloco <code>securityCotext</code> no manifesto do pod.</p>
+<p>Primeiro vamos definir um usuário e grupo para nosso contêiner através das <em>flags</em> <code>runAsUser</code> e <code>runAsGroup</code>. O usuário e grupo devem ser informados por <code>UID</code>. Exemplo: <code>1000</code>.</p>
+<p>Crie um arquivo <code>busy-security-user.yaml</code>:</p>
+<pre><code>vim busy-security-user.yaml
+</code></pre><p>Informe o seguinte conteúdo:</p>
+<pre><code class="lang-yaml"><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">v1</span>
+<span class="hljs-attr">kind:</span> <span class="hljs-string">Pod</span>
+<span class="hljs-attr">metadata:</span>
+  <span class="hljs-attr">name:</span> <span class="hljs-string">busy-security-user</span>
+<span class="hljs-attr">spec:</span>
+  <span class="hljs-attr">securityContext:</span>
+    <span class="hljs-attr">runAsUser:</span> <span class="hljs-number">1000</span>
+    <span class="hljs-attr">runAsGroup:</span> <span class="hljs-number">1000</span>
+  <span class="hljs-attr">containers:</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">sec-busy</span>
+    <span class="hljs-attr">image:</span> <span class="hljs-string">busybox</span>
+    <span class="hljs-attr">command:</span> [ <span class="hljs-string">&quot;sh&quot;</span>, <span class="hljs-string">&quot;-c&quot;</span>, <span class="hljs-string">&quot;sleep 1h&quot;</span> ]
+</code></pre>
+<p>No exemplo anterior utilizamos o user/group ID <code>1000</code> para o contêiner.</p>
+<p>Crie o pod:</p>
+<pre><code>kubectl create -f busy-security-user.yaml
+
+pod/busy-security-user created
+</code></pre><p>Vamos executar o comando a seguir para verificar com o <code>id</code> nosso usuário e grupo.</p>
+<pre><code>kubectl exec busy-security-user -- id
+
+uid=1000 gid=1000
+</code></pre><p>As configurações de <code>securityContext</code> definidas no contêiner são aplicadas somente a ele, já se são definidas no bloco <code>securityContext</code> fora de <code>containers</code> será aplicada para todos contêineres no manifesto.</p>
+<p>Crie um arquivo <code>busy-security-uid.yaml</code>:</p>
+<pre><code>vim busy-security-uid.yaml
+</code></pre><p>Informe o seguinte conteúdo:</p>
+<pre><code class="lang-yaml"><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">v1</span>
+<span class="hljs-attr">kind:</span> <span class="hljs-string">Pod</span>
+<span class="hljs-attr">metadata:</span>
+  <span class="hljs-attr">name:</span> <span class="hljs-string">busy-security-uid</span>
+<span class="hljs-attr">spec:</span>
+  <span class="hljs-attr">securityContext:</span>
+    <span class="hljs-attr">runAsUser:</span> <span class="hljs-number">1000</span>
+    <span class="hljs-attr">runAsGroup:</span> <span class="hljs-number">1000</span>
+  <span class="hljs-attr">containers:</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">sec-busy</span>
+    <span class="hljs-attr">image:</span> <span class="hljs-string">busybox</span>
+    <span class="hljs-attr">securityContext:</span>
+      <span class="hljs-attr">runAsUser:</span> <span class="hljs-number">2000</span>
+      <span class="hljs-attr">runAsGroup:</span> <span class="hljs-number">2000</span>
+    <span class="hljs-attr">command:</span> [ <span class="hljs-string">&quot;sh&quot;</span>, <span class="hljs-string">&quot;-c&quot;</span>, <span class="hljs-string">&quot;sleep 1h&quot;</span> ]
+</code></pre>
+<p>Crie o pod:</p>
+<pre><code>kubectl create -f busy-security-uid.yaml
+
+pod/busy-security-uid created
+</code></pre><p>Verifique novamente o <code>id</code> nosso usuário e grupo.</p>
+<pre><code>kubectl exec busy-security-uid -- id
+
+uid=2000 gid=1000
+</code></pre><p>As configurações declaradas em contêineres sempre serão prioritárias e irão sobrescrever as demais.</p>
+<h2 id="capabilities">Capabilities</h2>
+<p>Nos sistemas UNIX existem basicamente duas categorias de processos: <strong>processos privilegiados</strong> que são executados como o <code>UID 0</code> (<code>root</code> ou superusuario) e os <strong>não privilegiados</strong> que possuem o <code>UID</code> <strong>diferente</strong> de <code>0</code>.</p>
+<p>Os processos privilegiados dão <em>bypass</em> em todas as verificações do kernel. Já os processos não-privilegiados passam por algumas checagens como <code>UID</code>, <code>GID</code> e <code>ACLS</code>.</p>
+<p>Começando no kernel 2.2, o GNU/Linux dividiu as formas tradicionais de privilégios associados ao superusuários em unidades diferentes, agora conhecidas como <code>capabilities</code>, que podem ser habilitadas e desabilitadas independentemente umas das outras. Essas capacidades são atribuídas por thread.</p>
+<p>Um pouco mais sobre capabilities está disponível na página: <a href="http://man7.org/linux/man-pages/man7/capabilities.7.html" target="_blank">http://man7.org/linux/man-pages/man7/capabilities.7.html</a></p>
+<p>Para demonstrar, vamos fazer um teste tentando alterar a hora de um contêiner.</p>
+<p>Crie um arquivo <code>busy-security-cap.yaml</code>:</p>
+<pre><code>vim busy-security-cap.yaml
+</code></pre><p>Informe o seguinte conteúdo:</p>
+<pre><code class="lang-yaml"><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">v1</span>
+<span class="hljs-attr">kind:</span> <span class="hljs-string">Pod</span>
+<span class="hljs-attr">metadata:</span>
+  <span class="hljs-attr">name:</span> <span class="hljs-string">busy-security-cap</span>
+<span class="hljs-attr">spec:</span>
+  <span class="hljs-attr">containers:</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">sec-busy</span>
+    <span class="hljs-attr">image:</span> <span class="hljs-string">busybox</span>
+    <span class="hljs-attr">command:</span> [ <span class="hljs-string">&quot;sh&quot;</span>, <span class="hljs-string">&quot;-c&quot;</span>, <span class="hljs-string">&quot;sleep 1h&quot;</span> ]
+</code></pre>
+<p>Crie o pod:</p>
+<pre><code>kubectl create -f busy-security-cap.yaml
+
+pod/busy-security-cap created
+</code></pre><p>Verifique a hora do contêiner:</p>
+<pre><code>kubectl exec busy-security-cap -- date -s &quot;18:00:00&quot;
+
+date: can&apos;t set date: Operation not permitted
+</code></pre><p>Adicionando a capabilitie <code>SYS_TIME</code> no contêiner:</p>
+<pre><code>vim busy-security-cap.yaml
+</code></pre><p>Altere o arquivo com o conteúdo a seguir:</p>
+<pre><code class="lang-yaml"><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">v1</span>
+<span class="hljs-attr">kind:</span> <span class="hljs-string">Pod</span>
+<span class="hljs-attr">metadata:</span>
+  <span class="hljs-attr">name:</span> <span class="hljs-string">busy-security-cap</span>
+<span class="hljs-attr">spec:</span>
+  <span class="hljs-attr">containers:</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">sec-busy</span>
+    <span class="hljs-attr">image:</span> <span class="hljs-string">busybox</span>
+    <span class="hljs-attr">securityContext:</span>
+      <span class="hljs-attr">capabilities:</span>
+        <span class="hljs-attr">add:</span> [<span class="hljs-string">&quot;SYS_TIME&quot;</span>]
+    <span class="hljs-attr">command:</span> [ <span class="hljs-string">&quot;sh&quot;</span>, <span class="hljs-string">&quot;-c&quot;</span>, <span class="hljs-string">&quot;sleep 1h&quot;</span> ]
+</code></pre>
+<p>Delete o pod e recrie novamente:</p>
+<pre><code>kubectl delete -f busy-security-cap.yaml
+
+pod &quot;busy-security-cap&quot; deleted
+
+kubectl create -f busy-security-cap.yaml
+
+pod/busy-security-cap created
+</code></pre><p>Verifique novamente a hora do contêiner:</p>
+<pre><code>kubectl exec busy-security-cap -- date -s &quot;18:00:00&quot;
+
+Sat May 16 18:00:00 UTC 2020
+</code></pre><h1 id="manutenção-do-cluster-etcd">Manutenção do Cluster ETCD</h1>
+<h2 id="o-que-preciso-saber-antes-de-começar">O que preciso saber antes de começar?</h2>
+<p>ETCD é um dos componentes fundamentais que fazem o Kubernetes funcionar.</p>
+<h2 id="o-que-é-o-etcd">O que é o ETCD?</h2>
+<p>Basicamente, o ETCD é um database de armazenamento de chave-valor de alta disponibilidade.</p>
+<p>Em um banco de dados relacional, nós temos colunas e dentro das colunas nós temos o tipo de informação que está sendo armazenada;</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center"><img src="../../images/relational-database-chart.jpg" alt="Banco de dados relacional"></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><em>Banco de dados relacional <a href="https://cdn.hswstatic.com/gif/relational-database-chart.jpg" target="_blank">Ref: hswstatic.com</a></em></td>
+</tr>
+</tbody>
+</table>
+<p>Em um banco de dados de chave-valor, quando consultamos e obtemos a chave, é retornado o valor atribuido à aquela chave.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center"><img src="../../images/KeyValue.png" alt="Banco de dados chave valor"></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><em>Banco de dados chave-valor <a href="https://upload.wikimedia.org/wikipedia/commons/5/5b/KeyValue.PNG" target="_blank">Ref: Wikimedia.org</a></em></td>
+</tr>
+</tbody>
+</table>
+<p>Quando consultamos a chave <code>k1</code>, o resultado  retornado é o valor: <code>AAA,BBB,CCC</code></p>
+<p>Quando consultamos a chave <code>k5</code>, o resultado retornado é o valor: <code>3,ZZZ,5623</code></p>
+<h2 id="etcd-no-kubernetes">ETCD no Kubernetes</h2>
+<p>No kubernetes, o ETCD é responsável por registrar todo tipo de informação do cluster, tais como: <code>nodes</code>, <code>roles</code>, <code>pods</code>, <code>configs</code>, <code>accounts</code>, <code>secrets</code>, etc.</p>
+<p>Quando o cluster é iniciado pelo <strong><em>kubeadm</em></strong>, um pod do <code>etcd</code> é criado no node <code>master</code>.</p>
+<p>Toda informação que é apresentada ao usuário quando executado o comando <code>kubect get</code> são informações armazenadas no ETCD.</p>
+<p>Vejamos se o <em>pod etcd</em> foi criado com sucesso com o seguinte comando.</p>
+<pre><code>kubectl get pods -n kube-system
+
+NAME                                READY   STATUS    RESTARTS   AGE
+coredns-66bff467f8-pfm2c            1/1     Running   0          8d
+coredns-66bff467f8-s8pk4            1/1     Running   0          8d
+etcd-docker-01                      1/1     Running   0          8d
+kube-apiserver-docker-01            1/1     Running   0          8d
+kube-controller-manager-docker-01   1/1     Running   0          8d
+kube-proxy-mdcgf                    1/1     Running   0          8d
+kube-proxy-q9cvf                    1/1     Running   0          8d
+kube-proxy-vf8mq                    1/1     Running   0          8d
+kube-scheduler-docker-01            1/1     Running   0          8d
+weave-net-7dhpf                     2/2     Running   0          8d
+weave-net-fvttp                     2/2     Running   0          8d
+weave-net-xl7km                     2/2     Running   0          8d
+</code></pre><h2 id="certificados-etcd">Certificados ETCD</h2>
+<p>O ETCD, como os demais serviços do Kubernetes, utilizam certificados PKI para autenticação sobre TLS, essas chaves são declaradas no manifesto de configuração em:</p>
+<pre><code>kubectl describe pod etcd-docker-01 -n kube-system
+</code></pre><p>Parâmetros:</p>
+<pre><code>--cert-file
+--key-file
+--trusted-ca-file
+</code></pre><p>Essas chaves vão ser utilizadas pelos demais componentes do cluster como, por exemplo, o <strong>API Server</strong> possam conectar e fazerem alterações.</p>
+<pre><code>kubectl describe pod kube-apiserver -n kube-system
+</code></pre><p>Parâmetros:</p>
+<pre><code>--etcd-cafile
+--etcd-certfile
+--etcd-keyfile
+</code></pre><p>Então, para toda e qualquer interação com o ETCD vamos precisar utilizar esses certificados para nos autenticar.</p>
+<h2 id="interagindo-com-o-etcd">Interagindo com o ETCD</h2>
+<p>Para interagir com o ETCD vamos precisar o <code>etcdctl</code> ou utilizar o próprio contêiner do etcd com o comando <code>kubectl exec</code></p>
+<p>Referência: <a href="https://github.com/etcd-io/etcd/tree/master/etcdctl" target="_blank">https://github.com/etcd-io/etcd/tree/master/etcdctl</a></p>
+<p>Baixando a ultima versão do etcd:</p>
+<p>GNU/Linux:</p>
+<pre><code>ETCD_VER=v3.4.7
+
+GOOGLE_URL=https://storage.googleapis.com/etcd
+
+GITHUB_URL=https://github.com/etcd-io/etcd/releases/download
+
+DOWNLOAD_URL=${GOOGLE_URL}
+
+rm -f /tmp/etcd-${ETCD_VER}-linux-amd64.tar.gz
+
+rm -rf /tmp/etcd-download-test &amp;&amp; mkdir -p /tmp/etcd-download-test
+
+curl -L ${DOWNLOAD_URL}/${ETCD_VER}/etcd-${ETCD_VER}-linux-amd64.tar.gz -o /tmp/etcd-${ETCD_VER}-linux-amd64.tar.gz
+
+tar xzvf /tmp/etcd-${ETCD_VER}-linux-amd64.tar.gz -C /tmp/etcd-download-test --strip-components=1
+
+rm -f /tmp/etcd-${ETCD_VER}-linux-amd64.tar.gz
+
+/tmp/etcd-download-test/etcd --version
+
+/tmp/etcd-download-test/etcdctl version
+</code></pre><p>Referência: <a href="https://github.com/etcd-io/etcd/releases" target="_blank">https://github.com/etcd-io/etcd/releases</a></p>
+<p>Como vimos anteriormente, vamos precisar utilizar os certificados para nos autenticar. Vamos fornecer os dados nos seguintes parâmetros no comando:</p>
+<pre><code>--cacert
+--key
+--cert
+</code></pre><p>Além disso vamos precisar do endpoint, caso esteja no contêiner do ETCD seu endpoint será <code>127.0.0.1:2379</code>.</p>
+<p>A sua URL para o endpoint vai estar na flag <code>--advertise-client-urls</code> nas configurações do ETCD.</p>
+<p>ETCDCTL:</p>
+<pre><code>ETCDCTL_API=3 etcdctl \
+--cacert /var/lib/minikube/certs/etcd/ca.crt \
+--key /var/lib/minikube/certs/etcd/server.key \
+--cert /var/lib/minikube/certs/etcd/server.crt \
+--endpoints $ADVERTISE_URL \
+get / --prefix --keys-only
+</code></pre><p>O comando <code>kubectl exec</code> ficará similar ao mostrado a seguir.</p>
+<pre><code>kubectl exec -it etcd-minikube -n kube-system \
+-- etcdctl --endpoints=https://127.0.0.1:2379 \
+--cacert=/var/lib/minikube/certs/etcd/ca.crt \
+--key=/var/lib/minikube/certs/etcd/server.key \
+--cert=/var/lib/minikube/certs/etcd/server.crt get / --prefix --keys-only
+</code></pre><p>Output:</p>
+<pre><code>/registry/apiregistration.k8s.io/apiservices/v1.
+
+/registry/apiregistration.k8s.io/apiservices/v1.admissionregistration.k8s.io
+
+/registry/apiregistration.k8s.io/apiservices/v1.apiextensions.k8s.io
+
+/registry/apiregistration.k8s.io/apiservices/v1.apps
+
+/registry/apiregistration.k8s.io/apiservices/v1.authentication.k8s.io
+
+/registry/apiregistration.k8s.io/apiservices/v1.authorization.k8s.io
+
+/registry/apiregistration.k8s.io/apiservices/v1.autoscaling
+
+/registry/apiregistration.k8s.io/apiservices/v1.batch
+
+/registry/apiregistration.k8s.io/apiservices/v1.coordination.k8s.io
+
+/registry/apiregistration.k8s.io/apiservices/v1.networking.k8s.io
+
+/registry/apiregistration.k8s.io/apiservices/v1.rbac.authorization.k8s.io
+
+/registry/apiregistration.k8s.io/apiservices/v1.scheduling.k8s.io
+
+/registry/apiregistration.k8s.io/apiservices/v1.storage.k8s.io
+
+/registry/apiregistration.k8s.io/apiservices/v1beta1.admissionregistration.k8s.io
+
+/registry/apiregistration.k8s.io/apiservices/v1beta1.apiextensions.k8s.io
+
+/registry/apiregistration.k8s.io/apiservices/v1beta1.authentication.k8s.io
+
+/registry/apiregistration.k8s.io/apiservices/v1beta1.authorization.k8s.io
+</code></pre><p>Aqui temos uma parte do conteúdo da  resposta do get no <code>/</code> do ETCD, onde listamos todas as chaves do etcd.</p>
+<p>Em um exemplo um pouco mais prático, vamos listar apenas as chaves dos pods no namespace <code>default</code>. O parâmetro para que o output contenha apenas as chaves é <code>--keys-only</code>.</p>
+<pre><code>kubectl exec -it etcd-minikube -n kube-system \
+-- etcdctl --endpoints=https://127.0.0.1:2379 \
+--cacert=/var/lib/minikube/certs/etcd/ca.crt \
+--key=/var/lib/minikube/certs/etcd/server.key \
+--cert=/var/lib/minikube/certs/etcd/server.crt get /registry/pods/default \
+--prefix=true --keys-only
+</code></pre><p>Output:</p>
+<pre><code>/registry/pods/default/nginx
+</code></pre><p>Agora vamos ver os valores contidos na chave <code>/registry/pods/default/nginx</code>, onde estão as configurações do pod. Vamos remover o parâmetro <code>--keys-only</code> para que possamos ver os valores da chave.</p>
+<pre><code>kubectl exec -it etcd-minikube -n kube-system \
+-- etcdctl --endpoints=https://127.0.0.1:2379 \
+--cacert=/var/lib/minikube/certs/etcd/ca.crt \
+--key=/var/lib/minikube/certs/etcd/server.key \
+--cert=/var/lib/minikube/certs/etcd/server.crt get /registry/pods/default/nginx \
+--prefix=true
+</code></pre><p>Output:</p>
+<pre><code>k8s
+
+v1Pod
+
+nginxdefault&quot;*$a748750e-7582-4db5-ab63-0fab1d0c91542Z
+
+runnginxz
+kubectlUpdatev����FieldsV1:�
+�{&quot;f:metadata&quot;:{&quot;f:labels&quot;:{&quot;.&quot;:{},&quot;f:run&quot;:{}}},&quot;f:spec&quot;:{&quot;f:containers&quot;:{&quot;k:{\&quot;name\&quot;:\&quot;nginx\&quot;}&quot;:{&quot;.&quot;:{},&quot;f:image&quot;:{},&quot;f:imagePullPolicy&quot;:{},&quot;f:name&quot;:{},&quot;f:resources&quot;:{},&quot;f:terminationMessagePath&quot;:{},&quot;f:terminationMessagePolicy&quot;:{}}},&quot;f:dnsPolicy&quot;:{},&quot;f:enableServiceLinks&quot;:{},&quot;f:restartPolicy&quot;:{},&quot;f:schedulerName&quot;:{},&quot;f:securityContext&quot;:{},&quot;f:terminationGracePeriodSeconds&quot;:{}}}��
+kubeletUpdatev����FieldsV1:�
+�{&quot;f:status&quot;:{&quot;f:conditions&quot;:{&quot;k:{\&quot;type\&quot;:\&quot;ContainersReady\&quot;}&quot;:{&quot;.&quot;:{},&quot;f:lastProbeTime&quot;:{},&quot;f:lastTransitionTime&quot;:{},&quot;f:status&quot;:{},&quot;f:type&quot;:{}},&quot;k:{\&quot;type\&quot;:\&quot;Initialized\&quot;}&quot;:{&quot;.&quot;:{},&quot;f:lastProbeTime&quot;:{},&quot;f:lastTransitionTime&quot;:{},&quot;f:status&quot;:{},&quot;f:type&quot;:{}},&quot;k:{\&quot;type\&quot;:\&quot;Ready\&quot;}&quot;:{&quot;.&quot;:{},&quot;f:lastProbeTime&quot;:{},&quot;f:lastTransitionTime&quot;:{},&quot;f:status&quot;:{},&quot;f:type&quot;:{}}},&quot;f:containerStatuses&quot;:{},&quot;f:hostIP&quot;:{},&quot;f:phase&quot;:{},&quot;f:podIP&quot;:{},&quot;f:podIPs&quot;:{&quot;.&quot;:{},&quot;k:{\&quot;ip\&quot;:\&quot;172.17.0.5\&quot;}&quot;:{&quot;.&quot;:{},&quot;f:ip&quot;:{}}},&quot;f:startTime&quot;:{}}}�
+1
+default-token-657qb2
+default-token-657qb��
+nginxnginx*BJJ
+default-token-657qb-/var/run/secrets/kubernetes.io/serviceaccount&quot;2j/dev/termination-logrAlways����FileAlways 2
+
+ClusterFirstBdefaultJdefaultminikubeX`hr���default-scheduler�6
+node.kubernetes.io/not-readyExists&quot;    NoExecute(��8
+node.kubernetes.io/unreachableExists&quot;    NoExecute(�����
+Running#
+
+InitializedTru����*2
+ReadyTru����*2&apos;
+ContainersReadyTru����*2$
+
+PodScheduledTru����*2&quot;*
+                       192.168.64.22
+172.17.0.����B�
+nginx
+
+
+���� (2
+       nginx:latest:_docker-pullable://nginx@sha256:86ae264c3f4acb99b2dee4d0098c40cb8c46dcf9e1148f05d3a51c4df6758c12BIdocker://4f42eaab397e862432c01d66d44b6e2d395ffae5e5dd16cfb83d906b3fc5022bHJ
+BestEffortZb
+
+
+172.17.0.5&quot;
+</code></pre><p>Isso foi um pouco de como podemos interagir diretamente com o ETCD.</p>
+<h2 id="backup-do-etcd-no-kubernetes">Backup do ETCD no Kubernetes</h2>
+<p>Como sabemos, o ETCD é responsável por armazenar todo tipo de informação sobre o estado do nosso cluster.</p>
+<p>Para realizarmos o backup (snapshot) do ETCD, precisamos utilizar alguns comandos <em>built-in</em> que já vem com o próprio ETCD.</p>
+<p>Esse snapshot, contém todos os dados do estado do cluster.</p>
+<p>Para realizar o snapshot do ETCD sem a autenticação <strong>TLS habilitado</strong>, precisamos executar o seguinte comando.</p>
+<pre><code>ETCDCTL_API=3 etcdctl \
+--endpoints $ENDPOINT \
+snapshot save snapshot.db
+</code></pre><p>Visualizando o status.</p>
+<pre><code>ETCDCTL_API=3 etcdctl \
+--write-out=table \
+snapshot status snapshot.db
+</code></pre><p>Output:</p>
+<pre><code>+----------+----------+------------+------------+
+|   HASH   | REVISION | TOTAL KEYS | TOTAL SIZE |
++----------+----------+------------+------------+
+| fe01cf57 |       10 |          7 | 2.1 MB     |
++----------+----------+------------+------------+
+</code></pre><p>Existem algumas diferenças ao realizar o snapshot do ETCD com o <strong>TLS habilitado</strong> que são obrigatórias:</p>
+<p>Além do <code>--endpoits</code>, precisamos adicionar as chaves e certificados referentes ao TLS que são:</p>
+<ul>
+<li><code>--cacert</code> - verifica os certificados dos servidores que estão com TLS habilitados;</li>
+<li><code>--cert</code> - identifica o cliente usando o certificado TLS;</li>
+<li><code>--endpoints=[127.0.0.1:2379]</code> - novamente, esse é o valor padrão de onde o ETCD está rodando no nó master com a porta padrão do ETCD, 2379 - TCP;</li>
+<li><code>--key</code> - identifica o cliente usando a chave TLS;</li>
+</ul>
+<p>Logo, o comando ficará assim:</p>
+<pre><code>ETCDCTL_API=3 etcdctl \
+--cacert /var/lib/minikube/certs/etcd/ca.crt \
+--key /var/lib/minikube/certs/etcd/server.key \
+--cert /var/lib/minikube/certs/etcd/server.crt \
+--endpoints [127.0.0.1:2379]  \
+snapshot save snapshot.db
+</code></pre><h1 id="dicas-para-os-exames">Dicas para os exames</h1>
+<p>Para a prova do CKA é bem relevante saber como o ETCD funciona.</p>
+<p>O assunto do ETCD está relacionado aos 11% do Cluster Maintenance.</p>
+<p>Porém, pode ser que você seja obrigado a salvar esse <strong>snapshot</strong> em um diretório específico. Exemplo: <code>/tmp/</code>.</p>
+<p>Com isso, o comando ficaria assim:</p>
+<pre><code>ETCDCTL_API=3 etcdctl \
+--cacert /var/lib/minikube/certs/etcd/ca.crt \
+--key /var/lib/minikube/certs/etcd/server.key \
+--cert /var/lib/minikube/certs/etcd/server.crt \
+--endpoints [127.0.0.1:2379]  \
+snapshot save /tmp/snapshot.db
+</code></pre><p>Para fazer o restore usando o arquivo de backup /tmp/snapshot.db podemos executar os seguintes comandos:</p>
+<pre><code>ETCDCTL_API=3 etcdctl \
+--cacert /var/lib/minikube/certs/etcd/ca.crt \
+--key /var/lib/minikube/certs/etcd/server.key \
+--cert /var/lib/minikube/certs/etcd/server.crt \
+--endpoints 127.0.0.1:2379  \
+snapshot restore /tmp/snapshot.db
+
+sudo mv /var/lib/etcd/member /var/lib/etcd/member.old
+sudo mv /var/lib/etcd/default.etcd/member /var/lib/etcd/
+</code></pre>
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="../day_five/descomplicando_kubernetes.html" class="navigation navigation-prev " aria-label="Previous page: Descomplicando Kubernetes dia 5">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="../extras/cloud-providers/cloud-providers.html" class="navigation navigation-next " aria-label="Next page: Cloud providers">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"Descomplicando Kubernetes dia 6","level":"2.6","depth":1,"next":{"title":"Cloud providers","level":"3.1","depth":1,"path":"extras/cloud-providers/cloud-providers.md","ref":"extras/cloud-providers/cloud-providers.md","articles":[]},"previous":{"title":"Descomplicando Kubernetes dia 5","level":"2.5","depth":1,"path":"day_five/descomplicando_kubernetes.md","ref":"day_five/descomplicando_kubernetes.md","articles":[]},"dir":"ltr"},"config":{"plugins":[],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"language":"pt","gitbook":"*"},"file":{"path":"day_six/descomplicando_kubernetes.md","mtime":"2021-09-11T10:52:24.765Z","type":"markdown"},"gitbook":{"version":"3.6.20","time":"2021-09-11T10:52:36.609Z"},"basePath":"..","book":{"language":"pt"}});
+        });
+    </script>
+</div>
+
+        
+    <noscript>
+        <style>
+            .honkit-cloak {
+                display: block !important;
+            }
+        </style>
+    </noscript>
+    <script>
+        // Restore sidebar state as critical path for prevent layout shift
+        function __init__getSidebarState(defaultValue){
+            var baseKey = "";
+            var key = baseKey + ":sidebar";
+            try {
+                var value = localStorage[key];
+                if (value === undefined) {
+                    return defaultValue;
+                }
+                var parsed = JSON.parse(value);
+                return parsed == null ? defaultValue : parsed;
+            } catch (e) {
+                return defaultValue;
+            }
+        }
+        function __init__restoreLastSidebarState() {
+            var isMobile = window.matchMedia("(max-width: 600px)").matches;
+            if (isMobile) {
+                // Init last state if not mobile
+                return;
+            }
+            var sidebarState = __init__getSidebarState(true);
+            var book = document.querySelector(".book");
+            // Show sidebar if it enabled
+            if (sidebarState && book) {
+                book.classList.add("without-animation", "with-summary");
+            }
+        }
+
+        try {
+            __init__restoreLastSidebarState();
+        } finally {
+            var book = document.querySelector(".book");
+            book.classList.remove("honkit-cloak");
+        }
+    </script>
+    <script src="../../gitbook/gitbook.js"></script>
+    <script src="../../gitbook/theme.js"></script>
+    
+        
+        <script src="../../gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+
