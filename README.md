@@ -24,7 +24,3 @@ Veja os treinamentos disponíveis da LINUXtips:
 Principais links da LINUXtips:
 
 * [Todos os Links da LINUXtips](https://linktr.ee/LINUXtips)
-
-
-Acesso ao Livro Descomplicando o Kubernetes:  
-- [LIVRO - Descomplicando o Kubernetes](SUMMARY.md)
