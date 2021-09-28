@@ -92,7 +92,7 @@ O comando ``az aks create`` precisa ser informado uma série de parâmetros. No 
 
 Vai levar um tempinho até finalizar, então basta aguardar até finalizar a instalação. Quando finalizado, irá retornar um JSON contendo diversas informações do cluster.
 
-> OBS: Quando foi realizada esta etapa acompanhando a live, ocorreu um erro bem específico quando foi tentado criar com três nodes. O comando retornou uma mensagem "BadRequestError" na qual dizia que existe uma "cota", um limite de núcleos por região. Então acabei preferindo diminuir a quantidade de nodes. Porém depois descobri que poderia só ter trocado de região.
+> **ATENÇÃO!!!**: Quando foi realizada esta etapa acompanhando a live, ocorreu um erro bem específico quando foi tentado criar com três nodes. O comando retornou uma mensagem "BadRequestError" na qual dizia que existe uma "cota", um limite de núcleos por região. Então acabei preferindo diminuir a quantidade de nodes. Porém depois descobri que poderia só ter trocado de região.
 
 # Configuração do Cluster
 
