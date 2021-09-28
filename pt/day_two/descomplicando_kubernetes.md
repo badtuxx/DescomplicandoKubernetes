@@ -2,6 +2,8 @@
 
 ## Sumário
 
+- [Descomplicando Kubernetes dia 2](#descomplicando-kubernetes-dia-2)
+  - [Sumário](#sumário)
 - [Componentes do K8s](#componentes-do-k8s)
 - [Principais Comandos](#principais-comandos)
 - [Container Network Interface](#container-network-interface)
@@ -793,7 +795,7 @@ spec:
       terminationGracePeriodSeconds: 30
 ```
 
-> Atenção! **1 core de CPU** corresponde a ``1000m`` (1000 milicore). Ao especificar ``200m``, estamos querendo reservar 20% de 1 core da CPU. Se fosse informado o valor ``0.2`` teria o mesmo efeito, ou seja, seria reservado 20% de 1 core da CPU.
+> **Atenção!!!** **1 core de CPU** corresponde a ``1000m`` (1000 milicore). Ao especificar ``200m``, estamos querendo reservar 20% de 1 core da CPU. Se fosse informado o valor ``0.2`` teria o mesmo efeito, ou seja, seria reservado 20% de 1 core da CPU.
 
 Vamos remover o deployment do ``nginx``:
 
@@ -1460,8 +1462,7 @@ elliot-02   Ready,SchedulingDisabled    <none>   7d14h   v1.18.2
 elliot-03   Ready                       <none>   7d14h   v1.18.2
 ```
 
-Repare que o nó ``elliot-02`` ficou com o status ``Ready,SchedulingDisabled``, agora você pode fazer a manutenção no seu node tranquilamente.
-Para retirar nó de modo de manutenção, iremos utilizar o ``uncordon``.
+Repare que o nó ``elliot-02`` ficou com o status ``Ready,SchedulingDisabled``, agora você pode fazer a manutenção no seu node tranquilamente. Para retirar nó de modo de manutenção, iremos utilizar o ``uncordon``.
 
 ```
 kubectl uncordon elliot-02
