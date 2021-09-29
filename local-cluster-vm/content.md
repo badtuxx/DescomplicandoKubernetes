@@ -1,6 +1,6 @@
 # O que é o kubernetes?
 Kubernetes (K8s) é um produto Open Source utilizado para automatizar a implantação, o dimensionamento e o gerenciamento de aplicativos em contêiner.
-* Todo accção que acontece no cluster passa pelo apiserver do kubernetes, o etcd é o banco de dados
+* Todo ação que acontece no cluster passa pelo apiserver do kubernetes, o etcd é o banco de dados
 * kubeScaduler - é o responsável por selecionar o node adequado
 * kubelet roda em todos node master e workers
 
