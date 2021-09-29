@@ -6,7 +6,7 @@
         <title>Descomplicando Kubernetes dia 4 · HonKit</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
-        <meta name="generator" content="HonKit 3.6.20">
+        <meta name="generator" content="HonKit 3.6.21">
         
         
         
@@ -302,6 +302,10 @@
                                 <h1 id="descomplicando-kubernetes-dia-4">Descomplicando Kubernetes dia 4</h1>
 <h2 id="sumário">Sumário</h2>
 <ul>
+<li><a href="#descomplicando-kubernetes-dia-4">Descomplicando Kubernetes dia 4</a><ul>
+<li><a href="#sumário">Sumário</a></li>
+</ul>
+</li>
 <li><a href="#volumes">Volumes</a><ul>
 <li><a href="#empty-dir">Empty-Dir</a></li>
 <li><a href="#persistent-volume">Persistent Volume</a></li>
@@ -767,7 +771,7 @@ giropops-cron-1534980420-6czgg   0/1      Completed   0          1m
 giropops-cron-1534980480-4bwcc   1/1      Running     0          4s
 </code></pre><hr>
 <blockquote>
-<p>OBS.: Por padrão, o Kubernetes mantém o histórico dos últimos 3 <code>cron</code> executados, concluídos ou com falhas.
+<p><strong>Atenção!!!</strong> Por padrão, o Kubernetes mantém o histórico dos últimos 3 <code>cron</code> executados, concluídos ou com falhas.
 Fonte: <a href="https://kubernetes.io/docs/tasks/job/automated-tasks-with-cron-jobs/#jobs-history-limits" target="_blank">https://kubernetes.io/docs/tasks/job/automated-tasks-with-cron-jobs/#jobs-history-limits</a></p>
 </blockquote>
 <hr>
@@ -1403,8 +1407,8 @@ admin-user   ClusterRole/cluster-admin   21m
 </ul>
 <hr>
 <blockquote>
-<p>OBS.: É bom utilizar o Helm3 ao invés de Helm2.</p>
-<p>Fonte: <a href="https://helm.sh/docs/topics/v2_v3_migration" target="_blank">https://helm.sh/docs/topics/v2_v3_migration</a></p>
+<p><strong>Atenção!!!</strong> É bom utilizar o Helm3 ao invés de Helm2.&gt;
+Fonte: <a href="https://helm.sh/docs/topics/v2_v3_migration" target="_blank">https://helm.sh/docs/topics/v2_v3_migration</a></p>
 </blockquote>
 <hr>
 <h2 id="instalando-o-helm-3">Instalando o Helm 3</h2>
@@ -1424,7 +1428,7 @@ prometheus-community    https://prometheus-community.github.io/helm-charts
 grafana                 https://grafana.github.io/helm-charts
 </code></pre><hr>
 <blockquote>
-<p>OBS.: Para remover um repositório Helm, execute o comando: <code>helm repo remove NOME_REPOSITORIO</code>.</p>
+<p><strong>Atenção!!!</strong> Para remover um repositório Helm, execute o comando: <code>helm repo remove NOME_REPOSITORIO</code>.</p>
 </blockquote>
 <hr>
 <p>Vamos obter a lista atualizada de Helm charts disponíveis para instalação utilizando todos os repositórios Helm adicionados. Seria o mesmo que executar o comando <code>apt-get update</code>.</p>
@@ -1436,39 +1440,42 @@ grafana                 https://grafana.github.io/helm-charts
 <pre><code>helm search hub
 </code></pre><hr>
 <blockquote>
-<p>OBS.: O comando <code>helm search repo</code> pode ser utilizado para listar os charts em todos os repositórios adicionados.</p>
+<p><strong>Atenção!!!</strong> O comando <code>helm search repo</code> pode ser utilizado para listar os charts em todos os repositórios adicionados.</p>
 </blockquote>
 <hr>
 <p>Vamos instalar o Prometheus utilizando o Helm. Mas antes vamos visualizar qual a versão do chart disponível para instalação:</p>
 <pre><code>helm search repo prometheus-community
 
-NAME                                                    CHART VERSION   APP VERSION     DESCRIPTION                                       
-prometheus-community/prometheus                         11.16.2         2.21.0          Prometheus is a monitoring system and time seri...
-prometheus-community/prometheus-adapter                 2.7.0           v0.7.0          A Helm chart for k8s prometheus adapter           
-prometheus-community/prometheus-blackbox-exporter       4.7.0           0.17.0          Prometheus Blackbox Exporter                      
+NAME                                                  CHART VERSION    APP VERSION DESCRIPTION
+prometheus-community/alertmanager                     0.12.2           v0.22.1        The Alertmanager handles alerts sent by client ...
+prometheus-community/kube-prometheus-stack            18.1.0           0.50.0         kube-prometheus-stack collects Kubernetes manif...
+prometheus-community/kube-state-metrics               3.5.2            2.2.0          Install kube-state-metrics to generate and expo...
+prometheus-community/prometheus                       14.8.0           2.26.0         Prometheus is a monitoring system and time seri...
+prometheus-community/prometheus-adapter               2.17.0           v0.9.0         A Helm chart for k8s prometheus adapter           
+prometheus-community/prometheus-blackbox-exporter     5.1.0            0.19.0         Prometheus Blackbox Exporter
 ...
 </code></pre><ul>
 <li>A coluna <strong>NAME</strong> mostra o nome do repositório e o chart.</li>
 <li>A coluna <strong>CHART VERSION</strong> mostra apenas a versão mais recente do chart disponível para instalação.</li>
-<li>A coluna <strong>APP VERSION</strong> mostra apenas a versão mais recente da aplicação a ser instalada pelo chart. Mas nem todo o time de desenvolvimento mantém a versão da aplicação atualizada no campo <em>APP VERSION</em>. Eles fazem isso para evitar gerar uma nova versão do chart só porque a aplicação mudou, sem haver mudanças na estrutura do chart. Dependendo de como o chart é desenvolvido, a versão da aplicação é alterada apenas no manifesto <code>values.yaml</code> que cita qual a imagem Docker que será instalada pelo chart.</li>
+<li>A coluna <strong>APP VERSION</strong> mostra apenas a versão mais recente da aplicação a ser instalada pelo chart. Mas nem todo o time de desenvolvimento mantém a versão da aplicação atualizada no campo <em>APP VERSION</em>. Eles fazem isso para evitar gerar uma nova versão do chart só porque a imagem Docker da aplicação mudou, sem haver mudanças na estrutura do chart. Dependendo de como o chart é desenvolvido, a versão da imagem Docker da aplicação é alterada apenas no manifesto <code>values.yaml</code> que cita qual a imagem Docker que será instalada pelo chart.</li>
 </ul>
 <hr>
 <blockquote>
-<p>OBS.: O comando <code>helm search repo prometheus -l</code> exibe todas as versões do chart <code>prometheus</code> disponíveis para instalação.</p>
+<p><strong>Atenção!!!</strong> O comando <code>helm search repo prometheus -l</code> exibe todas as versões do chart <code>prometheus</code> disponíveis para instalação.</p>
 </blockquote>
 <hr>
 <p>Agora sim, vamos finalmente instalar o Prometheus no namespace <code>default</code>:</p>
-<pre><code>helm install meu-prometheus --version=11.16.2 prometheus-community/prometheus
+<pre><code>helm install meu-prometheus --version=14.8.0 prometheus-community/prometheus
 
 NAME: meu-prometheus
-LAST DEPLOYED: Sun Oct 25 15:31:07 2020
+LAST DEPLOYED: Tue Sep 28 09:01:26 2021
 NAMESPACE: default
 STATUS: deployed
 REVISION: 1
 TEST SUITE: None
 NOTES:
 The Prometheus server can be accessed via port 80 on the following DNS name from within your cluster:
-meu-prometheus-2-server.default.svc.cluster.local
+meu-prometheus-server.default.svc.cluster.local
 
 
 Get the Prometheus server URL by running these commands in the same shell:
@@ -1477,7 +1484,7 @@ Get the Prometheus server URL by running these commands in the same shell:
 
 
 The Prometheus alertmanager can be accessed via port 80 on the following DNS name from within your cluster:
-meu-prometheus-2-alertmanager.default.svc.cluster.local
+meu-prometheus-alertmanager.default.svc.cluster.local
 
 
 Get the Alertmanager URL by running these commands in the same shell:
@@ -1492,7 +1499,7 @@ Get the Alertmanager URL by running these commands in the same shell:
 
 
 The Prometheus PushGateway can be accessed via port 9091 on the following DNS name from within your cluster:
-meu-prometheus-2-pushgateway.default.svc.cluster.local
+meu-prometheus-pushgateway.default.svc.cluster.local
 
 
 Get the PushGateway URL by running these commands in the same shell:
@@ -1503,147 +1510,66 @@ For more information on running Prometheus, visit:
 https://prometheus.io/
 </code></pre><hr>
 <blockquote>
-<p>OBS.: Se a opção <code>-n NOME_NAMESPACE</code> for utilizada, a aplicação será instalada no namespace específico. O Helm na versão 3 não cria o namespace. É necessário criá-lo antes e já vimos como fazer isso no dia 2.</p>
+<p><strong>Atenção!!!</strong> Se a opção <code>-n NOME_NAMESPACE</code> for utilizada, a aplicação será instalada no namespace específico. No Helm 3 você pode utilizar a opção <code>--create-namespace</code> para criar um namespace durante a instalação de uma aplicação.</p>
 </blockquote>
 <hr>
 <p>Liste as aplicações instaladas com o Helm no namespace <code>default</code>:</p>
 <pre><code>helm list
 
-NAME            NAMESPACE       REVISION        UPDATED                                 STATUS          CHART                   APP VERSION
-meu-prometheus  default         1               2020-10-25 12:41:05.370061181 -0300 -03 deployed        prometheus-11.16.2      2.21.0
+NAME              NAMESPACE    REVISION    UPDATED                                    STATUS      CHART                APP VERSION
+meu-prometheus    default      1           2021-09-28 09:01:26.462915708 -0300 -03    deployed    prometheus-14.8.0    2.26.0
 </code></pre><p>Simples como voar, não é mesmo?</p>
-<p>Mas quando vamos verificar o status dos Pods verá que eles estarão com status de Pending. Por que será?</p>
 <pre><code>kubectl get pods
 
-NAME                                                 READY   STATUS      RESTARTS   AGE
-meu-prometheus-alertmanager-8657c8b9b8-kx4lw         0/2     Pending     0          7m51s
-meu-prometheus-kube-state-metrics-6864cf55db-jm596   1/1     Running     0          7m51s
-meu-prometheus-node-exporter-5bcr8                   1/1     Running     0          7m51s
-meu-prometheus-node-exporter-hqpdx                   1/1     Running     0          7m51s
-meu-prometheus-node-exporter-qbzpd                   1/1     Running     0          7m51s
-meu-prometheus-pushgateway-667bdbcc56-6sbt9          1/1     Running     0          7m51s
-meu-prometheus-server-5bc59849fd-b29q4               0/2     Pending     0          7m51s
-</code></pre><p>Executando um describe do Pod <code>meu-prometheus-server</code> e verá que ele está pedindo um PVC.</p>
-<pre><code>Events:
-  Type     Reason            Age                  From               Message
-  ----     ------            ----                 ----               -------
-  Warning  FailedScheduling  57s (x4 over 2m17s)  default-scheduler  running &quot;VolumeBinding&quot; filter plugin for pod &quot;meu-prometheus-server-5bc59849fd-b29q4&quot;: pod has unbound immediate PersistentVolumeClaims
-</code></pre><p>Problema detectado. Ele não está conseguindo montar pois não existe um <code>PersistentVolumeClaims</code> para ele.</p>
-<p>Vamos preparar os PVCs para o <code>prometheus</code> e <code>alertmanager</code> criando novos diretórios no nosso querido NFS no <code>elliot-01</code>:</p>
-<pre><code>sudo mkdir -p /opt/{alertmanager,prometheus}
+NAME                                                 READY   STATUS    RESTARTS   AGE
+meu-prometheus-alertmanager-f97fbdd7d-rd6xh          2/2     Running   0          2m15s
+meu-prometheus-kube-state-metrics-6d75d55d9d-965bv   1/1     Running   0          2m15s
+meu-prometheus-node-exporter-4xlvc                   1/1     Running   0          2m15s
+meu-prometheus-node-exporter-b4n54                   1/1     Running   0          2m15s
+meu-prometheus-pushgateway-54cc45bc49-r45dl          1/1     Running   0          2m15s
+meu-prometheus-server-677777d9dc-kp2hk               2/2     Running   0          2m15s
+</code></pre><p>Top da Balada! Veja os detalhes do pod <code>meu-prometheus-server</code>:</p>
+<pre><code>kubectl describe pod meu-prometheus-server-677777d9dc-kp2hk
 
-sudo chmod -R 777 /opt/alertmanager/
-
-sudo chmod -R 777 /opt/prometheus/
-</code></pre><p>Adicione as linhas para mapear os diretório para dentro do NFS:</p>
-<pre><code>sudo vim /etc/exports
-
-    /opt/prometheus *(rw,sync,subtree_check,no_root_squash)
-    /opt/alertmanager *(rw,sync,subtree_check,no_root_squash)
-</code></pre><p>Feito isso atualize o mapeamento do NFS:</p>
-<pre><code>exportfs -ar
-</code></pre><p>Valide rodando o comando exportfs -v</p>
-<pre><code>exportfs -v
-
-/opt/prometheus
-        &lt;world&gt;(rw,wdelay,no_root_squash,sec=sys,rw,secure,no_root_squash,no_all_squash)
-/opt/alertmanager
-        &lt;world&gt;(rw,wdelay,no_root_squash,sec=sys,rw,secure,no_root_squash,no_all_squash)
-</code></pre><p>Agora para finalizar vamos fazer a criação do PV e PVC para que os nossos Pods possam montar o volume dentro deles executando o <code>yaml</code> a seguir:</p>
-<pre><code>vim volume-prometheus.yaml
-</code></pre><pre><code class="lang-yaml"><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">v1</span>
-<span class="hljs-attr">kind:</span> <span class="hljs-string">PersistentVolume</span>
-<span class="hljs-attr">metadata:</span>
-  <span class="hljs-attr">name:</span> <span class="hljs-string">meu-prometheus-server</span>
-<span class="hljs-attr">spec:</span>
-  <span class="hljs-attr">capacity:</span>
-    <span class="hljs-attr">storage:</span> <span class="hljs-string">8Gi</span>
-  <span class="hljs-attr">accessModes:</span>
-  <span class="hljs-bullet">-</span> <span class="hljs-string">ReadWriteOnce</span>
-  <span class="hljs-attr">persistentVolumeReclaimPolicy:</span> <span class="hljs-string">Retain</span>
-  <span class="hljs-attr">nfs:</span>
-    <span class="hljs-attr">path:</span> <span class="hljs-string">/opt/prometheus</span>
-    <span class="hljs-attr">server:</span> <span class="hljs-number">10.138</span><span class="hljs-number">.0</span><span class="hljs-number">.2</span>
-    <span class="hljs-attr">readOnly:</span> <span class="hljs-literal">false</span>
-<span class="hljs-meta">---</span>
-<span class="hljs-attr">apiVersion:</span> <span class="hljs-string">v1</span>
-<span class="hljs-attr">kind:</span> <span class="hljs-string">PersistentVolume</span>
-<span class="hljs-attr">metadata:</span>
-  <span class="hljs-attr">name:</span> <span class="hljs-string">meu-prometheus-alertmanager</span>
-<span class="hljs-attr">spec:</span>
-  <span class="hljs-attr">capacity:</span>
-    <span class="hljs-attr">storage:</span> <span class="hljs-string">8Gi</span>
-  <span class="hljs-attr">accessModes:</span>
-  <span class="hljs-bullet">-</span> <span class="hljs-string">ReadWriteOnce</span>
-  <span class="hljs-attr">persistentVolumeReclaimPolicy:</span> <span class="hljs-string">Retain</span>
-  <span class="hljs-attr">nfs:</span>
-    <span class="hljs-attr">path:</span> <span class="hljs-string">/opt/alertmanager</span>
-    <span class="hljs-attr">server:</span> <span class="hljs-number">10.138</span><span class="hljs-number">.0</span><span class="hljs-number">.2</span>
-    <span class="hljs-attr">readOnly:</span> <span class="hljs-literal">false</span>
-</code></pre>
-<p>Agora crie os persistents volumes:</p>
-<pre><code>kubectl create -f volume-prometheus.yaml
-</code></pre><p>Valide se os PV e PVCs foram criados corretamente:</p>
-<pre><code>kubectl get pv,pvc
-
-NAME      CAPACITY   ACCESS MODES   RECLAIM POLICY   STATUS   CLAIM   STORAGECLASS   REASON   AGE
-persistentvolume/meu-prometheus-alertmanager   8Gi  RWO Retain Bound default/meu-prometheus-alertmanager 12m
-persistentvolume/meu-prometheus-server   8Gi  RWO Retain Bound default/meu-prometheus-server 12m
-
-NAME    STATUS   VOLUME     CAPACITY   ACCESS MODES   STORAGECLASS   AGE
-persistentvolumeclaim/meu-prometheus-alertmanager   Bound    meu-prometheus-alertmanager   8Gi RWO 12m
-persistentvolumeclaim/meu-prometheus-server     Bound    meu-prometheus-server 8Gi  RWO  12m
-</code></pre><p>Agora valide se os Pods subiram:</p>
-<pre><code>kubectl get pods
-
-meu-prometheus-alertmanager-8657c8b9b8-kx4lw         2/2     Running     0          17m
-meu-prometheus-kube-state-metrics-6864cf55db-zlbwg   1/1     Running     0          17m
-meu-prometheus-node-exporter-692m6                   1/1     Running     0          17m
-meu-prometheus-node-exporter-qq8gf                   1/1     Running     0          17m
-meu-prometheus-pushgateway-667bdbcc56-9m4mr          1/1     Running     0          17m
-meu-prometheus-server-5bc59849fd-b29q490             2/2     Running     0          17m
-</code></pre><p>Top da Balada! Veja os detalhes do pod <code>meu-prometheus-server-5bc59849fd-b29q490</code>:</p>
-<pre><code>kubect describe pod meu-prometheus-server-5bc59849fd-b29q490
-
-Name:         meu-prometheus-server-5bc59849fd-b29q4
+Name:         meu-prometheus-server-677777d9dc-kp2hk
 Namespace:    default
 Priority:     0
-Node:         kube-worker1/10.128.0.12
-Start Time:   Sun, 07 Jun 2020 14:39:44 +0000
+Node:         kind-multinodes-worker/172.18.0.4
+Start Time:   Tue, 28 Sep 2021 09:01:36 -0300
 Labels:       app=prometheus
-              chart=prometheus-11.4.0
+              chart=prometheus-14.8.0
               component=server
               heritage=Helm
-              pod-template-hash=5bc59849fd
+              pod-template-hash=677777d9dc
               release=meu-prometheus
 Annotations:  &lt;none&gt;
 Status:       Running
-IP:           10.40.0.2
+IP:           10.244.1.5
 IPs:
-  IP:           10.40.0.2
-Controlled By:  ReplicaSet/meu-prometheus-server-5bc59849fd
+  IP:           10.244.1.5
+Controlled By:  ReplicaSet/meu-prometheus-server-677777d9dc
 Containers:
   prometheus-server-configmap-reload:
-    Container ID:  docker://b9f7255883104fc149ee4c74163357b9d379b878d19a81fd0cc22dff177fa7d4
-    Image:         jimmidyson/configmap-reload:v0.3.0
-    Image ID:      docker-pullable://jimmidyson/configmap-reload@sha256:d107c7a235c266273b1c3502a391fec374430e5625539403d0de797fa9c556a2
+    Container ID:  containerd://aba926df8ffa30ef9c485ef83eb86acc71dd86d4a63230ef88a55b550d6d12bd
+    Image:         jimmidyson/configmap-reload:v0.5.0
+    Image ID:      docker.io/jimmidyson/configmap-reload@sha256:904d08e9f701d3d8178cb61651dbe8edc5d08dd5895b56bdcac9e5805ea82b52
     Port:          &lt;none&gt;
     Host Port:     &lt;none&gt;
     Args:
       --volume-dir=/etc/config
       --webhook-url=http://127.0.0.1:9090/-/reload
     State:          Running
-      Started:      Sun, 07 Jun 2020 14:39:50 +0000
+      Started:      Tue, 28 Sep 2021 09:01:50 -0300
     Ready:          True
     Restart Count:  0
     Environment:    &lt;none&gt;
     Mounts:
       /etc/config from config-volume (ro)
-      /var/run/secrets/kubernetes.io/serviceaccount from meu-prometheus-server-token-g5w82 (ro)
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-sgnt5 (ro)
   prometheus-server:
-    Container ID:  docker://96e0e07c77c3412a68d8cce6da103265f3c8783fb6b31f1813f010c4d20728dd
-    Image:         prom/prometheus:v2.18.1
-    Image ID:      docker-pullable://prom/prometheus@sha256:5880ec936055fad18ccee798d2a63f64ed85bd28e8e0af17c6923a090b686c3d
+    Container ID:  containerd://e34e6d9203ae10ed44e4d52bb137ca630b2a269ae2897df338786b3c94738976
+    Image:         quay.io/prometheus/prometheus:v2.26.0
+    Image ID:      quay.io/prometheus/prometheus@sha256:38d40a760569b1c5aec4a36e8a7f11e86299e9191b9233672a5d41296d8fa74e
     Port:          9090/TCP
     Host Port:     0/TCP
     Args:
@@ -1654,55 +1580,57 @@ Containers:
       --web.console.templates=/etc/prometheus/consoles
       --web.enable-lifecycle
     State:          Running
-      Started:      Sun, 07 Jun 2020 14:39:56 +0000
+      Started:      Tue, 28 Sep 2021 09:02:42 -0300
     Ready:          True
     Restart Count:  0
-    Liveness:       http-get http://:9090/-/healthy delay=30s timeout=30s period=10s #success=1 #failure=3
-    Readiness:      http-get http://:9090/-/ready delay=30s timeout=30s period=10s #success=1 #failure=3
+    Liveness:       http-get http://:9090/-/healthy delay=30s timeout=10s period=15s #success=1 #failure=3
+    Readiness:      http-get http://:9090/-/ready delay=30s timeout=4s period=5s #success=1 #failure=3
     Environment:    &lt;none&gt;
     Mounts:
       /data from storage-volume (rw)
       /etc/config from config-volume (rw)
-      /var/run/secrets/kubernetes.io/serviceaccount from meu-prometheus-server-token-g5w82 (ro)
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-sgnt5 (ro)
 Conditions:
   Type              Status
-  Initialized       True
-  Ready             True
-  ContainersReady   True
-  PodScheduled      True
+  Initialized       True 
+  Ready             True 
+  ContainersReady   True 
+  PodScheduled      True 
 Volumes:
   config-volume:
     Type:      ConfigMap (a volume populated by a ConfigMap)
     Name:      meu-prometheus-server
     Optional:  false
   storage-volume:
-    Type:       EmptyDir (a temporary directory that shares a pod&apos;s lifetime)
-    Medium:
-    SizeLimit:  &lt;unset&gt;
-  meu-prometheus-server-token-g5w82:
-    Type:        Secret (a volume populated by a Secret)
-    SecretName:  meu-prometheus-server-token-g5w82
-    Optional:    false
-QoS Class:       BestEffort
-Node-Selectors:  &lt;none&gt;
-Tolerations:     node.kubernetes.io/not-ready:NoExecute for 300s
-                 node.kubernetes.io/unreachable:NoExecute for 300s
+    Type:       PersistentVolumeClaim (a reference to a PersistentVolumeClaim in the same namespace)
+    ClaimName:  meu-prometheus-server
+    ReadOnly:   false
+  kube-api-access-sgnt5:
+    Type:                    Projected (a volume that contains injected data from multiple sources)
+    TokenExpirationSeconds:  3607
+    ConfigMapName:           kube-root-ca.crt
+    ConfigMapOptional:       &lt;nil&gt;
+    DownwardAPI:             true
+QoS Class:                   BestEffort
+Node-Selectors:              &lt;none&gt;
+Tolerations:                 node.kubernetes.io/not-ready:NoExecute op=Exists for 300s
+                             node.kubernetes.io/unreachable:NoExecute op=Exists for 300s
 Events:
-  Type    Reason     Age   From                   Message
-  ----    ------     ----  ----                   -------
-  Normal  Scheduled  12m   default-scheduler      Successfully assigned default/meu-prometheus-server-5bc59849fd-b29q4 to kube-worker1
-  Normal  Pulling    12m   kubelet, kube-worker1  Pulling image &quot;jimmidyson/configmap-reload:v0.3.0&quot;
-  Normal  Pulled     12m   kubelet, kube-worker1  Successfully pulled image &quot;jimmidyson/configmap-reload:v0.3.0&quot;
-  Normal  Created    12m   kubelet, kube-worker1  Created container prometheus-server-configmap-reload
-  Normal  Started    12m   kubelet, kube-worker1  Started container prometheus-server-configmap-reload
-  Normal  Pulling    12m   kubelet, kube-worker1  Pulling image &quot;prom/prometheus:v2.18.1&quot;
-  Normal  Pulled     12m   kubelet, kube-worker1  Successfully pulled image &quot;prom/prometheus:v2.18.1&quot;
-  Normal  Created    12m   kubelet, kube-worker1  Created container prometheus-server
-  Normal  Started    12m   kubelet, kube-worker1  Started container prometheus-server
+  Type    Reason     Age    From               Message
+  ----    ------     ----   ----               -------
+  Normal  Scheduled  4m17s  default-scheduler  Successfully assigned default/meu-prometheus-server-677777d9dc-kp2hk to kind-multinodes-worker
+  Normal  Pulling    4m17s  kubelet            Pulling image &quot;jimmidyson/configmap-reload:v0.5.0&quot;
+  Normal  Pulled     4m3s   kubelet            Successfully pulled image &quot;jimmidyson/configmap-reload:v0.5.0&quot; in 13.523406715s
+  Normal  Created    4m3s   kubelet            Created container prometheus-server-configmap-reload
+  Normal  Started    4m3s   kubelet            Started container prometheus-server-configmap-reload
+  Normal  Pulling    4m3s   kubelet            Pulling image &quot;quay.io/prometheus/prometheus:v2.26.0&quot;
+  Normal  Pulled     3m12s  kubelet            Successfully pulled image &quot;quay.io/prometheus/prometheus:v2.26.0&quot; in 51.09900272s
+  Normal  Created    3m11s  kubelet            Created container prometheus-server
+  Normal  Started    3m11s  kubelet            Started container prometheus-server
 </code></pre><p>Podemos ver nas linhas <code>Liveness</code> e <code>Readness</code> que o Prometheus está sendo executado na porta 9090/TCP.</p>
 <hr>
 <blockquote>
-<p>OBS.: Para quem está utilizando o kubectl e o helm instalado na sua máquina, pode criar um redirecionamento entre a porta 9090/TCP do pod e a porta 9091/TCP da sua máquina:</p>
+<p><strong>Atenção!!!</strong> Para quem está utilizando o kubectl e o helm instalado na máquina local, pode criar um redirecionamento entre a porta 9090/TCP do pod e a porta 9091/TCP da sua máquina:</p>
 </blockquote>
 <pre><code>kubectl port-forward meu-prometheus-server-5bc59849fd-b29q4 --namespace default 9091:9090
 </code></pre><p>Agora acesse o navegador no endereço <a href="http://localhost:9091" target="_blank">http://localhost:9091</a>. Mágico não é mesmo?</p>
@@ -1713,40 +1641,51 @@ Events:
 <pre><code>kubectl get deployment
 
 NAME                                READY   UP-TO-DATE   AVAILABLE   AGE
-meu-prometheus-alertmanager         1/1     1            1           22m
-meu-prometheus-kube-state-metrics   1/1     1            1           22m
-meu-prometheus-pushgateway          1/1     1            1           22m
-meu-prometheus-server               1/1     1            1           22m
+meu-prometheus-alertmanager         1/1     1            1           5m47s
+meu-prometheus-kube-state-metrics   1/1     1            1           5m47s
+meu-prometheus-pushgateway          1/1     1            1           5m47s
+meu-prometheus-server               1/1     1            1           5m47s
 </code></pre><p>Percebeu? Foi o Helm quem criou os deployments ao instalar a aplicação <code>meu-prometheus</code>.</p>
 <p>Visualize os replicaSet:</p>
 <pre><code>kubectl get replicaset
 
 NAME                                           DESIRED   CURRENT   READY   AGE
-meu-prometheus-alertmanager-8657c8b9b8         1         1         1       25m
-meu-prometheus-kube-state-metrics-6864cf55db   1         1         1       25m
-meu-prometheus-pushgateway-667bdbcc56          1         1         1       25m
-meu-prometheus-server-5bc59849fd               1         1         1       25m
+meu-prometheus-alertmanager-f97fbdd7d          1         1         1       6m9s
+meu-prometheus-kube-state-metrics-6d75d55d9d   1         1         1       6m9s
+meu-prometheus-pushgateway-54cc45bc49          1         1         1       6m9s
+meu-prometheus-server-677777d9dc               1         1         1       6m9s
 </code></pre><p>Visualize o services:</p>
 <pre><code>kubectl get services
 
 NAME                                TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)    AGE
-kubernetes                          ClusterIP   10.96.0.1        &lt;none&gt;        443/TCP    21d
-meu-prometheus-alertmanager         ClusterIP   10.110.143.219   &lt;none&gt;        80/TCP     26m
-meu-prometheus-kube-state-metrics   ClusterIP   10.103.247.154   &lt;none&gt;        8080/TCP   26m
-meu-prometheus-node-exporter        ClusterIP   None             &lt;none&gt;        9100/TCP   26m
-meu-prometheus-pushgateway          ClusterIP   10.102.246.46    &lt;none&gt;        9091/TCP   26m
-meu-prometheus-server               ClusterIP   10.110.177.99    &lt;none&gt;        80/TCP     26m
+kubernetes                          ClusterIP   10.96.0.1        &lt;none&gt;        443/TCP    7m2s
+meu-prometheus-alertmanager         ClusterIP   10.98.31.191     &lt;none&gt;        80/TCP     6m24s
+meu-prometheus-kube-state-metrics   ClusterIP   10.96.213.170    &lt;none&gt;        8080/TCP   6m24s
+meu-prometheus-node-exporter        ClusterIP   None             &lt;none&gt;        9100/TCP   6m24s
+meu-prometheus-pushgateway          ClusterIP   10.101.233.209   &lt;none&gt;        9091/TCP   6m24s
+meu-prometheus-server               ClusterIP   10.110.25.250    &lt;none&gt;        80/TCP     6m24s
 </code></pre><p>O Helm também criou esses objetos no cluster ao instalar a aplicação <code>meu-prometheus</code>.</p>
 <p>Vamos instalar o Grafana usando o Helm. Mas antes vamos visualizar qual a versão do chart mais recente:</p>
 <pre><code>helm search repo grafana
 
-NAME            CHART VERSION   APP VERSION     DESCRIPTION
-stable/grafana  5.1.4           7.0.3           The leading tool for querying and visualizing
+NAME                        CHART VERSION   APP VERSION     DESCRIPTION
+grafana/grafana             6.16.10          8.1.5          The leading tool for querying and visualizing t...
+grafana/enterprise-logs     1.2.0            v1.1.0         Grafana Enterprise Logs                           
+grafana/enterprise-metrics  1.5.3            v1.5.0         Grafana Enterprise Metrics                        
+grafana/fluent-bit          2.3.0            v2.1.0         Uses fluent-bit Loki go plugin for gathering lo...
+grafana/loki                2.6.0            v2.3.0         Loki: like Prometheus, but for logs.              
+grafana/loki-canary         0.4.0            2.3.0          Helm chart for Grafana Loki Canary                
+grafana/loki-distributed    0.37.3           2.3.0          Helm chart for Grafana Loki in microservices mode 
+grafana/loki-stack          2.4.1            v2.1.0         Loki: like Prometheus, but for logs.              
+grafana/promtail            3.8.1            2.3.0          Promtail is an agent which ships the contents o...
+grafana/tempo               0.7.7            1.1.0          Grafana Tempo Single Binary Mode                  
+grafana/tempo-distributed   0.9.15           1.1.0          Grafana Tempo in MicroService mode                
+grafana/tempo-vulture       0.1.0            0.7.0          Grafana Tempo Vulture - A tool to monitor Tempo...
 </code></pre><p>Agora sim, vamos instalar a aplicação <code>meu-grafana</code>:</p>
-<pre><code>helm install meu-grafana --version=5.8.12 grafana/grafana                                                                                                           
+<pre><code>helm install meu-grafana --version=6.16.10 grafana/grafana
 
 NAME: meu-grafana
-LAST DEPLOYED: Sun Oct 25 15:29:12 2020
+LAST DEPLOYED: Tue Sep 28 09:09:48 2021
 NAMESPACE: default
 STATUS: deployed
 REVISION: 1
@@ -1776,9 +1715,9 @@ helm status meu-prometheus
 </code></pre><p>Vamos listar as aplicações instaladas pelo Helm em todos os namespaces:</p>
 <pre><code>helm list --all
 
-NAME            NAMESPACE       REVISION        UPDATED                                 STATUS          CHART                   APP VERSION
-meu-grafana     default         1               2020-10-25 15:29:12.373064176 -0300 -03 deployed        grafana-5.8.12          7.2.1      
-meu-prometheus  default         1               2020-10-25 14:44:57.409281829 -0300 -03 deployed        prometheus-11.16.2      2.21.0
+NAME              NAMESPACE    REVISION    UPDATED                                    STATUS      CHART                APP VERSION
+meu-grafana       default      1           2021-09-28 09:09:48.800781373 -0300 -03    deployed    grafana-6.16.10      8.1.5
+meu-prometheus    default      1           2021-09-28 09:01:26.462915708 -0300 -03    deployed    prometheus-14.8.0    2.26.0
 </code></pre><p>Observe que a coluna <strong>REVISION</strong> mostra a revisão para cada aplicação instalada.</p>
 <p>Vamos remover a aplicação <code>meu-prometheus</code>:</p>
 <pre><code>helm uninstall meu-prometheus --keep-history
@@ -1788,26 +1727,28 @@ meu-prometheus  default         1               2020-10-25 14:44:57.409281829 -0
 <p>Vamos listar novamente as aplicações instaladas pelo Helm em todos os namespaces:</p>
 <pre><code>helm list --all
 
-NAME            NAMESPACE       REVISION        UPDATED                                 STATUS          CHART           APP VERSION
-meu-grafana     default         1               2020-10-25 15:29:12.373064176 -0300 -03 deployed        grafana-5.8.12  7.2.1
-</code></pre><p>Agora vamos fazer o rollback da remoção da aplicação <code>meu-prometheus</code>, informando a <strong>revision 1</strong>:</p>
+NAME              NAMESPACE    REVISION    UPDATED                                    STATUS         CHART                APP VERSION
+meu-grafana       default      1           2021-09-28 09:09:48.800781373 -0300 -03    deployed       grafana-6.16.10      8.1.5
+meu-prometheus    default      1           2021-09-28 09:01:26.462915708 -0300 -03    uninstalled    prometheus-14.8.0    2.26.0
+</code></pre><p>Observe que o status da aplicação <strong>meu-prometheus</strong> é <strong>uninstalled</strong>.</p>
+<p>Agora vamos fazer o rollback da remoção da aplicação <code>meu-prometheus</code>, informando a <strong>revision 1</strong>:</p>
 <pre><code>helm rollback meu-prometheus 1
 
 Rollback was a success! Happy Helming!
 </code></pre><p>Liste as aplicações instaladas pelo Helm em todos os namespaces:</p>
 <pre><code>helm list --all
 
-NAME            NAMESPACE       REVISION        UPDATED                                 STATUS          CHART                   APP VERSION
-meu-grafana     default         1               2020-10-25 15:29:12.373064176 -0300 -03 deployed        grafana-5.8.12          7.2.1      
-meu-prometheus  default         2               2020-10-25 15:38:24.320598236 -0300 -03 deployed        prometheus-11.16.2      2.21.0
+NAME              NAMESPACE    REVISION    UPDATED                                    STATUS      CHART                APP VERSION
+meu-grafana       default      1           2021-09-28 09:09:48.800781373 -0300 -03    deployed    grafana-6.16.10      8.1.5      
+meu-prometheus    default      2           2021-09-28 09:11:57.567890297 -0300 -03    deployed    prometheus-14.8.0    2.26.0
 </code></pre><p>Olha o Prometheus de volta! A <strong>revision</strong> do Prometheus foi incrementada para <strong>2</strong>.</p>
 <p>A revision sempre é incrementada a cada alteração no deploy de uma aplicação. Essa mesma estratégia de rollback pode ser aplicada quando estiver fazendo uma atualização de uma aplicação.</p>
 <p>Vamos visualizar o histórico de mudanças da aplicação <code>meu-prometheus</code>:</p>
 <pre><code>helm history meu-prometheus
 
-REVISION        UPDATED                         STATUS          CHART                   APP VERSION     DESCRIPTION            
-1               Sun Oct 25 15:37:29 2020        uninstalled     prometheus-11.16.2      2.21.0          Uninstallation complete
-2               Sun Oct 25 15:38:24 2020        deployed        prometheus-11.16.2      2.21.0          Rollback to 1
+REVISION    UPDATED                     STATUS         CHART                APP VERSION    DESCRIPTION            
+1           Tue Sep 28 09:01:26 2021    uninstalled    prometheus-14.8.0    2.26.0         Uninstallation complete
+2           Tue Sep 28 09:11:57 2021    deployed       prometheus-14.8.0    2.26.0         Rollback to 1
 </code></pre><p>Se a aplicação for removida sem a opção <code>--keep-history</code>, o histórico será perdido e não será possível fazer rollback.</p>
 <p>Para testar isso, remova as aplicações <code>meu-prometheus</code> e <code>meu-grafana</code> com os seguintes comandos:</p>
 <pre><code>helm uninstall meu-grafana
@@ -1857,7 +1798,7 @@ helm uninstall meu-prometheus
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Descomplicando Kubernetes dia 4","level":"2.4","depth":1,"next":{"title":"Descomplicando Kubernetes dia 5","level":"2.5","depth":1,"path":"day_five/descomplicando_kubernetes.md","ref":"day_five/descomplicando_kubernetes.md","articles":[]},"previous":{"title":"Descomplicando Kubernetes dia 3","level":"2.3","depth":1,"path":"day_three/descomplicando_kubernetes.md","ref":"day_three/descomplicando_kubernetes.md","articles":[]},"dir":"ltr"},"config":{"plugins":[],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"language":"pt","gitbook":"*"},"file":{"path":"day_four/descomplicando_kubernetes.md","mtime":"2021-09-11T14:44:40.326Z","type":"markdown"},"gitbook":{"version":"3.6.20","time":"2021-09-11T14:44:53.274Z"},"basePath":"..","book":{"language":"pt"}});
+            gitbook.page.hasChanged({"page":{"title":"Descomplicando Kubernetes dia 4","level":"2.4","depth":1,"next":{"title":"Descomplicando Kubernetes dia 5","level":"2.5","depth":1,"path":"day_five/descomplicando_kubernetes.md","ref":"day_five/descomplicando_kubernetes.md","articles":[]},"previous":{"title":"Descomplicando Kubernetes dia 3","level":"2.3","depth":1,"path":"day_three/descomplicando_kubernetes.md","ref":"day_three/descomplicando_kubernetes.md","articles":[]},"dir":"ltr"},"config":{"plugins":[],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"language":"pt","gitbook":"*"},"file":{"path":"day_four/descomplicando_kubernetes.md","mtime":"2021-09-29T06:38:48.756Z","type":"markdown"},"gitbook":{"version":"3.6.21","time":"2021-09-29T06:38:59.565Z"},"basePath":"..","book":{"language":"pt"}});
         });
     </script>
 </div>

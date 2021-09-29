@@ -6,7 +6,7 @@
         <title>Descomplicando Kubernetes dia 1 · HonKit</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
-        <meta name="generator" content="HonKit 3.6.20">
+        <meta name="generator" content="HonKit 3.6.21">
         
         
         
@@ -302,6 +302,10 @@
                                 <h1 id="descomplicando-kubernetes-dia-1">Descomplicando Kubernetes dia 1</h1>
 <h2 id="sumário">Sumário</h2>
 <ul>
+<li><a href="#descomplicando-kubernetes-dia-1">Descomplicando Kubernetes dia 1</a><ul>
+<li><a href="#sumário">Sumário</a></li>
+</ul>
+</li>
 <li><a href="#o-quê-preciso-saber-antes-de-começar">O quê preciso saber antes de começar?</a><ul>
 <li><a href="#qual-distro-gnulinux-devo-usar">Qual distro GNU/Linux devo usar?</a></li>
 <li><a href="#alguns-sites-que-devemos-visitar">Alguns sites que devemos visitar</a></li>
@@ -313,11 +317,17 @@
 </ul>
 </li>
 <li><a href="#aviso-sobre-os-comandos">Aviso sobre os comandos</a></li>
+<li><a href="#kubectl">Kubectl</a><ul>
+<li><a href="#instalação-do-kubectl-no-gnulinux">Instalação do Kubectl no GNU/Linux</a></li>
+<li><a href="#instalação-do-kubectl-no-macos">Instalação do Kubectl no MacOS</a></li>
+<li><a href="#instalação-do-kubectl-no-windows">Instalação do Kubectl no Windows</a></li>
+<li><a href="#kubectl-alias-e-autocomplete">kubectl: alias e autocomplete</a></li>
+</ul>
+</li>
 <li><a href="#minikube">Minikube</a><ul>
 <li><a href="#requisitos-básicos">Requisitos básicos</a></li>
 <li><a href="#instalação-do-minikube-no-gnulinux">Instalação do Minikube no GNU/Linux</a></li>
 <li><a href="#instalação-do-minikube-no-macos">Instalação do Minikube no MacOS</a></li>
-<li><a href="#kubectl-alias-e-autocomplete">kubectl: alias e autocomplete</a></li>
 <li><a href="#instalação-do-minikube-no-microsoft-windows">Instalação do Minikube no Microsoft Windows</a></li>
 <li><a href="#iniciando-parando-e-excluindo-o-minikube">Iniciando, parando e excluindo o Minikube</a></li>
 <li><a href="#certo-e-como-eu-sei-que-está-tudo-funcionando-como-deveria">Certo, e como eu sei que está tudo funcionando como deveria?</a></li>
@@ -341,7 +351,7 @@
 <li><a href="#utilizando-microk8s-com-multipass">Utilizando Microk8s com Multipass</a></li>
 </ul>
 </li>
-<li><a href="#instalando-o-microk8s-no-mac">Instalando o Microk8s no Mac</a><ul>
+<li><a href="#instalando-o-microk8s-no-macos">Instalando o Microk8s no MacOS</a><ul>
 <li><a href="#instalando-o-brew">Instalando o Brew</a></li>
 <li><a href="#instalando-o-microk8s-via-brew">Instalando o Microk8s via Brew</a></li>
 </ul>
@@ -411,15 +421,14 @@
 </ul>
 <h2 id="e-o-k8s">E o k8s?</h2>
 <p><strong>Versão resumida:</strong></p>
-<p>O projeto Kubernetes foi desenvolvido pela Google, em meados de 2014, para atuar como um orquestrador de contêineres para a empresa. O Kubernetes (k8s), cujo termo em Grego significa &quot;timoneiro&quot;, é um projeto <em>opensource</em> que conta com <em>design</em> e desenvolvimento baseados no projeto Borg, que também é da Google <a href="https://kubernetes.io/blog/2015/04/borg-predecessor-to-kubernetes/" target="_blank">1</a>. Alguns outros produtos disponíveis no mercado, tais como o Apache Mesos e o Cloud Foundry, também surgiram a partir do projeto Borg.</p>
+<p>O projeto Kubernetes foi desenvolvido pela Google, em meados de 2014, para atuar como um orquestrador de contêineres para a empresa. O Kubernetes (k8s), cujo termo em Grego significa &quot;timoneiro&quot;, é um projeto <em>open source</em> que conta com <em>design</em> e desenvolvimento baseados no projeto Borg, que também é da Google <a href="https://kubernetes.io/blog/2015/04/borg-predecessor-to-kubernetes/" target="_blank">1</a>. Alguns outros produtos disponíveis no mercado, tais como o Apache Mesos e o Cloud Foundry, também surgiram a partir do projeto Borg.</p>
 <p>Como Kubernetes é uma palavra difícil de se pronunciar - e de se escrever - a comunidade simplesmente o apelidou de <strong>k8s</strong>, seguindo o padrão <a href="http://www.i18nguy.com/origini18n.html" target="_blank">i18n</a> (a letra &quot;k&quot; seguida por oito letras e o &quot;s&quot; no final), pronunciando-se simplesmente &quot;kates&quot;.</p>
 <p><strong>Versão longa:</strong></p>
 <p>Praticamente todo software desenvolvido na Google é executado em contêiner <a href="https://www.enterpriseai.news/2014/05/28/google-runs-software-containers/" target="_blank">2</a>. A Google já gerencia contêineres em larga escala há mais de uma década, quando não se falava tanto sobre isso. Para atender a demanda interna, alguns desenvolvedores do Google construíram três sistemas diferentes de gerenciamento de contêineres: <strong>Borg</strong>, <strong>Omega</strong> e <strong>Kubernetes</strong>. Cada sistema teve o desenvolvimento bastante influenciado pelo antecessor, embora fosse desenvolvido por diferentes razões.</p>
 <p>O primeiro sistema de gerenciamento de contêineres desenvolvido no Google foi o Borg, construído para gerenciar serviços de longa duração e jobs em lote, que anteriormente eram tratados por dois sistemas:  <strong>Babysitter</strong> e <strong>Global Work Queue</strong>. O último influenciou fortemente a arquitetura do Borg, mas estava focado em execução de jobs em lote. O Borg continua sendo o principal sistema de gerenciamento de contêineres dentro do Google por causa de sua escala, variedade de recursos e robustez extrema.</p>
 <p>O segundo sistema foi o Omega, descendente do Borg. Ele foi impulsionado pelo desejo de melhorar a engenharia de software do ecossistema Borg. Esse sistema aplicou muitos dos padrões que tiveram sucesso no Borg, mas foi construído do zero para ter a arquitetura mais consistente. Muitas das inovações do Omega foram posteriormente incorporadas ao Borg.</p>
 <p>O terceiro sistema foi o Kubernetes. Concebido e desenvolvido em um mundo onde desenvolvedores externos estavam se interessando em contêineres e o Google desenvolveu um negócio em amplo crescimento atualmente, que é a venda de infraestrutura de nuvem pública.</p>
-<p>O Kubernetes é de código aberto - em contraste com o Borg e o Omega que foram desenvolvidos como sistemas puramente internos do Google.
-O Kubernetes foi desenvolvido com um foco mais forte na experiência de desenvolvedores que escrevem aplicativos que são executados em um cluster: seu principal objetivo é facilitar a implantação e o gerenciamento de sistemas distribuídos, enquanto se beneficia do melhor uso de recursos de memória e processamento que os contêineres possibilitam.</p>
+<p>O Kubernetes é de código aberto - em contraste com o Borg e o Omega que foram desenvolvidos como sistemas puramente internos do Google. O Kubernetes foi desenvolvido com um foco mais forte na experiência de desenvolvedores que escrevem aplicativos que são executados em um cluster: seu principal objetivo é facilitar a implantação e o gerenciamento de sistemas distribuídos, enquanto se beneficia do melhor uso de recursos de memória e processamento que os contêineres possibilitam.</p>
 <p>Estas informações foram extraídas e adaptadas deste <a href="https://static.googleusercontent.com/media/research.google.com/pt-BR//pubs/archive/44843.pdf" target="_blank">artigo</a>, que descreve as lições aprendidas com o desenvolvimento e operação desses sistemas.</p>
 <h2 id="arquitetura-do-k8s">Arquitetura do k8s</h2>
 <p>Assim como os demais orquestradores disponíveis, o k8s também segue um modelo <em>master/worker</em>, constituindo assim um <em>cluster</em>, onde para seu funcionamento devem existir no mínimo três nós: o nó <em>master</em>, responsável (por padrão) pelo gerenciamento do <em>cluster</em>, e os demais como <em>workers</em>, executores das aplicações que queremos executar sobre esse <em>cluster</em>.</p>
@@ -429,9 +438,11 @@ O Kubernetes foi desenvolvido com um foco mais forte na experiência de desenvol
 </li>
 <li><p><a href="https://github.com/kubernetes/minikube" target="_blank">Minikube</a>: ferramenta para implementar um <em>cluster</em> Kubernetes localmente com apenas um nó. Muito utilizado para fins didáticos, de desenvolvimento e testes. O <strong>Minikube não deve ser utilizado para produção</strong>;</p>
 </li>
-<li><p><a href="https://microk8s.io" target="_blank">MicroK8S</a>: Desenvolvido pela <a href="https://canonical.com" target="_blank">Canonical</a>, mesma empresa que desenvolve o <a href="https://ubuntu.com" target="_blank">Ubuntu</a>. Pode ser utilizado em diversas distribuições e <strong>pode ser utilizada para ambientes de produção</strong>, em especial para <em>Edge Computing</em> e IoT (<em>Internet of things</em>);</p>
+<li><p><a href="https://microk8s.io" target="_blank">MicroK8S</a>: Desenvolvido pela <a href="https://canonical.com" target="_blank">Canonical</a>, mesma empresa que desenvolve o <a href="https://ubuntu.com" target="_blank">Ubuntu</a>. Pode ser utilizado em diversas distribuições e <strong>pode ser utilizado em ambientes de produção</strong>, em especial para <em>Edge Computing</em> e IoT (<em>Internet of things</em>);</p>
 </li>
 <li><p><a href="https://k3s.io" target="_blank">k3s</a>: Desenvolvido pela <a href="https://rancher.com" target="_blank">Rancher Labs</a>, é um concorrente direto do MicroK8s, podendo ser executado inclusive em Raspberry Pi.</p>
+</li>
+<li><p><a href="https://k0sproject.io" target="_blank">k0s</a>: Desenvolvido pela <a href="https://www.mirantis.com" target="_blank">Mirantis</a>, mesma empresa que adquiriu a parte enterprise do <a href="https://www.docker.com" target="_blank">Docker</a>. É uma distribuição do Kubernetes com todos os recursos necessários para funcionar em um único binário, que proporciona uma simplicidade na instalação e manutenção do cluster. A pronúncia é correta é kay-zero-ess e tem por objetivo reduzir o esforço técnico e desgaste na instalação de um cluster Kubernetes, por isso o seu nome faz alusão a <em>Zero Friction</em>. <strong>O k0s pode ser utilizado em ambientes de produção</strong></p>
 </li>
 </ul>
 <p>A figura a seguir mostra a arquitetura interna de componentes do k8s.</p>
@@ -563,7 +574,7 @@ O Kubernetes foi desenvolvido com um foco mais forte na experiência de desenvol
 </ul>
 <h1 id="aviso-sobre-os-comandos">Aviso sobre os comandos</h1>
 <blockquote>
-<p>Atenção!!! Antes de cada comando é apresentado o tipo prompt. Exemplos:</p>
+<p><strong>Atenção!!!</strong> Antes de cada comando é apresentado o tipo prompt. Exemplos:</p>
 </blockquote>
 <pre><code>$ comando1
 </code></pre><pre><code># comando2
@@ -572,19 +583,9 @@ O Kubernetes foi desenvolvido com um foco mais forte na experiência de desenvol
 <p>O prompt que inicia com o caractere &quot;#&quot;, indica que o comando deve ser executado com o usuário <strong>root</strong>.</p>
 <p>Você não deve copiar/colar o prompt, apenas o comando. :-)</p>
 </blockquote>
-<h1 id="minikube">Minikube</h1>
-<h2 id="requisitos-básicos">Requisitos básicos</h2>
-<p>É importante frisar que o Minikube deve ser instalado localmente, e não em um <em>cloud provider</em>. Por isso, as especificações de <em>hardware</em> a seguir são referentes à máquina local.</p>
-<ul>
-<li>Processamento: 1 core;</li>
-<li>Memória: 2 GB;</li>
-<li>HD: 20 GB.</li>
-</ul>
-<h2 id="instalação-do-minikube-no-gnulinux">Instalação do Minikube no GNU/Linux</h2>
-<p>Antes de mais nada, verifique se a sua máquina suporta virtualização. No GNU/Linux, isto pode ser realizado com:</p>
-<pre><code>grep -E --color &apos;vmx|svm&apos; /proc/cpuinfo
-</code></pre><p>Caso a saída do comando não seja vazia, o resultado é positivo.</p>
-<p>Após isso, vamos instalar o <code>kubectl</code> com os seguintes comandos.</p>
+<h1 id="kubectl">Kubectl</h1>
+<h2 id="instalação-do-kubectl-no-gnulinux">Instalação do Kubectl no GNU/Linux</h2>
+<p>Vamos instalar o <code>kubectl</code> com os seguintes comandos.</p>
 <pre><code>curl -LO https://storage.googleapis.com/kubernetes-release/release/`curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt`/bin/linux/amd64/kubectl
 
 chmod +x ./kubectl
@@ -592,19 +593,7 @@ chmod +x ./kubectl
 sudo mv ./kubectl /usr/local/bin/kubectl
 
 kubectl version --client
-</code></pre><p>Há a possibilidade de não utilizar um <em>hypervisor</em> para a instalação do Minikube, executando-o ao invés disso sobre o próprio host. Iremos utilizar o Oracle VirtualBox como <em>hypervisor</em>, que pode ser encontrado <a href="https://www.virtualbox.org" target="_blank">aqui</a>.</p>
-<p>Efetue o download e a instalação do <code>Minikube</code> utilizando os seguintes comandos.</p>
-<pre><code>curl -Lo minikube https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
-
-chmod +x ./minikube
-
-sudo mv ./minikube /usr/local/bin/minikube
-
-minikube version
-</code></pre><h2 id="instalação-do-minikube-no-macos">Instalação do Minikube no MacOS</h2>
-<p>No MacOS, o comando para verificar se o processador suporta virtualização é:</p>
-<pre><code>sysctl -a | grep -E --color &apos;machdep.cpu.features|VMX&apos;
-</code></pre><p>Se você visualizar <code>VMX</code> na saída, o resultado é positivo.</p>
+</code></pre><h2 id="instalação-do-kubectl-no-macos">Instalação do Kubectl no MacOS</h2>
 <p>O <code>kubectl</code> pode ser instalado no MacOS utilizando tanto o <a href="https://brew.sh" target="_blank">Homebrew</a>, quanto o método tradicional. Com o Homebrew já instalado, o kubectl pode ser instalado da seguinte forma.</p>
 <pre><code>sudo brew install kubectl
 
@@ -621,19 +610,10 @@ chmod +x ./kubectl
 sudo mv ./kubectl /usr/local/bin/kubectl
 
 kubectl version --client
-</code></pre><p>Por fim, efetue a instalação do Minikube com um dos dois métodos a seguir, podendo optar-se pelo Homebrew ou pelo método tradicional.</p>
-<pre><code>sudo brew install minikube
-
-minikube version
-</code></pre><p>Ou:</p>
-<pre><code>curl -Lo minikube https://storage.googleapis.com/minikube/releases/latest/minikube-darwin-amd64
-
-chmod +x ./minikube
-
-sudo mv ./minikube /usr/local/bin/minikube
-
-minikube version
-</code></pre><h2 id="kubectl-alias-e-autocomplete">kubectl: alias e autocomplete</h2>
+</code></pre><h2 id="instalação-do-kubectl-no-windows">Instalação do Kubectl no Windows</h2>
+<p>A instalação do <code>kubectl</code> pode ser realizada efetuando o download <a href="https://dl.k8s.io/release/v1.22.0/bin/windows/amd64/kubectl.exe" target="_blank">neste link</a>. </p>
+<p>Outras informações sobre como instalar o kubectl no Windows podem ser encontradas <a href="https://kubernetes.io/docs/tasks/tools/install-kubectl-windows/" target="_blank">nesta página</a>.</p>
+<h2 id="kubectl-alias-e-autocomplete">kubectl: alias e autocomplete</h2>
 <p>Execute o seguinte comando para configurar o alias e autocomplete para o <code>kubectl</code>.</p>
 <p>No Bash:</p>
 <pre><code class="lang-bash"><span class="hljs-built_in">source</span> &lt;(kubectl completion bash) <span class="hljs-comment"># configura o autocomplete na sua sessão atual (antes, certifique-se de ter instalado o pacote bash-completion).</span>
@@ -648,6 +628,43 @@ complete -F __start_kubectl k
 <pre><code>source &lt;(kubectl completion zsh)
 
 echo &quot;[[ $commands[kubectl] ]] &amp;&amp; source &lt;(kubectl completion zsh)&quot;
+</code></pre><h1 id="minikube">Minikube</h1>
+<h2 id="requisitos-básicos">Requisitos básicos</h2>
+<p>É importante frisar que o Minikube deve ser instalado localmente, e não em um <em>cloud provider</em>. Por isso, as especificações de <em>hardware</em> a seguir são referentes à máquina local.</p>
+<ul>
+<li>Processamento: 1 core;</li>
+<li>Memória: 2 GB;</li>
+<li>HD: 20 GB.</li>
+</ul>
+<h2 id="instalação-do-minikube-no-gnulinux">Instalação do Minikube no GNU/Linux</h2>
+<p>Antes de mais nada, verifique se a sua máquina suporta virtualização. No GNU/Linux, isto pode ser realizado com o seguinte comando:</p>
+<pre><code>grep -E --color &apos;vmx|svm&apos; /proc/cpuinfo
+</code></pre><p>Caso a saída do comando não seja vazia, o resultado é positivo.</p>
+<p>Há a possibilidade de não utilizar um <em>hypervisor</em> para a instalação do Minikube, executando-o ao invés disso sobre o próprio host. Iremos utilizar o Oracle VirtualBox como <em>hypervisor</em>, que pode ser encontrado <a href="https://www.virtualbox.org" target="_blank">aqui</a>.</p>
+<p>Efetue o download e a instalação do <code>Minikube</code> utilizando os seguintes comandos.</p>
+<pre><code>curl -Lo minikube https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
+
+chmod +x ./minikube
+
+sudo mv ./minikube /usr/local/bin/minikube
+
+minikube version
+</code></pre><h2 id="instalação-do-minikube-no-macos">Instalação do Minikube no MacOS</h2>
+<p>No MacOS, o comando para verificar se o processador suporta virtualização é:</p>
+<pre><code>sysctl -a | grep -E --color &apos;machdep.cpu.features|VMX&apos;
+</code></pre><p>Se você visualizar <code>VMX</code> na saída, o resultado é positivo.</p>
+<p>Efetue a instalação do Minikube com um dos dois métodos a seguir, podendo optar-se pelo Homebrew ou pelo método tradicional.</p>
+<pre><code>sudo brew install minikube
+
+minikube version
+</code></pre><p>Ou:</p>
+<pre><code>curl -Lo minikube https://storage.googleapis.com/minikube/releases/latest/minikube-darwin-amd64
+
+chmod +x ./minikube
+
+sudo mv ./minikube /usr/local/bin/minikube
+
+minikube version
 </code></pre><h2 id="instalação-do-minikube-no-microsoft-windows">Instalação do Minikube no Microsoft Windows</h2>
 <p>No Microsoft Windows, você deve executar o comando <code>systeminfo</code> no prompt de comando ou no terminal. Caso o retorno deste comando seja semelhante com o descrito a seguir, então a virtualização é suportada.</p>
 <pre><code>Hyper-V Requirements:     VM Monitor Mode Extensions: Yes
@@ -656,7 +673,7 @@ echo &quot;[[ $commands[kubectl] ]] &amp;&amp; source &lt;(kubectl completion zs
                           Data Execution Prevention Available: Yes
 </code></pre><p>Caso a linha a seguir também esteja presente, não é necessária a instalação de um <em>hypervisor</em> como o Oracle VirtualBox:</p>
 <pre><code>Hyper-V Requirements:     A hypervisor has been detected. Features required for Hyper-V will not be displayed.:     A hypervisor has been detected. Features required for Hyper-V will not be displayed.
-</code></pre><p>A instalação do <code>kubectl</code> pode ser realizada efetuando o download <a href="https://storage.googleapis.com/kubernetes-release/release/v1.19.1/bin/windows/amd64/kubectl.exe" target="_blank">neste link</a>. Feito isso, também deve ser realizado download e a instalação de um <em>hypervisor</em> (preferencialmente o <a href="https://www.virtualbox.org" target="_blank">Oracle VirtualBox</a>), caso no passo anterior não tenha sido acusada a presença de um. Finalmente, efetue o download do instalador do Minikube <a href="https://github.com/kubernetes/minikube/releases/latest" target="_blank">aqui</a> e execute-o.</p>
+</code></pre><p>Faça o download e a instalação de um <em>hypervisor</em> (preferencialmente o <a href="https://www.virtualbox.org" target="_blank">Oracle VirtualBox</a>), caso no passo anterior não tenha sido acusada a presença de um. Finalmente, efetue o download do instalador do Minikube <a href="https://github.com/kubernetes/minikube/releases/latest" target="_blank">aqui</a> e execute-o.</p>
 <h2 id="iniciando-parando-e-excluindo-o-minikube">Iniciando, parando e excluindo o Minikube</h2>
 <p>Quando operando em conjunto com um <em>hypervisor</em>, o Minikube cria uma máquina virtual, onde dentro dela estarão todos os componentes do k8s para execução. Para realizar a inicialização desse ambiente, antes de executar o minikube, precisamos setar o VirtualBox como padrão para subir este ambiente, para que isso aconteça execute o comando:</p>
 <pre><code>minikube config set driver virtualbox
@@ -721,8 +738,8 @@ multinode-demo-m02   Ready     &lt;none&gt;    4m        v1.19.1
 </ul>
 <h2 id="instalação-do-microk8s-no-gnulinux">Instalação do MicroK8s no GNU/Linux</h2>
 <h3 id="versões-que-suportam-snap">Versões que suportam Snap</h3>
-<p>BASH:</p>
-<pre><code>sudo snap install microk8s --classic --channel=1.18/stable
+<p>Execute os seguintes comandos para instalar o <code>microk8s</code>:</p>
+<pre><code>sudo snap install microk8s --classic --channel=1.22/stable
 
 sudo usermod -a -G microk8s $USER
 
@@ -738,13 +755,21 @@ alias kubectl=&apos;microk8s kubectl&apos;
 <p>Também será necessário a instalação por meio de um administrador de pacotes do Windows, o <a href="https://chocolatey.org/install" target="_blank">Chocolatey
 </a></p>
 <h3 id="instalando-o-chocolatey">Instalando o Chocolatey</h3>
-<p>PowerShell Admin:</p>
+<p>Acesse o <strong>PowerShell com permissão de Admin</strong>, e execute o seguinte comando para instalar o <code>chocolatey</code>:</p>
 <pre><code>Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString(&apos;https://chocolatey.org/install.ps1&apos;))
-</code></pre><h4 id="instalando-o-multipass">Instalando o Multipass</h4>
-<p>PowerShell Admin:</p>
+</code></pre><blockquote>
+<p><strong>Atenção!!!</strong> Para acessar o PowerShell com permissão de Admin, siga as instruções apresentadas em um dos seguintes links:</p>
+</blockquote>
+<ul>
+<li><a href="https://itectec.com/superuser/windows-open-windows-terminal-as-admin-with-winr/" target="_blank">https://itectec.com/superuser/windows-open-windows-terminal-as-admin-with-winr/</a></li>
+<li><a href="https://superuser.com/questions/1560049/open-windows-terminal-as-admin-with-winr" target="_blank">https://superuser.com/questions/1560049/open-windows-terminal-as-admin-with-winr</a></li>
+<li><a href="https://www.thewindowsclub.com/how-to-open-windows-terminal-as-administrator-in-windows-11*" target="_blank">https://www.thewindowsclub.com/how-to-open-windows-terminal-as-administrator-in-windows-11*</a> </li>
+</ul>
+<h4 id="instalando-o-multipass">Instalando o Multipass</h4>
+<p>Acesse o <strong>PowerShell com permissão de Admin</strong>, e execute o seguinte comando para instalar o <code>multipass</code>:</p>
 <pre><code>choco install multipass
 </code></pre><h3 id="utilizando-microk8s-com-multipass">Utilizando Microk8s com Multipass</h3>
-<p>PowerShell Admin:</p>
+<p>Acesse o <strong>PowerShell com permissão de Admin</strong>, e execute os seguintes comandos para executar o <code>microk8s</code> com o <code>multipass</code>:</p>
 <pre><code>multipass launch --name microk8s-vm --mem 4G --disk 40G
 
 multipass exec microk8s-vm -- snap install microk8s --classic
@@ -758,29 +783,27 @@ microk8s-vm             RUNNING           10.72.145.216    Ubuntu 18.04 LTS
 
 multipass shell microk8s-vm
 </code></pre><p>Se quiser utilizar o Microk8s sem utilizar um shell criado pelo multipass utilize a seguinte expressão.</p>
-<p>PowerShell Admin:</p>
+<p>Acesse o <strong>PowerShell com permissão de Admin</strong>, e execute o seguinte comando:</p>
 <pre><code>multipass exec microk8s-vm -- /snap/bin/microk8s.&lt;command&gt;
-</code></pre><h2 id="instalando-o-microk8s-no-mac">Instalando o Microk8s no Mac</h2>
+</code></pre><h2 id="instalando-o-microk8s-no-macos">Instalando o Microk8s no MacOS</h2>
 <p>Utilizando o gerenciador de pacotes do Mac <code>Brew</code>:</p>
 <h3 id="instalando-o-brew">Instalando o Brew</h3>
-<p>Se não tiver o <code>brew</code> instalado em sua máquina siga os passos a seguir. Caso já o possua, vá para o passo dois dessa seção.</p>
-<p>BASH:</p>
+<p>Se não tiver o <code>brew</code> instalado em sua máquina execute o seguinte comando. Caso já o possua, vá para a seção seguinte.</p>
 <pre><code>/bin/bash -c &quot;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)&quot;
 </code></pre><h3 id="instalando-o-microk8s-via-brew">Instalando o Microk8s via Brew</h3>
-<p>BASH:</p>
+<p>Execute os seguintes comandos para instalar o <code>microk8s</code> via <code>brew</code>.</p>
 <pre><code>sudo brew install ubuntu/microk8s/microk8s
 
 sudo microk8s install
 
 sudo microk8s kubectl get all --all-namespaces
 </code></pre><p>Espere até que a configuração do microk8s esteja pronta para ser utilizada.</p>
-<p>BASH:</p>
+<p>Para verificar a instalação, execute o seguinte comando:</p>
 <pre><code>microk8s status --wait-ready
 </code></pre><p>Assim que o comentário: <code>microk8s is running</code> for exibido, execute o seguinte comando.</p>
-<p>BASH:</p>
 <pre><code>microk8s kubectl &lt;command&gt;
 </code></pre><h1 id="kind">Kind</h1>
-<p>O Kind (Kubernetes in Docker) é outra alternativa para executar o Kubernetes num ambiente local para testes e aprendizado, mas não é recomendado para uso em produção.</p>
+<p>O Kind (<em>Kubernetes in Docker</em>) é outra alternativa para executar o Kubernetes num ambiente local para testes e aprendizado, mas não é recomendado para uso em produção.</p>
 <h2 id="instalação-no-gnulinux">Instalação no GNU/Linux</h2>
 <p>Para fazer a instalação no GNU/Linux, execute os seguintes comandos.</p>
 <pre><code>curl -Lo ./kind https://kind.sigs.k8s.io/dl/v0.11.1/kind-linux-amd64
@@ -794,12 +817,12 @@ sudo mv ./kind /usr/local/bin/kind
 </code></pre><p>ou</p>
 <pre><code>curl -Lo ./kind https://kind.sigs.k8s.io/dl/v0.11.1/kind-darwin-amd64
 chmod +x ./kind
-mv ./kind /some-dir-in-your-PATH/kind
+mv ./kind /usr/bin/kind
 </code></pre><h2 id="instalação-no-windows">Instalação no Windows</h2>
 <p>Para fazer a instalação no Windows, execute os seguintes comandos.</p>
 <pre><code>curl.exe -Lo kind-windows-amd64.exe https://kind.sigs.k8s.io/dl/v0.11.1/kind-windows-amd64
 
-Move-Item .\kind-windows-amd64.exe c:\some-dir-in-your-PATH\kind.exe
+Move-Item .\kind-windows-amd64.exe c:\kind.exe
 </code></pre><h3 id="instalação-no-windows-via-chocolatey">Instalação no Windows via <a href="https://chocolatey.org/install" target="_blank">Chocolatey</a></h3>
 <p>Execute o seguinte comando para instalar o Kind no Windows usando o Chocolatey.</p>
 <pre><code>choco install kind
@@ -1049,7 +1072,7 @@ ip_vs_sh
 ip_vs_wrr
 nf_conntrack_ipv4
 </code></pre><h2 id="atualização-da-distribuição">Atualização da distribuição</h2>
-<p>Em distribuições Debian e baseadas, como o Ubuntu, execute o comando a seguir, em cada um de seus nós, para executar atualização do sistema.</p>
+<p>Em distribuições Debian e baseadas, como o Ubuntu, execute os comandos a seguir, em cada um de seus nós, para executar atualização do sistema.</p>
 <pre><code>sudo apt update
 
 sudo apt upgrade -y
@@ -1155,7 +1178,7 @@ kubeadm join --token 39c341.a3bc3c4dd49758d5 IP_DO_MASTER:6443 --discovery-token
 <pre><code>kubectl describe node elliot-1 | grep InternalIP
 </code></pre><p>A saída será algo similar a seguir:</p>
 <pre><code>InternalIP:  192.168.99.2
-</code></pre><p>Caso o Ip não corresponda ao da interface de rede escolhida, você pode ir até o arquivo localizado em <em>/etc/systemd/system/kubelet.service.d/10-kubeadm.conf</em> com o editor da sua preferência, procurar por <em>KUBELET_CONFIG_ARGS</em> e adicionar no final a instrução --node-ip=<ip da sua preferência>. O trecho alterado será semelhante abaixo:</ip></p>
+</code></pre><p>Caso o IP não corresponda ao da interface de rede escolhida, você pode ir até o arquivo localizado em <em>/etc/systemd/system/kubelet.service.d/10-kubeadm.conf</em> com o editor da sua preferência, procure por <em>KUBELET_CONFIG_ARGS</em> e adicione no final a instrução --node-ip=<ip da sua preferência>. O trecho alterado será semelhante a esse:</ip></p>
 <pre><code>Environment=&quot;KUBELET_CONFIG_ARGS=--config=/var/lib/kubelet/config.yaml --node-ip=192.168.99.2&quot;
 </code></pre><p>Salve o arquivo e execute os comandos abaixo para reiniciar a configuração e consequentemente o kubelet.</p>
 <pre><code>sudo systemctl daemon-reload
@@ -1564,7 +1587,7 @@ See &apos;kubectl expose -h&apos; for help and examples
 <span class="hljs-string">...</span>
 </code></pre>
 <blockquote>
-<p>Atenção!!! Arquivos YAML utilizam para sua tabulação dois espaços e não <em>tab</em>.</p>
+<p><strong>Atenção!!!</strong> Arquivos YAML utilizam para sua tabulação dois espaços e não <em>tab</em>.</p>
 </blockquote>
 <p>Feita a modificação no arquivo, salve-o e crie novamente o <em>pod</em> com o comando a seguir.</p>
 <pre><code>kubectl create -f meu-primeiro.yaml
@@ -1667,7 +1690,7 @@ kubectl delete service nginx
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Descomplicando Kubernetes dia 1","level":"2.1","depth":1,"next":{"title":"Descomplicando Kubernetes dia 2","level":"2.2","depth":1,"path":"day_two/descomplicando_kubernetes.md","ref":"day_two/descomplicando_kubernetes.md","articles":[]},"previous":{"title":"Introdução","level":"1.1","depth":1,"path":"README.md","ref":"README.md","articles":[]},"dir":"ltr"},"config":{"plugins":[],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"language":"pt","gitbook":"*"},"file":{"path":"day_one/descomplicando_kubernetes.md","mtime":"2021-09-11T14:44:40.326Z","type":"markdown"},"gitbook":{"version":"3.6.20","time":"2021-09-11T14:44:53.274Z"},"basePath":"..","book":{"language":"pt"}});
+            gitbook.page.hasChanged({"page":{"title":"Descomplicando Kubernetes dia 1","level":"2.1","depth":1,"next":{"title":"Descomplicando Kubernetes dia 2","level":"2.2","depth":1,"path":"day_two/descomplicando_kubernetes.md","ref":"day_two/descomplicando_kubernetes.md","articles":[]},"previous":{"title":"Introdução","level":"1.1","depth":1,"path":"README.md","ref":"README.md","articles":[]},"dir":"ltr"},"config":{"plugins":[],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"language":"pt","gitbook":"*"},"file":{"path":"day_one/descomplicando_kubernetes.md","mtime":"2021-09-29T06:38:48.756Z","type":"markdown"},"gitbook":{"version":"3.6.21","time":"2021-09-29T06:38:59.565Z"},"basePath":"..","book":{"language":"pt"}});
         });
     </script>
 </div>

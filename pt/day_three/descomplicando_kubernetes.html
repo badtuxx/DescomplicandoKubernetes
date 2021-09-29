@@ -6,7 +6,7 @@
         <title>Descomplicando Kubernetes dia 3 · HonKit</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
-        <meta name="generator" content="HonKit 3.6.20">
+        <meta name="generator" content="HonKit 3.6.21">
         
         
         
@@ -302,6 +302,10 @@
                                 <h1 id="descomplicando-kubernetes-dia-3">Descomplicando Kubernetes dia 3</h1>
 <h2 id="sumário">Sumário</h2>
 <ul>
+<li><a href="#descomplicando-kubernetes-dia-3">Descomplicando Kubernetes dia 3</a><ul>
+<li><a href="#sumário">Sumário</a></li>
+</ul>
+</li>
 <li><a href="#deployments">Deployments</a><ul>
 <li><a href="#filtrando-por-labels">Filtrando por Labels</a></li>
 <li><a href="#node-selector">Node Selector</a></li>
@@ -314,11 +318,11 @@
 </ul>
 <h1 id="deployments">Deployments</h1>
 <p>O <strong>Deployment</strong> é um recurso com a responsabilidade de instruir o Kubernetes a criar, atualizar e monitorar a saúde das instâncias de suas aplicações.</p>
-<p>Um Deployment é o responsável por gerenciar o seu <strong>ReplicaSet</strong> (que iremos falar logo menos), ou seja, o Deployment é quem vai determinar a configuração de sua aplicação e como ela será implementada. O Deployment é o controller que irá cuidar, por exemplo, uma instância de sua aplicação por algum motivo for interrompida. O Deployment controller irá identificar o problema com a instância e irá criar uma nova em seu lugar.</p>
-<p>Quando você utiliza o <code>kubectl create deployment</code>, você está realizando o deploy de um objeto chamado Deployment. Como outros objetos, o Deployment também pode ser criado através de um arquivo YAML ou de um JSON, conhecidos por manifestos.</p>
+<p>Um Deployment é o responsável por gerenciar o seu <strong>ReplicaSet</strong> (que iremos falar logo menos), ou seja, o Deployment é quem vai determinar a configuração de sua aplicação e como ela será implementada. O Deployment é o <strong>controller</strong> que irá cuidar, por exemplo, uma instância de sua aplicação por algum motivo for interrompida. O <strong>Deployment controller</strong> irá identificar o problema com a instância e irá criar uma nova em seu lugar.</p>
+<p>Quando você utiliza o <code>kubectl create deployment</code>, você está realizando o deploy de um objeto chamado <strong>Deployment</strong>. Como outros objetos, o Deployment também pode ser criado através de um arquivo <a href="https://en.wikipedia.org/wiki/YAML" target="_blank">YAML</a> ou de um <a href="https://www.json.org/json-en.html" target="_blank">JSON</a>, conhecidos por <strong>manifestos</strong>.</p>
 <p>Se você deseja alterar alguma configuração de seus objetos, como o pod, você pode utilizar o <code>kubectl apply</code>, através de um manifesto, ou ainda através do <code>kubectl edit</code>. Normalmente, quando você faz uma alteração em seu Deployment, é criado uma nova versão do ReplicaSet, esse se tornando o ativo e fazendo com que seu antecessor seja desativado. As versões anteriores dos ReplicaSets são mantidas, possibilitando o <em>rollback</em> em caso de falhas.</p>
 <p>As <strong>labels</strong> são importantes para o gerenciamento do cluster, pois com elas é possível buscar ou selecionar recursos em seu cluster, fazendo com que você consiga organizar em pequenas categorias, facilitando assim a sua busca e organizando seus pods e seus recursos do cluster. As labels não são recursos do API server, elas são armazenadas no metadata em formato chave-valor.</p>
-<p>Antes nos tínhamos somente o RC, <em>Replication Controller</em>, que era um controle sobre o número de réplicas que determinado pod estava executando, o problema é que todo esse gerenciamento era feito do lado do client. Para solucionar esse problema, foi adicionado o objeto Deployment, que permite a atualização pelo lado do server. <strong>Deployments</strong> geram <strong>ReplicaSets</strong>, que oferecerem melhores opções do que o <strong>ReplicationController</strong>, e por esse motivo está sendo substituído.</p>
+<p>Antes nos tínhamos somente o RC, <em>Replication Controller</em>, que era um controle sobre o número de réplicas que determinado pod estava executando, o problema é que todo esse gerenciamento era feito do lado do <em>client</em>. Para solucionar esse problema, foi adicionado o objeto Deployment, que permite a atualização pelo lado do <em>server</em>. <strong>Deployments</strong> geram <strong>ReplicaSets</strong>, que oferecerem melhores opções do que o <strong>ReplicationController</strong>, e por esse motivo está sendo substituído.</p>
 <p>Podemos criar nossos deployments a partir do template:</p>
 <pre><code>kubectl create deployment --dry-run=client -o yaml --image=nginx nginx-template &gt; primeiro-deployment-template.yaml
 kubectl create -f primeiro-deployment-template.yaml
@@ -596,14 +600,15 @@ Events:
   Normal  ScalingReplicaSet  3m    deployment-controller  Scaled up replica set segundo-deployment-59db86c584 to 1
 </code></pre><h2 id="filtrando-por-labels">Filtrando por Labels</h2>
 <p>Quando criamos nossos Deployments adicionamos as seguintes labels:</p>
-<pre><code>  labels:
-    run: nginx
-    dc: UK
----
-  labels:
-    run: nginx
-    dc: Netherlands
-</code></pre><p>As Labels são utilizadas para a organização do cluster, vamos listar nossos pods procurando pelas Labels.</p>
+<pre><code class="lang-yaml">  <span class="hljs-attr">labels:</span>
+    <span class="hljs-attr">run:</span> <span class="hljs-string">nginx</span>
+    <span class="hljs-attr">dc:</span> <span class="hljs-string">UK</span>
+<span class="hljs-meta">---</span>
+  <span class="hljs-attr">labels:</span>
+    <span class="hljs-attr">run:</span> <span class="hljs-string">nginx</span>
+    <span class="hljs-attr">dc:</span> <span class="hljs-string">Netherlands</span>
+</code></pre>
+<p>As Labels são utilizadas para a organização do cluster, vamos listar nossos pods procurando pelas Labels.</p>
 <p>Primeiro vamos realizar uma pesquisa utilizando as labels <code>dc=UK</code> e <code>dc=Netherlands</code>:</p>
 <p>Pesquisando pela label <code>UK</code>:</p>
 <pre><code>kubectl get pods -l dc=UK
@@ -1176,7 +1181,7 @@ daemonset.extensions/daemon-set-primeiro rolled back
 </code></pre><p>Perceba que trocamos o <code>history</code> por <code>undo</code> e o <code>revision</code> por <code>to-revision</code>, assim faremos o <strong>rollback</strong> em nosso DaemonSet, e voltamos a versão da imagem que desejamos. 😃</p>
 <hr>
 <blockquote>
-<p>OBS.: Por padrão, o DaemonSet guarda apenas as 10 últimas revisions. Para alterar a quantidade máxima de revisions no nosso Daemonset, execute o seguinte comando.
+<p><strong>Atenção!!!</strong> Por padrão, o DaemonSet guarda apenas as 10 últimas revisions. Para alterar a quantidade máxima de revisions no nosso Daemonset, execute o seguinte comando.
 Fonte: <a href="https://kubernetes.io/docs/concepts/workloads/controllers/deployment/#clean-up-policy" target="_blank">https://kubernetes.io/docs/concepts/workloads/controllers/deployment/#clean-up-policy</a></p>
 </blockquote>
 <hr>
@@ -1445,7 +1450,7 @@ daemonset.extensions &quot;daemon-set-primeiro&quot; deleted
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Descomplicando Kubernetes dia 3","level":"2.3","depth":1,"next":{"title":"Descomplicando Kubernetes dia 4","level":"2.4","depth":1,"path":"day_four/descomplicando_kubernetes.md","ref":"day_four/descomplicando_kubernetes.md","articles":[]},"previous":{"title":"Descomplicando Kubernetes dia 2","level":"2.2","depth":1,"path":"day_two/descomplicando_kubernetes.md","ref":"day_two/descomplicando_kubernetes.md","articles":[]},"dir":"ltr"},"config":{"plugins":[],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"language":"pt","gitbook":"*"},"file":{"path":"day_three/descomplicando_kubernetes.md","mtime":"2021-09-11T14:44:40.330Z","type":"markdown"},"gitbook":{"version":"3.6.20","time":"2021-09-11T14:44:53.274Z"},"basePath":"..","book":{"language":"pt"}});
+            gitbook.page.hasChanged({"page":{"title":"Descomplicando Kubernetes dia 3","level":"2.3","depth":1,"next":{"title":"Descomplicando Kubernetes dia 4","level":"2.4","depth":1,"path":"day_four/descomplicando_kubernetes.md","ref":"day_four/descomplicando_kubernetes.md","articles":[]},"previous":{"title":"Descomplicando Kubernetes dia 2","level":"2.2","depth":1,"path":"day_two/descomplicando_kubernetes.md","ref":"day_two/descomplicando_kubernetes.md","articles":[]},"dir":"ltr"},"config":{"plugins":[],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"language":"pt","gitbook":"*"},"file":{"path":"day_three/descomplicando_kubernetes.md","mtime":"2021-09-29T06:38:48.760Z","type":"markdown"},"gitbook":{"version":"3.6.21","time":"2021-09-29T06:38:59.565Z"},"basePath":"..","book":{"language":"pt"}});
         });
     </script>
 </div>

@@ -6,7 +6,7 @@
         <title>Descomplicando Kubernetes dia 2 · HonKit</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
-        <meta name="generator" content="HonKit 3.6.20">
+        <meta name="generator" content="HonKit 3.6.21">
         
         
         
@@ -302,6 +302,10 @@
                                 <h1 id="descomplicando-kubernetes-dia-2">Descomplicando Kubernetes dia 2</h1>
 <h2 id="sumário">Sumário</h2>
 <ul>
+<li><a href="#descomplicando-kubernetes-dia-2">Descomplicando Kubernetes dia 2</a><ul>
+<li><a href="#sumário">Sumário</a></li>
+</ul>
+</li>
 <li><a href="#componentes-do-k8s">Componentes do K8s</a></li>
 <li><a href="#principais-comandos">Principais Comandos</a></li>
 <li><a href="#container-network-interface">Container Network Interface</a></li>
@@ -852,7 +856,7 @@ nginx   3/3     3            3           24s
       <span class="hljs-attr">terminationGracePeriodSeconds:</span> <span class="hljs-number">30</span>
 </code></pre>
 <blockquote>
-<p>Atenção! <strong>1 core de CPU</strong> corresponde a <code>1000m</code> (1000 milicore). Ao especificar <code>200m</code>, estamos querendo reservar 20% de 1 core da CPU. Se fosse informado o valor <code>0.2</code> teria o mesmo efeito, ou seja, seria reservado 20% de 1 core da CPU.</p>
+<p><strong>Atenção!!!</strong> <strong>1 core de CPU</strong> corresponde a <code>1000m</code> (1000 milicore). Ao especificar <code>200m</code>, estamos querendo reservar 20% de 1 core da CPU. Se fosse informado o valor <code>0.2</code> teria o mesmo efeito, ou seja, seria reservado 20% de 1 core da CPU.</p>
 </blockquote>
 <p>Vamos remover o deployment do <code>nginx</code>:</p>
 <pre><code>kubectl delete deployments.apps nginx
@@ -1247,8 +1251,7 @@ NAME        STATUS                      ROLES    AGE     VERSION
 elliot-01   Ready                       master   7d14h   v1.18.2
 elliot-02   Ready,SchedulingDisabled    &lt;none&gt;   7d14h   v1.18.2
 elliot-03   Ready                       &lt;none&gt;   7d14h   v1.18.2
-</code></pre><p>Repare que o nó <code>elliot-02</code> ficou com o status <code>Ready,SchedulingDisabled</code>, agora você pode fazer a manutenção no seu node tranquilamente.
-Para retirar nó de modo de manutenção, iremos utilizar o <code>uncordon</code>.</p>
+</code></pre><p>Repare que o nó <code>elliot-02</code> ficou com o status <code>Ready,SchedulingDisabled</code>, agora você pode fazer a manutenção no seu node tranquilamente. Para retirar nó de modo de manutenção, iremos utilizar o <code>uncordon</code>.</p>
 <pre><code>kubectl uncordon elliot-02
 
 node/elliot-02 uncordoned
@@ -1303,7 +1306,7 @@ elliot-03   Ready    &lt;none&gt;   7d14h   v1.18.2
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Descomplicando Kubernetes dia 2","level":"2.2","depth":1,"next":{"title":"Descomplicando Kubernetes dia 3","level":"2.3","depth":1,"path":"day_three/descomplicando_kubernetes.md","ref":"day_three/descomplicando_kubernetes.md","articles":[]},"previous":{"title":"Descomplicando Kubernetes dia 1","level":"2.1","depth":1,"path":"day_one/descomplicando_kubernetes.md","ref":"day_one/descomplicando_kubernetes.md","articles":[]},"dir":"ltr"},"config":{"plugins":[],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"language":"pt","gitbook":"*"},"file":{"path":"day_two/descomplicando_kubernetes.md","mtime":"2021-09-11T14:44:40.330Z","type":"markdown"},"gitbook":{"version":"3.6.20","time":"2021-09-11T14:44:53.274Z"},"basePath":"..","book":{"language":"pt"}});
+            gitbook.page.hasChanged({"page":{"title":"Descomplicando Kubernetes dia 2","level":"2.2","depth":1,"next":{"title":"Descomplicando Kubernetes dia 3","level":"2.3","depth":1,"path":"day_three/descomplicando_kubernetes.md","ref":"day_three/descomplicando_kubernetes.md","articles":[]},"previous":{"title":"Descomplicando Kubernetes dia 1","level":"2.1","depth":1,"path":"day_one/descomplicando_kubernetes.md","ref":"day_one/descomplicando_kubernetes.md","articles":[]},"dir":"ltr"},"config":{"plugins":[],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"language":"pt","gitbook":"*"},"file":{"path":"day_two/descomplicando_kubernetes.md","mtime":"2021-09-29T06:38:48.760Z","type":"markdown"},"gitbook":{"version":"3.6.21","time":"2021-09-29T06:38:59.565Z"},"basePath":"..","book":{"language":"pt"}});
         });
     </script>
 </div>
