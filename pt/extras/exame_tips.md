@@ -31,7 +31,7 @@
     * ``journalctl -xe``
 
  * Básico de ETCD para backup e restore:
-   * https://github.com/badtuxx/DescomplicandoKubernetes/tree/master/Extras/Manutencao-Cluster-Etcd
+   * https://github.com/badtuxx/DescomplicandoKubernetes/tree/main/Extras/Manutencao-Cluster-Etcd
 
  * Experiência em Linux ajuda também nas de troubleshooting:
    * Ver logs
