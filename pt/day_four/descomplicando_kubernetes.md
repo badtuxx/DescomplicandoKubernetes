@@ -250,6 +250,7 @@ spec:
   accessModes:
   - ReadWriteMany
   persistentVolumeReclaimPolicy: Retain
+  storageClassName: nfs
   nfs:
     path: /opt/dados
     server: 10.138.0.2
@@ -319,6 +320,7 @@ spec:
   resources:
     requests:
       storage: 800Mi
+  storageClassName: nfs
 ```
 
 Crie o ``PersitentVolumeClaim`` a partir do manifesto.
