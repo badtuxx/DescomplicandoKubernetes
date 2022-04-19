@@ -1,7 +1,7 @@
 # Descomplicando o Kubernetes
 
 
-<p align="justify">Devido a pandemia do [Coronavirus (COVID-19)](https://coronavirus.jhu.edu/map.html), [Jeferson Fernando](https://twitter.com/badtux_) liberou o acesso público a este repositório como forma de ajudar no combate a pandemia incentivando as pessoas a ficarem em casa adquirindo conhecimento e se aprimorando na profissão para poderem contribuir no local de trabalho ou mesmo se prepararem para novas oportunidades.</p>
+Devido a pandemia do [Coronavirus (COVID-19)](https://coronavirus.jhu.edu/map.html), [Jeferson Fernando](https://twitter.com/badtux_) liberou o acesso público a este repositório como forma de ajudar no combate a pandemia incentivando as pessoas a ficarem em casa adquirindo conhecimento e se aprimorando na profissão para poderem contribuir no local de trabalho ou mesmo se prepararem para novas oportunidades.
 
 <p align="justify">O conteúdo desse material é dividido em partes, as quais são dividas em "days" (day-1, day-2, day-3, etc) para facilitar o aprendizado. A ideia é o aluno focar no aprendizado por etapas e por esse motivo recomendamos que ele somente avance para a próxima parte quando estiver totalmente confortável com o conteúdo atual.</p>
 
