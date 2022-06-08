@@ -1129,6 +1129,16 @@ Antes de inicializarmos o *cluster*, vamos efetuar o *download* das imagens que 
 ```
 # kubeadm config images pull
 ```
+Caso ocorra o erro: "failed to pull image "k8s.gcr.io/kube-apiserver:v1.24.1" 
+Basta comentar a linha: disabled_plugins = ["cri"] no arquivo: /etc/containerd/config.toml 
+Execute: systemctl restart containerd
+
+Repetir novamente o comando: 
+
+```
+# sudo kubeadm config images pull
+
+```
 
 Execute o comando a seguir também apenas no nó *master* para a inicialização do cluster. Caso tudo esteja bem, será apresentada ao término de sua execução o comando que deve ser executado nos demais nós para ingressar no *cluster*.
 
