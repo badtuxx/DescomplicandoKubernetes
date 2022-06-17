@@ -1080,6 +1080,12 @@ Os passos a seguir são iguais para ambas as famílias.
 sudo mkdir -p /etc/systemd/system/docker.service.d
 ```
 
+Para **instalações acima da v1.24** é necessário remover o item "CRI" quando presente na instrução `disabled_plugins` localizada no arquivo de configuração do containerd em `/etc/containerd/config.toml`. Quando removido estamos habilitando o containerd a usar o plugin CRI para se comunicar com o k8s. Caso você tenha aplicado essa alteração, reinicie o containerd.
+
+```bash
+sudo systemctl restart containerd
+```
+
 Agora basta reiniciar o Docker.
 
 ```
