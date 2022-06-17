@@ -147,7 +147,9 @@ A figura a seguir mostra a arquitetura interna de componentes do k8s.
 
 * **Kube-proxy**: Age como um *proxy* e um *load balancer*. Este componente é responsável por efetuar roteamento de requisições para os *pods* corretos, como também por cuidar da parte de rede do nó;
 
-* **Container Runtime**: O *container runtime* é o ambiente de execução de contêineres necessário para o funcionamento do k8s. Em 2016 suporte ao [rkt](https://coreos.com/rkt/) foi adicionado, porém desde o início o Docker já é funcional e utilizado por padrão.
+* **Container Runtime**: O *container runtime* é o ambiente de execução de contêineres necessário para o funcionamento do k8s. Desde a versão v1.24 o k8s requer que você utilize um container runtime compativel com o CRI (Container Runtime Interface) que foi apresentado em 2016 como um interface capaz de criar um padrão de comunicação entre o container runtime e k8s. Versões anteriores à v1.24 ofereciam integração direta com o Docker Engine usando um componente chamado dockershim porém essa integração direta não está mais disponível. A documentação oficial do kubernetes (v1.24) apresenta alguns ambientes de execução e suas respectivas configurações como o [containerd](https://kubernetes.io/docs/setup/production-environment/container-runtimes/#containerd) um projeto avaliado com o nível graduado pela CNCF (Cloud Native Computing Foundation) e o [CRI-0](https://kubernetes.io/docs/setup/production-environment/container-runtimes/#cri-o) projeto incubado pela CNCF.
+
+> Projetos graduados e incubados pela CNCF são considerados estáveis ​​e utilizados com sucesso em produção.
 
 ## Portas que devemos nos preocupar
 
