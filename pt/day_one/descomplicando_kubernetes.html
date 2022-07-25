@@ -471,9 +471,12 @@
 </li>
 <li><p><strong>Kube-proxy</strong>: Age como um <em>proxy</em> e um <em>load balancer</em>. Este componente é responsável por efetuar roteamento de requisições para os <em>pods</em> corretos, como também por cuidar da parte de rede do nó;</p>
 </li>
-<li><p><strong>Container Runtime</strong>: O <em>container runtime</em> é o ambiente de execução de contêineres necessário para o funcionamento do k8s. Em 2016 suporte ao <a href="https://coreos.com/rkt/" target="_blank">rkt</a> foi adicionado, porém desde o início o Docker já é funcional e utilizado por padrão.</p>
+<li><p><strong>Container Runtime</strong>: O <em>container runtime</em> é o ambiente de execução de contêineres necessário para o funcionamento do k8s. Desde a versão v1.24 o k8s requer que você utilize um container runtime compativel com o CRI (Container Runtime Interface) que foi apresentado em 2016 como um interface capaz de criar um padrão de comunicação entre o container runtime e k8s. Versões anteriores à v1.24 ofereciam integração direta com o Docker Engine usando um componente chamado dockershim porém essa integração direta não está mais disponível. A documentação oficial do kubernetes (v1.24) apresenta alguns ambientes de execução e suas respectivas configurações como o <a href="https://kubernetes.io/docs/setup/production-environment/container-runtimes/#containerd" target="_blank">containerd</a> um projeto avaliado com o nível graduado pela CNCF (Cloud Native Computing Foundation) e o <a href="https://kubernetes.io/docs/setup/production-environment/container-runtimes/#cri-o" target="_blank">CRI-0</a> projeto incubado pela CNCF.</p>
 </li>
 </ul>
+<blockquote>
+<p>Projetos graduados e incubados pela CNCF são considerados estáveis ​​e utilizados com sucesso em produção.</p>
+</blockquote>
 <h2 id="portas-que-devemos-nos-preocupar">Portas que devemos nos preocupar</h2>
 <p><strong>MASTER</strong></p>
 <table>
@@ -1112,7 +1115,10 @@ EOF
 EOF
 </code></pre><p>Os passos a seguir são iguais para ambas as famílias.</p>
 <pre><code>sudo mkdir -p /etc/systemd/system/docker.service.d
-</code></pre><p>Agora basta reiniciar o Docker.</p>
+</code></pre><p>Para <strong>instalações acima da v1.24</strong> é necessário remover o item &quot;CRI&quot; quando presente na instrução <code>disabled_plugins</code> localizada no arquivo de configuração do containerd em <code>/etc/containerd/config.toml</code>. Quando removido estamos habilitando o containerd a usar o plugin CRI para se comunicar com o k8s. Caso você tenha aplicado essa alteração, reinicie o containerd.</p>
+<pre><code class="lang-bash">sudo systemctl restart containerd
+</code></pre>
+<p>Agora basta reiniciar o Docker.</p>
 <pre><code>sudo systemctl daemon-reload
 sudo systemctl restart docker
 </code></pre><p>Para finalizar, verifique se o driver <code>Cgroup</code> foi corretamente definido.</p>
@@ -1690,7 +1696,7 @@ kubectl delete service nginx
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Descomplicando Kubernetes dia 1","level":"2.1","depth":1,"next":{"title":"Descomplicando Kubernetes dia 2","level":"2.2","depth":1,"path":"day_two/descomplicando_kubernetes.md","ref":"day_two/descomplicando_kubernetes.md","articles":[]},"previous":{"title":"Introdução","level":"1.1","depth":1,"path":"README.md","ref":"README.md","articles":[]},"dir":"ltr"},"config":{"plugins":[],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"language":"pt","gitbook":"*"},"file":{"path":"day_one/descomplicando_kubernetes.md","mtime":"2022-05-02T15:23:09.115Z","type":"markdown"},"gitbook":{"version":"3.6.20","time":"2022-05-02T15:23:24.927Z"},"basePath":"..","book":{"language":"pt"}});
+            gitbook.page.hasChanged({"page":{"title":"Descomplicando Kubernetes dia 1","level":"2.1","depth":1,"next":{"title":"Descomplicando Kubernetes dia 2","level":"2.2","depth":1,"path":"day_two/descomplicando_kubernetes.md","ref":"day_two/descomplicando_kubernetes.md","articles":[]},"previous":{"title":"Introdução","level":"1.1","depth":1,"path":"README.md","ref":"README.md","articles":[]},"dir":"ltr"},"config":{"plugins":[],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"language":"pt","gitbook":"*"},"file":{"path":"day_one/descomplicando_kubernetes.md","mtime":"2022-07-25T12:35:39.288Z","type":"markdown"},"gitbook":{"version":"3.6.20","time":"2022-07-25T12:35:53.332Z"},"basePath":"..","book":{"language":"pt"}});
         });
     </script>
 </div>
