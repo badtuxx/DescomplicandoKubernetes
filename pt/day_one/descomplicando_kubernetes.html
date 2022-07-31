@@ -401,10 +401,12 @@
 </ul>
 </li>
 </ul>
-<h1 id="o-quê-preciso-saber-antes-de-começar">O quê preciso saber antes de começar?</h1>
-<h2 id="qual-distro-gnulinux-devo-usar">Qual distro GNU/Linux devo usar?</h2>
+<h2 id="o-quê-preciso-saber-antes-de-começar">O quê preciso saber antes de começar?</h2>
+<p>Durante essa sessão vamos saber tudo o que precisamos antes de começar a sair criando o nosso cluster ou então nossos deployments.</p>
+<h3 id="qual-distro-gnulinux-devo-usar">Qual distro GNU/Linux devo usar?</h3>
 <p>Devido ao fato de algumas ferramentas importantes, como o <code>systemd</code> e <code>journald</code>, terem se tornado padrão na maioria das principais distribuições disponíveis hoje, você não deve encontrar problemas para seguir o treinamento, caso você opte por uma delas, como Ubuntu, Debian, CentOS e afins.</p>
-<h2 id="alguns-sites-que-devemos-visitar">Alguns sites que devemos visitar</h2>
+<h3 id="alguns-sites-que-devemos-visitar">Alguns sites que devemos visitar</h3>
+<p>Abaixo temos os sites oficiais do projeto do Kubernetes:</p>
 <ul>
 <li><p><a href="https://kubernetes.io" target="_blank">https://kubernetes.io</a></p>
 </li>
@@ -412,14 +414,21 @@
 </li>
 <li><p><a href="https://github.com/kubernetes/kubernetes/issues" target="_blank">https://github.com/kubernetes/kubernetes/issues</a></p>
 </li>
+</ul>
+<p>Abaixo temos as páginas oficiais das certificações do Kubernetes (CKA, CKAD e CKS):</p>
+<ul>
 <li><p><a href="https://www.cncf.io/certification/cka/" target="_blank">https://www.cncf.io/certification/cka/</a></p>
 </li>
 <li><p><a href="https://www.cncf.io/certification/ckad/" target="_blank">https://www.cncf.io/certification/ckad/</a></p>
 </li>
-<li><p><a href="https://12factor.net/pt_br/" target="_blank">https://12factor.net/pt_br/</a></p>
+<li><p><a href="https://www.cncf.io/certification/cks/" target="_blank">https://www.cncf.io/certification/cks/</a></p>
 </li>
 </ul>
-<h2 id="e-o-k8s">E o k8s?</h2>
+<p>Outro site importante de conhecer e estudar, é o site dos 12 fatores, muito importante para o desenvolvimento de aplicações que tem como objetivo serem executadas em cluster Kubernetes:</p>
+<ul>
+<li><a href="https://12factor.net/pt_br/" target="_blank">https://12factor.net/pt_br/</a></li>
+</ul>
+<h2 id="o-que-é-o-kubernetes">O que é o Kubernetes?</h2>
 <p><strong>Versão resumida:</strong></p>
 <p>O projeto Kubernetes foi desenvolvido pela Google, em meados de 2014, para atuar como um orquestrador de contêineres para a empresa. O Kubernetes (k8s), cujo termo em Grego significa &quot;timoneiro&quot;, é um projeto <em>open source</em> que conta com <em>design</em> e desenvolvimento baseados no projeto Borg, que também é da Google <a href="https://kubernetes.io/blog/2015/04/borg-predecessor-to-kubernetes/" target="_blank">1</a>. Alguns outros produtos disponíveis no mercado, tais como o Apache Mesos e o Cloud Foundry, também surgiram a partir do projeto Borg.</p>
 <p>Como Kubernetes é uma palavra difícil de se pronunciar - e de se escrever - a comunidade simplesmente o apelidou de <strong>k8s</strong>, seguindo o padrão <a href="http://www.i18nguy.com/origini18n.html" target="_blank">i18n</a> (a letra &quot;k&quot; seguida por oito letras e o &quot;s&quot; no final), pronunciando-se simplesmente &quot;kates&quot;.</p>
@@ -430,9 +439,12 @@
 <p>O terceiro sistema foi o Kubernetes. Concebido e desenvolvido em um mundo onde desenvolvedores externos estavam se interessando em contêineres e o Google desenvolveu um negócio em amplo crescimento atualmente, que é a venda de infraestrutura de nuvem pública.</p>
 <p>O Kubernetes é de código aberto - em contraste com o Borg e o Omega que foram desenvolvidos como sistemas puramente internos do Google. O Kubernetes foi desenvolvido com um foco mais forte na experiência de desenvolvedores que escrevem aplicativos que são executados em um cluster: seu principal objetivo é facilitar a implantação e o gerenciamento de sistemas distribuídos, enquanto se beneficia do melhor uso de recursos de memória e processamento que os contêineres possibilitam.</p>
 <p>Estas informações foram extraídas e adaptadas deste <a href="https://static.googleusercontent.com/media/research.google.com/pt-BR//pubs/archive/44843.pdf" target="_blank">artigo</a>, que descreve as lições aprendidas com o desenvolvimento e operação desses sistemas.</p>
-<h2 id="arquitetura-do-k8s">Arquitetura do k8s</h2>
-<p>Assim como os demais orquestradores disponíveis, o k8s também segue um modelo <em>master/worker</em>, constituindo assim um <em>cluster</em>, onde para seu funcionamento devem existir no mínimo três nós: o nó <em>master</em>, responsável (por padrão) pelo gerenciamento do <em>cluster</em>, e os demais como <em>workers</em>, executores das aplicações que queremos executar sobre esse <em>cluster</em>.</p>
-<p>Embora exista a exigência de no mínimo três nós para a execução do k8s em um ambiente padrão, existem soluções para se executar o k8s em um único nó. Alguns exemplos são:</p>
+<h3 id="arquitetura-do-k8s">Arquitetura do k8s</h3>
+<p>Assim como os demais orquestradores disponíveis, o k8s também segue um modelo <em>control plane/workers</em>, constituindo assim um <em>cluster</em>, onde para seu funcionamento é recomendado no mínimo três nós: o nó <em>master</em>, responsável (por padrão) pelo gerenciamento do <em>cluster</em>, e os demais como <em>workers</em>, executores das aplicações que queremos executar sobre esse <em>cluster</em>.</p>
+<p>É possível criar um cluster Kubernetes rodando em apenas um nó, porém é recomendado somente para fins de estudos e nunca executado em ambiente produtivo.</p>
+<p>Caso você queira utilizar o Kubernetes em sua máquina local, em seu desktop, existem diversas soluções que irão criar um cluster Kubernetes, utilizando máquinas virtuais ou o Docker, por exemplo.</p>
+<p>Com isso você poderá ter um cluster Kubernetes com diversos nós, porém todos eles rodando em sua máquina local, em seu desktop.</p>
+<p>Alguns exemplos são:</p>
 <ul>
 <li><p><a href="https://kind.sigs.k8s.io/docs/user/quick-start" target="_blank">Kind</a>: Uma ferramenta para execução de contêineres Docker que simulam o funcionamento de um cluster Kubernetes. É utilizado para fins didáticos, de desenvolvimento e testes. O <strong>Kind não deve ser utilizado para produção</strong>;</p>
 </li>
@@ -461,7 +473,7 @@
 <ul>
 <li><p><strong>API Server</strong>: É um dos principais componentes do k8s. Este componente fornece uma API que utiliza JSON sobre HTTP para comunicação, onde para isto é utilizado principalmente o utilitário <code>kubectl</code>, por parte dos administradores, para a comunicação com os demais nós, como mostrado no gráfico. Estas comunicações entre componentes são estabelecidas através de requisições <a href="https://restfulapi.net" target="_blank">REST</a>;</p>
 </li>
-<li><p><strong>etcd</strong>: O etcd é um <em>datastore</em> chave-valor distribuído que o k8s utiliza para armazenar as especificações, status e configurações do <em>cluster</em>. Todos os dados armazenados dentro do etcd são manipulados apenas através da API. Por questões de segurança, o etcd é por padrão executado apenas em nós classificados como <em>master</em> no <em>cluster</em> k8s, mas também podem ser executados em <em>clusters</em> externos, específicos para o etcd, por exemplo;</p>
+<li><p><strong>etcd</strong>: O etcd é um <em>datastore</em> chave-valor distribuído que o k8s utiliza para armazenar as especificações, status e configurações do <em>cluster</em>. Todos os dados armazenados dentro do etcd são manipulados apenas através da API. Por questões de segurança, o etcd é por padrão executado apenas em nós classificados como <em>control plane</em> no <em>cluster</em> k8s, mas também podem ser executados em <em>clusters</em> externos, específicos para o etcd, por exemplo;</p>
 </li>
 <li><p><strong>Scheduler</strong>: O <em>scheduler</em> é responsável por selecionar o nó que irá hospedar um determinado <em>pod</em> (a menor unidade de um <em>cluster</em> k8s - não se preocupe sobre isso por enquanto, nós falaremos mais sobre isso mais tarde) para ser executado. Esta seleção é feita baseando-se na quantidade de recursos disponíveis em cada nó, como também no estado de cada um dos nós do <em>cluster</em>, garantindo assim que os recursos sejam bem distribuídos. Além disso, a seleção dos nós, na qual um ou mais pods serão executados, também pode levar em consideração políticas definidas pelo usuário, tais como afinidade, localização dos dados a serem lidos pelas aplicações, etc;</p>
 </li>
@@ -477,8 +489,8 @@
 <blockquote>
 <p>Projetos graduados e incubados pela CNCF são considerados estáveis ​​e utilizados com sucesso em produção.</p>
 </blockquote>
-<h2 id="portas-que-devemos-nos-preocupar">Portas que devemos nos preocupar</h2>
-<p><strong>MASTER</strong></p>
+<h3 id="portas-que-devemos-nos-preocupar">Portas que devemos nos preocupar</h3>
+<p><strong>CONTROL PLANE</strong></p>
 <table>
 <thead>
 <tr>
@@ -559,23 +571,26 @@
 </tbody>
 </table>
 <p>Caso você opte pelo <a href="https://weave.works" target="_blank">Weave</a> como <em>pod network</em>, devem ser liberadas também as portas 6783 (TCP) e 6783/6784 (UDP).</p>
-<h2 id="tá-mas-qual-tipo-de-aplicação-eu-devo-rodar-sobre-o-k8s">Tá, mas qual tipo de aplicação eu devo rodar sobre o k8s?</h2>
+<h3 id="tá-mas-qual-tipo-de-aplicação-eu-devo-rodar-sobre-o-k8s">Tá, mas qual tipo de aplicação eu devo rodar sobre o k8s?</h3>
 <p>O melhor <em>app</em> para executar em contêiner, principalmente no k8s, são aplicações que seguem o <a href="https://12factor.net/pt_br/" target="_blank">The Twelve-Factor App</a>.</p>
-<h2 id="conceitos-chave-do-k8s">Conceitos-chave do k8s</h2>
+<h3 id="conceitos-chave-do-k8s">Conceitos-chave do k8s</h3>
 <p>É importante saber que a forma como o k8s gerencia os contêineres é ligeiramente diferente de outros orquestradores, como o Docker Swarm, sobretudo devido ao fato de que ele não trata os contêineres diretamente, mas sim através de <em>pods</em>. Vamos conhecer alguns dos principais conceitos que envolvem o k8s a seguir:</p>
 <ul>
-<li><p><strong>Pod</strong>: é o menor objeto do k8s. Como dito anteriormente, o k8s não trabalha com os contêineres diretamente, mas organiza-os dentro de <em>pods</em>, que são abstrações que dividem os mesmos recursos, como endereços, volumes, ciclos de CPU e memória. Um pod, embora não seja comum, pode possuir vários contêineres;</p>
-</li>
-<li><p><strong>Controller</strong>: é o objeto responsável por interagir com o <em>API Server</em> e orquestrar algum outro objeto. Exemplos de objetos desta classe são os <em>Deployments</em> e <em>Replication Controllers</em>;</p>
-</li>
-<li><p><strong>ReplicaSets</strong>: é um objeto responsável por garantir a quantidade de pods em execução no nó;</p>
+<li><p><strong>Pod</strong>: É o menor objeto do k8s. Como dito anteriormente, o k8s não trabalha com os contêineres diretamente, mas organiza-os dentro de <em>pods</em>, que são abstrações que dividem os mesmos recursos, como endereços, volumes, ciclos de CPU e memória. Um pod pode possuir vários contêineres;</p>
 </li>
 <li><p><strong>Deployment</strong>: É um dos principais <em>controllers</em> utilizados. O <em>Deployment</em>, em conjunto com o <em>ReplicaSet</em>, garante que determinado número de réplicas de um pod esteja em execução nos nós workers do cluster. Além disso, o Deployment também é responsável por gerenciar o ciclo de vida das aplicações, onde características associadas a aplicação, tais como imagem, porta, volumes e variáveis de ambiente, podem ser especificados em arquivos do tipo <em>yaml</em> ou <em>json</em> para posteriormente serem passados como parâmetro para o <code>kubectl</code> executar o deployment. Esta ação pode ser executada tanto para criação quanto para atualização e remoção do deployment;</p>
+</li>
+<li><p><strong>ReplicaSets</strong>: É um objeto responsável por garantir a quantidade de pods em execução no nó;</p>
+</li>
+<li><p><strong>Services</strong>: É uma forma de você expor a comunicação através de um <em>ClusterIP</em>, <em>NodePort</em> ou <em>LoadBalancer</em> para distribuir as requisições entre os diversos Pods daquele Deployment. Funciona como um balanceador de carga.</p>
+</li>
+<li><p><strong>Controller</strong>: É o objeto responsável por interagir com o <em>API Server</em> e orquestrar algum outro objeto. Um exemplo de objeto desta classe é o <em>Deployments</em>;</p>
 </li>
 <li><p><strong>Jobs e CronJobs</strong>: são objetos responsáveis pelo gerenciamento de jobs isolados ou recorrentes.</p>
 </li>
 </ul>
-<h1 id="aviso-sobre-os-comandos">Aviso sobre os comandos</h1>
+<h2 id="importante">Importante!</h2>
+<h3 id="aviso-sobre-os-comandos">Aviso sobre os comandos</h3>
 <blockquote>
 <p><strong>Atenção!!!</strong> Antes de cada comando é apresentado o tipo prompt. Exemplos:</p>
 </blockquote>
@@ -586,8 +601,8 @@
 <p>O prompt que inicia com o caractere &quot;#&quot;, indica que o comando deve ser executado com o usuário <strong>root</strong>.</p>
 <p>Você não deve copiar/colar o prompt, apenas o comando. :-)</p>
 </blockquote>
-<h1 id="kubectl">Kubectl</h1>
-<h2 id="instalação-do-kubectl-no-gnulinux">Instalação do Kubectl no GNU/Linux</h2>
+<h2 id="instalando-e-customizando-o-kubectl">Instalando e customizando o Kubectl</h2>
+<h3 id="instalação-do-kubectl-no-gnulinux">Instalação do Kubectl no GNU/Linux</h3>
 <p>Vamos instalar o <code>kubectl</code> com os seguintes comandos.</p>
 <pre><code>curl -LO https://storage.googleapis.com/kubernetes-release/release/`curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt`/bin/linux/amd64/kubectl
 
@@ -596,7 +611,7 @@ chmod +x ./kubectl
 sudo mv ./kubectl /usr/local/bin/kubectl
 
 kubectl version --client
-</code></pre><h2 id="instalação-do-kubectl-no-macos">Instalação do Kubectl no MacOS</h2>
+</code></pre><h3 id="instalação-do-kubectl-no-macos">Instalação do Kubectl no MacOS</h3>
 <p>O <code>kubectl</code> pode ser instalado no MacOS utilizando tanto o <a href="https://brew.sh" target="_blank">Homebrew</a>, quanto o método tradicional. Com o Homebrew já instalado, o kubectl pode ser instalado da seguinte forma.</p>
 <pre><code>sudo brew install kubectl
 
@@ -613,33 +628,38 @@ chmod +x ./kubectl
 sudo mv ./kubectl /usr/local/bin/kubectl
 
 kubectl version --client
-</code></pre><h2 id="instalação-do-kubectl-no-windows">Instalação do Kubectl no Windows</h2>
-<p>A instalação do <code>kubectl</code> pode ser realizada efetuando o download <a href="https://dl.k8s.io/release/v1.22.0/bin/windows/amd64/kubectl.exe" target="_blank">neste link</a>. </p>
+</code></pre><h3 id="instalação-do-kubectl-no-windows">Instalação do Kubectl no Windows</h3>
+<p>A instalação do <code>kubectl</code> pode ser realizada efetuando o download <a href="https://dl.k8s.io/release/v1.24.3/bin/windows/amd64/kubectl.exe" target="_blank">neste link</a>. </p>
 <p>Outras informações sobre como instalar o kubectl no Windows podem ser encontradas <a href="https://kubernetes.io/docs/tasks/tools/install-kubectl-windows/" target="_blank">nesta página</a>.</p>
-<h2 id="kubectl-alias-e-autocomplete">kubectl: alias e autocomplete</h2>
+<h3 id="customizando-o-kubectl">Customizando o kubectl</h3>
+<h4 id="auto-complete">Auto-complete</h4>
 <p>Execute o seguinte comando para configurar o alias e autocomplete para o <code>kubectl</code>.</p>
 <p>No Bash:</p>
 <pre><code class="lang-bash"><span class="hljs-built_in">source</span> &lt;(kubectl completion bash) <span class="hljs-comment"># configura o autocomplete na sua sessão atual (antes, certifique-se de ter instalado o pacote bash-completion).</span>
 
 <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;source &lt;(kubectl completion bash)&quot;</span> &gt;&gt; ~/.bashrc <span class="hljs-comment"># add autocomplete permanentemente ao seu shell.</span>
 </code></pre>
+<p>No ZSH:</p>
+<pre><code class="lang-bash"><span class="hljs-built_in">source</span> &lt;(kubectl completion zsh)
+
+<span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;[[ <span class="hljs-variable">$commands</span>[kubectl] ]] &amp;&amp; source &lt;(kubectl completion zsh)&quot;</span>
+</code></pre>
+<h4 id="criando-um-alias-para-o-kubectl">Criando um alias para o kubectl</h4>
 <p>Crie o alias <code>k</code> para <code>kubectl</code>:</p>
 <pre><code>alias k=kubectl
 
 complete -F __start_kubectl k
-</code></pre><p>No ZSH:</p>
-<pre><code>source &lt;(kubectl completion zsh)
-
-echo &quot;[[ $commands[kubectl] ]] &amp;&amp; source &lt;(kubectl completion zsh)&quot;
-</code></pre><h1 id="minikube">Minikube</h1>
-<h2 id="requisitos-básicos">Requisitos básicos</h2>
+</code></pre><h2 id="criando-um-cluster-kubernetes">Criando um cluster Kubernetes</h2>
+<h3 id="criando-o-cluster-em-sua-máquina-local">Criando o cluster em sua máquina local</h3>
+<h4 id="minikube">Minikube</h4>
+<h5 id="requisitos-básicos">Requisitos básicos</h5>
 <p>É importante frisar que o Minikube deve ser instalado localmente, e não em um <em>cloud provider</em>. Por isso, as especificações de <em>hardware</em> a seguir são referentes à máquina local.</p>
 <ul>
 <li>Processamento: 1 core;</li>
 <li>Memória: 2 GB;</li>
 <li>HD: 20 GB.</li>
 </ul>
-<h2 id="instalação-do-minikube-no-gnulinux">Instalação do Minikube no GNU/Linux</h2>
+<h5 id="instalação-do-minikube-no-gnulinux">Instalação do Minikube no GNU/Linux</h5>
 <p>Antes de mais nada, verifique se a sua máquina suporta virtualização. No GNU/Linux, isto pode ser realizado com o seguinte comando:</p>
 <pre><code>grep -E --color &apos;vmx|svm&apos; /proc/cpuinfo
 </code></pre><p>Caso a saída do comando não seja vazia, o resultado é positivo.</p>
@@ -652,7 +672,7 @@ chmod +x ./minikube
 sudo mv ./minikube /usr/local/bin/minikube
 
 minikube version
-</code></pre><h2 id="instalação-do-minikube-no-macos">Instalação do Minikube no MacOS</h2>
+</code></pre><h5 id="instalação-do-minikube-no-macos">Instalação do Minikube no MacOS</h5>
 <p>No MacOS, o comando para verificar se o processador suporta virtualização é:</p>
 <pre><code>sysctl -a | grep -E --color &apos;machdep.cpu.features|VMX&apos;
 </code></pre><p>Se você visualizar <code>VMX</code> na saída, o resultado é positivo.</p>
@@ -668,7 +688,7 @@ chmod +x ./minikube
 sudo mv ./minikube /usr/local/bin/minikube
 
 minikube version
-</code></pre><h2 id="instalação-do-minikube-no-microsoft-windows">Instalação do Minikube no Microsoft Windows</h2>
+</code></pre><h5 id="instalação-do-minikube-no-microsoft-windows">Instalação do Minikube no Microsoft Windows</h5>
 <p>No Microsoft Windows, você deve executar o comando <code>systeminfo</code> no prompt de comando ou no terminal. Caso o retorno deste comando seja semelhante com o descrito a seguir, então a virtualização é suportada.</p>
 <pre><code>Hyper-V Requirements:     VM Monitor Mode Extensions: Yes
                           Virtualization Enabled In Firmware: Yes
@@ -677,61 +697,59 @@ minikube version
 </code></pre><p>Caso a linha a seguir também esteja presente, não é necessária a instalação de um <em>hypervisor</em> como o Oracle VirtualBox:</p>
 <pre><code>Hyper-V Requirements:     A hypervisor has been detected. Features required for Hyper-V will not be displayed.:     A hypervisor has been detected. Features required for Hyper-V will not be displayed.
 </code></pre><p>Faça o download e a instalação de um <em>hypervisor</em> (preferencialmente o <a href="https://www.virtualbox.org" target="_blank">Oracle VirtualBox</a>), caso no passo anterior não tenha sido acusada a presença de um. Finalmente, efetue o download do instalador do Minikube <a href="https://github.com/kubernetes/minikube/releases/latest" target="_blank">aqui</a> e execute-o.</p>
-<h2 id="iniciando-parando-e-excluindo-o-minikube">Iniciando, parando e excluindo o Minikube</h2>
-<p>Quando operando em conjunto com um <em>hypervisor</em>, o Minikube cria uma máquina virtual, onde dentro dela estarão todos os componentes do k8s para execução. Para realizar a inicialização desse ambiente, antes de executar o minikube, precisamos setar o VirtualBox como padrão para subir este ambiente, para que isso aconteça execute o comando:</p>
-<pre><code>minikube config set driver virtualbox
-</code></pre><p>Caso não queria deixar o VirtualBox como padrão sempre que subir o ambiente novo, você deve digitar o comando <code>minikube start --driver=virtualbox</code>. Mas como já setamos o VirtualBox como padrão para subir o ambiente do minikube, basta executar:</p>
-<pre><code>minikube start
-</code></pre><p>Para criar um cluster com multi-node basta executar:</p>
-<pre><code>minikube start --nodes 2 -p multinode-demo
-</code></pre><p>Caso deseje parar o ambiente:</p>
-<pre><code>minikube stop
-</code></pre><p>Para excluir o ambiente:</p>
-<pre><code>minikube delete
-</code></pre><h2 id="certo-e-como-eu-sei-que-está-tudo-funcionando-como-deveria">Certo, e como eu sei que está tudo funcionando como deveria?</h2>
+<h5 id="iniciando-parando-e-excluindo-o-minikube">Iniciando, parando e excluindo o Minikube</h5>
+<p>Quando operando em conjunto com um <em>hypervisor</em>, o Minikube cria uma máquina virtual, onde dentro dela estarão todos os componentes do k8s para execução.</p>
+<p>É possível selecionar qual <em>hypervisor</em> iremos utilizar por padrão, através no comando abaixo:</p>
+<pre><code>minikube config set driver &lt;SEU_HYPERVISOR&gt;
+</code></pre><p>Você deve substituir <seu_hypervisor> pelo seu hypervisor, por exemplo o KVM2, QEMU, Virtualbox ou o Hyperkit.</seu_hypervisor></p>
+<p>Caso não queria configurar um hypervisor padrão, você pode digitar o comando <code>minikube start --driver=hyperkit</code> toda vez que criar um novo ambiente. </p>
+<h5 id="certo-e-como-eu-sei-que-está-tudo-funcionando-como-deveria">Certo, e como eu sei que está tudo funcionando como deveria?</h5>
 <p>Uma vez iniciado, você deve ter uma saída na tela similar à seguinte:</p>
 <pre><code>minikube start
 
-
-🎉  minikube 1.10.0 is available! Download it: https://github.com/kubernetes/minikube/releases/tag/v1.10.0
-💡  To disable this notice, run: &apos;minikube config set WantUpdateNotification false&apos;
-
-🙄  minikube v1.9.2 on Darwin 10.11
-✨  Using the virtualbox driver based on existing profile
-👍  Starting control plane node m01 in cluster minikube
-🔄  Restarting existing virtualbox VM for &quot;minikube&quot; ...
-🐳  Preparing Kubernetes v1.19.1 on Docker 19.03.8 ...
-🌟  Enabling addons: default-storageclass, storage-provisioner
-🏄  Done! kubectl is now configured to use &quot;minikube&quot;
+😄  minikube v1.26.0 on Debian bookworm/sid
+✨  Using the qemu2 (experimental) driver based on user configuration
+👍  Starting control plane node minikube in cluster minikube
+🔥  Creating qemu2 VM (CPUs=2, Memory=6000MB, Disk=20000MB) ...
+🐳  Preparing Kubernetes v1.24.1 on Docker 20.10.16 ...
+    ▪ Generating certificates and keys ...
+    ▪ Booting up control plane ...
+    ▪ Configuring RBAC rules ...
+🔎  Verifying Kubernetes components...
+    ▪ Using image gcr.io/k8s-minikube/storage-provisioner:v5
+🌟  Enabled addons: default-storageclass, storage-provisioner
+🏄  Done! kubectl is now configured to use &quot;minikube&quot; cluster and &quot;default&quot; namespace by default
 </code></pre><p>Você pode então listar os nós que fazem parte do seu <em>cluster</em> k8s com o seguinte comando:</p>
 <pre><code>kubectl get nodes
 </code></pre><p>A saída será similar ao conteúdo a seguir:</p>
-<p>Para um node:</p>
+<pre><code>kubectl get nodes
+NAME       STATUS   ROLES           AGE   VERSION
+minikube   Ready    control-plane   26s   v1.24.1
+</code></pre><p>Para criar um cluster com mais de um nó, você pode utilizar o comando abaixo, apenas modificando os valores para o desejado:</p>
+<pre><code>minikube start --nodes 3 -p multinode-cluster
+</code></pre><p>Para visualizar os nós do seu novo cluster Kubernetes, digite:</p>
 <pre><code>kubectl get nodes
 
-NAME       STATUS   ROLES    AGE   VERSION
-minikube   Ready    master   8d    v1.19.1
-</code></pre><p>Para multi-nodes:</p>
-<pre><code>NAME                 STATUS    ROLES     AGE       VERSION
+NAME                 STATUS    ROLES     AGE       VERSION
 multinode-demo       Ready     master    5m        v1.19.1
 multinode-demo-m02   Ready     &lt;none&gt;    4m        v1.19.1
-</code></pre><p>Inicialmente, a intenção do Minikube é executar o k8s em apenas um nó, porém a partir da versão 1.10.1 e possível usar a função de multi-node (Experimental).</p>
+</code></pre><p>Inicialmente, a intenção do Minikube é executar o k8s em apenas um nó, porém a partir da versão 1.10.1 e possível usar a função de multi-node.</p>
 <p>Caso os comandos anteriores tenham sido executados sem erro, a instalação do Minikube terá sido realizada com sucesso.</p>
-<h2 id="descobrindo-o-endereço-do-minikube">Descobrindo o endereço do Minikube</h2>
+<h5 id="descobrindo-o-endereço-do-minikube">Descobrindo o endereço do Minikube</h5>
 <p>Como dito anteriormente, o Minikube irá criar uma máquina virtual, assim como o ambiente para a execução do k8s localmente. Ele também irá configurar o <code>kubectl</code> para comunicar-se com o Minikube. Para saber qual é o endereço IP dessa máquina virtual, pode-se executar:</p>
 <pre><code>minikube ip
 </code></pre><p>O endereço apresentado é que deve ser utilizado para comunicação com o k8s.</p>
-<h2 id="acessando-a-máquina-do-minikube-via-ssh">Acessando a máquina do Minikube via SSH</h2>
+<h5 id="acessando-a-máquina-do-minikube-via-ssh">Acessando a máquina do Minikube via SSH</h5>
 <p>Para acessar a máquina virtual criada pelo Minikube, pode-se executar:</p>
 <pre><code>minikube ssh
-</code></pre><h2 id="dashboard">Dashboard</h2>
+</code></pre><h5 id="dashboard">Dashboard</h5>
 <p>O Minikube vem com um <em>dashboard</em> <em>web</em> interessante para que o usuário iniciante observe como funcionam os <em>workloads</em> sobre o k8s. Para habilitá-lo, o usuário pode digitar:</p>
 <pre><code>minikube dashboard
-</code></pre><h2 id="logs">Logs</h2>
+</code></pre><h5 id="logs">Logs</h5>
 <p>Os <em>logs</em> do Minikube podem ser acessados através do seguinte comando.</p>
 <pre><code>minikube logs
-</code></pre><h1 id="microk8s">Microk8s</h1>
-<h2 id="requisitos-básicos">Requisitos básicos</h2>
+</code></pre><h4 id="microk8s">Microk8s</h4>
+<h5 id="requisitos-básicos">Requisitos básicos</h5>
 <p>Existem alguns tipos de instalação do Microk8s:</p>
 <ul>
 <li>GNU/Linux que suportam Snap;</li>
@@ -739,8 +757,8 @@ multinode-demo-m02   Ready     &lt;none&gt;    4m        v1.19.1
 <li>MacOS - Brew;</li>
 <li>RaspBerry.</li>
 </ul>
-<h2 id="instalação-do-microk8s-no-gnulinux">Instalação do MicroK8s no GNU/Linux</h2>
-<h3 id="versões-que-suportam-snap">Versões que suportam Snap</h3>
+<h5 id="instalação-do-microk8s-no-gnulinux">Instalação do MicroK8s no GNU/Linux</h5>
+<h5 id="versões-que-suportam-snap">Versões que suportam Snap</h5>
 <p>Execute os seguintes comandos para instalar o <code>microk8s</code>:</p>
 <pre><code>sudo snap install microk8s --classic --channel=1.22/stable
 
@@ -753,11 +771,11 @@ microk8s status --wait-ready
 microk8s enable dns dashboard registry
 
 alias kubectl=&apos;microk8s kubectl&apos;
-</code></pre><h2 id="instalação-no-windows">Instalação no Windows</h2>
+</code></pre><h5 id="instalação-no-windows">Instalação no Windows</h5>
 <p>Somente é possível em versões do Windows Professional e Enterprise</p>
 <p>Também será necessário a instalação por meio de um administrador de pacotes do Windows, o <a href="https://chocolatey.org/install" target="_blank">Chocolatey
 </a></p>
-<h3 id="instalando-o-chocolatey">Instalando o Chocolatey</h3>
+<h6 id="instalando-o-chocolatey">Instalando o Chocolatey</h6>
 <p>Acesse o <strong>PowerShell com permissão de Admin</strong>, e execute o seguinte comando para instalar o <code>chocolatey</code>:</p>
 <pre><code>Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString(&apos;https://chocolatey.org/install.ps1&apos;))
 </code></pre><blockquote>
@@ -768,10 +786,10 @@ alias kubectl=&apos;microk8s kubectl&apos;
 <li><a href="https://superuser.com/questions/1560049/open-windows-terminal-as-admin-with-winr" target="_blank">https://superuser.com/questions/1560049/open-windows-terminal-as-admin-with-winr</a></li>
 <li><a href="https://www.thewindowsclub.com/how-to-open-windows-terminal-as-administrator-in-windows-11*" target="_blank">https://www.thewindowsclub.com/how-to-open-windows-terminal-as-administrator-in-windows-11*</a> </li>
 </ul>
-<h4 id="instalando-o-multipass">Instalando o Multipass</h4>
+<h5 id="instalando-o-multipass">Instalando o Multipass</h5>
 <p>Acesse o <strong>PowerShell com permissão de Admin</strong>, e execute o seguinte comando para instalar o <code>multipass</code>:</p>
 <pre><code>choco install multipass
-</code></pre><h3 id="utilizando-microk8s-com-multipass">Utilizando Microk8s com Multipass</h3>
+</code></pre><h5 id="utilizando-microk8s-com-multipass">Utilizando Microk8s com Multipass</h5>
 <p>Acesse o <strong>PowerShell com permissão de Admin</strong>, e execute os seguintes comandos para executar o <code>microk8s</code> com o <code>multipass</code>:</p>
 <pre><code>multipass launch --name microk8s-vm --mem 4G --disk 40G
 
@@ -788,12 +806,12 @@ multipass shell microk8s-vm
 </code></pre><p>Se quiser utilizar o Microk8s sem utilizar um shell criado pelo multipass utilize a seguinte expressão.</p>
 <p>Acesse o <strong>PowerShell com permissão de Admin</strong>, e execute o seguinte comando:</p>
 <pre><code>multipass exec microk8s-vm -- /snap/bin/microk8s.&lt;command&gt;
-</code></pre><h2 id="instalando-o-microk8s-no-macos">Instalando o Microk8s no MacOS</h2>
+</code></pre><h5 id="instalando-o-microk8s-no-macos">Instalando o Microk8s no MacOS</h5>
 <p>Utilizando o gerenciador de pacotes do Mac <code>Brew</code>:</p>
-<h3 id="instalando-o-brew">Instalando o Brew</h3>
+<h5 id="instalando-o-brew">Instalando o Brew</h5>
 <p>Se não tiver o <code>brew</code> instalado em sua máquina execute o seguinte comando. Caso já o possua, vá para a seção seguinte.</p>
 <pre><code>/bin/bash -c &quot;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)&quot;
-</code></pre><h3 id="instalando-o-microk8s-via-brew">Instalando o Microk8s via Brew</h3>
+</code></pre><h5 id="instalando-o-microk8s-via-brew">Instalando o Microk8s via Brew</h5>
 <p>Execute os seguintes comandos para instalar o <code>microk8s</code> via <code>brew</code>.</p>
 <pre><code>sudo brew install ubuntu/microk8s/microk8s
 
@@ -805,31 +823,31 @@ sudo microk8s kubectl get all --all-namespaces
 <pre><code>microk8s status --wait-ready
 </code></pre><p>Assim que o comentário: <code>microk8s is running</code> for exibido, execute o seguinte comando.</p>
 <pre><code>microk8s kubectl &lt;command&gt;
-</code></pre><h1 id="kind">Kind</h1>
+</code></pre><h4 id="kind">Kind</h4>
 <p>O Kind (<em>Kubernetes in Docker</em>) é outra alternativa para executar o Kubernetes num ambiente local para testes e aprendizado, mas não é recomendado para uso em produção.</p>
-<h2 id="instalação-no-gnulinux">Instalação no GNU/Linux</h2>
+<h5 id="instalação-no-gnulinux">Instalação no GNU/Linux</h5>
 <p>Para fazer a instalação no GNU/Linux, execute os seguintes comandos.</p>
 <pre><code>curl -Lo ./kind https://kind.sigs.k8s.io/dl/v0.11.1/kind-linux-amd64
 
 chmod +x ./kind
 
 sudo mv ./kind /usr/local/bin/kind
-</code></pre><h2 id="instalação-no-macos">Instalação no MacOS</h2>
+</code></pre><h5 id="instalação-no-macos">Instalação no MacOS</h5>
 <p>Para fazer a instalação no MacOS, execute o seguinte comando.</p>
 <pre><code>sudo brew install kind
 </code></pre><p>ou</p>
 <pre><code>curl -Lo ./kind https://kind.sigs.k8s.io/dl/v0.11.1/kind-darwin-amd64
 chmod +x ./kind
 mv ./kind /usr/bin/kind
-</code></pre><h2 id="instalação-no-windows">Instalação no Windows</h2>
+</code></pre><h5 id="instalação-no-windows">Instalação no Windows</h5>
 <p>Para fazer a instalação no Windows, execute os seguintes comandos.</p>
 <pre><code>curl.exe -Lo kind-windows-amd64.exe https://kind.sigs.k8s.io/dl/v0.11.1/kind-windows-amd64
 
 Move-Item .\kind-windows-amd64.exe c:\kind.exe
-</code></pre><h3 id="instalação-no-windows-via-chocolatey">Instalação no Windows via <a href="https://chocolatey.org/install" target="_blank">Chocolatey</a></h3>
+</code></pre><h6 id="instalação-no-windows-via-chocolatey">Instalação no Windows via <a href="https://chocolatey.org/install" target="_blank">Chocolatey</a></h6>
 <p>Execute o seguinte comando para instalar o Kind no Windows usando o Chocolatey.</p>
 <pre><code>choco install kind
-</code></pre><h2 id="criando-um-cluster-com-o-kind">Criando um cluster com o Kind</h2>
+</code></pre><h5 id="criando-um-cluster-com-o-kind">Criando um cluster com o Kind</h5>
 <p>Após realizar a instalação do Kind, vamos iniciar o nosso cluster.</p>
 <pre><code>kind create cluster
 
@@ -874,7 +892,7 @@ giropops
 
 NAME                 STATUS   ROLES                  AGE     VERSION
 kind-control-plane   Ready    control-plane,master   2m46s   v1.21.1
-</code></pre><h3 id="criando-um-cluster-com-múltiplos-nós-locais-com-o-kind">Criando um cluster com múltiplos nós locais com o Kind</h3>
+</code></pre><h5 id="criando-um-cluster-com-múltiplos-nós-locais-com-o-kind">Criando um cluster com múltiplos nós locais com o Kind</h5>
 <p>É possível para essa aula incluir múltiplos nós na estrutura do Kind, que foi mencionado anteriormente.</p>
 <p>Execute o comando a seguir para selecionar e remover todos os clusters locais criados no Kind.</p>
 <pre><code>kind delete clusters $(kind get clusters)
@@ -913,7 +931,7 @@ kind-multinodes-worker          Ready    &lt;none&gt;                 2m16s   v1
 kind-multinodes-worker2         Ready    &lt;none&gt;                 2m16s   v1.21.1
 </code></pre><p>Mais informações sobre o Kind estão disponíveis em: <a href="https://kind.sigs.k8s.io" target="_blank">https://kind.sigs.k8s.io</a></p>
 <p>! Referência: <a href="https://kubernetes.io/blog/2020/05/21/wsl-docker-kubernetes-on-the-windows-desktop/" target="_blank">kind multi-cluster</a></p>
-<h1 id="k3s">k3s</h1>
+<h4 id="k3s">k3s</h4>
 <p>Vamos aprender como instalar o renomado k3s e adicionar nodes no seu cluster!</p>
 <p>Nesse exemplo eu estou usando o Raspberry Pi 4, o <em>master</em> com 4GB de memória RAM e 4 cores, e 2 workers com 2GB de memória RAM e 4 cores.</p>
 <p>Para instalar o k3s, basta executar o seguinte comando:</p>
@@ -1055,8 +1073,8 @@ elliot-03   Ready    &lt;none&gt;   68s   v1.19.1+k3s1
 <li><a href="https://rancher.com/docs/k3s/latest/en/" target="_blank">https://rancher.com/docs/k3s/latest/en/</a></li>
 <li><a href="https://github.com/rancher/k3s" target="_blank">https://github.com/rancher/k3s</a></li>
 </ul>
-<h1 id="instalação-em-cluster-com-três-nós">Instalação em cluster com três nós</h1>
-<h2 id="requisitos-básicos">Requisitos básicos</h2>
+<h3 id="instalação-do-cluster-kubernetes-em-três-nós">Instalação do cluster Kubernetes em três nós</h3>
+<h4 id="requisitos-básicos">Requisitos básicos</h4>
 <p>Como já dito anteriormente, o Minikube é ótimo para desenvolvedores, estudos e testes, mas não tem como propósito a execução em ambiente de produção. Dito isso, a instalação de um <em>cluster</em> k8s para o treinamento irá requerer pelo menos três máquinas, físicas ou virtuais, cada qual com no mínimo a seguinte configuração:</p>
 <ul>
 <li><p>Distribuição: Debian, Ubuntu, CentOS, Red Hat, Fedora, SuSE;</p>
@@ -1696,7 +1714,7 @@ kubectl delete service nginx
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Descomplicando Kubernetes dia 1","level":"2.1","depth":1,"next":{"title":"Descomplicando Kubernetes dia 2","level":"2.2","depth":1,"path":"day_two/descomplicando_kubernetes.md","ref":"day_two/descomplicando_kubernetes.md","articles":[]},"previous":{"title":"Introdução","level":"1.1","depth":1,"path":"README.md","ref":"README.md","articles":[]},"dir":"ltr"},"config":{"plugins":[],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"language":"pt","gitbook":"*"},"file":{"path":"day_one/descomplicando_kubernetes.md","mtime":"2022-07-25T13:10:33.122Z","type":"markdown"},"gitbook":{"version":"3.6.20","time":"2022-07-25T13:10:50.101Z"},"basePath":"..","book":{"language":"pt"}});
+            gitbook.page.hasChanged({"page":{"title":"Descomplicando Kubernetes dia 1","level":"2.1","depth":1,"next":{"title":"Descomplicando Kubernetes dia 2","level":"2.2","depth":1,"path":"day_two/descomplicando_kubernetes.md","ref":"day_two/descomplicando_kubernetes.md","articles":[]},"previous":{"title":"Introdução","level":"1.1","depth":1,"path":"README.md","ref":"README.md","articles":[]},"dir":"ltr"},"config":{"plugins":[],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"language":"pt","gitbook":"*"},"file":{"path":"day_one/descomplicando_kubernetes.md","mtime":"2022-07-31T16:30:38.919Z","type":"markdown"},"gitbook":{"version":"3.6.20","time":"2022-07-31T16:30:54.391Z"},"basePath":"..","book":{"language":"pt"}});
         });
     </script>
 </div>
