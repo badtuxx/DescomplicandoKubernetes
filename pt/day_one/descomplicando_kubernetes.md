@@ -132,7 +132,7 @@ Estas informações foram extraídas e adaptadas deste [artigo](https://static.g
 
 ### Arquitetura do k8s
 
-Assim como os demais orquestradores disponíveis, o k8s também segue um modelo *control plane/workers*, constituindo assim um *cluster*, onde para seu funcionamento é recomendado no mínimo três nós: o nó *master*, responsável (por padrão) pelo gerenciamento do *cluster*, e os demais como *workers*, executores das aplicações que queremos executar sobre esse *cluster*.
+Assim como os demais orquestradores disponíveis, o k8s também segue um modelo *control plane/workers*, constituindo assim um *cluster*, onde para seu funcionamento é recomendado no mínimo três nós: o nó *control-plane*, responsável (por padrão) pelo gerenciamento do *cluster*, e os demais como *workers*, executores das aplicações que queremos executar sobre esse *cluster*.
 
 É possível criar um cluster Kubernetes rodando em apenas um nó, porém é recomendado somente para fins de estudos e nunca executado em ambiente produtivo.
 
@@ -331,6 +331,10 @@ complete -F __start_kubectl k
 
 ### Criando o cluster em sua máquina local
 
+Vamos mostrar algumas opções, caso você queira começar a brincar com o Kubernetes utilizando somente a sua máquina local, o seu desktop.
+
+Lembre-se, você não é obrigado a testar/utilizar todas as opções abaixo, mas seria muito bom caso você testasse. :D
+
 #### Minikube
 
 ##### Requisitos básicos
@@ -471,6 +475,36 @@ Para criar um cluster com mais de um nó, você pode utilizar o comando abaixo, 
 
 ```
 minikube start --nodes 3 -p multinode-cluster
+
+😄  minikube v1.26.0 on Debian bookworm/sid
+✨  Automatically selected the docker driver. Other choices: kvm2, virtualbox, ssh, none, qemu2 (experimental)
+📌  Using Docker driver with root privileges
+👍  Starting control plane node minikube in cluster minikube
+🚜  Pulling base image ...
+💾  Downloading Kubernetes v1.24.1 preload ...
+    > preloaded-images-k8s-v18-v1...: 405.83 MiB / 405.83 MiB  100.00% 66.78 Mi
+    > gcr.io/k8s-minikube/kicbase: 385.99 MiB / 386.00 MiB  100.00% 23.63 MiB p
+    > gcr.io/k8s-minikube/kicbase: 0 B [_________________________] ?% ? p/s 11s
+🔥  Creating docker container (CPUs=2, Memory=8000MB) ...
+🐳  Preparing Kubernetes v1.24.1 on Docker 20.10.17 ...
+    ▪ Generating certificates and keys ...
+    ▪ Booting up control plane ...
+    ▪ Configuring RBAC rules ...
+🔗  Configuring CNI (Container Networking Interface) ...
+🔎  Verifying Kubernetes components...
+    ▪ Using image gcr.io/k8s-minikube/storage-provisioner:v5
+🌟  Enabled addons: storage-provisioner, default-storageclass
+
+👍  Starting worker node minikube-m02 in cluster minikube
+🚜  Pulling base image ...
+🔥  Creating docker container (CPUs=2, Memory=8000MB) ...
+🌐  Found network options:
+    ▪ NO_PROXY=192.168.11.11
+🐳  Preparing Kubernetes v1.24.1 on Docker 20.10.17 ...
+    ▪ env NO_PROXY=192.168.11.11
+🔎  Verifying Kubernetes components...
+🏄  Done! kubectl is now configured to use "minikube" cluster and "default" namespace by default
+
 ```
 
 Para visualizar os nós do seu novo cluster Kubernetes, digite:
@@ -478,15 +512,21 @@ Para visualizar os nós do seu novo cluster Kubernetes, digite:
 ```
 kubectl get nodes
 
-NAME                 STATUS    ROLES     AGE       VERSION
-multinode-demo       Ready     master    5m        v1.19.1
-multinode-demo-m02   Ready     <none>    4m        v1.19.1
+NAME           STATUS   ROLES           AGE   VERSION
+minikube       Ready    control-plane   66s   v1.24.1
+minikube-m02   Ready    <none>          48s   v1.24.1
+
 ```
 
 Inicialmente, a intenção do Minikube é executar o k8s em apenas um nó, porém a partir da versão 1.10.1 e possível usar a função de multi-node.
 
 Caso os comandos anteriores tenham sido executados sem erro, a instalação do Minikube terá sido realizada com sucesso.
 
+##### Ver detalhes sobre o cluster 
+
+```
+minikube status
+```
 
 ##### Descobrindo o endereço do Minikube
 
@@ -522,130 +562,16 @@ Os *logs* do Minikube podem ser acessados através do seguinte comando.
 minikube logs
 ```
 
-
-#### Microk8s
-
-##### Requisitos básicos
-
-Existem alguns tipos de instalação do Microk8s:
-
-* GNU/Linux que suportam Snap;
-* Windows - 4GB RAM e 40GB HD Livre;
-* MacOS - Brew;
-* RaspBerry.
-
-##### Instalação do MicroK8s no GNU/Linux
-
-##### Versões que suportam Snap
-
-Execute os seguintes comandos para instalar o ``microk8s``:
+##### Remover o cluster
 
 ```
-sudo snap install microk8s --classic --channel=1.22/stable
-
-sudo usermod -a -G microk8s $USER
-
-sudo chown -f -R $USER ~/.kube
-
-microk8s status --wait-ready
-
-microk8s enable dns dashboard registry
-
-alias kubectl='microk8s kubectl'
+minikube delete
 ```
 
-##### Instalação no Windows
-
-Somente é possível em versões do Windows Professional e Enterprise
-
-Também será necessário a instalação por meio de um administrador de pacotes do Windows, o [Chocolatey
-](https://chocolatey.org/install)
-
-###### Instalando o Chocolatey
-
-Acesse o **PowerShell com permissão de Admin**, e execute o seguinte comando para instalar o ``chocolatey``:
+Caso queira remover o cluster e todos os arquivos referente a ele, utilize o parametro *--purge*, conforme abaixo:
 
 ```
-Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
-```
-
-> **Atenção!!!** Para acessar o PowerShell com permissão de Admin, siga as instruções apresentadas em um dos seguintes links:
-
-* https://itectec.com/superuser/windows-open-windows-terminal-as-admin-with-winr/
-* https://superuser.com/questions/1560049/open-windows-terminal-as-admin-with-winr
-* https://www.thewindowsclub.com/how-to-open-windows-terminal-as-administrator-in-windows-11* 
-
-##### Instalando o Multipass
-
-Acesse o **PowerShell com permissão de Admin**, e execute o seguinte comando para instalar o ``multipass``:
-
-```
-choco install multipass
-```
-
-##### Utilizando Microk8s com Multipass
-
-Acesse o **PowerShell com permissão de Admin**, e execute os seguintes comandos para executar o ``microk8s`` com o ``multipass``:
-
-```
-multipass launch --name microk8s-vm --mem 4G --disk 40G
-
-multipass exec microk8s-vm -- snap install microk8s --classic
-
-multipass exec microk8s-vm -- iptables -P FORWARD ACCEPT
-
-multipass list
-
-Name                    State             IPv4             Release
-microk8s-vm             RUNNING           10.72.145.216    Ubuntu 18.04 LTS
-
-multipass shell microk8s-vm
-```
-
-Se quiser utilizar o Microk8s sem utilizar um shell criado pelo multipass utilize a seguinte expressão.
-
-Acesse o **PowerShell com permissão de Admin**, e execute o seguinte comando:
-
-```
-multipass exec microk8s-vm -- /snap/bin/microk8s.<command>
-```
-
-##### Instalando o Microk8s no MacOS
-
-Utilizando o gerenciador de pacotes do Mac `Brew`:
-
-##### Instalando o Brew
-
-Se não tiver o ``brew`` instalado em sua máquina execute o seguinte comando. Caso já o possua, vá para a seção seguinte.
-
-```
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
-```
-
-##### Instalando o Microk8s via Brew
-
-Execute os seguintes comandos para instalar o ``microk8s`` via ``brew``.
-
-```
-sudo brew install ubuntu/microk8s/microk8s
-
-sudo microk8s install
-
-sudo microk8s kubectl get all --all-namespaces
-```
-
-Espere até que a configuração do microk8s esteja pronta para ser utilizada.
-
-Para verificar a instalação, execute o seguinte comando:
-
-```
-microk8s status --wait-ready
-```
-
-Assim que o comentário: ``microk8s is running`` for exibido, execute o seguinte comando.
-
-```
-microk8s kubectl <command>
+minikube delete --purge
 ```
 
 #### Kind
@@ -657,7 +583,7 @@ O Kind (*Kubernetes in Docker*) é outra alternativa para executar o Kubernetes 
 Para fazer a instalação no GNU/Linux, execute os seguintes comandos.
 
 ```
-curl -Lo ./kind https://kind.sigs.k8s.io/dl/v0.11.1/kind-linux-amd64
+curl -Lo ./kind https://kind.sigs.k8s.io/dl/v0.14.0/kind-linux-amd64
 
 chmod +x ./kind
 
@@ -675,7 +601,7 @@ sudo brew install kind
 ou
 
 ```
-curl -Lo ./kind https://kind.sigs.k8s.io/dl/v0.11.1/kind-darwin-amd64
+curl -Lo ./kind https://kind.sigs.k8s.io/dl/v0.14.0/kind-darwin-amd64
 chmod +x ./kind
 mv ./kind /usr/bin/kind
 ```
@@ -685,7 +611,7 @@ mv ./kind /usr/bin/kind
 Para fazer a instalação no Windows, execute os seguintes comandos.
 
 ```
-curl.exe -Lo kind-windows-amd64.exe https://kind.sigs.k8s.io/dl/v0.11.1/kind-windows-amd64
+curl.exe -Lo kind-windows-amd64.exe https://kind.sigs.k8s.io/dl/v0.14.0/kind-windows-amd64
 
 Move-Item .\kind-windows-amd64.exe c:\kind.exe
 ```
@@ -706,19 +632,19 @@ Após realizar a instalação do Kind, vamos iniciar o nosso cluster.
 kind create cluster
 
 Creating cluster "kind" ...
- ✓ Ensuring node image (kindest/node:v1.21.1) 🖼
- ✓ Preparing nodes 📦 📦 📦  
+ ✓ Ensuring node image (kindest/node:v1.24.0) 🖼
+ ✓ Preparing nodes 📦  
  ✓ Writing configuration 📜 
  ✓ Starting control-plane 🕹️ 
  ✓ Installing CNI 🔌 
  ✓ Installing StorageClass 💾 
- ✓ Joining worker nodes 🚜 
 Set kubectl context to "kind-kind"
 You can now use your cluster with:
 
 kubectl cluster-info --context kind-kind
 
-Have a nice day! 👋
+Not sure what to do next? 😅  Check out https://kind.sigs.k8s.io/docs/user/quick-start/
+
 ```
 
 É possível criar mais de um cluster e personalizar o seu nome.
@@ -727,19 +653,18 @@ Have a nice day! 👋
 kind create cluster --name giropops
 
 Creating cluster "giropops" ...
- ✓ Ensuring node image (kindest/node:v1.21.1) 🖼
- ✓ Preparing nodes 📦 📦 📦  
+ ✓ Ensuring node image (kindest/node:v1.24.0) 🖼
+ ✓ Preparing nodes 📦  
  ✓ Writing configuration 📜 
  ✓ Starting control-plane 🕹️ 
  ✓ Installing CNI 🔌 
  ✓ Installing StorageClass 💾 
- ✓ Joining worker nodes 🚜 
 Set kubectl context to "kind-giropops"
 You can now use your cluster with:
 
 kubectl cluster-info --context kind-giropops
 
-Have a nice day! 👋
+Thanks for using kind! 😊
 ```
 
 Para visualizar os seus clusters utilizando o kind, execute o comando a seguir.
@@ -756,8 +681,9 @@ Liste os nodes do cluster.
 ```
 kubectl get nodes
 
-NAME                 STATUS   ROLES                  AGE     VERSION
-kind-control-plane   Ready    control-plane,master   2m46s   v1.21.1
+NAME                     STATUS   ROLES           AGE   VERSION
+giropops-control-plane   Ready    control-plane   74s   v1.24.0
+
 ```
 
 ##### Criando um cluster com múltiplos nós locais com o Kind
@@ -768,9 +694,11 @@ Execute o comando a seguir para selecionar e remover todos os clusters locais cr
 
 ```
 kind delete clusters $(kind get clusters)
+
+Deleted clusters: ["giropops" "kind"]
 ```
 
-Crie um arquivo de configuração para definir quantos e o tipo de nós no cluster que você deseja. No exemplo a seguir, será criado o arquivo de configuração ``kind-3nodes.yaml`` para especificar um cluster com 1 nó master (que executará o control plane) e 2 workers.
+Crie um arquivo de configuração para definir quantos e o tipo de nós no cluster que você deseja. No exemplo a seguir, será criado o arquivo de configuração ``kind-3nodes.yaml`` para especificar um cluster com 1 nó control-plane (que executará o control plane) e 2 workers.
 
 ```
 cat << EOF > $HOME/kind-3nodes.yaml
@@ -783,13 +711,13 @@ nodes:
 EOF
 ```
 
-Crie um cluster chamado ``kind-multinodes`` utilizando as especificações definidas no arquivo ``kind-3nodes.yaml``.
+Agora vamos criar um cluster chamado ``kind-multinodes`` utilizando as especificações definidas no arquivo ``kind-3nodes.yaml``.
 
 ```
 kind create cluster --name kind-multinodes --config $HOME/kind-3nodes.yaml
 
 Creating cluster "kind-multinodes" ...
- ✓ Ensuring node image (kindest/node:v1.21.1) 🖼
+ ✓ Ensuring node image (kindest/node:v1.24.0) 🖼
  ✓ Preparing nodes 📦 📦 📦  
  ✓ Writing configuration 📜 
  ✓ Starting control-plane 🕹️ 
@@ -801,7 +729,7 @@ You can now use your cluster with:
 
 kubectl cluster-info --context kind-kind-multinodes
 
-Have a nice day! 👋
+Have a question, bug, or feature request? Let us know! https://kind.sigs.k8s.io/#community 🙂
 ```
 
 Valide a criação do cluster com o comando a seguir.
@@ -809,215 +737,13 @@ Valide a criação do cluster com o comando a seguir.
 ```
 kubectl get nodes
 
-NAME                            STATUS   ROLES                  AGE     VERSION
-kind-multinodes-control-plane   Ready    control-plane,master   2m46s   v1.21.1
-kind-multinodes-worker          Ready    <none>                 2m16s   v1.21.1
-kind-multinodes-worker2         Ready    <none>                 2m16s   v1.21.1
+NAME                            STATUS   ROLES           AGE   VERSION
+kind-multinodes-control-plane   Ready    control-plane   52s   v1.24.0
+kind-multinodes-worker          Ready    <none>          32s   v1.24.0
+kind-multinodes-worker2         Ready    <none>          32s   v1.24.0
 ```
 
 Mais informações sobre o Kind estão disponíveis em: https://kind.sigs.k8s.io
-
-! Referência: [kind multi-cluster](https://kubernetes.io/blog/2020/05/21/wsl-docker-kubernetes-on-the-windows-desktop/)
-
-
-#### k3s
-
-Vamos aprender como instalar o renomado k3s e adicionar nodes no seu cluster!
-
-Nesse exemplo eu estou usando o Raspberry Pi 4, o *master* com 4GB de memória RAM e 4 cores, e 2 workers com 2GB de memória RAM e 4 cores.
-
-Para instalar o k3s, basta executar o seguinte comando:
-
-```
-curl -sfL https://get.k3s.io | sh -
-
-[INFO]  Finding release for channel stable
-[INFO]  Using v1.19.1+k3s1 as release
-[INFO]  Downloading hash https://github.com/rancher/k3s/releases/download/v1.19.1+k3s1/sha256sum-arm.txt
-[INFO]  Downloading binary https://github.com/rancher/k3s/releases/download/v1.19.1+k3s1/k3s-armhf
-[INFO]  Verifying binary download
-[INFO]  Installing k3s to /usr/local/bin/k3s
-[INFO]  Creating /usr/local/bin/kubectl symlink to k3s
-[INFO]  Creating /usr/local/bin/crictl symlink to k3s
-[INFO]  Creating /usr/local/bin/ctr symlink to k3s
-[INFO]  Creating killall script /usr/local/bin/k3s-killall.sh
-[INFO]  Creating uninstall script /usr/local/bin/k3s-uninstall.sh
-[INFO]  env: Creating environment file /etc/systemd/system/k3s.service.env
-[INFO]  systemd: Creating service file /etc/systemd/system/k3s.service
-[INFO]  systemd: Enabling k3s unit
-Created symlink /etc/systemd/system/multi-user.target.wants/k3s.service → /etc/systemd/system/k3s.service.
-[INFO]  systemd: Starting k3s
-```
-
-Vamos ver se está tudo certo com o nosso node master.
-
-```
-kubectl get nodes
-
-NAME        STATUS   ROLES    AGE   VERSION
-elliot-01   Ready    master   15s   v1.19.1+k3s1
-```
-
-Vamos ver os pods em execução:
-
-```
-kubectl get pods
-
-No resources found in default namespace.
-```
-
-Humm! Parece que não temos nenhum, mas será mesmo?
-
-Vamos verificar novamente:
-
-```
-kubectl get pods --all-namespaces
-
-NAMESPACE     NAME                                     READY   STATUS      RESTARTS   AGE
-kube-system   metrics-server-7566d596c8-rdn5f          1/1     Running     0          7m5s
-kube-system   local-path-provisioner-6d59f47c7-mfp89   1/1     Running     0          7m5s
-kube-system   coredns-8655855d6-ns4d4                  1/1     Running     0          7m5s
-kube-system   helm-install-traefik-mqmp4               0/1     Completed   2          7m5s
-kube-system   svclb-traefik-t49cs                      2/2     Running     0          6m11s
-kube-system   traefik-758cd5fc85-jwvmc                 1/1     Running     0          6m12s
-```
-
-Aí estão os pods que estão executando por padrão, que o próprio k8s cria para executar seus próprios componentes internos. Mas temos muito mais coisas além dos pods, vamos conferir tudo que está rodando no nosso lindo k3s:
-
-```
-kubectl get all --all-namespaces
-
-NAMESPACE     NAME                                         READY   STATUS      RESTARTS   AGE
-kube-system   pod/metrics-server-7566d596c8-rdn5f          1/1     Running     0          11m
-kube-system   pod/local-path-provisioner-6d59f47c7-mfp89   1/1     Running     0          11m
-kube-system   pod/coredns-8655855d6-ns4d4                  1/1     Running     0          11m
-kube-system   pod/helm-install-traefik-mqmp4               0/1     Completed   2          11m
-kube-system   pod/svclb-traefik-t49cs                      2/2     Running     0          10m
-kube-system   pod/traefik-758cd5fc85-jwvmc                 1/1     Running     0          10m
-
-NAMESPACE     NAME                         TYPE           CLUSTER-IP     EXTERNAL-IP      PORT(S)                      AGE
-default       service/kubernetes           ClusterIP      10.43.0.1      <none>           443/TCP                      12m
-kube-system   service/kube-dns             ClusterIP      10.43.0.10     <none>           53/UDP,53/TCP,9153/TCP       12m
-kube-system   service/metrics-server       ClusterIP      10.43.181.42   <none>           443/TCP                      12m
-kube-system   service/traefik-prometheus   ClusterIP      10.43.207.57   <none>           9100/TCP                     10m
-kube-system   service/traefik              LoadBalancer   10.43.232.43   192.168.86.101   80:30953/TCP,443:31363/TCP   10m
-
-NAMESPACE     NAME                           DESIRED   CURRENT   READY   UP-TO-DATE   AVAILABLE   NODE SELECTOR   AGE
-kube-system   daemonset.apps/svclb-traefik   1         1         1       1            1           <none>          10m
-
-NAMESPACE     NAME                                     READY   UP-TO-DATE   AVAILABLE   AGE
-kube-system   deployment.apps/metrics-server           1/1     1            1           12m
-kube-system   deployment.apps/local-path-provisioner   1/1     1            1           12m
-kube-system   deployment.apps/coredns                  1/1     1            1           12m
-kube-system   deployment.apps/traefik                  1/1     1            1           10m
-
-NAMESPACE     NAME                                               DESIRED   CURRENT   READY   AGE
-kube-system   replicaset.apps/metrics-server-7566d596c8          1         1         1       11m
-kube-system   replicaset.apps/local-path-provisioner-6d59f47c7   1         1         1       11m
-kube-system   replicaset.apps/coredns-8655855d6                  1         1         1       11m
-kube-system   replicaset.apps/traefik-758cd5fc85                 1         1         1       10m
-
-NAMESPACE     NAME                             COMPLETIONS   DURATION   AGE
-kube-system   job.batch/helm-install-traefik   1/1           55s        11m
-```
-
-Muito legal, bacana e sensacional né?
-
-Porém ainda temos apenas 1 node, queremos adicionar mais nodes para que tenhamos alta disponibilidade para nossas aplicações.
-
-Para fazer isso, primeiro vamos pegar o Token do nosso cluster pois iremos utilizá-lo para adicionar os outros nodes em nosso cluster.
-
-```
-# cat /var/lib/rancher/k3s/server/node-token
-
-K10bded4a17f7674c322febfb517cde93afaa48c35b74528d9d2b7d20ec8e41a1ad::server:9d2c12e1112ecdc0d1f9a2fd0e2933fe
-```
-
-Mágica, achamos nosso Token.
-
-Agora finalmente bora adicionar mais nodes em nosso cluster.
-
-Calma, antes pegue o IP de seu master:
-
-```
-ifconfig
-
-...
-eth0: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
-        inet 192.168.86.101  netmask 255.255.255.0  broadcast 192.168.86.255
-        inet6 fe80::f58b:e4b:c74e:cbd  prefixlen 64  scopeid 0x20<link>
-        ether dc:a6:32:08:c5:6d  txqueuelen 1000  (Ethernet)
-        RX packets 117526  bytes 161460044 (153.9 MiB)
-        RX errors 0  dropped 0  overruns 0  frame 0
-        TX packets 17418  bytes 1180417 (1.1 MiB)
-        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
-...
-```
-
-Legal! Agora que você já tem o Token e o IP da master, bora para o outro node.
-
-Já no outro node, nós vamos executar o comando para que ele seja adicionado:
-
-```
-curl -sfL https://get.k3s.io | K3S_URL=https://myserver:6443 K3S_TOKEN=XXX sh -
-```
-
-O comando ficará mais ou menos assim (lembre-se de trocar pelo seu IP e Token):
-
-```
-curl -sfL https://get.k3s.io | K3S_URL=https://192.168.86.101:6443 K3S_TOKEN=K10bded4a17f7674c322febfb517cde93afaa48c35b74528d9d2b7d20ec8e41a1ad::server:9d2c12e1112ecdc0d1f9a2fd0e2933fe sh -
-
-[INFO]  Finding release for channel stable
-[INFO]  Using v1.19.1+k3s1 as release
-[INFO]  Downloading hash https://github.com/rancher/k3s/releases/download/v1.19.1+k3s1/sha256sum-arm.txt
-[INFO]  Downloading binary https://github.com/rancher/k3s/releases/download/v1.19.1+k3s1/k3s-armhf
-[INFO]  Verifying binary download
-[INFO]  Installing k3s to /usr/local/bin/k3s
-[INFO]  Creating /usr/local/bin/kubectl symlink to k3s
-[INFO]  Creating /usr/local/bin/crictl symlink to k3s
-[INFO]  Creating /usr/local/bin/ctr symlink to k3s
-[INFO]  Creating killall script /usr/local/bin/k3s-killall.sh
-[INFO]  Creating uninstall script /usr/local/bin/k3s-agent-uninstall.sh
-[INFO]  env: Creating environment file /etc/systemd/system/k3s-agent.service.env
-[INFO]  systemd: Creating service file /etc/systemd/system/k3s-agent.service
-[INFO]  systemd: Enabling k3s-agent unit
-Created symlink /etc/systemd/system/multi-user.target.wants/k3s-agent.service → /etc/systemd/system/k3s-agent.service.
-[INFO]  systemd: Starting k3s-agent
-```
-
-Perfeito! Agora vamos ver se esse node está no nosso cluster mesmo:
-
-```
-kubectl get nodes
-
-NAME        STATUS   ROLES    AGE     VERSION
-elliot-02   Ready    <none>   5m27s   v1.19.1+k3s1
-elliot-01   Ready    master   34m     v1.19.1+k3s1
-```
-
-Olha ele ali, ``elliot-02`` já está lindo de bonito em nosso cluster, mágico não?
-
-Quer adicionar mais nodes? Só copiar e colar aquele mesmo comando com o IP do master e o nosso Token no próximo node.
-
-```
-kubectl get nodes
-
-NAME        STATUS   ROLES    AGE   VERSION
-elliot-02   Ready    <none>   10m   v1.19.1+k3s1
-elliot-01   Ready    master   39m   v1.19.1+k3s1
-elliot-03   Ready    <none>   68s   v1.19.1+k3s1
-```
-
-Todos os elliots saudáveis!!!
-
-Pronto!!! Agora temos um cluster com 3 nodes trabalhando, e as possibilidades são infinitas, divirta-se.
-
-Para saber mais detalhes acesse as documentações oficiais do k3s:
-
-* https://k3s.io/
-* https://rancher.com/docs/k3s/latest/en/
-* https://github.com/rancher/k3s
-
 
 
 ### Instalação do cluster Kubernetes em três nós
@@ -1032,7 +758,7 @@ Como já dito anteriormente, o Minikube é ótimo para desenvolvedores, estudos 
 
 - Memória: 2GB.
 
-## Configuração de módulos de kernel
+#### Configuração de módulos de kernel
 
 O k8s requer que certos módulos do kernel GNU/Linux estejam carregados para seu pleno funcionamento, e que esses módulos sejam carregados no momento da inicialização do computador. Para tanto, crie o arquivo ``/etc/modules-load.d/k8s.conf`` com o seguinte conteúdo em todos os seus nós.
 
@@ -1045,7 +771,7 @@ ip_vs_wrr
 nf_conntrack_ipv4
 ```
 
-## Atualização da distribuição
+#### Atualização da distribuição
 
 Em distribuições Debian e baseadas, como o Ubuntu, execute os comandos a seguir, em cada um de seus nós, para executar atualização do sistema.
 
@@ -1202,13 +928,13 @@ Após esses procedimentos, é interessante a reinicialização de todos os nós 
 
 ## Inicialização do cluster
 
-Antes de inicializarmos o *cluster*, vamos efetuar o *download* das imagens que serão utilizadas, executando o comando a seguir no nó que será o *master*.
+Antes de inicializarmos o *cluster*, vamos efetuar o *download* das imagens que serão utilizadas, executando o comando a seguir no nó que será o *control-plane*.
 
 ```
 sudo kubeadm config images pull
 ```
 
-Execute o comando a seguir também apenas no nó *master* para a inicialização do cluster. Caso tudo esteja bem, será apresentada ao término de sua execução o comando que deve ser executado nos demais nós para ingressar no *cluster*.
+Execute o comando a seguir também apenas no nó *control-plane* para a inicialização do cluster. Caso tudo esteja bem, será apresentada ao término de sua execução o comando que deve ser executado nos demais nós para ingressar no *cluster*.
 
 ```
 sudo kubeadm init
@@ -1231,7 +957,7 @@ To start using your cluster, you need to run the following as a regular user:
   sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
   sudo chown $(id -u):$(id -g) $HOME/.kube/config
 ...
-kubeadm join --token 39c341.a3bc3c4dd49758d5 IP_DO_MASTER:6443 --discovery-token-ca-cert-hash sha256:37092
+kubeadm join --token 39c341.a3bc3c4dd49758d5 IP_DO_CONTROL-PLANE:6443 --discovery-token-ca-cert-hash sha256:37092
 ...
 ```
 
@@ -1309,7 +1035,7 @@ ip route add REDE_DO_SERVICE/16 dev INTERFACE
 
 Substitua a `REDE_DO SERVICE` com a rede do `service` (geralmente é um IP finalizando com 0).
 
-Exemplo: Se o IP for `10.96.0.1` a rede é `10.96.0.0`) e a `INTERFACE` com a interface do nó que tem acesso ao `master` do cluster.
+Exemplo: Se o IP for `10.96.0.1` a rede é `10.96.0.0`) e a `INTERFACE` com a interface do nó que tem acesso ao `control-plane` do cluster.
 
 Exemplo de comando para adicionar uma rota:
 
@@ -1365,11 +1091,11 @@ Pode-se observar que há três contêineres do Weave-net em execução provendo 
 
 ## Verificando a instalação
 
-Para verificar se a instalação está funcionando, e se os nós estão se comunicando, você pode executar o comando ``kubectl get nodes`` no nó master, que deve lhe retornar algo como o conteúdo a seguir.
+Para verificar se a instalação está funcionando, e se os nós estão se comunicando, você pode executar o comando ``kubectl get nodes`` no nó control-plane, que deve lhe retornar algo como o conteúdo a seguir.
 
 ```
 NAME        STATUS   ROLES    AGE   VERSION
-elliot-01   Ready    master   8d    v1.19.1
+elliot-01   Ready    control-plane   8d    v1.19.1
 elliot-02   Ready    <none>   8d    v1.19.1
 elliot-03   Ready    <none>   8d    v1.19.1
 ```
