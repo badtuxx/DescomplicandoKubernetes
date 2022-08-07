@@ -728,7 +728,7 @@ minikube version
 NAME       STATUS   ROLES           AGE   VERSION
 minikube   Ready    control-plane   26s   v1.24.1
 </code></pre><p>Para criar um cluster com mais de um nó, você pode utilizar o comando abaixo, apenas modificando os valores para o desejado:</p>
-<pre><code>minikube start --nodes 3 -p multinode-cluster
+<pre><code>minikube start --nodes 2 -p multinode-cluster
 
 😄  minikube v1.26.0 on Debian bookworm/sid
 ✨  Automatically selected the docker driver. Other choices: kvm2, virtualbox, ssh, none, qemu2 (experimental)
@@ -903,64 +903,74 @@ kind-multinodes-worker2         Ready    &lt;none&gt;          32s   v1.24.0
 <li><p>Memória: 2GB.</p>
 </li>
 </ul>
-<h4 id="configuração-de-módulos-de-kernel">Configuração de módulos de kernel</h4>
+<h4 id="configuração-de-módulos-e-parametrização-de-kernel">Configuração de módulos e parametrização de kernel</h4>
 <p>O k8s requer que certos módulos do kernel GNU/Linux estejam carregados para seu pleno funcionamento, e que esses módulos sejam carregados no momento da inicialização do computador. Para tanto, crie o arquivo <code>/etc/modules-load.d/k8s.conf</code> com o seguinte conteúdo em todos os seus nós.</p>
+<pre><code class="lang-bash">vim /etc/modules-load.d/k8s.conf
+</code></pre>
 <pre><code>br_netfilter
 ip_vs
 ip_vs_rr
 ip_vs_sh
 ip_vs_wrr
 nf_conntrack_ipv4
-</code></pre><h4 id="atualização-da-distribuição">Atualização da distribuição</h4>
+overlay
+</code></pre><p>Vamos habilitar o repasse de pacotes e fazer com que o <em>iptables</em> gerencie os pacotes que estão trafegando pelas <em>brigdes</em>. Para isso vamos utilizar <em>systcl</em> para parametrizar o kernel.</p>
+<pre><code class="lang-bash">vim /etc/sysctl.d/k8s.conf
+</code></pre>
+<pre><code>net.bridge.bridge-nf-call-ip6tables = 1
+net.bridge.bridge-nf-call-iptables = 1
+net.ipv4.ip_forward = 1
+</code></pre><p>Para ler as novas configurações:</p>
+<pre><code class="lang-bash">sysctl --system
+</code></pre>
+<h4 id="atualização-da-distribuição">Atualização da distribuição</h4>
 <p>Em distribuições Debian e baseadas, como o Ubuntu, execute os comandos a seguir, em cada um de seus nós, para executar atualização do sistema.</p>
 <pre><code>sudo apt update
 
 sudo apt upgrade -y
 </code></pre><p>Em distribuições Red Hat e baseadas, use o seguinte comando.</p>
 <pre><code>sudo yum upgrade -y
-</code></pre><h2 id="instalação-do-docker-e-do-kubernetes">Instalação do Docker e do Kubernetes</h2>
-<p>A instalação do Docker pode ser realizada com apenas um comando, que deve ser executado nos três nós:</p>
-<pre><code>curl -fsSL https://get.docker.com | bash
-</code></pre><p>Para travar a uma versão especifica do docker utilize o seguinte comando:</p>
-<pre><code>export VERSION=&lt;versão do docker&gt; &amp;&amp; curl -fsSL https://get.docker.com | bash
-</code></pre><p>Embora a maneira anterior seja a mais fácil, não permite o controle de opções. Por esse motivo, a documentação do Kubernetes sugere uma instalação mais controlada seguindo os passos disponíveis em: <a href="https://kubernetes.io/docs/setup/production-environment/container-runtimes/" target="_blank">https://kubernetes.io/docs/setup/production-environment/container-runtimes/</a></p>
-<p><strong>Caso escolha o método mais fácil</strong>, os próximos comandos são muito importantes, pois garantem que o driver <code>Cgroup</code> do Docker será configurado para o <code>systemd</code>, que é o gerenciador de serviços padrão utilizado pelo Kubernetes.</p>
-<p>Para a família Debian, execute o seguinte comando:</p>
-<pre><code>cat &gt; /etc/docker/daemon.json &lt;&lt;EOF
-{
-  &quot;exec-opts&quot;: [&quot;native.cgroupdriver=systemd&quot;],
-  &quot;log-driver&quot;: &quot;json-file&quot;,
-  &quot;log-opts&quot;: {
-    &quot;max-size&quot;: &quot;100m&quot;
-  },
-  &quot;storage-driver&quot;: &quot;overlay2&quot;
-}
-EOF
-</code></pre><p>Para a família Red Hat, execute o seguinte comando:</p>
-<pre><code>cat &gt; /etc/docker/daemon.json &lt;&lt;EOF
-{
-  &quot;exec-opts&quot;: [&quot;native.cgroupdriver=systemd&quot;],
-  &quot;log-driver&quot;: &quot;json-file&quot;,
-  &quot;log-opts&quot;: {
-    &quot;max-size&quot;: &quot;100m&quot;
-  },
-  &quot;storage-driver&quot;: &quot;overlay2&quot;,
-  &quot;storage-opts&quot;: [
-    &quot;overlay2.override_kernel_check=true&quot;
-  ]
-}
-EOF
-</code></pre><p>Os passos a seguir são iguais para ambas as famílias.</p>
-<pre><code>sudo mkdir -p /etc/systemd/system/docker.service.d
-</code></pre><p>Para <strong>instalações acima da v1.24</strong> é necessário remover o item &quot;CRI&quot; quando presente na instrução <code>disabled_plugins</code> localizada no arquivo de configuração do containerd em <code>/etc/containerd/config.toml</code>. Quando removido estamos habilitando o containerd a usar o plugin CRI para se comunicar com o k8s. Caso você tenha aplicado essa alteração, reinicie o containerd.</p>
-<pre><code class="lang-bash">sudo systemctl restart containerd
+</code></pre><h4 id="o-container-runtime">O Container Runtime</h4>
+<p>Para que seja possível executar os containers nos nós é necessário ter um <em>container runtime</em> instalado em cada um dos nós.</p>
+<p>O <em>container runtime</em> ou o <em>container engine</em> é o responsável por executar os containers nos nós. Quando você está utilizando containers em sua máquina, por exemplo, você está fazendo uso de algum <em>container runtime</em>.</p>
+<p>O <em>container runtime</em> é o responsável por gerenciar as imagens e volumes, é ele o responsável por garantir que os os recursos que os containers estão utilizando está devidamente isolados, a vida do container e muito mais.</p>
+<p>Hoje temos diversas opções para se utilizar como <em>container runtime</em>, que até pouco tempo atrás tinhamos somente o Docker para esse papel.</p>
+<p>Hoje o Docker não é mais suportado pelo Kubernetes, pois o Docker é muito mais do que apenas um <em>container runtime</em>. </p>
+<p>O Docker Swarm, por exemplo, vem por padrão quando você instala o Docker, ou seja, não faz sentido ter o Docker inteiro sendo que o Kubernetes somente utiliza um pedaço pequeno do Docker.</p>
+<p>O Kubernetes suporta diversos <em>container runtime</em>, desde que alinhados com o <em>Open Container Interface</em>, o OCI.</p>
+<p><em>Container runtimes</em> suportados pelo Kubernetes:</p>
+<ul>
+<li>containerd</li>
+<li>CRI-O</li>
+<li>Docker Engine</li>
+<li>Mirantis Container Runtime</li>
+</ul>
+<h5 id="instalando-e-configurando-o-containerd">Instalando e configurando o containerd</h5>
+<p>Para instalar o <em>containerd</em> nos nós, utilize o instalador de pacotes padrão de sua distribuição. Para esse exemplo estou utilizando um Ubuntu Server, então irei utilizar o <em>apt</em>.</p>
+<p>Para que isso seja possível vamos adicionar o repositório do Docker. Mas nós não iremos instalar o Docker, iremos somente realizar a instalação do Containerd.</p>
+<pre><code class="lang-bash"><span class="hljs-comment"># Adicionando a chave do repositório</span>
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add - 
+
+sudo add-apt-repository <span class="hljs-string">&quot;deb [arch=amd64] https://download.docker.com/linux/ubuntu <span class="hljs-subst">$(lsb_release -cs)</span> stable&quot;</span>
+sudo apt update
+
+<span class="hljs-comment"># Instalando o containerd</span>
+sudo apt install -y containerd.io
 </code></pre>
-<p>Agora basta reiniciar o Docker.</p>
-<pre><code>sudo systemctl daemon-reload
-sudo systemctl restart docker
-</code></pre><p>Para finalizar, verifique se o driver <code>Cgroup</code> foi corretamente definido.</p>
-<pre><code>docker info | grep -i cgroup
-</code></pre><p>Se a saída foi <code>Cgroup Driver: systemd</code>, tudo certo!</p>
+<p>Agora vamos criar diretório que irá conter as configurações do <em>containerd</em>.</p>
+<pre><code class="lang-bash">mkdir -p /etc/containerd
+</code></pre>
+<p>Agora já podemos criar a configuração básica para o nosso <em>containerd</em>, lembrando que é super importante ler a documentação do <em>containerd</em> para que você possa conhecer todas as opções para o seu ambiente.</p>
+<pre><code class="lang-bash">containerd config default &gt; /etc/containerd/config.toml
+</code></pre>
+<p>Agora vamos reiniciar o serviço para que as novas configurações entrem em vigor.</p>
+<pre><code class="lang-bash"><span class="hljs-comment"># Habilitando o serviço</span>
+systemctl <span class="hljs-built_in">enable</span> containerd
+
+<span class="hljs-comment"># Reiniciando o serviço</span>
+systemctl restart containerd
+</code></pre>
+<h5 id="instalando-o-kubeadm">Instalando o kubeadm</h5>
 <p>O próximo passo é efetuar a adição dos repositórios do k8s e efetuar a instalação do <code>kubeadm</code>.</p>
 <p>Em distribuições Debian e baseadas, isso pode ser realizado com os comandos a seguir.</p>
 <pre><code>sudo apt-get update &amp;&amp; sudo apt-get install -y apt-transport-https gnupg2
@@ -972,55 +982,118 @@ sudo echo &quot;deb http://apt.kubernetes.io/ kubernetes-xenial main&quot; &gt; 
 sudo apt-get update
 
 sudo apt-get install -y kubelet kubeadm kubectl
-</code></pre><p>Já em distribuições Red Hat e baseadas, adicione o repositório do k8s criando o arquivo <code>/etc/yum.repos.d/kubernetes.repo</code> com o conteúdo a seguir:</p>
-<pre><code>[kubernetes]
-name=Kubernetes
-baseurl=https://packages.cloud.google.com/yum/repos/kubernetes-el7-x86_64
-enabled=1
-gpgcheck=1
-repo_gpgcheck=1
-gpgkey=https://packages.cloud.google.com/yum/doc/yum-key.gpg https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
-</code></pre><p>Os comandos a seguir desativam o <em>firewall</em>, instalam os pacotes do k8s e ativam o serviço do mesmo.</p>
-<pre><code>sudo setenforce 0
-
-sudo systemctl stop firewalld
-
-sudo systemctl disable firewalld
-
-sudo yum install -y kubelet kubeadm kubectl
-
-sudo systemctl enable docker &amp;&amp; sudo systemctl start docker
-
-sudo systemctl enable kubelet &amp;&amp; sudo systemctl start kubelet
-</code></pre><p>Ainda em distribuições Red Hat e baseadas, é necessário a configuração de alguns parâmetros extras no kernel por meio do <strong>sysctl</strong>. Estes podem ser setados criando o arquivo <code>/etc/sysctl.d/k8s.conf</code> com o seguinte conteúdo.</p>
-<pre><code>net.bridge.bridge-nf-call-ip6tables = 1
-net.bridge.bridge-nf-call-iptables = 1
-</code></pre><p>Em ambas distribuições GNU/Linux também é necessário desativar a memória swap em todos os nós com o comando a seguir.</p>
-<pre><code>sudo swapoff -a
-</code></pre><p>Além de comentar a linha referente à mesma no arquivo <code>/etc/fstab</code>.</p>
+</code></pre><p>É necessário desativar a memória swap em todos os nós com o comando a seguir.</p>
+<pre><code class="lang-bash">sudo swapoff -a
+</code></pre>
+<p>Além de comentar a linha referente à mesma no arquivo <code>/etc/fstab</code>.</p>
+<pre><code class="lang-bash">sudo sed -i <span class="hljs-string">&apos;/ swap / s/^\(.*\)$/#\1/g&apos;</span> /etc/fstab
+</code></pre>
 <p>Após esses procedimentos, é interessante a reinicialização de todos os nós do <em>cluster</em>.</p>
 <h2 id="inicialização-do-cluster">Inicialização do cluster</h2>
-<p>Antes de inicializarmos o <em>cluster</em>, vamos efetuar o <em>download</em> das imagens que serão utilizadas, executando o comando a seguir no nó que será o <em>control-plane</em>.</p>
-<pre><code>sudo kubeadm config images pull
-</code></pre><p>Execute o comando a seguir também apenas no nó <em>control-plane</em> para a inicialização do cluster. Caso tudo esteja bem, será apresentada ao término de sua execução o comando que deve ser executado nos demais nós para ingressar no <em>cluster</em>.</p>
-<pre><code>sudo kubeadm init
-</code></pre><p>A opção <em>--apiserver-advertise-address</em> informa qual o endereço IP em que o servidor de API irá escutar. Caso este parâmetro não seja informado, a interface de rede padrão será usada. Opcionalmente, você também pode passar o cidr com a opção <em>--pod-network-cidr</em>. O comando obedecerá a seguinte sintaxe:</p>
-<pre><code>kubeadm init --apiserver-advertise-address 192.168.99.2 --pod-network-cidr 192.168.99.0/24
+<p>Antes de inicializarmos o <em>cluster</em>, vamos efetuar o <em>download</em> das imagens que serão utilizadas, executando o comando a seguir no nó que será o <em>control-plane</em>.
+Vamos passar o parametro <em>--cri-socket</em> para especificar o caminho do arquivo de socket do nosso <em>container runtime</em>, nesse caso o <em>containerd</em></p>
+<pre><code>sudo kubeadm config images pull --cri-socket /run/containerd/containerd.sock
+</code></pre><p>Execute o comando a seguir também apenas no nó <em>control-plane</em> para a inicialização do cluster. </p>
+<p>Estamos passando alguns importantes parametros:</p>
+<ul>
+<li><p><em>--control-plane-endpoint</em> -&gt; Ip do seu node que será utilizado no cluster. Importante caso você tenha mais de uma interface ou endereço.</p>
+</li>
+<li><p><em>--cri-socket</em> -&gt; O arquivo de socket do nosso container runtime.</p>
+</li>
+<li><p><em>--upload-certs</em> -&gt; Faz o upload do certificado do <em>control plane</em> para o kubeadm-certs  secret.</p>
+</li>
+</ul>
+<pre><code>sudo kubeadm init --upload-certs --control-plane-endpoint=ADICIONE_O_IP_DO_NODE_AQUI  --cri-socket /run/containerd/containerd.sock
+</code></pre><p>Opcionalmente, você também pode passar o cidr com a opção <em>--pod-network-cidr</em>. O comando obedecerá a seguinte sintaxe:</p>
+<pre><code>sudo kubeadm init --upload-certs --control-plane-endpoint=ADICIONE_O_IP_DO_NODE_AQUI  --cri-socket /run/containerd/containerd.sock --pod-network-cidr 192.168.99.0/24
 </code></pre><p>A saída do comando será algo similar ao mostrado a seguir.</p>
-<pre><code>    [WARNING SystemVerification]: docker version is greater than the most recently validated version. Docker version: 18.05.0-ce. Max validated version: 17.03
-...
+<pre><code>[init] Using Kubernetes version: v1.24.3
+[preflight] Running pre-flight checks
+[preflight] Pulling images required for setting up a Kubernetes cluster
+[preflight] This might take a minute or two, depending on the speed of your internet connection
+[preflight] You can also perform this action in beforehand using &apos;kubeadm config images pull&apos;
+[certs] Using certificateDir folder &quot;/etc/kubernetes/pki&quot;
+[certs] Generating &quot;ca&quot; certificate and key
+[certs] Generating &quot;apiserver&quot; certificate and key
+[certs] apiserver serving cert is signed for DNS names [172.31.19.147 kubernetes kubernetes.default kubernetes.default.svc kubernetes.default.svc.cluster.local] and IPs [10.96.0.1 172.31.19.147]
+[certs] Generating &quot;apiserver-kubelet-client&quot; certificate and key
+[certs] Generating &quot;front-proxy-ca&quot; certificate and key
+[certs] Generating &quot;front-proxy-client&quot; certificate and key
+[certs] Generating &quot;etcd/ca&quot; certificate and key
+[certs] Generating &quot;etcd/server&quot; certificate and key
+[certs] etcd/server serving cert is signed for DNS names [172.31.19.147 localhost] and IPs [172.31.19.147 127.0.0.1 ::1]
+[certs] Generating &quot;etcd/peer&quot; certificate and key
+[certs] etcd/peer serving cert is signed for DNS names [172.31.19.147 localhost] and IPs [172.31.19.147 127.0.0.1 ::1]
+[certs] Generating &quot;etcd/healthcheck-client&quot; certificate and key
+[certs] Generating &quot;apiserver-etcd-client&quot; certificate and key
+[certs] Generating &quot;sa&quot; key and public key
+[kubeconfig] Using kubeconfig folder &quot;/etc/kubernetes&quot;
+[kubeconfig] Writing &quot;admin.conf&quot; kubeconfig file
+[kubeconfig] Writing &quot;kubelet.conf&quot; kubeconfig file
+[kubeconfig] Writing &quot;controller-manager.conf&quot; kubeconfig file
+[kubeconfig] Writing &quot;scheduler.conf&quot; kubeconfig file
+[kubelet-start] Writing kubelet environment file with flags to file &quot;/var/lib/kubelet/kubeadm-flags.env&quot;
+[kubelet-start] Writing kubelet configuration to file &quot;/var/lib/kubelet/config.yaml&quot;
+[kubelet-start] Starting the kubelet
+[control-plane] Using manifest folder &quot;/etc/kubernetes/manifests&quot;
+[control-plane] Creating static Pod manifest for &quot;kube-apiserver&quot;
+[control-plane] Creating static Pod manifest for &quot;kube-controller-manager&quot;
+[control-plane] Creating static Pod manifest for &quot;kube-scheduler&quot;
+[etcd] Creating static Pod manifest for local etcd in &quot;/etc/kubernetes/manifests&quot;
+[wait-control-plane] Waiting for the kubelet to boot up the control plane as static Pods from directory &quot;/etc/kubernetes/manifests&quot;. This can take up to 4m0s
+[apiclient] All control plane components are healthy after 8.505808 seconds
+[upload-config] Storing the configuration used in ConfigMap &quot;kubeadm-config&quot; in the &quot;kube-system&quot; Namespace
+[kubelet] Creating a ConfigMap &quot;kubelet-config&quot; in namespace kube-system with the configuration for the kubelets in the cluster
+[upload-certs] Storing the certificates in Secret &quot;kubeadm-certs&quot; in the &quot;kube-system&quot; Namespace
+[upload-certs] Using certificate key:
+55befb249a01aca7be98b3e7209628f4c4f04c6a05c250c4bb084af722452c36
+[mark-control-plane] Marking the node 172.31.19.147 as control-plane by adding the labels: [node-role.kubernetes.io/control-plane node.kubernetes.io/exclude-from-external-load-balancers]
+[mark-control-plane] Marking the node 172.31.19.147 as control-plane by adding the taints [node-role.kubernetes.io/master:NoSchedule node-role.kubernetes.io/control-plane:NoSchedule]
+[bootstrap-token] Using token: q1m5ci.5p2mtgby0s4ek4vr
+[bootstrap-token] Configuring bootstrap tokens, cluster-info ConfigMap, RBAC Roles
+[bootstrap-token] Configured RBAC rules to allow Node Bootstrap tokens to get nodes
+[bootstrap-token] Configured RBAC rules to allow Node Bootstrap tokens to post CSRs in order for nodes to get long term certificate credentials
+[bootstrap-token] Configured RBAC rules to allow the csrapprover controller automatically approve CSRs from a Node Bootstrap Token
+[bootstrap-token] Configured RBAC rules to allow certificate rotation for all node client certificates in the cluster
+[bootstrap-token] Creating the &quot;cluster-info&quot; ConfigMap in the &quot;kube-public&quot; namespace
+[kubelet-finalize] Updating &quot;/etc/kubernetes/kubelet.conf&quot; to point to a rotatable kubelet client certificate and key
+[addons] Applied essential addon: CoreDNS
+[addons] Applied essential addon: kube-proxy
+
+Your Kubernetes control-plane has initialized successfully!
+
 To start using your cluster, you need to run the following as a regular user:
 
   mkdir -p $HOME/.kube
   sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
   sudo chown $(id -u):$(id -g) $HOME/.kube/config
-...
-kubeadm join --token 39c341.a3bc3c4dd49758d5 IP_DO_CONTROL-PLANE:6443 --discovery-token-ca-cert-hash sha256:37092
-...
+
+Alternatively, if you are the root user, you can run:
+
+  export KUBECONFIG=/etc/kubernetes/admin.conf
+
+You should now deploy a pod network to the cluster.
+Run &quot;kubectl apply -f [podnetwork].yaml&quot; with one of the options listed at:
+  https://kubernetes.io/docs/concepts/cluster-administration/addons/
+
+You can now join any number of the control-plane node running the following command on each as root:
+
+  kubeadm join 172.31.19.147:6443 --token q1m5ci.5p2mtgby0s4ek4vr \
+    --discovery-token-ca-cert-hash sha256:45f6437514981d97631bd5d48822c670ec4a548c9768043fca6e5eda0133b934 \
+    --control-plane --certificate-key 55befb249a01aca7be98b3e7209628f4c4f04c6a05c250c4bb084af722452c36
+
+Please note that the certificate-key gives access to cluster sensitive data, keep it secret!
+As a safeguard, uploaded-certs will be deleted in two hours; If necessary, you can use
+&quot;kubeadm init phase upload-certs --upload-certs&quot; to reload certs afterward.
+
+Then you can join any number of worker nodes by running the following on each as root:
+
+kubeadm join 172.31.19.147:6443 --token q1m5ci.5p2mtgby0s4ek4vr \
+    --discovery-token-ca-cert-hash sha256:45f6437514981d97631bd5d48822c670ec4a548c9768043fca6e5eda0133b934
 </code></pre><p>Caso o servidor possua mais de uma interface de rede, você pode verificar se o IP interno do nó do seu cluster corresponde ao IP da interface esperada com o seguinte comando:</p>
 <pre><code>kubectl describe node elliot-1 | grep InternalIP
 </code></pre><p>A saída será algo similar a seguir:</p>
-<pre><code>InternalIP:  192.168.99.2
+<pre><code>InternalIP:  172.31.19.147
 </code></pre><p>Caso o IP não corresponda ao da interface de rede escolhida, você pode ir até o arquivo localizado em <em>/etc/systemd/system/kubelet.service.d/10-kubeadm.conf</em> com o editor da sua preferência, procure por <em>KUBELET_CONFIG_ARGS</em> e adicione no final a instrução --node-ip=<ip da sua preferência>. O trecho alterado será semelhante a esse:</ip></p>
 <pre><code>Environment=&quot;KUBELET_CONFIG_ARGS=--config=/var/lib/kubelet/config.yaml --node-ip=192.168.99.2&quot;
 </code></pre><p>Salve o arquivo e execute os comandos abaixo para reiniciar a configuração e consequentemente o kubelet.</p>
@@ -1034,81 +1107,152 @@ cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
 
 sudo chown $(id -u):$(id -g) $HOME/.kube/config
 </code></pre><h2 id="inserindo-os-nós-workers-no-cluster">Inserindo os nós workers no cluster</h2>
-<p>Para inserir os nós <em>workers</em> no <em>cluster</em>, basta executar a linha que começa com <code>kubeadm join</code> nos mesmos.</p>
-<h3 id="múltiplas-interfaces">Múltiplas Interfaces</h3>
-<p>Caso algum dos nós que será utilizado tenha mais de uma interface de rede, verifique se ele consegue alcançar o <code>service</code> do <code>Kubernetes</code> através da rota padrão.</p>
-<p>Para verificar, será necessário pegar o IP interno do <code>service</code> Kubernetes através do comando <code>kubectl get services kubernetes</code>. Após obter o IP, basta ir no nó que será ingressado no cluster e rodar o comando <code>curl -k https://SERVICE</code> alterando o <code>SERVICE</code> para o IP do <code>service</code>. Exemplo: <code>curl -k https://10.96.0.1</code>.</p>
-<p>Caso a saída seja algo parecido com o exemplo a seguir, a conexão está acontecendo normalmente.</p>
-<pre><code class="lang-json">{
-  <span class="hljs-string">&quot;kind&quot;</span>: <span class="hljs-string">&quot;Status&quot;</span>,
-  <span class="hljs-string">&quot;apiVersion&quot;</span>: <span class="hljs-string">&quot;v1&quot;</span>,
-  <span class="hljs-string">&quot;metadata&quot;</span>: {
+<p>Para inserir os nós <em>workers</em> ou mais <em>control plane</em> no <em>cluster</em>, basta executar a linha que começa com <code>kubeadm join</code> que vimos na saída do comando de inicialização do cluster.</p>
+<pre><code>You can now join any number of the control-plane node running the following command on each as root:
 
-  },
-  <span class="hljs-string">&quot;status&quot;</span>: <span class="hljs-string">&quot;Failure&quot;</span>,
-  <span class="hljs-string">&quot;message&quot;</span>: <span class="hljs-string">&quot;forbidden: User \&quot;system:anonymous\&quot; cannot get path \&quot;/\&quot;&quot;</span>,
-  <span class="hljs-string">&quot;reason&quot;</span>: <span class="hljs-string">&quot;Forbidden&quot;</span>,
-  <span class="hljs-string">&quot;details&quot;</span>: {
+  kubeadm join 172.31.19.147:6443 --token q1m5ci.5p2mtgby0s4ek4vr \
+    --discovery-token-ca-cert-hash sha256:45f6437514981d97631bd5d48822c670ec4a548c9768043fca6e5eda0133b934 \
+    --control-plane --certificate-key 55befb249a01aca7be98b3e7209628f4c4f04c6a05c250c4bb084af722452c36
 
-  },
-  <span class="hljs-string">&quot;code&quot;</span>: <span class="hljs-number">403</span>
-}
+Please note that the certificate-key gives access to cluster sensitive data, keep it secret!
+As a safeguard, uploaded-certs will be deleted in two hours; If necessary, you can use
+&quot;kubeadm init phase upload-certs --upload-certs&quot; to reload certs afterward.
+
+Then you can join any number of worker nodes by running the following on each as root:
+
+kubeadm join 172.31.19.147:6443 --token q1m5ci.5p2mtgby0s4ek4vr \
+    --discovery-token-ca-cert-hash sha256:45f6437514981d97631bd5d48822c670ec4a548c9768043fca6e5eda0133b934
+</code></pre><p>Conforme notamos na saída acima temos dois comandos, um para que possamos adicionar mais nós como <em>control plane</em> ou então para adicionar nós como <em>worker</em>.</p>
+<p>Apenas copie e cole o comando nos nós que você deseja adicionar ao cluster. Nessa linha de comando do <em>kubeadm join</em> já estamos passando o IP e porta do nosso primeiro nó <em>control plane</em> e as informações sobre o certificado, informações necessárias para que seja possível a entrada do nó no cluster.</p>
+<p>Lembre-se, o comando abaixo deve ser executado nos nós que irão compor o cluster, no exemplo vamos adicionar mais dois nós como <em>workers</em></p>
+<pre><code class="lang-bash">kubeadm join 172.31.19.147:6443 --token q1m5ci.5p2mtgby0s4ek4vr --discovery-token-ca-cert-hash sha256:45f6437514981d97631bd5d48822c670ec4a548c9768043fca6e5eda0133b934 
+
+[preflight] Running pre-flight checks
+[preflight] Reading configuration from the cluster...
+[preflight] FYI: You can look at this config file with <span class="hljs-string">&apos;kubectl -n kube-system get cm kubeadm-config -o yaml&apos;</span>
+[kubelet-start] Writing kubelet configuration to file <span class="hljs-string">&quot;/var/lib/kubelet/config.yaml&quot;</span>
+[kubelet-start] Writing kubelet environment file with flags to file <span class="hljs-string">&quot;/var/lib/kubelet/kubeadm-flags.env&quot;</span>
+[kubelet-start] Starting the kubelet
+[kubelet-start] Waiting <span class="hljs-keyword">for</span> the kubelet to perform the TLS Bootstrap...
+
+This node has joined the cluster:
+* Certificate signing request was sent to apiserver and a response was received.
+* The Kubelet was informed of the new secure connection details.
+
+Run <span class="hljs-string">&apos;kubectl get nodes&apos;</span> on the control-plane to see this node join the cluster.
 </code></pre>
-<p>Caso a saída não seja parecido com o exemplo, será necessário adicionar uma rota com o seguinte comando.</p>
-<pre><code class="lang-shell">ip route add REDE_DO_SERVICE/16 dev INTERFACE
+<p>Agora no nó <em>control plane</em> verifique os nós que já fazem parte do cluster através do comando <em>kubectl</em></p>
+<pre><code class="lang-bash">kubectl get nodes
+NAME               STATUS     ROLES           AGE   VERSION
+ip-172-31-19-147   NotReady   control-plane   68s   v1.24.3
+ip-172-31-24-77    NotReady   &lt;none&gt;          29s   v1.24.3
+ip-172-31-25-32    NotReady   &lt;none&gt;          31s   v1.24.3
 </code></pre>
-<p>Substitua a <code>REDE_DO SERVICE</code> com a rede do <code>service</code> (geralmente é um IP finalizando com 0).</p>
-<p>Exemplo: Se o IP for <code>10.96.0.1</code> a rede é <code>10.96.0.0</code>) e a <code>INTERFACE</code> com a interface do nó que tem acesso ao <code>control-plane</code> do cluster.</p>
-<p>Exemplo de comando para adicionar uma rota:</p>
-<pre><code>sudo ip route add 10.96.0.0/16 dev eth1
-</code></pre><p>Adicione a rota nas configurações de rede para que seja criada durante o boot.</p>
-<h2 id="instalação-do-pod-network">Instalação do pod network</h2>
-<p>Para os usuários do Docker Swarm, há uma diferença entre os dois orquestradores: o k8s por padrão não fornece uma solução de <em>networking</em> <em>out-of-the-box</em>. Para que isso ocorra, deve ser instalada uma solução de <em>pod networking</em> como <em>add-on</em>. Existem diversas opções disponíveis, cada qual com funcionalidades diferentes, tais como: <a href="https://github.com/coreos/flannel" target="_blank">Flannel</a>, <a href="http://docs.projectcalico.org/" target="_blank">Calico</a>, <a href="http://romana.io" target="_blank">Romana</a>, <a href="https://www.weave.works/products/weave-net/" target="_blank">Weave-net</a>, entre outros.</p>
-<p>Mais informações sobre <em>pod networking</em> serão abordados nos demais dias do treinamento.</p>
-<p>Caso você ainda não tenha reiniciado os nós que compõem o seu <em>cluster</em>, você pode carregar os módulos do kernel necessários com o seguinte comando.</p>
-<pre><code>sudo modprobe br_netfilter ip_vs_rr ip_vs_wrr ip_vs_sh nf_conntrack_ipv4 ip_vs
-</code></pre><p>No curso, nós iremos utilizar o <strong>Weave-net</strong>, que pode ser instalado com o comando a seguir.</p>
+<p>Perceba que os nós ainda não estão <em>Ready</em>, pois ainda não instalamos o <em>pod network</em> para resolver a comunicação entre pods em diferentes nós.</p>
+<h2 id="a-rede-do-kubernetes">A rede do Kubernetes</h2>
+<p>Entender como funciona a rede no Kubernetes é super importante para que você consiga entender não somente o comportamento do próprio Kubernetes, como também para o entendimento de como as suas aplicações se comportam e interagem.
+Primeira coisa que devemos entender é que o Kubernetes não resolve como funciona a comunicação de pods em nós diferentes, para que isso seja resolvido é necessário utilizar o que chamamos de <em>pod networking</em>.</p>
+<p>Ou seja, o k8s por padrão não fornece uma solução de <em>networking</em> <em>out-of-the-box</em>. </p>
+<p>Para resolver esse problema foi criado o <em>Container Network Interface</em>, o <strong>CNI</strong>.
+O <em>CNI</em> nada mais é do que uma especificação e um conjunto de bibliotecas para a criação de soluções de <em>pod networking</em>, ou seja, plugins para resolver o problema de comunicação entre os pods.</p>
+<p>Temos diversas solução de <em>pod networking</em> como <em>add-on</em>, cada qual com funcionalidades diferentes, tais como: <a href="https://github.com/coreos/flannel" target="_blank">Flannel</a>, <a href="http://docs.projectcalico.org/" target="_blank">Calico</a>, <a href="http://romana.io" target="_blank">Romana</a>, <a href="https://www.weave.works/products/weave-net/" target="_blank">Weave-net</a>, entre outros.</p>
+<p>É importante saber as caracteristicas de cada solução e como elas resolvem a comunicação entre os pods.</p>
+<p>Por exemplo, temos soluções que utilizam <em>eBPF</em> como é o caso do <em>Cilium</em>, ou ainda soluções que atuam na camada 3 ou na camada 7 do modelo de referencia OSI. </p>
+<p>Dito isso, a melhor coisa é você ler os detalhes de cada solução e entender qual a melhor antende suas necessidades.</p>
+<p>Eu gosto muito da <strong>Weave-net</strong> e será ela que iremos abordar durante o treinamento, na dúvida de qual usar, vá de <strong>Weave-net</strong>! :)</p>
+<p>Para instalar o <em>Weave-net</em> execute o seguinte comando no nó <em>control plane</em>.</p>
 <pre><code>kubectl apply -f &quot;https://cloud.weave.works/k8s/net?k8s-version=$(kubectl version | base64 | tr -d &apos;\n&apos;)&quot;
 </code></pre><p>Para verificar se o <em>pod network</em> foi criado com sucesso, execute o seguinte comando.</p>
 <pre><code>kubectl get pods -n kube-system
 </code></pre><p>O resultado deve ser semelhante ao mostrado a seguir.</p>
-<pre><code>NAME                                READY   STATUS    RESTARTS   AGE
-coredns-66bff467f8-pfm2c            1/1     Running   0          8d
-coredns-66bff467f8-s8pk4            1/1     Running   0          8d
-etcd-docker-01                      1/1     Running   0          8d
-kube-apiserver-docker-01            1/1     Running   0          8d
-kube-controller-manager-docker-01   1/1     Running   0          8d
-kube-proxy-mdcgf                    1/1     Running   0          8d
-kube-proxy-q9cvf                    1/1     Running   0          8d
-kube-proxy-vf8mq                    1/1     Running   0          8d
-kube-scheduler-docker-01            1/1     Running   0          8d
-weave-net-7dhpf                     2/2     Running   0          8d
-weave-net-fvttp                     2/2     Running   0          8d
-weave-net-xl7km                     2/2     Running   0          8d
-</code></pre><p>Pode-se observar que há três contêineres do Weave-net em execução provendo a <em>pod network</em> para o nosso <em>cluster</em>.</p>
+<pre><code>NAMESPACE     NAME                                       READY   STATUS    RESTARTS      AGE
+kube-system   coredns-6d4b75cb6d-vjtw5                   1/1     Running   0             2m4s
+kube-system   coredns-6d4b75cb6d-xd89l                   1/1     Running   0             2m4s
+kube-system   etcd-ip-172-31-19-147                      1/1     Running   0             2m19s
+kube-system   kube-apiserver-ip-172-31-19-147            1/1     Running   0             2m18s
+kube-system   kube-controller-manager-ip-172-31-19-147   1/1     Running   0             2m18s
+kube-system   kube-proxy-djvp4                           1/1     Running   0             103s
+kube-system   kube-proxy-f2f57                           1/1     Running   0             2m5s
+kube-system   kube-proxy-tshff                           1/1     Running   0             105s
+kube-system   kube-scheduler-ip-172-31-19-147            1/1     Running   0             2m18s
+kube-system   weave-net-4qfbb                            2/2     Running   1 (22s ago)   28s
+kube-system   weave-net-htlrp                            2/2     Running   1 (22s ago)   28s
+kube-system   weave-net-nltmv                            2/2     Running   1 (21s ago)   28s
+</code></pre><p>Pode-se observar que há três contêineres do Weave-net em execução, um em cada nó do cluster,  provendo a <em>pod networking</em> para o nosso <em>cluster</em>.</p>
 <h2 id="verificando-a-instalação">Verificando a instalação</h2>
 <p>Para verificar se a instalação está funcionando, e se os nós estão se comunicando, você pode executar o comando <code>kubectl get nodes</code> no nó control-plane, que deve lhe retornar algo como o conteúdo a seguir.</p>
-<pre><code>NAME        STATUS   ROLES    AGE   VERSION
-elliot-01   Ready    control-plane   8d    v1.19.1
-elliot-02   Ready    &lt;none&gt;   8d    v1.19.1
-elliot-03   Ready    &lt;none&gt;   8d    v1.19.1
-</code></pre><h1 id="primeiros-passos-no-k8s">Primeiros passos no k8s</h1>
+<pre><code class="lang-bash">kubectl get nodes
+
+NAME               STATUS   ROLES           AGE     VERSION
+ip-172-31-19-147   Ready    control-plane   2m20s   v1.24.3
+ip-172-31-24-77    Ready    &lt;none&gt;          101s    v1.24.3
+ip-172-31-25-32    Ready    &lt;none&gt;          103s    v1.24.3
+</code></pre>
+<h1 id="primeiros-passos-no-k8s">Primeiros passos no k8s</h1>
 <h2 id="exibindo-informações-detalhadas-sobre-os-nós">Exibindo informações detalhadas sobre os nós</h2>
 <pre><code>kubectl describe node [nome_do_no]
 </code></pre><p>Exemplo:</p>
-<pre><code>kubectl describe node elliot-02
+<pre><code>kubectl describe node ip-172-31-19-147
 
-Name:               elliot-02
-Roles:              &lt;none&gt;
+Name:               ip-172-31-19-147
+Roles:              control-plane
 Labels:             beta.kubernetes.io/arch=amd64
                     beta.kubernetes.io/os=linux
                     kubernetes.io/arch=amd64
-                    kubernetes.io/hostname=elliot-02
+                    kubernetes.io/hostname=ip-172-31-19-147
                     kubernetes.io/os=linux
-Annotations:        kubeadm.alpha.kubernetes.io/cri-socket: /var/run/dockershim.sock
+                    node-role.kubernetes.io/control-plane=
+                    node.kubernetes.io/exclude-from-external-load-balancers=
+Annotations:        kubeadm.alpha.kubernetes.io/cri-socket: unix:///run/containerd/containerd.sock
                     node.alpha.kubernetes.io/ttl: 0
                     volumes.kubernetes.io/controller-managed-attach-detach: true
-</code></pre><h2 id="exibindo-novamente-token-para-entrar-no-cluster">Exibindo novamente token para entrar no cluster</h2>
+CreationTimestamp:  Sun, 07 Aug 2022 07:05:52 +0000
+Taints:             node-role.kubernetes.io/control-plane:NoSchedule
+                    node-role.kubernetes.io/master:NoSchedule
+Unschedulable:      false
+Lease:
+  HolderIdentity:  ip-172-31-19-147
+  AcquireTime:     &lt;unset&gt;
+  RenewTime:       Sun, 07 Aug 2022 08:10:33 +0000
+Conditions:
+  Type                 Status  LastHeartbeatTime                 LastTransitionTime                Reason                       Message
+  ----                 ------  -----------------                 ------------------                ------                       -------
+  NetworkUnavailable   False   Sun, 07 Aug 2022 07:07:56 +0000   Sun, 07 Aug 2022 07:07:56 +0000   WeaveIsUp                    Weave pod has set this
+  MemoryPressure       False   Sun, 07 Aug 2022 08:09:15 +0000   Sun, 07 Aug 2022 07:05:49 +0000   KubeletHasSufficientMemory   kubelet has sufficient memory available
+  DiskPressure         False   Sun, 07 Aug 2022 08:09:15 +0000   Sun, 07 Aug 2022 07:05:49 +0000   KubeletHasNoDiskPressure     kubelet has no disk pressure
+  PIDPressure          False   Sun, 07 Aug 2022 08:09:15 +0000   Sun, 07 Aug 2022 07:05:49 +0000   KubeletHasSufficientPID      kubelet has sufficient PID available
+  Ready                True    Sun, 07 Aug 2022 08:09:15 +0000   Sun, 07 Aug 2022 07:07:58 +0000   KubeletReady                 kubelet is posting ready status. AppArmor enabled
+Addresses:
+  InternalIP:  172.31.19.147
+  Hostname:    ip-172-31-19-147
+Capacity:
+  cpu:                2
+  ephemeral-storage:  7950756Ki
+  hugepages-2Mi:      0
+  memory:             4016852Ki
+  pods:               110
+Allocatable:
+  cpu:                2
+  ephemeral-storage:  7327416718
+  hugepages-2Mi:      0
+  memory:             3914452Ki
+  pods:               110
+System Info:
+  Machine ID:                 23fb437f79c4489ab1e351f42b69a52c
+  System UUID:                ec2e1b61-092b-df48-4c41-f51d2f5e84d7
+  Boot ID:                    1e1ce6a2-3cf0-4961-be37-1f15ba5cd232
+  Kernel Version:             5.13.0-1029-aws
+  OS Image:                   Ubuntu 20.04.4 LTS
+  Operating System:           linux
+  Architecture:               amd64
+  Container Runtime Version:  containerd://1.6.6
+  Kubelet Version:            v1.24.3
+  Kube-Proxy Version:         v1.24.3
+PodCIDR:                      10.244.0.0/24
+PodCIDRs:                     10.244.0.0/24
+Non-terminated Pods:          (8 in total)
+....
+</code></pre><h2 id="exibindo-novamente-token-para-adicionar-um-novo-nó-no-cluster">Exibindo novamente token para adicionar um novo nó no cluster</h2>
 <p>Para visualizar novamente o <em>token</em> para inserção de novos nós, execute o seguinte comando.</p>
 <pre><code>sudo kubeadm token create --print-join-command
 </code></pre><h2 id="ativando-o-autocomplete">Ativando o autocomplete</h2>
@@ -1533,7 +1677,7 @@ kubectl delete service nginx
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Descomplicando Kubernetes dia 1","level":"2.1","depth":1,"next":{"title":"Descomplicando Kubernetes dia 2","level":"2.2","depth":1,"path":"day_two/descomplicando_kubernetes.md","ref":"day_two/descomplicando_kubernetes.md","articles":[]},"previous":{"title":"Introdução","level":"1.1","depth":1,"path":"README.md","ref":"README.md","articles":[]},"dir":"ltr"},"config":{"plugins":[],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"language":"pt","gitbook":"*"},"file":{"path":"day_one/descomplicando_kubernetes.md","mtime":"2022-07-31T17:51:51.200Z","type":"markdown"},"gitbook":{"version":"3.6.20","time":"2022-07-31T17:52:06.959Z"},"basePath":"..","book":{"language":"pt"}});
+            gitbook.page.hasChanged({"page":{"title":"Descomplicando Kubernetes dia 1","level":"2.1","depth":1,"next":{"title":"Descomplicando Kubernetes dia 2","level":"2.2","depth":1,"path":"day_two/descomplicando_kubernetes.md","ref":"day_two/descomplicando_kubernetes.md","articles":[]},"previous":{"title":"Introdução","level":"1.1","depth":1,"path":"README.md","ref":"README.md","articles":[]},"dir":"ltr"},"config":{"plugins":[],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"language":"pt","gitbook":"*"},"file":{"path":"day_one/descomplicando_kubernetes.md","mtime":"2022-08-07T08:14:19.571Z","type":"markdown"},"gitbook":{"version":"3.6.20","time":"2022-08-07T08:14:33.701Z"},"basePath":"..","book":{"language":"pt"}});
         });
     </script>
 </div>
