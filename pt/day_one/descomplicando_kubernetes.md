@@ -906,7 +906,7 @@ sudo sed -i '/ swap / s/^\(.*\)$/#\1/g' /etc/fstab
 Após esses procedimentos, é interessante a reinicialização de todos os nós do *cluster*.
 
 
-## Inicialização do cluster
+##### Inicialização do cluster
 
 Antes de inicializarmos o *cluster*, vamos efetuar o *download* das imagens que serão utilizadas, executando o comando a seguir no nó que será o *control-plane*.
 Vamos passar o parametro *--cri-socket* para especificar o caminho do arquivo de socket do nosso *container runtime*, nesse caso o *containerd*
@@ -1049,7 +1049,7 @@ sudo systemctl daemon-reload
 sudo systemctl restart kubelet
 ```
 
-## Configuração do arquivo de contextos do kubectl
+#### Configuração do arquivo de contextos do kubectl
 
 Como dito anteriormente e de forma similar ao Docker Swarm, o próprio kubeadm já mostrará os comandos necessários para a configuração do ``kubectl``, para que assim possa ser estabelecida comunicação com o cluster k8s. Para tanto, execute os seguintes comandos.
 
@@ -1061,7 +1061,7 @@ cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
 sudo chown $(id -u):$(id -g) $HOME/.kube/config
 ```
 
-## Inserindo os nós workers no cluster
+#### Inserindo os nós workers no cluster
 
 Para inserir os nós *workers* ou mais *control plane* no *cluster*, basta executar a linha que começa com ``kubeadm join`` que vimos na saída do comando de inicialização do cluster.
 
@@ -1119,7 +1119,7 @@ ip-172-31-25-32    NotReady   <none>          31s   v1.24.3
 
 Perceba que os nós ainda não estão *Ready*, pois ainda não instalamos o *pod network* para resolver a comunicação entre pods em diferentes nós.
 
-## A rede do Kubernetes
+#### A rede do Kubernetes
 
 Entender como funciona a rede no Kubernetes é super importante para que você consiga entender não somente o comportamento do próprio Kubernetes, como também para o entendimento de como as suas aplicações se comportam e interagem.
 Primeira coisa que devemos entender é que o Kubernetes não resolve como funciona a comunicação de pods em nós diferentes, para que isso seja resolvido é necessário utilizar o que chamamos de *pod networking*.
@@ -1173,7 +1173,7 @@ kube-system   weave-net-nltmv                            2/2     Running   1 (21
 
 Pode-se observar que há três contêineres do Weave-net em execução, um em cada nó do cluster,  provendo a *pod networking* para o nosso *cluster*.
 
-## Verificando a instalação
+#### Verificando a instalação
 
 Para verificar se a instalação está funcionando, e se os nós estão se comunicando, você pode executar o comando ``kubectl get nodes`` no nó control-plane, que deve lhe retornar algo como o conteúdo a seguir.
 
@@ -1188,9 +1188,9 @@ ip-172-31-25-32    Ready    <none>          103s    v1.24.3
 
 ```
 
-# Primeiros passos no k8s
+### Primeiros passos no k8s
 
-## Exibindo informações detalhadas sobre os nós
+#### Exibindo informações detalhadas sobre os nós
 
 ```
 kubectl describe node [nome_do_no]
@@ -1261,7 +1261,7 @@ Non-terminated Pods:          (8 in total)
 ....
 ```
 
-## Exibindo novamente token para adicionar um novo nó no cluster
+##### Exibindo novamente token para adicionar um novo nó no cluster
 
 Para visualizar novamente o *token* para inserção de novos nós, execute o seguinte comando.
 
@@ -1269,7 +1269,7 @@ Para visualizar novamente o *token* para inserção de novos nós, execute o seg
 sudo kubeadm token create --print-join-command
 ```
 
-## Ativando o autocomplete
+##### Ativando o autocomplete
 
 Em distribuições Debian e baseadas, certifique-se que o pacote ``bash-completion`` esteja instalado. Instale-o com o comando a seguir.
 
@@ -1295,7 +1295,7 @@ Efetue *logoff* e *login* para carregar o *autocomplete*. Caso não deseje, exec
 source <(kubectl completion bash)
 ```
 
-## Verificando os namespaces e pods
+##### Verificando os namespaces e pods
 
 O k8s organiza tudo dentro de *namespaces*. Por meio deles, podem ser realizadas limitações de segurança e de recursos dentro do *cluster*, tais como *pods*, *replication controllers* e diversos outros. Para visualizar os *namespaces* disponíveis no *cluster*, digite:
 
@@ -1314,19 +1314,19 @@ Vamos listar os *pods* do *namespace* **kube-system** utilizando o comando a seg
 ```
 kubectl get pod -n kube-system
 
-NAME                                READY   STATUS    RESTARTS   AGE
-coredns-66bff467f8-pfm2c            1/1     Running   0          8d
-coredns-66bff467f8-s8pk4            1/1     Running   0          8d
-etcd-docker-01                      1/1     Running   0          8d
-kube-apiserver-docker-01            1/1     Running   0          8d
-kube-controller-manager-docker-01   1/1     Running   0          8d
-kube-proxy-mdcgf                    1/1     Running   0          8d
-kube-proxy-q9cvf                    1/1     Running   0          8d
-kube-proxy-vf8mq                    1/1     Running   0          8d
-kube-scheduler-docker-01            1/1     Running   0          8d
-weave-net-7dhpf                     2/2     Running   0          8d
-weave-net-fvttp                     2/2     Running   0          8d
-weave-net-xl7km                     2/2     Running   0          8d
+NAME                                       READY   STATUS    RESTARTS       AGE
+coredns-6d4b75cb6d-vjtw5                   1/1     Running   0              106m
+coredns-6d4b75cb6d-xd89l                   1/1     Running   0              106m
+etcd-ip-172-31-19-147                      1/1     Running   0              106m
+kube-apiserver-ip-172-31-19-147            1/1     Running   0              106m
+kube-controller-manager-ip-172-31-19-147   1/1     Running   0              106m
+kube-proxy-djvp4                           1/1     Running   0              106m
+kube-proxy-f2f57                           1/1     Running   0              106m
+kube-proxy-tshff                           1/1     Running   0              106m
+kube-scheduler-ip-172-31-19-147            1/1     Running   0              106m
+weave-net-4qfbb                            2/2     Running   1 (104m ago)   105m
+weave-net-htlrp                            2/2     Running   1 (104m ago)   105m
+weave-net-nltmv                            2/2     Running   1 (104m ago)   105m
 ```
 
 Será que há algum *pod* escondido em algum *namespace*? É possível listar todos os *pods* de todos os *namespaces* com o comando a seguir.
@@ -1340,23 +1340,22 @@ Há a possibilidade ainda, de utilizar o comando com a opção ```-o wide```, qu
 ```
 kubectl get pods --all-namespaces -o wide
 
-NAMESPACE     NAME                                READY   STATUS    RESTARTS   AGE   IP             NODE        NOMINATED NODE   READINESS GATES
-default       nginx                               1/1     Running   0          24m   10.44.0.1      docker-02   <none>           <none>
-kube-system   coredns-66bff467f8-pfm2c            1/1     Running   0          8d    10.32.0.3      docker-01   <none>           <none>
-kube-system   coredns-66bff467f8-s8pk4            1/1     Running   0          8d    10.32.0.2      docker-01   <none>           <none>
-kube-system   etcd-docker-01                      1/1     Running   0          8d    172.16.83.14   docker-01   <none>           <none>
-kube-system   kube-apiserver-docker-01            1/1     Running   0          8d    172.16.83.14   docker-01   <none>           <none>
-kube-system   kube-controller-manager-docker-01   1/1     Running   0          8d    172.16.83.14   docker-01   <none>           <none>
-kube-system   kube-proxy-mdcgf                    1/1     Running   0          8d    172.16.83.14   docker-01   <none>           <none>
-kube-system   kube-proxy-q9cvf                    1/1     Running   0          8d    172.16.83.12   docker-03   <none>           <none>
-kube-system   kube-proxy-vf8mq                    1/1     Running   0          8d    172.16.83.13   docker-02   <none>           <none>
-kube-system   kube-scheduler-docker-01            1/1     Running   0          8d    172.16.83.14   docker-01   <none>           <none>
-kube-system   weave-net-7dhpf                     2/2     Running   0          8d    172.16.83.12   docker-03   <none>           <none>
-kube-system   weave-net-fvttp                     2/2     Running   0          8d    172.16.83.13   docker-02   <none>           <none>
-kube-system   weave-net-xl7km                     2/2     Running   0          8d    172.16.83.14   docker-01   <none>           <none>
+NAMESPACE     NAME                                       READY   STATUS    RESTARTS       AGE    IP              NODE               NOMINATED NODE   READINESS GATES
+kube-system   coredns-6d4b75cb6d-vjtw5                   1/1     Running   0              105m   10.32.0.3       ip-172-31-19-147   <none>           <none>
+kube-system   coredns-6d4b75cb6d-xd89l                   1/1     Running   0              105m   10.32.0.2       ip-172-31-19-147   <none>           <none>
+kube-system   etcd-ip-172-31-19-147                      1/1     Running   0              105m   172.31.19.147   ip-172-31-19-147   <none>           <none>
+kube-system   kube-apiserver-ip-172-31-19-147            1/1     Running   0              105m   172.31.19.147   ip-172-31-19-147   <none>           <none>
+kube-system   kube-controller-manager-ip-172-31-19-147   1/1     Running   0              105m   172.31.19.147   ip-172-31-19-147   <none>           <none>
+kube-system   kube-proxy-djvp4                           1/1     Running   0              105m   172.31.24.77    ip-172-31-24-77    <none>           <none>
+kube-system   kube-proxy-f2f57                           1/1     Running   0              105m   172.31.19.147   ip-172-31-19-147   <none>           <none>
+kube-system   kube-proxy-tshff                           1/1     Running   0              105m   172.31.25.32    ip-172-31-25-32    <none>           <none>
+kube-system   kube-scheduler-ip-172-31-19-147            1/1     Running   0              105m   172.31.19.147   ip-172-31-19-147   <none>           <none>
+kube-system   weave-net-4qfbb                            2/2     Running   1 (103m ago)   103m   172.31.19.147   ip-172-31-19-147   <none>           <none>
+kube-system   weave-net-htlrp                            2/2     Running   1 (103m ago)   103m   172.31.25.32    ip-172-31-25-32    <none>           <none>
+kube-system   weave-net-nltmv                            2/2     Running   1 (103m ago)   103m   172.31.24.77    ip-172-31-24-77    <none>           <none>
 ```
 
-## Executando nosso primeiro pod no k8s
+##### Executando nosso primeiro pod no k8s
 
 Iremos iniciar o nosso primeiro *pod* no k8s. Para isso, executaremos o comando a seguir.
 
@@ -1381,43 +1380,78 @@ kubectl describe pod nginx
 Name:         nginx
 Namespace:    default
 Priority:     0
-Node:         docker-02/172.16.83.13
-Start Time:   Tue, 12 May 2020 02:29:38 -0300
+Node:         ip-172-31-25-32/172.31.25.32
+Start Time:   Sun, 07 Aug 2022 08:53:24 +0000
 Labels:       run=nginx
 Annotations:  <none>
 Status:       Running
-IP:           10.44.0.1
+IP:           10.40.0.1
 IPs:
-  IP:  10.44.0.1
+  IP:  10.40.0.1
 Containers:
   nginx:
-    Container ID:   docker://2719e2bc023944ee8f34db538094c96b24764a637574c703e232908b46b12a9f
+    Container ID:   containerd://d7ae9933e65477eed7ff04a107fb3a3adb6a634bc713282421bbdf0e1c30bf7b
     Image:          nginx
-    Image ID:       docker-pullable://nginx@sha256:86ae264c3f4acb99b2dee4d0098c40cb8c46dcf9e1148f05d3a51c4df6758c12
+    Image ID:       docker.io/library/nginx@sha256:ecc068890de55a75f1a32cc8063e79f90f0b043d70c5fcf28f1713395a4b3d49
     Port:           <none>
     Host Port:      <none>
     State:          Running
-      Started:      Tue, 12 May 2020 02:29:42 -0300
+      Started:      Sun, 07 Aug 2022 08:53:30 +0000
+    Ready:          True
+    Restart Count:  0
+    Environment:    <none>
+    Mounts:
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-tmjgq (ro)
+Conditions:
+  Type              Status
+  Initialized       True 
+  Ready             True 
+  ContainersReady   True 
+  PodScheduled      True 
+Volumes:
+  kube-api-access-tmjgq:
+    Type:                    Projected (a volume that contains injected data from multiple sources)
+    TokenExpirationSeconds:  3607
+    ConfigMapName:           kube-root-ca.crt
+    ConfigMapOptional:       <nil>
+    DownwardAPI:             true
+QoS Class:                   BestEffort
+Node-Selectors:              <none>
+Tolerations:                 node.kubernetes.io/not-ready:NoExecute op=Exists for 300s
+                             node.kubernetes.io/unreachable:NoExecute op=Exists for 300s
+Events:
+  Type    Reason     Age   From               Message
+  ----    ------     ----  ----               -------
+  Normal  Scheduled  16s   default-scheduler  Successfully assigned default/nginx to ip-172-31-25-32
+  Normal  Pulling    16s   kubelet            Pulling image "nginx"
+  Normal  Pulled     10s   kubelet            Successfully pulled image "nginx" in 5.387864178s
+  Normal  Created    10s   kubelet            Created container nginx
+  Normal  Started    10s   kubelet            Started container nginx
+
 ```
 
-## Verificar os últimos eventos do cluster
+##### Verificar os últimos eventos do cluster
 
 Você pode verificar quais são os últimos eventos do *cluster* com o comando ``kubectl get events``. Serão mostrados eventos como: o *download* de imagens do Docker Hub (ou de outro *registry* configurado), a criação/remoção de *pods*, etc.
 
 A saída a seguir mostra o resultado da criação do nosso contêiner com Nginx.
 
 ```
+kubectl get events
+
 LAST SEEN   TYPE     REASON      OBJECT      MESSAGE
-5m34s       Normal   Scheduled   pod/nginx   Successfully assigned default/nginx to docker-02
-5m33s       Normal   Pulling     pod/nginx   Pulling image "nginx"
-5m31s       Normal   Pulled      pod/nginx   Successfully pulled image "nginx"
-5m30s       Normal   Created     pod/nginx   Created container nginx
-5m30s       Normal   Started     pod/nginx   Started container nginx
+44s         Normal   Scheduled   pod/nginx   Successfully assigned default/nginx to ip-172-31-25-32
+44s         Normal   Pulling     pod/nginx   Pulling image "nginx"
+38s         Normal   Pulled      pod/nginx   Successfully pulled image "nginx" in 5.387864178s
+38s         Normal   Created     pod/nginx   Created container nginx
+38s         Normal   Started     pod/nginx   Started container nginx
+
 ```
 
 No resultado do comando anterior é possível observar que a execução do nginx ocorreu no *namespace* default e que a imagem **nginx** não existia no repositório local e, sendo assim, teve de ser feito download da imagem.
 
-## Efetuar o dump de um objeto em formato YAML
+
+##### Efetuar o dump de um objeto em formato YAML
 
 Assim como quando se está trabalhando com *stacks* no Docker Swarm, normalmente recursos no k8s são declarados em arquivos **YAML** ou **JSON** e depois manipulados através do ``kubectl``.
 
@@ -1435,77 +1469,13 @@ Abrindo o arquivo com ``vim meu-primeiro.yaml`` (você pode utilizar o editor qu
 apiVersion: v1
 kind: Pod
 metadata:
-  creationTimestamp: "2020-05-12T05:29:38Z"
+  creationTimestamp: "2022-08-07T08:53:24Z"
   labels:
     run: nginx
-  managedFields:
-  - apiVersion: v1
-    fieldsType: FieldsV1
-    fieldsV1:
-      f:metadata:
-        f:labels:
-          .: {}
-          f:run: {}
-      f:spec:
-        f:containers:
-          k:{"name":"nginx"}:
-            .: {}
-            f:image: {}
-            f:imagePullPolicy: {}
-            f:name: {}
-            f:resources: {}
-            f:terminationMessagePath: {}
-            f:terminationMessagePolicy: {}
-        f:dnsPolicy: {}
-        f:enableServiceLinks: {}
-        f:restartPolicy: {}
-        f:schedulerName: {}
-        f:securityContext: {}
-        f:terminationGracePeriodSeconds: {}
-    manager: kubectl
-    operation: Update
-    time: "2020-05-12T05:29:38Z"
-  - apiVersion: v1
-    fieldsType: FieldsV1
-    fieldsV1:
-      f:status:
-        f:conditions:
-          k:{"type":"ContainersReady"}:
-            .: {}
-            f:lastProbeTime: {}
-            f:lastTransitionTime: {}
-            f:status: {}
-            f:type: {}
-          k:{"type":"Initialized"}:
-            .: {}
-            f:lastProbeTime: {}
-            f:lastTransitionTime: {}
-            f:status: {}
-            f:type: {}
-          k:{"type":"Ready"}:
-            .: {}
-            f:lastProbeTime: {}
-            f:lastTransitionTime: {}
-            f:status: {}
-            f:type: {}
-        f:containerStatuses: {}
-        f:hostIP: {}
-        f:phase: {}
-        f:podIP: {}
-        f:podIPs:
-          .: {}
-          k:{"ip":"10.44.0.1"}:
-            .: {}
-            f:ip: {}
-        f:startTime: {}
-    manager: kubelet
-    operation: Update
-    time: "2020-05-12T05:29:43Z"
   name: nginx
   namespace: default
-  resourceVersion: "1673991"
-  selfLink: /api/v1/namespaces/default/pods/nginx
-  uid: 36506f7b-1f3b-4ee8-b063-de3e6d31bea9
+  resourceVersion: "9598"
+  uid: d0928186-bf6d-459b-aca6-9b0d84b40e9c
 spec:
   containers:
   - image: nginx
@@ -1516,11 +1486,12 @@ spec:
     terminationMessagePolicy: File
     volumeMounts:
     - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
-      name: default-token-nkz89
+      name: kube-api-access-tmjgq
       readOnly: true
   dnsPolicy: ClusterFirst
   enableServiceLinks: true
-  nodeName: docker-02
+  nodeName: ip-172-31-25-32
+  preemptionPolicy: PreemptLowerPriority
   priority: 0
   restartPolicy: Always
   schedulerName: default-scheduler
@@ -1538,32 +1509,46 @@ spec:
     operator: Exists
     tolerationSeconds: 300
   volumes:
-  - name: default-token-nkz89
-    secret:
+  - name: kube-api-access-tmjgq
+    projected:
       defaultMode: 420
-      secretName: default-token-nkz89
+      sources:
+      - serviceAccountToken:
+          expirationSeconds: 3607
+          path: token
+      - configMap:
+          items:
+          - key: ca.crt
+            path: ca.crt
+          name: kube-root-ca.crt
+      - downwardAPI:
+          items:
+          - fieldRef:
+              apiVersion: v1
+              fieldPath: metadata.namespace
+            path: namespace
 status:
   conditions:
   - lastProbeTime: null
-    lastTransitionTime: "2020-05-12T05:29:38Z"
+    lastTransitionTime: "2022-08-07T08:53:24Z"
     status: "True"
     type: Initialized
   - lastProbeTime: null
-    lastTransitionTime: "2020-05-12T05:29:43Z"
+    lastTransitionTime: "2022-08-07T08:53:30Z"
     status: "True"
     type: Ready
   - lastProbeTime: null
-    lastTransitionTime: "2020-05-12T05:29:43Z"
+    lastTransitionTime: "2022-08-07T08:53:30Z"
     status: "True"
     type: ContainersReady
   - lastProbeTime: null
-    lastTransitionTime: "2020-05-12T05:29:38Z"
+    lastTransitionTime: "2022-08-07T08:53:24Z"
     status: "True"
     type: PodScheduled
   containerStatuses:
-  - containerID: docker://2719e2bc023944ee8f34db538094c96b24764a637574c703e232908b46b12a9f
-    image: nginx:latest
-    imageID: docker-pullable://nginx@sha256:86ae264c3f4acb99b2dee4d0098c40cb8c46dcf9e1148f05d3a51c4df6758c12
+  - containerID: containerd://d7ae9933e65477eed7ff04a107fb3a3adb6a634bc713282421bbdf0e1c30bf7b
+    image: docker.io/library/nginx:latest
+    imageID: docker.io/library/nginx@sha256:ecc068890de55a75f1a32cc8063e79f90f0b043d70c5fcf28f1713395a4b3d49
     lastState: {}
     name: nginx
     ready: true
@@ -1571,14 +1556,14 @@ status:
     started: true
     state:
       running:
-        startedAt: "2020-05-12T05:29:42Z"
-  hostIP: 172.16.83.13
+        startedAt: "2022-08-07T08:53:30Z"
+  hostIP: 172.31.25.32
   phase: Running
-  podIP: 10.44.0.1
+  podIP: 10.40.0.1
   podIPs:
-  - ip: 10.44.0.1
+  - ip: 10.40.0.1
   qosClass: BestEffort
-  startTime: "2020-05-12T05:29:38Z"
+  startTime: "2022-08-07T08:53:24Z"
 ```
 
 Observando o arquivo anterior, notamos que este reflete o **estado** do *pod*. Nós desejamos utilizar tal arquivo apenas como um modelo, e sendo assim, podemos apagar as entradas que armazenam dados de estado desse *pod*, como *status* e todas as demais configurações que são específicas dele. O arquivo final ficará com o conteúdo semelhante a este:
@@ -1587,7 +1572,6 @@ Observando o arquivo anterior, notamos que este reflete o **estado** do *pod*. N
   apiVersion: v1
   kind: Pod
   metadata:
-    creationTimestamp: null
     labels:
       run: nginx
     name: nginx
@@ -1652,7 +1636,7 @@ kubectl create deployment meu-nginx --image=nginx --dry-run=client -o yaml > dep
 
 A vantagem deste método é que não há a necessidade de limpar o arquivo, além de serem apresentadas apenas as opções necessárias do recurso.
 
-## Socorro, são muitas opções!
+#### Socorro, são muitas opções!
 
 Calma, nós sabemos. Mas o ``kubectl`` pode lhe auxiliar um pouco em relação a isso. Ele contém a opção ``explain``, que você pode utilizar caso precise de ajuda com alguma opção em específico dos arquivos de recurso. A seguir alguns exemplos de sintaxe.
 
@@ -1674,7 +1658,7 @@ kubectl explain pod --recursive
 kubectl explain deployment.spec.template.spec
 ```
 
-## Expondo o pod
+#### Expondo o pod e criando um Service
 
 Dispositivos fora do *cluster*, por padrão, não conseguem acessar os *pods* criados, como é comum em outros sistemas de contêineres. Para expor um *pod*, execute o comando a seguir.
 
@@ -1779,7 +1763,8 @@ Commercial support is available at
 
 Este *pod* está disponível para acesso a partir de qualquer nó do *cluster*.
 
-## Limpando tudo e indo para casa
+
+#### Limpando tudo e indo para casa
 
 Para mostrar todos os recursos recém criados, pode-se utilizar uma das seguintes opções a seguir.
 
