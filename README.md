@@ -9,7 +9,7 @@
 
 <p align="justify">Futuramente, o conteúdo deste repositório se tornará um livro com os créditos para as pessoas que contribuíram para o projeto. O valor que será arrecadado com a venda do livro será totalmente destinado para alguma organização que ajude quebradas e pessoas com problemas financeiros e/ou problemas com acesso a informação, como, por exemplo, a <a href="https://twitter.com/bienalquebrada">Bienal da Quebrada.</a></p>
 
-Contamos com a sua ajuda para tornar este material ainda mais completo. Colabore! Para contribuir com melhorias no conteúdo, siga as instruções deste [tutorial](CONTRIBUTING.md).
+Contamos com a sua ajuda para tornar este material ainda mais completo. Colabore! Para contribuir com melhorias no conteúdo, siga as instruções deste [tutorial](pt/CONTRIBUTING.md).
 
 Veja os vídeos sobre Kubernetes, DevOps, Automação e outros assuntos relacionado à tecnologia nos canais da LINUXtips:
 
