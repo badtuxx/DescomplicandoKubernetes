@@ -989,7 +989,7 @@ sudo apt-get install -y kubelet kubeadm kubectl
 <pre><code class="lang-bash">sudo sed -i <span class="hljs-string">&apos;/ swap / s/^\(.*\)$/#\1/g&apos;</span> /etc/fstab
 </code></pre>
 <p>Após esses procedimentos, é interessante a reinicialização de todos os nós do <em>cluster</em>.</p>
-<h2 id="inicialização-do-cluster">Inicialização do cluster</h2>
+<h5 id="inicialização-do-cluster">Inicialização do cluster</h5>
 <p>Antes de inicializarmos o <em>cluster</em>, vamos efetuar o <em>download</em> das imagens que serão utilizadas, executando o comando a seguir no nó que será o <em>control-plane</em>.
 Vamos passar o parametro <em>--cri-socket</em> para especificar o caminho do arquivo de socket do nosso <em>container runtime</em>, nesse caso o <em>containerd</em></p>
 <pre><code>sudo kubeadm config images pull --cri-socket /run/containerd/containerd.sock
@@ -1099,14 +1099,14 @@ kubeadm join 172.31.19.147:6443 --token q1m5ci.5p2mtgby0s4ek4vr \
 </code></pre><p>Salve o arquivo e execute os comandos abaixo para reiniciar a configuração e consequentemente o kubelet.</p>
 <pre><code>sudo systemctl daemon-reload
 sudo systemctl restart kubelet
-</code></pre><h2 id="configuração-do-arquivo-de-contextos-do-kubectl">Configuração do arquivo de contextos do kubectl</h2>
+</code></pre><h4 id="configuração-do-arquivo-de-contextos-do-kubectl">Configuração do arquivo de contextos do kubectl</h4>
 <p>Como dito anteriormente e de forma similar ao Docker Swarm, o próprio kubeadm já mostrará os comandos necessários para a configuração do <code>kubectl</code>, para que assim possa ser estabelecida comunicação com o cluster k8s. Para tanto, execute os seguintes comandos.</p>
 <pre><code>mkdir -p $HOME/.kube
 
 cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
 
 sudo chown $(id -u):$(id -g) $HOME/.kube/config
-</code></pre><h2 id="inserindo-os-nós-workers-no-cluster">Inserindo os nós workers no cluster</h2>
+</code></pre><h4 id="inserindo-os-nós-workers-no-cluster">Inserindo os nós workers no cluster</h4>
 <p>Para inserir os nós <em>workers</em> ou mais <em>control plane</em> no <em>cluster</em>, basta executar a linha que começa com <code>kubeadm join</code> que vimos na saída do comando de inicialização do cluster.</p>
 <pre><code>You can now join any number of the control-plane node running the following command on each as root:
 
@@ -1149,7 +1149,7 @@ ip-172-31-24-77    NotReady   &lt;none&gt;          29s   v1.24.3
 ip-172-31-25-32    NotReady   &lt;none&gt;          31s   v1.24.3
 </code></pre>
 <p>Perceba que os nós ainda não estão <em>Ready</em>, pois ainda não instalamos o <em>pod network</em> para resolver a comunicação entre pods em diferentes nós.</p>
-<h2 id="a-rede-do-kubernetes">A rede do Kubernetes</h2>
+<h4 id="a-rede-do-kubernetes">A rede do Kubernetes</h4>
 <p>Entender como funciona a rede no Kubernetes é super importante para que você consiga entender não somente o comportamento do próprio Kubernetes, como também para o entendimento de como as suas aplicações se comportam e interagem.
 Primeira coisa que devemos entender é que o Kubernetes não resolve como funciona a comunicação de pods em nós diferentes, para que isso seja resolvido é necessário utilizar o que chamamos de <em>pod networking</em>.</p>
 <p>Ou seja, o k8s por padrão não fornece uma solução de <em>networking</em> <em>out-of-the-box</em>. </p>
@@ -1179,7 +1179,7 @@ kube-system   weave-net-4qfbb                            2/2     Running   1 (22
 kube-system   weave-net-htlrp                            2/2     Running   1 (22s ago)   28s
 kube-system   weave-net-nltmv                            2/2     Running   1 (21s ago)   28s
 </code></pre><p>Pode-se observar que há três contêineres do Weave-net em execução, um em cada nó do cluster,  provendo a <em>pod networking</em> para o nosso <em>cluster</em>.</p>
-<h2 id="verificando-a-instalação">Verificando a instalação</h2>
+<h4 id="verificando-a-instalação">Verificando a instalação</h4>
 <p>Para verificar se a instalação está funcionando, e se os nós estão se comunicando, você pode executar o comando <code>kubectl get nodes</code> no nó control-plane, que deve lhe retornar algo como o conteúdo a seguir.</p>
 <pre><code class="lang-bash">kubectl get nodes
 
@@ -1188,8 +1188,8 @@ ip-172-31-19-147   Ready    control-plane   2m20s   v1.24.3
 ip-172-31-24-77    Ready    &lt;none&gt;          101s    v1.24.3
 ip-172-31-25-32    Ready    &lt;none&gt;          103s    v1.24.3
 </code></pre>
-<h1 id="primeiros-passos-no-k8s">Primeiros passos no k8s</h1>
-<h2 id="exibindo-informações-detalhadas-sobre-os-nós">Exibindo informações detalhadas sobre os nós</h2>
+<h3 id="primeiros-passos-no-k8s">Primeiros passos no k8s</h3>
+<h4 id="exibindo-informações-detalhadas-sobre-os-nós">Exibindo informações detalhadas sobre os nós</h4>
 <pre><code>kubectl describe node [nome_do_no]
 </code></pre><p>Exemplo:</p>
 <pre><code>kubectl describe node ip-172-31-19-147
@@ -1252,10 +1252,10 @@ PodCIDR:                      10.244.0.0/24
 PodCIDRs:                     10.244.0.0/24
 Non-terminated Pods:          (8 in total)
 ....
-</code></pre><h2 id="exibindo-novamente-token-para-adicionar-um-novo-nó-no-cluster">Exibindo novamente token para adicionar um novo nó no cluster</h2>
+</code></pre><h5 id="exibindo-novamente-token-para-adicionar-um-novo-nó-no-cluster">Exibindo novamente token para adicionar um novo nó no cluster</h5>
 <p>Para visualizar novamente o <em>token</em> para inserção de novos nós, execute o seguinte comando.</p>
 <pre><code>sudo kubeadm token create --print-join-command
-</code></pre><h2 id="ativando-o-autocomplete">Ativando o autocomplete</h2>
+</code></pre><h5 id="ativando-o-autocomplete">Ativando o autocomplete</h5>
 <p>Em distribuições Debian e baseadas, certifique-se que o pacote <code>bash-completion</code> esteja instalado. Instale-o com o comando a seguir.</p>
 <pre><code>sudo apt install -y bash-completion
 </code></pre><p>Em sistemas Red Hat e baseados, execute:</p>
@@ -1264,7 +1264,7 @@ Non-terminated Pods:          (8 in total)
 <pre><code>kubectl completion bash &gt; /etc/bash_completion.d/kubectl
 </code></pre><p>Efetue <em>logoff</em> e <em>login</em> para carregar o <em>autocomplete</em>. Caso não deseje, execute:</p>
 <pre><code>source &lt;(kubectl completion bash)
-</code></pre><h2 id="verificando-os-namespaces-e-pods">Verificando os namespaces e pods</h2>
+</code></pre><h5 id="verificando-os-namespaces-e-pods">Verificando os namespaces e pods</h5>
 <p>O k8s organiza tudo dentro de <em>namespaces</em>. Por meio deles, podem ser realizadas limitações de segurança e de recursos dentro do <em>cluster</em>, tais como <em>pods</em>, <em>replication controllers</em> e diversos outros. Para visualizar os <em>namespaces</em> disponíveis no <em>cluster</em>, digite:</p>
 <pre><code>kubectl get namespaces
 
@@ -1276,39 +1276,38 @@ kube-system       Active   8d
 </code></pre><p>Vamos listar os <em>pods</em> do <em>namespace</em> <strong>kube-system</strong> utilizando o comando a seguir.</p>
 <pre><code>kubectl get pod -n kube-system
 
-NAME                                READY   STATUS    RESTARTS   AGE
-coredns-66bff467f8-pfm2c            1/1     Running   0          8d
-coredns-66bff467f8-s8pk4            1/1     Running   0          8d
-etcd-docker-01                      1/1     Running   0          8d
-kube-apiserver-docker-01            1/1     Running   0          8d
-kube-controller-manager-docker-01   1/1     Running   0          8d
-kube-proxy-mdcgf                    1/1     Running   0          8d
-kube-proxy-q9cvf                    1/1     Running   0          8d
-kube-proxy-vf8mq                    1/1     Running   0          8d
-kube-scheduler-docker-01            1/1     Running   0          8d
-weave-net-7dhpf                     2/2     Running   0          8d
-weave-net-fvttp                     2/2     Running   0          8d
-weave-net-xl7km                     2/2     Running   0          8d
+NAME                                       READY   STATUS    RESTARTS       AGE
+coredns-6d4b75cb6d-vjtw5                   1/1     Running   0              106m
+coredns-6d4b75cb6d-xd89l                   1/1     Running   0              106m
+etcd-ip-172-31-19-147                      1/1     Running   0              106m
+kube-apiserver-ip-172-31-19-147            1/1     Running   0              106m
+kube-controller-manager-ip-172-31-19-147   1/1     Running   0              106m
+kube-proxy-djvp4                           1/1     Running   0              106m
+kube-proxy-f2f57                           1/1     Running   0              106m
+kube-proxy-tshff                           1/1     Running   0              106m
+kube-scheduler-ip-172-31-19-147            1/1     Running   0              106m
+weave-net-4qfbb                            2/2     Running   1 (104m ago)   105m
+weave-net-htlrp                            2/2     Running   1 (104m ago)   105m
+weave-net-nltmv                            2/2     Running   1 (104m ago)   105m
 </code></pre><p>Será que há algum <em>pod</em> escondido em algum <em>namespace</em>? É possível listar todos os <em>pods</em> de todos os <em>namespaces</em> com o comando a seguir.</p>
 <pre><code>kubectl get pods --all-namespaces
 </code></pre><p>Há a possibilidade ainda, de utilizar o comando com a opção <code>-o wide</code>, que disponibiliza maiores informações sobre o recurso, inclusive em qual nó o <em>pod</em> está sendo executado. Exemplo:</p>
 <pre><code>kubectl get pods --all-namespaces -o wide
 
-NAMESPACE     NAME                                READY   STATUS    RESTARTS   AGE   IP             NODE        NOMINATED NODE   READINESS GATES
-default       nginx                               1/1     Running   0          24m   10.44.0.1      docker-02   &lt;none&gt;           &lt;none&gt;
-kube-system   coredns-66bff467f8-pfm2c            1/1     Running   0          8d    10.32.0.3      docker-01   &lt;none&gt;           &lt;none&gt;
-kube-system   coredns-66bff467f8-s8pk4            1/1     Running   0          8d    10.32.0.2      docker-01   &lt;none&gt;           &lt;none&gt;
-kube-system   etcd-docker-01                      1/1     Running   0          8d    172.16.83.14   docker-01   &lt;none&gt;           &lt;none&gt;
-kube-system   kube-apiserver-docker-01            1/1     Running   0          8d    172.16.83.14   docker-01   &lt;none&gt;           &lt;none&gt;
-kube-system   kube-controller-manager-docker-01   1/1     Running   0          8d    172.16.83.14   docker-01   &lt;none&gt;           &lt;none&gt;
-kube-system   kube-proxy-mdcgf                    1/1     Running   0          8d    172.16.83.14   docker-01   &lt;none&gt;           &lt;none&gt;
-kube-system   kube-proxy-q9cvf                    1/1     Running   0          8d    172.16.83.12   docker-03   &lt;none&gt;           &lt;none&gt;
-kube-system   kube-proxy-vf8mq                    1/1     Running   0          8d    172.16.83.13   docker-02   &lt;none&gt;           &lt;none&gt;
-kube-system   kube-scheduler-docker-01            1/1     Running   0          8d    172.16.83.14   docker-01   &lt;none&gt;           &lt;none&gt;
-kube-system   weave-net-7dhpf                     2/2     Running   0          8d    172.16.83.12   docker-03   &lt;none&gt;           &lt;none&gt;
-kube-system   weave-net-fvttp                     2/2     Running   0          8d    172.16.83.13   docker-02   &lt;none&gt;           &lt;none&gt;
-kube-system   weave-net-xl7km                     2/2     Running   0          8d    172.16.83.14   docker-01   &lt;none&gt;           &lt;none&gt;
-</code></pre><h2 id="executando-nosso-primeiro-pod-no-k8s">Executando nosso primeiro pod no k8s</h2>
+NAMESPACE     NAME                                       READY   STATUS    RESTARTS       AGE    IP              NODE               NOMINATED NODE   READINESS GATES
+kube-system   coredns-6d4b75cb6d-vjtw5                   1/1     Running   0              105m   10.32.0.3       ip-172-31-19-147   &lt;none&gt;           &lt;none&gt;
+kube-system   coredns-6d4b75cb6d-xd89l                   1/1     Running   0              105m   10.32.0.2       ip-172-31-19-147   &lt;none&gt;           &lt;none&gt;
+kube-system   etcd-ip-172-31-19-147                      1/1     Running   0              105m   172.31.19.147   ip-172-31-19-147   &lt;none&gt;           &lt;none&gt;
+kube-system   kube-apiserver-ip-172-31-19-147            1/1     Running   0              105m   172.31.19.147   ip-172-31-19-147   &lt;none&gt;           &lt;none&gt;
+kube-system   kube-controller-manager-ip-172-31-19-147   1/1     Running   0              105m   172.31.19.147   ip-172-31-19-147   &lt;none&gt;           &lt;none&gt;
+kube-system   kube-proxy-djvp4                           1/1     Running   0              105m   172.31.24.77    ip-172-31-24-77    &lt;none&gt;           &lt;none&gt;
+kube-system   kube-proxy-f2f57                           1/1     Running   0              105m   172.31.19.147   ip-172-31-19-147   &lt;none&gt;           &lt;none&gt;
+kube-system   kube-proxy-tshff                           1/1     Running   0              105m   172.31.25.32    ip-172-31-25-32    &lt;none&gt;           &lt;none&gt;
+kube-system   kube-scheduler-ip-172-31-19-147            1/1     Running   0              105m   172.31.19.147   ip-172-31-19-147   &lt;none&gt;           &lt;none&gt;
+kube-system   weave-net-4qfbb                            2/2     Running   1 (103m ago)   103m   172.31.19.147   ip-172-31-19-147   &lt;none&gt;           &lt;none&gt;
+kube-system   weave-net-htlrp                            2/2     Running   1 (103m ago)   103m   172.31.25.32    ip-172-31-25-32    &lt;none&gt;           &lt;none&gt;
+kube-system   weave-net-nltmv                            2/2     Running   1 (103m ago)   103m   172.31.24.77    ip-172-31-24-77    &lt;none&gt;           &lt;none&gt;
+</code></pre><h5 id="executando-nosso-primeiro-pod-no-k8s">Executando nosso primeiro pod no k8s</h5>
 <p>Iremos iniciar o nosso primeiro <em>pod</em> no k8s. Para isso, executaremos o comando a seguir.</p>
 <pre><code>kubectl run nginx --image nginx
 
@@ -1322,34 +1321,66 @@ nginx   1/1     Running   0          66s
 Name:         nginx
 Namespace:    default
 Priority:     0
-Node:         docker-02/172.16.83.13
-Start Time:   Tue, 12 May 2020 02:29:38 -0300
+Node:         ip-172-31-25-32/172.31.25.32
+Start Time:   Sun, 07 Aug 2022 08:53:24 +0000
 Labels:       run=nginx
 Annotations:  &lt;none&gt;
 Status:       Running
-IP:           10.44.0.1
+IP:           10.40.0.1
 IPs:
-  IP:  10.44.0.1
+  IP:  10.40.0.1
 Containers:
   nginx:
-    Container ID:   docker://2719e2bc023944ee8f34db538094c96b24764a637574c703e232908b46b12a9f
+    Container ID:   containerd://d7ae9933e65477eed7ff04a107fb3a3adb6a634bc713282421bbdf0e1c30bf7b
     Image:          nginx
-    Image ID:       docker-pullable://nginx@sha256:86ae264c3f4acb99b2dee4d0098c40cb8c46dcf9e1148f05d3a51c4df6758c12
+    Image ID:       docker.io/library/nginx@sha256:ecc068890de55a75f1a32cc8063e79f90f0b043d70c5fcf28f1713395a4b3d49
     Port:           &lt;none&gt;
     Host Port:      &lt;none&gt;
     State:          Running
-      Started:      Tue, 12 May 2020 02:29:42 -0300
-</code></pre><h2 id="verificar-os-últimos-eventos-do-cluster">Verificar os últimos eventos do cluster</h2>
+      Started:      Sun, 07 Aug 2022 08:53:30 +0000
+    Ready:          True
+    Restart Count:  0
+    Environment:    &lt;none&gt;
+    Mounts:
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-tmjgq (ro)
+Conditions:
+  Type              Status
+  Initialized       True 
+  Ready             True 
+  ContainersReady   True 
+  PodScheduled      True 
+Volumes:
+  kube-api-access-tmjgq:
+    Type:                    Projected (a volume that contains injected data from multiple sources)
+    TokenExpirationSeconds:  3607
+    ConfigMapName:           kube-root-ca.crt
+    ConfigMapOptional:       &lt;nil&gt;
+    DownwardAPI:             true
+QoS Class:                   BestEffort
+Node-Selectors:              &lt;none&gt;
+Tolerations:                 node.kubernetes.io/not-ready:NoExecute op=Exists for 300s
+                             node.kubernetes.io/unreachable:NoExecute op=Exists for 300s
+Events:
+  Type    Reason     Age   From               Message
+  ----    ------     ----  ----               -------
+  Normal  Scheduled  16s   default-scheduler  Successfully assigned default/nginx to ip-172-31-25-32
+  Normal  Pulling    16s   kubelet            Pulling image &quot;nginx&quot;
+  Normal  Pulled     10s   kubelet            Successfully pulled image &quot;nginx&quot; in 5.387864178s
+  Normal  Created    10s   kubelet            Created container nginx
+  Normal  Started    10s   kubelet            Started container nginx
+</code></pre><h5 id="verificar-os-últimos-eventos-do-cluster">Verificar os últimos eventos do cluster</h5>
 <p>Você pode verificar quais são os últimos eventos do <em>cluster</em> com o comando <code>kubectl get events</code>. Serão mostrados eventos como: o <em>download</em> de imagens do Docker Hub (ou de outro <em>registry</em> configurado), a criação/remoção de <em>pods</em>, etc.</p>
 <p>A saída a seguir mostra o resultado da criação do nosso contêiner com Nginx.</p>
-<pre><code>LAST SEEN   TYPE     REASON      OBJECT      MESSAGE
-5m34s       Normal   Scheduled   pod/nginx   Successfully assigned default/nginx to docker-02
-5m33s       Normal   Pulling     pod/nginx   Pulling image &quot;nginx&quot;
-5m31s       Normal   Pulled      pod/nginx   Successfully pulled image &quot;nginx&quot;
-5m30s       Normal   Created     pod/nginx   Created container nginx
-5m30s       Normal   Started     pod/nginx   Started container nginx
+<pre><code>kubectl get events
+
+LAST SEEN   TYPE     REASON      OBJECT      MESSAGE
+44s         Normal   Scheduled   pod/nginx   Successfully assigned default/nginx to ip-172-31-25-32
+44s         Normal   Pulling     pod/nginx   Pulling image &quot;nginx&quot;
+38s         Normal   Pulled      pod/nginx   Successfully pulled image &quot;nginx&quot; in 5.387864178s
+38s         Normal   Created     pod/nginx   Created container nginx
+38s         Normal   Started     pod/nginx   Started container nginx
 </code></pre><p>No resultado do comando anterior é possível observar que a execução do nginx ocorreu no <em>namespace</em> default e que a imagem <strong>nginx</strong> não existia no repositório local e, sendo assim, teve de ser feito download da imagem.</p>
-<h2 id="efetuar-o-dump-de-um-objeto-em-formato-yaml">Efetuar o dump de um objeto em formato YAML</h2>
+<h5 id="efetuar-o-dump-de-um-objeto-em-formato-yaml">Efetuar o dump de um objeto em formato YAML</h5>
 <p>Assim como quando se está trabalhando com <em>stacks</em> no Docker Swarm, normalmente recursos no k8s são declarados em arquivos <strong>YAML</strong> ou <strong>JSON</strong> e depois manipulados através do <code>kubectl</code>.</p>
 <p>Para nos poupar o trabalho de escrever o arquivo inteiro, pode-se utilizar como <em>template</em> o <em>dump</em> de um objeto já existente no k8s, como mostrado a seguir.</p>
 <pre><code>kubectl get pod nginx -o yaml &gt; meu-primeiro.yaml
@@ -1358,77 +1389,13 @@ Containers:
 <pre><code class="lang-yaml"><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">v1</span>
 <span class="hljs-attr">kind:</span> <span class="hljs-string">Pod</span>
 <span class="hljs-attr">metadata:</span>
-  <span class="hljs-attr">creationTimestamp:</span> <span class="hljs-string">&quot;2020-05-12T05:29:38Z&quot;</span>
+  <span class="hljs-attr">creationTimestamp:</span> <span class="hljs-string">&quot;2022-08-07T08:53:24Z&quot;</span>
   <span class="hljs-attr">labels:</span>
     <span class="hljs-attr">run:</span> <span class="hljs-string">nginx</span>
-  <span class="hljs-attr">managedFields:</span>
-  <span class="hljs-bullet">-</span> <span class="hljs-attr">apiVersion:</span> <span class="hljs-string">v1</span>
-    <span class="hljs-attr">fieldsType:</span> <span class="hljs-string">FieldsV1</span>
-    <span class="hljs-attr">fieldsV1:</span>
-      <span class="hljs-attr">f:metadata:</span>
-        <span class="hljs-attr">f:labels:</span>
-          <span class="hljs-string">.:</span> {}
-          <span class="hljs-attr">f:run:</span> {}
-      <span class="hljs-attr">f:spec:</span>
-        <span class="hljs-attr">f:containers:</span>
-          <span class="hljs-string">k:{&quot;name&quot;:&quot;nginx&quot;}:</span>
-            <span class="hljs-string">.:</span> {}
-            <span class="hljs-attr">f:image:</span> {}
-            <span class="hljs-attr">f:imagePullPolicy:</span> {}
-            <span class="hljs-attr">f:name:</span> {}
-            <span class="hljs-attr">f:resources:</span> {}
-            <span class="hljs-attr">f:terminationMessagePath:</span> {}
-            <span class="hljs-attr">f:terminationMessagePolicy:</span> {}
-        <span class="hljs-attr">f:dnsPolicy:</span> {}
-        <span class="hljs-attr">f:enableServiceLinks:</span> {}
-        <span class="hljs-attr">f:restartPolicy:</span> {}
-        <span class="hljs-attr">f:schedulerName:</span> {}
-        <span class="hljs-attr">f:securityContext:</span> {}
-        <span class="hljs-attr">f:terminationGracePeriodSeconds:</span> {}
-    <span class="hljs-attr">manager:</span> <span class="hljs-string">kubectl</span>
-    <span class="hljs-attr">operation:</span> <span class="hljs-string">Update</span>
-    <span class="hljs-attr">time:</span> <span class="hljs-string">&quot;2020-05-12T05:29:38Z&quot;</span>
-  <span class="hljs-bullet">-</span> <span class="hljs-attr">apiVersion:</span> <span class="hljs-string">v1</span>
-    <span class="hljs-attr">fieldsType:</span> <span class="hljs-string">FieldsV1</span>
-    <span class="hljs-attr">fieldsV1:</span>
-      <span class="hljs-attr">f:status:</span>
-        <span class="hljs-attr">f:conditions:</span>
-          <span class="hljs-string">k:{&quot;type&quot;:&quot;ContainersReady&quot;}:</span>
-            <span class="hljs-string">.:</span> {}
-            <span class="hljs-attr">f:lastProbeTime:</span> {}
-            <span class="hljs-attr">f:lastTransitionTime:</span> {}
-            <span class="hljs-attr">f:status:</span> {}
-            <span class="hljs-attr">f:type:</span> {}
-          <span class="hljs-string">k:{&quot;type&quot;:&quot;Initialized&quot;}:</span>
-            <span class="hljs-string">.:</span> {}
-            <span class="hljs-attr">f:lastProbeTime:</span> {}
-            <span class="hljs-attr">f:lastTransitionTime:</span> {}
-            <span class="hljs-attr">f:status:</span> {}
-            <span class="hljs-attr">f:type:</span> {}
-          <span class="hljs-string">k:{&quot;type&quot;:&quot;Ready&quot;}:</span>
-            <span class="hljs-string">.:</span> {}
-            <span class="hljs-attr">f:lastProbeTime:</span> {}
-            <span class="hljs-attr">f:lastTransitionTime:</span> {}
-            <span class="hljs-attr">f:status:</span> {}
-            <span class="hljs-attr">f:type:</span> {}
-        <span class="hljs-attr">f:containerStatuses:</span> {}
-        <span class="hljs-attr">f:hostIP:</span> {}
-        <span class="hljs-attr">f:phase:</span> {}
-        <span class="hljs-attr">f:podIP:</span> {}
-        <span class="hljs-attr">f:podIPs:</span>
-          <span class="hljs-string">.:</span> {}
-          <span class="hljs-string">k:{&quot;ip&quot;:&quot;10.44.0.1&quot;}:</span>
-            <span class="hljs-string">.:</span> {}
-            <span class="hljs-attr">f:ip:</span> {}
-        <span class="hljs-attr">f:startTime:</span> {}
-    <span class="hljs-attr">manager:</span> <span class="hljs-string">kubelet</span>
-    <span class="hljs-attr">operation:</span> <span class="hljs-string">Update</span>
-    <span class="hljs-attr">time:</span> <span class="hljs-string">&quot;2020-05-12T05:29:43Z&quot;</span>
   <span class="hljs-attr">name:</span> <span class="hljs-string">nginx</span>
   <span class="hljs-attr">namespace:</span> <span class="hljs-string">default</span>
-  <span class="hljs-attr">resourceVersion:</span> <span class="hljs-string">&quot;1673991&quot;</span>
-  <span class="hljs-attr">selfLink:</span> <span class="hljs-string">/api/v1/namespaces/default/pods/nginx</span>
-  <span class="hljs-attr">uid:</span> <span class="hljs-string">36506f7b-1f3b-4ee8-b063-de3e6d31bea9</span>
+  <span class="hljs-attr">resourceVersion:</span> <span class="hljs-string">&quot;9598&quot;</span>
+  <span class="hljs-attr">uid:</span> <span class="hljs-string">d0928186-bf6d-459b-aca6-9b0d84b40e9c</span>
 <span class="hljs-attr">spec:</span>
   <span class="hljs-attr">containers:</span>
   <span class="hljs-bullet">-</span> <span class="hljs-attr">image:</span> <span class="hljs-string">nginx</span>
@@ -1439,11 +1406,12 @@ Containers:
     <span class="hljs-attr">terminationMessagePolicy:</span> <span class="hljs-string">File</span>
     <span class="hljs-attr">volumeMounts:</span>
     <span class="hljs-bullet">-</span> <span class="hljs-attr">mountPath:</span> <span class="hljs-string">/var/run/secrets/kubernetes.io/serviceaccount</span>
-      <span class="hljs-attr">name:</span> <span class="hljs-string">default-token-nkz89</span>
+      <span class="hljs-attr">name:</span> <span class="hljs-string">kube-api-access-tmjgq</span>
       <span class="hljs-attr">readOnly:</span> <span class="hljs-literal">true</span>
   <span class="hljs-attr">dnsPolicy:</span> <span class="hljs-string">ClusterFirst</span>
   <span class="hljs-attr">enableServiceLinks:</span> <span class="hljs-literal">true</span>
-  <span class="hljs-attr">nodeName:</span> <span class="hljs-string">docker-02</span>
+  <span class="hljs-attr">nodeName:</span> <span class="hljs-string">ip-172-31-25-32</span>
+  <span class="hljs-attr">preemptionPolicy:</span> <span class="hljs-string">PreemptLowerPriority</span>
   <span class="hljs-attr">priority:</span> <span class="hljs-number">0</span>
   <span class="hljs-attr">restartPolicy:</span> <span class="hljs-string">Always</span>
   <span class="hljs-attr">schedulerName:</span> <span class="hljs-string">default-scheduler</span>
@@ -1461,32 +1429,46 @@ Containers:
     <span class="hljs-attr">operator:</span> <span class="hljs-string">Exists</span>
     <span class="hljs-attr">tolerationSeconds:</span> <span class="hljs-number">300</span>
   <span class="hljs-attr">volumes:</span>
-  <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">default-token-nkz89</span>
-    <span class="hljs-attr">secret:</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">kube-api-access-tmjgq</span>
+    <span class="hljs-attr">projected:</span>
       <span class="hljs-attr">defaultMode:</span> <span class="hljs-number">420</span>
-      <span class="hljs-attr">secretName:</span> <span class="hljs-string">default-token-nkz89</span>
+      <span class="hljs-attr">sources:</span>
+      <span class="hljs-bullet">-</span> <span class="hljs-attr">serviceAccountToken:</span>
+          <span class="hljs-attr">expirationSeconds:</span> <span class="hljs-number">3607</span>
+          <span class="hljs-attr">path:</span> <span class="hljs-string">token</span>
+      <span class="hljs-bullet">-</span> <span class="hljs-attr">configMap:</span>
+          <span class="hljs-attr">items:</span>
+          <span class="hljs-bullet">-</span> <span class="hljs-attr">key:</span> <span class="hljs-string">ca.crt</span>
+            <span class="hljs-attr">path:</span> <span class="hljs-string">ca.crt</span>
+          <span class="hljs-attr">name:</span> <span class="hljs-string">kube-root-ca.crt</span>
+      <span class="hljs-bullet">-</span> <span class="hljs-attr">downwardAPI:</span>
+          <span class="hljs-attr">items:</span>
+          <span class="hljs-bullet">-</span> <span class="hljs-attr">fieldRef:</span>
+              <span class="hljs-attr">apiVersion:</span> <span class="hljs-string">v1</span>
+              <span class="hljs-attr">fieldPath:</span> <span class="hljs-string">metadata.namespace</span>
+            <span class="hljs-attr">path:</span> <span class="hljs-string">namespace</span>
 <span class="hljs-attr">status:</span>
   <span class="hljs-attr">conditions:</span>
   <span class="hljs-bullet">-</span> <span class="hljs-attr">lastProbeTime:</span> <span class="hljs-literal">null</span>
-    <span class="hljs-attr">lastTransitionTime:</span> <span class="hljs-string">&quot;2020-05-12T05:29:38Z&quot;</span>
+    <span class="hljs-attr">lastTransitionTime:</span> <span class="hljs-string">&quot;2022-08-07T08:53:24Z&quot;</span>
     <span class="hljs-attr">status:</span> <span class="hljs-string">&quot;True&quot;</span>
     <span class="hljs-attr">type:</span> <span class="hljs-string">Initialized</span>
   <span class="hljs-bullet">-</span> <span class="hljs-attr">lastProbeTime:</span> <span class="hljs-literal">null</span>
-    <span class="hljs-attr">lastTransitionTime:</span> <span class="hljs-string">&quot;2020-05-12T05:29:43Z&quot;</span>
+    <span class="hljs-attr">lastTransitionTime:</span> <span class="hljs-string">&quot;2022-08-07T08:53:30Z&quot;</span>
     <span class="hljs-attr">status:</span> <span class="hljs-string">&quot;True&quot;</span>
     <span class="hljs-attr">type:</span> <span class="hljs-string">Ready</span>
   <span class="hljs-bullet">-</span> <span class="hljs-attr">lastProbeTime:</span> <span class="hljs-literal">null</span>
-    <span class="hljs-attr">lastTransitionTime:</span> <span class="hljs-string">&quot;2020-05-12T05:29:43Z&quot;</span>
+    <span class="hljs-attr">lastTransitionTime:</span> <span class="hljs-string">&quot;2022-08-07T08:53:30Z&quot;</span>
     <span class="hljs-attr">status:</span> <span class="hljs-string">&quot;True&quot;</span>
     <span class="hljs-attr">type:</span> <span class="hljs-string">ContainersReady</span>
   <span class="hljs-bullet">-</span> <span class="hljs-attr">lastProbeTime:</span> <span class="hljs-literal">null</span>
-    <span class="hljs-attr">lastTransitionTime:</span> <span class="hljs-string">&quot;2020-05-12T05:29:38Z&quot;</span>
+    <span class="hljs-attr">lastTransitionTime:</span> <span class="hljs-string">&quot;2022-08-07T08:53:24Z&quot;</span>
     <span class="hljs-attr">status:</span> <span class="hljs-string">&quot;True&quot;</span>
     <span class="hljs-attr">type:</span> <span class="hljs-string">PodScheduled</span>
   <span class="hljs-attr">containerStatuses:</span>
-  <span class="hljs-bullet">-</span> <span class="hljs-attr">containerID:</span> <span class="hljs-string">docker://2719e2bc023944ee8f34db538094c96b24764a637574c703e232908b46b12a9f</span>
-    <span class="hljs-attr">image:</span> <span class="hljs-string">nginx:latest</span>
-    <span class="hljs-attr">imageID:</span> <span class="hljs-string">docker-pullable://nginx@sha256:86ae264c3f4acb99b2dee4d0098c40cb8c46dcf9e1148f05d3a51c4df6758c12</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-attr">containerID:</span> <span class="hljs-string">containerd://d7ae9933e65477eed7ff04a107fb3a3adb6a634bc713282421bbdf0e1c30bf7b</span>
+    <span class="hljs-attr">image:</span> <span class="hljs-string">docker.io/library/nginx:latest</span>
+    <span class="hljs-attr">imageID:</span> <span class="hljs-string">docker.io/library/nginx@sha256:ecc068890de55a75f1a32cc8063e79f90f0b043d70c5fcf28f1713395a4b3d49</span>
     <span class="hljs-attr">lastState:</span> {}
     <span class="hljs-attr">name:</span> <span class="hljs-string">nginx</span>
     <span class="hljs-attr">ready:</span> <span class="hljs-literal">true</span>
@@ -1494,20 +1476,19 @@ Containers:
     <span class="hljs-attr">started:</span> <span class="hljs-literal">true</span>
     <span class="hljs-attr">state:</span>
       <span class="hljs-attr">running:</span>
-        <span class="hljs-attr">startedAt:</span> <span class="hljs-string">&quot;2020-05-12T05:29:42Z&quot;</span>
-  <span class="hljs-attr">hostIP:</span> <span class="hljs-number">172.16</span><span class="hljs-number">.83</span><span class="hljs-number">.13</span>
+        <span class="hljs-attr">startedAt:</span> <span class="hljs-string">&quot;2022-08-07T08:53:30Z&quot;</span>
+  <span class="hljs-attr">hostIP:</span> <span class="hljs-number">172.31</span><span class="hljs-number">.25</span><span class="hljs-number">.32</span>
   <span class="hljs-attr">phase:</span> <span class="hljs-string">Running</span>
-  <span class="hljs-attr">podIP:</span> <span class="hljs-number">10.44</span><span class="hljs-number">.0</span><span class="hljs-number">.1</span>
+  <span class="hljs-attr">podIP:</span> <span class="hljs-number">10.40</span><span class="hljs-number">.0</span><span class="hljs-number">.1</span>
   <span class="hljs-attr">podIPs:</span>
-  <span class="hljs-bullet">-</span> <span class="hljs-attr">ip:</span> <span class="hljs-number">10.44</span><span class="hljs-number">.0</span><span class="hljs-number">.1</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-attr">ip:</span> <span class="hljs-number">10.40</span><span class="hljs-number">.0</span><span class="hljs-number">.1</span>
   <span class="hljs-attr">qosClass:</span> <span class="hljs-string">BestEffort</span>
-  <span class="hljs-attr">startTime:</span> <span class="hljs-string">&quot;2020-05-12T05:29:38Z&quot;</span>
+  <span class="hljs-attr">startTime:</span> <span class="hljs-string">&quot;2022-08-07T08:53:24Z&quot;</span>
 </code></pre>
 <p>Observando o arquivo anterior, notamos que este reflete o <strong>estado</strong> do <em>pod</em>. Nós desejamos utilizar tal arquivo apenas como um modelo, e sendo assim, podemos apagar as entradas que armazenam dados de estado desse <em>pod</em>, como <em>status</em> e todas as demais configurações que são específicas dele. O arquivo final ficará com o conteúdo semelhante a este:</p>
 <pre><code class="lang-yaml">  <span class="hljs-attr">apiVersion:</span> <span class="hljs-string">v1</span>
   <span class="hljs-attr">kind:</span> <span class="hljs-string">Pod</span>
   <span class="hljs-attr">metadata:</span>
-    <span class="hljs-attr">creationTimestamp:</span> <span class="hljs-literal">null</span>
     <span class="hljs-attr">labels:</span>
       <span class="hljs-attr">run:</span> <span class="hljs-string">nginx</span>
     <span class="hljs-attr">name:</span> <span class="hljs-string">nginx</span>
@@ -1540,7 +1521,7 @@ nginx   1/1     Running   0          109s
 </code></pre><p>Para a criação do <em>template</em> de um <em>deployment</em>:</p>
 <pre><code>kubectl create deployment meu-nginx --image=nginx --dry-run=client -o yaml &gt; deployment-template.yaml
 </code></pre><p>A vantagem deste método é que não há a necessidade de limpar o arquivo, além de serem apresentadas apenas as opções necessárias do recurso.</p>
-<h2 id="socorro-são-muitas-opções">Socorro, são muitas opções!</h2>
+<h4 id="socorro-são-muitas-opções">Socorro, são muitas opções!</h4>
 <p>Calma, nós sabemos. Mas o <code>kubectl</code> pode lhe auxiliar um pouco em relação a isso. Ele contém a opção <code>explain</code>, que você pode utilizar caso precise de ajuda com alguma opção em específico dos arquivos de recurso. A seguir alguns exemplos de sintaxe.</p>
 <pre><code>kubectl explain [recurso]
 
@@ -1553,7 +1534,7 @@ kubectl explain [recurso.caminho.para.spec] --recursive
 kubectl explain pod --recursive
 
 kubectl explain deployment.spec.template.spec
-</code></pre><h2 id="expondo-o-pod">Expondo o pod</h2>
+</code></pre><h4 id="expondo-o-pod-e-criando-um-service">Expondo o pod e criando um Service</h4>
 <p>Dispositivos fora do <em>cluster</em>, por padrão, não conseguem acessar os <em>pods</em> criados, como é comum em outros sistemas de contêineres. Para expor um <em>pod</em>, execute o comando a seguir.</p>
 <pre><code>kubectl expose pod nginx
 </code></pre><p>Será apresentada a seguinte mensagem de erro:</p>
@@ -1622,7 +1603,7 @@ Commercial support is available at
 &lt;/body&gt;
 &lt;/html&gt;
 </code></pre><p>Este <em>pod</em> está disponível para acesso a partir de qualquer nó do <em>cluster</em>.</p>
-<h2 id="limpando-tudo-e-indo-para-casa">Limpando tudo e indo para casa</h2>
+<h4 id="limpando-tudo-e-indo-para-casa">Limpando tudo e indo para casa</h4>
 <p>Para mostrar todos os recursos recém criados, pode-se utilizar uma das seguintes opções a seguir.</p>
 <pre><code>kubectl get all
 
@@ -1677,7 +1658,7 @@ kubectl delete service nginx
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Descomplicando Kubernetes dia 1","level":"2.1","depth":1,"next":{"title":"Descomplicando Kubernetes dia 2","level":"2.2","depth":1,"path":"day_two/descomplicando_kubernetes.md","ref":"day_two/descomplicando_kubernetes.md","articles":[]},"previous":{"title":"Introdução","level":"1.1","depth":1,"path":"README.md","ref":"README.md","articles":[]},"dir":"ltr"},"config":{"plugins":[],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"language":"pt","gitbook":"*"},"file":{"path":"day_one/descomplicando_kubernetes.md","mtime":"2022-08-07T08:14:24.521Z","type":"markdown"},"gitbook":{"version":"3.6.20","time":"2022-08-07T08:14:38.930Z"},"basePath":"..","book":{"language":"pt"}});
+            gitbook.page.hasChanged({"page":{"title":"Descomplicando Kubernetes dia 1","level":"2.1","depth":1,"next":{"title":"Descomplicando Kubernetes dia 2","level":"2.2","depth":1,"path":"day_two/descomplicando_kubernetes.md","ref":"day_two/descomplicando_kubernetes.md","articles":[]},"previous":{"title":"Introdução","level":"1.1","depth":1,"path":"README.md","ref":"README.md","articles":[]},"dir":"ltr"},"config":{"plugins":[],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"language":"pt","gitbook":"*"},"file":{"path":"day_one/descomplicando_kubernetes.md","mtime":"2022-08-07T09:00:53.067Z","type":"markdown"},"gitbook":{"version":"3.6.20","time":"2022-08-07T09:01:07.078Z"},"basePath":"..","book":{"language":"pt"}});
         });
     </script>
 </div>
