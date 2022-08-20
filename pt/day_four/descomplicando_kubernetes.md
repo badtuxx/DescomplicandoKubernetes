@@ -21,6 +21,8 @@
 
 # Volumes
 
+Volume é um mecanismo para persistência de dados usados por contêineres é um diretório que possui alguns dados e que pode ser acessados pelos contêineres, o Kubernetes suporta muitos tipos de volume. O tipo efêmero têm persistência de dados enquanto o Pod existir se o Pod for removido os dados são excluídos. O tipo de volume persistente garante que os dados serão preservados caso o Pod seja removido do cluster Kubernetes.
+
 ## Empty-Dir
 
 Um volume do tipo **EmptyDir** é criado sempre que um Pod é atribuído a um nó existente. Esse volume é criado inicialmente vazio, e todos os contêineres do Pod podem ler e gravar arquivos no volume.
