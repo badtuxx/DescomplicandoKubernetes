@@ -48,7 +48,7 @@
   - [Criando um cluster com o Kind](#criando-um-cluster-com-o-kind)
     - [Criando um cluster com múltiplos nós locais com o Kind](#criando-um-cluster-com-múltiplos-nós-locais-com-o-kind)
 - [k3s](#k3s)
-- [Instalação em cluster com três nós](#instalação-em-cluster-com-três-nós)
+- [Instalação do cluster Kubernetes em três nós](#instalação-do-cluster-kubernetes-em-três-nós)
   - [Requisitos básicos](#requisitos-básicos-2)
   - [Configuração de módulos de kernel](#configuração-de-módulos-de-kernel)
   - [Atualização da distribuição](#atualização-da-distribuição)
