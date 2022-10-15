@@ -602,7 +602,7 @@ Kind (Kubernetes in Docker) es otra alternativa para ejecutar Kubernetes en un a
 Para realizar la instalación en GNU/Linux, ejecuta los siguientes comandos.
 
 ```
-curl -Lo ./kind https://kind.sigs.k8s.io/dl/v0.11.1/kind-linux-amd64
+curl -Lo ./kind https://kind.sigs.k8s.io/dl/v0.16.0/kind-linux-amd64
 
 chmod +x ./kind
 
@@ -620,7 +620,12 @@ sudo brew install kind
 o
 
 ```
-curl -Lo ./kind https://kind.sigs.k8s.io/dl/v0.11.1/kind-darwin-amd64
+Para Intel Macs
+[ $(uname -m) = x86_64 ]&& curl -Lo ./kind https://kind.sigs.k8s.io/dl/v0.16.0/kind-darwin-amd64
+
+Para M1 / ARM Macs
+[ $(uname -m) = arm64 ] && curl -Lo ./kind https://kind.sigs.k8s.io/dl/v0.16.0/kind-darwin-arm64
+
 chmod +x ./kind
 mv ./kind /some-dir-in-your-PATH/kind
 ```
@@ -630,7 +635,7 @@ mv ./kind /some-dir-in-your-PATH/kind
 Para realizar la instalación en Windows, ejecuta los siguientes comandos.
 
 ```
-curl.exe -Lo kind-windows-amd64.exe https://kind.sigs.k8s.io/dl/v0.11.1/kind-windows-amd64
+curl.exe -Lo kind-windows-amd64.exe https://kind.sigs.k8s.io/dl/v0.16.0/kind-windows-amd64
 
 Move-Item .\kind-windows-amd64.exe c:\some-dir-in-your-PATH\kind.exe
 ```
@@ -651,7 +656,7 @@ Después de realizar la instalación de Kind, vamos a iniciar nuestro clúster.
 kind create cluster
 
 Creating cluster "kind" ...
- ✓ Ensuring node image (kindest/node:v1.21.1) 🖼
+ ✓ Ensuring node image (kindest/node:v1.25.2) 🖼
  ✓ Preparing nodes 📦 📦 📦  
  ✓ Writing configuration 📜 
  ✓ Starting control-plane 🕹️ 
@@ -672,7 +677,7 @@ Es posible crear más de un clúster y personalizar el nombre.
 kind create cluster --name giropops
 
 Creating cluster "giropops" ...
- ✓ Ensuring node image (kindest/node:v1.21.1) 🖼
+ ✓ Ensuring node image (kindest/node:v1.25.2) 🖼
  ✓ Preparing nodes 📦 📦 📦  
  ✓ Writing configuration 📜 
  ✓ Starting control-plane 🕹️ 
@@ -702,7 +707,7 @@ Para listar los nodos del clúster.
 kubectl get nodes
 
 NAME                 STATUS   ROLES                  AGE     VERSION
-kind-control-plane   Ready    control-plane,master   2m46s   v1.21.1
+kind-control-plane   Ready    control-plane,master   2m46s   v1.25.2
 ```
 
 ### Creando un clúster de múltiples nodos locales con Kind
@@ -734,7 +739,7 @@ Crea un clúster llamado ``kind-multinodes`` utilizando las especificaciones def
 kind create cluster --name kind-multinodes --config $HOME/kind-3nodes.yaml
 
 Creating cluster "kind-multinodes" ...
- ✓ Ensuring node image (kindest/node:v1.21.1) 🖼
+ ✓ Ensuring node image (kindest/node:v1.25.2) 🖼
  ✓ Preparing nodes 📦 📦 📦  
  ✓ Writing configuration 📜 
  ✓ Starting control-plane 🕹️ 
@@ -755,9 +760,9 @@ Verifica la creación del clúster con el siguiente comando.
 kubectl get nodes
 
 NAME                            STATUS   ROLES                  AGE     VERSION
-kind-multinodes-control-plane   Ready    control-plane,master   2m46s   v1.21.1
-kind-multinodes-worker          Ready    <none>                 2m16s   v1.21.1
-kind-multinodes-worker2         Ready    <none>                 2m16s   v1.21.1
+kind-multinodes-control-plane   Ready    control-plane,master   2m46s   v1.25.2
+kind-multinodes-worker          Ready    <none>                 2m16s   v1.25.2
+kind-multinodes-worker2         Ready    <none>                 2m16s   v1.25.2
 ```
 
 Para mas información sobre Kind: https://kind.sigs.k8s.io

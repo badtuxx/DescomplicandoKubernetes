@@ -582,7 +582,7 @@ O Kind (*Kubernetes in Docker*) é outra alternativa para executar o Kubernetes 
 Para fazer a instalação no GNU/Linux, execute os seguintes comandos.
 
 ```
-curl -Lo ./kind https://kind.sigs.k8s.io/dl/v0.14.0/kind-linux-amd64
+curl -Lo ./kind https://kind.sigs.k8s.io/dl/v0.16.0/kind-linux-amd64
 
 chmod +x ./kind
 
@@ -600,7 +600,11 @@ sudo brew install kind
 ou
 
 ```
-curl -Lo ./kind https://kind.sigs.k8s.io/dl/v0.14.0/kind-darwin-amd64
+Para Intel Macs
+[ $(uname -m) = x86_64 ]&& curl -Lo ./kind https://kind.sigs.k8s.io/dl/v0.16.0/kind-darwin-amd64
+Para M1 / ARM Macs
+[ $(uname -m) = arm64 ] && curl -Lo ./kind https://kind.sigs.k8s.io/dl/v0.16.0/kind-darwin-arm64
+
 chmod +x ./kind
 mv ./kind /usr/bin/kind
 ```
@@ -631,7 +635,7 @@ Após realizar a instalação do Kind, vamos iniciar o nosso cluster.
 kind create cluster
 
 Creating cluster "kind" ...
- ✓ Ensuring node image (kindest/node:v1.24.0) 🖼
+ ✓ Ensuring node image (kindest/node:v1.25.2) 🖼
  ✓ Preparing nodes 📦  
  ✓ Writing configuration 📜 
  ✓ Starting control-plane 🕹️ 
@@ -652,7 +656,7 @@ Not sure what to do next? 😅  Check out https://kind.sigs.k8s.io/docs/user/qui
 kind create cluster --name giropops
 
 Creating cluster "giropops" ...
- ✓ Ensuring node image (kindest/node:v1.24.0) 🖼
+ ✓ Ensuring node image (kindest/node:v1.25.2) 🖼
  ✓ Preparing nodes 📦  
  ✓ Writing configuration 📜 
  ✓ Starting control-plane 🕹️ 
@@ -681,7 +685,7 @@ Liste os nodes do cluster.
 kubectl get nodes
 
 NAME                     STATUS   ROLES           AGE   VERSION
-giropops-control-plane   Ready    control-plane   74s   v1.24.0
+giropops-control-plane   Ready    control-plane   74s   v1.25.2
 
 ```
 
@@ -716,7 +720,7 @@ Agora vamos criar um cluster chamado ``kind-multinodes`` utilizando as especific
 kind create cluster --name kind-multinodes --config $HOME/kind-3nodes.yaml
 
 Creating cluster "kind-multinodes" ...
- ✓ Ensuring node image (kindest/node:v1.24.0) 🖼
+ ✓ Ensuring node image (kindest/node:v1.25.2) 🖼
  ✓ Preparing nodes 📦 📦 📦  
  ✓ Writing configuration 📜 
  ✓ Starting control-plane 🕹️ 
@@ -737,9 +741,9 @@ Valide a criação do cluster com o comando a seguir.
 kubectl get nodes
 
 NAME                            STATUS   ROLES           AGE   VERSION
-kind-multinodes-control-plane   Ready    control-plane   52s   v1.24.0
-kind-multinodes-worker          Ready    <none>          32s   v1.24.0
-kind-multinodes-worker2         Ready    <none>          32s   v1.24.0
+kind-multinodes-control-plane   Ready    control-plane   52s   v1.25.2
+kind-multinodes-worker          Ready    <none>          32s   v1.25.2
+kind-multinodes-worker2         Ready    <none>          32s   v1.25.2
 ```
 
 Mais informações sobre o Kind estão disponíveis em: https://kind.sigs.k8s.io
