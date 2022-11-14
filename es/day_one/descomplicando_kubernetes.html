@@ -787,7 +787,7 @@ sudo microk8s kubectl get all --all-namespaces
 <p>Kind (Kubernetes in Docker) es otra alternativa para ejecutar Kubernetes en un ambiente local para pruebas y aprendizaje, pero no es recomendado su uso em producción.</p>
 <h2 id="instalación-en-gnulinux">Instalación en GNU/Linux</h2>
 <p>Para realizar la instalación en GNU/Linux, ejecuta los siguientes comandos.</p>
-<pre><code>curl -Lo ./kind https://kind.sigs.k8s.io/dl/v0.11.1/kind-linux-amd64
+<pre><code>curl -Lo ./kind https://kind.sigs.k8s.io/dl/v0.16.0/kind-linux-amd64
 
 chmod +x ./kind
 
@@ -796,12 +796,17 @@ sudo mv ./kind /usr/local/bin/kind
 <p>Para realizar la instalación en MacOS, ejecuta el siguiente comando.</p>
 <pre><code>sudo brew install kind
 </code></pre><p>o</p>
-<pre><code>curl -Lo ./kind https://kind.sigs.k8s.io/dl/v0.11.1/kind-darwin-amd64
+<pre><code>Para Intel Macs
+[ $(uname -m) = x86_64 ]&amp;&amp; curl -Lo ./kind https://kind.sigs.k8s.io/dl/v0.16.0/kind-darwin-amd64
+
+Para M1 / ARM Macs
+[ $(uname -m) = arm64 ] &amp;&amp; curl -Lo ./kind https://kind.sigs.k8s.io/dl/v0.16.0/kind-darwin-arm64
+
 chmod +x ./kind
 mv ./kind /some-dir-in-your-PATH/kind
 </code></pre><h2 id="instalación-en-windows">Instalación en Windows</h2>
 <p>Para realizar la instalación en Windows, ejecuta los siguientes comandos.</p>
-<pre><code>curl.exe -Lo kind-windows-amd64.exe https://kind.sigs.k8s.io/dl/v0.11.1/kind-windows-amd64
+<pre><code>curl.exe -Lo kind-windows-amd64.exe https://kind.sigs.k8s.io/dl/v0.16.0/kind-windows-amd64
 
 Move-Item .\kind-windows-amd64.exe c:\some-dir-in-your-PATH\kind.exe
 </code></pre><h3 id="instalación-en-windows-vía-chocolatey">Instalación en Windows vía <a href="https://chocolatey.org/install" target="_blank">Chocolatey</a></h3>
@@ -812,7 +817,7 @@ Move-Item .\kind-windows-amd64.exe c:\some-dir-in-your-PATH\kind.exe
 <pre><code>kind create cluster
 
 Creating cluster &quot;kind&quot; ...
- ✓ Ensuring node image (kindest/node:v1.21.1) 🖼
+ ✓ Ensuring node image (kindest/node:v1.25.2) 🖼
  ✓ Preparing nodes 📦 📦 📦  
  ✓ Writing configuration 📜 
  ✓ Starting control-plane 🕹️ 
@@ -829,7 +834,7 @@ Have a nice day! 👋
 <pre><code>kind create cluster --name giropops
 
 Creating cluster &quot;giropops&quot; ...
- ✓ Ensuring node image (kindest/node:v1.21.1) 🖼
+ ✓ Ensuring node image (kindest/node:v1.25.2) 🖼
  ✓ Preparing nodes 📦 📦 📦  
  ✓ Writing configuration 📜 
  ✓ Starting control-plane 🕹️ 
@@ -851,7 +856,7 @@ giropops
 <pre><code>kubectl get nodes
 
 NAME                 STATUS   ROLES                  AGE     VERSION
-kind-control-plane   Ready    control-plane,master   2m46s   v1.21.1
+kind-control-plane   Ready    control-plane,master   2m46s   v1.25.2
 </code></pre><h3 id="creando-un-clúster-de-múltiples-nodos-locales-con-kind">Creando un clúster de múltiples nodos locales con Kind</h3>
 <p>Es posible para esta curso incluir múltiples nodos en la estructura de Kind, como fue mencionado anteriormente.</p>
 <p>Ejecuta el siguiente comando para seleccionar y eliminar todos os clústers locales creados con Kind.</p>
@@ -869,7 +874,7 @@ EOF
 <pre><code>kind create cluster --name kind-multinodes --config $HOME/kind-3nodes.yaml
 
 Creating cluster &quot;kind-multinodes&quot; ...
- ✓ Ensuring node image (kindest/node:v1.21.1) 🖼
+ ✓ Ensuring node image (kindest/node:v1.25.2) 🖼
  ✓ Preparing nodes 📦 📦 📦  
  ✓ Writing configuration 📜 
  ✓ Starting control-plane 🕹️ 
@@ -886,9 +891,9 @@ Have a nice day! 👋
 <pre><code>kubectl get nodes
 
 NAME                            STATUS   ROLES                  AGE     VERSION
-kind-multinodes-control-plane   Ready    control-plane,master   2m46s   v1.21.1
-kind-multinodes-worker          Ready    &lt;none&gt;                 2m16s   v1.21.1
-kind-multinodes-worker2         Ready    &lt;none&gt;                 2m16s   v1.21.1
+kind-multinodes-control-plane   Ready    control-plane,master   2m46s   v1.25.2
+kind-multinodes-worker          Ready    &lt;none&gt;                 2m16s   v1.25.2
+kind-multinodes-worker2         Ready    &lt;none&gt;                 2m16s   v1.25.2
 </code></pre><p>Para mas información sobre Kind: <a href="https://kind.sigs.k8s.io" target="_blank">https://kind.sigs.k8s.io</a></p>
 <p>! Referencias: <a href="https://kubernetes.io/blog/2020/05/21/wsl-docker-kubernetes-on-the-windows-desktop/" target="_blank">kind multi-cluster</a></p>
 <h1 id="k3s">k3s</h1>
@@ -1671,7 +1676,7 @@ kubectl delete service nginx
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Descomplicando Kubernetes dia 1","level":"2.1","depth":1,"next":{"title":"Descomplicando Kubernetes dia 2","level":"2.2","depth":1,"path":"day_two/descomplicando_kubernetes.md","ref":"day_two/descomplicando_kubernetes.md","articles":[]},"previous":{"title":"Introdução","level":"1.1","depth":1,"path":"README.md","ref":"README.md","articles":[]},"dir":"ltr"},"config":{"plugins":[],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"language":"es","gitbook":"*"},"file":{"path":"day_one/descomplicando_kubernetes.md","mtime":"2022-08-07T09:01:07.496Z","type":"markdown"},"gitbook":{"version":"3.6.20","time":"2022-08-07T09:01:22.441Z"},"basePath":"..","book":{"language":"es"}});
+            gitbook.page.hasChanged({"page":{"title":"Descomplicando Kubernetes dia 1","level":"2.1","depth":1,"next":{"title":"Descomplicando Kubernetes dia 2","level":"2.2","depth":1,"path":"day_two/descomplicando_kubernetes.md","ref":"day_two/descomplicando_kubernetes.md","articles":[]},"previous":{"title":"Introdução","level":"1.1","depth":1,"path":"README.md","ref":"README.md","articles":[]},"dir":"ltr"},"config":{"plugins":[],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"language":"es","gitbook":"*"},"file":{"path":"day_one/descomplicando_kubernetes.md","mtime":"2022-11-14T14:20:20.748Z","type":"markdown"},"gitbook":{"version":"3.6.20","time":"2022-11-14T14:20:32.203Z"},"basePath":"..","book":{"language":"es"}});
         });
     </script>
 </div>
