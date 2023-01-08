@@ -90,7 +90,7 @@ Abajo tenemos las paginas oficiales de las certificaciones de Kibernetes (CKA, C
 
 Otro site importante para conocer y estudiar, es el site de 12 factores, muy importante para el desarrollo de aplicaciones que pretendan ejecutarse en un cluster Kubernetes:
 
-- [https://12factor.net/pt_br/](https://12factor.net/pt_br/)
+- [https://12factor.net/es/](https://12factor.net/es/)
 
 
 ## ¿Qué es Kubernetes?
@@ -105,14 +105,14 @@ Como Kubernetes es una palabra dificil de pronunciar - y de escribir - la comuni
 
 Prácticamente todo el software desarrollado en Google es ejecutado en contenedores [2](https://www.enterpriseai.news/2014/05/28/google-runs-software-containers/). Google ya gestiona contenedores en larga escala hace más de una década, cuando ni siquiera se hablaba tanto sobre eso. Para atender la demanda interna, algunos desarrolladores de Google construyeron tres sistemas diferentes de gestión de contenedores: **Borg**, **Omega** y **Kubernetes**. Cada sistema tuvo un desarrollo bastante influenciado por su antecesor, aunque fuese desarrollado por diferentes razones.
 
-El primer sistema de gestión de conetendores desarrollado en Google fue Borg, construido para gestionar servicios de larga duración y jobs en lotes, que anteriormente eram tratados por dos sistemas:  **Babysitter** y **Global Work Queue**. Este último influenció fuertemente la arquitectura de Borg, pero estaba enfocado en ejecución de jobs en lotes. Borg continua siendo el principal sistema de gestión de contenedores dentro de Google por causa de su escala, variedad de recursos e robustez extrema.
+El primer sistema de gestión de conetendores desarrollado en Google fue Borg, construido para gestionar servicios de larga duración y trabajos por lotes, que anteriormente eram tratados por dos sistemas:  **Babysitter** y **Global Work Queue**. La última influyó en gran medida en la arquitectura de Borg, pero estaba enfocada en la ejecución de trabajos por lotes. Borg continua siendo el principal sistema de gestión de contenedores dentro de Google por causa de su escala, variedad de recursos e extrema robustez.
 
-El segundo sistema fue Omega, descendiente de Borg. Fue impulsado por el deseo de mejorar la ingeniería de software del ecosistema Borg. Ese sistema aplicó muchos de los patrones que tuvieron éxito en Borg, pero fue  construido de cero para tener la arquitectura mas consistente. Mucha de las innovaciones de Omega fueron posteriormente incorporadas a Borg.
+El segundo sistema fue Omega, descendiente de Borg. Fue impulsado por el deseo de mejorar la ingeniería de software del ecosistema Borg. Este sistema aplicó muchos de los patrones que tuvieron éxito en Borg, pero fue  construido de cero para tener la arquitectura mas consistente. Mucha de las innovaciones de Omega fueron posteriormente incorporadas a Borg.
 
 El tercer sistema fue Kubernetes. Concebido y desarrollado en un mundo donde los desarrolladores externos estaban interesándose en contenedores y Google desarrolló un negocio en amplio crecimiento actualmente, que es la venta de infraestructura de nube pública.
 
 Kubernetes es de código abierto - en contraste con Borg y Omega que fueron desarrollados como sistemas puramente internos de Google.
-Kubernetes fue desarrollado con un foco mas fuerte en la experiencia de desarrolladores que escriben aplicaciones que son ejecutados en un clúster: su principal objetivo es facilitar la implantación y la gestión de sistemas distribuidos, mientras se beneficia del mejor uso de recursos de memoria y procesamiento que los contenedores posibilitan.
+Kubernetes fue desarrollado con un foco más fuerte en la experiencia de desarrolladores que escriben aplicaciones que son ejecutados en un clúster: su principal objetivo es facilitar la implantación y la gestión de sistemas distribuidos, mientras se beneficia del mejor uso de recursos de memoria y procesamiento que los contenedores permiten.
 
 Estas informaciones fueron extraídas y adaptadas de este [artículo](https://static.googleusercontent.com/media/research.google.com/pt-BR//pubs/archive/44843.pdf), que describe las lecciones aprendidas con el desarrollo y operaciones de esos sistemas.
 
@@ -125,28 +125,30 @@ Es posible montar un clúster Kubernetes ejecutandose en un único nodo, pero se
 Si deseas utilizar Kubernetes en tu máquina local, en tu PC/Workstation, hay varias soluciones que crearán un clúster Kubernetes, utilizando máquinas virtuales o Docker, por ejemplo.
 
 Con esto, podrás tener un clúster Kubernetes con varios nodos, pero todos ellos ejecutándose en tu máquina local, en tu PC/Workstation
-***** PV seguir desde qui
 
+Algunos ejemplos son:
 
-* [Kind](https://kind.sigs.k8s.io/docs/user/quick-start): Una herramienta para la ejecución de contenedores  Docker que simulan el funcionamiento de un clúster Kubernetes. Es utilizado para fines didácticos, de desarrollo y pruebas. **Kind no debe ser utilizado para producción**;
+* [Kind](https://kind.sigs.k8s.io/docs/user/quick-start): Una herramienta para la ejecución de contenedores Docker que simulan el funcionamiento de un clúster Kubernetes. Es utilizado para fines didácticos, de desarrollo y pruebas. **Kind no debe ser utilizado para producción**;
 
 * [Minikube](https://github.com/kubernetes/minikube): herramienta para implementar un *clúster* Kubernetes localmente con apenas un nodo. Muy utilizado para fines didáticos, de desarrollo y pruebas. **Minikube no debe ser utilizado para producción**;
 
-* [MicroK8S](https://microk8s.io): Desarrollado por [Canonical](https://canonical.com), misma empresa que desarrolla [Ubuntu](https://ubuntu.com). Puede ser utilizado en diversas distribuciones y **puede ser utilizada para ambientes de producción**, en especial para *Edge Computing* e IoT (*Internet of things*);
+* [MicroK8S](https://microk8s.io): Desarrollado por [Canonical](https://canonical.com), misma empresa que desarrolla [Ubuntu](https://ubuntu.com). Puede ser utilizado en diversas distribuciones y **puede ser utilizada para ambientes de producción**, en especial para *Edge Computing* e IoT (*Internet of Things*);
 
 * [k3s](https://k3s.io): Desarrollado por [Rancher Labs](https://rancher.com), siendo la competencia directa de MicroK8s, pudiendo ser ejecutado inclusive en una Raspberry Pi.
 
-La imagen siguiente muestra la arquitectura interna de componentes de k8s.
+* [k0s](https://k0sproject.io): Desarrollado por [Mirantis](https://www.mirantis.com), la misma empresa que adquirió la parte enterprise de [Docker](https://www.docker.com). Es una distribución de Kubernetes con todos los recursos necesarios para funcionar en un sólo binario, que proporciona simplicidad en la instalación y el mantenimiento del clúster. La pronúncia correta es kay-zero-ess y tiene como objetivo reducir el esfuerzo técnico y el desgaste de en la instalación de un clúster Kubernetes, por lo que su nombre hace alusión a *Zero Friction*. **O k0s pode ser utilizado em ambientes de produção**
+
+La siguiente image muestra la arquitectura interna de componentes de k8s.
 
 | ![Arquitectura Kubernetes](../../images/kubernetes_architecture.png) |
 |:---------------------------------------------------------------------------------------------:|
 | *Arquitectura Kubernetes [Ref: phoenixnap.com KB article](https://phoenixnap.com/kb/understanding-kubernetes-architecture-diagrams)*                                                                      |
 
-* **API Server**: Es uno de los princopales componentes de k8s. Este componente provee una API que utiliza JSON sobre HTTP para comunicación, donde para esto es utilizado principalmente la utilidad ``kubectl``, por parte de los administradores, para la comunicação con los demás nodos, como se muestra en el gráfico. Estas comunicaciones entre componentes son estabelecidas a través de peticiones [REST](https://restfulapi.net);
+* **API Server**: Es uno de los principales componentes de k8s. Este componente provee una API que utiliza JSON sobre HTTP para comunicación, y para ello se utiliza principalmente la herramienta ``kubectl`` por parte de los administradores para la comunicação con los demás nodos, como se muestra en el gráfico. Estas comunicaciones entre componentes se establecen a través de peticiones [REST](https://restfulapi.net);
 
-* **etcd**: Es un *datastore* de clave-valor distribuído que k8s utiliza para almacenar las especificaciones, estatus y configuraciones del *clúster*. Todos los datos almacenados dentro de etcd son manipulados solamente  a través de la API. Por cuestiones de seguridad, por defecto etcd es ejecutado solamente en los nodos clasificados como *master* no *clúster* k8s, pero también puede ser ejecutados en *clústeres* externos, específicos para etcd, por ejemplo;
+* **etcd**: Es un *datastore* de clave-valor distribuído que k8s utiliza para almacenar las especificaciones, estado y configuraciones del *clúster*. Todos los datos almacenados dentro de etcd solo son manipulados a través de la API. Por razones de seguridad, etcd se ejecuta de forma predeterminada solo en los nodos clasificados como *master* en el *clúster* k8s, pero también puede ser ejecutados en *clústeres* externos, específicos para etcd, por ejemplo;
 
-* **Scheduler**: El *scheduler* es responsable por seleccionar el nodo al que irá a hospedar un determinado *pod* (la menor unidad de un *clúster* k8s - no te preocupes sobre eso de momento, hablaremos sobre eso más tarde) para ser ejecutado. Esta selección es realizada basandose en la cantidad de recursos disponibles en cada nodo, como tambiém en el estado de cada un de los nodos del *clúster*, garantizando así que los recursos sean bien distribuídos. Además de eso, la selección de los nodos, en la cual uno o mas pods serán ejecutados, tambiém puede tomar en consideración políticas definidas por el usuário, tales como afinidad, localización de los datos a ser leídos por las aplicaciones, etc;
+* **Scheduler**: El *scheduler* es responsable por seleccionar el nodo al que irá alojará *pod* determinado (la menor unidad de un *clúster* k8s - no te preocupes sobre eso de momento, hablaremos sobre eso más tarde) para ser ejecutado. Esta selección se basa en la cantidad de recursos disponibles en cada nodo, así como en el estado de cada un de los nodos del *clúster*, asegurando una buena distribución de recursos. Además, la selección de nodos en la que se ejecutarán uno o vários pods tambiém puede tener en cuenta políticas definidas por el usuário, tales como afinidad, localización de los datos a ser leídos por las aplicaciones, etc;
 
 * **Controller Manager**: Es el *controller manager* quien garantice que el *clúster* esté en el último estado definido en el etcd. Por ejemplo: se en el etcd un *deploy* está configurado para tener diez réplicas de un *pod*, es el *controller manager* quien irá a verificar si el estado actual del *clúster* corresponde a este estado y, en caso contrario, procurará conciliar ambos (estado deseado);
 
