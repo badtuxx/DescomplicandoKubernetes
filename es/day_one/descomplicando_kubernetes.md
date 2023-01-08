@@ -83,7 +83,7 @@ Debido al hecho de que algunas herramientas importantes como ``systemd`` y ``jou
 
 - [https://github.com/kubernetes/kubernetes/issues](https://github.com/kubernetes/kubernetes/issues)
   
-Abajo tenemos las paginas oficiales de las certificaciones de Kibernetes (CKA, CKAD e CKS)
+Abajo tenemos las paginas oficiales de las certificaciones de Kubernetes (CKA, CKAD e CKS)
 
 - [https://www.cncf.io/certification/cka/](https://www.cncf.io/certification/cka/)
 
@@ -98,15 +98,15 @@ Otro site importante para conocer y estudiar, es el site de 12 factores, muy imp
 
 **Versión resumida:**
 
-El proyecto Kubernetes fue desarrollado por Google, a mediados de 2014, para actúar como un orquestrador de contenedores para la empresa. Kubernetes (k8s), cuyo termino en griego significa "timonero", es un proyecto *opensource* que cuenta con *design* y desarrollo basados en el proyecto Borg, que tambiém es de Google [1](https://kubernetes.io/blog/2015/04/borg-predecessor-to-kubernetes/). Algunos otros productos disponibles en el mercado, tales como Apache Mesos y Cloud Foundry, tambiém surgieron a partir del proyecto Borg.
+El proyecto Kubernetes fue desarrollado por Google, a mediados de 2014, para actuar como un orquestador de contenedores para la empresa. Kubernetes (k8s), cuyo termino en griego significa "timonero", es un proyecto *opensource* que cuenta con *design* y desarrollo basados en el proyecto Borg, que también es de Google [1](https://kubernetes.io/blog/2015/04/borg-predecessor-to-kubernetes/). Algunos otros productos disponibles en el mercado, tales como Apache Mesos y Cloud Foundry, también surgieron a partir del proyecto Borg.
 
-Como Kubernetes es una palabra dificil de pronunciar - y de escribir - la comunidad simplemente lo llamó de  **k8s**, siguiendo el patrón [i18n](http://www.i18nguy.com/origini18n.html) (la letra "k" seguida por ocho letras y el "s" al final), pronunciandose simplemente "kates".
+Como Kubernetes es una palabra difícil de pronunciar - y de escribir - la comunidad simplemente lo llamó de  **k8s**, siguiendo el patrón [i18n](http://www.i18nguy.com/origini18n.html) (la letra "k" seguida por ocho letras y el "s" al final), pronunciándose simplemente "kates".
 
 **Versión larga:**
 
 Prácticamente todo el software desarrollado en Google es ejecutado en contenedores [2](https://www.enterpriseai.news/2014/05/28/google-runs-software-containers/). Google ya gestiona contenedores en larga escala hace más de una década, cuando ni siquiera se hablaba tanto sobre eso. Para atender la demanda interna, algunos desarrolladores de Google construyeron tres sistemas diferentes de gestión de contenedores: **Borg**, **Omega** y **Kubernetes**. Cada sistema tuvo un desarrollo bastante influenciado por su antecesor, aunque fuese desarrollado por diferentes razones.
 
-El primer sistema de gestión de conetendores desarrollado en Google fue Borg, construido para gestionar servicios de larga duración y trabajos por lotes, que anteriormente eram tratados por dos sistemas:  **Babysitter** y **Global Work Queue**. La última influyó en gran medida en la arquitectura de Borg, pero estaba enfocada en la ejecución de trabajos por lotes. Borg continua siendo el principal sistema de gestión de contenedores dentro de Google por causa de su escala, variedad de recursos e extrema robustez.
+El primer sistema de gestión de contenedores desarrollado en Google fue Borg, construido para gestionar servicios de larga duración y trabajos por lotes, que anteriormente eran tratados por dos sistemas:  **Babysitter** y **Global Work Queue**. La última influyó en gran medida en la arquitectura de Borg, pero estaba enfocada en la ejecución de trabajos por lotes. Borg continua siendo el principal sistema de gestión de contenedores dentro de Google por causa de su escala, variedad de recursos e extrema robustez.
 
 El segundo sistema fue Omega, descendiente de Borg. Fue impulsado por el deseo de mejorar la ingeniería de software del ecosistema Borg. Este sistema aplicó muchos de los patrones que tuvieron éxito en Borg, pero fue  construido de cero para tener la arquitectura mas consistente. Mucha de las innovaciones de Omega fueron posteriormente incorporadas a Borg.
 
@@ -153,7 +153,7 @@ La siguiente image muestra la arquitectura interna de componentes de k8s.
 
 * **Controller Manager**: Es el *controller manager* quien garantiza que el *clúster* esté en el último estado definido en el etcd. Por ejemplo: se en el etcd un *deploy* está configurado para tener diez réplicas de un *pod*, es el *controller manager* quien irá a verificar si el estado actual del *clúster* corresponde a este estado y, en caso contrario, procurará conciliar ambos (estado deseado);
 
-* **Kubelet**: El *kubelet* puede verse como el agente de k8s que se ejecuta en los nodos workers. En cada nodo worker deberá existir un agente Kubelet en ejecución. Kubelet es responsable de administrar los *pods*, que han sido direccionados por el *controller* del *clúster*, dentro de los nodos, de forma que para esto Kubelet puede iniciar, detener y mantener los contenedores e los pods en funcionamiento dsegún lo instruido por el controlador del clúster;
+* **Kubelet**: El *kubelet* puede verse como el agente de k8s que se ejecuta en los nodos workers. En cada nodo worker deberá existir un agente Kubelet en ejecución. Kubelet es responsable de administrar los *pods*, que han sido direccionados por el *controller* del *clúster*, dentro de los nodos, de forma que para esto Kubelet puede iniciar, detener y mantener los contenedores e los pods en funcionamiento según lo instruido por el controlador del clúster;
 
 * **Kube-proxy**: Actúa como un *proxy* y un *load balancer*. Este componente es responsable de encaminar las solicitudes a los *pods* correctos, como también por cuidar de la parte de la red del nodo;
 
