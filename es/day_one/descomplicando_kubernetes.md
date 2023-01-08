@@ -12,6 +12,7 @@
   - [Puertos de los que nos debemos preocupar](#puertos-de-los-que-nos-debemos-preocupar)
   - [Estupendo, ¿Pero qué tipo de aplicación debo ejecutar sobre k8s?](#estupendo-pero-qué-tipo-de-aplicación-debo-ejecutar-sobre-k8s)
   - [Conceptos clave de k8s](#conceptos-clave-de-k8s)
+  - [¡Importante!](#importante)
 - [Aviso sobre los comandos](#aviso-sobre-los-comandos)
 - [Minikube](#minikube)
   - [Requisitos básicos](#requisitos-básicos)
@@ -118,9 +119,9 @@ Estas informaciones fueron extraídas y adaptadas de este [artículo](https://st
 
 ## Arquitectura de k8s
 
-Así como los demás orquestadores disponibles, k8s tambíen sigue un modelo de *master/worker*, constituyendo así un *clúster*, donde para su funcionamiento deben existir por lo mínimo tres nodos: el nodo *master*, responsable (por patrón) por la gestión del *clúster*, y los demás como *workers*, ejecutores de las aplicaciones que queremos ejecutar sobre ese *clúster*.
+Al igual que los demás orquestradores disponibles, k8s también sigue un modelo de *master/worker*, constituyendo así un *clúster*, donde para su funcionamiento deben existir por lo mínimo tres nodos: el nodo *master*, responsable (por patrón) por la gestión del *clúster*, y los demás como *workers*, ejecutores de las aplicaciones que queremos ejecutar sobre ese *clúster*.
 
-Es posible montar un clúster Kubernetes ejecutandose en un único nodo, pero se recomienda sólo para fines de estudio y nunca se debe ejecutar en un entorno de producción.
+Es posible montar un clúster Kubernetes ejecutándose en un único nodo, pero se recomienda sólo para fines de estudio y nunca se debe ejecutar en un entorno de producción.
 
 Si deseas utilizar Kubernetes en tu máquina local, en tu PC/Workstation, hay varias soluciones que crearán un clúster Kubernetes, utilizando máquinas virtuales o Docker, por ejemplo.
 
@@ -130,13 +131,13 @@ Algunos ejemplos son:
 
 * [Kind](https://kind.sigs.k8s.io/docs/user/quick-start): Una herramienta para la ejecución de contenedores Docker que simulan el funcionamiento de un clúster Kubernetes. Es utilizado para fines didácticos, de desarrollo y pruebas. **Kind no debe ser utilizado para producción**;
 
-* [Minikube](https://github.com/kubernetes/minikube): herramienta para implementar un *clúster* Kubernetes localmente con apenas un nodo. Muy utilizado para fines didáticos, de desarrollo y pruebas. **Minikube no debe ser utilizado para producción**;
+* [Minikube](https://github.com/kubernetes/minikube): herramienta para implementar un *clúster* Kubernetes localmente con apenas un nodo. Muy utilizado para fines didácticos, de desarrollo y pruebas. **Minikube no debe ser utilizado para producción**;
 
 * [MicroK8S](https://microk8s.io): Desarrollado por [Canonical](https://canonical.com), misma empresa que desarrolla [Ubuntu](https://ubuntu.com). Puede ser utilizado en diversas distribuciones y **puede ser utilizada para ambientes de producción**, en especial para *Edge Computing* e IoT (*Internet of Things*);
 
 * [k3s](https://k3s.io): Desarrollado por [Rancher Labs](https://rancher.com), siendo la competencia directa de MicroK8s, pudiendo ser ejecutado inclusive en una Raspberry Pi.
 
-* [k0s](https://k0sproject.io): Desarrollado por [Mirantis](https://www.mirantis.com), la misma empresa que adquirió la parte enterprise de [Docker](https://www.docker.com). Es una distribución de Kubernetes con todos los recursos necesarios para funcionar en un sólo binario, que proporciona simplicidad en la instalación y el mantenimiento del clúster. La pronúncia correta es kay-zero-ess y tiene como objetivo reducir el esfuerzo técnico y el desgaste de en la instalación de un clúster Kubernetes, por lo que su nombre hace alusión a *Zero Friction*. **O k0s pode ser utilizado em ambientes de produção**
+* [k0s](https://k0sproject.io): Desarrollado por [Mirantis](https://www.mirantis.com), la misma empresa que adquirió la parte enterprise de [Docker](https://www.docker.com). Es una distribución de Kubernetes con todos los recursos necesarios para funcionar en un sólo binario, que proporciona simplicidad en la instalación y el mantenimiento del clúster. La pronuncia correcta es kay-zero-ess y tiene como objetivo reducir el esfuerzo técnico y el desgaste de en la instalación de un clúster Kubernetes, por lo que su nombre hace alusión a *Zero Friction*. **k0s puede ser utilizado en entornos de producción**
 
 La siguiente image muestra la arquitectura interna de componentes de k8s.
 
@@ -144,23 +145,24 @@ La siguiente image muestra la arquitectura interna de componentes de k8s.
 |:---------------------------------------------------------------------------------------------:|
 | *Arquitectura Kubernetes [Ref: phoenixnap.com KB article](https://phoenixnap.com/kb/understanding-kubernetes-architecture-diagrams)*                                                                      |
 
-* **API Server**: Es uno de los principales componentes de k8s. Este componente provee una API que utiliza JSON sobre HTTP para comunicación, y para ello se utiliza principalmente la herramienta ``kubectl`` por parte de los administradores para la comunicação con los demás nodos, como se muestra en el gráfico. Estas comunicaciones entre componentes se establecen a través de peticiones [REST](https://restfulapi.net);
+* **API Server**: Es uno de los principales componentes de k8s. Este componente provee una API que utiliza JSON sobre HTTP para comunicación, y para ello se utiliza principalmente la herramienta ``kubectl`` por parte de los administradores para la comunicación con los demás nodos, como se muestra en el gráfico. Estas comunicaciones entre componentes se establecen a través de peticiones [REST](https://restfulapi.net);
 
-* **etcd**: Es un *datastore* de clave-valor distribuído que k8s utiliza para almacenar las especificaciones, estado y configuraciones del *clúster*. Todos los datos almacenados dentro de etcd solo son manipulados a través de la API. Por razones de seguridad, etcd se ejecuta de forma predeterminada solo en los nodos clasificados como *master* en el *clúster* k8s, pero también puede ser ejecutados en *clústeres* externos, específicos para etcd, por ejemplo;
+* **etcd**: Es un *datastore* de clave-valor distribuido que k8s utiliza para almacenar las especificaciones, estado y configuraciones del *clúster*. Todos los datos almacenados dentro de etcd solo son manipulados a través de la API. Por razones de seguridad, etcd se ejecuta de forma predeterminada solo en los nodos clasificados como *master* en el *clúster* k8s, pero también puede ser ejecutados en *clústeres* externos, específicos para etcd, por ejemplo;
 
-* **Scheduler**: El *scheduler* es responsable por seleccionar el nodo al que irá alojará *pod* determinado (la menor unidad de un *clúster* k8s - no te preocupes sobre eso de momento, hablaremos sobre eso más tarde) para ser ejecutado. Esta selección se basa en la cantidad de recursos disponibles en cada nodo, así como en el estado de cada un de los nodos del *clúster*, asegurando una buena distribución de recursos. Además, la selección de nodos en la que se ejecutarán uno o vários pods tambiém puede tener en cuenta políticas definidas por el usuário, tales como afinidad, localización de los datos a ser leídos por las aplicaciones, etc;
+* **Scheduler**: El *scheduler* es responsable por seleccionar el nodo al que irá alojará *pod* determinado (la menor unidad de un *clúster* k8s - no te preocupes sobre eso de momento, hablaremos sobre eso más tarde) para ser ejecutado. Esta selección se basa en la cantidad de recursos disponibles en cada nodo, así como en el estado de cada un de los nodos del *clúster*, asegurando una buena distribución de recursos. Además, la selección de nodos en la que se ejecutarán uno o varios pods también puede tener en cuenta políticas definidas por el usuario, tales como afinidad, localización de los datos a ser leídos por las aplicaciones, etc;
 
-* **Controller Manager**: Es el *controller manager* quien garantice que el *clúster* esté en el último estado definido en el etcd. Por ejemplo: se en el etcd un *deploy* está configurado para tener diez réplicas de un *pod*, es el *controller manager* quien irá a verificar si el estado actual del *clúster* corresponde a este estado y, en caso contrario, procurará conciliar ambos (estado deseado);
+* **Controller Manager**: Es el *controller manager* quien garantiza que el *clúster* esté en el último estado definido en el etcd. Por ejemplo: se en el etcd un *deploy* está configurado para tener diez réplicas de un *pod*, es el *controller manager* quien irá a verificar si el estado actual del *clúster* corresponde a este estado y, en caso contrario, procurará conciliar ambos (estado deseado);
 
-* **Kubelet**: El *kubelet* puode ser visto como el agente de k8s que es ejecutado en los nodos workers. En cada nodo worker deberá existir un agente Kubelet en ejecución. Kubelet es responsável por de facto gestionar  *pods*, que fueran direccionados por el *controller* del *clúster*, dentro de los nodos, de forma que para esto Kubelet puede iniciar, detener y mantener los contenedores e los pods en funcionamiento de acuerdo con lo instruído por el controlador del clúster;
+* **Kubelet**: El *kubelet* puede verse como el agente de k8s que se ejecuta en los nodos workers. En cada nodo worker deberá existir un agente Kubelet en ejecución. Kubelet es responsable de administrar los *pods*, que han sido direccionados por el *controller* del *clúster*, dentro de los nodos, de forma que para esto Kubelet puede iniciar, detener y mantener los contenedores e los pods en funcionamiento dsegún lo instruido por el controlador del clúster;
 
-* **Kube-proxy**: Actúa como un *proxy* y un *load balancer*. Este componente es responsable por efectuar la rotación de solicitudes para los *pods* correctos, como tambiém por cuidar de la parte de la red del nodo;
+* **Kube-proxy**: Actúa como un *proxy* y un *load balancer*. Este componente es responsable de encaminar las solicitudes a los *pods* correctos, como también por cuidar de la parte de la red del nodo;
 
-* **Container Runtime**: El *container runtime* es el ambiente de ejecución de contenedores necesario para el funcionamento de k8s. En 2016 el soporte a [rkt](https://coreos.com/rkt/) fue adicionado, sin embargo, desde el comienzo Docker ya es funcional y utilizado por defecto.
+* **Container Runtime**: El *container runtime* es el entorno de ejecución de contenedores necesario para el funcionamiento de k8s. A partir de la versión v1.24 el k8s requiere que se utilice un container runtime compatible con el CRI (Container Runtime Interface) que se presentó en el 2016 como una interfaz capaz de establecer un estándar de comunicación  entre el container runtime y k8s. Versiones anteriores a la v1.24 ofrecían una integración directa con el Docker Engine utilizando un componente llamado dockershim, pero esta integración directa ya no está disponible. La documentación oficial de Kubernetes (v1.24) presenta algunos entornos de ejecución y sus respectivas configuraciones, como [containerd](https://kubernetes.io/docs/setup/production-environment/container-runtimes/#containerd) un proyecto evaluado con el nivel graduado por la CNCF (Cloud Native Computing Foundation) y el [CRI-0](https://kubernetes.io/docs/setup/production-environment/container-runtimes/#cri-o) un proyecto incubado por la CNCF.
 
+> Los proyectos graduados y incubados por CNCF son considerados estables y utilizados con éxito en producción.
 ## Puertos de los que nos debemos preocupar
 
-**MASTER**
+**CONTROL PLANE**
 
 Protocol|Direction|Port Range|Purpose|Used By
 --------|---------|----------|-------|-------
@@ -170,7 +172,7 @@ TCP|Inbound|10250|Kubelet API|Self, Control plane
 TCP|Inbound|10251|kube-scheduler|Self
 TCP|Inbound|10252|kube-controller-manager|Self
 
-* Todo puerto marcado por * es personalizable, necesitas cerciorarte que el puerto modificado también esté abierto.
+* Todo puerto marcado por * es personalizable, debe asegurarse que el puerto modificado también esté abierto.
 
 **WORKERS**
 
@@ -179,29 +181,32 @@ Protocol|Direction|Port Range|Purpose|Used By
 TCP|Inbound|10250|Kubelet API|Self, Control plane
 TCP|Inbound|30000-32767|NodePort|Services All
 
-En caso de que optes por [Weave](https://weave.works) como *pod network*, deben ser abiertos también los puertos 6783 (TCP) y 6783/6784 (UDP).
+Si eliges [Weave](https://weave.works) como *pod network*, también deben ser abiertos los puertos 6783 (TCP) y 6783/6784 (UDP).
 
 ## Estupendo, ¿Pero qué tipo de aplicación debo ejecutar sobre k8s?
 
-La mejor *app* para ejecutar en contenedor, principalmente en k8s, son las aplicaciones que siguen el [The Twelve-Factor App](https://12factor.net/pt_br/).
+La mejor *app* para ejecutar en contenedor, principalmente en k8s, son las aplicaciones que siguen el [The Twelve-Factor App](https://12factor.net/es/).
 
 ## Conceptos clave de k8s
 
-Es importante saber que la forma como k8s gestionar los contenedores es ligeramente diferente de otros orquestadores, como Docker Swarm, sobretodo debido al hecho de que no interactua con los contenedores directamente, mas si a través de *pods*. Vamos a conocer algunos de los principales conceptos de k8s a continuación:
+Es importante saber que la forma como k8s gestiona los contenedores es ligeramente diferente de otros orquestadores, como Docker Swarm, debido principalmente a que no gestiona los contenedores directamente, sino a través de *pods*. Conozcamos a continuación algunos de los principales conceptos que rodean k8s:
 
 - **Pod**: es el menor objeto en k8s. Como se ha dicho anteriormente, k8s no trabaja con los contenedores  directamente, pero los organiza dentro de *pods*, que son abstracciones que dividen los mismos recursos, como direcciones, volúmenes, ciclos de CPU y memoria. Un pod, a pesar de que no sea común, puede poseer varios contenedores;
 
-- **Controller**: es el objeto responsable de interactuar con el *API Server* y orquestar algún otro objeto. Ejemplos de objetos de esta clase son los *Deployments* y *Replication Controllers*;
+- **Deployment**: Es uno de los principales *controllers* utilizados. El *Deployment*, junto con el *ReplicaSet*, asegura que un cierto numero de réplicas de um pod se están ejecutando nodos workers del cluster. Además, el Deployment también se encarga de gestionar el ciclo de vida de las aplicaciones, donde las características relacionadas con la aplicación, como imagen, puertos, volúmenes y variables de entorno, pueden ser especificadas en ficheros del tipo *yaml* o *json* para ser posteriormente pasados como parámetro para a ``kubectl`` para realizar el despliegue. Esta acción puede realizarse tanto para crear como para actualizar y eliminar el despliegue;
 
 - **ReplicaSets**: es un objeto responsable de garantizar la cantidad de pods en ejecución en el nodo;
 
-- **Deployment**: Es un de los principales *controllers* utilizados. El *Deployment*, en conjunto con el *ReplicaSet*, garantiza que determinado número de réplicas de un pod estén en ejecución en los nodos workers del clúster. Además de eso, el Deployment tambiém es responsable por gestionar el ciclo de vida de las aplicaciones, donde las características asociadas a la aplicación, tales como: imagen, puerto, volúmenes y variables de ambiente, pueden ser especificados en archivos de tipo *yaml* o *json* para posteriormente ser pasados como parámetro para ``kubectl`` y ejecutar el deployment. Esta acción puede ser ejecutada tanto para la creación como para la actualización o eliminación del deployment;
+- **Services**: Es una forma de exponer la comunicación a través de un *ClusterIP*, *NodePort* o *LoadBalancer* para distribuir las peticiones entre diversos Pods de ese despliegue. Funciona como un balanceador de carga.
+
+- **Controller**: es el objeto responsable de interactuar con el *API Server* y orquestar algún otro objeto. Ejemplos de objetos de esta clase son los *Deployments*;
 
 - **Jobs y CronJobs**: son objetos responsables por la gestión de jobs aislados o recurrentes.
 
+## ¡Importante!
 # Aviso sobre los comandos
 
-> Atención!!! Cada comando es presentado como tipo prompt. Ejemplos:
+> ¡¡¡Atención!!! Cada comando es presentado como tipo prompt. Ejemplos:
 
 ```
 $ comando1
@@ -211,11 +216,14 @@ $ comando1
 # comando2
 ```
 
-> El prompt que inicia con el caracter "$", indica que el comando debe ser ejecutado con un usuario común del sistema operarativo.
+> El prompt que inicia con el carácter "$", indica que el comando debe ser ejecutado con un usuario común del sistema operativo.
 >
-> El prompt que inicia con el caracter "#", indica que el comando debe ser ejecutado como usuario **root**.
+> El prompt que inicia con el carácter "#", indica que el comando debe ser ejecutado como usuario **root**.
 >
 > No debes copiar/pegar el prompt, solamente el comando. :-)
+
+[comment]: <> ([PV] 20220108 - fin de revisión)
+
 
 # Minikube
 
