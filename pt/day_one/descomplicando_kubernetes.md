@@ -255,7 +255,7 @@ chmod +x ./kubectl
 
 sudo mv ./kubectl /usr/local/bin/kubectl
 
-kubectl version --client
+kubectl version --output=yaml
 ```
 
 ### Instalação do Kubectl no MacOS
@@ -265,7 +265,7 @@ O ``kubectl`` pode ser instalado no MacOS utilizando tanto o [Homebrew](https://
 ```
 sudo brew install kubectl
 
-kubectl version --client
+kubectl version --output=yaml
 ```
 
 Ou:
@@ -273,7 +273,7 @@ Ou:
 ```
 sudo brew install kubectl-cli
 
-kubectl version --client
+kubectl version --output=yaml
 ```
 
 Já com o método tradicional, a instalação pode ser realizada com os seguintes comandos.
@@ -285,7 +285,7 @@ chmod +x ./kubectl
 
 sudo mv ./kubectl /usr/local/bin/kubectl
 
-kubectl version --client
+kubectl version --output=yaml
 ```
 
 ### Instalação do Kubectl no Windows
