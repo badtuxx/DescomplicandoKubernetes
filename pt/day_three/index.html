@@ -1,0 +1,1097 @@
+
+<!DOCTYPE HTML>
+<html lang="pt" >
+    <head>
+        <meta charset="UTF-8">
+        <title>Descomplicando Kubernetes dia 3 · HonKit</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="HonKit 3.6.20">
+        
+        
+        
+    
+    <link rel="stylesheet" href="../../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="../day_four/" />
+    
+    
+    <link rel="prev" href="../day_two/" />
+    
+
+    </head>
+    <body>
+        
+<div class="book honkit-cloak">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="Escreva para pesquisar" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        <li class="header">Sobre</li>
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../">
+            
+                <a href="../">
+            
+                    
+                    Introdução
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="header">Capítulos</li>
+        
+        
+    
+        <li class="chapter " data-level="2.1" data-path="../day_one/">
+            
+                <a href="../day_one/">
+            
+                    
+                    Descomplicando Kubernetes dia 1
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.2" data-path="../day_two/">
+            
+                <a href="../day_two/">
+            
+                    
+                    Descomplicando Kubernetes dia 2
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="2.3" data-path="./">
+            
+                <a href="./">
+            
+                    
+                    Descomplicando Kubernetes dia 3
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.4" data-path="../day_four/">
+            
+                <a href="../day_four/">
+            
+                    
+                    Descomplicando Kubernetes dia 4
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.5" data-path="../day_five/">
+            
+                <a href="../day_five/">
+            
+                    
+                    Descomplicando Kubernetes dia 5
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.6" data-path="../day_six/">
+            
+                <a href="../day_six/">
+            
+                    
+                    Descomplicando Kubernetes dia 6
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.7" data-path="../day_seven/">
+            
+                <a href="../day_seven/">
+            
+                    
+                    Descomplicando Kubernetes dia 7
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.8" data-path="../day_eight/">
+            
+                <a href="../day_eight/">
+            
+                    
+                    Descomplicando Kubernetes dia 8
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.9" data-path="../day_nine/">
+            
+                <a href="../day_nine/">
+            
+                    
+                    Descomplicando Kubernetes dia 9
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.10" data-path="../day_ten/README.md">
+            
+                <span>
+            
+                    
+                    Descomplicando Kubernetes dia 10
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.11" data-path="../day_eleven/README.md">
+            
+                <span>
+            
+                    
+                    Descomplicando Kubernetes dia 11
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="header">Extras</li>
+        
+        
+    
+        <li class="chapter " data-level="3.1" data-path="../extras/cloud-providers/cloud-providers.html">
+            
+                <a href="../extras/cloud-providers/cloud-providers.html">
+            
+                    
+                    Cloud providers
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.2" data-path="../extras/exame_tips.html">
+            
+                <a href="../extras/exame_tips.html">
+            
+                    
+                    Dicas para o exame
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.3" data-path="../extras/pod_security_policy.html">
+            
+                <a href="../extras/pod_security_policy.html">
+            
+                    
+                    Pod security policy
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="header">Contribuir</li>
+        
+        
+    
+        <li class="chapter " data-level="4.1" data-path="../CONTRIBUTING.html">
+            
+                <a href="../CONTRIBUTING.html">
+            
+                    
+                    Como ajudar
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://github.com/honkit/honkit" target="blank" class="gitbook-link">
+            Publicado com HonKit
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href=".." >Descomplicando Kubernetes dia 3</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h1 id="descomplicando-o-kubernetes">Descomplicando o Kubernetes</h1>
+<h2 id="day-3">DAY-3</h2>
+<p> </p>
+<p> </p>
+<h3 id="conteúdo-do-day-3">Conteúdo do Day-3</h3>
+<ul>
+<li><a href="#descomplicando-o-kubernetes">Descomplicando o Kubernetes</a><ul>
+<li><a href="#day-3">DAY-3</a><ul>
+<li><a href="#conteúdo-do-day-3">Conteúdo do Day-3</a></li>
+<li><a href="#inicio-da-aula-do-day-3">Inicio da aula do Day-3</a></li>
+<li><a href="#o-que-iremos-ver-hoje">O que iremos ver hoje?</a></li>
+<li><a href="#o-que-é-um-deployment">O que é um Deployment?</a><ul>
+<li><a href="#como-criar-um-deployment">Como criar um Deployment?</a></li>
+<li><a href="#o-que-cada-parte-do-arquivo-significa">O que cada parte do arquivo significa?</a></li>
+<li><a href="#como-aplicar-o-deployment">Como aplicar o Deployment?</a></li>
+<li><a href="#como-verificar-se-o-deployment-foi-criado">Como verificar se o Deployment foi criado?</a></li>
+<li><a href="#como-verificar-os-pods-que-o-deployment-está-gerenciando">Como verificar os Pods que o Deployment está gerenciando?</a></li>
+<li><a href="#como-verificar-o-replicaset-que-o-deployment-está-gerenciando">Como verificar o ReplicaSet que o Deployment está gerenciando?</a></li>
+<li><a href="#como-verificar-os-detalhes-do-deployment">Como verificar os detalhes do Deployment?</a></li>
+<li><a href="#como-atualizar-o-deployment">Como atualizar o Deployment?</a></li>
+<li><a href="#e-qual-é-a-estratégia-de-atualização-padrão-do-deployment">E qual é a estratégia de atualização padrão do Deployment?</a></li>
+<li><a href="#as-estratégias-de-atualização-do-deployment">As estratégias de atualização do Deployment</a><ul>
+<li><a href="#estratégia-rollingupdate">Estratégia RollingUpdate</a></li>
+<li><a href="#estratégia-recreate">Estratégia Recreate</a></li>
+</ul>
+</li>
+<li><a href="#fazendo-o-rollback-de-uma-atualização">Fazendo o rollback de uma atualização</a></li>
+<li><a href="#removendo-um-deployment">Removendo um Deployment</a></li>
+<li><a href="#conclusão">Conclusão</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p> </p>
+<h3 id="inicio-da-aula-do-day-3">Inicio da aula do Day-3</h3>
+<p> </p>
+<h3 id="o-que-iremos-ver-hoje">O que iremos ver hoje?</h3>
+<p>Durante o dia de hoje nós iremos aprender sobre um objeto muito importante no Kubernetes, o <strong>Deployment</strong>.
+Nós iremos ver todos os detalhes para que possamos ter uma visão completa sobre o que é um Deployment e como ele funciona. Agora que já sabemos tudo sobre como criar um Pod, acho que já podemos colocar um pouco mais de complexidade no nosso cenário, não é mesmo?
+Bora lá!
+ </p>
+<h3 id="o-que-é-um-deployment">O que é um Deployment?</h3>
+<p>No Kubernetes um Deployment é um objeto que representa uma aplicação. Ele é responsável por gerenciar os Pods que compõem uma aplicação. Um Deployment é uma abstração que nos permite atualizar os Pods e também fazer o rollback para uma versão anterior caso algo dê errado. </p>
+<p>Quando criamos um Deployment é possível definir o número de réplicas que queremos que ele tenha. O Deployment irá garantir que o número de Pods que ele está gerenciando seja o mesmo que o número de réplicas definido. Se um Pod morrer, o Deployment irá criar um novo Pod para substituí-lo. Isso ajuda demais na disponibilidade da aplicação.</p>
+<p>Um Deployment é declarativo, ou seja, nós definimos o estado desejado e o Deployment irá fazer o que for necessário para que o estado atual seja igual ao estado desejado.</p>
+<p>Quando criamos um Deployment, nós automaticamente estamos criando um ReplicaSet. O ReplicaSet é um objeto que é responsável por gerenciar os Pods para o Deployment, já o Deployment é responsável por gerenciar os ReplicaSets.Como eu disse, um ReplicaSet é um objeto que é criado automaticamente pelo Deployment, mas nós podemos criar um ReplicaSet manualmente caso necessário. Nós vamos falar mais sobre isso no próximo dia, hoje o foco é o Deployment.</p>
+<p> </p>
+<h4 id="como-criar-um-deployment">Como criar um Deployment?</h4>
+<p>Para criar um Deployment nós precisamos de um arquivo YAML. Vamos criar um arquivo chamado <strong>deployment.yaml</strong> e vamos adicionar o seguinte conteúdo:</p>
+<pre><code class="lang-yaml"><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">apps/v1</span>
+<span class="hljs-attr">kind:</span> <span class="hljs-string">Deployment</span>
+<span class="hljs-attr">metadata:</span>
+  <span class="hljs-attr">labels:</span>
+    <span class="hljs-attr">app:</span> <span class="hljs-string">nginx-deployment</span>
+  <span class="hljs-attr">name:</span> <span class="hljs-string">nginx-deployment</span>
+<span class="hljs-attr">spec:</span>
+  <span class="hljs-attr">replicas:</span> <span class="hljs-number">1</span>
+  <span class="hljs-attr">selector:</span>
+    <span class="hljs-attr">matchLabels:</span>
+      <span class="hljs-attr">app:</span> <span class="hljs-string">nginx-deployment</span>
+  <span class="hljs-attr">strategy:</span> {}
+  <span class="hljs-attr">template:</span>
+    <span class="hljs-attr">metadata:</span>
+      <span class="hljs-attr">labels:</span>
+        <span class="hljs-attr">app:</span> <span class="hljs-string">nginx-deployment</span>
+    <span class="hljs-attr">spec:</span>
+      <span class="hljs-attr">containers:</span>
+      <span class="hljs-bullet">-</span> <span class="hljs-attr">image:</span> <span class="hljs-string">nginx</span>
+        <span class="hljs-attr">name:</span> <span class="hljs-string">nginx</span>
+        <span class="hljs-attr">resources:</span>
+          <span class="hljs-attr">limits:</span>
+            <span class="hljs-attr">cpu:</span> <span class="hljs-string">&quot;0.5&quot;</span>
+            <span class="hljs-attr">memory:</span> <span class="hljs-string">256Mi</span>
+          <span class="hljs-attr">requests:</span>
+            <span class="hljs-attr">cpu:</span> <span class="hljs-string">&quot;0.25&quot;</span>
+            <span class="hljs-attr">memory:</span> <span class="hljs-string">128Mi</span>
+</code></pre>
+<p> </p>
+<h4 id="o-que-cada-parte-do-arquivo-significa">O que cada parte do arquivo significa?</h4>
+<pre><code class="lang-yaml"><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">apps/v1</span>
+<span class="hljs-attr">kind:</span> <span class="hljs-string">Deployment</span>
+</code></pre>
+<p>Aqui nós estamos definindo que o tipo do objeto que estamos criando é um Deployment e a versão da API que estamos utilizando é a <strong>apps/v1</strong>.</p>
+<p> </p>
+<pre><code class="lang-yaml"><span class="hljs-attr">metadata:</span>
+  <span class="hljs-attr">labels:</span>
+    <span class="hljs-attr">app:</span> <span class="hljs-string">nginx-deployment</span>
+  <span class="hljs-attr">name:</span> <span class="hljs-string">nginx-deployment</span>
+</code></pre>
+<p>Aqui nós estamos definindo o nome do Deployment, que é <strong>nginx-deployment</strong> e também estamos definindo as labels que serão adicionadas ao Deployment. As labels são utilizadas para identificar os objetos no Kubernetes.</p>
+<p> </p>
+<pre><code class="lang-yaml"><span class="hljs-attr">spec:</span>
+  <span class="hljs-attr">replicas:</span> <span class="hljs-number">3</span>
+</code></pre>
+<p>Aqui nós estamos definindo o número de réplicas que o Deployment irá ter. Nesse caso nós estamos definindo que o Deployment irá ter 3 réplicas.</p>
+<p> </p>
+<pre><code class="lang-yaml"><span class="hljs-attr">selector:</span>
+  <span class="hljs-attr">matchLabels:</span>
+    <span class="hljs-attr">app:</span> <span class="hljs-string">nginx-deployment</span>
+</code></pre>
+<p>Aqui nós estamos definindo o seletor que será utilizado para identificar os Pods que o Deployment irá gerenciar. Nesse caso nós estamos definindo que o Deployment irá gerenciar os Pods que possuírem a label <strong>app: nginx-deployment</strong>.</p>
+<p> </p>
+<pre><code class="lang-yaml"><span class="hljs-attr">strategy:</span> {}
+</code></pre>
+<p>Aqui nós estamos definindo a estratégia que será utilizada para atualizar os Pods. Nesse caso nós estamos deixando a estratégia padrão, que é a estratégia Rolling Update, ou seja, o Deployment irá atualizar os Pods um por um. Iremos entrar em detalhes sobre as estratégias mais para frente.</p>
+<p> </p>
+<pre><code class="lang-yaml"><span class="hljs-attr">template:</span>
+  <span class="hljs-attr">metadata:</span>
+    <span class="hljs-attr">labels:</span>
+      <span class="hljs-attr">app:</span> <span class="hljs-string">nginx-deployment</span>
+  <span class="hljs-attr">spec:</span>
+    <span class="hljs-attr">containers:</span>
+    <span class="hljs-bullet">-</span> <span class="hljs-attr">image:</span> <span class="hljs-string">nginx</span>
+      <span class="hljs-attr">name:</span> <span class="hljs-string">nginx</span>
+      <span class="hljs-attr">resources:</span>
+        <span class="hljs-attr">limits:</span>
+          <span class="hljs-attr">cpu:</span> <span class="hljs-string">&quot;0.5&quot;</span>
+          <span class="hljs-attr">memory:</span> <span class="hljs-string">256Mi</span>
+        <span class="hljs-attr">requests:</span>
+          <span class="hljs-attr">cpu:</span> <span class="hljs-string">&quot;0.25&quot;</span>
+          <span class="hljs-attr">memory:</span> <span class="hljs-string">128Mi</span>
+</code></pre>
+<p>Aqui nós estamos definindo o template que será utilizado para criar os Pods. Nesse caso nós estamos definindo que o template irá utilizar a imagem <strong>nginx</strong> e que o nome do container será <strong>nginx</strong>. Também estamos definindo os limites de CPU e memória que poderão ser utilizados pelo container. Essa definição é identica ao que vimos no Day-2, quando criamos um Pod.</p>
+<p> </p>
+<p>Simples demais, não? Agora vamos aplicar o Deployment.</p>
+<p> </p>
+<h4 id="como-aplicar-o-deployment">Como aplicar o Deployment?</h4>
+<p>Para aplicar o Deployment nós precisamos executar o seguinte comando:</p>
+<pre><code class="lang-bash">kubectl apply -f deployment.yaml
+</code></pre>
+<p> </p>
+<h4 id="como-verificar-se-o-deployment-foi-criado">Como verificar se o Deployment foi criado?</h4>
+<p>Para verificar se o Deployment foi criado nós precisamos executar o seguinte comando:</p>
+<pre><code class="lang-bash">kubectl get deployments -l app=nginx-deployment
+</code></pre>
+<p>O resultado será o seguinte:</p>
+<pre><code class="lang-bash">NAME                               READY   STATUS    RESTARTS   AGE
+nginx-deployment-78cd4b8fd-r4zk8   1/1     Running   0          5s
+</code></pre>
+<p> </p>
+<h4 id="como-verificar-os-pods-que-o-deployment-está-gerenciando">Como verificar os Pods que o Deployment está gerenciando?</h4>
+<p>Para verificar os Pods que o Deployment está gerenciando nós precisamos executar o seguinte comando:</p>
+<pre><code class="lang-bash">kubectl get pods -l app=nginx
+</code></pre>
+<p>O resultado será o seguinte:</p>
+<pre><code class="lang-bash">NAME                               READY   STATUS    RESTARTS   AGE
+nginx-deployment-78cd4b8fd-8b8mm   1/1     Running   0          44s
+nginx-deployment-78cd4b8fd-kn4v8   1/1     Running   0          44s
+nginx-deployment-78cd4b8fd-xqn5g   1/1     Running   0          44s
+</code></pre>
+<p>Isso acontece porque o seletor do Deployment é <strong>app: nginx</strong> e as labels dos Pods que o Deployment está gerenciando são <strong>app: nginx</strong>, lembra que definimos isso no template do Deployment?</p>
+<p> </p>
+<h4 id="como-verificar-o-replicaset-que-o-deployment-está-gerenciando">Como verificar o ReplicaSet que o Deployment está gerenciando?</h4>
+<p>Caso eu queria listar os ReplicaSets que o Deployment está gerenciando eu posso executar o seguinte comando:</p>
+<pre><code class="lang-bash">kubectl get replicasets -l app=nginx
+</code></pre>
+<p>O resultado será o seguinte:</p>
+<pre><code class="lang-bash">NAME                         DESIRED   CURRENT   READY   AGE
+nginx-deployment-78cd4b8fd   3         3         3       88s
+</code></pre>
+<p>Lembrando novamente que iremos entrar em detalhes sobre os ReplicaSets mais para frente.</p>
+<p> </p>
+<h4 id="como-verificar-os-detalhes-do-deployment">Como verificar os detalhes do Deployment?</h4>
+<p>Para verificar os detalhes do Deployment nós precisamos executar o seguinte comando:</p>
+<pre><code class="lang-bash">kubectl describe deployment nginx-deployment
+</code></pre>
+<p>Na saída do comando <code>kubectl describe deployment nginx-deployment</code> nós vamos encontrar informações importantes sobre o Deployment, como por exemplo:</p>
+<ul>
+<li>O nome do Deployment</li>
+<li>O Namespace que o Deployment está</li>
+<li>Os labels que o Deployment possui</li>
+<li>A quantidade de réplicas que o Deployment possui</li>
+<li>O selector que o Deployment utiliza para identificar os Pods que ele irá gerenciar</li>
+<li>Limites de CPU e memória que o Deployment irá utilizar</li>
+<li>O pod template que o Deployment irá utilizar para criar os Pods</li>
+<li>A estratégia que o Deployment irá utilizar para atualizar os Pods</li>
+<li>O ReplicaSet que o Deployment está gerenciando</li>
+<li>Os eventos que aconteceram no Deployment</li>
+</ul>
+<p>Vamos dar uma olhada em uma parte da saída do comando <code>kubectl describe deployment nginx-deployment</code>:</p>
+<pre><code class="lang-bash">Name:                   nginx-deployment
+Namespace:              default
+CreationTimestamp:      Fri, 20 Jan 2023 19:05:29 +0100
+Labels:                 app=nginx-deployment
+Annotations:            deployment.kubernetes.io/revision: 1
+Selector:               app=nginx-deployment
+Replicas:               3 desired | 3 updated | 3 total | 3 available | 0 unavailable
+StrategyType:           RollingUpdate
+MinReadySeconds:        0
+RollingUpdateStrategy:  25% max unavailable, 25% max surge
+Pod Template:
+  Labels:  app=nginx-deployment
+  Containers:
+   nginx:
+    Image:      nginx
+    Port:       &lt;none&gt;
+    Host Port:  &lt;none&gt;
+    Limits:
+      cpu:     500m
+      memory:  256Mi
+    Requests:
+      cpu:        250m
+      memory:     128Mi
+    Environment:  &lt;none&gt;
+    Mounts:       &lt;none&gt;
+  Volumes:        &lt;none&gt;
+Conditions:
+  Type           Status  Reason
+  ----           ------  ------
+  Available      True    MinimumReplicasAvailable
+  Progressing    True    NewReplicaSetAvailable
+OldReplicaSets:  &lt;none&gt;
+NewReplicaSet:   nginx-deployment-78cd4b8fd (3/3 replicas created)
+Events:
+  Type    Reason             Age    From                   Message
+  ----    ------             ----   ----                   -------
+  Normal  ScalingReplicaSet  3m13s  deployment-controller  Scaled up replica <span class="hljs-built_in">set</span> nginx-deployment-78cd4b8fd to 3
+</code></pre>
+<p> </p>
+<h4 id="como-atualizar-o-deployment">Como atualizar o Deployment?</h4>
+<p>Vamos imaginar que agora precisamos passar uma versão especifica da imagem do Nginx para o Deployment, para isso nós precisamos alterar o arquivo deployment.yaml e alterar a versão da imagem para <strong>nginx:1.16.0</strong>, por exemplo.</p>
+<pre><code class="lang-yaml"><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">apps/v1</span>
+<span class="hljs-attr">kind:</span> <span class="hljs-string">Deployment</span>
+<span class="hljs-attr">metadata:</span>
+  <span class="hljs-attr">labels:</span>
+    <span class="hljs-attr">app:</span> <span class="hljs-string">nginx-deployment</span>
+  <span class="hljs-attr">name:</span> <span class="hljs-string">nginx-deployment</span>
+<span class="hljs-attr">spec:</span>
+  <span class="hljs-attr">replicas:</span> <span class="hljs-number">3</span>
+  <span class="hljs-attr">selector:</span>
+    <span class="hljs-attr">matchLabels:</span>
+      <span class="hljs-attr">app:</span> <span class="hljs-string">nginx-deployment</span>
+  <span class="hljs-attr">strategy:</span> {}
+  <span class="hljs-attr">template:</span>
+    <span class="hljs-attr">metadata:</span>
+      <span class="hljs-attr">labels:</span>
+        <span class="hljs-attr">app:</span> <span class="hljs-string">nginx-deployment</span>
+    <span class="hljs-attr">spec:</span>
+      <span class="hljs-attr">containers:</span>
+      <span class="hljs-bullet">-</span> <span class="hljs-attr">image:</span> <span class="hljs-string">nginx:1.16.0</span>
+        <span class="hljs-attr">name:</span> <span class="hljs-string">nginx</span>
+        <span class="hljs-attr">resources:</span>
+          <span class="hljs-attr">limits:</span>
+            <span class="hljs-attr">cpu:</span> <span class="hljs-string">&quot;0.5&quot;</span>
+            <span class="hljs-attr">memory:</span> <span class="hljs-string">256Mi</span>
+          <span class="hljs-attr">requests:</span>
+            <span class="hljs-attr">cpu:</span> <span class="hljs-string">&quot;0.25&quot;</span>
+            <span class="hljs-attr">memory:</span> <span class="hljs-string">128Mi</span>
+</code></pre>
+<p>Agora que já alteramos a versão da imagem do Nginx, nós precisamos aplicar as alterações no Deployment, para isso nós precisamos executar o seguinte comando:</p>
+<pre><code class="lang-bash">kubectl apply -f deployment.yaml
+</code></pre>
+<p>O resultado será o seguinte:</p>
+<pre><code class="lang-bash">deployment.apps/nginx-deployment configured
+</code></pre>
+<p>Vamos ver os detalhes do Deployment para verificar se a versão da imagem foi alterada:</p>
+<pre><code class="lang-bash">kubectl describe deployment nginx-deployment
+</code></pre>
+<p>Na saída do comando, podemos ver a linha onde está a versão da imagem do Nginx:</p>
+<pre><code class="lang-bash">Containers:
+   nginx:
+    Image:      nginx:1.16.0
+    Port:       &lt;none&gt;
+    Host Port:  &lt;none&gt;
+    Limits:
+      cpu:     500m
+      memory:  256Mi
+    Requests:
+      cpu:        250m
+      memory:     128Mi
+    Environment:  &lt;none&gt;
+    Mounts:       &lt;none&gt;
+</code></pre>
+<p> </p>
+<h4 id="e-qual-é-a-estratégia-de-atualização-padrão-do-deployment">E qual é a estratégia de atualização padrão do Deployment?</h4>
+<p>Quando criamos o nosso Deployment, nós não informamos nenhuma estratégia de atualização, por isso o Kubernetes utiliza a estratégia de atualização padrão, que é a estratégia RollingUpdate.</p>
+<p>A estratégia RollingUpdate é a estratégia de atualização padrão do Kubernetes, ela é utilizada para atualizar os Pods de um Deployment de forma gradual, ou seja, ela atualiza um Pod por vez, ou um grupo de Pods por vez.</p>
+<p>Nós podemos definir como será a atualização dos Pods, por exemplo, podemos definir a quantidade máxima de Pods que podem ficar indisponíveis durante a atualização, ou podemos definir a quantidade máxima de Pods que podem ser criados durante a atualização.</p>
+<p>Vamos entender um pouco melhor como isso funciona no próximo tópico.</p>
+<h4 id="as-estratégias-de-atualização-do-deployment">As estratégias de atualização do Deployment</h4>
+<p>O Kubernetes possui 2 estratégias de atualização para os Deployments:</p>
+<ul>
+<li>RollingUpdate</li>
+<li>Recreate</li>
+</ul>
+<p>Vamos entender um pouco melhor cada uma dessas estratégias.</p>
+<h5 id="estratégia-rollingupdate">Estratégia RollingUpdate</h5>
+<p>A estratégia RollingUpdate é a estratégia de atualização padrão do Kubernetes, ela é utilizada para atualizar os Pods de um Deployment de forma gradual, ou seja, ela atualiza um Pod por vez, ou um grupo de Pods por vez.</p>
+<p>Nós podemos definir como será a atualização dos Pods, por exemplo, podemos definir a quantidade máxima de Pods que podem ficar indisponíveis durante a atualização, ou podemos definir a quantidade máxima de Pods que podem ser criados durante a atualização.</p>
+<p>Vamos também aumentar a quantidade de réplicas do Deployment para 10, para que possamos ter um pouco mais de Pods para atualizar.</p>
+<p>E para que possamos testar a estratégia RollingUpdate, vamos alterar a versão da imagem do Nginx para 1.15.0.</p>
+<p>Para que possamos definir essas configurações, nós precisamos alterar o arquivo deployment.yaml e adicionar as seguintes configurações:</p>
+<pre><code class="lang-yaml"><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">apps/v1</span>
+<span class="hljs-attr">kind:</span> <span class="hljs-string">Deployment</span>
+<span class="hljs-attr">metadata:</span>
+  <span class="hljs-attr">labels:</span>
+    <span class="hljs-attr">app:</span> <span class="hljs-string">nginx-deployment</span>
+  <span class="hljs-attr">name:</span> <span class="hljs-string">nginx-deployment</span>
+<span class="hljs-attr">spec:</span>
+  <span class="hljs-attr">replicas:</span> <span class="hljs-number">10</span>
+  <span class="hljs-attr">selector:</span>
+    <span class="hljs-attr">matchLabels:</span>
+      <span class="hljs-attr">app:</span> <span class="hljs-string">nginx-deployment</span>
+  <span class="hljs-attr">strategy:</span>
+    <span class="hljs-attr">type:</span> <span class="hljs-string">RollingUpdate</span>
+    <span class="hljs-attr">rollingUpdate:</span>
+      <span class="hljs-attr">maxSurge:</span> <span class="hljs-number">1</span>
+      <span class="hljs-attr">maxUnavailable:</span> <span class="hljs-number">2</span>
+  <span class="hljs-attr">template:</span>
+    <span class="hljs-attr">metadata:</span>
+      <span class="hljs-attr">labels:</span>
+        <span class="hljs-attr">app:</span> <span class="hljs-string">nginx-deployment</span>
+    <span class="hljs-attr">spec:</span>
+      <span class="hljs-attr">containers:</span>
+      <span class="hljs-bullet">-</span> <span class="hljs-attr">image:</span> <span class="hljs-string">nginx:1.15.0</span>
+        <span class="hljs-attr">name:</span> <span class="hljs-string">nginx</span>
+        <span class="hljs-attr">resources:</span>
+          <span class="hljs-attr">limits:</span>
+            <span class="hljs-attr">cpu:</span> <span class="hljs-string">&quot;0.5&quot;</span>
+            <span class="hljs-attr">memory:</span> <span class="hljs-string">256Mi</span>
+          <span class="hljs-attr">requests:</span>
+            <span class="hljs-attr">cpu:</span> <span class="hljs-string">&quot;0.25&quot;</span>
+            <span class="hljs-attr">memory:</span> <span class="hljs-string">128Mi</span>
+</code></pre>
+<p>O que nós fizemos foi adicionar as seguintes configurações:</p>
+<pre><code class="lang-yaml"><span class="hljs-attr">strategy:</span>
+  <span class="hljs-attr">type:</span> <span class="hljs-string">RollingUpdate</span>
+  <span class="hljs-attr">rollingUpdate:</span>
+    <span class="hljs-attr">maxSurge:</span> <span class="hljs-number">1</span>
+    <span class="hljs-attr">maxUnavailable:</span> <span class="hljs-number">2</span>
+</code></pre>
+<p>Onde:</p>
+<ul>
+<li><p>maxSurge: define a quantidade máxima de Pods que podem ser criados a mais durante a atualização, ou seja, durante o processo de atualização, nós podemos ter 1 Pod a mais do que o número de Pods definidos no Deployment. Isso é útil pois agiliza o processo de atualização, pois o Kubernetes não precisa esperar que um Pod seja atualizado para criar um novo Pod.</p>
+</li>
+<li><p>maxUnavailable: define a quantidade máxima de Pods que podem ficar indisponíveis durante a atualização, ou seja, durante o processo de atualização, nós podemos ter 1 Pod indisponível por vez. Isso é útil pois garante que o serviço não fique indisponível durante a atualização.</p>
+</li>
+<li><p>type: define o tipo de estratégia de atualização que será utilizada, no nosso caso, nós estamos utilizando a estratégia RollingUpdate.</p>
+</li>
+</ul>
+<p>Agora que já alteramos o arquivo deployment.yaml, nós precisamos aplicar as alterações no Deployment, para isso nós precisamos executar o seguinte comando:</p>
+<pre><code class="lang-bash">kubectl apply -f deployment.yaml
+</code></pre>
+<p>O resultado será o seguinte:</p>
+<pre><code class="lang-bash">deployment.apps/nginx-deployment configured
+</code></pre>
+<p>Vamos verificar se as alterações foram aplicadas no Deployment:</p>
+<pre><code class="lang-bash">kubectl describe deployment nginx-deployment
+</code></pre>
+<p>Na saída do comando, podemos ver que as linhas onde estão as configurações de atualização do Deployment foram alteradas:</p>
+<pre><code class="lang-bash">StrategyType:           RollingUpdate
+MinReadySeconds:        0
+RollingUpdateStrategy:  2 max unavailable, 1 max surge
+</code></pre>
+<p>Com essa configuração estamos falando para o Kubernetes que ele pode criar até 1 Pod a mais durante a atualização, e que ele pode ter até 2 Pods indisponíveis durante a atualização, ou seja, ele vai atualizar de 2 em 2 Pods.</p>
+<p>Um comando muito útil para acompanhar o processo de atualização dos Pods é o comando:</p>
+<pre><code class="lang-bash">kubectl rollout status deployment nginx-deployment
+</code></pre>
+<p>O comando <code>rollout status</code> é utilizado para acompanhar o processo de atualização de um Deployment, ReplicaSet, DaemonSet, StatefulSet, Job e CronJob. O comando <code>rollout status</code> é muito útil pois ele nos informa se o processo de atualização está em andamento, se ele foi concluído com sucesso ou se ele falhou. </p>
+<p>Vamos executar o comando <code>rollout status</code> para acompanhar o processo de atualização do Deployment:</p>
+<pre><code class="lang-bash">kubectl rollout status deployment nginx-deployment
+</code></pre>
+<p>O resultado será o seguinte:</p>
+<pre><code class="lang-bash">Waiting <span class="hljs-keyword">for</span> deployment <span class="hljs-string">&quot;nginx-deployment&quot;</span> rollout to finish: 9 of 10 updated replicas are available...
+deployment <span class="hljs-string">&quot;nginx-deployment&quot;</span> successfully rolled out
+</code></pre>
+<p>Como podemos ver, o processo de atualização foi concluído com sucesso.</p>
+<p>Vamos verificar se os Pods foram atualizados:</p>
+<pre><code class="lang-bash">kubectl get pods -l app=nginx-deployment -o yaml
+</code></pre>
+<p>Na saída do comando, podemos ver que os Pods foram atualizados:</p>
+<pre><code class="lang-bash">...
+  - image: nginx:1.15.0
+...
+</code></pre>
+<p>Podemos também verificar a versão da imagem do Nginx no Pod:</p>
+<pre><code class="lang-bash">kubectl <span class="hljs-built_in">exec</span> -it nginx-deployment-7b7b9c7c9d-4j2xg -- nginx -v
+</code></pre>
+<p>O resultado será o seguinte:</p>
+<pre><code class="lang-bash">nginx version: nginx/1.15.0
+</code></pre>
+<p>O comando <code>nginx -v</code> é utilizado para verificar a versão do Nginx.</p>
+<p>Nem sempre essa é a melhor estratégia de atualização, pois você pode encontrar por aí aplicações que não suportam duas versões do mesmo serviço rodando ao mesmo tempo, por exemplo.</p>
+<p>Tudo funcionando como queriamos, agora vamos testar a estratégia Recreate.</p>
+<p> </p>
+<h5 id="estratégia-recreate">Estratégia Recreate</h5>
+<p>A estratégia Recreate é uma estratégia de atualização que irá remover todos os Pods do Deployment e criar novos Pods com a nova versão da imagem. A parte boa é que o deploy acontecerá rapidamente, porém o ponto negativo é que o serviço ficará indisponível durante o processo de atualização.</p>
+<p>Vamos alterar o arquivo deployment.yaml para utilizar a estratégia Recreate:</p>
+<pre><code class="lang-yaml"><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">apps/v1</span>
+<span class="hljs-attr">kind:</span> <span class="hljs-string">Deployment</span>
+<span class="hljs-attr">metadata:</span>
+  <span class="hljs-attr">labels:</span>
+    <span class="hljs-attr">app:</span> <span class="hljs-string">nginx-deployment</span>
+  <span class="hljs-attr">name:</span> <span class="hljs-string">nginx-deployment</span>
+<span class="hljs-attr">spec:</span>
+  <span class="hljs-attr">replicas:</span> <span class="hljs-number">10</span>
+  <span class="hljs-attr">selector:</span>
+    <span class="hljs-attr">matchLabels:</span>
+      <span class="hljs-attr">app:</span> <span class="hljs-string">nginx-deployment</span>
+  <span class="hljs-attr">strategy:</span>
+    <span class="hljs-attr">type:</span> <span class="hljs-string">Recreate</span>
+  <span class="hljs-attr">template:</span>
+    <span class="hljs-attr">metadata:</span>
+      <span class="hljs-attr">labels:</span>
+        <span class="hljs-attr">app:</span> <span class="hljs-string">nginx-deployment</span>
+    <span class="hljs-attr">spec:</span>
+      <span class="hljs-attr">containers:</span>
+      <span class="hljs-bullet">-</span> <span class="hljs-attr">image:</span> <span class="hljs-string">nginx:1.15.0</span>
+        <span class="hljs-attr">name:</span> <span class="hljs-string">nginx</span>
+        <span class="hljs-attr">resources:</span>
+          <span class="hljs-attr">limits:</span>
+            <span class="hljs-attr">cpu:</span> <span class="hljs-string">&quot;0.5&quot;</span>
+            <span class="hljs-attr">memory:</span> <span class="hljs-string">256Mi</span>
+          <span class="hljs-attr">requests:</span>
+            <span class="hljs-attr">cpu:</span> <span class="hljs-string">&quot;0.25&quot;</span>
+            <span class="hljs-attr">memory:</span> <span class="hljs-string">128Mi</span>
+</code></pre>
+<p>Perceba que agora somente temos a configuração <code>type: Recreate</code>. O Recreate não possui configurações de atualização, ou seja, não é possível definir o número máximo de Pods indisponíveis durante a atualização, afinal o Recreate irá remover todos os Pods do Deployment e criar novos Pods.</p>
+<p>Agora que já alteramos o arquivo deployment.yaml, nós precisamos aplicar as alterações no Deployment, para isso nós precisamos executar o seguinte comando:</p>
+<pre><code class="lang-bash">kubectl apply -f deployment.yaml
+</code></pre>
+<p>O resultado será o seguinte:</p>
+<pre><code class="lang-bash">deployment.apps/nginx-deployment configured
+</code></pre>
+<p>Vamos verificar se as alterações foram aplicadas no Deployment:</p>
+<pre><code class="lang-bash">kubectl describe deployment nginx-deployment
+</code></pre>
+<p>Na saída do comando, podemos ver que as linhas onde estão as configurações de atualização do Deployment foram alteradas:</p>
+<pre><code class="lang-bash">StrategyType:           Recreate
+</code></pre>
+<p>Vamos novamente alterar a versão da imagem do Nginx para 1.16.0 no arquivo deployment.yaml:</p>
+<pre><code class="lang-yaml"><span class="hljs-attr">image:</span> <span class="hljs-string">nginx:1.16.0</span>
+</code></pre>
+<p>Agora que já alteramos o arquivo deployment.yaml, nós precisamos aplicar as alterações no Deployment, para isso nós precisamos executar o seguinte comando:</p>
+<pre><code class="lang-bash">kubectl apply -f deployment.yaml
+</code></pre>
+<p>O resultado será o seguinte:</p>
+<pre><code class="lang-bash">deployment.apps/nginx-deployment configured
+</code></pre>
+<p>Vamos verificar os Pods do Deployment:</p>
+<pre><code class="lang-bash">kubectl get pods -l app=nginx-deployment
+</code></pre>
+<p>O resultado será o seguinte:</p>
+<pre><code class="lang-bash">NAME                                READY   STATUS    RESTARTS   AGE
+nginx-deployment-7d9bcc6bc9-24c2j   0/1     Pending   0          0s
+nginx-deployment-7d9bcc6bc9-5r69s   0/1     Pending   0          0s
+nginx-deployment-7d9bcc6bc9-78mc9   0/1     Pending   0          0s
+nginx-deployment-7d9bcc6bc9-7pb2v   0/1     Pending   0          0s
+nginx-deployment-7d9bcc6bc9-gvtvl   0/1     Pending   0          0s
+nginx-deployment-7d9bcc6bc9-kb9st   0/1     Pending   0          0s
+nginx-deployment-7d9bcc6bc9-m69bm   0/1     Pending   0          0s
+nginx-deployment-7d9bcc6bc9-qvppt   0/1     Pending   0          0s
+nginx-deployment-7d9bcc6bc9-sqn6q   0/1     Pending   0          0s
+nginx-deployment-7d9bcc6bc9-zthn4   0/1     Pending   0          0s
+</code></pre>
+<p>Podemos ver que os Pods estão sendo criados novamente, porém com a nova versão da imagem do Nginx.</p>
+<p>Vamos verificar a versão da imagem do Nginx no Pod:</p>
+<pre><code class="lang-bash">kubectl <span class="hljs-built_in">exec</span> -it nginx-deployment-7d9bcc6bc9-24c2j -- nginx -v
+</code></pre>
+<p>O resultado será o seguinte:</p>
+<pre><code class="lang-bash">nginx version: nginx/1.16.0
+</code></pre>
+<p>Pronto, agora nós temos a versão 1.16.0 do Nginx rodando no nosso cluster e já entendemos como funciona a estratégia Recreate.</p>
+<p> </p>
+<h4 id="fazendo-o-rollback-de-uma-atualização">Fazendo o rollback de uma atualização</h4>
+<p>Agora que já entendemos como funciona as estratégias Rolling Update e Recreate, vamos entender como fazer o rollback de uma atualização.</p>
+<p>Vamos alterar a versão da imagem do Nginx para 1.15.0 no arquivo deployment.yaml:</p>
+<pre><code class="lang-yaml"><span class="hljs-attr">image:</span> <span class="hljs-string">nginx:1.15.0</span>
+</code></pre>
+<p>Agora que já alteramos o arquivo deployment.yaml, nós precisamos aplicar as alterações no Deployment, para isso nós precisamos executar o seguinte comando:</p>
+<pre><code class="lang-bash">kubectl apply -f deployment.yaml
+</code></pre>
+<p>O resultado será o seguinte:</p>
+<pre><code class="lang-bash">deployment.apps/nginx-deployment configured
+</code></pre>
+<p>Vamos verificar os Pods do Deployment:</p>
+<pre><code class="lang-bash">kubectl get pods -l app=nginx-deployment
+</code></pre>
+<p>Vamos verificar a versão da imagem do Nginx no Pod:</p>
+<pre><code class="lang-bash">kubectl <span class="hljs-built_in">exec</span> -it nginx-deployment-7d9bcc6bc9-24c2j -- nginx -v
+</code></pre>
+<p>O resultado será o seguinte:</p>
+<pre><code class="lang-bash">nginx version: nginx/1.15.0
+</code></pre>
+<p>Vamos imaginar que nós queremos fazer o rollback para a versão 1.16.0 do Nginx, para isso nós precisamos executar o seguinte comando:</p>
+<pre><code class="lang-bash">kubectl rollout undo deployment nginx-deployment
+</code></pre>
+<p>O resultado será o seguinte:</p>
+<pre><code class="lang-bash">deployment.apps/nginx-deployment rolled back
+</code></pre>
+<p>O que estamos fazendo nesse momento é falar para o Kubernetes que queremos fazer o rollback para a versão anterior do Deployment.</p>
+<p>Vamos verificar os Pods do Deployment:</p>
+<pre><code class="lang-bash">kubectl get pods -l app=nginx-deployment
+</code></pre>
+<p>Vamos verificar a versão da imagem do Nginx no Pod:</p>
+<pre><code class="lang-bash">kubectl <span class="hljs-built_in">exec</span> -it nginx-deployment-7d9bcc6bc9-24c2j -- nginx -v
+</code></pre>
+<p>O resultado será o seguinte:</p>
+<pre><code class="lang-bash">nginx version: nginx/1.16.0
+</code></pre>
+<p>Pronto, agora nós temos a versão 1.16.0 do Nginx rodando no nosso cluster e já entendemos como fazer o rollback de uma atualização. Mas como nós visualizamos o histórico de atualizações do Deployment?</p>
+<p>Essa é fácil, nós precisamos executar o seguinte comando:</p>
+<pre><code class="lang-bash">kubectl rollout <span class="hljs-built_in">history</span> deployment nginx-deployment
+</code></pre>
+<p>Com isso ele vai nos mostrar o histórico de atualizações do Deployment:</p>
+<pre><code class="lang-bash">deployment.apps/nginx-deployment 
+REVISION  CHANGE-CAUSE
+1         &lt;none&gt;
+2         &lt;none&gt;
+</code></pre>
+<p>Na saída do comando podemos ver que temos duas revisões do Deployment, a revisão 1 e a revisão 2.</p>
+<p>Vamos verificar o histórico de atualizações da revisão 1:</p>
+<pre><code class="lang-bash">kubectl rollout <span class="hljs-built_in">history</span> deployment nginx-deployment --revision=1
+</code></pre>
+<p>O resultado será o seguinte:</p>
+<pre><code class="lang-bash">deployment.apps/nginx-deployment with revision <span class="hljs-comment">#1</span>
+Pod Template:
+  Labels:    app=nginx-deployment
+    pod-template-hash=c549ff78
+  Containers:
+   nginx:
+    Image:    nginx:1.16.0
+    Port:    &lt;none&gt;
+    Host Port:    &lt;none&gt;
+    Limits:
+      cpu:    500m
+      memory:    256Mi
+    Requests:
+      cpu:    250m
+      memory:    128Mi
+    Environment:    &lt;none&gt;
+    Mounts:    &lt;none&gt;
+  Volumes:    &lt;none&gt;
+</code></pre>
+<p>Vamos verificar o histórico de atualizações da revisão 2:</p>
+<pre><code class="lang-bash">kubectl rollout <span class="hljs-built_in">history</span> deployment nginx-deployment --revision=2
+</code></pre>
+<p>O resultado será o seguinte:</p>
+<pre><code class="lang-bash">deployment.apps/nginx-deployment with revision <span class="hljs-comment">#2</span>
+Pod Template:
+  Labels:    app=nginx-deployment
+    pod-template-hash=7d9bcc6bc9
+  Containers:
+   nginx:
+    Image:    nginx:1.15.0
+    Port:    &lt;none&gt;
+    Host Port:    &lt;none&gt;
+    Limits:
+      cpu:    500m
+      memory:    256Mi
+    Requests:
+      cpu:    250m
+      memory:    128Mi
+    Environment:    &lt;none&gt;
+    Mounts:    &lt;none&gt;
+  Volumes:    &lt;none&gt;
+</code></pre>
+<p>Ou seja, como podemos notar, a revisão 1 é a versão 1.16.0 do Nginx e a revisão 2 é a versão 1.15.0 do Nginx.</p>
+<p>Se você quiser fazer o rollback para a revisão 1, basta executar o seguinte comando:</p>
+<pre><code class="lang-bash">kubectl rollout undo deployment nginx-deployment --to-revision=1
+</code></pre>
+<p>O resultado será o seguinte:</p>
+<pre><code class="lang-bash">deployment.apps/nginx-deployment rolled back
+</code></pre>
+<p>Pronto, agora nós temos a versão 1.16.0 do Nginx rodando no nosso cluster e já entendemos como fazer o rollback de uma atualização, simples né?</p>
+<p>O comando <code>kubectl rollout</code> é muito útil para nós, pois ele nos ajuda a visualizar o histórico de atualizações do Deployment, fazer o rollback de uma atualização e muito mais.</p>
+<p>Nós já vimos algumas opções do comando <code>kubectl rollout</code> como por exemplo o <code>kubectl rollout history</code>, <code>kubectl rollout undo</code> e <code>kubectl rollout status</code>, mas existem outras opções que nós podemos utilizar, vamos ver algumas delas:</p>
+<pre><code class="lang-bash">kubectl rollout pause deployment nginx-deployment
+</code></pre>
+<p>O comando <code>kubectl rollout pause</code> é utilizado para pausar o Deployment, ou seja, ele vai pausar o Deployment e não vai permitir que ele faça nenhuma atualização.</p>
+<pre><code class="lang-bash">kubectl rollout resume deployment nginx-deployment
+</code></pre>
+<p>O comando <code>kubectl rollout resume</code> é utilizado para despausar o Deployment, ou seja, ele vai despausar o Deployment e vai permitir que ele faça atualizações novamente.</p>
+<pre><code class="lang-bash">kubectl rollout restart deployment nginx-deployment
+</code></pre>
+<p>O comando <code>kubectl rollout restart</code> é utilizado para reiniciar o Deployment, ou seja, ele vai reiniciar o Deployment recriando os Pods.</p>
+<pre><code class="lang-bash">kubectl rollout status deployment nginx-deployment
+</code></pre>
+<p>O comando <code>kubectl rollout status</code> é utilizado para verificar o status do Deployment, ou seja, ele vai verificar o status do rollout do Deployment.</p>
+<pre><code class="lang-bash">kubectl rollout undo deployment nginx-deployment
+</code></pre>
+<p>O comando <code>kubectl rollout undo</code> é utilizado para fazer o rollback de uma atualização, ou seja, ele vai fazer o rollback de uma atualização para a revisão anterior.</p>
+<pre><code class="lang-bash">kubectl rollout <span class="hljs-built_in">history</span> deployment nginx-deployment
+</code></pre>
+<p>O comando <code>kubectl rollout history</code> é utilizado para visualizar o histórico de atualizações do Deployment.</p>
+<pre><code class="lang-bash">kubectl rollout <span class="hljs-built_in">history</span> deployment nginx-deployment --revision=1
+</code></pre>
+<p>Lembrando que podemos utilizar o comando <code>kubectl rollout</code> em Deployments, StatefulSets e DaemonSets.</p>
+<p> </p>
+<h4 id="removendo-um-deployment">Removendo um Deployment</h4>
+<p>Para remover um Deployment nós precisamos executar o seguinte comando:</p>
+<pre><code class="lang-bash">kubectl delete deployment nginx-deployment
+</code></pre>
+<p>O resultado será o seguinte:</p>
+<pre><code class="lang-bash">deployment.apps <span class="hljs-string">&quot;nginx-deployment&quot;</span> deleted
+</code></pre>
+<p>Caso queira remover o Deployment utilizando o manifesto, basta executar o seguinte comando:</p>
+<pre><code class="lang-bash">kubectl delete -f deployment.yaml
+</code></pre>
+<p>O resultado será o seguinte:</p>
+<pre><code class="lang-bash">deployment.apps <span class="hljs-string">&quot;nginx-deployment&quot;</span> deleted
+</code></pre>
+<p>Pronto, agora nós removemos o Deployment do nosso cluster.</p>
+<p> </p>
+<h4 id="conclusão">Conclusão</h4>
+<p>Durante o dia de hoje, nós aprendemos o que é um Deployment, como criar um Deployment, como atualizar um Deployment, como fazer o rollback de uma atualização, como remover um Deployment e muito mais. Com isso nós já temos uma excelente base para começar a trabalhar com Deployments no Kubernetes.</p>
+<p>Ainda falaremos muito sobre os Deployments e conheceremos muitas outras opções que eles nos oferecem, mas por enquanto é isso, espero que tenham gostado e aprendido bastante com o conteúdo de hoje.</p>
+<h1 id="vaiiii">VAIIII</h1>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="../day_two/" class="navigation navigation-prev " aria-label="Previous page: Descomplicando Kubernetes dia 2">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="../day_four/" class="navigation navigation-next " aria-label="Next page: Descomplicando Kubernetes dia 4">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"Descomplicando Kubernetes dia 3","level":"2.3","depth":1,"next":{"title":"Descomplicando Kubernetes dia 4","level":"2.4","depth":1,"path":"day_four/README.md","ref":"day_four/README.md","articles":[]},"previous":{"title":"Descomplicando Kubernetes dia 2","level":"2.2","depth":1,"path":"day_two/README.md","ref":"day_two/README.md","articles":[]},"dir":"ltr"},"config":{"plugins":[],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"language":"pt","gitbook":"*"},"file":{"path":"day_three/README.md","mtime":"2023-06-13T14:02:17.968Z","type":"markdown"},"gitbook":{"version":"3.6.20","time":"2023-06-13T14:02:28.826Z"},"basePath":"..","book":{"language":"pt"}});
+        });
+    </script>
+</div>
+
+        
+    <noscript>
+        <style>
+            .honkit-cloak {
+                display: block !important;
+            }
+        </style>
+    </noscript>
+    <script>
+        // Restore sidebar state as critical path for prevent layout shift
+        function __init__getSidebarState(defaultValue){
+            var baseKey = "";
+            var key = baseKey + ":sidebar";
+            try {
+                var value = localStorage[key];
+                if (value === undefined) {
+                    return defaultValue;
+                }
+                var parsed = JSON.parse(value);
+                return parsed == null ? defaultValue : parsed;
+            } catch (e) {
+                return defaultValue;
+            }
+        }
+        function __init__restoreLastSidebarState() {
+            var isMobile = window.matchMedia("(max-width: 600px)").matches;
+            if (isMobile) {
+                // Init last state if not mobile
+                return;
+            }
+            var sidebarState = __init__getSidebarState(true);
+            var book = document.querySelector(".book");
+            // Show sidebar if it enabled
+            if (sidebarState && book) {
+                book.classList.add("without-animation", "with-summary");
+            }
+        }
+
+        try {
+            __init__restoreLastSidebarState();
+        } finally {
+            var book = document.querySelector(".book");
+            book.classList.remove("honkit-cloak");
+        }
+    </script>
+    <script src="../../gitbook/gitbook.js"></script>
+    <script src="../../gitbook/theme.js"></script>
+    
+        
+        <script src="../../gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+
