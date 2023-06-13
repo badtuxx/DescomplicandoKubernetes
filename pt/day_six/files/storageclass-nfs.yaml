@@ -1,0 +1,9 @@
+apiVersion: storage.k8s.io/v1 # Versão da API do Kubernetes
+kind: StorageClass # Tipo de objeto que estamos criando, no caso um StorageClass
+metadata: # Informações sobre o objeto
+  name: nfs # Nome do nosso StorageClass
+provisioner: kubernetes.io/no-provisioner # Provisionador que será utilizado para criar o PV
+reclaimPolicy: Retain # Política de reivindicação do PV, ou seja, o PV não será excluído quando o PVC for excluído
+volumeBindingMode: WaitForFirstConsumer
+parameters: # Parâmetros que serão utilizados pelo provisionador
+  archiveOnDelete: "false" # Parâmetro que indica se os dados do PV devem ser arquivados quando o PV for excluído
