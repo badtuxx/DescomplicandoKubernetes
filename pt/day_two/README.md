@@ -171,8 +171,8 @@ apiVersion: v1 # versão da API do Kubernetes
 kind: Pod # tipo do objeto que estamos criando
 metadata: # metadados do Pod 
   name: giropops # nome do Pod que estamos criando
-labels: # labels do Pod
-  run: giropops # label run com o valor giropops
+  labels: # labels do Pod
+    run: giropops # label run com o valor giropops
 spec: # especificação do Pod
   containers: # containers que estão dentro do Pod
   - name: giropops # nome do container
@@ -240,8 +240,8 @@ apiVersion: v1 # versão da API do Kubernetes
 kind: Pod # tipo do objeto que estamos criando
 metadata: # metadados do Pod 
   name: giropops # nome do Pod que estamos criando
-labels: # labels do Pod
-  run: giropops # label run com o valor giropops
+  labels: # labels do Pod
+    run: giropops # label run com o valor giropops
 spec: # especificação do Pod
   containers: # containers que estão dentro do Pod
   - name: girus # nome do container
@@ -326,6 +326,12 @@ Para sair do container, basta apertar a tecla `Ctrl + D`.
 
 &nbsp;
 
+Agora, vamos remover o Pod que criamos, usando o comando:
+
+```
+kubectl delete pods giropops
+``` 
+
 ### Criando um container com limites de memória e CPU
 
 Vamos criar um arquivo YAML chamado pod-limitado.yaml com o seguinte conteúdo:
@@ -335,8 +341,8 @@ apiVersion: v1 # versão da API do Kubernetes
 kind: Pod # tipo do objeto que estamos criando
 metadata: # metadados do Pod
   name: giropops # nome do Pod que estamos criando
-labels: # labels do Pod
-  run: giropops # label run com o valor giropops
+  labels: # labels do Pod
+    run: giropops # label run com o valor giropops
 spec: # especificação do Pod 
   containers: # containers que estão dentro do Pod 
   - name: girus # nome do container 
@@ -409,7 +415,6 @@ Containers:
       /var/run/secrets/kubernetes.io/serviceaccount from default-token-0b0b0 (ro)
 ```
 
-
 Veja que na saída acima, ele mostra o campo CPU com o valor `500m`, isso significa que o container pode utilizar no máximo 50% de uma CPU, afinal um CPU é igual a 1000 milliCPUs, e 50% de 1000 milicpus é 500 milliCPUs.
 
 Então, se você quiser definir o limite de CPU em 50% de uma CPU, você pode definir o valor `500m`, ou você pode definir o valor `0.5`, que é o mesmo que definir o valor `500m`.
@@ -417,7 +422,16 @@ Então, se você quiser definir o limite de CPU em 50% de uma CPU, você pode de
 Para você testar os limites de memória e CPU, você pode executar o comando `stress` dentro do container, que é um comando que faz o container consumir recursos de CPU e memória. Lembre-se de instalar o comando `stress`, pois ele não vem instalado por padrão.
 
 
+Agora, vamos remover o Pod que criamos, usando o comando:
+
+```
+kubectl delete pods giropops
+``` 
+
+
 Para ficar fácil de testar, vamos criar um Pod com o Ubuntu com limitação de memória, e vamos instalar o comando `stress` dentro do container.
+
+
 
 Chame o arquivo de `pod-ubuntu-limitado.yaml`.
 
@@ -460,7 +474,7 @@ kubectl get pods
 Agora vamos para dentro do container.
 
 ```bash
-kubectl exec -it ubuntu -- bash
+kubectl exec -it giropops-ubuntu-limitado -- bash
 ```
 
 Agora vamos instalar o comando `stress`.
@@ -557,7 +571,7 @@ kubectl describe pod giropops
 Agora vamos para dentro do container.
 
 ```bash
-kubectl exec -it ubuntu -- bash
+kubectl exec -it giropops -- bash
 ```
 
 Agora vamos criar um arquivo dentro do diretório `/giropops`.
