@@ -121,7 +121,7 @@ Para que seja possível executar os containers nos nós é necessário ter um *C
 
 O *Container Runtime* é o responsável por executar os containers nos nós. Quando você está utilizando Docker ou Podman para executar containers em sua máquina, por exemplo, você está fazendo uso de algum *Container Runtime*, ou melhor, o seu Container Engine está fazendo uso de algum *Container Runtime*.
 
-Temos três tipos de *Container Runtime*:
+Temos Quatro tipos de *Container Runtime*:
 
 - Low-level: são os *Container Runtime* que são executados diretamente pelo Kernel, como o runc, o crun e o runsc.
 
