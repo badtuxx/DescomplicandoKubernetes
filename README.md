@@ -73,7 +73,7 @@
 
 <p align="justify">Neste material, você terá contato com conteúdos que abordam do nível iniciante ao avançado sobre Kubernetes. E agora que ele se tornou aberto, com a ajuda de todos vamos construir o maior e mais completo material sobre k8s do mundo.</p>
 
-Contamos com a sua ajuda para tornar este material ainda mais completo. Colabore! Para contribuir com melhorias no conteúdo, siga as instruções deste [tutorial](CONTRIBUTING.md).
+Contamos com a sua ajuda para tornar este material ainda mais completo. Colabore! Para contribuir com melhorias no conteúdo, siga as instruções deste [tutorial](pt/CONTRIBUTING.md).
 
 Veja os vídeos sobre Kubernetes, DevOps, Automação e outros assuntos relacionado à tecnologia nos canais da LINUXtips:
 
