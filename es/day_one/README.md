@@ -64,7 +64,7 @@ Aquí es donde vamos a crear nuestro primer clúster Kubernetes y desplegar un p
 El Día 1 está diseñado para que me sienta más cómodo con Kubernetes y sus conceptos iniciales.
 &nbsp;
 
-### Início de la clase Day-1
+### Início de la clase Día 1
 &nbsp;
 ### ¿Cual distribución GNU/Linux debo utilizar?
 
