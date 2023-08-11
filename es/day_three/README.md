@@ -25,7 +25,7 @@
       - [¿Cuál es la estrategia de actualización predeterminada del Deployment?](#cuál-es-la-estrategia-de-actualización-predeterminada-del-deployment)
       - [Estrategias de actualización del Deployment](#estrategias-de-actualización-del-deployment)
         - [Estrategia RollingUpdate (Actualización gradual)](#estrategia-rollingupdate-actualización-gradual)
-        - [Estratégia Recreate](#estratégia-recreate)
+        - [Estrategia Recreate](#estrategia-recreate)
       - [Fazendo o rollback de uma atualização](#fazendo-o-rollback-de-uma-atualização)
       - [Removendo um Deployment](#removendo-um-deployment)
       - [Conclusão](#conclusão)
@@ -440,33 +440,33 @@ strategy:
     maxUnavailable: 2
 ```
 
-Onde:
+Donde:
 
-*  maxSurge: define a quantidade máxima de Pods que podem ser criados a mais durante a atualização, ou seja, durante o processo de atualização, nós podemos ter 1 Pod a mais do que o número de Pods definidos no Deployment. Isso é útil pois agiliza o processo de atualização, pois o Kubernetes não precisa esperar que um Pod seja atualizado para criar um novo Pod.
-  
-*  maxUnavailable: define a quantidade máxima de Pods que podem ficar indisponíveis durante a atualização, ou seja, durante o processo de atualização, nós podemos ter 1 Pod indisponível por vez. Isso é útil pois garante que o serviço não fique indisponível durante a atualização.
+- `maxSurge`: define la cantidad máxima de Pods que pueden crearse durante la actualización. En otras palabras, durante el proceso de actualización, podemos tener 1 Pod más que la cantidad de Pods definida en el Deployment. Esto es útil para acelerar la actualización, ya que Kubernetes no tiene que esperar a que un Pod se actualice para crear un nuevo Pod.
 
-* type: define o tipo de estratégia de atualização que será utilizada, no nosso caso, nós estamos utilizando a estratégia RollingUpdate.
+- `maxUnavailable`: define la cantidad máxima de Pods que pueden quedar no disponibles durante la actualización. En otras palabras, durante el proceso de actualización, podemos tener 1 Pod no disponible a la vez. Esto es útil para garantizar que el servicio no quede no disponible durante la actualización.
 
-Agora que já alteramos o arquivo deployment.yaml, nós precisamos aplicar as alterações no Deployment, para isso nós precisamos executar o seguinte comando:
+- `type`: define el tipo de estrategia de actualización que se utilizará. En nuestro caso, estamos utilizando la estrategia RollingUpdate.
+
+Ahora que hemos modificado el archivo `deployment.yaml`, debemos aplicar los cambios al Deployment. Para hacerlo, ejecutamos el siguiente comando:
 
 ```bash
 kubectl apply -f deployment.yaml
 ```
 
-O resultado será o seguinte:
+El resultado será el siguiente:
 
 ```bash
 deployment.apps/nginx-deployment configured
 ```
 
-Vamos verificar se as alterações foram aplicadas no Deployment:
+Vamos a verificar si los cambios han sido aplicados en el Deployment:
 
 ```bash
 kubectl describe deployment nginx-deployment
 ```
 
-Na saída do comando, podemos ver que as linhas onde estão as configurações de atualização do Deployment foram alteradas:
+En la salida del comando, podemos ver que las líneas donde se encuentran las configuraciones de actualización del Deployment han sido modificadas:
 
 ```bash
 StrategyType:           RollingUpdate
@@ -474,38 +474,38 @@ MinReadySeconds:        0
 RollingUpdateStrategy:  2 max unavailable, 1 max surge
 ```
 
-Com essa configuração estamos falando para o Kubernetes que ele pode criar até 1 Pod a mais durante a atualização, e que ele pode ter até 2 Pods indisponíveis durante a atualização, ou seja, ele vai atualizar de 2 em 2 Pods.
+Con esta configuración, le estamos indicando a Kubernetes que puede crear hasta 1 Pod adicional durante la actualización, y que puede tener hasta 2 Pods no disponibles durante la actualización, es decir, actualizará de 2 en 2 Pods.
 
-Um comando muito útil para acompanhar o processo de atualização dos Pods é o comando:
+Un comando muy útil para seguir el proceso de actualización de los Pods es:
+
+```bash
+kubectl rollout status deployment/nginx-deployment
+```
+
+El comando `rollout status` se utiliza para seguir el proceso de actualización de un Deployment, ReplicaSet, DaemonSet, StatefulSet, Job y CronJob. Este comando es muy útil ya que nos informa si el proceso de actualización está en progreso, si se completó con éxito o si falló.
+
+Vamos a ejecutar el comando `rollout status` para seguir el proceso de actualización del Deployment:
 
 ```bash
 kubectl rollout status deployment nginx-deployment
 ```
 
-O comando `rollout status` é utilizado para acompanhar o processo de atualização de um Deployment, ReplicaSet, DaemonSet, StatefulSet, Job e CronJob. O comando `rollout status` é muito útil pois ele nos informa se o processo de atualização está em andamento, se ele foi concluído com sucesso ou se ele falhou. 
-
-Vamos executar o comando `rollout status` para acompanhar o processo de atualização do Deployment:
-
-```bash
-kubectl rollout status deployment nginx-deployment
-```
-
-O resultado será o seguinte:
+El resultado será el siguiente:
 
 ```bash
 Waiting for deployment "nginx-deployment" rollout to finish: 9 of 10 updated replicas are available...
 deployment "nginx-deployment" successfully rolled out
 ```
 
-Como podemos ver, o processo de atualização foi concluído com sucesso.
+Como podemos ver, el proceso de actualización se ha completado con éxito.
 
-Vamos verificar se os Pods foram atualizados:
+Vamos a verificar si los Pods se han actualizado:
 
 ```bash
 kubectl get pods -l app=nginx-deployment -o yaml
 ```
 
-Na saída do comando, podemos ver que os Pods foram atualizados:
+En la salida del comando, podremos ver que los Pods se han actualizado:
 
 ```bash
 ...
@@ -513,31 +513,43 @@ Na saída do comando, podemos ver que os Pods foram atualizados:
 ...
 ```
 
-Podemos também verificar a versão da imagem do Nginx no Pod:
+También podemos verificar la versión de la imagen de Nginx en el Pod:
 
 ```bash
 kubectl exec -it nginx-deployment-7b7b9c7c9d-4j2xg -- nginx -v
 ```
 
-O resultado será o seguinte:
+El resultado será el siguiente:
 
 ```bash
 nginx version: nginx/1.15.0
 ```
 
-O comando `nginx -v` é utilizado para verificar a versão do Nginx.
+También podemos verificar la versión de la imagen de Nginx en el Pod:
 
-Nem sempre essa é a melhor estratégia de atualização, pois você pode encontrar por aí aplicações que não suportam duas versões do mesmo serviço rodando ao mesmo tempo, por exemplo.
+```bash
+kubectl exec -it nginx-deployment-7b7b9c7c9d-4j2xg -- nginx -v
+```
 
-Tudo funcionando como queriamos, agora vamos testar a estratégia Recreate.
+El resultado será el siguiente:
+
+```bash
+nginx version: nginx/1.15.0
+```
+
+El comando `nginx -v` se utiliza para verificar la versión de Nginx.
+
+Sin embargo, no siempre esta es la mejor estrategia de actualización, ya que puede haber aplicaciones que no admitan dos versiones del mismo servicio ejecutándose al mismo tiempo, por ejemplo.
+
+Si todo funciona como deseamos, ahora podemos probar la estrategia Recreate.
 
 &nbsp;
 
-##### Estratégia Recreate
+##### Estrategia Recreate
 
-A estratégia Recreate é uma estratégia de atualização que irá remover todos os Pods do Deployment e criar novos Pods com a nova versão da imagem. A parte boa é que o deploy acontecerá rapidamente, porém o ponto negativo é que o serviço ficará indisponível durante o processo de atualização.
+La estrategia Recreate es un enfoque de actualización que eliminará todos los Pods del Deployment y creará nuevos Pods con la nueva versión de la imagen. La ventaja es que la implementación será rápida, pero la desventaja es que el servicio no estará disponible durante el proceso de actualización.
 
-Vamos alterar o arquivo deployment.yaml para utilizar a estratégia Recreate:
+Vamos a cambiar el archivo `deployment.yaml` para utilizar la estrategia Recreate:
 
 ```yaml
 apiVersion: apps/v1
@@ -570,81 +582,81 @@ spec:
             memory: 128Mi
 ```
 
-Perceba que agora somente temos a configuração `type: Recreate`. O Recreate não possui configurações de atualização, ou seja, não é possível definir o número máximo de Pods indisponíveis durante a atualização, afinal o Recreate irá remover todos os Pods do Deployment e criar novos Pods.
+Observe que ahora solo tenemos la configuración `type: Recreate`. Recreate no tiene configuraciones de actualización, es decir, no puedes definir el número máximo de Pods no disponibles durante la actualización, ya que Recreate eliminará todos los Pods del Deployment y creará nuevos Pods.
 
-Agora que já alteramos o arquivo deployment.yaml, nós precisamos aplicar as alterações no Deployment, para isso nós precisamos executar o seguinte comando:
+Una vez que hayamos cambiado el archivo `deployment.yaml`, necesitamos aplicar los cambios en el Deployment. Para ello, ejecutamos el siguiente comando:
 
 ```bash
 kubectl apply -f deployment.yaml
 ```
 
-O resultado será o seguinte:
+El resultado será el siguiente:
 
 ```bash
 deployment.apps/nginx-deployment configured
 ```
 
-Vamos verificar se as alterações foram aplicadas no Deployment:
+Vamos a verificar si los cambios se han aplicado al Deployment:
 
 ```bash
 kubectl describe deployment nginx-deployment
 ```
 
-Na saída do comando, podemos ver que as linhas onde estão as configurações de atualização do Deployment foram alteradas:
+En la salida del comando, podremos observar que las líneas donde están las configuraciones de actualización del Deployment han cambiado:
 
 ```bash
 StrategyType:           Recreate
 ```
 
-Vamos novamente alterar a versão da imagem do Nginx para 1.16.0 no arquivo deployment.yaml:
+Ahora vamos a cambiar nuevamente la versión de la imagen de Nginx a 1.16.0 en el archivo `deployment.yaml`:
 
 ```yaml
 image: nginx:1.16.0
 ```
 
-Agora que já alteramos o arquivo deployment.yaml, nós precisamos aplicar as alterações no Deployment, para isso nós precisamos executar o seguinte comando:
+Una vez que hayamos realizado esta modificación en el archivo `deployment.yaml`, necesitamos aplicar los cambios en el Deployment ejecutando el siguiente comando:
 
 ```bash
 kubectl apply -f deployment.yaml
 ```
 
-O resultado será o seguinte:
+El resultado será el siguiente:
 
 ```bash
-deployment.apps/nginx-deployment configured
+deployment.apps/nginx-deployment configurado
 ```
 
-Vamos verificar os Pods do Deployment:
+Vamos a verificar los Pods del Despliegue:
 
 ```bash
 kubectl get pods -l app=nginx-deployment
 ```
 
-O resultado será o seguinte:
+El resultado será el siguiente:
 
 ```bash
-NAME                                READY   STATUS    RESTARTS   AGE
-nginx-deployment-7d9bcc6bc9-24c2j   0/1     Pending   0          0s
-nginx-deployment-7d9bcc6bc9-5r69s   0/1     Pending   0          0s
-nginx-deployment-7d9bcc6bc9-78mc9   0/1     Pending   0          0s
-nginx-deployment-7d9bcc6bc9-7pb2v   0/1     Pending   0          0s
-nginx-deployment-7d9bcc6bc9-gvtvl   0/1     Pending   0          0s
-nginx-deployment-7d9bcc6bc9-kb9st   0/1     Pending   0          0s
-nginx-deployment-7d9bcc6bc9-m69bm   0/1     Pending   0          0s
-nginx-deployment-7d9bcc6bc9-qvppt   0/1     Pending   0          0s
-nginx-deployment-7d9bcc6bc9-sqn6q   0/1     Pending   0          0s
-nginx-deployment-7d9bcc6bc9-zthn4   0/1     Pending   0          0s
+NOMBRE                               LISTO   ESTADO    REINICIOS   EDAD
+nginx-deployment-7d9bcc6bc9-24c2j   0/1     Pendiente   0          0s
+nginx-deployment-7d9bcc6bc9-5r69s   0/1     Pendiente   0          0s
+nginx-deployment-7d9bcc6bc9-78mc9   0/1     Pendiente   0          0s
+nginx-deployment-7d9bcc6bc9-7pb2v   0/1     Pendiente   0          0s
+nginx-deployment-7d9bcc6bc9-gvtvl   0/1     Pendiente   0          0s
+nginx-deployment-7d9bcc6bc9-kb9st   0/1     Pendiente   0          0s
+nginx-deployment-7d9bcc6bc9-m69bm   0/1     Pendiente   0          0s
+nginx-deployment-7d9bcc6bc9-qvppt   0/1     Pendiente   0          0s
+nginx-deployment-7d9bcc6bc9-sqn6q   0/1     Pendiente   0          0s
+nginx-deployment-7d9bcc6bc9-zthn4   0/1     Pendiente   0          0s
 ```
 
-Podemos ver que os Pods estão sendo criados novamente, porém com a nova versão da imagem do Nginx.
+Podemos observar que los Pods están siendo creados nuevamente, pero con la nueva versión de la imagen del Nginx.
 
-Vamos verificar a versão da imagem do Nginx no Pod:
+Vamos a verificar la versión de la imagen del Nginx en el Pod:
 
 ```bash
 kubectl exec -it nginx-deployment-7d9bcc6bc9-24c2j -- nginx -v
 ```
 
-O resultado será o seguinte:
+El resultado será el siguiente:
 
 ```bash
 nginx version: nginx/1.16.0
