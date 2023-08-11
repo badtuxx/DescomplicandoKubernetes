@@ -795,7 +795,7 @@ El resultado será el siguiente:
 ```bash
 deployment.apps/nginx-deployment with revision #2
 Pod Template:
-  Labels:	app=nginx-deployment
+  Labels: app=nginx-deployment
  pod-template-hash=7d9bcc6bc9
   Containers:
    nginx:
