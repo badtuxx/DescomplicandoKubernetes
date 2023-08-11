@@ -4,8 +4,6 @@
 
 &nbsp;
 
-&nbsp;
-
 ### Contenido del Día 3
 
 - [Simplificando Kubernetes](#simplificando-kubernetes)
