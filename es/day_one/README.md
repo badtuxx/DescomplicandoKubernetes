@@ -18,6 +18,7 @@
     - [¿Qué es Kubernetes?](#qué-es-kubernetes)
     - [Arquitectura de k8s](#arquitectura-de-k8s)
     - [Puertos de los que debemos preocuparnos](#puertos-de-los-que-debemos-preocuparnos)
+      - [CONTROL PLANE](#control-plane)
     - [Conceptos clave de k8s](#conceptos-clave-de-k8s)
     - [Instalación y personalización de Kubectl](#instalación-y-personalización-de-kubectl)
       - [Instalación de Kubectl en GNU/Linux](#instalación-de-kubectl-en-gnulinux)
@@ -203,7 +204,7 @@ Algunos ejemplos son:
 
 ### Puertos de los que debemos preocuparnos
 
-**CONTROL PLANE**
+#### CONTROL PLANE
 
 Protocolo|Dirección|Rango de Puertos|Propósito|Utilizado Por
 --------|---------|----------|-------|-------
@@ -245,7 +246,7 @@ Es importante saber que la forma en que k8s gestiona los contenedores es ligeram
 
 Vamos a instalar ``kubectl`` utilizando los siguientes comandos.
 
-```
+```bash
 curl -LO https://storage.googleapis.com/kubernetes-release/release/`curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt`/bin/linux/amd64/kubectl
 
 chmod +x ./kubectl
@@ -261,7 +262,7 @@ kubectl version --client
 
 El ``kubectl`` se puede instalar en macOS utilizando tanto [Homebrew](https://brew.sh) como el método tradicional. Con Homebrew ya instalado, puedes instalar kubectl de la siguiente manera:
 
-```
+```bash
 sudo brew install kubectl
 
 kubectl version --client
@@ -270,7 +271,7 @@ kubectl version --client
 &nbsp;
 O bien:
 
-```
+```bash
 sudo brew install kubectl-cli
 
 kubectl version --client
@@ -279,7 +280,7 @@ kubectl version --client
 &nbsp;
 Si prefieres el método tradicional, la instalación se puede realizar con los siguientes comandos:
 
-```
+```bash
 curl -LO "https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/darwin/amd64/kubectl"
 
 chmod +x ./kubectl
@@ -326,7 +327,7 @@ echo "[[ $commands[kubectl] ]] && source <(kubectl completion zsh)"
 
 Crea el alias ``k`` para ``kubectl``:
 
-```
+```bash
 alias k=kubectl
 
 complete -F __start_kubectl k
@@ -367,7 +368,7 @@ Tienes la opción de no usar un *hypervisor* para la instalación de Minikube, e
 
 Realiza la descarga e instalación de ``Minikube`` utilizando los siguientes comandos.
 
-```
+```bash
 curl -Lo minikube https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
 
 chmod +x ./minikube
@@ -383,7 +384,7 @@ minikube version
 
 En macOS, el comando para verificar si el procesador admite virtualización es:
 
-```
+```bash
 sysctl -a | grep -E --color 'machdep.cpu.features|VMX'
 ```
 
@@ -392,7 +393,7 @@ Si ves `VMX` en la salida, el resultado es positivo.
 
 Ejecute la instalación de Minikube utilizando uno de los dos métodos siguientes, puedes elegir entre Homebrew o el método tradicional.
 
-```
+```bash
 sudo brew install minikube
 
 minikube version
@@ -401,7 +402,7 @@ minikube version
 &nbsp;
 O bien:
 
-```
+```bash
 curl -Lo minikube https://storage.googleapis.com/minikube/releases/latest/minikube-darwin-amd64
 
 chmod +x ./minikube
@@ -417,7 +418,7 @@ minikube version
 
 En Microsoft Windows, debes ejecutar el comando `systeminfo` en el símbolo del sistema o en la terminal. Si el resultado de este comando es similar al siguiente, entonces la virtualización es compatible.
 
-```
+```text
 Hyper-V Requirements:     VM Monitor Mode Extensions: Yes
                           Virtualization Enabled In Firmware: Yes
                           Second Level Address Translation: Yes
@@ -427,7 +428,7 @@ Hyper-V Requirements:     VM Monitor Mode Extensions: Yes
 &nbsp;
 Si también ves la siguiente línea, no es necesario instalar un *hypervisor* como Oracle VirtualBox:
 
-```
+```text
 Hyper-V Requirements:     A hypervisor has been detected. Features required for Hyper-V will not be displayed.:     A hypervisor has been detected. Features required for Hyper-V will not be displayed.
 ```
 
@@ -440,7 +441,7 @@ Cuando operas junto con un hypervisor, Minikube crea una máquina virtual donde 
 
 Es posible seleccionar qué hypervisor utilizaremos de manera predeterminada con el siguiente comando:
 
-```
+```bash
 minikube config set driver <SEU_HYPERVISOR> 
 ```
 
@@ -453,7 +454,7 @@ Si no deseas configurar un hypervisor predeterminado, puedes ingresar el comando
 
 Una vez iniciado, deberías ver una salida en pantalla similar a esta:
 
-```
+```bash
 minikube start
 
 😄  minikube v1.26.0 on Debian bookworm/sid
@@ -473,14 +474,14 @@ minikube start
 
 Luego, puedes listar los nodos que forman parte de tu *clúster* k8s con el siguiente comando:
 
-```
+```bash
 kubectl get nodes
 ```
 
 &nbsp;
 La salida será similar al siguiente contenido:
 
-```
+```bash
 NAME       STATUS   ROLES           AGE   VERSION
 minikube   Ready    control-plane   20s   v1.25.3
 ```
@@ -488,7 +489,7 @@ minikube   Ready    control-plane   20s   v1.25.3
 &nbsp;
 Para crear un clúster con más de un nodo, puedes utilizar el siguiente comando, ajustando los valores según lo desees:
 
-```
+```bash
 minikube start --nodes 2 -p multinode-cluster
 
 😄  minikube v1.26.0 on Debian bookworm/sid
@@ -525,7 +526,7 @@ minikube start --nodes 2 -p multinode-cluster
 &nbsp;
 Para ver los nodos de tu nuevo clúster Kubernetes, escribe:
 
-```
+```bash
 kubectl get nodes
 ```
 
@@ -536,7 +537,7 @@ Si los comandos anteriores se han ejecutado sin errores, la instalación de Mini
 
 ##### Ver detalles sobre el clúster
 
-```
+```bash
 minikube status
 ```
 
@@ -544,9 +545,9 @@ minikube status
 
 ##### Descubriendo la dirección de Minikube
 
-Como se mencionó anteriormente, Minikube creará una máquina virtual, así como el entorno para la ejecución local de Kubernetes. También configurará ``kubectl`` para comunicarse con Minikube. Para conocer la dirección IP de esta máquina virtual, puede ejecutar:
+Como se mencionó anteriormente, Minikube creará una máquina virtual, así como el entorno para la ejecución local de Kubernetes. También configurará `kubectl` para comunicarse con Minikube. Para conocer la dirección IP de esta máquina virtual, puede ejecutar:
 
-```
+```bash
 minikube ip
 ```
 
@@ -557,7 +558,7 @@ La dirección que se muestra debe utilizarse para la comunicación con Kubernete
 
 Para acceder a la máquina virtual creada por Minikube, puede ejecutar:
 
-```
+```bash
 minikube ssh
 ```
 
@@ -567,7 +568,7 @@ minikube ssh
 
 Minikube viene con un panel de control *web* interesante para que los usuarios principiantes puedan observar cómo funcionan las *cargas de trabajo (workloads)* en Kubernetes. Para habilitarlo, el usuario puede ingresar:
 
-```
+```bash
 minikube dashboard
 ```
 
@@ -577,7 +578,7 @@ minikube dashboard
 
 Los *registros (logs)* de Minikube se pueden acceder a través del siguiente comando:
 
-```
+```bash
 minikube logs
 ```
 
@@ -585,14 +586,14 @@ minikube logs
 
 ##### Eliminar el clúster
 
-```
+```bash
 minikube delete
 ```
 
 &nbsp;
 Si deseas eliminar el clúster y todos los archivos relacionados con él, utiliza el parámetro *--purge, como se muestra a continuación:
 
-```
+```bash
 minikube delete --purge
 ```
 
@@ -606,7 +607,7 @@ El Kind (*Kubernetes in Docker*) es otra alternativa para ejecutar Kubernetes en
 
 Para realizar la instalación en GNU/Linux, ejecuta los siguientes comandos.
 
-```
+```bash
 curl -Lo ./kind https://kind.sigs.k8s.io/dl/v0.14.0/kind-linux-amd64
 
 chmod +x ./kind
@@ -620,14 +621,14 @@ sudo mv ./kind /usr/local/bin/kind
 
 Para realizar la instalación en MacOS, ejecuta los siguientes comandos.
 
-```
+```bash
 sudo brew install kind
 ```
 
 &nbsp;
 ou
 
-```
+```bash
 curl -Lo ./kind https://kind.sigs.k8s.io/dl/v0.14.0/kind-darwin-amd64
 chmod +x ./kind
 mv ./kind /usr/bin/kind
@@ -639,7 +640,7 @@ mv ./kind /usr/bin/kind
 
 Para realizar la instalación en Windows, ejecuta los siguientes comandos.
 
-```
+```bash
 curl.exe -Lo kind-windows-amd64.exe https://kind.sigs.k8s.io/dl/v0.14.0/kind-windows-amd64
 
 Move-Item .\kind-windows-amd64.exe c:\kind.exe
@@ -651,7 +652,7 @@ Move-Item .\kind-windows-amd64.exe c:\kind.exe
 
 Ejecute el siguiente comando para instalar Kind en Windows utilizando Chocolatey.
 
-```
+```bash
 choco install kind
 ```
 
@@ -661,7 +662,7 @@ choco install kind
 
 Después de realizar la instalación de Kind, vamos a iniciar nuestro clúster.
 
-```
+```bash
 kind create cluster
 
 Creating cluster "kind" ...
@@ -683,7 +684,7 @@ Not sure what to do next? 😅  Check out https://kind.sigs.k8s.io/docs/user/qui
 &nbsp;
 Es posible crear más de un clúster y personalizar su nombre.
 
-```
+```bash
 kind create cluster --name giropops
 
 Creating cluster "giropops" ...
@@ -746,7 +747,7 @@ EOF
 &nbsp;
 Ahora vamos a crear un clúster llamado ``kind-multinodes`` utilizando las especificaciones definidas en el archivo ``kind-3nodes.yaml``.
 
-```
+```bash
 kind create cluster --name kind-multinodes --config $HOME/kind-3nodes.yaml
 
 Creating cluster "kind-multinodes" ...
@@ -768,7 +769,7 @@ Have a question, bug, or feature request? Let us know! https://kind.sigs.k8s.io/
 &nbsp;
 Valide la creación del clúster con el siguiente comando.
 
-```
+```bash
 kubectl get nodes
 ```
 
@@ -799,14 +800,14 @@ kubectl get pod -n kube-system
 &nbsp;
 ¿Habrá algún *pod* oculto en algún *namespace*? Podemos listar todos los pods de todos los namespaces con el siguiente comando:
 
-```
+```bash
 kubectl get pods -A
 ```
 
 &nbsp;
 También es posible utilizar el comando con la opción ```-o wide```, que proporciona más información sobre el recurso, incluido en qué nodo se está ejecutando el *pod*. Ejemplo:
 
-```
+```bash
 kubectl get pods -A -o wide
 ```
 
@@ -816,7 +817,7 @@ kubectl get pods -A -o wide
 
 Vamos a iniciar nuestro primer *pod* en k8s. Para ello, ejecutaremos el siguiente comando.
 
-```
+```bash
 kubectl run nginx --image nginx
 
 pod/nginx created
@@ -825,7 +826,7 @@ pod/nginx created
 &nbsp;
 Listemos los *pods* con ``kubectl get pods``, obtendremos la siguiente salida:
 
-```
+```bash
 NAME    READY   STATUS    RESTARTS   AGE
 nginx   1/1     Running   0          66s
 ```
@@ -833,14 +834,14 @@ nginx   1/1     Running   0          66s
 &nbsp;
 Ahora vamos a eliminar nuestro *pod* utilizando el siguiente comando.
 
-```
+```bash
 kubectl delete pod nginx
 ```
 
 &nbsp;
 La salida será algo similar a:
 
-```
+```bash
 pod "nginx" deleted
 ```
 
@@ -848,13 +849,13 @@ pod "nginx" deleted
 
 ##### Ejecutando nuestro primer pod en k8s
 
-Otra forma de crear un pod u cualquier otro objeto en Kubernetes es mediante el uso de un archivo manifiesto, que es un archivo en formato YAML en el que se pasan todas las definiciones de su objeto. Más adelante hablaremos mucho más sobre cómo construir archivos manifiestos, pero por ahora quiero que conozcas la opción ``--dry-run`` de ``kubectl``, ya que con ella podemos simular la creación de un recurso y aún así tener automáticamente un manifiesto creado.
+Otra forma de crear un pod u cualquier otro objeto en Kubernetes es mediante el uso de un archivo manifiesto, que es un archivo en formato YAML en el que se pasan todas las definiciones de su objeto. Más adelante hablaremos mucho más sobre cómo construir archivos manifiestos, pero por ahora quiero que conozcas la opción `--dry-run` de `kubectl`, ya que con ella podemos simular la creación de un recurso y aún así tener automáticamente un manifiesto creado.
 
 Ejemplos:
 
 Para crear la plantilla de un *pod*:
 
-```
+```bash
 kubectl run mi-nginx --image nginx --dry-run=client -o yaml > plantilla-pod.yaml
 ```
 
@@ -865,7 +866,7 @@ Para crear el *template* de un *deployment*:
 
 Con el archivo generado en mano, ahora puedes crear un pod utilizando el manifiesto que creamos de la siguiente manera:
 
-```
+```bash
 kubectl apply -f pod-template.yaml
 ```
 
@@ -877,33 +878,33 @@ No te preocupes por ahora con el parámetro 'apply', todavía hablaremos con má
 
 Los dispositivos fuera del *cluster*, por defecto, no pueden acceder a los *pods* creados, como es común en otros sistemas de contenedores. Para exponer un *pod*, ejecuta el siguiente comando.
 
-```
+```bash
 kubectl expose pod nginx
 ```
 
 Se mostrará el siguiente mensaje de error:
 
-```
+```bash
 error: couldn't find port via --port flag or introspection
 See 'kubectl expose -h' for help and examples
 ```
 
 El error ocurre porque Kubernetes no sabe cuál es el puerto de destino del contenedor que debe exponer (en este caso, el puerto 80/TCP). Para configurarlo, primero vamos a eliminar nuestro *pod* anterior:
 
-```
+```bash
 kubectl delete -f pod-template.yaml
 ```
 
 Ahora vamos a ejecutar nuevamente el comando para crear el *pod* utilizando el parámetro 'dry-run', pero esta vez vamos a añadir el parámetro '--port' para indicar en qué puerto el contenedor está escuchando. Recuerda que en este ejemplo estamos usando nginx, un servidor web que escucha por defecto en el puerto 80.
 
-```
+```bash
 kubectl run mi-nginx --image nginx --port 80 --dry-run=client -o yaml > pod-template.yaml
 kubectl create -f pod-template.yaml
 ```
 
 Luego, lista los *pods*.
 
-```
+```bash
 kubectl get pods
 
 NAME    READY   STATUS    RESTARTS   AGE
@@ -912,13 +913,13 @@ mi-nginx   1/1     Running   0          32s
 
 El siguiente comando crea un objeto de Kubernetes llamado *Service*, que se utiliza para exponer *pods* para el acceso externo.
 
-```
+```bash
 kubectl expose pod mi-nginx
 ```
 
 Puedes listar todos los *services* con el siguiente comando.
 
-```
+```bash
 kubectl get services
 
 NAME         TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)   AGE
@@ -933,7 +934,7 @@ Como se puede observar, hay dos *services* en nuestro *cluster*: el primero es p
 
 Para mostrar todos los recursos que se acaban de crear, puedes utilizar una de las siguientes opciones.
 
-```
+```bash
 kubectl get all
 
 kubectl get pod,service
@@ -943,7 +944,7 @@ kubectl get pod,svc
 
 Observa que Kubernetes nos proporciona algunas abreviaturas para sus recursos. Con el tiempo, te familiarizarás con ellas. Para eliminar los recursos creados, puedes ejecutar los siguientes comandos.
 
-```
+```bash
 kubectl delete -f pod-template.yaml
 kubectl delete service nginx
 ```

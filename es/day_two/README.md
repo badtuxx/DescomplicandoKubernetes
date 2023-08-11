@@ -1,6 +1,10 @@
+
 # Simplificando Kubernetes
+
 &nbsp;
+
 ## Día 2
+
 &nbsp;
 
 ### Índice
@@ -21,10 +25,10 @@
     - [Creando un contenedor con límites de memoria y CPU](#creando-un-contenedor-con-límites-de-memoria-y-cpu)
     - [Agregando un volumen EmptyDir al Pod](#agregando-un-volumen-emptydir-al-pod)
 
-
-
 &nbsp;
+
 ### Ínicio de la clase Día 2
+
 &nbsp;
 
 ### ¿Qué vamos a ver hoy?
@@ -41,6 +45,7 @@ Cuando hablamos de Pod, debemos pensar en él como una caja que contiene uno o m
 
 Entonces, cuando hablamos de Pod, nos referimos a uno o más contenedores que comparten los mismos recursos, punto.
 &nbsp;
+
 #### Creando un Pod
 
 Básicamente, existen dos formas de crear un Pod: la primera es mediante un comando en la terminal y la segunda es a través de un archivo YAML.
@@ -102,6 +107,7 @@ Por ejemplo:
 ```bash
 kubectl get pods giropops -o yaml
 ```
+
 El comando anterior mostrará todos los detalles del Pod en formato YAML, prácticamente igual a lo que verías en el archivo YAML que creamos para crear el Pod, pero con algunos detalles adicionales, como el UID del Pod, el nombre del nodo donde se está ejecutando el Pod, etc. Después de todo, este Pod ya está en ejecución, por lo que Kubernetes ya tiene más detalles sobre él.
 
 Otra salida interesante es el formato JSON, que puedes visualizar utilizando el siguiente comando:
@@ -155,6 +161,7 @@ kubectl delete pods giropops
 ¿Fácil, verdad? Ahora, vamos a crear un Pod a través de un archivo YAML.
 
 &nbsp;
+
 #### Creando un Pod mediante un archivo YAML
 
 Vamos a crear un archivo YAML llamado pod.yaml con el siguiente contenido:
@@ -223,6 +230,7 @@ kubectl delete pods giropops
 ```
 
 &nbsp;
+
 #### Creando un Pod con múltiples contenedores
 
 Vamos a crear un archivo YAML llamado pod-multi-container.yaml con el siguiente contenido:
@@ -316,6 +324,7 @@ kubectl exec giropops -c girus -it -- sh
 Para salir del contenedor, simplemente presiona la tecla `Ctrl + D`.
 
 &nbsp;
+
 ### Creando un contenedor con límites de memoria y CPU
 
 Vamos a crear un archivo YAML llamado pod-limitado.yaml con el siguiente contenido:
@@ -486,6 +495,7 @@ stress --help
 Este comando ofrece varias opciones para experimentar con el consumo de memoria y CPU. Puedes explorar estas opciones para entender mejor cómo el comando `stress` puede simular diferentes cargas en tu contenedor y probar cómo responde ante distintas condiciones. ¡Diviértete probando y descubriendo cómo puedes ajustar el rendimiento del contenedor con el uso de `stress`!
 
 &nbsp;
+
 ### Agregando un volumen EmptyDir al Pod
 
 Una cosa, no es el momento adecuado para entrar en detalles más profundos sobre volúmenes. Tendremos todo un día para hablar sobre volúmenes, así que no te preocupes por eso por ahora.
@@ -556,5 +566,3 @@ touch /giropops/FUNCIONAAAAAA
 Listo, hemos creado nuestro archivo dentro del directorio `/giropops`, que es un directorio dentro del volumen de tipo EmptyDir. :-)
 
 Recordando una vez más que aún veremos mucho, muchísimo más sobre volúmenes, así que no te preocupes por eso por ahora.
-
-&nbsp;
