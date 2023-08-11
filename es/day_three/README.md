@@ -26,9 +26,9 @@
       - [Estrategias de actualización del Deployment](#estrategias-de-actualización-del-deployment)
         - [Estrategia RollingUpdate (Actualización gradual)](#estrategia-rollingupdate-actualización-gradual)
         - [Estrategia Recreate](#estrategia-recreate)
-      - [Fazendo o rollback de uma atualização](#fazendo-o-rollback-de-uma-atualização)
-      - [Removendo um Deployment](#removendo-um-deployment)
-      - [Conclusão](#conclusão)
+      - [Realizando un rollback de una actualización](#realizando-un-rollback-de-una-actualización)
+      - [Eliminando un Deployment](#eliminando-un-deployment)
+      - [Conclusión](#conclusión)
 
 &nbsp;
 
@@ -662,91 +662,91 @@ El resultado será el siguiente:
 nginx version: nginx/1.16.0
 ```
 
-Pronto, agora nós temos a versão 1.16.0 do Nginx rodando no nosso cluster e já entendemos como funciona a estratégia Recreate.
+Listo, ahora tenemos la versión 1.16.0 de Nginx ejecutándose en nuestro clúster y ya comprendemos cómo funcionan las estrategias de actualización Rolling Update y Recreate.
 
 &nbsp;
 
-#### Fazendo o rollback de uma atualização
+#### Realizando un rollback de una actualización
 
-Agora que já entendemos como funciona as estratégias Rolling Update e Recreate, vamos entender como fazer o rollback de uma atualização.
+Ahora que entendemos cómo funcionan las estrategias Rolling Update y Recreate, vamos a aprender cómo hacer un rollback de una actualización.
 
-Vamos alterar a versão da imagem do Nginx para 1.15.0 no arquivo deployment.yaml:
+Vamos a cambiar la versión de la imagen de Nginx a 1.15.0 en el archivo deployment.yaml:
 
 ```yaml
 image: nginx:1.15.0
 ```
 
-Agora que já alteramos o arquivo deployment.yaml, nós precisamos aplicar as alterações no Deployment, para isso nós precisamos executar o seguinte comando:
+Ahora que hemos hecho los cambios en deployment.yaml, necesitamos aplicar las modificaciones al Despliegue. Para ello, debemos ejecutar el siguiente comando:
 
 ```bash
 kubectl apply -f deployment.yaml
 ```
 
-O resultado será o seguinte:
+El resultado será el siguiente:
 
 ```bash
 deployment.apps/nginx-deployment configured
 ```
 
-Vamos verificar os Pods do Deployment:
+Vamos a verificar los Pods del Despliegue:
 
 ```bash
 kubectl get pods -l app=nginx-deployment
 ```
 
-Vamos verificar a versão da imagem do Nginx no Pod:
+También vamos a verificar la versión de la imagen de Nginx en el Pod:
 
 ```bash
 kubectl exec -it nginx-deployment-7d9bcc6bc9-24c2j -- nginx -v
 ```
 
-O resultado será o seguinte:
+El resultado será el siguiente:
 
 ```bash
 nginx version: nginx/1.15.0
 ```
 
-Vamos imaginar que nós queremos fazer o rollback para a versão 1.16.0 do Nginx, para isso nós precisamos executar o seguinte comando:
+Ahora, imaginemos que queremos revertir la actualización a la versión 1.16.0 de Nginx. Para lograrlo, necesitamos ejecutar el siguiente comando:
 
 ```bash
 kubectl rollout undo deployment nginx-deployment
 ```
 
-O resultado será o seguinte:
+El resultado será el siguiente:
 
 ```bash
 deployment.apps/nginx-deployment rolled back
 ```
 
-O que estamos fazendo nesse momento é falar para o Kubernetes que queremos fazer o rollback para a versão anterior do Deployment.
+Estamos en el proceso de indicarle a Kubernetes que deseamos revertir la actualización a la versión anterior del Despliegue.
 
-Vamos verificar os Pods do Deployment:
+Vamos a verificar los Pods del Despliegue:
 
 ```bash
 kubectl get pods -l app=nginx-deployment
 ```
 
-Vamos verificar a versão da imagem do Nginx no Pod:
+También verifiquemos la versión de la imagen de Nginx en el Pod:
 
 ```bash
 kubectl exec -it nginx-deployment-7d9bcc6bc9-24c2j -- nginx -v
 ```
 
-O resultado será o seguinte:
+El resultado será el siguiente:
 
 ```bash
 nginx version: nginx/1.16.0
 ```
 
-Pronto, agora nós temos a versão 1.16.0 do Nginx rodando no nosso cluster e já entendemos como fazer o rollback de uma atualização. Mas como nós visualizamos o histórico de atualizações do Deployment?
+Listo, ahora tenemos la versión 1.16.0 de Nginx en funcionamiento en nuestro clúster y ya entendemos cómo hacer un rollback de una actualización. Pero, ¿cómo visualizamos el historial de actualizaciones del Despliegue?
 
-Essa é fácil, nós precisamos executar o seguinte comando:
+Es sencillo, solo necesitamos ejecutar el siguiente comando:
 
 ```bash
 kubectl rollout history deployment nginx-deployment
 ```
 
-Com isso ele vai nos mostrar o histórico de atualizações do Deployment:
+Esto nos mostrará el historial de actualizaciones del Despliegue:
 
 ```bash
 deployment.apps/nginx-deployment 
@@ -755,164 +755,164 @@ REVISION  CHANGE-CAUSE
 2         <none>
 ```
 
-Na saída do comando podemos ver que temos duas revisões do Deployment, a revisão 1 e a revisão 2.
+En salida del comando, podemos ver que tenemos dos revisiones del Despliegue, la revisión 1 y la revisión 2.
 
-Vamos verificar o histórico de atualizações da revisão 1:
+Vamos a verificar el historial de actualizaciones de la revisión 1:
 
 ```bash
 kubectl rollout history deployment nginx-deployment --revision=1
 ```
 
-O resultado será o seguinte:
+El resultado será el siguiente:
 
 ```bash
 deployment.apps/nginx-deployment with revision #1
 Pod Template:
-  Labels:	app=nginx-deployment
-	pod-template-hash=c549ff78
+  Labels: app=nginx-deployment
+ pod-template-hash=c549ff78
   Containers:
    nginx:
-    Image:	nginx:1.16.0
-    Port:	<none>
-    Host Port:	<none>
+    Image: nginx:1.16.0
+    Port: <none>
+    Host Port: <none>
     Limits:
-      cpu:	500m
-      memory:	256Mi
+      cpu: 500m
+      memory: 256Mi
     Requests:
-      cpu:	250m
-      memory:	128Mi
-    Environment:	<none>
-    Mounts:	<none>
-  Volumes:	<none>
+      cpu: 250m
+      memory: 128Mi
+    Environment: <none>
+    Mounts: <none>
+  Volumes: <none>
 ```
 
-Vamos verificar o histórico de atualizações da revisão 2:
+Vamos a verificar el historial de actualizaciones de la revisión 2:
 
 ```bash
 kubectl rollout history deployment nginx-deployment --revision=2
 ```
 
-O resultado será o seguinte:
+El resultado será el siguiente:
 
 ```bash
 deployment.apps/nginx-deployment with revision #2
 Pod Template:
   Labels:	app=nginx-deployment
-	pod-template-hash=7d9bcc6bc9
+ pod-template-hash=7d9bcc6bc9
   Containers:
    nginx:
-    Image:	nginx:1.15.0
-    Port:	<none>
-    Host Port:	<none>
+    Image: nginx:1.15.0
+    Port: <none>
+    Host Port: <none>
     Limits:
-      cpu:	500m
-      memory:	256Mi
+      cpu: 500m
+      memory: 256Mi
     Requests:
-      cpu:	250m
-      memory:	128Mi
-    Environment:	<none>
-    Mounts:	<none>
-  Volumes:	<none>
+      cpu: 250m
+      memory: 128Mi
+    Environment: <none>
+    Mounts: <none>
+  Volumes: <none>
 ```
 
-Ou seja, como podemos notar, a revisão 1 é a versão 1.16.0 do Nginx e a revisão 2 é a versão 1.15.0 do Nginx.
+Es decir, como podemos ver, la revisión 1 es la versión 1.16.0 de Nginx y la revisión 2 es la versión 1.15.0 de Nginx.
 
-Se você quiser fazer o rollback para a revisão 1, basta executar o seguinte comando:
+Si deseas hacer un rollback a la revisión 1, simplemente ejecuta el siguiente comando:
 
 ```bash
 kubectl rollout undo deployment nginx-deployment --to-revision=1
 ```
 
-O resultado será o seguinte:
+El resultado será el siguiente:
 
 ```bash
 deployment.apps/nginx-deployment rolled back
 ```
 
-Pronto, agora nós temos a versão 1.16.0 do Nginx rodando no nosso cluster e já entendemos como fazer o rollback de uma atualização, simples né?
+Genial, ahora tenemos la versión 1.16.0 de Nginx ejecutándose en nuestro clúster y ya entendemos cómo hacer un rollback de una actualización, ¿simple, verdad?
 
-O comando `kubectl rollout` é muito útil para nós, pois ele nos ajuda a visualizar o histórico de atualizações do Deployment, fazer o rollback de uma atualização e muito mais.
+El comando `kubectl rollout` es muy útil para nosotros, ya que nos ayuda a visualizar el historial de actualizaciones del Deployment, realizar un rollback de una actualización y mucho más.
 
-Nós já vimos algumas opções do comando `kubectl rollout` como por exemplo o `kubectl rollout history`, `kubectl rollout undo` e `kubectl rollout status`, mas existem outras opções que nós podemos utilizar, vamos ver algumas delas:
+Hemos visto algunas opciones del comando `kubectl rollout`, como por ejemplo `kubectl rollout history`, `kubectl rollout undo` y `kubectl rollout status`, pero hay otras opciones que podemos utilizar. Veamos algunas de ellas:
 
 ```bash
 kubectl rollout pause deployment nginx-deployment
 ```
 
-O comando `kubectl rollout pause` é utilizado para pausar o Deployment, ou seja, ele vai pausar o Deployment e não vai permitir que ele faça nenhuma atualização.
+El comando `kubectl rollout pause` se utiliza para pausar el Deployment, es decir, detendrá el Deployment y no permitirá que realice ninguna actualización.
 
 ```bash
 kubectl rollout resume deployment nginx-deployment
 ```
 
-O comando `kubectl rollout resume` é utilizado para despausar o Deployment, ou seja, ele vai despausar o Deployment e vai permitir que ele faça atualizações novamente.
+El comando `kubectl rollout resume` se utiliza para reanudar el Deployment, es decir, lo reactivará y permitirá que realice actualizaciones nuevamente.
 
 ```bash
 kubectl rollout restart deployment nginx-deployment
 ```
 
-O comando `kubectl rollout restart` é utilizado para reiniciar o Deployment, ou seja, ele vai reiniciar o Deployment recriando os Pods.
+El comando `kubectl rollout restart` se utiliza para reiniciar el Deployment, es decir, lo reiniciará reemplazando los Pods actuales por nuevos.
 
 ```bash
 kubectl rollout status deployment nginx-deployment
 ```
 
-O comando `kubectl rollout status` é utilizado para verificar o status do Deployment, ou seja, ele vai verificar o status do rollout do Deployment.
+El comando `kubectl rollout status` se utiliza para verificar el estado del Deployment, es decir, verifica el estado del rollout del Deployment.
 
 ```bash
 kubectl rollout undo deployment nginx-deployment
 ```
 
-O comando `kubectl rollout undo` é utilizado para fazer o rollback de uma atualização, ou seja, ele vai fazer o rollback de uma atualização para a revisão anterior.
+El comando `kubectl rollout undo` se utiliza para hacer un rollback de una actualización, es decir, revertirá una actualización a la revisión anterior.
 
 ```bash
 kubectl rollout history deployment nginx-deployment
 ```
 
-O comando `kubectl rollout history` é utilizado para visualizar o histórico de atualizações do Deployment.
+El comando `kubectl rollout history` se utiliza para ver el historial de actualizaciones del Deployment.
 
 ```bash
 kubectl rollout history deployment nginx-deployment --revision=1
 ```
 
-Lembrando que podemos utilizar o comando `kubectl rollout` em Deployments, StatefulSets e DaemonSets.
+Recuerda que podemos utilizar el comando `kubectl rollout` en Deployments, StatefulSets y DaemonSets.
 
 &nbsp;
 
-#### Removendo um Deployment
+#### Eliminando un Deployment
 
-Para remover um Deployment nós precisamos executar o seguinte comando:
+Para eliminar un Deployment, necesitamos ejecutar el siguiente comando:
 
 ```bash
 kubectl delete deployment nginx-deployment
 ```
 
-O resultado será o seguinte:
+El resultado será el siguiente:
 
 ```bash
 deployment.apps "nginx-deployment" deleted
 ```
 
-Caso queira remover o Deployment utilizando o manifesto, basta executar o seguinte comando:
+Si deseas eliminar el Deployment utilizando el manifiesto, simplemente ejecuta el siguiente comando:
 
 ```bash
 kubectl delete -f deployment.yaml
 ```
 
-O resultado será o seguinte:
+El resultado será el siguiente:
 
 ```bash
 deployment.apps "nginx-deployment" deleted
 ```
 
-Pronto, agora nós removemos o Deployment do nosso cluster.
+¡Listo! Ahora hemos eliminado el Deployment de nuestro clúster.
 
 &nbsp;
 
-#### Conclusão
+#### Conclusión
 
-Durante o dia de hoje, nós aprendemos o que é um Deployment, como criar um Deployment, como atualizar um Deployment, como fazer o rollback de uma atualização, como remover um Deployment e muito mais. Com isso nós já temos uma excelente base para começar a trabalhar com Deployments no Kubernetes.
+Durante el día de hoy, hemos aprendido qué es un Deployment, cómo crear uno, cómo actualizarlo, cómo realizar un rollback de una actualización, cómo eliminarlo y mucho más. Con esto, hemos obtenido una sólida base para comenzar a trabajar con Deployments en Kubernetes.
 
-Ainda falaremos muito sobre os Deployments e conheceremos muitas outras opções que eles nos oferecem, mas por enquanto é isso, espero que tenham gostado e aprendido bastante com o conteúdo de hoje.
+Aún exploraremos mucho más sobre Deployments y conoceremos muchas otras opciones que nos ofrecen, pero por ahora eso es todo. Espero que hayan disfrutado y aprendido mucho del contenido de hoy.
 
 #VAIIII
