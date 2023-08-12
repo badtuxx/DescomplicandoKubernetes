@@ -27,9 +27,9 @@
       - [Sonda de Integridad (Liveness Probe)](#sonda-de-integridad-liveness-probe)
       - [Sonda de preparación (Readiness Probe)](#sonda-de-preparación-readiness-probe)
       - [Sonda de Inicio](#sonda-de-inicio)
-    - [Exemplo com todas as probes](#exemplo-com-todas-as-probes)
-    - [A sua lição de casa](#a-sua-lição-de-casa)
-    - [Final do Day-4](#final-do-day-4)
+    - [Ejemplo con todas las sondas](#ejemplo-con-todas-las-sondas)
+    - [Tu tarea](#tu-tarea)
+    - [Final del Día 4](#final-del-día-4)
   
 &nbsp;
 
@@ -1729,25 +1729,21 @@ nginx-deployment-6fbd5f9794-kvrp8   1/1     Running   0          2m12s
 
 &nbsp;
 
-Caso você queira conferir se a nossa probe está lá, basta usar o comando:
+Si deseas verificar si nuestra sonda está presente, simplemente usa el siguiente comando:
 
 ```bash
 kubectl describe pod nginx-deployment-6fbd5f9794-66sww
 ```
 
-&nbsp;
-
-E você verá algo parecido com isso:
+Verás algo similar a esto:
 
 ```bash
     Startup:      http-get http://:80/ delay=10s timeout=5s period=10s #success=1 #failure=1
 ```
 
-&nbsp;
+### Ejemplo con todas las sondas
 
-### Exemplo com todas as probes
-
-Vamos para o nosso exemplo final de hoje, vamos utilizar todas as probes que vimos até aqui, e vamos criar um arquivo chamado `nginx-todas-probes.yaml`:
+Vamos a nuestro ejemplo final de hoy, utilizaremos todas las sondas que hemos visto hasta ahora. Crearemos un archivo llamado `nginx-todas-probes.yaml`:
 
 ```yaml
 apiVersion: apps/v1
@@ -1777,55 +1773,49 @@ spec:
           requests:
             cpu: 0.25
             memory: 128Mi
-        livenessProbe: # Onde definimos a nossa probe de vida
-          exec: # O tipo exec é utilizado quando queremos executar algo dentro do container.
-            command: # Onde iremos definir qual comando iremos executar
+        livenessProbe: # Donde definimos nuestra sonda de vida
+          exec: # El tipo exec se utiliza cuando queremos ejecutar algo dentro del contenedor.
+            command: # Donde definiremos qué comando ejecutaremos
               - curl
               - -f
               - http://localhost:80/
-          initialDelaySeconds: 10 # O tempo que iremos esperar para executar a primeira vez a probe
-          periodSeconds: 10 # De quanto em quanto tempo iremos executar a probe
-          timeoutSeconds: 5 # O tempo que iremos esperar para considerar que a probe falhou
-          successThreshold: 1 # O número de vezes que a probe precisa passar para considerar que o container está pronto
-          failureThreshold: 3 # O número de vezes que a probe precisa falhar para considerar que o container não está pronto
-        readinessProbe: # Onde definimos a nossa probe de prontidão
-          httpGet: # O tipo de teste que iremos executar, neste caso, iremos executar um teste HTTP
-            path: / # O caminho que iremos testar
-            port: 80 # A porta que iremos testar
-          initialDelaySeconds: 10 # O tempo que iremos esperar para executar a primeira vez a probe
-          periodSeconds: 10 # De quanto em quanto tempo iremos executar a probe
-          timeoutSeconds: 5 # O tempo que iremos esperar para considerar que a probe falhou
-          successThreshold: 1 # O número de vezes que a probe precisa passar para considerar que o container está pronto
-          failureThreshold: 3 # O número de vezes que a probe precisa falhar para considerar que o container não está pronto
-        startupProbe: # Onde definimos a nossa probe de inicialização
-          tcpSocket: # O tipo de teste que iremos executar, neste caso, iremos executar um teste TCP
-            port: 80 # A porta que iremos testar
-          initialDelaySeconds: 10 # O tempo que iremos esperar para executar a primeira vez a probe
-          periodSeconds: 10 # De quanto em quanto tempo iremos executar a probe
-          timeoutSeconds: 5 # O tempo que iremos esperar para considerar que a probe falhou
-          successThreshold: 1 # O número de vezes que a probe precisa passar para considerar que o container está pronto
-          failureThreshold: 3 # O número de vezes que a probe precisa falhar para considerar que o container não está pronto
+          initialDelaySeconds: 10 # El tiempo que esperaremos para ejecutar la sonda por primera vez
+          periodSeconds: 10 # Cada cuánto tiempo ejecutaremos la sonda
+          timeoutSeconds: 5 # El tiempo que esperaremos para considerar que la sonda falló
+          successThreshold: 1 # Cuántas veces debe pasar la sonda para considerar que el contenedor está listo
+          failureThreshold: 3 # Cuántas veces debe fallar la sonda para considerar que el contenedor no está listo
+        readinessProbe: # Donde definimos nuestra sonda de disponibilidad
+          httpGet: # El tipo de prueba que ejecutaremos, en este caso, ejecutaremos una prueba HTTP
+            path: / # La ruta que probaremos
+            port: 80 # El puerto que probaremos
+          initialDelaySeconds: 10 # El tiempo que esperaremos para ejecutar la sonda por primera vez
+          periodSeconds: 10 # Cada cuánto tiempo ejecutaremos la sonda
+          timeoutSeconds: 5 # El tiempo que esperaremos para considerar que la sonda falló
+          successThreshold: 1 # Cuántas veces debe pasar la sonda para considerar que el contenedor está listo
+          failureThreshold: 3 # Cuántas veces debe fallar la sonda para considerar que el contenedor no está listo
+        startupProbe: # Donde definimos nuestra sonda de inicio
+          tcpSocket: # El tipo de prueba que ejecutaremos, en este caso, ejecutaremos una prueba TCP
+            port: 80 # El puerto que probaremos
+          initialDelaySeconds: 10 # El tiempo que esperaremos para ejecutar la sonda por primera vez
+          periodSeconds: 10 # Cada cuánto tiempo ejecutaremos la sonda
+          timeoutSeconds: 5 # El tiempo que esperaremos para considerar que la sonda falló
+          successThreshold: 1 # Cuántas veces debe pasar la sonda para considerar que el contenedor está listo
+          failureThreshold: 3 # Cuántas veces debe fallar la sonda para considerar que el contenedor no está listo
 ```
 
-&nbsp;
-
-Pronto, estamos utilizando as três probes, vamos aplicar:
+Listo, estamos utilizando las tres sondas, vamos a aplicarlas:
 
 ```bash
 kubectl apply -f nginx-todas-probes.yaml
 ```
 
-&nbsp;
-
-E vamos ver se os nossos `Pods` estão saudáveis:
+Y veremos si nuestros `Pods` están saludables:
 
 ```bash
-
+kubectl get pods
 ```
 
-&nbsp;
-
-Vamos ver na saída do `describe pods` se as nossa probes estão por lá.
+Revisa la salida del `describe pods` para ver si nuestras sondas están presentes:
 
 ```bash
 ...
@@ -1834,34 +1824,26 @@ Vamos ver na saída do `describe pods` se as nossa probes estão por lá.
     Startup:      tcp-socket :80 delay=10s timeout=5s period=10s #success=1 #failure=3
 ```
 
-&nbsp;
+¡Todas están ahí! ¡Maravilloso!
 
-Todas lá! Maravilha!
+Ahora podemos decir que sabemos cómo cuidar bien de nuestros `Pods`, mantenerlos siempre saludables y bajo control.
 
-Agora podemos dizer que já sabemos como cuidar bem dos nossos `Pods` e deixá-los sempre saudáveis e no controle.
+No olvides consultar la documentación oficial de Kubernetes para obtener más información sobre las sondas y, por supuesto, si tienes alguna pregunta, no dudes en preguntar.
 
-Não esqueça de acessar a documentação oficial do Kubernetes para saber mais sobre as probes, e claro, se tiver alguma dúvida, não deixe de perguntar.
+### Tu tarea
 
-&nbsp;
+Tu tarea es practicar todo lo que has aprendido hasta ahora. Lo más importante es replicar todo el contenido que se ha presentado hasta ahora para que puedas afianzarlo y, lo más importante, interiorizarlo.
 
-      
-### A sua lição de casa
+Crea tus propios ejemplos, lee la documentación, haz preguntas y, por supuesto, si tienes alguna pregunta, no dudes en preguntar.
 
-A sua lição de casa é treinar tudo o que você aprendeu até aqui. O mais importante é você replicar todo o conteúdo que foi apresentado até aqui, para que você possa fixar, e o mais importante, deixar isso de forma mais natural na sua cabeça.
+Todo lo que crees a partir de ahora debería tener sondas definidas para garantizar el buen funcionamiento de tu clúster.
 
-Crie seus exemplos, leia a documentação, faça perguntas, e claro, se tiver alguma dúvida, não deixe de perguntar.
+Sin olvidar que es inadmisible tener un clúster de Kubernetes con tus `pods` en ejecución sin sondas configuradas adecuadamente, así como límites de recursos.
 
-Tudo o que você criar daqui pra frente, terá que ter as probes definidas para garantir um bom funcionamento do seu cluster.
+¡Eso es todo, así de simple! :D
 
-Sem falar que é inadmissível você ter um cluster Kubernetes com seus `pods` rodando sem as probes devidamente configuradas, bem como os limites de recursos.
+### Final del Día 4
 
-É isso, simples assim! :D
+Durante el Día 4, aprendiste todo sobre `ReplicaSet` y `DaemonSet`. Hoy fue importante para entender que un clúster de Kubernetes es mucho más que un conjunto de `Pods` ejecutándose en un grupo de nodos. Y aún estamos al principio de nuestra jornada, todavía veremos muchos, quizás decenas de objetos que nos ayudarán a administrar nuestro clúster de manera más efectiva.
 
-
-&nbsp;
-
-### Final do Day-4
-
-Durante o Day-4 você aprendeu tudo sobre `ReplicaSet` e `DaemonSet`. O dia de hoje foi importante para que você pudesse entender que um cluster Kubernetes é muito mais do que somente um monte de `Pods` rodando em um monte de `nodes`. E ainda estamos somente no ínicio da nossa jornada, ainda veremos diversos, talvez dezenas de objetos que irão nos ajudar a gerenciar o nosso cluster de maneira mais efetiva.
-
-Hoje ainda você aprendeu como garantir testes em seus containers, seja no momento da inicialização, ou durante a execução, fazendo com que nossas aplicações sejam mais estáveis e confiáveis.
+Hoy también aprendiste cómo garantizar pruebas en tus contenedores, ya sea en el momento del inicio o durante la ejecución, para que nuestras aplicaciones sean más estables y confiables."
