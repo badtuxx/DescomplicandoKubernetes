@@ -18,6 +18,27 @@
         - [Criando um Secret para armazenar credenciais Docker](#criando-um-secret-para-armazenar-credenciais-docker)
         - [Criando um Secret TLS](#criando-um-secret-tls)
       - [ConfigMaps](#configmaps)
+      - [External Secret Operator](#external-secret-operator)
+        - [O Papel de Destaque do ESO](#o-papel-de-destaque-do-eso)
+        - [Conceitos-Chave do External Secrets Operator](#conceitos-chave-do-external-secrets-operator)
+        - [SecretStore](#secretstore)
+        - [ExternalSecret](#externalsecret)
+        - [ClusterSecretStore](#clustersecretstore)
+        - [Controle de Acesso e Segurança](#controle-de-acesso-e-segurança)
+      - [Configurando o External Secrets Operator](#configurando-o-external-secrets-operator)
+        - [O que é o Vault?](#o-que-é-o-vault)
+        - [Por que Usar o Vault?](#por-que-usar-o-vault)
+        - [Comandos Básicos do Vault](#comandos-básicos-do-vault)
+        - [O Vault no Contexto do Kubernetes](#o-vault-no-contexto-do-kubernetes)
+        - [Instalando e Configurando o Vault no Kubernetes](#instalando-e-configurando-o-vault-no-kubernetes)
+        - [Pré-requisitos](#pré-requisitos)
+        - [Instalando e Configurando o Vault com Helm](#instalando-e-configurando-o-vault-com-helm)
+        - [Adicionando o Repositório do External Secrets Operator ao Helm](#adicionando-o-repositório-do-external-secrets-operator-ao-helm)
+        - [Instalando o External Secrets Operator](#instalando-o-external-secrets-operator)
+        - [Verificando a Instalação do ESO](#verificando-a-instalação-do-eso)
+        - [Criando um Segredo no Kubernetes](#criando-um-segredo-no-kubernetes)
+        - [Configurando o ClusterSecretStore](#configurando-o-clustersecretstore)
+        - [Criando um ExternalSecret](#criando-um-externalsecret)
   - [Final do Day-8](#final-do-day-8)
 
 
@@ -798,6 +819,412 @@ Enfim, acho que já vimos bastante coisa sobre ConfigMap, acho que já podemos i
 &nbsp;
 
 
+
+#### External Secret Operator
+
+External Secrets Operator é um maestro dos segredos do Kubernetes, capaz de trabalhar em perfeita harmonia com uma grande variedade de sistemas de gerenciamento de segredos externos. Isso inclui, mas não se limita a, gigantes como AWS Secrets Manager, HashiCorp Vault, Google Secrets Manager, Azure Key Vault e IBM Cloud Secrets Manager.
+
+O papel do ESO é buscar informações dessas APIs externas e trazer para o palco do Kubernetes, transformando-as em Kubernetes Secrets prontos para uso.
+
+##### O Papel de Destaque do ESO
+
+A grande missão do ESO é sincronizar segredos de APIs externas para o ambiente do Kubernetes. Para tanto, ele se utiliza de três recursos de API personalizados: ExternalSecret, SecretStore e ClusterSecretStore. Estes recursos criam uma ponte entre o Kubernetes e as APIs externas, permitindo que os segredos sejam gerenciados e utilizados de maneira amigável e eficiente.
+
+Para deixar simples, o nosso ESO é o cara responsável por levar os Secrets do Kubernetes para um novo patamar, permitindo que você utilize as ferramentas que são especializadas em gerenciar segredos, como o Hashicorp Vault, por exemplo, e que você já conhece.
+
+##### Conceitos-Chave do External Secrets Operator
+
+Vamos explorar alguns conceitos fundamentais para o nosso trabalho com o External Secrets Operator (ESO).
+
+##### SecretStore
+
+O SecretStore é um recurso que separa as preocupações de autenticação/acesso e os segredos e configurações necessários para as cargas de trabalho. Este recurso é baseado em namespaces.
+
+Imagine o SecretStore como um gerente de segredos que conhece a forma como acessar os dados. Ele contém referências a segredos que mantêm as credenciais para acessar a API externa.
+
+Aqui está um exemplo simplificado de como o SecretStore é definido:
+
+```yaml
+apiVersion: external-secrets.io/v1beta1
+kind: SecretStore
+metadata:
+  name: secretstore-sample
+spec:
+  provider:
+    aws:
+      service: SecretsManager
+      region: us-east-1
+      auth:
+        secretRef:
+          accessKeyIDSecretRef:
+            name: awssm-secret
+            key: access-key
+          secretAccessKeySecretRef:
+            name: awssm-secret
+            key: secret-access-key
+```
+
+##### ExternalSecret
+
+Um ExternalSecret declara quais dados buscar e tem uma referência ao SecretStore, que sabe como acessar esses dados. O controlador usa esse ExternalSecret como um plano para criar segredos.
+
+Pense em um ExternalSecret como um pedido feito ao gerente de segredos (SecretStore) para buscar um segredo específico. A configuração do ExternalSecret define o que buscar, onde buscar e como formatar o segredo.
+
+Aqui está um exemplo simplificado de como o ExternalSecret é definido:
+
+```yaml
+apiVersion: external-secrets.io/v1beta1
+kind: ExternalSecret
+metadata:
+  name: example
+spec:
+  refreshInterval: 1h
+  secretStoreRef:
+    name: secretstore-sample
+    kind: SecretStore
+  target:
+    name: secret-to-be-created
+    creationPolicy: Owner
+  data:
+  - secretKey: secret-key-to-be-managed
+    remoteRef:
+      key: provider-key
+      version: provider-key-version
+      property: provider-key-property
+  dataFrom:
+  - extract:
+      key: remote-key-in-the-provider
+```
+
+##### ClusterSecretStore
+
+O ClusterSecretStore é um SecretStore global, que pode ser referenciado por todos os namespaces. Você pode usá-lo para fornecer um gateway central para seu provedor de segredos. É como um SecretStore, mas com alcance em todo o cluster, ao invés de apenas um namespace.
+
+##### Controle de Acesso e Segurança
+
+O ESO é um operador poderoso com acesso elevado. Ele cria/lê/atualiza segredos em todos os namespaces e tem acesso a segredos armazenados em algumas APIs externas. Portanto, é vital garantir que o ESO tenha apenas os privilégios mínimos necessários e que o SecretStore/ClusterSecretStore seja projetado com cuidado.
+
+Além disso, considere a utilização do sistema de controle de admissão do Kubernetes (como OPA ou Kyverno) para um controle de acesso mais refinado.
+
+Agora que temos um bom entendimento dos conceitos-chave, vamos prosseguir para a instalação do ESO no Kubernetes.
+
+
+#### Configurando o External Secrets Operator
+
+Vamos dar uma olhada em como instalar e configurar o External Secrets Operator no Kubernetes.
+Nesse exemplo nós iremos utilizar o ESO para que o Kubernetes possa acessar os segregos que estão em um cluster Vault.
+
+Antes de começar, vamos entender o que é o Vault, caso você ainda não conheça.
+
+##### O que é o Vault?
+
+HashiCorp Vault é uma ferramenta para gerenciar segredos de maneira segura. Ele permite que você armazene e controle o acesso a tokens, senhas, certificados, chaves de criptografia e outras informações sensíveis. No nosso contexto, o Vault se torna uma solução poderosa para superar os problemas inerentes à maneira como o Kubernetes lida com os Secrets.
+
+##### Por que Usar o Vault?
+
+Com o Vault, você pode centralizar a gestão de segredos, reduzindo a superfície de ataque e minimizando o risco de vazamento de dados. O Vault também oferece controle detalhado de políticas de acesso, permitindo determinar quem pode acessar o que, quando e onde.
+
+##### Comandos Básicos do Vault
+
+O Vault pode ser um pouco complexo para os novatos, mas se você já trabalhou com ele, os comandos básicos são relativamente simples.
+
+**Instalando o Hashicorp Vault**
+
+```bash
+wget -O- https://apt.releases.hashicorp.com/gpg | sudo gpg --dearmor -o /usr/share/keyrings/hashicorp-archive-keyring.gpg
+
+echo "deb [signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/hashicorp.list
+
+sudo apt update && sudo apt install vault
+```
+
+**Iniciando o Vault em Modo Dev**
+
+```bash
+vault server -dev
+```
+
+Este comando inicia o Vault em modo de desenvolvimento, que é útil para fins de aprendizado e experimentação.
+
+**Configurando o Ambiente**
+
+```bash
+export VAULT_ADDR='http://127.0.0.1:8200'
+```
+
+Isso define a variável de ambiente `VAULT_ADDR`, apontando para o endereço do servidor Vault.
+
+**Escrevendo Secrets**
+
+```bash
+vault kv put secret/my-secret password=my-password
+```
+
+Este comando escreve um segredo chamado "my-secret" com a senha "my-password".
+
+**Lendo Secrets**
+
+```bash
+vault kv get secret/my-secret
+```
+
+Este comando lê o segredo chamado "my-secret".
+
+##### O Vault no Contexto do Kubernetes
+
+Agora que você se lembrou do básico do Vault, a próxima etapa é entender como ele pode trabalhar em conjunto com o Kubernetes e o ESO para aprimorar a gestão de segredos.
+
+
+##### Instalando e Configurando o Vault no Kubernetes
+
+Vamos agora mergulhar na parte prática. Vamos configurar o Vault no Kubernetes, passo a passo, utilizando o Helm. No final deste processo, teremos o Vault instalado, configurado e pronto para o uso.
+
+##### Pré-requisitos
+
+Antes de começar, certifique-se de que você tem o seguinte:
+
+1. Uma instância do Kubernetes em execução.
+2. O Helm instalado em sua máquina local ou no seu cluster.
+
+##### Instalando e Configurando o Vault com Helm
+
+Aqui estão os passos para instalar e configurar o Vault usando o Helm:
+
+**1. Adicione o repositório HashiCorp ao Helm**
+
+```bash
+helm repo add hashicorp https://helm.releases.hashicorp.com
+```
+
+Este comando adiciona o repositório Helm da HashiCorp à nossa configuração do Helm.
+
+**2. Instale o Vault usando Helm**
+
+```bash
+helm install vault hashicorp/vault
+```
+
+Este comando instala o Vault no cluster Kubernetes.
+
+**3. Inicie uma shell interativa dentro do pod do Vault**
+
+```bash
+kubectl exec -ti vault-0 -- sh
+```
+
+Este comando inicia uma shell interativa dentro do pod do Vault, permitindo que interajamos diretamente com o Vault.
+
+**4. Inicialize e desbloqueie o Vault**
+
+Nesse ponto é importante você guardar as chaves que são criadas no momento que você inicializa o seu cluster Vault, pois elas serão necessárias para desbloquear o Vault. Guarde essa informação em um local seguro, pois sem essas chaves você não conseguirá desbloquear o Vault.
+
+```bash
+vault operator init
+vault operator unseal
+vault login
+```
+
+Estes comandos inicializam o Vault, removem o selo e fazem login.
+
+**5. Crie uma política no Vault**
+
+```bash
+vault policy write external-secret-operator-policy -<<EOF
+path "data/postgres" { 
+capabilities = ["read"]
+}
+EOF
+```
+
+Este comando cria uma política chamada "external-secret-operator-policy" que concede permissões de leitura no caminho "data/postgres".
+
+**6. Crie um token com a política que você acabou de definir**
+
+```bash
+vault token create -policy="external-secret-operator-policy"
+```
+
+Este comando cria um token vinculado à política "external-secret-operator-policy".
+
+**7. Habilite o armazenamento de segredos e adicione alguns segredos para teste**
+
+```bash
+vault secrets enable -path=data kv
+vault kv put data/postgres POSTGRES_USER=admin POSTGRES_PASSWORD=123456
+```
+
+Estes comandos habilitam o armazenamento de segredos e adicionam um segredo de exemplo ao caminho "data/postgres".
+
+E é isso! Agora você tem o Vault instalado e configurado no seu cluster Kubernetes.
+
+
+
+##### Adicionando o Repositório do External Secrets Operator ao Helm
+
+Antes de instalar o ESO, precisamos adicionar o repositório External Secrets ao Helm. Faça isso com os seguintes comandos:
+
+```bash
+helm repo add external-secrets https://charts.external-secrets.io
+helm repo update
+```
+
+##### Instalando o External Secrets Operator
+
+Após a adição do repositório, você pode instalar o ESO com o comando abaixo:
+
+```bash
+helm install external-secrets external-secrets/external-secrets -n external-secrets --create-namespace --set installCRDs=true
+```
+
+##### Verificando a Instalação do ESO
+
+Para verificar se o ESO foi instalado corretamente, você pode executar o seguinte comando:
+
+```bash
+kubectl get all -n external-secrets
+```
+
+##### Criando um Segredo no Kubernetes
+
+Agora, precisamos criar um segredo no Kubernetes que contém o token do Vault. Faça isso com o seguinte comando:
+
+```bash
+kubectl create secret generic vault-token --from-literal=token=SEU_TOKEN_DO_VAULT
+```
+
+Lembre-se de substituir `SEU_TOKEN_DO_VAULT` pelo token real que você obteve do Vault.
+
+Para verificar se o segredo foi criado corretamente, você pode executar o seguinte comando:
+
+```bash
+kubectl get secrets
+```
+
+##### Configurando o ClusterSecretStore
+
+O próximo passo é configurar o ClusterSecretStore, que é o recurso que fornecerá um gateway central para seu provedor de segredos. Para fazer isso, você precisa criar um arquivo chamado `cluster-store.yaml` com o seguinte conteúdo:
+
+```yaml
+apiVersion: external-secrets.io/v1beta1
+kind: ClusterSecretStore #Kubernetes resource type
+metadata:
+  name: vault-backend #resource name
+spec:
+  provider:
+    vault: #specifies vault as the provider
+      server: "http://10.43.238.17:8200" #the address of your vault instance
+      path: "data" #path for accessing the secrets
+      version: "v1" #Vault API version
+      auth:
+        tokenSecretRef:
+          name: "vault-token" #Use a secret called vault-token
+          key: "token" #Use this key to access the vault token
+```
+
+Para aplicar essa configuração ao Kubernetes, use o seguinte comando:
+
+```bash
+kubectl apply -f cluster-store.yaml
+```
+
+##### Criando um ExternalSecret
+
+Finalmente, precisamos criar um ExternalSecret que especifica quais dados buscar do provedor de segredos. Para fazer isso, crie um arquivo chamado `ex-secrets.yaml` com o seguinte conteúdo:
+
+```yaml
+apiVersion: external-secrets.io/v1beta1
+kind: ExternalSecret
+metadata:
+  name: external-secret
+spec:
+  refreshInterval: "15s"
+  secretStoreRef:
+    name: vault-backend
+    kind: ClusterSecretStore
+  target:
+    name: postgres-secret
+    creationPolicy: Owner
+  data:
+    - secretKey: POSTGRES_USER
+      remoteRef:
+        key: data/postgres
+        property: POSTGRES_USER
+    - secretKey: POSTGRES_PASSWORD
+      remoteRef:
+        key: data/postgres
+        property: POSTGRES_PASSWORD
+```
+
+Para aplicar essa configuração ao Kubernetes, use o seguinte comando:
+
+```bash
+kubectl apply -f ex-secrets.yaml
+```
+
+Para verificar a criação do ExternalSecret, você pode executar o seguinte comando:
+
+```bash
+kubectl get externalsecret
+```
+
+E aí está! Você instalou e configurou com sucesso o External Secrets Operator no Kubernetes. Lembre-se, este é apenas um exemplo de como usar o ESO para integrar o Vault com o Kubernetes, mas os mesmos princípios se aplicam a outros provedores de segredos.
+
+Ótimo! Para verificar se a sincronização funcionou corretamente e para utilizar o segredo no seu cluster Kubernetes, você pode criar um deployment. Vamos fazer isso criando um arquivo `deployment.yaml` que define um deployment de exemplo. No exemplo abaixo, estaremos criando um deployment de um banco de dados PostgreSQL que faz uso do segredo que criamos anteriormente.
+
+```yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: postgres-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: postgres
+  template:
+    metadata:
+      labels:
+        app: postgres
+    spec:
+      containers:
+      - name: postgres
+        image: postgres:latest
+        env:
+        - name: POSTGRES_USER
+          valueFrom:
+            secretKeyRef:
+              name: postgres-secret
+              key: POSTGRES_USER
+        - name: POSTGRES_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: postgres-secret
+              key: POSTGRES_PASSWORD
+```
+
+Este arquivo define um deployment do PostgreSQL que tem um único réplica. Ele define duas variáveis de ambiente, `POSTGRES_USER` e `POSTGRES_PASSWORD`, que obtêm seus valores do segredo `postgres-secret` que criamos anteriormente usando o External Secrets Operator.
+
+Para criar o deployment, use o seguinte comando:
+
+```bash
+kubectl apply -f deployment.yaml
+```
+
+Depois de executar este comando, o Kubernetes criará o deployment e iniciará o contêiner do PostgreSQL. Os valores para `POSTGRES_USER` e `POSTGRES_PASSWORD` serão preenchidos com os valores do segredo `postgres-secret`.
+
+Para verificar se o deployment foi criado com sucesso, você pode executar o seguinte comando:
+
+```bash
+kubectl get deployments
+```
+
+Se tudo funcionou corretamente, você verá o seu deployment `postgres-deployment` listado.
+
+Com isso, você verificou que a sincronização do External Secrets Operator funcionou como esperado e que o segredo está sendo utilizado corretamente pelo seu deployment.
+
+
+
+
 ## Final do Day-8
 
 Hoje o dia foi dedicado dois componentes importantes do Kubernetes: Secrets e ConfigMaps.
@@ -815,6 +1242,7 @@ Vimos:
 - Usar o ConfigMap para definir variáveis de ambiente para os containers no Pod.
 - Tornar ConfigMaps imutáveis.
 - Criamos um arquivo de configuração do Nginx usando um ConfigMap, que usamos para configurar um Pod do Nginx. Também exploramos como montar o ConfigMap em um volume e como usar um arquivo de manifesto para definir o ConfigMap.
+- Descomplicamos o uso do External Secret Operator e sua integração com o Vault.
 
 Finalmente, usamos o ConfigMap e o Secret juntos para configurar um Pod do Nginx para usar HTTPS, onde o ConfigMap é usado para armazenar o arquivo de configuração do Nginx e o Secret é usado para armazenar o certificado TLS e a chave privada.
 
