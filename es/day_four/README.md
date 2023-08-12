@@ -18,16 +18,15 @@
     - [El DaemonSet](#el-daemonset)
       - [Creando un DaemonSet](#creando-un-daemonset)
       - [Apagando el ReplicaSet](#apagando-el-replicaset)
-      - [Apagando o ReplicaSet](#apagando-o-replicaset)
-      - [Criando um DaemonSet](#criando-um-daemonset)
-      - [Criando um DaemonSet utilizando o comando kubectl create](#criando-um-daemonset-utilizando-o-comando-kubectl-create)
-      - [Aumentando um node no cluster](#aumentando-um-node-no-cluster)
-      - [Removendo um DaemonSet](#removendo-um-daemonset)
-    - [As Probes do Kubernetes](#as-probes-do-kubernetes)
-      - [O que são as Probes?](#o-que-são-as-probes)
-      - [Liveness Probe](#liveness-probe)
-      - [Readiness Probe](#readiness-probe)
-      - [Startup Probe](#startup-probe)
+      - [Creando un DaemonSet](#creando-un-daemonset-1)
+      - [Creación de un DaemonSet utilizando el comando kubectl create](#creación-de-un-daemonset-utilizando-el-comando-kubectl-create)
+      - [Añadiendo un nodo al clúster](#añadiendo-un-nodo-al-clúster)
+      - [Eliminando un DaemonSet](#eliminando-un-daemonset)
+    - [Las sondas de Kubernetes](#las-sondas-de-kubernetes)
+      - [¿Qué son las sondas?](#qué-son-las-sondas)
+      - [Sonda de Integridad (Liveness Probe)](#sonda-de-integridad-liveness-probe)
+      - [Sonda de preparación (Readiness Probe)](#sonda-de-preparación-readiness-probe)
+      - [Sonda de Inicio](#sonda-de-inicio)
     - [Exemplo com todas as probes](#exemplo-com-todas-as-probes)
     - [A sua lição de casa](#a-sua-lição-de-casa)
     - [Final do Day-4](#final-do-day-4)
@@ -640,7 +639,6 @@ Algunos casos de uso de `DaemonSets` son:
 Por lo tanto, si nuestro clúster tiene 3 nodos, el `DaemonSet` garantizará que todos los nodos ejecuten una réplica del `Pod` que está gestionando, es decir, 3 réplicas del `Pod`.
 
 Si agregamos otro nodo al clúster, el `DaemonSet` garantizará que todos los nodos ejecuten una réplica del `Pod` que está gestionando, es decir, 4 réplicas del `Pod`.
-#### Apagando o ReplicaSet
 
 Para remover o `ReplicaSet` e todos os `Pods` que ele está gerenciando, basta executar o comando abaixo.
 
@@ -664,8 +662,6 @@ Durante a nossa sessão, nós já aprendemos como criar um `ReplicaSet` e como e
 
 &nbsp;
 
-
-
 Já sabemos o que é um `Pod`, um `Deployment` e um `ReplicaSet`, mas agora é a hora de conhecermos mais um objeto do `Kubernetes`, o `DaemonSet`.
 
 O `DaemonSet` é um objeto que garante que todos os nós do cluster executem uma réplica de um `Pod`, ou seja, ele garante que todos os nós do cluster executem uma cópia de um `Pod`.
@@ -683,52 +679,52 @@ Portanto, se nosso cluster possuir 3 nós, o `DaemonSet` vai garantir que todos 
 
 Caso adicionemos mais um `node` ao cluster, o `DaemonSet` vai garantir que todos os nós executem uma réplica do `Pod` que ele está gerenciando, ou seja, 4 réplicas do `Pod`.
 
-#### Criando um DaemonSet
+#### Creando un DaemonSet
 
-Vamos para o nosso primeiro exemplo, vamos criar um `DaemonSet` que vai garantir que todos os nós do cluster executem uma réplica do `Pod` do `node-exporter`, que é um exporter de métricas do `Prometheus`.
+Vamos con nuestro primer ejemplo, vamos a crear un `DaemonSet` que asegurará que todos los nodos del clúster ejecuten una réplica del `Pod` del `node-exporter`, que es un exportador de métricas para `Prometheus`.
 
-Para isso, vamos criar um arquivo chamado `node-exporter-daemonset.yaml` e vamos adicionar o seguinte conteúdo.
+Para lograrlo, vamos a crear un archivo llamado `node-exporter-daemonset.yaml` y agregar el siguiente contenido.
 
 ```yaml
-apiVersion: apps/v1 # Versão da API do Kubernetes do objeto
-kind: DaemonSet # Tipo do objeto
-metadata: # Informações sobre o objeto
-  name: node-exporter # Nome do objeto
-spec: # Especificação do objeto
-  selector: # Seletor do objeto
-    matchLabels: # Labels que serão utilizadas para selecionar os Pods
-      app: node-exporter # Label que será utilizada para selecionar os Pods
-  template: # Template do objeto
-    metadata: # Informações sobre o objeto
-      labels: # Labels que serão adicionadas aos Pods
-        app: node-exporter # Label que será adicionada aos Pods
-    spec: # Especificação do objeto, no caso, a especificação do Pod
-      hostNetwork: true # Habilita o uso da rede do host, usar com cuidado
-      containers: # Lista de contêineres que serão executados no Pod
-      - name: node-exporter # Nome do contêiner
-        image: prom/node-exporter:latest # Imagem do contêiner
-        ports: # Lista de portas que serão expostas no contêiner
-        - containerPort: 9100 # Porta que será exposta no contêiner
-          hostPort: 9100 # Porta que será exposta no host
-        volumeMounts: # Lista de volumes que serão montados no contêiner, pois o node-exporter precisa de acesso ao /proc e /sys
-        - name: proc # Nome do volume
-          mountPath: /host/proc # Caminho onde o volume será montado no contêiner
-          readOnly: true # Habilita o modo de leitura apenas
-        - name: sys # Nome do volume 
-          mountPath: /host/sys # Caminho onde o volume será montado no contêiner
-          readOnly: true # Habilita o modo de leitura apenas
-      volumes: # Lista de volumes que serão utilizados no Pod
-      - name: proc # Nome do volume
-        hostPath: # Tipo de volume 
-          path: /proc # Caminho do volume no host
-      - name: sys # Nome do volume
-        hostPath: # Tipo de volume
-          path: /sys # Caminho do volume no host
+apiVersion: apps/v1 # Versión de la API de Kubernetes del objeto
+kind: DaemonSet # Tipo de objeto
+metadata: # Información sobre el objeto
+  name: node-exporter # Nombre del objeto
+spec: # Especificación del objeto
+  selector: # Selector del objeto
+    matchLabels: # Etiquetas que se usarán para seleccionar los Pods
+      app: node-exporter # Etiqueta que se usará para seleccionar los Pods
+  template: # Plantilla del objeto
+    metadata: # Información sobre el objeto
+      labels: # Etiquetas que se agregarán a los Pods
+        app: node-exporter # Etiqueta que se agregará a los Pods
+    spec: # Especificación del objeto, en este caso, la especificación del Pod
+      hostNetwork: true # Habilita el uso de la red del host, usar con precaución
+      containers: # Lista de contenedores que se ejecutarán en el Pod
+      - name: node-exporter # Nombre del contenedor
+        image: prom/node-exporter:latest # Imagen del contenedor
+        ports: # Lista de puertos que se expondrán en el contenedor
+        - containerPort: 9100 # Puerto que se expondrá en el contenedor
+          hostPort: 9100 # Puerto que se expondrá en el host
+        volumeMounts: # Lista de puntos de montaje de volúmenes en el contenedor, ya que node-exporter necesita acceso a /proc y /sys
+        - name: proc # Nombre del volumen
+          mountPath: /host/proc # Ruta donde se montará el volumen en el contenedor
+          readOnly: true # Habilita el modo de solo lectura
+        - name: sys # Nombre del volumen
+          mountPath: /host/sys # Ruta donde se montará el volumen en el contenedor
+          readOnly: true # Habilita el modo de solo lectura
+      volumes: # Lista de volúmenes que se utilizarán en el Pod
+      - name: proc # Nombre del volumen
+        hostPath: # Tipo de volumen
+          path: /proc # Ruta del volumen en el host
+      - name: sys # Nombre del volumen
+        hostPath: # Tipo de volumen
+          path: /sys # Ruta del volumen en el host
 ```
 
 &nbsp;
 
-Eu deixei o arquivo comentado para facilitar o entendimento, agora vamos criar o `DaemonSet` utilizando o arquivo de manifesto.
+He dejado el archivo comentado para facilitar la comprensión, ahora vamos a crear el `DaemonSet` utilizando el archivo de manifiesto.
 
 ```bash
 kubectl apply -f node-exporter-daemonset.yaml
@@ -736,7 +732,7 @@ kubectl apply -f node-exporter-daemonset.yaml
 
 &nbsp;
 
-Agora vamos verificar se o `DaemonSet` foi criado.
+Ahora verifiquemos si el `DaemonSet` se ha creado.
 
 ```bash
 kubectl get daemonset
@@ -744,7 +740,7 @@ kubectl get daemonset
 
 &nbsp;
 
-Como podemos ver, o `DaemonSet` foi criado com sucesso.
+Como podemos ver, el `DaemonSet` se ha creado exitosamente.
 
 ```bash
 NAME            DESIRED   CURRENT   READY   UP-TO-DATE   AVAILABLE   NODE SELECTOR   AGE
@@ -753,7 +749,7 @@ node-exporter   2         2         2       2            2           <none>     
 
 &nbsp;
 
-Caso você queira verificar os `Pods` que o `DaemonSet` está gerenciando, basta executar o comando abaixo.
+Si deseamos verificar los `Pods` que el `DaemonSet` está gestionando, solo ejecutamos el siguiente comando.
 
 ```bash
 kubectl get pods -l app=node-exporter
@@ -761,9 +757,9 @@ kubectl get pods -l app=node-exporter
 
 &nbsp;
 
-Somente para lembrar, estamos utilizando o parâmetro `-l` para filtrar os `Pods` que possuem a label `app=node-exporter`, que é o caso do nosso `DaemonSet`.
+Solo para recordar, estamos utilizando el parámetro `-l` para filtrar los `Pods` que tienen la etiqueta `app=node-exporter`, que es el caso de nuestro `DaemonSet`.
 
-Como podemos ver, o `DaemonSet` está gerenciando 2 `Pods`, um em cada nó do cluster.
+Como podemos ver, el `DaemonSet` está gestionando 2 `Pods`, uno en cada nodo del clúster.
 
 ```bash
 NAME                  READY   STATUS    RESTARTS   AGE
@@ -773,7 +769,7 @@ node-exporter-q8zvw   1/1     Running   0          6m14s
 
 &nbsp;
 
-Os nossos `Pods` do `node-exporter` foram criados com sucesso, agora vamos verificar se eles estão sendo executados em todos os nós do cluster.
+Nuestros `Pods` de `node-exporter` se han creado con éxito, ahora verifiquemos si se están ejecutando en todos los nodos del clúster.
 
 ```bash
 kubectl get pods -o wide -l app=node-exporter
@@ -781,7 +777,7 @@ kubectl get pods -o wide -l app=node-exporter
 
 &nbsp;
 
-Com o comando acima, podemos ver em qual nó cada `Pod` está sendo executado.
+Con el comando anterior, podemos ver en qué nodo se está ejecutando cada `Pod`.
 
 ```bash
 NAME                                READY   STATUS    RESTARTS   AGE     IP               NODE                            NOMINATED NODE   READINESS GATES
@@ -791,9 +787,9 @@ node-exporter-q8zvw                 1/1     Running   0          3m49s   192.168
 
 &nbsp;
 
-Como podemos ver, os `Pods` do `node-exporter` estão sendo executados em todos os dois nós do cluster.
+Como podemos ver, los `Pods` de `node-exporter` se están ejecutando en ambos nodos del clúster.
 
-Para ver os detalhes do `DaemonSet`, basta executar o comando abaixo.
+Para ver los detalles del `DaemonSet`, solo ejecutamos el siguiente comando.
 
 ```bash
 kubectl describe daemonset node-exporter
@@ -801,7 +797,7 @@ kubectl describe daemonset node-exporter
 
 &nbsp;
 
-O comando acima vai retornar uma saída parecida com a abaixo.
+El comando anterior devolverá una salida similar a la siguiente.
 
 ```bash
 Name:           node-exporter
@@ -844,11 +840,11 @@ Events:
 
 &nbsp;
 
-Na saída acima, podemos ver algumas informações bem importantes relacionadas ao `DaemonSet`, como por exemplo, o número de nós que o `DaemonSet` está gerenciando, o número de `Pods` que estão sendo executados em cada nó, etc.
+En la salida anterior, podemos ver información muy importante relacionada con el `DaemonSet`, como por ejemplo, el número de nodos que el `DaemonSet` está gestionando, el número de `Pods` que se están ejecutando en cada nodo, etc.
 
-#### Criando um DaemonSet utilizando o comando kubectl create
+#### Creación de un DaemonSet utilizando el comando kubectl create
 
-Você ainda pode criar um `DaemonSet` utilizando o comando `kubectl create`, mas eu prefiro utilizar o arquivo de manifesto, pois assim eu consigo versionar o meu `DaemonSet`, mas caso você queira criar um `DaemonSet` utilizando o comando `kubectl create`, basta executar o comando abaixo.
+Aún puedes crear un `DaemonSet` utilizando el comando `kubectl create`, pero prefiero usar el archivo de manifiesto, ya que así puedo versionar mi `DaemonSet`. Sin embargo, si deseas crear un `DaemonSet` utilizando el comando `kubectl create`, simplemente ejecuta el siguiente comando.
 
 ```bash
 kubectl create daemonset node-exporter --image=prom/node-exporter:latest --port=9100 --host-port=9100
@@ -856,7 +852,7 @@ kubectl create daemonset node-exporter --image=prom/node-exporter:latest --port=
 
 &nbsp;
 
-Ficaram faltando alguns parâmetros no comando acima, mas eu deixei assim para facilitar o entendimento, caso você queira ver todos os parâmetros que podem ser utilizados no comando `kubectl create daemonset`, basta executar o comando abaixo.
+En el comando anterior, faltan algunos parámetros, pero los dejé así para facilitar la comprensión. Si deseas ver todos los parámetros que se pueden usar en el comando `kubectl create daemonset`, simplemente ejecuta el siguiente comando.
 
 ```bash
 kubectl create daemonset --help
@@ -864,7 +860,7 @@ kubectl create daemonset --help
 
 &nbsp;
 
-Eu gosto de utilizar o `kubectl create` somente para criar um arquivo exemplo, para que eu possa me basear na hora de criar o meu arquivo de manifesto, mas caso você queira criar um manifesto para criar `DaemonSet` utilizando o comando `kubectl create`, basta executar o comando abaixo.
+A mí me gusta usar `kubectl create` solo para crear un archivo de ejemplo, para que pueda basarme en él al crear mi archivo de manifiesto. Sin embargo, si deseas crear un manifiesto para un `DaemonSet` utilizando el comando `kubectl create`, simplemente ejecuta el siguiente comando.
 
 ```bash
 kubectl create daemonset node-exporter --image=prom/node-exporter:latest --port=9100 --host-port=9100 -o yaml --dry-run=client > node-exporter-daemonset.yaml
@@ -872,23 +868,23 @@ kubectl create daemonset node-exporter --image=prom/node-exporter:latest --port=
 
 &nbsp;
 
-Simples assim! Vou te explicar o que está acontecendo no comando acima.
+¡Así de simple! Te explicaré lo que está sucediendo en el comando anterior.
 
-- `kubectl create daemonset node-exporter` - Cria um `DaemonSet` chamado `node-exporter`.
-- `--image=prom/node-exporter:latest` - Utiliza a imagem `prom/node-exporter:latest` para criar os `Pods`.
-- `--port=9100` - Define a porta `9100` para o `Pod`.
-- `--host-port=9100` - Define a porta `9100` para o nó.
-- `-o yaml` - Define o formato do arquivo de manifesto como `yaml`.
-- `--dry-run=client` - Executa o comando sem criar o `DaemonSet`, somente simula a criação do `DaemonSet`.
-- `> node-exporter-daemonset.yaml` - Redireciona a saída do comando para o arquivo `node-exporter-daemonset.yaml`.
+- `kubectl create daemonset node-exporter` - Crea un `DaemonSet` llamado `node-exporter`.
+- `--image=prom/node-exporter:latest` - Utiliza la imagen `prom/node-exporter:latest` para crear los `Pods`.
+- `--port=9100` - Define el puerto `9100` para el `Pod`.
+- `--host-port=9100` - Define el puerto `9100` para el nodo.
+- `-o yaml` - Define el formato del archivo de manifiesto como `yaml`.
+- `--dry-run=client` - Ejecuta el comando sin crear el `DaemonSet`, solo simula la creación del `DaemonSet`.
+- `> node-exporter-daemonset.yaml` - Redirige la salida del comando al archivo `node-exporter-daemonset.yaml`.
 
-Ficou mais simples, certo?
+¡Más sencillo, ¿verdad?
 
-#### Aumentando um node no cluster
+#### Añadiendo un nodo al clúster
 
-Agora que já sabemos como criar um `DaemonSet`, vamos aumentar o número de nós do nosso cluster.
+Ahora que ya sabemos cómo crear un `DaemonSet`, vamos a aumentar el número de nodos en nuestro clúster.
 
-Nós estamos com duas réplicas nesse momento.
+Actualmente tenemos dos réplicas.
 
 ```bash
 kubectl get nodes
@@ -898,15 +894,15 @@ kubectl get nodes
 
 ```bash
 NAME                             STATUS   ROLES    AGE    VERSION
-ip-192-168-55-68.ec2.internal    Ready    <none>   113m   v1.23.16-eks-48e63af
-ip-192-168-8-145.ec2.internal    Ready    <none>   113m   v1.23.16-eks-48e63af
+ip-192-168-55-68.ec2.internal    Ready    <ninguno>   113m   v1.23.16-eks-48e63af
+ip-192-168-8-145.ec2.internal    Ready    <ninguno>   113m   v1.23.16-eks-48e63af
 ```
 
 &nbsp;
 
-Vamos aumentar o número de nós para 3.
+Vamos a aumentar el número de nodos a 3.
 
-Eu estou utilizando o `eksctl` para criar o cluster, então eu vou utilizar o comando `eksctl scale nodegroup` para aumentar o número de nós do cluster, mas caso você esteja utilizando outro gerenciador de cluster, você pode utilizar o comando que preferir para aumentar o número de nós do cluster.
+Estoy utilizando `eksctl` para crear el clúster, por lo que utilizaré el comando `eksctl scale nodegroup` para aumentar el número de nodos en el clúster. Si estás utilizando otro administrador de clúster, puedes usar el comando que prefieras para aumentar el número de nodos en el clúster.
 
 ```bash
 eksctl scale nodegroup --cluster=eks-cluster --nodes 3 --name eks-cluster-nodegroup
@@ -922,7 +918,7 @@ eksctl scale nodegroup --cluster=eks-cluster --nodes 3 --name eks-cluster-nodegr
 
 &nbsp;
 
-Vamos verificar se o node foi adicionado ao cluster.
+Verifiquemos si el nodo ha sido agregado al clúster.
 
 ```bash
 kubectl get nodes
@@ -932,18 +928,18 @@ kubectl get nodes
 
 ```bash
 NAME                             STATUS   ROLES    AGE    VERSION
-ip-192-168-45-194.ec2.internal   Ready    <none>   47s    v1.23.16-eks-48e63af
-ip-192-168-55-68.ec2.internal    Ready    <none>   113m   v1.23.16-eks-48e63af
-ip-192-168-8-145.ec2.internal    Ready    <none>   113m   v1.23.16-eks-48e63af
+ip-192-168-45-194.ec2.internal   Ready    <ninguno>   47s    v1.23.16-eks-48e63af
+ip-192-168-55-68.ec2.internal    Ready    <ninguno>   113m   v1.23.16-eks-48e63af
+ip-192-168-8-145.ec2.internal    Ready    <ninguno>   113m   v1.23.16-eks-48e63af
 ```
 
 &nbsp;
 
-Pronto, agora nós temos 3 nós no cluster.
+Listo, ahora tenemos 3 nodos en el clúster.
 
-Mas a pergunta que não quer calar é: O `DaemonSet` criou um `Pod` no novo nó?
+Pero la pregunta que no quiere callar es: ¿El `DaemonSet` ha creado un `Pod` en el nuevo nodo?
 
-Vamos verificar.
+Vamos a verificarlo.
 
 ```bash
 kubectl get pods -o wide -l app=node-exporter
@@ -953,14 +949,14 @@ kubectl get pods -o wide -l app=node-exporter
 
 ```bash
 NAME                  READY   STATUS    RESTARTS   AGE   IP               NODE                             NOMINATED NODE   READINESS GATES
-node-exporter-k8wp9   1/1     Running   0          20m   192.168.8.145    ip-192-168-8-145.ec2.internal    <none>           <none>
-node-exporter-q8zvw   1/1     Running   0          20m   192.168.55.68    ip-192-168-55-68.ec2.internal    <none>           <none>
-node-exporter-xffgq   1/1     Running   0          70s   192.168.45.194   ip-192-168-45-194.ec2.internal   <none>           <none>
+node-exporter-k8wp9   1/1     Running   0          20m   192.168.8.145    ip-192-168-8-145.ec2.internal    <ninguno>           <ninguno>
+node-exporter-q8zvw   1/1     Running   0          20m   192.168.55.68    ip-192-168-55-68.ec2.internal    <ninguno>           <ninguno>
+node-exporter-xffgq   1/1     Running   0          70s   192.168.45.194   ip-192-168-45-194.ec2.internal   <ninguno>           <ninguno>
 ```
 
 &nbsp;
 
-Parece que temos um novo `Pod` no nó `ip-192-168-45-194.ec2.internal`, mas vamos verificar se o `DaemonSet` está gerenciando esse nó.
+Parece que tenemos un nuevo `Pod` en el nodo `ip-192-168-45-194.ec2.internal`, pero verifiquemos si el `DaemonSet` está gestionando ese nodo.
 
 ```bash
 kubectl describe daemonset node-exporter
@@ -979,9 +975,7 @@ Pods Status:  3 Running / 0 Waiting / 0 Succeeded / 0 Failed
 
 &nbsp;
 
-Tudo em paz e harmonia, o `DaemonSet` está gerenciando o novo `Pod` no novo `node`.
-E claro, se por algum motivo o `Pod` cair, o `DaemonSet` vai criar um novo `Pod` no mesmo `node`. 
-E claro versão 2, se a quantidade de nodes diminuir, o `DaemonSet` vai remover os `Pods` que estão em excesso. E bem lembrado, deixa eu dimunuir o número de nós do cluster para salvar alguns doletas.
+Todo está en paz y armonía, el `DaemonSet` está gestionando el nuevo `Pod` en el nuevo `nodo`. Y, por supuesto, si por alguna razón el `Pod` se cae, el `DaemonSet` creará un nuevo `Pod` en el mismo `nodo`. Y, por supuesto, en la versión 2, si la cantidad de nodos disminuye, el `DaemonSet` eliminará los `Pods` en exceso. Y hablando de eso, déjame disminuir el número de nodos en el clúster para ahorrar algunos Dólares/Euros.
 
 ```bash
 eksctl scale nodegroup --cluster=eks-cluster --nodes 2 --name eks-cluster-nodegroup
@@ -989,9 +983,9 @@ eksctl scale nodegroup --cluster=eks-cluster --nodes 2 --name eks-cluster-nodegr
 
 &nbsp;
 
-#### Removendo um DaemonSet
+#### Eliminando un DaemonSet
 
-Para remover o `DaemonSet` é bem simples, basta executar o comando `kubectl delete daemonset <nome-do-daemonset>`.
+Para eliminar un `DaemonSet` es muy sencillo, simplemente ejecuta el comando `kubectl delete daemonset <nombre-del-daemonset>`.
 
 ```bash
 kubectl delete daemonset node-exporter
@@ -1000,12 +994,12 @@ kubectl delete daemonset node-exporter
 &nbsp;
 
 ```bash
-daemonset.apps "node-exporter" deleted
+daemonset.apps "node-exporter" eliminado
 ```
 
 &nbsp;
 
-Ou ainda você pode remover o `DaemonSet` através do manifesto.
+O también puedes eliminar el `DaemonSet` a través del manifiesto.
 
 ```bash
 kubectl delete -f node-exporter-daemonset.yaml
@@ -1013,32 +1007,31 @@ kubectl delete -f node-exporter-daemonset.yaml
 
 &nbsp;
 
-Simples assim!
+¡Así de simple!
 
-Acho que o assunto `DaemonSet` já está bem claro. Ainda iremos ver todos esses objetos que vimos até aqui diversas vezes durante a nossa jornada, então não se preocupe pois iremos praticar muito mais.
+Creo que el tema del `DaemonSet` ya está bastante claro. Aún veremos todos estos objetos que hemos aprendido hasta ahora varias veces a lo largo de nuestro recorrido, así que no te preocupes, practicaremos mucho más.
 
 &nbsp;
 
-### As Probes do Kubernetes
+### Las sondas de Kubernetes
 
-Antes de seguir, eu queria trazer algo novo além dos dois novos objetos que você já aprendeu no dia de hoje.
-Eu queria que você saisse do dia de hoje com a segurança que você e capaz de criar um `Pod`, um `Deployment`, um `ReplicaSet` ou um `DaemonSet`, mas também com a segurança que você pode monitorar o seus suas aplicações que estão rodando dentro do cluster de maneira efetiva e utilizando recursos que o Kubernetes já nos disponibiliza.
+Antes de continuar, quería presentarte algo nuevo además de los dos nuevos objetos que ya has aprendido hoy. Quería que terminaras este día sintiéndote seguro de que eres capaz de crear un `Pod`, un `Deployment`, un `ReplicaSet` o un `DaemonSet`, pero también de que puedes supervisar tus aplicaciones que se ejecutan dentro del clúster de manera efectiva y utilizando los recursos que Kubernetes ya nos proporciona.
 
-#### O que são as Probes?
+#### ¿Qué son las sondas?
 
-As probes são uma forma de você monitorar o seu `Pod` e saber se ele está em um estado saudável ou não. Com elas é possível assegurar que seus `Pods` estão rodando e respondendo de maneira correta, e mais do que isso, que o Kubernetes está testando o que está sendo executado dentro do seu `Pod`.
+Las sondas son una forma de supervisar tu `Pod` y saber si está en un estado saludable o no. Con ellas, puedes asegurarte de que tus `Pods` se están ejecutando y respondiendo de manera correcta, y lo que es más importante, que Kubernetes está evaluando lo que se está ejecutando dentro de tu `Pod`.
 
-Hoje nós temos disponíveis três tipos de probes, a `livenessProbe`, a `readinessProbe` e a `startupProbe`. Vamos ver no detalhe cada uma delas.
+Hoy en día, tenemos disponibles tres tipos de sondas: `livenessProbe`, `readinessProbe` y `startupProbe`. Vamos a explorar en detalle cada una de ellas.
 
-#### Liveness Probe
+#### Sonda de Integridad (Liveness Probe)
 
-A `livenessProbe` é a nossa probe de verificação de integridade, o que ela faz é verificar se o que está rodando dentro do `Pod` está saudável. O que fazemos é criar uma forma de testar se o que temos dentro do `Pod` está respondendo conforme esperado. Se por acaso o teste falhar, o `Pod` será reiniciado.
+La `livenessProbe` es nuestra sonda de verificación de integridad, lo que hace es comprobar si lo que se está ejecutando dentro del `Pod` está saludable. Creamos una forma de probar si lo que tenemos dentro del `Pod` está respondiendo como se espera. Si la prueba falla, el `Pod` se reiniciará.
 
-Para ficar mais claro, vamos mais uma vez utilizar o exemplo com o `Nginx`. Gosto de usar o `Nginx` como exemplo, pois sei que toda pessoa já o conhece, e assim, fica muito mais fácil de entender o que está acontecendo. Afinal, você está aqui para aprender Kubernetes, e se for com algo que você já conhece, fica muito mais fácil de entender.
+Para que quede más claro, utilizaremos nuevamente el ejemplo con `Nginx`. Me gusta usar `Nginx` como ejemplo porque sé que todos lo conocen, y así es mucho más fácil entender lo que está sucediendo. Después de todo, estás aquí para aprender Kubernetes, y si es con algo que ya conoces, es mucho más fácil de entender.
 
-Bem, vamos lá, hora de criar um novo `Deployment` com o `Nginx`, vamos utilizar o exemplo que já utilizamos quando aprendemos sobre o `Deployment`.
+Bueno, vamos allá. Es hora de crear un nuevo `Deployment` con `Nginx`. Utilizaremos el ejemplo que ya utilizamos cuando aprendimos sobre `Deployment`.
 
-Para isso, crie um arquivo chamado `nginx-liveness.yaml` e cole o seguinte conteúdo.
+Para ello, crea un archivo llamado `nginx-liveness.yaml` y pega el siguiente contenido.
 
 ```yaml
 apiVersion: apps/v1
@@ -1068,26 +1061,26 @@ spec:
           requests:
             cpu: 0.25
             memory: 128Mi
-        livenessProbe: # Aqui é onde vamos adicionar a nossa livenessProbe
-          tcpSocket: # Aqui vamos utilizar o tcpSocket, onde vamos se conectar ao container através do protocolo TCP
-            port: 80 # Qual porta TCP vamos utilizar para se conectar ao container
-          initialDelaySeconds: 10 # Quantos segundos vamos esperar para executar a primeira verificação
-          periodSeconds: 10 # A cada quantos segundos vamos executar a verificação
-          timeoutSeconds: 5 # Quantos segundos vamos esperar para considerar que a verificação falhou
-          failureThreshold: 3 # Quantos falhas consecutivas vamos aceitar antes de reiniciar o container
+        livenessProbe: # Aquí es donde agregaremos nuestra livenessProbe
+          tcpSocket: # Aquí usaremos tcpSocket para conectarnos al contenedor a través del protocolo TCP
+            port: 80 # Puerto TCP al que nos conectaremos en el contenedor
+          initialDelaySeconds: 10 # Cuántos segundos esperaremos antes de realizar la primera verificación
+          periodSeconds: 10 # Cada cuántos segundos realizaremos la verificación
+          timeoutSeconds: 5 # Cuántos segundos esperaremos antes de considerar que la verificación ha fallado
+          failureThreshold: 3 # Cuántos fallos consecutivos aceptaremos antes de reiniciar el contenedor
 ```
 
 &nbsp;
 
-Com isso temos algumas coisas novas, e utilizamos apenas uma `probe` que é a `livenessProbe`. 
+Con esto tenemos algunas novedades, y solo utilizamos una sonda, que es la `livenessProbe`.
 
-O que declaramos com a regra acima é que queremos testar se o `Pod` está respondendo através do protocolo TCP, através da opção `tcpSocket`, na porta 80 que foi definida pela opção `port`. E também definimos que queremos esperar 10 segundos para executar a primeira verificação utilizando `initialDelaySeconds` e por conta da `periodSeconds`falamos que queremos que a cada 10 segundos seja realizada a verificação. Caso a verificação falhe, vamos esperar 5 segundos, por conta da `timeoutSeconds`, para tentar novamente, e como utilizamos o `failureThreshold`, se falhar mais 3 vezes, vamos reiniciar o `Pod`.
-      
-Ficou mais claro? Vamos para mais um exemplo.
+Lo que declaramos con la regla anterior es que queremos probar si el `Pod` está respondiendo a través del protocolo TCP, utilizando la opción `tcpSocket`, en el puerto 80 que se definió mediante la opción `port`. También hemos definido que queremos esperar 10 segundos para realizar la primera verificación utilizando `initialDelaySeconds`, y debido a `periodSeconds`, queremos que se realice la verificación cada 10 segundos. Si la verificación falla, esperaremos 5 segundos, debido a `timeoutSeconds`, para volver a intentarlo, y como usamos `failureThreshold`, si falla 3 veces seguidas, reiniciaremos el `Pod`.
 
-Vamos imaginar que agora não queremos mais utilizar o `tcpSocket`, mas sim o `httpGet` para tentar acessar um endpoint dentro do nosso `Pod`.
+¿Quedó más claro? Sigamos con otro ejemplo.
 
-Para isso, vamos alterar o nosso `nginx-deployment.yaml` para o seguinte.
+Digamos que ya no queremos utilizar `tcpSocket`, sino `httpGet` para intentar acceder a un endpoint dentro de nuestro `Pod`.
+
+Para ello, modifiquemos nuestro `nginx-deployment.yaml` de la siguiente manera.
 
 ```yaml
 apiVersion: apps/v1
@@ -1117,25 +1110,25 @@ spec:
           requests:
             cpu: 0.25
             memory: 128Mi
-        livenessProbe: # Aqui é onde vamos adicionar a nossa livenessProbe
-          httpGet: # Aqui vamos utilizar o httpGet, onde vamos se conectar ao container através do protocolo HTTP
-            path: / # Qual o endpoint que vamos utilizar para se conectar ao container
-            port: 80 # Qual porta TCP vamos utilizar para se conectar ao container
-          initialDelaySeconds: 10 # Quantos segundos vamos esperar para executar a primeira verificação
-          periodSeconds: 10 # A cada quantos segundos vamos executar a verificação
-          timeoutSeconds: 5 # Quantos segundos vamos esperar para considerar que a verificação falhou
-          failureThreshold: 3 # Quantos falhas consecutivas vamos aceitar antes de reiniciar o container
+        livenessProbe: # Aquí es donde agregaremos nuestra livenessProbe
+          httpGet: # Aquí usaremos httpGet para conectarnos al contenedor a través del protocolo HTTP
+            path: / # Endpoint que usaremos para conectarnos al contenedor
+            port: 80 # Puerto TCP al que nos conectaremos en el contenedor
+          initialDelaySeconds: 10 # Cuántos segundos esperaremos antes de realizar la primera verificación
+          periodSeconds: 10 # Cada cuántos segundos realizaremos la verificación
+          timeoutSeconds: 5 # Cuántos segundos esperaremos antes de considerar que la verificación ha fallado
+          failureThreshold: 3 # Cuántos fallos consecutivos aceptaremos antes de reiniciar el contenedor
 ```
 
 &nbsp;
 
-Perceba que agora somente mudamos algumas coisas, apesar de seguir com o mesmo objetivo, que é verificar se o `Nginx` está respondendo corretamente, mudamos como iremos testar isso. Agora estamos utilizando o `httpGet` para testar se o `Nginx` está respondendo corretamente através do protocolo HTTP, e para isso, estamos utilizando o endpoint `/` e a porta 80.
+Observa que ahora hemos cambiado algunas cosas, aunque mantenemos el mismo objetivo: verificar si `Nginx` está respondiendo correctamente. Cambiamos la forma en que lo probamos. Ahora estamos usando `httpGet` para verificar si `Nginx` responde correctamente a través del protocolo HTTP, y para eso, usamos el endpoint `/` y el puerto 80.
 
-O que temos de novo aqui é a opção `path`, que é o endpoint que vamos utilizar para testar se o `Nginx` está respondendo corretamente, e claro, a `httpGet` é a forma como iremos realizar o nosso teste, através do protocolo HTTP.
+Lo nuevo aquí es la opción `path`, que es el endpoint que usaremos para verificar si `Nginx` responde correctamente, y, por supuesto, `httpGet` es la forma en que realizamos nuestra prueba, utilizando el protocolo HTTP.
 
 &nbsp;
 
-Escolha qual dois dois exemplos você quer utilizar, e crie o seu `Deployment` através do comando abaixo.
+Elige cuál de los dos ejemplos prefieres y crea tu `Deployment` con el siguiente comando.
 
 ```bash
 kubectl apply -f nginx-deployment.yaml
@@ -1143,7 +1136,7 @@ kubectl apply -f nginx-deployment.yaml
 
 &nbsp;
 
-Para verificar se o `Deployment` foi criado corretamente, execute o comando abaixo.
+Para verificar si el `Deployment` se creó correctamente, ejecuta el siguiente comando.
 
 ```bash
 kubectl get deployments
@@ -1151,7 +1144,7 @@ kubectl get deployments
 
 &nbsp;
 
-Você deve ver algo parecido com isso.
+Deberías ver algo similar a esto.
 
 ```bash
 NAME                                READY   STATUS    RESTARTS   AGE
@@ -1162,7 +1155,7 @@ nginx-deployment-7557d7fc6c-wv876   1/1     Running   0          16s
 
 &nbsp;
 
-Para que você possa ver mais detalhes sobre o seu `Pod` e saber se a nossa probe está funcionando corretamente, vamos utilizar o comando abaixo.
+Para obtener más detalles sobre tu `Pod` y verificar si nuestra sonda está funcionando correctamente, usa el siguiente comando.
 
 ```bash
 kubectl describe pod nginx-deployment-7557d7fc6c-dx48d
@@ -1170,7 +1163,7 @@ kubectl describe pod nginx-deployment-7557d7fc6c-dx48d
 
 &nbsp;
 
-A saída deve ser parecida com essa.
+La salida debería ser similar a esta.
 
 ```bash
 Name:             nginx-deployment-589d6fc888-42fmg
@@ -1237,7 +1230,7 @@ Events:
 
 &nbsp;
 
-Aqui temos a informação mais importante para nós nesse momento:
+Aquí tenemos la información más importante para nosotros en este momento:
 
 ```bash
     Liveness:     http-get http://:80/ delay=10s timeout=5s period=10s #success=1 #failure=3
@@ -1245,13 +1238,13 @@ Aqui temos a informação mais importante para nós nesse momento:
 
 &nbsp;
 
-A saída acima é parte da saída do comando `kubectl describe pod`. Tudo funcionando maravilhosamente bem.
+La salida de arriba es parte de la salida del comando `kubectl describe pod`. Todo está funcionando maravillosamente bien.
 
-Agora vamos fazer o seguinte, vamos alterar o nosso `Deployment`, para que a nossa probe falhe. Para isso vamos alterar o `endpoint` que estamos utilizando. Vamos alterar o `path` para `/giropops`.
+Ahora, hagamos lo siguiente: cambiemos nuestro `Deployment` para que nuestra sonda falle. Para ello, vamos a cambiar el `endpoint` que estamos usando. Cambiaremos el `path` a `/giropops`.
 
 &nbsp;
 
-```yaml
+
 ```yaml
 apiVersion: apps/v1
 kind: Deployment
@@ -1280,19 +1273,19 @@ spec:
           requests:
             cpu: 0.25
             memory: 128Mi
-        livenessProbe: # Aqui é onde vamos adicionar a nossa livenessProbe
-          httpGet: # Aqui vamos utilizar o httpGet, onde vamos se conectar ao container através do protocolo HTTP
-            path: /giropops # Qual o endpoint que vamos utilizar para se conectar ao container
-            port: 80 # Qual porta TCP vamos utilizar para se conectar ao container
-          initialDelaySeconds: 10 # Quantos segundos vamos esperar para executar a primeira verificação
-          periodSeconds: 10 # A cada quantos segundos vamos executar a verificação
-          timeoutSeconds: 5 # Quantos segundos vamos esperar para considerar que a verificação falhou
-          failureThreshold: 3 # Quantos falhas consecutivas vamos aceitar antes de reiniciar o container
+        livenessProbe: # Aquí es donde vamos a agregar nuestra sonda de integridad (`livenessProbe`).
+          httpGet: # Aquí vamos a utilizar `httpGet`, donde nos conectaremos al contenedor a través del protocolo HTTP.
+            path: /giropops # ¿Qué `endpoint` vamos a utilizar para conectarnos al contenedor?
+            port: 80 # ¿Qué puerto TCP vamos a utilizar para conectarnos al contenedor?
+          initialDelaySeconds: 10 # ¿Cuántos segundos vamos a esperar para realizar la primera verificación?
+          periodSeconds: 10 # ¿Cada cuántos segundos vamos a ejecutar la verificación?
+          timeoutSeconds: 5 # ¿Cuántos segundos vamos a esperar antes de considerar que la verificación ha fallado?
+          failureThreshold: 3 # ¿Cuántas fallas consecutivas vamos a permitir antes de reiniciar el contenedor?
 ```
 
 &nbsp;
 
-Vamos aplicar as alterações no nosso `Deployment`:
+Vamos aplicar los cambios en nuestro `Deployment`:
 
 ```bash
 kubectl apply -f deployment.yaml
@@ -1300,12 +1293,12 @@ kubectl apply -f deployment.yaml
 
 &nbsp;
 
-Depois de um tempo, você perceberá que o Kubernetes finalizou a atualização do nosso `Deployment`. 
-Se você aguardar um pouco mais, você irá perceber que os `Pods` estã̀o sendo reiniciados com frequência.
+Después de un tiempo, notarás que Kubernetes ha finalizado la actualización de nuestro `Deployment`.
+Si esperas un poco más, te darás cuenta de que los `Pods` se están reiniciando con frecuencia.
 
-Tudo isso porque a nossa `livenessProbe` está falhando, afinal o nosso `endpoint` está errado.
+Todo esto se debe a que nuestra `livenessProbe` está fallando, ya que el `endpoint` está incorrecto.
 
-Podemos ver mais detalhes sobre o que está acontecendo na saída do comando `kubectl describe pod`:
+Podemos ver más detalles sobre lo que está ocurriendo en la salida del comando `kubectl describe pod`:
 
 ```bash
 kubectl describe pod nginx-deployment-7557d7fc6c-dx48d
@@ -1382,31 +1375,21 @@ Events:
   Normal   Started    3s (x2 over 42s)  kubelet            Started container nginx
 ```
 
-&nbsp;
+En la última parte de la salida del comando `kubectl describe pod`, puedes observar que Kubernetes está intentando ejecutar nuestra `livenessProbe` y está fallando. Incluso muestra cuántas veces ha intentado ejecutar la `livenessProbe` y ha fallado, lo que resultó en la reinicialización de nuestro `Pod`.
 
-Na última parte da saída do comando `kubectl describe pod`, você pode ver que o Kubernetes está tentando executar a nossa `livenessProbe` e ela está falhando, inclusive ele mostra a quantidade de vezes que ele tentou executar a `livenessProbe` e falhou, e com isso, ele reiniciou o nosso `Pod`.
+Creo que ahora está más claro cómo funciona la `livenessProbe`. Ahora es el momento de pasar a la siguiente sonda, la `readinessProbe`.
 
-&nbsp;
+#### Sonda de preparación (Readiness Probe)
 
-Acho que agora ficou bem mais claro como a `livenessProbe` funciona, então é hora de partir para a próxima probe, a `readinessProbe`.
+La `readinessProbe` es una forma en que Kubernetes verifica si su contenedor está listo para recibir tráfico, es decir, si está preparado para recibir solicitudes externas.
 
-&nbsp;
+Esta es nuestra sonda de lectura, que comprueba si nuestro contenedor está listo para recibir solicitudes. Si está listo, aceptará solicitudes; de lo contrario, no las aceptará y se eliminará de la dirección del servicio. Esto impide que el tráfico llegue a él.
 
-#### Readiness Probe
+Aunque aún veremos qué son los `service` y `endpoint`, por ahora basta con saber que el `endpoint` es la dirección que nuestro `service` usará para acceder a nuestro `Pod`. Sin embargo, dedicaremos todo un día a hablar sobre `service` y `endpoint`, así que por ahora, relájate.
 
-A `readinessProbe` é uma forma de o Kubernetes verificar se o seu container está pronto para receber tráfego, se ele está pronto para receber requisições vindas de fora.
+Retomando el tema, nuestra sonda actual garantizará que nuestro `Pod` esté en condiciones de recibir solicitudes.
 
-Essa é a nossa probe de leitura, ela fica verificando se o nosso container está pronto para receber requisições, e se estiver pronto, ele irá receber requisições, caso contrário, ele não irá receber requisições, pois será removido do `endpoint` do serviço, fazendo com que o tráfego não chegue até ele.
-
-Ainda iremos ver o que é `service` e `endpoint`, mas por enquanto, basta saber que o `endpoint` é o endereço que o nosso `service` irá usar para acessar o nosso `Pod`. Mas vamos ter um dia inteiro para falar sobre `service` e `endpoint`, então, relaxa.
-
-&nbsp;
-
-Voltando ao assunto, a nossa probe da vez irá garantir que o nosso `Pod`está saudável para receber requisições.
-
-Vamos para um exemplo para ficar mais claro.
-
-Para o nosso exemplo, vamos criar um arquivo chamado `nginx-readiness.yaml` e vamos colocar o seguinte conteúdo:
+Vamos a un ejemplo para aclarar esto. Para ello, crearemos un archivo llamado `nginx-readiness.yaml` y agregaremos el siguiente contenido:
 
 ```yaml
 apiVersion: apps/v1
@@ -1436,20 +1419,20 @@ spec:
           requests:
             cpu: 0.25
             memory: 128Mi
-        readinessProbe: # Onde definimos a nossa probe de leitura
-          httpGet: # O tipo de teste que iremos executar, neste caso, iremos executar um teste HTTP
-            path: / # O caminho que iremos testar
-            port: 80 # A porta que iremos testar
-          initialDelaySeconds: 10 # O tempo que iremos esperar para executar a primeira vez a probe
-          periodSeconds: 10 # De quanto em quanto tempo iremos executar a probe
-          timeoutSeconds: 5 # O tempo que iremos esperar para considerar que a probe falhou
-          successThreshold: 2 # O número de vezes que a probe precisa passar para considerar que o container está pronto
-          failureThreshold: 3 # O número de vezes que a probe precisa falhar para considerar que o container não está pronto
+        readinessProbe: # Donde definimos nuestra sonda de preparación
+          httpGet: # El tipo de prueba que vamos a ejecutar, en este caso, una prueba HTTP
+            path: / # La ruta que vamos a probar
+            port: 80 # El puerto que vamos a probar
+          initialDelaySeconds: 10 # El tiempo que esperaremos antes de ejecutar la sonda por primera vez
+          periodSeconds: 10 # Cada cuánto tiempo vamos a ejecutar la sonda
+          timeoutSeconds: 5 # Cuánto tiempo esperaremos antes de considerar que la sonda ha fallado
+          successThreshold: 2 # Cuántas veces la sonda debe pasar para considerar que el contenedor está listo
+          failureThreshold: 3 # Cuántas veces la sonda debe pasar para considerar que el contenedor NO está listo
 ```
 
 &nbsp;
 
-Vamos ver se os nossos `Pods` estão rodando:
+Vamos a verificar si nuestros `Pods` están en funcionamiento:
 
 ```bash
 kubectl get pods
@@ -1466,9 +1449,9 @@ nginx-deployment-fbdc9b65f-zn8zh   0/1     Running   0          6s
 
 &nbsp;
 
-Podemos ver que agora os `Pods` demoram um pouco mais para ficarem prontos, pois estamos executando a nossa `readinessProbe`, e por esse motivo temos que aguardar os 10 segundos inicias que definimos para que seja executada a primeira vez a nossa probe, lembra?
+Podemos observar que ahora los `Pods` tardan un poco más en estar listos, ya que estamos ejecutando nuestra `readinessProbe`, y por esta razón debemos esperar los 10 segundos iniciales que definimos para que se ejecute la prueba por primera vez, ¿recuerdas?
 
-Se você aguardar um pouco, você verá que os `Pods` irão ficar prontos, e você pode ver isso executando o comando:
+Si esperas un momento, verás que los `Pods` estarán listos, y puedes comprobarlo ejecutando el comando:
 
 ```bash
 kubectl get pods
@@ -1485,9 +1468,9 @@ nginx-deployment-fbdc9b65f-zn8zh   1/1     Running   0          30s
 
 &nbsp;
 
-Pronto, como mágica agora os nossos `Pods` estão prontos para receber requisições.
+Listo, como por arte de magia, ahora nuestros `Pods` están listos para recibir solicitudes.
 
-Vamos dar uma olhada no `describe` do nosso `Pod`:
+Echemos un vistazo a la descripción de nuestro `Pod`:
 
 ```bash
 kubectl describe pod nginx-deployment-fbdc9b65f-trnnz
@@ -1559,21 +1542,21 @@ Events:
 
 &nbsp;
 
-Pronto, a nossa probe está lá e funcionando, e com isso podemos garantir que os nossos `Pods` estão prontos para receber requisições.
+Listo, nuestra sonda está ahí y funcionando, y con esto podemos asegurarnos de que nuestros `Pods` estén listos para recibir solicitudes.
 
-Vamos mudar o nosso `path` para `/giropops` e ver o que acontece:
+Vamos a cambiar nuestro `path` a `/giropops` y ver qué sucede:
 
 ```yaml
 ...
-        readinessProbe: # Onde definimos a nossa probe de leitura
-          httpGet: # O tipo de teste que iremos executar, neste caso, iremos executar um teste HTTP
-            path: /giropops # O caminho que iremos testar
-            port: 80 # A porta que iremos testar
-          initialDelaySeconds: 10 # O tempo que iremos esperar para executar a primeira vez a probe
-          periodSeconds: 10 # De quanto em quanto tempo iremos executar a probe
-          timeoutSeconds: 5 # O tempo que iremos esperar para considerar que a probe falhou
-          successThreshold: 2 # O número de vezes que a probe precisa passar para considerar que o container está pronto
-          failureThreshold: 3 # O número de vezes que a probe precisa falhar para considerar que o container não está pronto
+        readinessProbe: # Aquí es donde definimos nuestra sonda de lectura
+          httpGet: # El tipo de prueba que vamos a realizar, en este caso, vamos a realizar una prueba HTTP
+            path: /giropops # La ruta que vamos a probar
+            port: 80 # El puerto que vamos a probar
+          initialDelaySeconds: 10 # El tiempo que vamos a esperar para ejecutar la sonda por primera vez
+          periodSeconds: 10 # Con qué frecuencia vamos a ejecutar la sonda
+          timeoutSeconds: 5 # El tiempo que vamos a esperar para considerar que la sonda falló
+          successThreshold: 2 # El número de veces que la sonda debe pasar para considerar que el contenedor está listo
+          failureThreshold: 3 # El número de veces que la sonda debe fallar para considerar que el contenedor no está listo
 ```
 
 &nbsp;
@@ -1590,15 +1573,13 @@ deployment.apps/nginx-deployment configured
 
 &nbsp;
 
-Muito bom, agora vamos ver o resultado dessa bagunça:
+Muy bien, ahora veamos el resultado de este lío:
 
 ```bash
 kubectl get pods
 ```
 
-&nbsp;
-
-Nesse ponto você pode ver que o Kubernetes está tentando realizar a atualização do nosso `Deployment`, mas não está conseguindo, pois no primeiro `Pod` que ele tentou atualizar, a probe falhou.
+En este punto, puedes ver que Kubernetes está intentando actualizar nuestro `Deployment`, pero no está teniendo éxito, ya que la sonda falló en el primer `Pod` que intentó actualizar.
 
 ```bash
 NAME                                READY   STATUS    RESTARTS   AGE
@@ -1610,23 +1591,19 @@ nginx-deployment-fbdc9b65f-zn8zh    1/1     Running   0          9m21s
 
 &nbsp;
 
-Vamos ver o nosso `rollout`:
+Vamos a verificar nuestro `rollout`:
 
 ```bash
 kubectl rollout status deployment/nginx-deployment
 ```
 
-&nbsp;
-
 ```bash
-Waiting for deployment "nginx-deployment" rollout to finish: 1 out of 3 new replicas have been updated...
+Esperando a que el despliegue "nginx-deployment" termine: 1 de 3 nuevas réplicas han sido actualizadas...
 ```
 
-&nbsp;
+Aun después de un tiempo, nuestro `rollout` no ha finalizado, sigue esperando a que la sonda pase.
 
-Mesmo depois de algum tempo o nosso `rollout` não terminou, ele continua esperando a nossa probe passar.
-
-Podemos ver os detalhes do `Pod` que está com problema:
+Podemos ver los detalles del `Pod` con problema:
 
 ```bash
 kubectl describe pod nginx-deployment-5fd6c688d8-kjf8d
@@ -1647,19 +1624,19 @@ Events:
 
 &nbsp;
 
-Eu somente colei a parte final da saída, que é a parte mais interessante para esse momento. É nessa parte que podemos ver que o nosso `Pod` não está saudável, e por isso o Kubernetes não está conseguindo atualizar o nosso `Deployment`.
+Solamente he pegado la parte final de la salida, que es la parte más interesante en este momento. Es en esta parte donde podemos ver que nuestro `Pod` no está saludable, y por lo tanto, Kubernetes no puede actualizar nuestro `Deployment`.
 
 &nbsp;
 
-#### Startup Probe
+#### Sonda de Inicio
 
-Chegou a hora de falar sobre a probe, que na minha humilde opinião, é a menos utilizada, mas que é muito importante, a `startupProbe`.
+Ha llegado el momento de hablar sobre la sonda de inicio (`startupProbe`), que en mi humilde opinión, es la menos utilizada pero muy importante.
 
-Ela é a responsável por verificar se o nosso container foi inicializado corretamente, e se ele está pronto para receber requisições.
+Esta sonda es responsable de verificar si nuestro contenedor se ha iniciado correctamente y si está listo para recibir solicitudes.
 
-Ele é muito parecido com a `readinessProbe`, mas a diferença é que a `startupProbe` é executada apenas uma vez no começo da vida do nosso container, e a `readinessProbe` é executada de tempos em tempos.
+Es bastante similar a la sonda de preparación (`readinessProbe`), pero la diferencia es que la sonda de inicio (`startupProbe`) se ejecuta solo una vez al comienzo de la vida de nuestro contenedor, mientras que la sonda de preparación (`readinessProbe`) se ejecuta periódicamente.
 
-Para entender melhor, vamos ver um exemplo criando um arquivo chamado `nginx-startup.yaml`:
+Para entenderlo mejor, veamos un ejemplo creando un archivo llamado `nginx-startup.yaml`:"
 
 ```yaml
 apiVersion: apps/v1
@@ -1689,47 +1666,45 @@ spec:
           requests:
             cpu: 0.25
             memory: 128Mi
-        startupProbe: # Onde definimos a nossa probe de inicialização
-          httpGet: # O tipo de teste que iremos executar, neste caso, iremos executar um teste HTTP
-            path: / # O caminho que iremos testar
-            port: 80 # A porta que iremos testar
-          initialDelaySeconds: 10 # O tempo que iremos esperar para executar a primeira vez a probe
-          periodSeconds: 10 # De quanto em quanto tempo iremos executar a probe
-          timeoutSeconds: 5 # O tempo que iremos esperar para considerar que a probe falhou
-          successThreshold: 2 # O número de vezes que a probe precisa passar para considerar que o container está pronto
-          failureThreshold: 3 # O número de vezes que a probe precisa falhar para considerar que o container não está pronto
+        startupProbe: # Donde definimos nuestra sonda de inicio
+          httpGet: # El tipo de prueba que ejecutaremos, en este caso, ejecutaremos una prueba HTTP
+            path: / # La ruta que probaremos
+            port: 80 # El puerto que probaremos
+          initialDelaySeconds: 10 # El tiempo que esperaremos para ejecutar la sonda por primera vez
+          periodSeconds: 10 # Cada cuánto tiempo ejecutaremos la sonda
+          timeoutSeconds: 5 # El tiempo que esperaremos para considerar que la sonda falló
+          successThreshold: 2 # El número de veces que la sonda debe pasar para considerar que el contenedor está listo
+          failureThreshold: 3 # El número de veces que la sonda debe fallar para considerar que el contenedor no está listo
 ```
 
 &nbsp;
 
-Agora vamos aplicar a nossa configuração:
+Vamos a aplicar nuestra configuración:
 
 ```bash
 kubectl apply -f nginx-startup.yaml
 ```
 
-&nbsp;
+Cuando intentes aplicarla, recibirás un error porque `successThreshold` no puede ser mayor que 1, ya que `startupProbe` se ejecuta solo una vez, ¿recuerdas?
 
-Quando você tentar aplicar, receberá um erro, pois a `successThreshold` não pode ser maior que 1, pois a `startupProbe` é executada apenas uma vez, lembra?
-
-Da mesma forma o `failureThreshold` não pode ser maior que 1, então vamos alterar o nosso arquivo para:
+De la misma manera, `failureThreshold` tampoco puede ser mayor que 1, así que vamos a modificar nuestro archivo a:
 
 ```yaml
 ...
-        startupProbe: # Onde definimos a nossa probe de inicialização
-          httpGet: # O tipo de teste que iremos executar, neste caso, iremos executar um teste HTTP
-            path: / # O caminho que iremos testar
-            port: 80 # A porta que iremos testar
-          initialDelaySeconds: 10 # O tempo que iremos esperar para executar a primeira vez a probe
-          periodSeconds: 10 # De quanto em quanto tempo iremos executar a probe
-          timeoutSeconds: 5 # O tempo que iremos esperar para considerar que a probe falhou
-          successThreshold: 2 # O número de vezes que a probe precisa passar para considerar que o container está pronto
-          failureThreshold: 3 # O número de vezes que a probe precisa falhar para considerar que o container não está pronto
+        startupProbe: # Donde definimos nuestra sonda de inicio
+          httpGet: # El tipo de prueba que ejecutaremos, en este caso, ejecutaremos una prueba HTTP
+            path: / # La ruta que probaremos
+            port: 80 # El puerto que probaremos
+          initialDelaySeconds: 10 # El tiempo que esperaremos para ejecutar la sonda por primera vez
+          periodSeconds: 10 # Cada cuánto tiempo ejecutaremos la sonda
+          timeoutSeconds: 5 # El tiempo que esperaremos para considerar que la sonda falló
+          successThreshold: 1 # El número de veces que la sonda debe pasar para considerar que el contenedor está listo
+          failureThreshold: 1 # El número de veces que la sonda debe fallar para considerar que el contenedor no está listo
 ```
 
 &nbsp;
 
-Agora vamos aplicar novamente:
+Ahora aplicamos la configuración nuevamente:
 
 ```bash
 kubectl apply -f nginx-startup.yaml
@@ -1737,13 +1712,13 @@ kubectl apply -f nginx-startup.yaml
 
 &nbsp;
 
-Pronto, aplicado! Ufa! \o/
+Listo, ¡aplicado! ¡Uf! \o/
 
-Perceba que sua definição é super parecida com a `readinessProbe`, mas lembre-se, ela somente será executada uma vez, quando o container for inicializado. Portanto, se alguma coisa acontecer de errado depois disso, ele não irá te salvar, pois ele não irá executar novamente.
+Observe que tu definición es muy similar a la `readinessProbe`, pero recuerda que solo se ejecutará una vez, cuando se inicie el contenedor. Por lo tanto, si algo sale mal después de eso, no te ayudará, ya que no se ejecutará de nuevo.
 
-Por isso é super importante sempre ter uma combinação entre as probes, para que você tenha um container mais resiliente e que problemas possam ser detectados mais rapidamente.
+Por esta razón, es muy importante siempre tener una combinación de sondas, para tener un contenedor más resistente y poder detectar problemas más rápidamente.
 
-Vamos ver se os nossos `Pods` estão saudáveis:
+Vamos a verificar si nuestros `Pods` están saludables:
 
 ```bash
 NAME                                READY   STATUS    RESTARTS   AGE
