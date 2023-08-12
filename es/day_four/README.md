@@ -6,25 +6,31 @@
 
 ## Contenido del Día 4
 
-- [Día 4](README.md)
-- [Inicio da aula do Day-4](#inicio-da-aula-do-day-4)
-  - [O que iremos ver hoje?](#o-que-iremos-ver-hoje)
-  - [ReplicaSet](#replicaset)
-    - [O Deployment e o ReplicaSet](#o-deployment-e-o-replicaset)
-    - [Criando um ReplicaSet](#criando-um-replicaset)
-    - [Apagando o ReplicaSet](#apagando-o-replicaset)
-  - [O DaemonSet](#o-daemonset)
-    - [Criando um DaemonSet](#criando-um-daemonset)
-    - [Criando um DaemonSet utilizando o comando kubectl create](#criando-um-daemonset-utilizando-o-comando-kubectl-create)
-    - [Aumentando um node no cluster](#aumentando-um-node-no-cluster)
-    - [Removendo um DaemonSet](#removendo-um-daemonset)
-  - [As Probes do Kubernetes](#as-probes-do-kubernetes)
-    - [O que são as Probes?](#o-que-sao-as-probes)
-    - [Liveness Probe](#liveness-probe)
-    - [Readiness Probe](#readiness-probe)
-    - [Startup Probe](#startup-probe)
-  - [A sua lição de casa](#a-sua-licao-de-casa)
-  - [Final do Day-4](#final-do-day-4)
+- [Simplificando Kubernetes](#simplificando-kubernetes)
+  - [Día 4](#día-4)
+  - [Contenido del Día 4](#contenido-del-día-4)
+  - [Inicio de la Lección del Día 4](#inicio-de-la-lección-del-día-4)
+    - [¿Qué veremos hoy?](#qué-veremos-hoy)
+    - [ReplicaSet](#replicaset)
+      - [El Deployment y el ReplicaSet](#el-deployment-y-el-replicaset)
+      - [Creando un ReplicaSet](#creando-un-replicaset)
+      - [Desactivando el ReplicaSet](#desactivando-el-replicaset)
+    - [El DaemonSet](#el-daemonset)
+      - [Creando un DaemonSet](#creando-un-daemonset)
+      - [Apagando el ReplicaSet](#apagando-el-replicaset)
+      - [Apagando o ReplicaSet](#apagando-o-replicaset)
+      - [Criando um DaemonSet](#criando-um-daemonset)
+      - [Criando um DaemonSet utilizando o comando kubectl create](#criando-um-daemonset-utilizando-o-comando-kubectl-create)
+      - [Aumentando um node no cluster](#aumentando-um-node-no-cluster)
+      - [Removendo um DaemonSet](#removendo-um-daemonset)
+    - [As Probes do Kubernetes](#as-probes-do-kubernetes)
+      - [O que são as Probes?](#o-que-são-as-probes)
+      - [Liveness Probe](#liveness-probe)
+      - [Readiness Probe](#readiness-probe)
+      - [Startup Probe](#startup-probe)
+    - [Exemplo com todas as probes](#exemplo-com-todas-as-probes)
+    - [A sua lição de casa](#a-sua-lição-de-casa)
+    - [Final do Day-4](#final-do-day-4)
   
 &nbsp;
 
@@ -594,8 +600,46 @@ spec: # Especificación del objeto
 
 &nbsp;
 
+#### Apagando el ReplicaSet
+
+Para eliminar el `ReplicaSet` y todos los `Pods` que este está gestionando, simplemente ejecuta el siguiente comando.
+
+```bash
+kubectl delete replicaset nginx-replicaset
+```
+
+&nbsp;
+
+Si deseas hacerlo utilizando el archivo de manifiesto, ejecuta el siguiente comando.
+
+```bash
+kubectl delete -f nginx-replicaset.yaml
+```
+
+&nbsp;
+
+Listo, nuestro `ReplicaSet` ha sido eliminado y todos los `Pods` que estaba gestionando también han sido eliminados.
+
+Durante nuestra sesión, ya hemos aprendido cómo crear un `ReplicaSet` y cómo funciona, pero aún tenemos mucho por aprender, así que continuemos.
+
+&nbsp;
 
 
+Ya sabemos qué es un `Pod`, un `Deployment` y un `ReplicaSet`, pero ahora es el momento de conocer otro objeto de `Kubernetes`, el `DaemonSet`.
+
+El `DaemonSet` es un objeto que garantiza que todos los nodos del clúster ejecuten una réplica de un `Pod`, es decir, asegura que todos los nodos del clúster ejecuten una copia de un `Pod`.
+
+El `DaemonSet` es muy útil para ejecutar `Pods` que deben ejecutarse en todos los nodos del clúster, como por ejemplo, un `Pod` que realiza el monitoreo de registros o un `Pod` que realiza el monitoreo de métricas.
+
+Algunos casos de uso de `DaemonSets` son:
+
+- Ejecución de agentes de monitoreo, como `Prometheus Node Exporter` o `Fluentd`.
+- Ejecución de un proxy de red en todos los nodos del clúster, como `kube-proxy`, `Weave Net`, `Calico` o `Flannel`.
+- Ejecución de agentes de seguridad en cada nodo del clúster, como `Falco` o `Sysdig`.
+
+Por lo tanto, si nuestro clúster tiene 3 nodos, el `DaemonSet` garantizará que todos los nodos ejecuten una réplica del `Pod` que está gestionando, es decir, 3 réplicas del `Pod`.
+
+Si agregamos otro nodo al clúster, el `DaemonSet` garantizará que todos los nodos ejecuten una réplica del `Pod` que está gestionando, es decir, 4 réplicas del `Pod`.
 #### Apagando o ReplicaSet
 
 Para remover o `ReplicaSet` e todos os `Pods` que ele está gerenciando, basta executar o comando abaixo.
@@ -620,7 +664,7 @@ Durante a nossa sessão, nós já aprendemos como criar um `ReplicaSet` e como e
 
 &nbsp;
 
-### O DaemonSet
+
 
 Já sabemos o que é um `Pod`, um `Deployment` e um `ReplicaSet`, mas agora é a hora de conhecermos mais um objeto do `Kubernetes`, o `DaemonSet`.
 
@@ -974,7 +1018,6 @@ Simples assim!
 Acho que o assunto `DaemonSet` já está bem claro. Ainda iremos ver todos esses objetos que vimos até aqui diversas vezes durante a nossa jornada, então não se preocupe pois iremos praticar muito mais.
 
 &nbsp;
-
 
 ### As Probes do Kubernetes
 
