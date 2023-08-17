@@ -17,8 +17,6 @@
       - [Desactivando el ReplicaSet](#desactivando-el-replicaset)
     - [El DaemonSet](#el-daemonset)
       - [Creando un DaemonSet](#creando-un-daemonset)
-      - [Apagando el ReplicaSet](#apagando-el-replicaset)
-      - [Creando un DaemonSet](#creando-un-daemonset-1)
       - [Creación de un DaemonSet utilizando el comando kubectl create](#creación-de-un-daemonset-utilizando-el-comando-kubectl-create)
       - [Añadiendo un nodo al clúster](#añadiendo-un-nodo-al-clúster)
       - [Eliminando un DaemonSet](#eliminando-un-daemonset)
@@ -553,131 +551,6 @@ Algunos casos de uso comunes de los `DaemonSets` son:
 Por lo tanto, si nuestro clúster tiene 3 nodos, el `DaemonSet` garantizará que todos los nodos ejecuten una réplica del `Pod` que está gestionando, es decir, 3 réplicas del `Pod`.
 
 Si agregamos otro nodo al clúster, el `DaemonSet` garantizará que todos los nodos ejecuten una réplica del `Pod` que está gestionando, es decir, 4 réplicas del `Pod`.
-
-#### Creando un DaemonSet
-
-Vamos a nuestro primer ejemplo, crearemos un `DaemonSet` que asegurará que todos los nodos del clúster ejecuten una réplica del `Pod` `node-exporter`, que es un recolector de métricas para `Prometheus`.
-
-Para esto, crearemos un archivo llamado `node-exporter-daemonset.yaml` y agregaremos el siguiente contenido.
-
-```yaml
-apiVersion: apps/v1 # Versión de la API de Kubernetes del objeto
-kind: DaemonSet # Tipo de objeto
-metadata: # Metadatos sobre el objeto
-  name: node-exporter # Nombre del objeto
-spec: # Especificación del objeto
-  selector: # Selector del objeto
-    matchLabels: # Etiquetas que se utilizarán para seleccionar los Pods
-      app: node-exporter # Etiqueta que se utilizará para seleccionar los Pods
-  template: # Plantilla del objeto
-    metadata: # Metadatos sobre el objeto
-      labels: # Etiquetas que se agregarán a los Pods
-        app: node-exporter # Etiqueta que se agregará a los Pods
-    spec: # Especificación del objeto, en este caso, la especificación del Pod
-      hostNetwork: true # Habilita el uso de la red del host, usar con precaución
-      containers: # Lista de contenedores que se ejecutarán en el Pod
-      - name: node-exporter # Nombre del contenedor
-        image: prom/node-exporter:latest # Imagen del contenedor
-        ports: # Lista de puertos que se expondrán en el contenedor
-        - containerPort: 9100 # Puerto que se expondrá en el contenedor
-          hostPort: 9100 # Puerto que se expondrá en el host
-        volumeMounts: # Lista de montajes de volúmenes en el contenedor, ya que el node-exporter necesita acceso a /proc y /sys
-        - name: proc # Nombre del volumen
-          mountPath: /host/proc # Ruta donde se montará el volumen en el contenedor
-          readOnly: true # Habilita el modo de solo lectura
-        - name: sys # Nombre del volumen 
-          mountPath: /host/sys # Ruta donde se montará el volumen en el contenedor
-          readOnly: true # Habilita el modo de solo lectura
-      volumes: # Lista de volúmenes que se utilizarán en el Pod
-      - name: proc # Nombre del volumen
-        hostPath: # Tipo de volumen 
-          path: /proc # Ruta del volumen en el host
-      - name: sys # Nombre del volumen
-        hostPath: # Tipo de volumen
-          path: /sys # Ruta del volumen en el host
-```
-
-&nbsp;
-
-#### Apagando el ReplicaSet
-
-Para eliminar el `ReplicaSet` y todos los `Pods` que este está gestionando, simplemente ejecuta el siguiente comando.
-
-```bash
-kubectl delete replicaset nginx-replicaset
-```
-
-&nbsp;
-
-Si deseas hacerlo utilizando el archivo de manifiesto, ejecuta el siguiente comando.
-
-```bash
-kubectl delete -f nginx-replicaset.yaml
-```
-
-&nbsp;
-
-Listo, nuestro `ReplicaSet` ha sido eliminado y todos los `Pods` que estaba gestionando también han sido eliminados.
-
-Durante nuestra sesión, ya hemos aprendido cómo crear un `ReplicaSet` y cómo funciona, pero aún tenemos mucho por aprender, así que continuemos.
-
-&nbsp;
-
-
-Ya sabemos qué es un `Pod`, un `Deployment` y un `ReplicaSet`, pero ahora es el momento de conocer otro objeto de `Kubernetes`, el `DaemonSet`.
-
-El `DaemonSet` es un objeto que garantiza que todos los nodos del clúster ejecuten una réplica de un `Pod`, es decir, asegura que todos los nodos del clúster ejecuten una copia de un `Pod`.
-
-El `DaemonSet` es muy útil para ejecutar `Pods` que deben ejecutarse en todos los nodos del clúster, como por ejemplo, un `Pod` que realiza el monitoreo de registros o un `Pod` que realiza el monitoreo de métricas.
-
-Algunos casos de uso de `DaemonSets` son:
-
-- Ejecución de agentes de monitoreo, como `Prometheus Node Exporter` o `Fluentd`.
-- Ejecución de un proxy de red en todos los nodos del clúster, como `kube-proxy`, `Weave Net`, `Calico` o `Flannel`.
-- Ejecución de agentes de seguridad en cada nodo del clúster, como `Falco` o `Sysdig`.
-
-Por lo tanto, si nuestro clúster tiene 3 nodos, el `DaemonSet` garantizará que todos los nodos ejecuten una réplica del `Pod` que está gestionando, es decir, 3 réplicas del `Pod`.
-
-Si agregamos otro nodo al clúster, el `DaemonSet` garantizará que todos los nodos ejecuten una réplica del `Pod` que está gestionando, es decir, 4 réplicas del `Pod`.
-
-Para remover o `ReplicaSet` e todos os `Pods` que ele está gerenciando, basta executar o comando abaixo.
-
-```bash
-kubectl delete replicaset nginx-replicaset
-```
-
-&nbsp;
-
-Caso você queira fazer isso utilizando o arquivo de manifesto, basta executar o comando abaixo.
-
-```bash
-kubectl delete -f nginx-replicaset.yaml
-```
-
-&nbsp;
-
-Pronto, o nosso `ReplicaSet` foi removido e todos os `Pods` que ele estava gerenciando também foram removidos.
-
-Durante a nossa sessão, nós já aprendemos como criar um `ReplicaSet` e como ele funciona, mas ainda temos muito o que aprender, então vamos continuar.
-
-&nbsp;
-
-Já sabemos o que é um `Pod`, um `Deployment` e um `ReplicaSet`, mas agora é a hora de conhecermos mais um objeto do `Kubernetes`, o `DaemonSet`.
-
-O `DaemonSet` é um objeto que garante que todos os nós do cluster executem uma réplica de um `Pod`, ou seja, ele garante que todos os nós do cluster executem uma cópia de um `Pod`.
-
-O `DaemonSet` é muito útil para executar `Pods` que precisam ser executados em todos os nós do cluster, como por exemplo, um `Pod` que faz o monitoramento de logs, ou um `Pod` que faz o monitoramento de métricas.
-
-Alguns casos de uso de `DaemonSets` são:
-
-- Execução de agentes de monitoramento, como o `Prometheus Node Exporter` ou o `Fluentd`.
-- Execução de um proxy de rede em todos os nós do cluster, como  `kube-proxy`, `Weave Net`, `Calico` ou `Flannel`.
-- Execução de agentes de segurança em cada nó do cluster, como  `Falco` ou `Sysdig`.
-
-
-Portanto, se nosso cluster possuir 3 nós, o `DaemonSet` vai garantir que todos os nós executem uma réplica do `Pod` que ele está gerenciando, ou seja, 3 réplicas do `Pod`.
-
-Caso adicionemos mais um `node` ao cluster, o `DaemonSet` vai garantir que todos os nós executem uma réplica do `Pod` que ele está gerenciando, ou seja, 4 réplicas do `Pod`.
 
 #### Creando un DaemonSet
 
@@ -1243,7 +1116,6 @@ La salida de arriba es parte de la salida del comando `kubectl describe pod`. To
 Ahora, hagamos lo siguiente: cambiemos nuestro `Deployment` para que nuestra sonda falle. Para ello, vamos a cambiar el `endpoint` que estamos usando. Cambiaremos el `path` a `/giropops`.
 
 &nbsp;
-
 
 ```yaml
 apiVersion: apps/v1
