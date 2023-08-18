@@ -1,146 +1,142 @@
-# Descomplicando o Kubernetes - Expert Mode
+# Simplificando Kubernetes - Expert Mode
 
-## DAY-5
+## Día 5
+
 &nbsp;
 
-## Conteúdo do Day-5
+## Contenído del Día 5
 
-- [Descomplicando o Kubernetes - Expert Mode](#descomplicando-o-kubernetes---expert-mode)
-  - [DAY-5](#day-5)
-  - [Conteúdo do Day-5](#conteúdo-do-day-5)
-  - [Inicio da aula do Day-5](#inicio-da-aula-do-day-5)
-    - [O que iremos ver hoje?](#o-que-iremos-ver-hoje)
-    - [Instalação de um cluster Kubernetes](#instalação-de-um-cluster-kubernetes)
-      - [O que é um cluster Kubernetes?](#o-que-é-um-cluster-kubernetes)
-      - [Formas de instalar o Kubernetes](#formas-de-instalar-o-kubernetes)
-      - [Criando um cluster Kubernetes com o kubeadm](#criando-um-cluster-kubernetes-com-o-kubeadm)
-        - [Instalando o kubeadm](#instalando-o-kubeadm)
-        - [Desativando o uso do swap no sistema](#desativando-o-uso-do-swap-no-sistema)
-        - [Carregando os módulos do kernel](#carregando-os-módulos-do-kernel)
-        - [Configurando parâmetros do sistema](#configurando-parâmetros-do-sistema)
-        - [Instalando os pacotes do Kubernetes](#instalando-os-pacotes-do-kubernetes)
-        - [Instalando o Docker e o containerd](#instalando-o-docker-e-o-containerd)
-        - [Configurando o containerd](#configurando-o-containerd)
-        - [Habilitando o serviço do kubelet](#habilitando-o-serviço-do-kubelet)
-        - [Configurando as portas](#configurando-as-portas)
-        - [Iniciando o cluster](#iniciando-o-cluster)
-        - [Entendendo o arquivo admin.conf](#entendendo-o-arquivo-adminconf)
-        - [Instalando o Weave Net](#instalando-o-weave-net)
-        - [O que é o CNI?](#o-que-é-o-cni)
+- [Simplificando Kubernetes - Expert Mode](#simplificando-kubernetes---expert-mode)
+  - [Día 5](#día-5)
+  - [Contenído del Día 5](#contenído-del-día-5)
+  - [Inicio de la Lección del Día 5](#inicio-de-la-lección-del-día-5)
+    - [¿Qué veremos hoy?](#qué-veremos-hoy)
+    - [Instalación de un cluster Kubernetes](#instalación-de-un-cluster-kubernetes)
+      - [¿Qué es un clúster de Kubernetes?](#qué-es-un-clúster-de-kubernetes)
+    - [Formas de instalar Kubernetes](#formas-de-instalar-kubernetes)
+    - [Creando un clúster Kubernetes con kubeadm](#creando-un-clúster-kubernetes-con-kubeadm)
+      - [Instalación de kubeadm](#instalación-de-kubeadm)
+      - [Deshabilitar el uso de swap en el sistema](#deshabilitar-el-uso-de-swap-en-el-sistema)
+      - [Cargar los módulos del kernel](#cargar-los-módulos-del-kernel)
+        - [Configurando parámetros del sistema](#configurando-parámetros-del-sistema)
+        - [Instalando los paquetes de Kubernetes](#instalando-los-paquetes-de-kubernetes)
+        - [Instalando containerd](#instalando-containerd)
+        - [Configurando containerd](#configurando-containerd)
+        - [Habilitando el servicio kubelet](#habilitando-el-servicio-kubelet)
+        - [Configurando los puertos](#configurando-los-puertos)
+        - [Inicializando el clúster](#inicializando-el-clúster)
+        - [Comprendiendo el archivo admin.conf](#comprendiendo-el-archivo-adminconf)
+        - [Agregando los demás nodos al clúster](#agregando-los-demás-nodos-al-clúster)
+        - [Instalando Weave Net](#instalando-weave-net)
+        - [¿Qué es CNI?](#qué-es-cni)
       - [Visualizando detalhes dos nodes](#visualizando-detalhes-dos-nodes)
     - [A sua lição de casa](#a-sua-lição-de-casa)
   - [Final do Day-5](#final-do-day-5)
 
 &nbsp;
 
-## Inicio da aula do Day-5
+## Inicio de la Lección del Día 5
 
-### O que iremos ver hoje?
+### ¿Qué veremos hoy?
 
-Hoje nós iremos falar como instalar o Kubernetes em um cluster com 03 nodes, onde um deles será o control plane e os outros dois serão os workers.
+Hoy hablaremos sobre cómo instalar Kubernetes en un clúster con 03 nodos, donde uno de ellos será el plano de control y los otros dos serán los trabajadores.
 
-Nós iremos utilizar o `kubeadm` para configurar o nosso cluster. Nós iremos conhecer no detalhe como criar um cluster utilizando 03 instancias EC2 da AWS, mas você pode utilizar qualquer outro tipo de instância, desde que seja uma instância Linux, o importante é entender o processo de instalação do Kubernetes e como seus componentes trabalham juntos.
+Utilizaremos `kubeadm` para configurar nuestro clúster. Aprenderemos en detalle cómo crear un clúster utilizando 03 instancias EC2 de AWS, pero puedes utilizar cualquier otro tipo de instancia, siempre que sea una instancia de Linux. Lo importante es comprender el proceso de instalación de Kubernetes y cómo sus componentes trabajan juntos.
 
-Espero que você se divirta durante o Day-5, e que aprenda muito com o conteúdo que preparamos para você. Hoje o dia será mais curtinho, mas não menos importante. Bora lá! #VAIIII
+Espero que disfrutes el Día 5 y que aprendas mucho del contenido que hemos preparado para ti. Hoy el día será un poco más corto, pero no menos importante. ¡Vamos allá! #VAIIII
 
-### Instalação de um cluster Kubernetes
+### Instalación de un cluster Kubernetes
 
+#### ¿Qué es un clúster de Kubernetes?
 
-#### O que é um cluster Kubernetes?
+Un clúster de Kubernetes es un conjunto de nodos que trabajan juntos para ejecutar todos nuestros `pods`. Un clúster de Kubernetes se compone de nodos que pueden ser tanto del `control plane` como `workers`. El `control plane` es responsable de administrar el clúster, mientras que los `workers` se encargan de ejecutar los `pods` creados en el clúster por los usuarios.
 
-Um cluster Kubernetes é um conjunto de nodes que trabalham juntos para executar todos os nossos `pods`. Um cluster Kubernetes é composto por nodes que podem ser tanto `control plane` quanto `workers`. O `control plane` é responsável por gerenciar o cluster, enquanto os `workers` são responsáveis por executar os `pods` que são criados no cluster pelos usuários.
+Cuando pensamos en un clúster de Kubernetes, debemos recordar que la función principal de Kubernetes es orquestar contenedores. Kubernetes es un orquestador de contenedores. Por lo tanto, cuando hablamos de un clúster de Kubernetes, estamos hablando de un clúster de orquestadores de contenedores. Siempre me gusta pensar en un clúster de Kubernetes como una orquesta, donde hay una persona dirigiendo la orquesta, que es el `control plane`, y hay músicos que ejecutan los instrumentos, que son los `workers`.
 
-Quando estamos pensando em um cluster Kubernetes, precisamos lembrar que a principal função do Kubernetes é orquestrar containers. O Kubernetes é um orquestrador de containers, sendo assim quando estamos falando de um cluster Kubernetes, estamos falando de um cluster de orquestradores de containers. Eu sempre gosto de pensar em um cluster Kubernetes como se fosse uma orquestra, onde temos uma pessoa regendo a orquestra, que é o `control plane`, e temos as pessoas musicistas, que estão executando os instrumentos, que são os `workers`.
+Por lo tanto, el `control plane` es responsable de gestionar el clúster, por ejemplo:
 
-Sendo assim, o `control plane` é responsável por gerenciar o cluster, como por exemplo:
+- Crear y gestionar los recursos del clúster, como `namespaces`, `deployments`, `services`, `configmaps`, `secrets`, etc.
+- Gestionar los `workers` del clúster.
+- Gestionar la red del clúster.
+- `etcd` desempeña un papel crucial en mantener la estabilidad y confiabilidad del clúster. Almacena la información de configuración de todos los componentes del `control plane`, incluidos los detalles de los servicios, `pods` y otros recursos del clúster. Gracias a su diseño distribuido, `etcd` puede tolerar fallas y garantizar la continuidad de los datos, incluso en caso de falla de uno o más nodos. Además, admite comunicación segura entre los componentes del clúster, utilizando cifrado `TLS` para proteger los datos.
 
-* Criar e gerenciar os recursos do cluster, como por exemplo, `namespaces`, `deployments`, `services`, `configmaps`, `secrets`, etc.
-* Gerenciar os `workers` do cluster.
-* Gerenciar a rede do cluster. 
-* O `etcd` desempenha um papel crucial na manutenção da estabilidade e confiabilidade do cluster. Ele armazena as informações de configuração de todos os componentes do `control plane`, incluindo os detalhes dos serviços, `pods` e outros recursos do cluster. Graças ao seu design distribuído, o `etcd` é capaz de tolerar falhas e garantir a continuidade dos dados, mesmo em caso de falha de um ou mais nós. Além disso, ele suporta a comunicação segura entre os componentes do cluster, usando criptografia `TLS` para proteger os dados.
+- El `scheduler` es el componente encargado de decidir en qué nodo se ejecutarán los `pods`, teniendo en cuenta los requisitos y recursos disponibles. El `scheduler` también monitorea constantemente la situación del clúster y, si es necesario, ajusta la distribución de los pods para garantizar la mejor utilización de los recursos y mantener la armonía entre los componentes.
 
-* O `scheduler` é o componente responsável por decidir em qual nó os `pods` serão executados, levando em consideração os requisitos e os recursos disponíveis. O `scheduler` também monitora constantemente a situação do cluster e, se necessário, ajusta a distribuição dos pods para garantir a melhor utilização dos recursos e manter a harmonia entre os componentes. 
+- El `controller-manager` es responsable de gestionar los diferentes controladores que regulan el estado del clúster y mantienen todo en funcionamiento. Monitorea constantemente el estado actual de los recursos y los compara con el estado deseado, realizando ajustes según sea necesario.
 
-* O `controller-manager` é responsável por gerenciar os diferentes controladores que regulam o estado do cluster e mantêm tudo funcionando. Ele monitora constantemente o estado atual dos recursos e compara-os com o estado desejado, fazendo ajustes conforme necessário.
+- Donde se encuentra el `api-server`, es el componente central que expone la API de Kubernetes, lo que permite que otros componentes del `control plane`, como el `controller-manager` y el `scheduler`, así como herramientas externas, se comuniquen e interactúen con el clúster. El `api-server` es la principal interfaz de comunicación de Kubernetes, autenticando y autorizando solicitudes, procesándolas y proporcionando las respuestas adecuadas. Garantiza que la información se comparta y acceda de manera segura y eficiente, permitiendo una colaboración armoniosa entre todos los componentes del clúster.
 
-* Onde está o `api-server` é o componente central que expõe a API do Kubernetes, permitindo que outros componentes do `control plane`, como o `controller-manager` e o `scheduler`, bem como ferramentas externas, se comuniquem e interajam com o cluster. O `api-server` é a principal interface de comunicação do Kubernetes, autenticando e autorizando solicitações, processando-as e fornecendo as respostas apropriadas. Ele garante que as informações sejam compartilhadas e acessadas de forma segura e eficiente, possibilitando uma colaboração harmoniosa entre todos os componentes do cluster.
+En cuanto a los `workers`, las cosas son mucho más simples, ya que su principal función es ejecutar los `pods` que los usuarios crean en el clúster. En los `workers`, por defecto, encontramos los siguientes componentes de Kubernetes:
 
+- El `kubelet` es el agente que funciona en cada nodo del clúster, asegurando que los contenedores funcionen como se espera dentro de los pods. Se encarga de controlar cada nodo, asegurándose de que los contenedores se ejecuten según las instrucciones recibidas del `control plane`. Monitorea constantemente el estado actual de los `pods` y los compara con el estado deseado. Si hay alguna discrepancia, el `kubelet` realiza los ajustes necesarios para que los contenedores sigan funcionando sin problemas.
 
-Já no lado dos `workers`, as coisa são bem mais simples, pois a principal função deles é executar os `pods` que são criados no cluster pelos usuários. Nos `workers` nós temos, por padrão, os seguintes componentes do Kubernetes:
+- `kube-proxy`, que es el componente responsable de permitir que los `pods` y los `services` se comuniquen entre sí y con el mundo exterior. Observa el `control plane` para identificar cambios en la configuración de los servicios y luego actualiza las reglas de enrutamiento de tráfico para garantizar que todo continúe fluyendo según lo esperado.
 
-* O `kubelet` é o agente que funciona em cada nó do cluster, garantindo que os containers estejam funcionando conforme o esperado dentro dos pods. Ele assume o controle de cada nó, garantindo que os containers estejam sendo executados conforme as instruções recebidas do `control plane`. Ele monitora constantemente o estado atual dos `pods` e compara-os com o estado desejado. Caso haja alguma divergência, o `kubelet` faz os ajustes necessários para que os containers sigam funcionando perfeitamente.
+- Todos los `pods` de nuestras aplicaciones.
 
-* O `kube-proxy`, que é o componente responsável fazer ser possível que os `pods` e os `services` se comuniquem entre si e com o mundo externo. Ele observa o `control plane` para identificar mudanças na configuração dos serviços e, em seguida, atualiza as regras de encaminhamento de tráfego para garantir que tudo continue fluindo conforme o esperado.
+### Formas de instalar Kubernetes
 
+Hoy nos centraremos en la instalación de Kubernetes utilizando `kubeadm`, que es una de las formas más antiguas de crear un clúster de Kubernetes. Sin embargo, existen otras formas de instalar Kubernetes. Aquí detallaré algunas de ellas:
 
-* Todos os `pods` de nossas aplicações.
+* **`kubeadm`**: Es una herramienta para crear y gestionar un clúster de Kubernetes en múltiples nodos. Automatiza muchas de las tareas de configuración del clúster, incluida la instalación del "control plane" y los nodos. Es altamente configurable y se puede usar para crear clústeres personalizados.
 
+* **`Kubespray`**: Es una herramienta que utiliza Ansible para implementar y gestionar un clúster de Kubernetes en múltiples nodos. Ofrece muchas opciones para personalizar la instalación del clúster, incluida la elección del proveedor de red, el número de réplicas del "control plane", el tipo de almacenamiento y mucho más. Es una buena opción para implementar un clúster en diversos entornos, incluyendo nubes públicas y privadas.
 
+* **`Proveedores de nube`**: Muchos proveedores de nube, como AWS, Google Cloud Platform y Microsoft Azure, ofrecen opciones para implementar un clúster de Kubernetes en su infraestructura. Suelen proporcionar plantillas predefinidas que se pueden utilizar para implementar un clúster con solo unos pocos clics. Algunos proveedores de nube también ofrecen servicios gestionados de Kubernetes que se encargan de toda la configuración y gestión del clúster.
 
-#### Formas de instalar o Kubernetes
+* **`Kubernetes administrados`**: Son servicios administrados ofrecidos por algunos proveedores de nube, como Amazon EKS, Google Cloud GKE y Azure AKS. Ofrecen un clúster de Kubernetes gestionado en el que solo necesitas preocuparte por implementar y gestionar tus aplicaciones. Estos servicios se encargan de la configuración, actualización y mantenimiento del clúster por ti. En este caso, no tienes que gestionar el "control plane" del clúster, ya que es gestionado por el proveedor de nube.
 
-Hoje nós iremos focar a instalação do Kubernetes utilizando o `kubeadm`, que é uma das formas mais antigas para a criação de um cluster Kubernetes. Mas existem outras formas de instalar o Kubernetes, vou detalhar algumas delas aqui:
+* **`Kops`**: Es una herramienta para implementar y gestionar clústeres de Kubernetes en la nube. Está diseñado específicamente para implementaciones en nubes públicas como AWS, GCP y Azure. Kops permite crear, actualizar y gestionar clústeres de Kubernetes en la nube. Algunas de las principales ventajas de usar Kops son la personalización, escalabilidad y seguridad. Sin embargo, el uso de Kops puede ser más complejo que otras opciones de instalación de Kubernetes, especialmente si no estás familiarizado con la nube en la que estás implementando.
 
-* **`kubeadm`**: É uma ferramenta para criar e gerenciar um cluster Kubernetes em vários nós. Ele automatiza muitas das tarefas de configuração do cluster, incluindo a instalação do control plane e dos nodes. É altamente configurável e pode ser usado para criar clusters personalizados.
+* **`Minikube` y `kind`**: Son herramientas que te permiten crear un clúster de Kubernetes localmente, en un solo nodo. Son útiles para probar y aprender sobre Kubernetes, ya que puedes crear un clúster en minutos y comenzar a implementar aplicaciones de inmediato. También son útiles para desarrolladores que necesitan probar sus aplicaciones en un entorno de Kubernetes sin tener que configurar un clúster en un entorno de producción.
 
-* **`Kubespray`**: É uma ferramenta que usa o Ansible para implantar e gerenciar um cluster Kubernetes em vários nós. Ele oferece muitas opções para personalizar a instalação do cluster, incluindo a escolha do provedor de rede, o número de réplicas do control plane, o tipo de armazenamento e muito mais. É uma boa opção para implantar um cluster em vários ambientes, incluindo nuvens públicas e privadas.
+Aún existen otras formas de instalar Kubernetes, pero estas son las más comunes. Para obtener más detalles sobre otras formas de instalar Kubernetes, puedes consultar la documentación oficial de Kubernetes.
 
-* **`Cloud Providers`**: Muitos provedores de nuvem, como AWS, Google Cloud Platform e Microsoft Azure, oferecem opções para implantar um cluster Kubernetes em sua infraestrutura. Eles geralmente fornecem modelos predefinidos que podem ser usados para implantar um cluster com apenas alguns cliques. Alguns provedores de nuvem também oferecem serviços gerenciados de Kubernetes que lidam com toda a configuração e gerenciamento do cluster.
+### Creando un clúster Kubernetes con kubeadm
 
-* **`Kubernetes Gerenciados`**: São serviços gerenciados oferecidos por alguns provedores de nuvem, como Amazon EKS, o GKE do Google Cloud e o AKS, da Azure. Eles oferecem um cluster Kubernetes gerenciado onde você só precisa se preocupar em implantar e gerenciar seus aplicativos. Esses serviços lidam com a configuração, atualização e manutenção do cluster para você. Nesse caso, você não tem que gerenciar o `control plane` do cluster, pois ele é gerenciado pelo provedor de nuvem.
+Ahora que ya sabes qué es Kubernetes y cuáles son sus principales funcionalidades, vamos a comenzar a instalar Kubernetes en nuestro clúster. En este momento, veremos cómo crear un clúster Kubernetes utilizando `kubeadm`, pero a lo largo de nuestro viaje veremos otras formas de instalar Kubernetes.
 
-* **`Kops`**: É uma ferramenta para implantar e gerenciar clusters Kubernetes na nuvem. Ele foi projetado especificamente para implantação em nuvens públicas como AWS, GCP e Azure. Kops permite criar, atualizar e gerenciar clusters Kubernetes na nuvem. Algumas das principais vantagens do uso do Kops são a personalização, escalabilidade e segurança. No entanto, o uso do Kops pode ser mais complexo do que outras opções de instalação do Kubernetes, especialmente se você não estiver familiarizado com a nuvem em que está implantando.
+Como mencioné antes, `kubeadm` es una herramienta para crear y gestionar un clúster Kubernetes en varios nodos. Automatiza muchas de las tareas de configuración del clúster, incluyendo la instalación del `control plane` y los nodos.
 
-* **`Minikube` e `kind`**: São ferramentas que permitem criar um cluster Kubernetes localmente, em um único nó. São úteis para testar e aprender sobre o Kubernetes, pois você pode criar um cluster em poucos minutos e começar a implantar aplicativos imediatamente. Elas também são úteis para pessoas desenvolvedoras que precisam testar suas aplicações em um ambiente Kubernetes sem precisar configurar um cluster em um ambiente de produção.
+Primero, para poder avanzar, necesitamos comprender cuáles son los requisitos previos para la instalación de Kubernetes. Puedes consultar la documentación oficial de Kubernetes para obtener más información, pero aquí enumero los principales requisitos:
 
-Ainda existem outras formas de instalar o Kubernetes, mas essas são as mais comuns. Para mais detalhes sobre as outras formas de instalar o Kubernetes, você pode consultar a documentação oficial do Kubernetes.
+- Linux
 
+- 2 GB o más de RAM por máquina (menos de 2 GB no se recomienda)
 
-#### Criando um cluster Kubernetes com o kubeadm
+- 2 CPUs o más
 
-Agora que você já sabe o que é o Kubernetes e quais são as suas principais funcionalidades, vamos começar a instalar o Kubernetes em nosso cluster. Nesse momento iremos ver como realizar a criação de um cluster Kubernetes utilizando o `kubeadm`, porém no decorrer da nossa jornada iremos ver outras formas de instalar o Kubernetes.
+- Conexión de red entre todos los nodos en el clúster (puede ser a través de una red pública o privada)
 
-Como falado, o `kubeadm` é uma ferramenta para criar e gerenciar um cluster Kubernetes em vários nós. Ele automatiza muitas das tarefas de configuração do cluster, incluindo a instalação do `control plane` e dos `nodes`.
+- Algunos puertos deben estar abiertos para que el clúster funcione correctamente, los principales son:
 
-Primeira coisa, para que possamos seguir em frente, temos que entender quais são os pré-requisitos para a instalação do Kubernetes. Para isso, você pode consultar a documentação oficial do Kubernetes, mas vou listar aqui os principais pré-requisitos:
+  - Puerto 6443: Es el puerto estándar utilizado por el servidor de API de Kubernetes para comunicarse con los componentes del clúster. Es el puerto principal utilizado para gestionar el clúster y debe estar siempre abierto.
 
-* Linux
+  - Puertos 10250-10255: Estos puertos son utilizados por el kubelet para comunicarse con el "control plane" de Kubernetes. El puerto 10250 se utiliza para la comunicación de lectura/escritura y el puerto 10255 solo se utiliza para la comunicación de lectura.
 
-* 2 GB ou mais de RAM por máquina (menos de 2 GB não é recomendado)
+  - Puertos 30000-32767: Estos puertos se utilizan para servicios NodePort que deben ser accesibles fuera del clúster. Kubernetes asigna un puerto aleatorio dentro de este rango para cada servicio NodePort y redirige el tráfico al pod correspondiente.
 
-* 2 CPUs ou mais
-
-* Conexão de rede entre todas os nodes no cluster (pode ser via rede pública ou privada)
-
-* Algumas portas precisam estar abertas para que o cluster funcione corretamente, as principais:
-
-    * Porta 6443: É a porta padrão usada pelo Kubernetes API Server para se comunicar com os componentes do cluster. É a porta principal usada para gerenciar o cluster e deve estar sempre aberta.
-
-    * Portas 10250-10255: Essas portas são usadas pelo kubelet para se comunicar com o control plane do Kubernetes. A porta 10250 é usada para comunicação de leitura/gravação e a porta 10255 é usada apenas para comunicação de leitura.
-
-    * Porta 30000-32767: Essas portas são usadas para serviços NodePort que precisam ser acessíveis fora do cluster. O Kubernetes aloca uma porta aleatória dentro desse intervalo para cada serviço NodePort e redireciona o tráfego para o pod correspondente.
-
-    * Porta 2379-2380: Essas portas são usadas pelo etcd, o banco de dados de chave-valor distribuído usado pelo control plane do Kubernetes. A porta 2379 é usada para comunicação de leitura/gravação e a porta 2380 é usada apenas para comunicação de eleição.
-
+  - Puertos 2379-2380: Estos puertos son utilizados por etcd, la base de datos de clave-valor distribuida utilizada por el "control plane" de Kubernetes. El puerto 2379 se utiliza para la comunicación de lectura/escritura y el puerto 2380 solo se utiliza para la comunicación de elección.
 
 &nbsp;
 
-##### Instalando o kubeadm
-Estamos aqui para configurar nosso ambiente Kubernetes e, olha só, é simples como voar! Vamos lá!
+#### Instalación de kubeadm
 
-##### Desativando o uso do swap no sistema
+Estamos aquí para configurar nuestro entorno de Kubernetes, ¡y mira lo fácil que es! ¡Vamos allá!
 
-Primeiro, vamos desativar a utilização de swap no sistema. Isso é necessário porque o Kubernetes não trabalha bem com swap ativado:
+#### Deshabilitar el uso de swap en el sistema
 
-```
+Primero, vamos a desactivar el uso de swap en el sistema. Esto es necesario porque Kubernetes no funciona bien con swap activado:
+
+```bash
 sudo swapoff -a
 ```
 
-##### Carregando os módulos do kernel
+#### Cargar los módulos del kernel
 
-Agora, vamos carregar os módulos do kernel necessários para o funcionamento do Kubernetes:
+Ahora, vamos a cargar los módulos del kernel necesarios para el funcionamiento de Kubernetes:
 
-```
+```bash
 cat <<EOF | sudo tee /etc/modules-load.d/k8s.conf
 overlay
 br_netfilter
@@ -150,11 +146,11 @@ sudo modprobe overlay
 sudo modprobe br_netfilter
 ```
 
-##### Configurando parâmetros do sistema
+##### Configurando parámetros del sistema
 
-Em seguida, vamos configurar alguns parâmetros do sistema. Isso garantirá que nosso cluster funcione corretamente:
+A continuación, vamos a configurar algunos parámetros del sistema. Esto asegurará que nuestro clúster funcione correctamente:
 
-```
+```bash
 cat <<EOF | sudo tee /etc/sysctl.d/k8s.conf
 net.bridge.bridge-nf-call-iptables  = 1
 net.bridge.bridge-nf-call-ip6tables = 1
@@ -164,11 +160,11 @@ EOF
 sudo sysctl --system
 ```
 
-##### Instalando os pacotes do Kubernetes
+##### Instalando los paquetes de Kubernetes
 
-Hora de instalar os pacotes do Kubernetes! Coisa linda de ai meu Deus! Aqui vamos nós:
+¡Es hora de instalar los paquetes de Kubernetes! ¡Qué cosita más bonita, oh Dios mío! Aquí vamos:
 
-```
+```bash
 sudo apt-get update && sudo apt-get install -y apt-transport-https curl
 
 curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
@@ -181,11 +177,11 @@ sudo apt-get install -y kubelet kubeadm kubectl
 sudo apt-mark hold kubelet kubeadm kubectl
 ```
 
-##### Instalando o containerd
+##### Instalando containerd
 
-Em seguida, vamos instalar o containerd, que são essenciais para nosso ambiente Kubernetes:
+A continuación, vamos a instalar containerd, que es esencial para nuestro entorno de Kubernetes:
 
-```
+```bash
 sudo apt-get update && sudo apt-get install -y apt-transport-https ca-certificates curl gnupg lsb-release
 
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
@@ -195,11 +191,11 @@ echo "deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] 
 sudo apt-get update && sudo apt-get install -y containerd.io
 ```
 
-##### Configurando o containerd
+##### Configurando containerd
 
-Agora, vamos configurar o containerd para que ele funcione adequadamente com o nosso cluster:
+Ahora, vamos a configurar containerd para que funcione correctamente con nuestro clúster:
 
-```
+```bash
 sudo containerd config default | sudo tee /etc/containerd/config.toml
 
 sudo sed -i 's/SystemdCgroup = false/SystemdCgroup = true/g' /etc/containerd/config.toml
@@ -208,38 +204,37 @@ sudo systemctl restart containerd
 sudo systemctl status containerd
 ```
 
-##### Habilitando o serviço do kubelet
+##### Habilitando el servicio kubelet
 
-Por fim, vamos habilitar o serviço do kubelet para que ele inicie automaticamente com o sistema:
+Por último, vamos a habilitar el servicio kubelet para que se inicie automáticamente con el sistema:
 
-```
+```bash
 sudo systemctl enable --now kubelet
 ```
 
-##### Configurando as portas
+##### Configurando los puertos
 
-Antes de iniciar o cluster, lembre-se das portas que precisam estar abertas para que o cluster funcione corretamente. Precisamos ter as portas TCP 6443, 10250-10255, 30000-32767 e 2379-2380 abertas entre os nodes do cluster. No nosso exemplo, onde estaremos usando somente um node `control plane`, não precisamos nos preocupar com algumas quando temos mais de um node `control plane`, pois eles precisam se comunicar entre si para manter o estado do cluster, ou ainda as portas 30000-32767, que são usadas para serviços NodePort que precisam ser acessíveis fora do cluster. Elas nós podemos ir abrindo conforme a necessidade, conforme vamos criando os nossos serviços.
+Antes de iniciar el clúster, recuerda los puertos que deben estar abiertos para que el clúster funcione correctamente. Necesitamos tener los puertos TCP 6443, 10250-10255, 30000-32767 y 2379-2380 abiertos entre los nodos del clúster. En nuestro ejemplo, donde solo tendremos un nodo `control plane`, no necesitamos preocuparnos por algunas de estas cuando tenemos más de un nodo `control plane`, ya que necesitan comunicarse entre sí para mantener el estado del clúster, o incluso los puertos 30000-32767, que se usan para servicios NodePort que deben ser accesibles fuera del clúster. Estos puertos se pueden abrir según sea necesario, a medida que creamos nuestros servicios.
 
-Por agora o que precisamos garantir são as portas TCP 6443 somente no `control plane` e as 10250-10255 abertas em todos nodes do cluster.
+Por ahora, lo que necesitamos asegurar son los puertos TCP 6443 solo en el `control plane` y los puertos 10250-10255 abiertos en todos los nodos del clúster.
 
-Em nosso exemplo vamos utilizar como CNI o Weave Net, que é um CNI que utiliza o protocolo de roteamento de pacotes do Kubernetes para criar uma rede entre os pods. Falarei mais sobre ele mais pra frente, mas como estamos falando das portas que são importantes para o cluster funcionar, precisamos abrir a porta TCP 6783 e as portas UDP 6783 e 6784, para que o Weave Net funcione corretamente.
+En nuestro ejemplo, vamos a utilizar Weave Net como CNI, que es un CNI que utiliza el protocolo de enrutamiento de paquetes de Kubernetes para crear una red entre los pods. Hablaré más sobre esto más adelante, pero dado que estamos hablando de los puertos importantes para que el clúster funcione, necesitamos abrir el puerto TCP 6783 y los puertos UDP 6783 y 6784 para que Weave Net funcione correctamente.
 
-Então já sabe, não esqueça de abrir as portas TCP 6443, 10250-10255 e 6783 no seu firewall.
+Así que ya sabes, no olvides abrir los puertos TCP 6443, 10250-10255 y 6783 en tu firewall.
 
-##### Inicializando o cluster
+##### Inicializando el clúster
 
-Agora que temos tudo configurado, vamos iniciar o nosso cluster:
+Ahora que todo está configurado, vamos a iniciar nuestro clúster:
 
-```
-sudo kubeadm init --pod-network-cidr=10.10.0.0/16 --apiserver-advertise-address=<O IP QUE VAI FALAR COM OS NODES>
+```bash
+sudo kubeadm init --pod-network-cidr=10.10.0.0/16 --apiserver-advertise-address=<LA IP QUE SE COMUNICARÁ CON LOS NODOS>
 ```
 
 &nbsp;
 
+Sustituye `<LA IP QUE SE COMUNICARÁ CON LOS NODOS>` con la dirección IP de la máquina que actúa como `control plane`.
 
-Substitua `<O IP QUE VAI FALAR COM OS NODES>` pelo endereço IP da máquina que está atuando como `control plane`.
-
-Após a execução bem-sucedida do comando acima, você verá uma mensagem informando que o cluster foi inicializado com sucesso e todos os detalhes de sua inicialização, conforme é possível ver na saída do comando:
+Después de que el comando anterior se ejecute con éxito, verás un mensaje que indica que el clúster se ha inicializado correctamente y todos los detalles de su inicio, como se muestra en la salida del comando:
 
 ```bash
 [init] Using Kubernetes version: v1.26.3
@@ -312,15 +307,15 @@ Run "kubectl apply -f [podnetwork].yaml" with one of the options listed at:
 Then you can join any number of worker nodes by running the following on each as root:
 
 kubeadm join 172.31.57.89:6443 --token if9hn9.xhxo6s89byj9rsmd \
-	--discovery-token-ca-cert-hash sha256:ad583497a4171d1fc7d21e2ca2ea7b32bdc8450a1a4ca4cfa2022748a99fa477 
+--discovery-token-ca-cert-hash sha256:ad583497a4171d1fc7d21e2ca2ea7b32bdc8450a1a4ca4cfa2022748a99fa477 
 
 ```
 
 &nbsp;
 
-Inclusive, você verá uma lista de comandos para configurar o acesso ao cluster com o kubectl. Copie e cole esse comando em seu terminal:
+Además, verás una lista de comandos para configurar el acceso al clúster con kubectl. Copia y pega este comando en tu terminal:
 
-```
+```bash
 mkdir -p $HOME/.kube
 sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
 sudo chown $(id -u):$(id -g) $HOME/.kube/config
@@ -328,31 +323,30 @@ sudo chown $(id -u):$(id -g) $HOME/.kube/config
 
 &nbsp;
 
-Essa configuração é necessária para que o kubectl possa se comunicar com o cluster, pois quando estamos copiando o arquivo `admin.conf` para o diretório `.kube` do usuário, estamos copiando o arquivo com as permissões de root, esse é o motivo de executarmos o comando `sudo chown $(id -u):$(id -g) $HOME/.kube/config` para alterar as permissões do arquivo para o usuário que está executando o comando.
+Esta configuración es necesaria para que kubectl pueda comunicarse con el clúster, ya que al copiar el archivo `admin.conf` al directorio `.kube` del usuario, estamos copiando el archivo con los permisos de root. Por eso ejecutamos el comando `sudo chown $(id -u):$(id -g) $HOME/.kube/config` para cambiar los permisos del archivo al usuario que está ejecutando el comando.
 
+##### Comprendiendo el archivo admin.conf
 
-##### Entendendo o arquivo admin.conf
-Agora precisamos entender o que temos dentro do arquivo `admin.conf`. Antes de mais nada precisamos conhecer alguns pontos importantes sobre o a estrutura do arquivo `admin.conf`:
+Ahora necesitamos entender lo que tenemos dentro del archivo `admin.conf`. Antes de seguir adelante, es importante conocer algunos puntos clave sobre la estructura del archivo `admin.conf`:
 
-- É um arquivo de configuração do kubectl, que é o cliente de linha de comando do Kubernetes. Ele é usado para se comunicar com o cluster Kubernetes.
+- Es un archivo de configuración del kubectl, que es la herramienta de línea de comandos del Kubernetes. Se utiliza para comunicarse con el clúster Kubernetes.
 
-- Contém as informações de acesso ao cluster, como o endereço do servidor API, o certificado de cliente e o token de autenticação.
+- Contiene la información de acceso al clúster, como la dirección del servidor de API, el certificado del cliente y el token de autenticación.
 
-- Eu posso ter mais de um contexto dentro do arquivo `admin.conf`, onde cada contexto é um cluster Kubernetes. Por exemplo, eu posso ter um contexto para o cluster de produção e outro para o cluster de desenvolvimento, simples como voar.
+- Se pueden tener varios contextos dentro del archivo `admin.conf`, donde cada contexto es un clúster Kubernetes. Por ejemplo, se podría tener un contexto para el clúster de producción y otro para el clúster de desarrollo, tan sencillo como volar.
 
-- Ele contém os dados de acesso ao cluster, portanto, se alguém tiver acesso a esse arquivo, ele terá acesso ao cluster. (Desde que tenha acesso ao cluster, claro).
+- Contiene los datos de acceso al clúster, por lo que si alguien tiene acceso a este archivo, tendrá acceso al clúster. (Siempre y cuando tenga acceso al clúster, por supuesto).
 
-- O arquivo `admin.conf` é criado quando o cluster é inicializado.
+- El archivo `admin.conf` se crea cuando se inicia el clúster.
 
-
-Vou copiar aqui o conteúdo de um exemplo de arquivo `admin.conf`:
+Voy a copiar aquí el contenido de un ejemplo del archivo `admin.conf`:
 
 ```yaml
 apiVersion: v1
 
 clusters:
 - cluster:
-    certificate-authority-data: SEU_CERTIFICADO_AQUI
+    certificate-authority-data: TU_CERTIFICADO_AQUÍ
     server: https://172.31.57.89:6443
   name: kubernetes
 
@@ -371,13 +365,13 @@ preferences: {}
 users:
 - name: kubernetes-admin
   user:
-    client-certificate-data: SUA_CHAVE_PUBLICA_AQUI
-    client-key-data: SUA_CHAVE_PRIVADA_AQUI
+    client-certificate-data: TU_CERTIFICADO_PÚBLICO_AQUÍ
+    client-key-data: TU_LLAVE_PRIVADA_AQUÍ
 ```
 
 &nbsp;
 
-Simplificando, temos a seguinte estrutura:
+Simplificando, tenemos la siguiente estructura:
 
 ```yaml
 apiVersion: v1
@@ -385,7 +379,7 @@ clusters:
 #...
 contexts:
 #...
-current-context: kind-kind-multinodes
+current-context: tipo-tipo-multinodos
 kind: Config
 preferences: {}
 users:
@@ -394,15 +388,15 @@ users:
 
 &nbsp;
 
-Vamos ver o que temos dentro de cada seção:
+Veamos qué hay dentro de cada sección:
 
 **Clusters**
 
-A seção clusters contém informações sobre os clusters Kubernetes que você deseja acessar, como o endereço do servidor API e o certificado de autoridade. Neste arquivo, há somente um cluster chamado kubernetes, que é o cluster que acabamos de criar.
+La sección de clústeres contiene información sobre los clústeres Kubernetes a los que deseas acceder, como la dirección del servidor de API y el certificado de la autoridad. En este archivo, solo hay un clúster llamado "kubernetes", que es el clúster que acabamos de crear.
 
 ```yaml
 - cluster:
-    certificate-authority-data: SEU_CERTIFICADO_AQUI
+    certificate-authority-data: TU_CERTIFICADO_AQUÍ
     server: https://172.31.57.89:6443
   name: kubernetes
 ```
@@ -411,7 +405,7 @@ A seção clusters contém informações sobre os clusters Kubernetes que você 
 
 **Contextos**
 
-A seção contexts define configurações específicas para cada combinação de cluster, usuário e namespace. Nós somente temos um contexto configurado. Ele é chamado kubernetes-admin@kubernetes e combina o cluster kubernetes com o usuário kubernetes-admin.
+La sección de contextos define configuraciones específicas para cada combinación de clúster, usuario y espacio de nombres. Solo tenemos un contexto configurado. Se llama "kubernetes-admin@kubernetes" y combina el clúster "kubernetes" con el usuario "kubernetes-admin".
 
 ```yaml
 - context:
@@ -423,9 +417,9 @@ A seção contexts define configurações específicas para cada combinação de
 &nbsp;
 
 
-**Contexto atual**
+**Contexto actual**
 
-A propriedade current-context indica o contexto atualmente ativo, ou seja, qual combinação de cluster, usuário e namespace será usada ao executar comandos kubectl. Neste arquivo, o contexto atual é o kubernetes-admin@kubernetes.
+La propiedad `current-context` indica el contexto actualmente activo, es decir, qué combinación de clúster, usuario y espacio de nombres se usará al ejecutar comandos kubectl. En este archivo, el contexto actual es "kubernetes-admin@kubernetes".
 
 ```yaml
 current-context: kubernetes-admin@kubernetes
@@ -433,9 +427,9 @@ current-context: kubernetes-admin@kubernetes
 
 &nbsp;
 
-**Preferências**
+**Preferencias**
 
-A seção preferences contém configurações globais que afetam o comportamento do kubectl. Aqui podemos definir o editor de texto padrão, por exemplo.
+La sección de preferencias contiene configuraciones globales que afectan el comportamiento del kubectl. Aquí podemos definir el editor de texto predeterminado, por ejemplo.
 
 ```yaml
 preferences: {}
@@ -443,91 +437,87 @@ preferences: {}
 
 &nbsp;
 
-**Usuários**
+**Usuarios**
 
-A seção users contém informações sobre os usuários e suas credenciais para acessar os clusters. Neste arquivo, há somente um usuário chamado kubernetes-admin. Ele contém os dados do certificado de cliente e da chave do cliente.
+La sección de usuarios contiene información sobre los usuarios y sus credenciales para acceder a los clústeres. En este archivo, solo hay un usuario llamado "kubernetes-admin". Contiene los datos del certificado del cliente y la llave del cliente.
 
 ```yaml
 - name: kubernetes-admin
   user:
-    client-certificate-data: SUA_CHAVE_PUBLICA_AQUI
-    client-key-data: SUA_CHAVE_PRIVADA_AQUI
+    client-certificate-data: TU_CERTIFICADO_PÚBLICO_AQUÍ
+    client-key-data: TU_LLAVE_PRIVADA_AQUÍ
 ```
 
 &nbsp;
 
+Otra información sumamente importante contenida en este archivo se refiere a las credenciales de acceso al clúster. Estas credenciales se utilizan para autenticar al usuario que ejecuta el comando kubectl. Estas credenciales son:
 
-Outra informação super importante que está contida nesse arquivo é referente as credenciais de acesso ao cluster. Essas credenciais são usadas para autenticar o usuário que está executando o comando kubectl. Essas credenciais são:
+- **Token de autenticación**: Es un token de acceso que se utiliza para autenticar al usuario que ejecuta el comando kubectl. Este token se genera automáticamente cuando se inicia el clúster.
 
-- **Token de autenticação**: É um token de acesso que é usado para autenticar o usuário que está executando o comando kubectl. Esse token é gerado automaticamente quando o cluster é inicializado. Esse token é usado para autenticar o usuário que está executando o comando kubectl. Esse token é gerado automaticamente quando o cluster é inicializado.
+- **certificate-authority-data**: Este campo contiene la representación en base64 del certificado de la autoridad de certificación (CA) del clúster. La CA es responsable de firmar y emitir certificados para el clúster. El certificado de la CA se utiliza para verificar la autenticidad de los certificados presentados por el servidor de API y los clientes, garantizando que la comunicación entre ellos sea segura y confiable.
 
-- **certificate-authority-data**: Este campo contém a representação em base64 do certificado da autoridade de certificação (CA) do cluster. A CA é responsável por assinar e emitir certificados para o cluster. O certificado da CA é usado para verificar a autenticidade dos certificados apresentados pelo servidor de API e pelos clientes, garantindo que a comunicação entre eles seja segura e confiável.
+- **client-certificate-data**: Este campo contiene la representación en base64 del certificado del cliente. El certificado del cliente se utiliza para autenticar al usuario al comunicarse con el servidor de API de Kubernetes. El certificado está firmado por la autoridad de certificación (CA) del clúster e incluye información sobre el usuario y su clave pública.
 
-- **client-certificate-data**: Este campo contém a representação em base64 do certificado do cliente. O certificado do cliente é usado para autenticar o usuário ao se comunicar com o servidor de API do Kubernetes. O certificado é assinado pela autoridade de certificação (CA) do cluster e inclui informações sobre o usuário e sua chave pública.
+- **client-key-data**: Este campo contiene la representación en base64 de la clave privada del cliente. La clave privada se utiliza para firmar las solicitudes enviadas al servidor de API de Kubernetes, lo que permite que el servidor verifique la autenticidad de la solicitud. La clave privada debe mantenerse en secreto y no debe compartirse con otras personas o sistemas.
 
-- **client-key-data**: Este campo contém a representação em base64 da chave privada do cliente. A chave privada é usada para assinar as solicitações enviadas ao servidor de API do Kubernetes, permitindo que o servidor verifique a autenticidade da solicitação. A chave privada deve ser mantida em sigilo e não compartilhada com outras pessoas ou sistemas.
+Estos campos son importantes para establecer una comunicación segura y autenticada entre el cliente (generalmente el kubectl u otras herramientas de gestión) y el servidor de API de Kubernetes. Permiten que el servidor de API verifique
 
-Esses campos são importantes para estabelecer uma comunicação segura e autenticada entre o cliente (geralmente o kubectl ou outras ferramentas de gerenciamento) e o servidor de API do Kubernetes. Eles permitem que o servidor de API verifique a identidade do cliente e vice-versa, garantindo que apenas usuários e sistemas autorizados possam acessar e gerenciar os recursos do cluster.
-
-&nbsp;
-
-Você pode encontrar os arquivos que são utilizados para adicionar essas credentiais ao seu cluster em `/etc/kubernetes/pki/`.
-Lá temos os seguintes arquivos que são utilizados para adicionar essas credenciais ao seu cluster:
-
-- **client-certificate-data**: O arquivo de certificado do cliente geralmente é encontrado em /etc/kubernetes/pki/apiserver-kubelet-client.crt.
-
-- **client-key-data**: O arquivo da chave privada do cliente geralmente é encontrado em /etc/kubernetes/pki/apiserver-kubelet-client.key.
-
-- **certificate-authority-data**: O arquivo do certificado da autoridade de certificação (CA) geralmente é encontrado em /etc/kubernetes/pki/ca.crt.
-
-Vale lembrar que esse arquivo é gerado automaticamente quando o cluster é inicializado, e são adicionados ao arquivo `admin.conf` que é utilizado para acessar o cluster. Essas credenciais são copiadas para o arquivo `admin.conf` já convertidas para base64.
+ la identidad del cliente y viceversa, garantizando que solo los usuarios y sistemas autorizados puedan acceder y administrar los recursos del clúster.
 
 &nbsp;
 
-Pronto, agora você já sabe o porquê copiamos o arquivo `admin.conf` para o diretório `~/.kube/` e como ele funciona.
+Puedes encontrar los archivos que se utilizan para agregar estas credenciales a tu clúster en `/etc/kubernetes/pki/`. Allí encontrarás los siguientes archivos que se utilizan para agregar estas credenciales a tu clúster:
 
+- **client-certificate-data**: El archivo de certificado del cliente generalmente se encuentra en /etc/kubernetes/pki/apiserver-kubelet-client.crt.
 
-Caso você queira, você pode acessar o conteúdo do arquivo `admin.conf` com o seguinte comando:
+- **client-key-data**: El archivo de la llave privada del cliente generalmente se encuentra en /etc/kubernetes/pki/apiserver-kubelet-client.key.
 
+- **certificate-authority-data**: El archivo del certificado de la autoridad de certificación (CA) generalmente se encuentra en /etc/kubernetes/pki/ca.crt.
+
+Es importante recordar que este archivo se genera automáticamente cuando se inicia el clúster y se agrega al archivo `admin.conf` que se utiliza para acceder al clúster. Estas credenciales se copian en el archivo `admin.conf` después de haber sido convertidas a base64.
+
+&nbsp;
+
+Listo, ahora ya sabes por qué copiamos el archivo `admin.conf` al directorio `~/.kube/` y cómo funciona.
+
+Si lo deseas, puedes acceder al contenido del archivo `admin.conf` con el siguiente comando:
 
 ```bash
 kubectl config view
 ```
 
-&nbsp;
-
-Ele somente irá omitir os dados de certificados e chaves privadas, que são muito grandes para serem exibidos no terminal.
+Solo se omitirán los datos de los certificados y las llaves privadas, ya que son demasiado grandes para mostrarse en la terminal.
 
 &nbsp;
 
-##### Adicionando os demais nodes ao cluster
+##### Agregando los demás nodos al clúster
 
-Agora que já temos o nosso cluster inicializado e já estamos entendendo muito bem o que é o arquivo `admin.conf`, chegou o momento de adicionar os demais nodes ao nosso cluster.
+Ahora que ya tenemos nuestro clúster inicializado y comprendemos muy bien qué es el archivo `admin.conf`, es hora de agregar los demás nodos a nuestro clúster.
 
-Para isso, vamos novamente utilizar o comando `kubeadm`, porém ao invés de executar o comando no node do control plane, nesse momento precisamos rodar o comando diretamente no node que queremos adicionar ao cluster.
+Para hacer esto, utilizaremos nuevamente el comando `kubeadm`, pero en lugar de ejecutar el comando en el nodo de control, en este momento debemos ejecutar el comando directamente en el nodo al que queremos agregar al clúster.
 
-Quando inicializamos o nosso cluster, o `kubeadm` nos mostrou o comando que precisamos executar no novos nodes, para que eles possam ser adicinados ao cluster como `workers`.
+Cuando inicializamos nuestro clúster, `kubeadm` nos mostró el comando que debemos ejecutar en los nuevos nodos para que puedan agregarse al clúster como `workers`.
 
 ```bash
 sudo kubeadm join 172.31.57.89:6443 --token if9hn9.xhxo6s89byj9rsmd \
-	--discovery-token-ca-cert-hash sha256:ad583497a4171d1fc7d21e2ca2ea7b32bdc8450a1a4ca4cfa2022748a99fa477 
+  --discovery-token-ca-cert-hash sha256:ad583497a4171d1fc7d21e2ca2ea7b32bdc8450a1a4ca4cfa2022748a99fa477 
 ```
 
 &nbsp;
 
-O comando kubeadm join é usado para adicionar um novo node ao cluster Kubernetes existente. Ele é executado nos worker nodes para que eles possam se juntar ao cluster e receber instruções do control plane. Vamos analisar as partes do comando fornecido:
+El comando `kubeadm join` se utiliza para agregar un nuevo nodo al clúster Kubernetes existente. Se ejecuta en los nodos trabajadores para que puedan unirse al clúster y recibir instrucciones del nodo de control. Analicemos las partes del comando proporcionado:
 
-- **kubeadm join**: O comando base para adicionar um novo nó ao cluster.
+- **kubeadm join**: El comando base para agregar un nuevo nodo al clúster.
 
-- **172.31.57.89:6443**: Endereço IP e porta do servidor de API do nó mestre (control plane). Neste exemplo, o nó mestre está localizado no IP 172.31.57.89 e a porta é 6443.
+- **172.31.57.89:6443**: Dirección IP y puerto del servidor de API del nodo maestro (nodo de control). En este ejemplo, el nodo maestro está en la dirección IP 172.31.57.89 y el puerto es 6443.
 
-- **--token if9hn9.xhxo6s89byj9rsmd**: O token é usado para autenticar o nó trabalhador no nó mestre durante o processo de adesão. Os tokens são gerados pelo nó mestre e têm uma validade limitada (por padrão, 24 horas). Neste exemplo, o token é if9hn9.xhxo6s89byj9rsmd.
+- **--token if9hn9.xhxo6s89byj9rsmd**: El token se utiliza para autenticar al nodo trabajador en el nodo maestro durante el proceso de unión. Los tokens son generados por el nodo maestro y tienen una validez limitada (por defecto, 24 horas). En este ejemplo, el token es if9hn9.xhxo6s89byj9rsmd.
 
-- **--discovery-token-ca-cert-hash sha256:ad583497a4171d1fc7d21e2ca2ea7b32bdc8450a1a4ca4cfa2022748a99fa477**: Este é um hash criptográfico do certificado da autoridade de certificação (CA) do control plane. Ele é usado para garantir que o nó worker esteja se comunicando com o nó do control plane correto e autêntico. O valor após sha256: é o hash do certificado CA.
+- **--discovery-token-ca-cert-hash sha256:ad583497a4171d1fc7d21e2ca2ea7b32bdc8450a1a4ca4cfa2022748a99fa477**: Este es un hash criptográfico del certificado de la autoridad de certificación (CA) del nodo de control. Se utiliza para asegurar que el nodo trabajador esté comunicándose con el nodo de control correcto y auténtico. El valor después de sha256: es el hash del certificado CA.
 
-Ao executar este comando no worker, ele iniciará o processo de adesão ao cluster. Se o token for válido e o hash do certificado CA corresponder ao certificado CA do nó do control plane, o nó worker será autenticado e adicionado ao cluster. Após a adesão bem-sucedida, o novo node começará a executar os Pods e a receber instruções do control plane, conforme necessário.
+Al ejecutar este comando en el nodo trabajador, iniciará el proceso de unirse al clúster. Si el token es válido y el hash del certificado CA coincide con el certificado CA del nodo de control, el nodo trabajador se autenticará y se agregará al clúster. Después de una unión exitosa, el nuevo nodo comenzará a ejecutar los Pods y a recibir instrucciones del nodo de control, según sea necesario.
 
-Após executar o `join` em cada worker node, vá até o node que criamos para ser o control plane, e execute:
+Después de ejecutar el comando `join` en cada nodo trabajador, ve al nodo que creamos para ser el nodo de control y ejecuta:
 
 ```bash
 kubectl get nodes
@@ -536,82 +526,83 @@ kubectl get nodes
 &nbsp;
 
 ```bash
-NAME     STATUS   ROLES           AGE   VERSION
-k8s-01   NotReady    control-plane   4m   v1.26.3
-k8s-02   NotReady    <none>          3m   v1.26.3
-k8s-03   NotReady    <none>          3m   v1.26.3
+NOMBRE     ESTADO   ROLES           EDAD   VERSIÓN
+k8s-01   No listo   nodo de control   4m   v1.26.3
+k8s-02   No listo   <ninguno>          3m   v1.26.3
+k8s-03   No listo   <ninguno>          3m   v1.26.3
 ```
 
 &nbsp;
 
-Agora você já consegue ver que os dois novos nodes foram adicionados ao cluster, porém ainda estão com o status `Not Ready`, pois ainda não instalamos o nosso plugin de rede para que seja possível a comunicação entre os pods. Vamos resolver isso agora. :)
+Ahora puedes ver que los dos nuevos nodos se agregaron al clúster, pero todavía tienen el estado `No listo` porque aún no hemos instalado el plugin de red para permitir la comunicación entre los pods. Vamos a solucionar esto ahora. :)
 
-##### Instalando o Weave Net
+##### Instalando Weave Net
 
-Agora que o cluster está inicializado, vamos instalar o Weave Net:
+Ahora que el clúster está inicializado, vamos a instalar Weave Net:
 
-```
-$ kubectl apply -f https://github.com/weaveworks/weave/releases/download/v2.8.1/weave-daemonset-k8s.yaml
+```bash
+kubectl apply -f https://github.com/weaveworks/weave/releases/download/v2.8.1/weave-daemonset-k8s.yaml
 ```
 
 &nbsp;
 
-Aguarde alguns minutos até que todos os componentes do cluster estejam em funcionamento. Você pode verificar o status dos componentes do cluster com o seguinte comando:
+Espera unos minutos hasta que todos los componentes del clúster estén en funcionamiento. Puedes verificar el estado de los componentes del clúster con el siguiente comando:
 
-```
+```bash
 kubectl get pods -n kube-system
 ```
+
 &nbsp;
 
-```
+```bash
 kubectl get nodes
 ```
 
 &nbsp;
 
 ```bash
-NAME     STATUS   ROLES           AGE   VERSION
-k8s-01   Ready    control-plane   7m   v1.26.3
-k8s-02   Ready    <none>          6m   v1.26.3
-k8s-03   Ready    <none>          6m   v1.26.3
+NOMBRE     ESTADO   ROLES           EDAD   VERSIÓN
+k8s-01   Listo    nodo de control   7m   v1.26.3
+k8s-02   Listo    <ninguno>          6m   v1.26.3
+k8s-03   Listo    <ninguno>          6m   v1.26.3
 ```
 
 &nbsp;
 
-O Weave Net é um plugin de rede que permite que os pods se comuniquem entre si. Ele também permite que os pods se comuniquem com o mundo externo, como outros clusters ou a Internet. 
-Quando o Kubernetes é instalado, ele resolve vários problemas por si só, porém quando o assunto é a comunicação entre os pods, ele não resolve. Por isso, precisamos instalar um plugin de rede para resolver esse problema.
+Weave Net es un plugin de red que permite que los pods se comuniquen entre sí. También permite que los pods se comuniquen con el mundo exterior, como otros clústeres o Internet.
+Cuando se instala Kubernetes, resuelve varios problemas por sí solo, pero cuando se trata de la comunicación entre los pods, no resuelve ese aspecto. Por lo tanto, necesitamos instalar un plugin de red para solucionar este problema.
 
-##### O que é o CNI?
+##### ¿Qué es CNI?
 
-CNI é uma especificação e conjunto de bibliotecas para a configuração de interfaces de rede em containers. A CNI permite que diferentes soluções de rede sejam integradas ao Kubernetes, facilitando a comunicação entre os Pods (grupos de containers) e serviços.
+CNI es una especificación y conjunto de bibliotecas para configurar interfaces de red en contenedores. CNI permite la integración de diferentes soluciones de red en Kubernetes, lo que facilita la comunicación entre los pods (grupos de contenedores) y los servicios.
 
-Com isso, temos diferentes plugins de redes, que seguem a especificação CNI, e que podem ser utilizados no Kubernetes. O Weave Net é um desses plugins de rede.
+Con esto, tenemos diferentes plugins de red que siguen la especificación CNI y que se pueden utilizar en Kubernetes. Weave Net es uno de estos plugins de red.
 
-Entre os plugins de rede mais utilizados no Kubernetes, temos:
+Entre los plugins de red más utilizados en Kubernetes, tenemos:
 
-- **Calico** é um dos plugins de rede mais populares e amplamente utilizados no Kubernetes. Ele fornece segurança de rede e permite a implementação de políticas de rede. O Calico utiliza o BGP (Border Gateway Protocol) para rotear tráfego entre os nós do cluster, proporcionando um desempenho eficiente e escalável.
+- **Calico** es uno de los plugins de red más populares y ampliamente utilizados en Kubernetes. Proporciona seguridad de red y permite implementar políticas de red. Calico utiliza BGP (Protocolo de puerta de enlace de borde) para enrutar el tráfico entre los nodos del clúster, proporcionando un rendimiento eficiente y escalable.
 
-- **Flannel** é um plugin de rede simples e fácil de configurar, projetado para o Kubernetes. Ele cria uma rede overlay que permite que os Pods se comuniquem entre si, mesmo em diferentes nós do cluster. O Flannel atribui um intervalo de IPs a cada nó e utiliza um protocolo simples para rotear o tráfego entre os nós.
+- **Flannel** es un plugin de red simple y fácil de configurar, diseñado para Kubernetes. Crea una superposición de red que permite que los pods se comuniquen entre sí, incluso en diferentes nodos del clúster. Flannel asigna un rango de direcciones IP a cada nodo y utiliza un protocolo simple para enrutar el tráfico entre los nodos.
 
-- **Weave** é outra solução popular de rede para Kubernetes. Ele fornece uma rede overlay que permite a comunicação entre os Pods em diferentes nós. Além disso, o Weave suporta criptografia de rede e gerenciamento de políticas de rede. Ele também pode ser integrado com outras soluções, como o Calico, para fornecer recursos adicionais de segurança e políticas de rede.
+- **Weave** es otra solución de red popular para Kubernetes. Proporciona una superposición de red que permite la comunicación entre los pods en diferentes nodos. Además, Weave admite cifrado de red y administración de políticas de red. También se puede integrar con otras soluciones, como Calico, para proporcionar funciones adicionales de seguridad y políticas de red.
 
-- **Cilium** é um plugin de rede focado em segurança e desempenho. Ele utiliza o BPF (Berkeley Packet Filter) para fornecer políticas de rede e segurança de alto desempenho. O Cilium também oferece recursos avançados, como balanceamento de carga, monitoramento e solução de problemas de rede.
+- **Cilium** es un plugin de red centrado en la seguridad y el rendimiento. Utiliza BPF (Filtro de paquetes de Berkeley) para proporcionar políticas de red y seguridad de alto rendimiento. Cilium también ofrece funciones avanzadas como equilibrio de carga, supervisión y resolución de problemas de red.
 
-- **Kube-router** é uma solução de rede leve para Kubernetes. Ele utiliza o BGP e IPVS (IP Virtual Server) para rotear o tráfego entre os nós do cluster, proporcionando um desempenho eficiente e escalável. Kube-router também suporta políticas de rede e permite a implementação de firewalls entre os Pods.
+- **Kube-router** es una solución de red ligera para Kubernetes. Utiliza BGP e IPVS (Servidor virtual IP) para enrutar el tráfico entre los nodos del clúster, proporcionando un rendimiento eficiente y escalable. Kube-router también admite políticas de red y permite implementar firewalls entre los pods.
 
-Esses são apenas alguns dos plugins de rede mais populares e amplamente utilizados no Kubernetes. Você pode encontrar uma lista completa de plugins de rede no site do Kubernetes.
+Estos son solo algunos de los plugins de red más populares y ampliamente utilizados en Kubernetes. Puedes encontrar una lista completa de plugins de red en el sitio web de Kubernetes.
 
-Agora, qual você deverá escolher? A resposta é simples: o que melhor se adequar às suas necessidades. Cada plugin de rede tem suas vantagens e desvantagens, e você deve escolher aquele que melhor se adequar ao seu ambiente.
+Ahora, ¿cuál debes elegir? La respuesta es simple: el que mejor se adapte a tus necesidades. Cada plugin de red tiene sus ventajas y desventajas, y debes elegir el que mejor se ajuste a tu entorno.
 
-Minha dica, procure não ficar inventando muita moda, tenta utilizar os que são já validados e bem aceitos pela comunidade, como o Weave Net, Calico, Flannel, etc. 
+Mi recomendación es no complicar demasiado las cosas, trata de utilizar aquellos que estén validados y sean bien aceptados por la comunidad, como Weave Net, Calico, Flannel, etc.
 
-O meu preferido é o `Weave Net` pela simplicidade de instalação e os recursos oferecidos.
+Mi preferido es `Weave Net` por su sencilla instalación y las características que ofrece.
 
-Um cara que eu tenho gostado bastante é o `Cilium`, ele é bem completo e tem uma comunidade bem ativa, além de utilizar o BPF, que é um assunto super quente no mundo Kubernetes!
+Un plugin que me ha gustado mucho es `Cilium`, es bastante completo y tiene una comunidad muy activa, además de utilizar BPF, ¡que es un tema muy candente en el mundo de Kubernetes!
 
 &nbsp;
 
-Pronto, já temos o nosso cluster inicializado e o Weave Net instalado. Agora, vamos criar um Deployment para testar a comunicação entre os Pods.
+Listo, ya tenemos nuestro clúster inicializado y Weave Net instalado. Ahora, creemos un Despliegue para probar la comunicación entre los Pods.
 
 ```bash
 kubectl create deployment nginx --image=nginx --replicas 3
@@ -626,20 +617,20 @@ kubectl get pods -o wide
 &nbsp;
 
 ```bash
-NAME                     READY   STATUS    RESTARTS   AGE   IP          NODE     NOMINATED NODE   READINESS GATES
-nginx-748c667d99-8brrj   1/1     Running   0          12s   10.32.0.4   k8s-02   <none>           <none>
-nginx-748c667d99-8knx2   1/1     Running   0          12s   10.40.0.2   k8s-03   <none>           <none>
-nginx-748c667d99-l6w7r   1/1     Running   0          12s   10.40.0.1   k8s-03   <none>           <none>
+NOMBRE                     LISTO   ESTADO    REINICIOS   EDAD   IP          NODO     NODO NOMINADO   PUERTAS DE LECTURA
+nginx-748c667d99-8brrj   1/1     Running   0          12s   10.32.0.4   k8s-02   <ninguno>           <ninguno>
+nginx-748c667d99-8knx2   1/1     Running   0          12s   10.40.0.2   k8s-03   <ninguno>           <ninguno>
+nginx-748c667d99-l6w7r   1/1     Running   0          12s   10.40.0.1   k8s-03   <ninguno>           <ninguno>
 ```
 
 &nbsp;
 
-Pronto, nosso cluster está funcionando e os Pods estão em execução em diferentes nós.
+¡Listo! Nuestro clúster está funcionando y los Pods se están ejecutando en diferentes nodos.
 
-Agora você já pode se divertir e utilizar o seu mais novo cluster Kubernetes!
+Ahora puedes disfrutar y utilizar tu flamante clúster Kubernetes.
 
 &nbsp;
-
+######################### PV continuar desde aqui
 
 #### Visualizando detalhes dos nodes
 
