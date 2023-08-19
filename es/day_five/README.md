@@ -29,9 +29,9 @@
         - [Agregando los demás nodos al clúster](#agregando-los-demás-nodos-al-clúster)
         - [Instalando Weave Net](#instalando-weave-net)
         - [¿Qué es CNI?](#qué-es-cni)
-      - [Visualizando detalhes dos nodes](#visualizando-detalhes-dos-nodes)
-    - [A sua lição de casa](#a-sua-lição-de-casa)
-  - [Final do Day-5](#final-do-day-5)
+      - [Visualizando detalles de los nodos](#visualizando-detalles-de-los-nodos)
+    - [Tu tarea](#tu-tarea)
+  - [Fin del Día 5](#fin-del-día-5)
 
 &nbsp;
 
@@ -630,13 +630,11 @@ nginx-748c667d99-l6w7r   1/1     Running   0          12s   10.40.0.1   k8s-03  
 Ahora puedes disfrutar y utilizar tu flamante clúster Kubernetes.
 
 &nbsp;
-######################### PV continuar desde aqui
 
-#### Visualizando detalhes dos nodes
+#### Visualizando detalles de los nodos
+Ahora que tenemos nuestro clúster con 03 nodos, podemos ver los detalles de cada uno de ellos y comprender cada aspecto.
 
-Agora que já temos o nosso clustes com 03 nodes, nós podemos visualizar os detalhes de cada um deles, e assim entender cada detalhe.
-
-Para ver a descrição do node, basta executar o comando abaixo:
+Para ver la descripción del nodo, simplemente ejecuta el siguiente comando:
 
 ```bash
 kubectl describe node k8s-01
@@ -733,9 +731,9 @@ Events:
 
 &nbsp;
 
-Na saída do comando acima é possível ver detalhes como o nome do node, o IP interno, o hostname, a capacidade de CPU, memória, armazenamento, pods, etc. Também é possível ver os pods que estão rodando no node, os recursos alocados e os eventos que ocorreram no node.
+En la salida del comando anterior, podrás ver detalles como el nombre del nodo, la dirección IP interna, el nombre de host, la capacidad de la CPU, la memoria, el almacenamiento, los pods, entre otros. También es posible ver los pods que se están ejecutando en el nodo, los recursos asignados y los eventos que han ocurrido en el nodo.
 
-Caso você queira visualizar detalhes dos outros dois nodes, basta utilizar o comando abaixo:
+Si deseas ver detalles de los otros dos nodos, simplemente utiliza el siguiente comando:
 
 ```bash
 kubectl get nodes k8s-02 -o wide
@@ -751,24 +749,22 @@ k8s-02   Ready    <none>   59m   v1.26.3   172.31.59.34   <none>        Ubuntu 2
 
 &nbsp;
 
+Estoy utilizando el parámetro `-o wide` para que el comando retorne más detalles sobre el nodo, como la IP externa y la IP interna.
 
-Estou utilizando o parâmetro `-o wide` para que o comando retorne mais detalhes sobre o node, como o IP externo e o IP interno.
+Y, por supuesto, todavía puedes usar el comando `kubectl describe node` para ver más detalles de los otros nodos, como hicimos para el nodo `k8s-01`.
 
-E claro, você ainda pode utilizar o comando `kubectl describe node` para visualizar mais detalhes dos demais nodes, como fizemos para o node `k8s-01`.
+### Tu tarea
 
+Tu tarea consiste en realizar la instalación del clúster de Kubernetes utilizando Kubeadm. Usa tu creatividad y prueba diferentes complementos de red.
 
-### A sua lição de casa
-
-A sua lição de casa é realizar a instalação do cluster Kubernetes utilizando o Kubeadm. Use a criatividade e teste diferentes plugins de redes.
-
-O mais importante é você ter um cluster Kubernetes funcionando e pronto para ser utilizado, e mais do que isso, é importante que você entenda como o cluster funciona e sinta-se confortável para realizar sua manutenção e a administração.
+Lo más importante es tener un clúster de Kubernetes funcionando y listo para ser utilizado, y más que eso, es importante que entiendas cómo funciona el clúster y te sientas cómodo realizando su mantenimiento y administración.
 
 &nbsp;
 
-## Final do Day-5
+## Fin del Día 5
 
-Durante o Day-5 você aprendeu como criar um cluster Kubernetes utilizando 3 nodes através do Kubeadm. Você ainda aprender todos os detalhes importantes sobre o cluster e seus componentes. Fizemos a instalação do plugin de rede Weave Net e ainda conhecemos o que é o CNI e os plugins de rede mais utilizados no Kubernetes.
+Durante el Día 5, aprendiste cómo crear un clúster de Kubernetes utilizando 3 nodos a través de Kubeadm. Aprendiste todos los detalles importantes sobre el clúster y sus componentes. Instalamos el complemento de red Weave Net y también conocimos qué es la CNI y los complementos de red más utilizados en Kubernetes.
 
-Agora partiu documentação do Kubernetes para que você possa se aprofundar ainda mais no assunto e construir um cluster Kubernetes ainda mais robusto e seguro.
+Ahora, dirígete a la documentación de Kubernetes para que puedas profundizar aún más en el tema y construir un clúster de Kubernetes aún más robusto y seguro.
 
 &nbsp;
