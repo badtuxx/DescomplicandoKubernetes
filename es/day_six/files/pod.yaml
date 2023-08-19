@@ -9,9 +9,9 @@ spec:
     ports:
     - containerPort: 80
     volumeMounts:
-    - name: meu-pvc
+    - name: mi-pvc
       mountPath: /usr/share/nginx/html
   volumes:
-  - name: meu-pvc
+  - name: mi-pvc
     persistentVolumeClaim:
-      claimName: meu-pvc
+      claimName: mi-pvc
