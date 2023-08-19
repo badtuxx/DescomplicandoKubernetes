@@ -1,148 +1,145 @@
-# Descomplicando o Kubernetes
-## DAY-6
-&nbsp;
+# Simplificando Kubernetes
+
+## Día 6
 
 &nbsp;
-### Conteúdo do Day-6
 
-- [Descomplicando o Kubernetes](#descomplicando-o-kubernetes)
-  - [DAY-6](#day-6)
-    - [Conteúdo do Day-6](#conteúdo-do-day-6)
-  - [Inicio da aula do Day-6](#inicio-da-aula-do-day-6)
-    - [O que iremos ver hoje?](#o-que-iremos-ver-hoje)
-      - [O que são volumes?](#o-que-são-volumes)
+## Contenído del Día 6
+
+- [Simplificando Kubernetes](#simplificando-kubernetes)
+  - [Día 6](#día-6)
+  - [Contenído del Día 6](#contenído-del-día-6)
+  - [Inicio de la Lección del Día 6](#inicio-de-la-lección-del-día-6)
+    - [¿Qué veremos hoy?](#qué-veremos-hoy)
+      - [¿Qué son los volúmenes?](#qué-son-los-volúmenes)
         - [EmpytDir](#empytdir)
-        - [Storage Class](#storage-class)
+        - [Clase de Almacenamiento (Storage Class)](#clase-de-almacenamiento-storage-class)
         - [PV - Persistent Volume](#pv---persistent-volume)
         - [PVC - Persistent Volume Claim](#pvc---persistent-volume-claim)
-    - [A sua lição de casa](#a-sua-lição-de-casa)
-  - [Final do Day-6](#final-do-day-6)
+    - [Tu tarea](#tu-tarea)
 
-## Inicio da aula do Day-6
-
-&nbsp;
-### O que iremos ver hoje?
-
-Durante o dia de hoje nós vamos aprender tudo sobre volumes, hoje é o dia de você finalmente descomplicar os volumes no Kubernetes! \o/
-
-Hojel nós iremos entender e configurar o que é um `configmap`, um `persistente volume (PV)` e um `persistent volume claim (PVC)`! E para isso iremos utilizar como exemplo diferentes tipos de clusters Kubernetes! Calma, eu explico melhor!
-
-Para ajudar no nosso aprendizado sobre volumes, vamos utlizar diferentes clusters Kubernetes! Vamos ter exemplos utilizando `EKS`, `kind` e instâncias em cloud providers.
-
-Então fique ciente de que hoje é o dia onde você irá descomplicar volumes no Kubernetes! #VAIIII
+## Inicio de la Lección del Día 6
 
 &nbsp;
 
-#### O que são volumes?
+### ¿Qué veremos hoy?
 
-Para simplificar o seu entendimento nesse momento, volumes nada mais são do que um diretório dentro do `Pod` que pode ser utilizado para armazenar dados. Eles podem ser utilizados para armazenar dados que precisam ser persistidos, como por exemplo, dados de um banco de dados, ou dados de um sistema de arquivos distribuído.
+¡Hoy es el día en que finalmente desmitificaremos los volúmenes en Kubernetes! \o/
 
-Quando estamos falando sobre volumes no Kubernetes, precisamos entender que temos basicamente dois tipos de volumes, os `ephemeral volumes` e os `persistent volumes`.
+Hoy vamos a entender y configurar qué es un `configmap`, un `persistent volume (PV)` y un `persistent volume claim (PVC)` (reclamo de volumen persistente). ¡Y para esto, vamos a utilizar ejemplos en diferentes tipos de clústeres Kubernetes! ¡Tranquilo, lo explicaré mejor!
 
-Os `ephemeral volumes`, que inclusive já vimos durante o treinamento o `emptyDir`, são volumes que são criados e destruídos junto com o `Pod`. Ele é um volume também, porém com uma diferença, ele não é persistente. Caso ocorra algum problema com o `Pod` e ele seja removido, o `emptyDir` também será removido.
+Para ayudar en nuestro aprendizaje sobre volúmenes, vamos a utilizar diferentes clústeres Kubernetes. Tendremos ejemplos utilizando `EKS`, `kind` e instancias en proveedores de servicios en la nube.
 
-Agora quando estamos falando sobre volumes do tipo `persistent volumes`, estamos falando sobre volumes que são criados e não são destruídos junto com o `Pod`, eles são persistidos, são volumes que seus dados são mantidos mesmo que o `Pod` seja removido.
+Así que ten en cuenta que hoy es el día en que desmitificarás los volúmenes en Kubernetes. #VAIIII
 
-Esse tipo de volume é super importante para aplicações que precisam armazenar dados que precisam ser mantidos mesmo que o `Pod` seja removido, como por exemplo, um banco de dados.
+&nbsp;
 
+#### ¿Qué son los volúmenes?
+
+Para simplificar tu comprensión en este momento, los volúmenes son básicamente directorios dentro del `Pod` que se pueden utilizar para almacenar datos. Pueden utilizarse para almacenar datos que necesitan persistirse, como datos de una base de datos o datos de un sistema de archivos distribuido.
+
+Cuando hablamos de volúmenes en Kubernetes, es importante entender que básicamente hay dos tipos de volúmenes: los `ephemeral volumes` (volúmenes efímeros) y los `persistent volumes` (volúmenes persistentes).
+
+Los `ephemeral volumes`, que ya hemos visto en el entrenamiento, como el `emptyDir`, son volúmenes que se crean y destruyen junto con el `Pod`. Es un volumen, pero con una diferencia: no es persistente. Si ocurre algún problema con el `Pod` y este se elimina, el `emptyDir` también se eliminará.
+
+Por otro lado, cuando hablamos de volúmenes del tipo `persistent volumes`, nos referimos a volúmenes que se crean y no se destruyen junto con el `Pod`. Son persistentes; es decir, sus datos se mantienen aunque se elimine el `Pod`.
+
+Este tipo de volumen es fundamental para aplicaciones que necesitan almacenar datos que deben mantenerse incluso si el `Pod` se elimina, como, por ejemplo, una base de datos.
 
 ##### EmpytDir
 
-Um volume do tipo EmptyDir é um volume que é criado no momento em que o Pod é criado, e ele é destruído quando o Pod é destruído, ou seja, ele é um volume temporário.
+Un volumen del tipo EmptyDir es un volumen que se crea cuando se crea el Pod y se destruye cuando se destruye el Pod. En otras palabras, es un volumen temporal.
 
-No dia-a-dia, você não vai usar muito esse tipo de volume, mas é importante que você saiba que ele existe. Um dos casos de uso mais comuns é quando você precisa compartilhar dados entre os containers de um Pod. Imagina que você tem dois containers em um Pod e um deles possui um diretório com dados, e você quer que o outro container tenha acesso a esses dados. Nesse caso, você pode criar um volume do tipo EmptyDir e compartilhar esse volume entre os dois containers.
+En la vida cotidiana, no utilizarás mucho este tipo de volumen, pero es importante que sepas que existe. Uno de los casos de uso más comunes es cuando necesitas compartir datos entre los contenedores de un Pod. Imagina que tienes dos contenedores en un Pod y uno de ellos tiene un directorio con datos, y quieres que el otro contenedor tenga acceso a esos datos. En este caso, puedes crear un volumen del tipo EmptyDir y compartirlo entre los dos contenedores.
 
-Chame o arquivo de `pod-emptydir.yaml`.
+Nombra al archivo `pod-emptydir.yaml`.
 
 ```yaml
-apiVersion: v1 # versão da API do Kubernetes
-kind: Pod # tipo de objeto que estamos criando
-metadata: # metadados do Pod
-  name: giropops # nome do Pod
-spec: # especificação do Pod
-  containers: # lista de containers
-  - name: girus # nome do container 
-    image: ubuntu # imagem do container
-    args: # argumentos que serão passados para o container
-    - sleep # usando o comando sleep para manter o container em execução
-    - infinity # o argumento infinity faz o container esperar para sempre
-    volumeMounts: # lista de volumes que serão montados no container
-    - name: primeiro-emptydir # nome do volume
-      mountPath: /giropops # diretório onde o volume será montado 
-  volumes: # lista de volumes
-  - name: primeiro-emptydir # nome do volume
-    emptyDir: # tipo do volume
-      sizeLimit: 256Mi # tamanho máximo do volume
+apiVersion: v1 # Versión de la API de Kubernetes
+kind: Pod # Tipo de objeto que estamos creando
+metadata: # Metadatos del Pod
+  name: giropops # Nombre del Pod
+spec: # Especificación del Pod
+  containers: # Lista de contenedores
+  - name: girus # Nombre del contenedor
+    image: ubuntu # Imagen del contenedor
+    args: # Argumentos que se pasarán al contenedor
+    - sleep # Usando el comando sleep para mantener el contenedor en ejecución
+    - infinity # El argumento infinity hace que el contenedor espere indefinidamente
+    volumeMounts: # Lista de montajes de volúmenes en el contenedor
+    - name: primeiro-emptydir # Nombre del volumen
+      mountPath: /giropops # Directorio donde se montará el volumen
+  volumes: # Lista de volúmenes
+  - name: primeiro-emptydir # Nombre del volumen
+    emptyDir: # Tipo de volumen
+      sizeLimit: 256Mi # Tamaño máximo del volumen
 ```
 
 &nbsp;
 
-Precisamos entender o que está acontecendo no nosso arquivo `pod-emptydir.yaml`, afinal agora temos novas informações, como por exemplo, o `volumeMounts` e o `volumes`.
-
+Necesitamos entender lo que está sucediendo en nuestro archivo `pod-emptydir.yaml`, ahora que tenemos nueva información, como `volumeMounts` y `volumes`.
 
 ```yaml
-    volumeMounts: # lista de volumes que serão montados no container
-    - name: primeiro-emptydir # nome do volume
-      mountPath: /giropops # diretório onde o volume será montado 
-  volumes: # lista de volumes
-  - name: primeiro-emptydir # nome do volume
-    emptyDir: # tipo do volume
-      sizeLimit: 256Mi # tamanho máximo do volume
+    volumeMounts: # lista de volúmenes que se montarán en el contenedor
+    - name: primero-emptydir # nombre del volumen
+      mountPath: /giropops # directorio donde se montará el volumen 
+  volumes: # lista de volúmenes
+  - name: primero-emptydir # nombre del volumen
+    emptyDir: # tipo de volumen
+      sizeLimit: 256Mi # tamaño máximo del volumen
 ```
 
 &nbsp;
 
-Vou detalhar o que está acontecendo no nosso arquivo `pod-emptydir.yaml`.
+Voy a detallar lo que está sucediendo en nuestro archivo `pod-emptydir.yaml`.
 
-- `volumeMounts`: é uma lista de volumes que serão montados no container. Nesse caso, estamos montando um volume chamado `primeiro-emptydir` no diretório `/giropops` dentro do container.
-  - `name`: é o nome do volume que será montado no container.
-  - `mountPath`: é o diretório onde o volume será montado no container.
-- `volumes`: é uma lista de volumes que serão criados no momento em que o Pod for criado. Nesse caso, estamos criando um volume do tipo `emptyDir` chamado `primeiro-emptydir`.
-  - `name`: é o nome do volume que será criado.
-  - `emptyDir`: é o tipo do volume que será criado.
-    - `sizeLimit`: é o tamanho máximo do volume que será criado.
+- `volumeMounts`: es una lista de volúmenes que se montarán en el contenedor. En este caso, estamos montando un volumen llamado `primer-emptydir` en el directorio `/giropops` dentro del contenedor.
+  - `name`: es el nombre del volumen que se montará en el contenedor.
+  - `mountPath`: es el directorio donde se montará el volumen en el contenedor.
+- `volumes`: es una lista de volúmenes que se crearán cuando se cree el Pod. En este caso, estamos creando un volumen del tipo `emptyDir` llamado `primer-emptydir`.
+  - `name`: es el nombre del volumen que se creará.
+  - `emptyDir`: es el tipo de volumen que se creará.
+    - `sizeLimit`: es el tamaño máximo del volumen que se creará.
 
 &nbsp;
 
-Essas são configurações básicas para criarmos um volume do tipo EmptyDir, caso você queira saber mais sobre esse tipo de volume, você pode acessar a [documentação oficial](https://kubernetes.io/docs/concepts/storage/volumes/#emptydir).
+Estas son configuraciones básicas para crear un volumen del tipo EmptyDir. Si deseas saber más sobre este tipo de volumen, puedes acceder a la [documentación oficial](https://kubernetes.io/docs/concepts/storage/volumes/#emptydir).
 
-
-Agora vamos criar o Pod.
+Ahora vamos a crear el Pod.
 
 ```bash
 kubectl create -f pod-emptydir.yaml
 ```
 
-Agora vamos verificar se o Pod foi criado.
+Luego, verifiquemos si el Pod se ha creado.
 
 ```bash
 kubectl get pods
 ```
 
-Você pode ver a saída do comando `kubectl describe pod giropops` para ver o volume que foi criado.
+Puedes ver la salida del comando `kubectl describe pod giropops` para ver el volumen que se ha creado.
 
 ```bash
 kubectl describe pod giropops
 ```
 
-Agora vamos para dentro do container.
+Ahora ingresaremos al contenedor.
 
 ```bash
 kubectl exec -it ubuntu -- bash
 ```
 
-Agora vamos criar um arquivo dentro do diretório `/giropops`.
+Ahora crearemos un archivo dentro del directorio `/giropops`.
 
 ```bash
 touch /giropops/FUNCIONAAAAAA
 ```
 
-Pronto, o nosso arquivo foi criado dentro do diretório `/giropops`, que é um diretório dentro do volume do tipo EmptyDir.
+Listo, nuestro archivo ha sido creado dentro del directorio `/giropops`, que es un directorio dentro del volumen de tipo EmptyDir.
 
-Se você digitar `mount`, vai ver que o diretório `/giropops` está montado certinho dentro de nosso container.
+Si escribes `mount`, verás que el directorio `/giropops` está montado correctamente dentro de nuestro contenedor.
 
-
-Quando você remover o Pod, o volume do tipo EmptyDir também será removido.
+Cuando elimines el Pod, el volumen de tipo EmptyDir también será eliminado.
 
 ```bash
 kubectl delete pod giropops
@@ -150,7 +147,7 @@ kubectl delete pod giropops
 
 &nbsp;
 
-Vamos criar o Pod novamente.
+Creemos el Pod nuevamente.
 
 ```bash
 kubectl create -f pod-emptydir.yaml
@@ -158,13 +155,13 @@ kubectl create -f pod-emptydir.yaml
 
 &nbsp;
 
-Pod criado, agora vamos para dentro do container.
+Pod creado, ahora ingresamos al contenedor.
 
 ```bash
 kubectl exec -it ubuntu -- bash
 ```
 
-Vamos verificar se o arquivo que criamos anteriormente ainda existe.
+Verifiquemos si el archivo que creamos anteriormente aún existe.
 
 ```bash
 ls /giropops
@@ -172,40 +169,37 @@ ls /giropops
 
 &nbsp;
 
-Como você pode ver, o arquivo que criamos anteriormente não existe mais, pois o volume do tipo EmptyDir foi destruído quando o Pod foi destruído.
-
+Como puedes ver, el archivo que creamos anteriormente ya no existe, ya que el volumen de tipo EmptyDir se destruyó cuando se eliminó el Pod.
 
 &nbsp;
 
+##### Clase de Almacenamiento (Storage Class)
 
+Una StorageClass en Kubernetes es un objeto que describe y define diferentes clases de almacenamiento disponibles en el clúster. Estas clases de almacenamiento se pueden usar para aprovisionar PersistentVolumes (PV) dinámicamente de acuerdo con los requisitos de PersistentVolumeClaims (PVC) creados por los usuarios.
 
-##### Storage Class
+La StorageClass es útil para administrar y organizar diferentes tipos de almacenamiento, como almacenamiento en disco rápido y costoso o almacenamiento en disco más lento y económico. Además, la StorageClass se puede utilizar para definir diferentes políticas de retención, aprovisionamiento y otras características de almacenamiento específicas.
 
-Uma StorageClass no Kubernetes é um objeto que descreve e define diferentes classes de armazenamento disponíveis no cluster. Essas classes de armazenamento podem ser usadas para provisionar dinamicamente PersistentVolumes (PVs) de acordo com os requisitos dos PersistentVolumeClaims (PVCs) criados pelos usuários.
+Los administradores del clúster pueden crear y administrar varias StorageClasses para permitir que los usuarios finales elijan la clase de almacenamiento adecuada para sus necesidades.
 
-A StorageClass é útil para gerenciar e organizar diferentes tipos de armazenamento, como armazenamento em disco rápido e caro ou armazenamento em disco mais lento e barato. Além disso, a StorageClass pode ser usada para definir diferentes políticas de retenção, provisionamento e outras características de armazenamento específicas.
+Cada StorageClass se define con un aprovisionador, que es responsable de crear PersistentVolumes dinámicamente según sea necesario. Los aprovisionadores pueden ser internos (proporcionados por Kubernetes en sí) o externos (proporcionados por proveedores de almacenamiento específicos).
 
-Os administradores do cluster podem criar e gerenciar várias StorageClasses para permitir que os usuários finais escolham a classe de armazenamento adequada para suas necessidades.
-
-Cada StorageClass é definida com um provisionador, que é responsável por criar PersistentVolumes dinamicamente conforme necessário. Os provisionadores podem ser internos (fornecidos pelo próprio Kubernetes) ou externos (fornecidos por provedores de armazenamento específicos).
-
-Inclusive os provisionadores podem ser diferentes para cada provedor de nuvem ou onde o Kubernetes está sendo executado. Vou listar alguns provisionadores que são usados e seus respectivos provedores:
+Incluso los aprovisionadores pueden ser diferentes para cada proveedor de nube o donde se esté ejecutando Kubernetes. A continuación, listaré algunos aprovisionadores que se utilizan y sus respectivos proveedores:
 
 - `kubernetes.io/aws-ebs`: AWS Elastic Block Store (EBS)
 - `kubernetes.io/azure-disk`: Azure Disk
 - `kubernetes.io/gce-pd`: Google Compute Engine (GCE) Persistent Disk
 - `kubernetes.io/cinder`: OpenStack Cinder
 - `kubernetes.io/vsphere-volume`: vSphere
-- `kubernetes.io/no-provisioner`: Volumes locais
-- `kubernetes.io/host-path`: Volumes locais
+- `kubernetes.io/no-provisioner`: Volumenes locales
+- `kubernetes.io/host-path`: Volumenes locales
 
-E se você estiver usando o Kubernetes em um ambiente local, como o Minikube, o provisionador padrão é o `kubernetes.io/host-path`, que cria volumes PersistentVolume no diretório do host. Já no Kind, o provisionador padrão é o `rancher.io/local-path`, que cria volumes PersistentVolume no diretório do host.
+Y si estás usando Kubernetes en un entorno local, como Minikube, el aprovisionador predeterminado es `kubernetes.io/host-path`, que crea PersistentVolumes en el directorio del host. En Kind, el aprovisionador predeterminado es `rancher.io/local-path`, que crea PersistentVolumes en el directorio del host.
 
-Para ver a lista completa de provisionadores, consulte a documentação do Kubernetes no link [https://kubernetes.io/docs/concepts/storage/storage-classes/#provisioner](https://kubernetes.io/docs/concepts/storage/storage-classes/#provisioner).
+Para ver la lista completa de aprovisionadores, consulta la documentación de Kubernetes en el enlace [https://kubernetes.io/docs/concepts/storage/storage-classes/#provisioner](https://kubernetes.io/docs/concepts/storage/storage-classes/#provisioner).
 
 &nbsp;
 
-Para você ver os `Storage Classes` disponíveis no seu cluster, basta executar o seguinte comando:
+Para ver las `Storage Classes` disponibles en tu clúster, simplemente ejecuta el siguiente comando:
 
 ```bash
 kubectl get storageclass
@@ -220,9 +214,9 @@ standard (default)   rancher.io/local-path   Delete          WaitForFirstConsume
 
 &nbsp;
 
-Como você pode ver, no Kind, o provisionador padrão é o `rancher.io/local-path`, que cria volumes PersistentVolume no diretório do host.
+Como puedes ver, en Kind, el aprovisionador predeterminado es `rancher.io/local-path`, que crea PersistentVolumes en el directorio del host.
 
-Já no EKS, o provisionador padrão é o `kubernetes.io/aws-ebs`, que cria volumes PersistentVolume no EBS da AWS.
+Mientras que en EKS, el aprovisionador predeterminado es `kubernetes.io/aws-ebs`, que crea PersistentVolumes en el EBS de AWS.
 
 ```bash
 NAME            PROVISIONER             RECLAIMPOLICY   VOLUMEBINDINGMODE      ALLOWVOLUMEEXPANSION   AGE
@@ -231,7 +225,7 @@ gp2 (default)   kubernetes.io/aws-ebs   Delete          WaitForFirstConsumer   f
 
 &nbsp;
 
-Vamos ver os detalhes do nosso `Storage Class` padrão:
+Veamos los detalles de nuestra `Storage Class` por defecto:
 
 ```bash
 kubectl describe storageclass standard
@@ -255,11 +249,11 @@ Events:                <none>
 
 &nbsp;
 
-Uma coisa que podemos ver é que o nosso `Storage Class` está com a opção `IsDefaultClass` como `Yes`, o que significa que ele é o `Storage Class` padrão do nosso cluster, com isso todos os `Persistent Volume Claims` que não tiverem um `Storage Class` definido, irão utilizar esse `Storage Class` como padrão.
+Una cosa que podemos notar es que nuestra `Storage Class` tiene la opción `IsDefaultClass` como `Yes`, lo que significa que es la `Storage Class` predeterminada en nuestro clúster. De esta manera, todos los `Persistent Volume Claims` que no tengan una `Storage Class` definida utilizarán esta `Storage Class` por defecto.
 
 &nbsp;
 
-Vamos criar um novo `Storage Class` para o nosso cluster Kubernetes no kind, com o nome "local-storage", e vamos definir o provisionador como "kubernetes.io/host-path", que cria volumes PersistentVolume no diretório do host.
+Creemos una nueva `Storage Class` para nuestro clúster Kubernetes en Kind, con el nombre `local-storage`, y definamos el aprovisionador como `kubernetes.io/host-path`, que crea PersistentVolumes en el directorio del host.
 
 ```bash
 apiVersion: storage.k8s.io/v1
@@ -285,9 +279,9 @@ storageclass.storage.k8s.io/giropops created
 
 &nbsp;
 
-Pronto! Agora nós temos um novo `Storage Class` criado no nosso cluster Kubernetes no kind, com o nome "giropops", e com o provisionador "kubernetes.io/no-provisioner", que cria volumes PersistentVolume no diretório do host.
+¡Listo! Ahora tenemos una nueva `Storage Class` creada en nuestro clúster Kubernetes en Kind, con el nombre `giropops`, y con el aprovisionador `kubernetes.io/no-provisioner`, que crea PersistentVolumes en el directorio del host.
 
-Para saber mais detalhes sobre o `Storage Class` que criamos, execute o seguinte comando:
+Para obtener más detalles sobre la `Storage Class` que creamos, ejecuta el siguiente comando:
 
 ```bash
 kubectl describe storageclass giropops
@@ -311,37 +305,37 @@ Events:                <none>
 
 &nbsp;
 
-Lembrando que criamos esse `Storage Class` com o provisionador "kubernetes.io/no-provisioner", mas você pode criar um `Storage Class` com qualquer provisionador que você quiser, como o "kubernetes.io/aws-ebs", que cria volumes PersistentVolume no EBS da AWS.
+Recuerda que creamos esta `Storage Class` con el aprovisionador `kubernetes.io/no-provisioner`, pero puedes crear una `Storage Class` con cualquier aprovisionador que desees, como `kubernetes.io/aws-ebs`, que crea PersistentVolumes en EBS de AWS.
 
 &nbsp;
 
 ##### PV - Persistent Volume
 
-O PV é um objeto que representa um recurso de armazenamento físico em um cluster Kubernetes. Ele pode ser um disco rígido em um nó do cluster, um dispositivo de armazenamento em rede (NAS) ou mesmo um serviço de armazenamento em nuvem, como o AWS EBS ou Google Cloud Persistent Disk. 
+El PV (Persistent Volume) es un objeto que representa un recurso de almacenamiento físico en un clúster de Kubernetes. Puede ser un disco duro en un nodo del clúster, un dispositivo de almacenamiento en red (NAS) o incluso un servicio de almacenamiento en la nube, como AWS EBS o Google Cloud Persistent Disk.
 
-O PV é utilizado para fornecer armazenamento durável, ou seja, os dados armazenados no PV permanecem disponíveis mesmo quando o container é reiniciado ou movido para outro nó.
+El PV se utiliza para proporcionar almacenamiento duradero, lo que significa que los datos almacenados en el PV siguen estando disponibles incluso cuando el contenedor se reinicia o se mueve a otro nodo.
 
-No Kubernetes, você pode usar várias soluções de armazenamento como Persistent Volumes (PVs). Essas soluções podem ser divididas em dois tipos: armazenamento local e armazenamento em rede. Vou te dar exemplos de algumas opções populares de cada tipo:
+En Kubernetes, se pueden usar varias soluciones de almacenamiento como Persistent Volumes (PVs). Estas soluciones se pueden dividir en dos tipos: almacenamiento local y almacenamiento en red. Te daré ejemplos de algunas opciones populares de cada tipo:
 
-**Armazenamento local:**
+**Almacenamiento local:**
 
-- HostPath: É uma maneira simples de usar um diretório do nó do cluster como armazenamento. É útil principalmente para testes e desenvolvimento, pois não é apropriado para ambientes de produção, já que os dados armazenados só estão disponíveis no nó específico.
+- HostPath: Es una forma sencilla de utilizar un directorio en el nodo del clúster como almacenamiento. Es útil principalmente para pruebas y desarrollo, ya que no es apropiado para entornos de producción, dado que los datos almacenados solo están disponibles en el nodo específico.
 
-**Armazenamento em rede:**
+**Almacenamiento en red:**
 
-- NFS (Network File System): É um sistema de arquivos de rede que permite compartilhar arquivos entre várias máquinas na rede. É uma opção comum para armazenamento compartilhado em um cluster Kubernetes.
+- NFS (Network File System): Es un sistema de archivos de red que permite compartir archivos entre varias máquinas en la red. Es una opción común para el almacenamiento compartido en un clúster de Kubernetes.
 
-- iSCSI (Internet Small Computer System Interface): É um protocolo que permite a conexão de dispositivos de armazenamento de blocos, como SAN (Storage Area Network), por meio de redes IP. Pode ser usado como um PV no Kubernetes.
+- iSCSI (Internet Small Computer System Interface): Es un protocolo que permite la conexión de dispositivos de almacenamiento de bloques, como SAN (Storage Area Network), a través de redes IP. Puede usarse como un PV en Kubernetes.
 
-- Ceph RBD (RADOS Block Device): É uma solução de armazenamento distribuído e altamente escalável que oferece suporte ao armazenamento em bloco, objeto e arquivo. Com o RBD, você pode criar volumes de blocos virtualizados que podem ser montados como PVs no Kubernetes.
+- Ceph RBD (RADOS Block Device): Es una solución de almacenamiento distribuido y altamente escalable que admite almacenamiento de bloques, objetos y archivos. Con RBD, puedes crear volúmenes de bloques virtualizados que se pueden montar como PVs en Kubernetes.
 
-- GlusterFS: É um sistema de arquivos distribuído e escalável que permite criar volumes de armazenamento compartilhado em vários nós do cluster. Pode ser usado como um PV no Kubernetes.
+- GlusterFS: Es un sistema de archivos distribuido y escalable que permite crear volúmenes de almacenamiento compartido en varios nodos del clúster. Puede usarse como un PV en Kubernetes.
 
-- Serviços de armazenamento em nuvem: Fornecedores de nuvem como AWS, Google Cloud e Microsoft Azure oferecem soluções de armazenamento que podem ser integradas ao Kubernetes. Exemplos incluem AWS Elastic Block Store (EBS), Google Cloud Persistent Disk e Azure Disk Storage.
+- Servicios de almacenamiento en la nube: Los proveedores de la nube como AWS, Google Cloud y Microsoft Azure ofrecen soluciones de almacenamiento que se pueden integrar en Kubernetes. Ejemplos incluyen AWS Elastic Block Store (EBS), Google Cloud Persistent Disk y Azure Disk Storage.
 
-Agora que já sabemos o que é um PV, vamos entender como nós podemos utilizar o `kubectl` para gerenciar os PVs.
+Ahora que sabemos qué es un PV, vamos a entender cómo podemos usar `kubectl` para administrar los PVs.
 
-Primeira coisa, vamos listar os PVs que temos no nosso cluster:
+Primero, vamos a listar los PVs que tenemos en nuestro clúster:
 
 ```bash
 kubectl get pv -A
@@ -353,75 +347,74 @@ No resources found
 
 &nbsp;
 
-Com o comando acima estamos listando todos os PVs que temos no nosso cluster, e como podemos ver, não temos nenhum PV criado, ainda. :)
+Con el comando anterior estamos listando todos los PVs que tenemos en nuestro clúster, y como puedes ver, todavía no hemos creado ninguno. :)
 
+Vamos a solucionarlo, ¿creamos un PV?
 
-Vamos resolver isso, bora criar um PV?
-
-Para isso, vamos criar um arquivo chamado `pv.yaml`:
+Para ello, creemos un archivo llamado `pv.yaml`:
 
 ```yaml
-apiVersion: v1 # Versão da API do Kubernetes
-kind: PersistentVolume # Tipo de objeto que estamos criando, no caso um PersistentVolume
-metadata: # Informações sobre o objeto
-  name: meu-pv # Nome do nosso PV
+apiVersion: v1 # Versión de la API de Kubernetes
+kind: PersistentVolume # Tipo de objeto que estamos creando, en este caso un PersistentVolume
+metadata: # Información sobre el objeto
+  name: mi-pv # Nombre de nuestro PV
   labels:
     storage: local
-spec: # Especificações do nosso PV
-  capacity: # Capacidade do PV
-    storage: 1Gi # 1 Gigabyte de armazenamento
-  accessModes: # Modos de acesso ao PV
-    - ReadWriteOnce # Modo de acesso ReadWriteOnce, ou seja, o PV pode ser montado como leitura e escrita por um único nó
-  persistentVolumeReclaimPolicy: Retain # Política de reivindicação do PV, ou seja, o PV não será excluído quando o PVC for excluído
-  hostPath: # Tipo de armazenamento que vamos utilizar, no caso um hostPath
-    path: "/mnt/data" # Caminho do hostPath, do nosso nó, onde o PV será criado
-  storageClassName: standard # Nome da classe de armazenamento que será utilizada
+spec: # Especificaciones de nuestro PV
+  capacity: # Capacidad del PV
+    storage: 1Gi # 1 gigabyte de almacenamiento
+  accessModes: # Modos de acceso al PV
+    - ReadWriteOnce # Modo de acceso ReadWriteOnce, es decir, el PV se puede montar en modo lectura y escritura por un único nodo
+  persistentVolumeReclaimPolicy: Retain # Política de reclamación persistente del PV, es decir, el PV no se eliminará cuando se elimine el PVC
+  hostPath: # Tipo de almacenamiento que vamos a utilizar, en este caso un hostPath
+    path: "/mnt/data" # Ruta del hostPath en nuestro nodo, donde se creará el PV
+  storageClassName: standard # Nombre de la clase de almacenamiento que se utilizará
 ```
 
 &nbsp;
 
-Antes de criar o PV, eu preciso falar um pouquinho mais sobre o arquivo que criamos, principalmente sobre o que temos de diferente em relação aos outros arquivos que criamos até agora.
+Antes de crear el PV, es importante hablar un poco más sobre el archivo que creamos, especialmente sobre lo que tenemos de diferente en comparación con otros archivos que hemos creado hasta ahora.
 
-- `kind: PersistentVolume`: Aqui estamos definindo o tipo de objeto que estamos criando, no caso um `PersistentVolume`.
+- `kind: PersistentVolume`: Aquí estamos definiendo el tipo de objeto que estamos creando, en este caso, un `PersistentVolume`.
 
-Outro ponto importante de mencionar é a seção `spec`, que é onde definimos as especificações do nosso PV.
+Otro punto importante a mencionar es la sección `spec`, donde definimos las especificaciones de nuestro PV.
 
-- `spec.capacity.storage`: Aqui estamos definindo a capacidade do nosso PV, no caso 1 Gigabyte de armazenamento.
-- `spec.accessModes`: Aqui estamos definindo os modos de acesso ao PV, no caso o modo `ReadWriteOnce`, que significa que o PV pode ser montado como leitura e escrita por um único nó. Aqui nós temos mais alguns modos de acesso:
-  - `ReadOnlyMany`: O PV pode ser montado como somente leitura por vários nós.
-  - `ReadWriteMany`: O PV pode ser montado como leitura e escrita por vários nós.
-- `spec.persistentVolumeReclaimPolicy`: Aqui estamos definindo a política de reivindicação do PV, no caso a política `Retain`, que significa que o PV não será excluído quando o PVC for excluído. Aqui nós temos mais algumas políticas:
-  - `Recycle`: O PV será excluído quando o PVC for excluído, mas antes disso ele será limpo, ou seja, todos os dados serão apagados.
-  - `Delete`: O PV será excluído quando o PVC for excluído.
+- `spec.capacity.storage`: Aquí estamos definiendo la capacidad de nuestro PV, en este caso, 1 gigabyte de almacenamiento.
+- `spec.accessModes`: Aquí estamos definiendo los modos de acceso al PV, en este caso, el modo `ReadWriteOnce`, lo que significa que el PV se puede montar como lectura y escritura por un único nodo. Aquí tenemos algunos modos de acceso adicionales:
+  - `ReadOnlyMany`: El PV puede montarse como solo lectura por varios nodos.
+  - `ReadWriteMany`: El PV puede montarse como lectura y escritura por varios nodos.
+- `spec.persistentVolumeReclaimPolicy`: Aquí estamos definiendo la política de reclamación persistente del PV, en este caso, la política `Retain`, que significa que el PV no se eliminará cuando se elimine el PVC. Aquí tenemos algunas políticas adicionales:
+  - `Recycle`: El PV se eliminará cuando se elimine el PVC, pero antes de eso se limpiará, es decir, se eliminarán todos los datos.
+  - `Delete`: El PV se eliminará cuando se elimine el PVC.
 
-Outra seção importante é a seção `hostPath`, que é onde definimos o tipo de armazenamento que vamos utilizar, no caso um `hostPath`. Vou detalhar abaixo os tipos de armazenamento que podemos utilizar:
+Otra sección importante es `hostPath`, donde definimos el tipo de almacenamiento que vamos a utilizar, en este caso, `hostPath`. Detallaré a continuación los tipos de almacenamiento que podemos usar:
 
-- `hostPath`: É uma maneira simples de usar um diretório do nó do cluster como armazenamento. É útil principalmente para testes e desenvolvimento, pois não é apropriado para ambientes de produção, já que os dados armazenados só estão disponíveis no nó específico. Ele é ideal em cenários de testes com somente um node.
-- `nfs`: É um sistema de arquivos de rede que permite compartilhar arquivos entre várias máquinas na rede. É uma opção comum para armazenamento compartilhado em um cluster Kubernetes.
-- `iscsi`: É um protocolo que permite a conexão de dispositivos de armazenamento de blocos, como SAN (Storage Area Network), por meio de redes IP.
-- `csi`: Que significa Container Storage Interface, é um recurso que permite a integração de soluções de armazenamento de terceiros com o Kubernetes. O CSI permite que os provedores de armazenamento implementem seus próprios plugins de armazenamento e os integrem ao Kubernetes. É graças ao CSI que podemos utilizar soluções de armazenamento de terceiros, como o AWS EBS, Google Cloud Persistent Disk e Azure Disk Storage.
-- `cephfs`: É um sistema de arquivos distribuído e escalável que permite criar volumes de armazenamento compartilhado em vários nós do cluster.
-- `local`: É um tipo de armazenamento que permite a criação de volumes locais, onde você pode especificar o caminho do diretório onde os dados serão armazenados. É útil principalmente para testes e desenvolvimento, já que não é apropriado para ambientes de produção, já que os dados armazenados só estão disponíveis no node específico. A diferença entre o `hostPath` e o `local` é que o `local` é um recurso nativo do Kubernetes, enquanto o `hostPath` é um recurso do Kubernetes que utiliza o recurso nativo do Docker e não é recomendado quando estamos com mais de um node no cluster.
-- `fc`: É um protocolo que permite a conexão de dispositivos de armazenamento de blocos utilizando redes de fibra óptica. É uma opção comum para armazenamento compartilhado em um cluster Kubernetes.
+- `hostPath`: Es una forma sencilla de utilizar un directorio en el nodo del clúster como almacenamiento. Es útil principalmente para pruebas y desarrollo, ya que no es apropiado para entornos de producción, ya que los datos almacenados solo están disponibles en el nodo específico. Es ideal en escenarios de prueba con solo un nodo.
+- `nfs`: Es un sistema de archivos de red que permite compartir archivos entre varias máquinas en la red. Es una opción común para el almacenamiento compartido en un clúster de Kubernetes.
+- `iscsi`: Es un protocolo que permite la conexión de dispositivos de almacenamiento de bloques, como SAN (Storage Area Network), a través de redes IP.
+- `csi`: Que significa Container Storage Interface, es un recurso que permite la integración de soluciones de almacenamiento de terceros con Kubernetes. El CSI permite a los proveedores de almacenamiento implementar sus propios complementos de almacenamiento e integrarlos con Kubernetes. Gracias al CSI, podemos usar soluciones de almacenamiento de terceros, como AWS EBS, Google Cloud Persistent Disk y Azure Disk Storage.
+- `cephfs`: Es un sistema de archivos distribuido y escalable que permite crear volúmenes de almacenamiento compartido en varios nodos del clúster.
+- `local`: Es un tipo de almacenamiento que permite crear volúmenes locales, donde puedes especificar la ruta del directorio donde se almacenarán los datos. Es útil principalmente para pruebas y desarrollo, ya que no es apropiado para entornos de producción, ya que los datos almacenados solo están disponibles en el nodo específico. La diferencia entre `hostPath` y `local` es que `local` es un recurso nativo de Kubernetes, mientras que `hostPath` es un recurso de Kubernetes que utiliza el recurso nativo de Docker y no se recomienda cuando hay más de un nodo en el clúster.
+- `fc`: Es un protocolo que permite la conexión de dispositivos de almacenamiento de bloques utilizando redes de fibra óptica. Es una opción común para el almacenamiento compartido en un clúster de Kubernetes.
 
-Eu listei somente os tipos de armazenamento mais comuns, mas você pode encontrar mais informações sobre os tipos de armazenamento no [Kubernetes Docs](https://kubernetes.io/docs/concepts/storage/persistent-volumes/#types-of-persistent-volumes).
+He enumerado solo los tipos de almacenamiento más comunes, pero puedes encontrar más información sobre los tipos de almacenamiento en la [Documentación de Kubernetes](https://kubernetes.io/docs/concepts/storage/persistent-volumes/#types-of-persistent-volumes).
 
-E por último, temos a seção `storageClassName`, que é onde definimos o nome da classe de armazenamento que iremos adicionar o PV.
+Por último, tenemos la sección `storageClassName`, donde definimos el nombre de la clase de almacenamiento a la que agregaremos el PV.
 
 &nbsp;
 
-Conforme vamos avançando no treinamento, vamos conhecendo mais detalhes sobre cada tipo de armazenamento.
+A medida que avanzamos en el entrenamiento, conoceremos más detalles sobre cada tipo de almacenamiento.
 
-Pronto, tudo está pronto para criarmos o PV.
+Listo, todo está preparado para crear el PV.
 
 ```bash
 kubectl apply -f pv.yaml
-persistentvolume/meu-pv created
+persistentvolume/mi-pv created
 ```
 
 &nbsp;
 
-Vamos listar o nosso PV para ver se ele foi criado corretamente.
+Vamos a listar nuestro PV para ver si se creó correctamente.
 
 ```bash
 kubectl get pv
@@ -431,25 +424,25 @@ kubectl get pv
 
 ```bash
 NAME     CAPACITY   ACCESS MODES   RECLAIM POLICY   STATUS      CLAIM   STORAGECLASS   REASON   AGE
-meu-pv   1Gi        RWO            Retain           Available           standard                10s
+mi-pv   1Gi        RWO            Retain           Available           standard                10s
 ```
 
 &nbsp;
 
-PV criado com sucesso.
+El PV se creó con éxito.
 
-Podemos ver que o nosso PV está com o status `Available`, o que significa que ele está disponível para ser utilizado por um PVC.
+Podemos ver que nuestro PV tiene el estado `Available`, lo que significa que está disponible para ser utilizado por un PVC.
 
-Vamos ver os detalhes do nosso PV.
+Vamos a ver los detalles de nuestro PV.
 
 ```bash
-kubectl describe pv meu-pv
+kubectl describe pv mi-pv
 ```
 
 &nbsp;
 
 ```bash
-Name:            meu-pv
+Name:            mi-pv
 Labels:          storage=local
 Annotations:     <none>
 Finalizers:      [kubernetes.io/pv-protection]
@@ -471,11 +464,11 @@ Events:            <none>
 
 &nbsp;
 
-Dessa forma estamos criando o PV utilizando o provisionador `hostPath`, que é um provisionador para ser utilizado em testes e desenvolvimento, já que os dados armazenados só estão disponíveis no node específico, por isso bora para mais um exemplo, mas agora utilizando o provisionador `nfs`, que é um sistema de arquivos de rede que permite compartilhar arquivos entre várias máquinas na rede.
+De esta manera, estamos creando el PV utilizando el provisionador `hostPath`, que es un provisionador para ser utilizado en pruebas y desarrollo, ya que los datos almacenados solo están disponibles en el nodo específico. Ahora vamos a otro ejemplo, pero esta vez utilizando el provisionador `nfs`, que es un sistema de archivos de red que permite compartir archivos entre varias máquinas en la red.
 
 &nbsp;
 
-Primeira coisa que vamos fazer é criar o diretório que será compartilhado entre os nodes do cluster. Lembrando que para esse exemplo, estou utilizando uma máquina Linux para criar o compartilhamento NFS, mas você pode utilizar qualquer outro sistema operacional, desde que ele tenha suporte ao NFS.
+Lo primero que haremos es crear el directorio que se compartirá entre los nodos del clúster. Recuerda que para este ejemplo, estoy utilizando una máquina Linux para crear la compartición NFS, pero puedes utilizar cualquier otro sistema operativo que admita NFS.
 
 ```bash
 mkdir /mnt/nfs
@@ -483,8 +476,7 @@ mkdir /mnt/nfs
 
 &nbsp;
 
-
-Precisamos instalar os pacotes `nfs-kernel-server` e `nfs-common` para que o servidor NFS e o cliente NFS sejam instalados.
+Necesitamos instalar los paquetes `nfs-kernel-server` y `nfs-common` para instalar el servidor NFS y el cliente NFS.
 
 ```bash
 sudo apt-get install nfs-kernel-server nfs-common
@@ -492,7 +484,7 @@ sudo apt-get install nfs-kernel-server nfs-common
 
 &nbsp;
 
-Vamos editar o arquivo `/etc/exports`, que é o arquivo de configuração do NFS, e adicionar o diretório que será compartilhado entre os nodes do cluster.
+Vamos a editar el archivo `/etc/exports`, que es el archivo de configuración de NFS, y agregar el directorio que se compartirá entre los nodos del clúster.
 
 ```bash
 sudo vi /etc/exports
@@ -506,22 +498,21 @@ sudo vi /etc/exports
 
 &nbsp;
 
-Onde:
+Donde:
 
-- `/mnt/nfs`: é o diretório que você deseja compartilhar.
+- `/mnt/nfs`: es el directorio que deseas compartir.
 
-- `*`: permite que qualquer host acesse o diretório compartilhado. Para maior segurança, você pode substituir * por um intervalo de IPs ou por IPs específicos dos clientes que terão acesso ao diretório compartilhado. Por exemplo, 192.168.1.0/24 permitiria que todos os hosts na sub-rede 192.168.1.0/24 acessassem o diretório compartilhado.
+- `*`: permite que cualquier host acceda al directorio compartido. Para mayor seguridad, puedes reemplazar `*` por un rango de direcciones IP o por direcciones IP específicas de los clientes que tendrán acceso al directorio compartido. Por ejemplo, `192.168.1.0/24` permitirá que todos los hosts en la subred `192.168.1.0/24` accedan al directorio compartido.
 
-- `rw`: concede permissões de leitura e gravação aos clientes.
+- `rw`: otorga permisos de lectura y escritura a los clientes.
 
-- `sync`: garante que as solicitações de gravação sejam confirmadas somente quando as alterações tiverem sido realmente gravadas no disco.
+- `sync`: asegura que las solicitudes de escritura solo se confirmen cuando los cambios realmente se hayan escrito en el disco.
 
-- `no_root_squash`: permite que o usuário root em um cliente NFS acesse os arquivos como root. Caso contrário, o acesso seria limitado a um usuário não privilegiado.
+- `no_root_squash`: permite que el usuario root en un cliente NFS acceda a los archivos como root. De lo contrario, el acceso se limitaría a un usuario no privilegiado.
 
-- `no_subtree_check`: desativa a verificação de subárvore, o que pode melhorar a confiabilidade em alguns casos. A verificação de subárvore normalmente verifica se um arquivo faz parte do diretório exportado.
+- `no_subtree_check`: desactiva la verificación de subárbol, lo que puede mejorar la confiabilidad en algunos casos. La verificación de subárbol normalmente verifica si un archivo forma parte del directorio exportado.
 
-
-Agora vamos falar para o NFS que o diretório `/mnt/nfs` está disponível para ser compartilhado.
+Ahora vamos a indicarle al NFS que el directorio `/mnt/nfs` está disponible para compartir.
 
 ```bash
 sudo exportfs -arv
@@ -529,7 +520,7 @@ sudo exportfs -arv
 
 &nbsp;
 
-Maravilha! Vamos agora verificar se o NFS está funcionando corretamente.
+¡Fantástico! Ahora verifiquemos si el NFS está funcionando correctamente.
 
 ```bash
 showmount -e
@@ -544,54 +535,56 @@ Export list for localhost:
 
 &nbsp;
 
-Já era! O nosso NFS está funcionando corretamente. \o/
+¡Listo! Nuestro NFS está funcionando correctamente. \o/
 
-Agora que já temos o nosso NFS funcionando, vamos criar o nosso StorageClass para o provisionador `nfs`.
+Ahora que tenemos nuestro NFS funcionando, creemos el StorageClass para el provisionador `nfs`.
 
-Para esse exemplo, vamos criar um arquivo chamado `storageclass-nfs.yaml` e adicionar o seguinte conteúdo.
+Para este ejemplo, crearemos un archivo llamado `storageclass-nfs.yaml` y agregaremos el siguiente contenido.
 
 ```yaml
-apiVersion: storage.k8s.io/v1 # Versão da API do Kubernetes
-kind: StorageClass # Tipo de objeto que estamos criando, no caso um StorageClass
-metadata: # Informações sobre o objeto
-  name: nfs # Nome do nosso StorageClass
-provisioner: kubernetes.io/no-provisioner # Provisionador que será utilizado para criar o PV
-reclaimPolicy: Retain # Política de reivindicação do PV, ou seja, o PV não será excluído quando o PVC for excluído
+apiVersion: storage.k8s.io/v1 # Versión de la API de Kubernetes
+kind: StorageClass # Tipo de objeto que estamos creando, en este caso, un StorageClass
+metadata: # Información sobre el objeto
+  name: nfs # Nombre de nuestro StorageClass
+provisioner: kubernetes.io/no-provisioner # Provisionador que se utilizará para crear el PV
+reclaimPolicy: Retain # Política de reclamación del PV, es decir, el PV no se eliminará cuando se elimine el PVC
 volumeBindingMode: WaitForFirstConsumer
-parameters: # Parâmetros que serão utilizados pelo provisionador
-  archiveOnDelete: "false" # Parâmetro que indica se os dados do PV devem ser arquivados quando o PV for excluído
+parameters: # Parámetros que se utilizarán por el provisionador
+  archiveOnDelete: "false" # Parámetro que indica si los datos del PV deben archivarse cuando se elimine el PV
 ```
 
 &nbsp;
 
-O Kubernetes não possui um provisionador `nfs` nativo, então não é possível fazer com que o provisionador `kubernetes.io/no-provisioner` crie um PV utilizando um servidor NFS automaticamente, para que isso seja possível, precisamos utilizar um provisionador `nfs` externo, mas isso não é o foco nesse momento, então vamos criar o nosso PV manualmente, afinal de contas, já estamos experts em PVs, certo?
+Kubernetes no tiene un provisionador `nfs` nativo, por lo que no es posible hacer que el provisionador `kubernetes.io/no-provisioner` cree automáticamente un PV utilizando un servidor NFS. Para que esto sea posible, necesitamos utilizar un provisionador `nfs` externo, pero eso no es el enfoque en este momento. Por lo tanto, crearemos nuestro PV manualmente, después de todo, ¡ya somos expertos en PVs, verdad?
 
-Bora lá!
+¡Vamos allá!
 
-Então já podemos criar o PV e associa-lo ao Storage Class, e para isso vamos criar um novo arquivo chamado `pv-nfs.yaml` e adicionar o seguinte conteúdo.
+Entonces, ya podemos crear el PV y asociarlo con el Storage Class
+
+. Para ello, creemos un nuevo archivo llamado `pv-nfs.yaml` y agreguemos el siguiente contenido.
 
 ```yaml
-apiVersion: v1 # Versão da API do Kubernetes
-kind: PersistentVolume # Tipo de objeto que estamos criando, no caso um PersistentVolume
-metadata: # Informações sobre o objeto
-  name: meu-pv-nfs # Nome do nosso PV
+apiVersion: v1 # Versión de la API de Kubernetes
+kind: PersistentVolume # Tipo de objeto que estamos creando, en este caso, un PersistentVolume
+metadata: # Información sobre el objeto
+  name: mi-pv-nfs # Nombre de nuestro PV
   labels:
-    storage: nfs # Label que será utilizada para identificar o PV
-spec: # Especificações do nosso PV
-  capacity: # Capacidade do PV
-    storage: 1Gi # 1 Gigabyte de armazenamento
-  accessModes: # Modos de acesso ao PV
-    - ReadWriteOnce # Modo de acesso ReadWriteOnce, ou seja, o PV pode ser montado como leitura e escrita por um único nó
-  persistentVolumeReclaimPolicy: Retain # Política de reivindicação do PV, ou seja, o PV não será excluído quando o PVC for excluído
-  nfs: # Tipo de armazenamento que vamos utilizar, no caso o NFS
-    server: IP_DO_SERVIDOR_NFS # Endereço do servidor NFS
-    path: "/mnt/nfs" # Compartilhamento do servidor NFS
-  storageClassName: nfs # Nome da classe de armazenamento que será utilizada
+    storage: nfs # Etiqueta que se utilizará para identificar el PV
+spec: # Especificaciones de nuestro PV
+  capacity: # Capacidad del PV
+    storage: 1Gi # 1 gigabyte de almacenamiento
+  accessModes: # Modos de acceso al PV
+    - ReadWriteOnce # Modo de acceso ReadWriteOnce, es decir, el PV se puede montar como lectura y escritura por un único nodo
+  persistentVolumeReclaimPolicy: Retain # Política de reclamación del PV, es decir, el PV no se eliminará cuando se elimine el PVC
+  nfs: # Tipo de almacenamiento que vamos a utilizar, en este caso, nfs
+    server: IP_DEL_SERVIDOR_NFS # Dirección IP del servidor NFS
+    path: "/mnt/nfs" # Compartición del servidor NFS
+  storageClassName: nfs # Nombre de la clase de almacenamiento que se utilizará
 ```
 
 &nbsp;
 
-Agora vamos criar o nosso PV.
+Ahora podemos crear nuestro PV.
 
 ```bash
 kubectl apply -f pv-nfs.yaml
@@ -605,89 +598,75 @@ persistentvolume/meu-pv created
 
 &nbsp;
 
-
-Tudo certo com o nosso PV, agora eu acho que já podemos passar para o próximo tópico, que é o PVC.
+Todo está bien con nuestro PV, ahora creo que podemos pasar al próximo tema, que es el PVC.
 
 &nbsp;
-
 
 ##### PVC - Persistent Volume Claim
 
-O PVC é uma solicitação de armazenamento feita pelos usuários ou aplicativos no cluster Kubernetes. Ele permite que os usuários solicitem um volume específico, com base em tamanho, tipo de armazenamento e outras características. O PVC age como uma "assinatura" que reivindica um PV para ser usado por um contêiner. O Kubernetes tenta associar automaticamente um PVC a um PV compatível, garantindo que o armazenamento seja alocado corretamente.
+El PVC es una solicitud de almacenamiento realizada por usuarios o aplicaciones en el clúster de Kubernetes. Permite a los usuarios solicitar un volumen específico en función del tamaño, el tipo de almacenamiento y otras características. El PVC actúa como una "firma" que reclama un PV para ser utilizado por un contenedor. Kubernetes intenta asociar automáticamente un PVC con un PV compatible para asegurarse de que el almacenamiento se asigna correctamente.
 
+A través del PVC, las personas pueden abstraer los detalles de cada tipo de almacenamiento, lo que permite una mayor flexibilidad y portabilidad entre diferentes entornos y proveedores de infraestructura. También permite a los usuarios solicitar volúmenes con diferentes características, como tamaño, tipo de almacenamiento y modo de acceso.
 
-Através do PVC, as pessoas podem abstrair os detalhes de cada tipo de armazenamento, permitindo maior flexibilidade e portabilidade entre diferentes ambientes e provedores de infraestrutura. Ele também permite que os usuários solicitem volumes com diferentes características, como tamanho, tipo de armazenamento e modo de acesso.
+Cada PVC está asociado a una `Storage Class` o a un `Persistent Volume` (PV). La `Storage Class` es un objeto que describe y define diferentes clases de almacenamiento disponibles en el clúster. El `Persistent Volume`, por otro lado, es un recurso que representa un volumen de almacenamiento disponible para su uso por el clúster.
 
-Todo PVC é associado a um `Storage Class` ou a um `Persistent Volume`. O `Storage Class` é um objeto que descreve e define diferentes classes de armazenamento disponíveis no cluster. Já o `Persistent Volume` é um recurso que representa um volume de armazenamento disponível para ser usado pelo cluster.
+Vamos a crear nuestro primer PVC para el PV que creamos anteriormente.
 
-Vamos criar o nosso primeiro PVC para o PV que criamos anteriormente.
-
-Para isso, vamos criar um arquivo chamado `pvc.yaml` e adicionar o seguinte conteúdo:
+Para ello, crearemos un archivo llamado `pvc.yaml` y añadiremos el siguiente contenido:
 
 ```yaml
-apiVersion: v1 # versão da API do Kubernetes
-kind: PersistentVolumeClaim # tipo de recurso, no caso, um PersistentVolumeClaim
-metadata: # metadados do recurso
-  name: meu-pvc # nome do PVC
-spec: # especificação do PVC
-  accessModes: # modo de acesso ao volume
-    - ReadWriteOnce # modo de acesso RWO, ou seja, somente leitura e escrita por um nó
-  resources: # recursos do PVC
-    requests: # solicitação de recursos
-      storage: 1Gi # tamanho do volume que ele vai solicitar
-  storageClassName: nfs # nome da classe de armazenamento que será utilizada
-  selector: # seletor de labels
-    matchLabels: # labels que serão utilizadas para selecionar o PV
-      storage: nfs # label que será utilizada para selecionar o PV
+apiVersion: v1 # versión de la API de Kubernetes
+kind: PersistentVolumeClaim # tipo de recurso, en este caso, un PersistentVolumeClaim
+metadata: # metadatos del recurso
+  name: mi-pvc # nombre del PVC
+spec: # especificación del PVC
+  accessModes: # modo de acceso al volumen
+    - ReadWriteOnce # modo de acceso RWO, es decir, solo lectura y escritura por un nodo
+  resources: # recursos del PVC
+    requests: # solicitud de recursos
+      storage: 1Gi # tamaño del volumen que se solicitará
+  storageClassName: nfs # nombre de la clase de almacenamiento que se utilizará
+  selector: # selector de etiquetas
+    matchLabels: # etiquetas que se utilizarán para seleccionar el PV
+      storage: nfs # etiqueta que se utilizará para seleccionar el PV
 ```
 
-&nbsp;
+Aquí estamos definiendo nuestro PVC, y hablaré un poco sobre las secciones principales de nuestro archivo.
 
-Aqui nós estamos definindo o nosso PVC, e vou falar um pouco sobre as principais seções do nosso arquivo.
+La sección `accessModes` es donde definimos el modo de acceso al volumen, que puede ser `ReadWriteOnce` (RWO), `ReadOnlyMany` (ROM) o `ReadWriteMany` (RWM). RWO significa que el volumen se puede montar como solo lectura y escritura por un nodo. ROM significa que el volumen se puede montar como solo lectura por varios nodos. RWM significa que el volumen se puede montar como lectura y escritura por varios nodos.
 
-A seção `accessModes` é onde definimos o modo de acesso ao volume, que pode ser `ReadWriteOnce` (RWO), `ReadOnlyMany` (ROM) ou `ReadWriteMany` (RWM). O RWO significa que o volume pode ser montado como somente leitura e escrita por um nó. O ROM significa que o volume pode ser montado como somente leitura por vários nós. O RWM significa que o volume pode ser montado como leitura e escrita por vários nós.
+La sección `resources` es donde definimos los recursos que el PVC solicitará. En este caso, estamos solicitando un volumen de 1Gi.
 
-A seção `resources` é onde definimos os recursos que o PVC irá solicitar. Nesse caso, estamos solicitando um volume de 1Gi.
+Todavía tenemos la sección `storageClassName`, donde definimos el nombre de la clase de almacenamiento que asociaremos al PVC.
 
-Ainda temos a seção `storageClassName`, que é onde definimos o nome da classe de armazenamento que iremos associar ao PVC.
+Y por último, la sección `selector`, donde definimos el selector de etiquetas que se utilizará para seleccionar el PV que se asociará al PVC.
 
-E por fim, temos a seção `selector`, que é onde definimos o seletor de labels que será utilizado para selecionar o PV que será associado ao PVC.
-
-
-Vamos criar o nosso PVC.
+Creemos nuestro PVC.
 
 ```bash
 kubectl apply -f pvc.yaml
-persistentvolumeclaim/meu-pvc created
+persistentvolumeclaim/mi-pvc created
 ```
 
-&nbsp;
-
-Pronto, PVC criado! Vamos conferir se ele foi criado corretamente.
+Listo, ¡PVC creado! Verifiquemos si se creó correctamente.
 
 ```bash
 kubectl get pvc
 ```
-
-&nbsp;
 
 ```bash
 NAME      STATUS    VOLUME   CAPACITY   ACCESS MODES   STORAGECLASS   AGE
 meu-pvc   Pending                                      nfs            5s
 ```
 
-&nbsp;
-
-Está lá! Porém o status dele está como `Pending`, vamos ver se tem alguma informação que nos ajude a entender o que está acontecendo.
+Ahí está, pero el estado es `Pendiente`. Veamos si hay alguna información que nos ayude a entender qué está sucediendo.
 
 ```bash
-kubectl describe pvc meu-pvc
+kubectl describe pvc mi-pvc
 ```
 
-&nbsp;
-
 ```bash
-Name:          meu-pvc
+Name:          mi-pvc
 Namespace:     default
 StorageClass:  nfs
 Status:        Pending
@@ -705,13 +684,11 @@ Events:
   Normal  WaitForFirstConsumer  15s (x4 over 1m5s)  persistentvolume-controller  waiting for first consumer to be created before binding
 ```
 
-&nbsp;
+Observa la parte de los eventos, dice que el PVC está esperando a que se cree el primer consumidor antes de vincularlo. ¿Qué significa esto?
 
-Repare na parte dos eventos, lá diz que o PVC está esperando o primeiro consumidor ser criado antes de ser vinculado. O que isso significa?
+Significa que el PVC está esperando que se cree un Pod para que pueda vincularse al PV. ¡Así que creemos nuestro Pod!
 
-Significa que o PVC está esperando que um Pod seja criado para que ele possa ser vinculado ao PV, então bora criar o nosso Pod.
-
-Vamos usar o nosso já conhecido Nginx como exemplo, então vamos criar um arquivo chamado `pod.yaml` e adicionar o seguinte conteúdo:
+Usaremos el conocido Nginx como ejemplo, así que crearemos un archivo llamado `pod.yaml` y añadiremos el siguiente contenido:
 
 ```yaml
 apiVersion: v1
@@ -725,95 +702,81 @@ spec:
     ports:
     - containerPort: 80
     volumeMounts:
-    - name: meu-pvc
+    - name: mi-pvc
       mountPath: /usr/share/nginx/html
   volumes:
-  - name: meu-pvc
+  - name: mi-pvc
     persistentVolumeClaim:
-      claimName: meu-pvc
+      claimName: mi-pvc
 ```
 
-&nbsp;
+Básicamente, lo que estamos haciendo aquí es:
 
-O que estamos fazendo aqui é basicamente o seguinte:
+- Crear un Pod con el nombre `nginx-pod`;
+- Utilizar la imagen `nginx:latest` como base;
+- Exponer el puerto 80;
+- Definir un volumen llamado `mi-pvc` y montarlo en la ruta `/usr/share/nginx/html` dentro del contenedor;
+- Por último, definir que el volumen `mi-pvc` es un `PersistentVolumeClaim` y que el nombre del PVC es `mi-pvc`.
 
-* Criando um Pod com o nome `nginx-pod`;
-* Utilizando a imagem `nginx:latest` como base;
-* Expondo a porta 80;
-* Definindo um volume chamado `meu-pvc` e montando ele no caminho `/usr/share/nginx/html` dentro do container;
-* Por fim, definindo que o volume `meu-pvc` é um `PersistentVolumeClaim` e que o nome do PVC é `meu-pvc`.
-
-Esse trecho do arquivo `pod.yaml` é responsável por montar o volume `meu-pvc` no caminho `/usr/share/nginx/html` dentro do container.
+Este fragmento del archivo `pod.yaml` es responsable de montar el volumen `mi-pvc` en la ruta `/usr/share/nginx/html` dentro del contenedor.
 
 ```yaml
-    volumeMounts: # montando o volume no container
-    - name: meu-pvc  # nome do volume
-      mountPath: /usr/share/nginx/html # caminho onde o volume será montado no container
-  volumes: # definindo o volume que será utilizado pelo Pod
-  - name: meu-pvc # nome do volume
-    persistentVolumeClaim: # tipo de volume, no caso, um PersistentVolumeClaim
-      claimName: meu-pvc # nome do PVC
+    volumeMounts: # montar el volumen en el contenedor
+    - name: mi-pvc  # nombre del volumen
+      mountPath: /usr/share/nginx/html # ruta donde se montará el volumen en el contenedor
+  volumes
+
+: # definir el volumen que se utilizará en el Pod
+  - name: mi-pvc # nombre del volumen
+    persistentVolumeClaim: # tipo de volumen, en este caso, un PersistentVolumeClaim
+      claimName: mi-pvc # nombre del PVC
 ```
 
-Esclarecido! Vamos criar o nosso Pod.
+¡Vamos a crear nuestro Pod!
 
 ```bash
 kubectl apply -f pod.yaml
 pod/nginx-pod created
 ```
 
-&nbsp;
-
-Bora ver se está tudo certo com o nosso Pod.
+Comprobemos si todo está correcto con nuestro Pod.
 
 ```bash
 NAME        READY   STATUS    RESTARTS   AGE
 nginx-pod   1/1     Running   0          21s
 ```
 
-&nbsp;
-
-Parece que sim! Agora vamos ver se o nosso PVC foi vinculado ao PV.
+¡Parece que sí! Ahora verifiquemos si nuestro PVC se vinculó al PV.
 
 ```bash
 kubectl get pvc
 ```
 
-&nbsp;
-
 ```bash
 NAME      STATUS   VOLUME       CAPACITY   ACCESS MODES   STORAGECLASS   AGE
-meu-pvc   Bound    meu-pv-nfs   1Gi        RWO            nfs            3m8s
+mi-pvc   Bound    mi-pv-nfs   1Gi        RWO            nfs            3m8s
 ```
 
-&nbsp;
+¡Vínculo realizado!
 
-Opa! Temos um vinculo! 
-
-Vamos ver se tem alguma coisa nova na saída do `get pv`.
+Verifiquemos si hay algo nuevo en la salida de `get pv`.
 
 ```bash
 kubectl get pv
 ```
 
-&nbsp;
-
 ```bash
 NAME         CAPACITY   ACCESS MODES   RECLAIM POLICY   STATUS   CLAIM             STORAGECLASS   REASON   AGE
-meu-pv-nfs   1Gi        RWO            Retain           Bound    default/meu-pvc   nfs                     3m42s
+mi-pv-nfs   1Gi        RWO            Retain           Bound    default/mi-pvc   nfs                     3m42s
 ```
 
-&nbsp;
+¡Ahora sí! Tenemos un PV con el estado `Bound` y un PVC también con el estado `Bound`. ¡Éxito!
 
-Agora sim! Temos um PV com o status `Bound` e um PVC com o status `Bound` também. \o/
-
-E pra finalizar o nosso primeiro teste, vamos ver se o nosso Pod está utilizando o nosso volume.
+Para finalizar nuestra primera prueba, comprobemos si nuestro Pod está utilizando nuestro volumen.
 
 ```bash
 kubectl describe pod nginx-pod
 ```
-
-&nbsp;
 
 ```bash
 Name:             nginx-pod
@@ -841,7 +804,7 @@ Containers:
     Restart Count:  0
     Environment:    <none>
     Mounts:
-      /usr/share/nginx/html from meu-pvc (rw)
+      /usr/share/nginx/html from mi-pvc (rw)
       /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-8874f (ro)
 Conditions:
   Type              Status
@@ -852,7 +815,7 @@ Conditions:
 Volumes:
   meu-pvc:
     Type:       PersistentVolumeClaim (a reference to a PersistentVolumeClaim in the same namespace)
-    ClaimName:  meu-pvc
+    ClaimName:  mi-pvc
     ReadOnly:   false
   kube-api-access-8874f:
     Type:                    Projected (a volume that contains injected data from multiple sources)
@@ -874,62 +837,42 @@ Events:
   Normal  Started    6s    kubelet            Started container nginx
 ```
 
-&nbsp;
+¡Listo! ¡Nuestro Pod está utilizando nuestro volumen! Todo el contenido creado dentro del Pod se almacenará en nuestro volumen, y aunque el Pod se elimine, el contenido no se perderá.
 
-Pronto! O nosso Pod está utilizando o nosso volume! Todo o conteúdo que for criado dentro do Pod será armazenado no nosso volume, e mesmo que o Pod seja removido, o conteúdo não será perdido.
-
-Agora vamos testar o nosso volume. Vamos criar um arquivo HTML simples no diretório `/mnt/data` do nosso servidor NFS.
+Ahora probemos nuestro volumen. Creemos un archivo HTML simple en el directorio `/mnt/data` de nuestro servidor NFS.
 
 ```bash
 echo "<h1>GIROPOPS STRIGUS GIRUS</h1>" > /mnt/data/index.html
 ```
 
-&nbsp;
-
-Agora vamos ver se o nosso arquivo foi criado.
+Comprobemos ahora si nuestro archivo se creó.
 
 ```bash
 kubectl exec -it nginx-pod -- ls /usr/share/nginx/html
 ```
 
-&nbsp;
-
 ```bash
 index.html
 ```
 
-&nbsp;
-
-Está lá! Vamos dar um `curl` de dentro do Pod para ver se o Ngix está servindo o nosso arquivo.
+¡Ahí está! Hagamos un `curl` desde dentro del Pod para comprobar si Nginx está sirviendo nuestro archivo.
 
 ```bash
 kubectl exec -it nginx-pod -- curl localhost
 ```
 
-&nbsp;
-
 ```bash
 <h1>GIROPOPS STRIGUS GIRUS</h1>
 ```
 
-Tudo rolando maravilhosamente bem! :D
+¡Todo funciona maravillosamente bien! :D
 
+### Tu tarea
 
-&nbsp;
+Tu tarea es crear un despliegue de Nginx que tenga un volumen montado en `/usr/share/nginx/html`. Siéntete libre de utilizar diferentes tipos de provisionadores o diferentes tipos de PV. Déjate guiar por tu imaginación y aprovecha para explorar diferentes aplicaciones.
 
+¡Fin del Día 6!
 
-### A sua lição de casa
+Durante el Día 6, ¡aprendiste todo sobre los volúmenes en Kubernetes! Aprendiste qué es una `Storage Class`, un `PV` y un `PVC`, y lo más importante, ¡aprendiste todo esto en la práctica! Ahora puedes comenzar a aplicar tus nuevos conocimientos para mejorar los despliegues en tu clúster. ¡Espero que hayas disfrutado y aprendido mucho!
 
-A sua lição de casa é criar um deployment do Nginx, que possua um volume montado no `/usr/share/nginx/html`. Fique a vontade em utilizar diferentes tipos de provisionadores e/ou diferentes tipos de PV.
-Deixe a sua imaginação te guiar e aproveite para estudar as diferentes aplicabilidades. :)
-
-&nbsp;
-
-## Final do Day-6
-
-Durante o Day-6 você aprendeu tudo sobre volumes no Kubernetes! Durante o Day-6 você aprender o que é um `StorageClass`, um `PV` e um `PVC`, e mais do que isso, você aprendeu tudo isso de forma prática!
-Agora é começar a usar todo o seu conhecimento adquirido para começar melhorar os deployments do seu cluster.
-Espero que tenha gostado e aprendido muita coisa nova!
-
-
-&nbsp;
+¡Hasta la próxima!
