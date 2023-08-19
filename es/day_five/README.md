@@ -26,6 +26,11 @@
         - [Configurando los puertos](#configurando-los-puertos)
         - [Inicializando el clúster](#inicializando-el-clúster)
         - [Comprendiendo el archivo admin.conf](#comprendiendo-el-archivo-adminconf)
+          - [Clusters](#clusters)
+          - [Contextos](#contextos)
+          - [Contexto actual](#contexto-actual)
+          - [Preferencias](#preferencias)
+          - [Usuarios](#usuarios)
         - [Agregando los demás nodos al clúster](#agregando-los-demás-nodos-al-clúster)
         - [Instalando Weave Net](#instalando-weave-net)
         - [¿Qué es CNI?](#qué-es-cni)
@@ -78,17 +83,17 @@ En cuanto a los `workers`, las cosas son mucho más simples, ya que su principal
 
 Hoy nos centraremos en la instalación de Kubernetes utilizando `kubeadm`, que es una de las formas más antiguas de crear un clúster de Kubernetes. Sin embargo, existen otras formas de instalar Kubernetes. Aquí detallaré algunas de ellas:
 
-* **`kubeadm`**: Es una herramienta para crear y gestionar un clúster de Kubernetes en múltiples nodos. Automatiza muchas de las tareas de configuración del clúster, incluida la instalación del "control plane" y los nodos. Es altamente configurable y se puede usar para crear clústeres personalizados.
+- **`kubeadm`**: Es una herramienta para crear y gestionar un clúster de Kubernetes en múltiples nodos. Automatiza muchas de las tareas de configuración del clúster, incluida la instalación del "control plane" y los nodos. Es altamente configurable y se puede usar para crear clústeres personalizados.
 
-* **`Kubespray`**: Es una herramienta que utiliza Ansible para implementar y gestionar un clúster de Kubernetes en múltiples nodos. Ofrece muchas opciones para personalizar la instalación del clúster, incluida la elección del proveedor de red, el número de réplicas del "control plane", el tipo de almacenamiento y mucho más. Es una buena opción para implementar un clúster en diversos entornos, incluyendo nubes públicas y privadas.
+- **`Kubespray`**: Es una herramienta que utiliza Ansible para implementar y gestionar un clúster de Kubernetes en múltiples nodos. Ofrece muchas opciones para personalizar la instalación del clúster, incluida la elección del proveedor de red, el número de réplicas del "control plane", el tipo de almacenamiento y mucho más. Es una buena opción para implementar un clúster en diversos entornos, incluyendo nubes públicas y privadas.
 
-* **`Proveedores de nube`**: Muchos proveedores de nube, como AWS, Google Cloud Platform y Microsoft Azure, ofrecen opciones para implementar un clúster de Kubernetes en su infraestructura. Suelen proporcionar plantillas predefinidas que se pueden utilizar para implementar un clúster con solo unos pocos clics. Algunos proveedores de nube también ofrecen servicios gestionados de Kubernetes que se encargan de toda la configuración y gestión del clúster.
+- **`Proveedores de nube`**: Muchos proveedores de nube, como AWS, Google Cloud Platform y Microsoft Azure, ofrecen opciones para implementar un clúster de Kubernetes en su infraestructura. Suelen proporcionar plantillas predefinidas que se pueden utilizar para implementar un clúster con solo unos pocos clics. Algunos proveedores de nube también ofrecen servicios gestionados de Kubernetes que se encargan de toda la configuración y gestión del clúster.
 
-* **`Kubernetes administrados`**: Son servicios administrados ofrecidos por algunos proveedores de nube, como Amazon EKS, Google Cloud GKE y Azure AKS. Ofrecen un clúster de Kubernetes gestionado en el que solo necesitas preocuparte por implementar y gestionar tus aplicaciones. Estos servicios se encargan de la configuración, actualización y mantenimiento del clúster por ti. En este caso, no tienes que gestionar el "control plane" del clúster, ya que es gestionado por el proveedor de nube.
+- **`Kubernetes administrados`**: Son servicios administrados ofrecidos por algunos proveedores de nube, como Amazon EKS, Google Cloud GKE y Azure AKS. Ofrecen un clúster de Kubernetes gestionado en el que solo necesitas preocuparte por implementar y gestionar tus aplicaciones. Estos servicios se encargan de la configuración, actualización y mantenimiento del clúster por ti. En este caso, no tienes que gestionar el "control plane" del clúster, ya que es gestionado por el proveedor de nube.
 
-* **`Kops`**: Es una herramienta para implementar y gestionar clústeres de Kubernetes en la nube. Está diseñado específicamente para implementaciones en nubes públicas como AWS, GCP y Azure. Kops permite crear, actualizar y gestionar clústeres de Kubernetes en la nube. Algunas de las principales ventajas de usar Kops son la personalización, escalabilidad y seguridad. Sin embargo, el uso de Kops puede ser más complejo que otras opciones de instalación de Kubernetes, especialmente si no estás familiarizado con la nube en la que estás implementando.
+- **`Kops`**: Es una herramienta para implementar y gestionar clústeres de Kubernetes en la nube. Está diseñado específicamente para implementaciones en nubes públicas como AWS, GCP y Azure. Kops permite crear, actualizar y gestionar clústeres de Kubernetes en la nube. Algunas de las principales ventajas de usar Kops son la personalización, escalabilidad y seguridad. Sin embargo, el uso de Kops puede ser más complejo que otras opciones de instalación de Kubernetes, especialmente si no estás familiarizado con la nube en la que estás implementando.
 
-* **`Minikube` y `kind`**: Son herramientas que te permiten crear un clúster de Kubernetes localmente, en un solo nodo. Son útiles para probar y aprender sobre Kubernetes, ya que puedes crear un clúster en minutos y comenzar a implementar aplicaciones de inmediato. También son útiles para desarrolladores que necesitan probar sus aplicaciones en un entorno de Kubernetes sin tener que configurar un clúster en un entorno de producción.
+- **`Minikube` y `kind`**: Son herramientas que te permiten crear un clúster de Kubernetes localmente, en un solo nodo. Son útiles para probar y aprender sobre Kubernetes, ya que puedes crear un clúster en minutos y comenzar a implementar aplicaciones de inmediato. También son útiles para desarrolladores que necesitan probar sus aplicaciones en un entorno de Kubernetes sin tener que configurar un clúster en un entorno de producción.
 
 Aún existen otras formas de instalar Kubernetes, pero estas son las más comunes. Para obtener más detalles sobre otras formas de instalar Kubernetes, puedes consultar la documentación oficial de Kubernetes.
 
@@ -390,7 +395,7 @@ users:
 
 Veamos qué hay dentro de cada sección:
 
-**Clusters**
+###### Clusters
 
 La sección de clústeres contiene información sobre los clústeres Kubernetes a los que deseas acceder, como la dirección del servidor de API y el certificado de la autoridad. En este archivo, solo hay un clúster llamado "kubernetes", que es el clúster que acabamos de crear.
 
@@ -403,7 +408,7 @@ La sección de clústeres contiene información sobre los clústeres Kubernetes 
 
 &nbsp;
 
-**Contextos**
+###### Contextos
 
 La sección de contextos define configuraciones específicas para cada combinación de clúster, usuario y espacio de nombres. Solo tenemos un contexto configurado. Se llama "kubernetes-admin@kubernetes" y combina el clúster "kubernetes" con el usuario "kubernetes-admin".
 
@@ -416,8 +421,7 @@ La sección de contextos define configuraciones específicas para cada combinaci
 
 &nbsp;
 
-
-**Contexto actual**
+###### Contexto actual
 
 La propiedad `current-context` indica el contexto actualmente activo, es decir, qué combinación de clúster, usuario y espacio de nombres se usará al ejecutar comandos kubectl. En este archivo, el contexto actual es "kubernetes-admin@kubernetes".
 
@@ -427,7 +431,7 @@ current-context: kubernetes-admin@kubernetes
 
 &nbsp;
 
-**Preferencias**
+###### Preferencias
 
 La sección de preferencias contiene configuraciones globales que afectan el comportamiento del kubectl. Aquí podemos definir el editor de texto predeterminado, por ejemplo.
 
@@ -437,7 +441,7 @@ preferences: {}
 
 &nbsp;
 
-**Usuarios**
+###### Usuarios
 
 La sección de usuarios contiene información sobre los usuarios y sus credenciales para acceder a los clústeres. En este archivo, solo hay un usuario llamado "kubernetes-admin". Contiene los datos del certificado del cliente y la llave del cliente.
 
@@ -632,6 +636,7 @@ Ahora puedes disfrutar y utilizar tu flamante clúster Kubernetes.
 &nbsp;
 
 #### Visualizando detalles de los nodos
+
 Ahora que tenemos nuestro clúster con 03 nodos, podemos ver los detalles de cada uno de ellos y comprender cada aspecto.
 
 Para ver la descripción del nodo, simplemente ejecuta el siguiente comando:
