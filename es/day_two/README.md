@@ -7,11 +7,11 @@
 
 &nbsp;
 
-### Índice
+### Contenido del Día 2
 
 - [Simplificando Kubernetes](#simplificando-kubernetes)
   - [Día 2](#día-2)
-    - [Índice](#índice)
+    - [Contenido del Día 2](#contenido-del-día-2)
     - [Ínicio de la clase Día 2](#ínicio-de-la-clase-día-2)
     - [¿Qué vamos a ver hoy?](#qué-vamos-a-ver-hoy)
     - [¿Qué es un Pod?](#qué-es-un-pod)

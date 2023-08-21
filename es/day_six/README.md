@@ -4,11 +4,11 @@
 
 &nbsp;
 
-## Contenído del Día 6
+## Contenido del Día 6
 
 - [Simplificando Kubernetes](#simplificando-kubernetes)
   - [Día 6](#día-6)
-  - [Contenído del Día 6](#contenído-del-día-6)
+  - [Contenido del Día 6](#contenido-del-día-6)
   - [Inicio de la Lección del Día 6](#inicio-de-la-lección-del-día-6)
     - [¿Qué veremos hoy?](#qué-veremos-hoy)
       - [¿Qué son los volúmenes?](#qué-son-los-volúmenes)
@@ -593,7 +593,7 @@ kubectl apply -f pv-nfs.yaml
 &nbsp;
 
 ```bash
-persistentvolume/meu-pv created
+persistentvolume/mi-pv created
 ```
 
 &nbsp;
@@ -656,7 +656,7 @@ kubectl get pvc
 
 ```bash
 NAME      STATUS    VOLUME   CAPACITY   ACCESS MODES   STORAGECLASS   AGE
-meu-pvc   Pending                                      nfs            5s
+mi-pvc   Pending                                      nfs            5s
 ```
 
 Ahí está, pero el estado es `Pendiente`. Veamos si hay alguna información que nos ayude a entender qué está sucediendo.
@@ -813,7 +813,7 @@ Conditions:
   ContainersReady   True 
   PodScheduled      True 
 Volumes:
-  meu-pvc:
+  mi-pvc:
     Type:       PersistentVolumeClaim (a reference to a PersistentVolumeClaim in the same namespace)
     ClaimName:  mi-pvc
     ReadOnly:   false
