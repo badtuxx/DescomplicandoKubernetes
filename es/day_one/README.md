@@ -3,11 +3,11 @@
 
 ## Día 1
 
-### Índice
+### Contenido del Día 1
 
 - [Simplificando Kubernetes](#simplificando-kubernetes)
   - [Día 1](#día-1)
-    - [Índice](#índice)
+    - [Contenido del Día 1](#contenido-del-día-1)
     - [¿Qué vamos a ver hoy?](#qué-vamos-a-ver-hoy)
     - [Início de la clase Día 1](#início-de-la-clase-día-1)
     - [¿Cual distribución GNU/Linux debo utilizar?](#cual-distribución-gnulinux-debo-utilizar)

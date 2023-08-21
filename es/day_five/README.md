@@ -4,11 +4,11 @@
 
 &nbsp;
 
-## Contenído del Día 5
+## Contenido del Día 5
 
 - [Simplificando Kubernetes - Expert Mode](#simplificando-kubernetes---expert-mode)
   - [Día 5](#día-5)
-  - [Contenído del Día 5](#contenído-del-día-5)
+  - [Contenido del Día 5](#contenido-del-día-5)
   - [Inicio de la Lección del Día 5](#inicio-de-la-lección-del-día-5)
     - [¿Qué veremos hoy?](#qué-veremos-hoy)
     - [Instalación de un cluster Kubernetes](#instalación-de-un-cluster-kubernetes)
