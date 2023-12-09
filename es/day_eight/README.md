@@ -449,14 +449,14 @@ Vamos a comprobar si el Secret ha sido creado:
 ```bash
 kubectl get secrets
 NAME                         TYPE                             DATA   AGE
-meu-servico-web-tls-secret   kubernetes.io/tls                2      4s
+mi-servicio-web-tls-secret   kubernetes.io/tls                2      4s
 ```
 
 &nbsp;
 
-Sí, el Secreto está ahí y es del tipo `kubernetes.io/tls`.
+Sí, el Secret está ahí y es del tipo `kubernetes.io/tls`.
 
-Si deseas ver el contenido del Secreto, puedes utilizar el comando `kubectl get secret` con el parámetro `-o yaml`:
+Si deseas ver el contenido del Secret, puedes utilizar el comando `kubectl get secret` con el parámetro `-o yaml`:
 
 ```bash
 kubectl get secret mi-servicio-web-tls-secret -o yaml
@@ -900,7 +900,6 @@ Con Vault, puedes centralizar la gestión de secretos, reduciendo la superficie 
 
 Vault puede ser un poco complejo para los principiantes, pero si ya has trabajado con él, los comandos básicos son relativamente sencillos.
 
-###################
 **Instalando el Hashicorp Vault**
 
 ```bash
