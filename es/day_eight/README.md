@@ -1,6 +1,7 @@
 # Simplificando Kubernetes
 
 ## Día 8
+
 &nbsp;
 
 ### Contenido del Día 8
@@ -14,32 +15,32 @@
         - [Tipos de Secrets](#tipos-de-secrets)
         - [Antes de crear un Secret, el Base64](#antes-de-crear-un-secret-el-base64)
         - [Creando nuestro primer Secret](#creando-nuestro-primer-secret)
-        - [Usando o nosso primeiro Secret](#usando-o-nosso-primeiro-secret)
-        - [Criando um Secret para armazenar credenciais Docker](#criando-um-secret-para-armazenar-credenciais-docker)
-        - [Criando um Secret TLS](#criando-um-secret-tls)
+        - [Usando nuestro primer Secret](#usando-nuestro-primer-secret)
+        - [Creando un Secret para almacenar credenciales Docker](#creando-un-secret-para-almacenar-credenciales-docker)
+        - [Creando un Secret TLS](#creando-un-secret-tls)
       - [ConfigMaps](#configmaps)
       - [External Secret Operator](#external-secret-operator)
-        - [O Papel de Destaque do ESO](#o-papel-de-destaque-do-eso)
-        - [Conceitos-Chave do External Secrets Operator](#conceitos-chave-do-external-secrets-operator)
+        - [El Papel Destacado del ESO](#el-papel-destacado-del-eso)
+        - [Conceptos Clave del External Secrets Operator](#conceptos-clave-del-external-secrets-operator)
         - [SecretStore](#secretstore)
         - [ExternalSecret](#externalsecret)
         - [ClusterSecretStore](#clustersecretstore)
-        - [Controle de Acesso e Segurança](#controle-de-acesso-e-segurança)
-      - [Configurando o External Secrets Operator](#configurando-o-external-secrets-operator)
-        - [O que é o Vault?](#o-que-é-o-vault)
-        - [Por que Usar o Vault?](#por-que-usar-o-vault)
-        - [Comandos Básicos do Vault](#comandos-básicos-do-vault)
-        - [O Vault no Contexto do Kubernetes](#o-vault-no-contexto-do-kubernetes)
-        - [Instalando e Configurando o Vault no Kubernetes](#instalando-e-configurando-o-vault-no-kubernetes)
-        - [Pré-requisitos](#pré-requisitos)
-        - [Instalando e Configurando o Vault com Helm](#instalando-e-configurando-o-vault-com-helm)
-        - [Adicionando o Repositório do External Secrets Operator ao Helm](#adicionando-o-repositório-do-external-secrets-operator-ao-helm)
-        - [Instalando o External Secrets Operator](#instalando-o-external-secrets-operator)
-        - [Verificando a Instalação do ESO](#verificando-a-instalação-do-eso)
-        - [Criando um Segredo no Kubernetes](#criando-um-segredo-no-kubernetes)
-        - [Configurando o ClusterSecretStore](#configurando-o-clustersecretstore)
-        - [Criando um ExternalSecret](#criando-um-externalsecret)
-  - [Final do Day-8](#final-do-day-8)
+        - [Control de Acceso y Seguridad](#control-de-acceso-y-seguridad)
+      - [Configurando el External Secrets Operator](#configurando-el-external-secrets-operator)
+        - [¿Qué es Vault?](#qué-es-vault)
+        - [¿Por Qué Usar Vault?](#por-qué-usar-vault)
+        - [Comandos Básicos de Vault](#comandos-básicos-de-vault)
+        - [El Vault en el Contexto de Kubernetes](#el-vault-en-el-contexto-de-kubernetes)
+        - [Instalación y Configuración de Vault en Kubernetes](#instalación-y-configuración-de-vault-en-kubernetes)
+        - [Requisitos Previos](#requisitos-previos)
+        - [Instalando y Configurando Vault con Helm](#instalando-y-configurando-vault-con-helm)
+        - [Agregar el Repositorio del Operador de Secretos Externos a Helm](#agregar-el-repositorio-del-operador-de-secretos-externos-a-helm)
+        - [Instalando el Operador de Secretos Externos](#instalando-el-operador-de-secretos-externos)
+        - [Verificación de la Instalación de ESO](#verificación-de-la-instalación-de-eso)
+        - [Creación de un Secreto en Kubernetes](#creación-de-un-secreto-en-kubernetes)
+        - [Configuración del ClusterSecretStore](#configuración-del-clustersecretstore)
+        - [Creación de un ExternalSecret](#creación-de-un-externalsecret)
+  - [Final del Día 8](#final-del-día-8)
 
 &nbsp;
 
@@ -232,19 +233,15 @@ Si comparas las cadenas de los campos `username` y `password` del Secret creado 
 
 &nbsp;
 
-########################
+##### Usando nuestro primer Secret
 
-########################
-##### Usando o nosso primeiro Secret
+Ahora que ya tenemos nuestro primer Secret creado, es hora de aprender cómo utilizarlo en un Pod.
 
-Agora que já temos o nosso primeiro Secret criado, é hora de saber como usa-lo em um Pod.
+En este primer ejemplo, solo mostraré cómo usar el Secret en un Pod, pero todavía sin ninguna "función" especial, solo para demostrar cómo se utiliza el Secret.
 
-Nesse nosso primeiro exemplo, somente irei mostrar como usar o Secret em um Pod, mas ainda sem nenhuma "função" especial, apenas para mostrar como usar o Secret.
+Para usar el Secret en un Pod, necesitas definir el campo spec.containers[].env[].valueFrom.secretKeyRef en el archivo YAML del Pod. Estoy presentando el campo en este formato para que puedas empezar a familiarizarte con él, ya que lo utilizarás bastante para buscar alguna información más específica en la línea de comandos, usando el comando kubectl get, por ejemplo.
 
-Para usar o Secret em um Pod, você precisa definir o campo `spec.containers[].env[].valueFrom.secretKeyRef` no arquivo YAML do Pod. Eu estou trazendo o campo nesse formato, para que você possa começar a se familiarizar com esse formato, pois você irá usa-lo bastante para buscar alguma informação mais especifica na linha de comando, usando o comando `kubectl get`, por exemplo.
-
-Voltando ao assunto principal, precisamos criar o nosso Pod, então vamos lá! Crie um arquivo chamado `giropops-pod.yaml` com o seguinte conteúdo:
-
+Volviendo al tema principal, necesitamos crear nuestro Pod, ¡así que vamos allá! Crea un archivo llamado giropops-pod.yaml con el siguiente contenido:
 
 ```yaml
 apiVersion: v1
@@ -255,34 +252,35 @@ spec:
   containers:
   - name: giropops-container
     image: nginx
-    env: # Inicio da definição das variáveis de ambiente
-    - name: USERNAME # Nome da variável de ambiente que será usada no Pod
-      valueFrom: # Inicio da definição de onde o valor da variável de ambiente será buscado
-        secretKeyRef: # Inicio da definição de que o valor da variável de ambiente será buscado em um Secret, através de uma chave
-          name: giropops-secret # Nome do Secret que contém o valor da variável de ambiente que será usada no Pod
-          key: username # Nome da chave do campo do Secret que contém o valor da variável de ambiente que será usada no Pod
-    - name: PASSWORD # Nome da variável de ambiente que será usada no Pod
-      valueFrom: # Inicio da definição de onde o valor da variável de ambiente será buscado
-        secretKeyRef: # Inicio da definição de que o valor da variável de ambiente será buscado em um Secret, através de uma chave
-          name: giropops-secret # Nome do Secret que contém o valor da variável de ambiente que será usada no Pod
-          key: password # Nome da chave do campo do Secret que contém o valor da variável de ambiente que será usada no Pod
+    env: # Inicio de la definición de las variables de entorno
+    - name: USERNAME # Nombre de la variable de entorno que se usará en el Pod
+      valueFrom: # Inicio de la definición de dónde se buscará el valor de la variable de entorno
+        secretKeyRef: # Inicio de la definición de que el valor de la variable de entorno se buscará en un Secret, a través de una clave
+          name: giropops-secret # Nombre del Secret que contiene el valor de la variable de entorno que se usará en el Pod
+          key: username # Nombre de la clave del campo del Secret que contiene el valor de la variable de entorno que se usará en el Pod
+    - name: PASSWORD # Nombre de la variable de entorno que se usará en el Pod
+      valueFrom: # Inicio de la definición de dónde se buscará el valor de la variable de entorno
+        secretKeyRef: # Inicio de la definición de que el valor de la variable de entorno se buscará en un Secret, a través de una clave
+          name: giropops-secret # Nombre del Secret que contiene el valor de la variable de entorno que se usará en el Pod
+          key: password # Nombre de la clave del campo del Secret que contiene el valor de la variable de entorno que se usará en el Pod
 ```
 
 &nbsp;
 
-Eu adicionei comentários nas linhas que são novas para você, para que você possa entender o que cada linha faz.
+He añadido comentarios en las líneas que son nuevas para ti, para que puedas entender lo que hace cada línea.
 
-Mas vou trazer aqui uma explicação mais detalhada sobre o campo `spec.containers[].env[].valueFrom.secretKeyRef`:
+Pero aquí te traigo una explicación más detallada sobre el campo `spec.containers[].env[].valueFrom.secretKeyRef`:
 
-- `spec.containers[].env[].valueFrom.secretKeyRef.name`: o nome do Secret que contém o valor da variável de ambiente que será usada no Pod;
+- `spec.containers[].env[].valueFrom.secretKeyRef.name`: el nombre del Secret que contiene el valor de la variable de entorno que se utilizará en el Pod;
 
-- `spec.containers[].env[].valueFrom.secretKeyRef.key`: a chave do campo do Secret que contém o valor da variável de ambiente que será usada no Pod;
+- `spec.containers[].env[].valueFrom.secretKeyRef.key`: la clave del campo del Secret que contiene el valor de la variable de entorno que se utilizará en el Pod;
 
-Com isso teremos um Pod, que terá um container chamado `giropops-container`, que terá duas variáveis de ambiente, `USERNAME` e `PASSWORD`, que terão os valores que estão definidos no Secret `giropops-secret`.
+Con esto tendremos un Pod, que tendrá un contenedor llamado `giropops-container`, que contará con dos variables de entorno, `USERNAME` y `PASSWORD`, que tendrán los valores definidos en el Secret `giropops-secret`.
 
-Agora vamos criar o Pod usando o comando `kubectl apply`:
+Ahora vamos a crear el Pod usando el comando kubectl apply:
 
 ```bash
+Copy code
 kubectl apply -f giropops-pod.yaml
 
 pod/giropops-pod created
@@ -290,7 +288,7 @@ pod/giropops-pod created
 
 &nbsp;
 
-Agora vamos verificar se o Pod foi criado e se os Secrets foram injetados no Pod:
+Ahora vamos a verificar si el Pod ha sido creado y si los Secrets han sido inyectados en el Pod:
 
 ```bash
 kubectl get pods
@@ -301,7 +299,7 @@ giropops-pod   1/1     Running   0          2m
 
 &nbsp;
 
-Para verificar se os Secrets foram injetados no Pod, você pode usar o comando `kubectl exec` para executar o comando `env` dentro do container do Pod:
+Para verificar si los Secrets han sido inyectados en el Pod, puedes utilizar el comando kubectl exec para ejecutar el comando env dentro del contenedor del Pod:
 
 ```bash
 kubectl exec giropops-pod -- env
@@ -326,25 +324,25 @@ HOME=/root
 
 &nbsp;
 
-Olha lá os nosso Secrets como variáveis de ambiente dentro do container do Pod!
+¡Mira ahí nuestros Secrets como variables de entorno dentro del contenedor del Pod!
 
-Pronto! Tarefa executada com sucesso! \o/
+¡Listo! ¡Tarea ejecutada con éxito! \o/
 
-Agora eu acho que já podemos partir para os próximos tipos de Secrets!
+Ahora creo que ya podemos pasar a los siguientes tipos de Secrets!
 
 &nbsp;
-##############################
-##### Criando um Secret para armazenar credenciais Docker
 
-O Docker Hub é um serviço de registro de imagens Docker, que permite que você armazene e compartilhe imagens Docker publicamente ou privadamente. Em 2022, o Docker Hub começou a limitar o número de downloads de imagens Docker públicas para 100 downloads por 6 horas para usuários não autenticados, e para usuários autenticados, o limite é de 200 downloads por 6 horas.
+##### Creando un Secret para almacenar credenciales Docker
 
-Mas o ponto aqui é que você pode usar o Docker Hub para armazenar imagens Docker privadas, e para isso você precisa de uma conta no Docker Hub, e para acessar a sua conta no Docker Hub, você precisa de um nome de usuário e uma senha. Entendeu onde eu quero chegar? :D
+Docker Hub es un servicio de registro de imágenes Docker, que permite almacenar y compartir imágenes Docker públicamente o de manera privada. En 2022, Docker Hub comenzó a limitar el número de descargas de imágenes Docker públicas a 100 descargas cada 6 horas para usuarios no autenticados, y para usuarios autenticados, el límite es de 200 descargas cada 6 horas.
 
-Para que o Kubernetes possa acessar o Docker Hub, você precisa criar um Secret que armazene o nome de usuário e a senha da sua conta no Docker Hub, e depois você precisa configurar o Kubernetes para usar esse Secret.
+Pero el punto aquí es que puedes usar Docker Hub para almacenar imágenes Docker privadas, y para eso necesitas una cuenta en Docker Hub, y para acceder a tu cuenta en Docker Hub, necesitas un nombre de usuario y una contraseña. ¿Entiendes a dónde quiero llegar? :D
 
-Quando você executa `docker login` e tem a sua autenticação bem sucedida, o Docker cria um arquivo chamado `config.json` no diretório `~/.docker/` do seu usuário, e esse arquivo contém o nome de usuário e a senha da sua conta no Docker Hub, e é esse arquivo que você precisa usar para criar o seu Secret.
+Para que Kubernetes pueda acceder a Docker Hub, necesitas crear un Secret que almacene el nombre de usuario y la contraseña de tu cuenta en Docker Hub, y luego necesitas configurar Kubernetes para usar ese Secret.
 
-Primeiro passo é pegar o conteúdo do seu arquivo `config.json` e codificar em base64, e para isso você pode usar o comando `base64`:
+Cuando ejecutas `docker login` y tu autenticación es exitosa, Docker crea un archivo llamado `config.json` en el directorio `~/.docker/` de tu usuario, y ese archivo contiene el nombre de usuario y la contraseña de tu cuenta en Docker Hub, y es ese archivo el que necesitas usar para crear tu Secret.
+
+El primer paso es obtener el contenido de tu archivo `config.json` y codificarlo en base64, y para eso puedes usar el comando `base64`:
 
 ```bash
 base64 ~/.docker/config.json
@@ -354,24 +352,24 @@ QXF1aSB0ZW0gcXVlIGVzdGFyIG8gY29udGXDumRvIGRvIHNldSBjb25maWcuanNvbiwgY29pc2EgbGlu
 
 &nbsp;
 
-Então vamos lá! Crie um arquivo chamado `dockerhub-secret.yaml` com o seguinte conteúdo:
+¡Entonces vamos allá! Crea un archivo llamado `dockerhub-secret.yaml`con el siguiente contenido:
 
 ```yaml
 apiVersion: v1
 kind: Secret
 metadata:
-  name: docker-hub-secret # nome do Secret
-type: kubernetes.io/dockerconfigjson # tipo do Secret, neste caso é um Secret que armazena credenciais Docker
+  name: docker-hub-secret # nombre del Secret
+type: kubernetes.io/dockerconfigjson # tipo del Secret, en este caso es un Secret que almacena credenciales Docker
 data:
-  .dockerconfigjson: |  # substitua este valor pelo conteúdo do seu arquivo config.json codificado em base64
+  .dockerconfigjson: |  # sustituye este valor por el contenido de tu archivo config.json codificado en base64
     QXF1aSB0ZW0gcXVlIGVzdGFyIG8gY29udGXDumRvIGRvIHNldSBjb25maWcuanNvbiwgY29pc2EgbGluZGEgZG8gSmVmaW0=
 ```
 
 &nbsp;
 
-O que temos de novo aqui é no campo `type`, que define o tipo do Secret, e neste caso é um Secret que armazena credenciais Docker, e no campo `data` temos o campo `dockerconfigjson`, que é o nome do campo do Secret que armazena o conteúdo do arquivo `config.json` codificado em base64.
+Lo nuevo aquí es en el campo `type`, que define el tipo del Secret, y en este caso es un Secret que almacena credenciales Docker, y en el campo `data` tenemos el campo `dockerconfigjson`, que es el nombre del campo del Secret que almacena el contenido del archivo `config.json` codificado en base64.
 
-Agora vamos criar o Secret usando o comando `kubectl apply`:
+Ahora vamos a crear el Secret usando el comando `kubectl apply`:
 
 ```bash
 kubectl apply -f dockerhub-secret.yaml
@@ -381,7 +379,7 @@ secret/docker-hub-secret created
 
 &nbsp;
 
-Para listar o Secret que acabamos de criar, você pode usar o comando `kubectl get`:
+Para listar el Secret que acabamos de crear, puedes usar el comando `kubectl get`:
 
 ```bash
 kubectl get secrets
@@ -392,92 +390,89 @@ docker-hub-secret   kubernetes.io/dockerconfigjson   1      1s
 
 &nbsp;
 
-Secret criada, agora já podemos testar o acesso ao Docker Hub!
+Secret creada, ¡ahora ya podemos probar el acceso al Docker Hub!
 
-Agora o Kubernetes já tem acesso ao Docker Hub, e você pode usar o Kubernetes para fazer o pull de imagens Docker privadas do Docker Hub.
+Ahora Kubernetes ya tiene acceso al Docker Hub, y puedes usar Kubernetes para hacer pull de imágenes Docker privadas del Docker Hub.
 
-Um coisa importante, sempre quando você precisar criar um Pod que precise utilizar uma imagem Docker privada do Docker Hub, você precisa configurar o Pod para usar o Secret que armazena as credenciais do Docker Hub, e para isso você precisa usar o campo `spec.imagePullSecrets` no arquivo YAML do Pod.
+Una cosa importante, siempre que necesites crear un Pod que requiera utilizar una imagen Docker privada del Docker Hub, necesitas configurar el Pod para usar el Secret que almacena las credenciales del Docker Hub, y para eso necesitas usar el campo `spec.imagePullSecrets` en el archivo YAML del Pod.
 
 ```yaml
 apiVersion: v1
 kind: Pod
 metadata:
-  name: meu-pod
+  name: mi-pod
 spec:
   containers:
-  - name: meu-container
-    image: minha-imagem-privada
-  imagePullSecrets: # campo que define o Secret que armazena as credenciais do Docker Hub
-  - name: docker-hub-secret # nome do Secret
+  - name: mi-container
+    image: mi-imagen-privada
+  imagePullSecrets: # campo que define el Secret que almacena las credenciales del Docker Hub
+  - name: docker-hub-secret # nombre del Secret
 ```
 
 &nbsp;
 
-Perceba a utilização do campo `spec.imagePullSecrets` no arquivo YAML do Pod, e o campo `name` que define o nome do Secret que armazena as credenciais do Docker Hub. É somente isso que você precisa fazer para que o Kubernetes possa acessar o Docker Hub.
-
+Observa la utilización del campo `spec.imagePullSecrets` en el archivo YAML del Pod, y el campo `name` que define el nombre del Secret que almacena las credenciales del Docker Hub. Esto es todo lo que necesitas hacer para que Kubernetes pueda acceder al Docker Hub.
 
 &nbsp;
 
-##### Criando um Secret TLS
+##### Creando un Secret TLS
 
-O Secret `kubernetes.io/tls`, é usado para armazenar certificados TLS e chaves privadas. Eles são usados para fornecer segurança na comunicação entre os serviços no Kubernetes. Por exemplo, você pode usar um Secret TLS para configurar o HTTPS no seu serviço web.
+El Secret `kubernetes.io/tls`, se utiliza para almacenar certificados TLS y claves privadas. Se usan para proporcionar seguridad en la comunicación entre los servicios en Kubernetes. Por ejemplo, puedes usar un Secret TLS para configurar HTTPS en tu servicio web.
 
-Para criar um Secret TLS, você precisa ter um certificado TLS e uma chave privada, e você precisa codificar o certificado e a chave privada em base64, para então criar o Secret.
+Para crear un Secret TLS, necesitas tener un certificado TLS y una clave privada, y necesitas codificar el certificado y la clave privada en base64 para luego crear el Secret.
 
-Vamos criar um Secret TLS para o nosso serviço web, mas para isso, você precisa ter um certificado TLS e uma chave privada antes de mais nada.
+Vamos a crear un Secret TLS para nuestro servicio web, pero para eso, necesitas tener un certificado TLS y una clave privada antes de nada.
 
-Para criar um certificado TLS e uma chave privada, você pode usar o comando `openssl`:
+Para crear un certificado TLS y una clave privada, puedes usar el comando `openssl`:
 
 ```bash
-openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout chave-privada.key -out certificado.crt
+openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout clave-privada.key -out certificado.crt
 ```
 
 &nbsp;
 
+En el comando anterior, estamos creando un certificado TLS y una clave privada, y el certificado y la clave privada se almacenarán en los archivos `certificado.crt` y `clave-privada.key`, respectivamente. Puedes sustituir los nombres de los archivos por cualquier nombre que quieras.
+Estamos usando el comando `openssl` para crear un certificado TLS auto-firmado, y para ello necesitas responder algunas preguntas, como el país, estado, ciudad, etc. Puedes responder cualquier cosa, no hay problema. Este certificado TLS auto-firmado es solo para fines de prueba, y no debe ser utilizado en producción. Estamos pasando el parámetro `-nodes` para que la clave privada no sea cifrada con una contraseña, y el parámetro `-days` para definir la validez del certificado TLS, que en este caso es de 365 días. El parámetro `-newkey` se utiliza para definir el algoritmo de cifrado de la clave privada, que en este caso es `rsa:2048`, un algoritmo de cifrado asimétrico que utiliza claves de 2048 bits.
 
-No comando acima, estamos criando um certificado TLS e uma chave privada, e o certificado e a chave privada serão armazenados nos arquivos `certificado.crt` e `chave-privada.key`, respectivamente. Você pode substituir os nomes dos arquivos por qualquer nome que você quiser.
-Estamos usando o comando `openssl` para criar um certificado TLS auto-assinado, e para isso você precisa responder algumas perguntas, como o país, estado, cidade, etc. Você pode responder qualquer coisa, não tem problema. Esse certificado TLS auto-assinado é apenas para fins de teste, e não deve ser usado em produção. Estamos passando o parâmetro `-nodes` para que a chave privada não seja criptografada com uma senha, e o parâmetro `-days` para definir a validade do certificado TLS, que neste caso é de 365 dias. Já o parâmetro `-newkey` é usado para definir o algoritmo de criptografia da chave privada, que neste caso é o `rsa:2048`, que é um algoritmo de criptografia assimétrica que usa chaves de 2048 bits.
+No quiero entrar en detalles sobre lo que es un certificado TLS y una clave privada, pero, básicamente, un certificado TLS (Transport Layer Security) se utiliza para autenticar y establecer una conexión segura entre dos partes, como un cliente y un servidor. Contiene información sobre la entidad a la que se emitió y la entidad que lo emitió, así como la clave pública de la entidad a la que se emitió.
 
+La clave privada, por otro lado, se utiliza para descifrar la información que fue cifrada con la clave pública. Debe mantenerse en secreto y nunca compartida, ya que cualquier persona con acceso a la clave privada puede descifrar la comunicación segura. Juntos, el certificado TLS y la clave privada forman un par de claves que permite la autenticación y la comunicación segura entre las partes.
 
-Eu não quero entrar em detalhes sobre como o que é um certificado TLS e uma chave privada, mas, basicamente, um certificado TLS (Transport Layer Security) é usado para autenticar e estabelecer uma conexão segura entre duas partes, como um cliente e um servidor. Ele contém informações sobre a entidade para a qual foi emitido e a entidade que o emitiu, bem como a chave pública da entidade para a qual foi emitido.
+¿Entendido? Espero que sí, porque no voy a entrar en más detalles sobre eso. hahaha
 
-A chave privada, por outro lado, é usada para descriptografar a informação que foi criptografada com a chave pública. Ela deve ser mantida em segredo e nunca compartilhada, pois qualquer pessoa com acesso à chave privada pode decifrar a comunicação segura. Juntos, o certificado TLS e a chave privada formam um par de chaves que permite a autenticação e a comunicação segura entre as partes.
+Ahora volvamos al foco en la creación del Secret TLS.
 
-Entendido? Espero que sim, porque eu não vou entrar em mais detalhes sobre isso. hahaha
-
-Agora vamos voltar o foco na criação do Secret TLS.
-
-Com o certificado TLS e a chave privada criados, vamos criar o nosso Secret, é somente para mudar um pouco, vamos criar o Secret usando o comando `kubectl apply`:
+Con el certificado TLS y la clave privada creados, vamos a crear nuestro Secret, solo para cambiar un poco, vamos a crear el Secret usando el comando `kubectl apply`:
 
 ```bash
-kubectl create secret tls meu-servico-web-tls-secret --cert=certificado.crt --key=chave-privada.key
+kubectl create secret tls mi-servicio-web-tls-secret --cert=certificado.crt --key=clave-privada.key
 
-secret/meu-servico-web-tls-secret created
+secret/mi-servicio-web-tls-secret created
 ```
 
 &nbsp;
 
-Vamos ver se o Secret foi criado:
+Vamos a ver si el Secret fue creado:
 
 ```bash
 kubectl get secrets
 NAME                         TYPE                             DATA   AGE
-meu-servico-web-tls-secret   kubernetes.io/tls                2      4s
+mi-servicio-web-tls-secret   kubernetes.io/tls                2      4s
 ```
 
 &nbsp;
 
-Sim, o Secret está lá e é do tipo `kubernetes.io/tls`.
+Sí, el Secret está allí y es del tipo `kubernetes.io/tls`.
 
-Caso você queira ver o conteúdo do Secret, você pode usar o comando `kubectl get secret` com o parâmetro `-o yaml`:
+Si quieres ver el contenido del Secret, puedes usar el comando `kubectl get secret` con el parámetro `-o yaml`:
 
 ```bash
-kubectl get secret meu-servico-web-tls-secret -o yaml
+kubectl get secret mi-servicio-web-tls-secret -o yaml
 ```
 
 &nbsp;
 
-Agora você pode usar esse Secret para ter o Nginx rodando com HTTPS, e para isso você precisa usar o campo `spec.tls` no arquivo YAML do Pod:
+Ahora puedes usar ese Secret para tener Nginx funcionando con HTTPS, y para eso necesitas usar el campo `spec.tls` en el archivo YAML del Pod:
 
 ```yaml
 apiVersion: v1
@@ -505,72 +500,70 @@ spec:
         name: nginx-config
     - name: nginx-tls
       secret:
-        secretName: meu-servico-web-tls-secret
+        secretName: mi-servicio-web-tls-secret
         items:
           - key: certificado.crt
             path: certificado.crt
-          - key: chave-privada.key
-            path: chave-privada.key
+          - key: clave-privada.key
+            path: clave-privada.key
 ```
 
 &nbsp;
 
-Aqui temos bastante informação nova, então vamos por partes.
+Aquí tenemos bastante información nueva, así que vamos por partes.
 
-Primeira coisa que temos que falar é sobre o `spec.containers`, principalmente sobre os volumes, que é o campo `spec.containers.volumeMounts`. 
+La primera cosa de la que tenemos que hablar es sobre el `spec.containers`, principalmente sobre los volúmenes, que es el campo `spec.containers.volumeMounts`.
 
-O campo `spec.containers.volumeMounts` é usado para montar um volume em um diretório dentro do container. No nosso caso, estamos montando dois volumes, um para o arquivo de configuração do Nginx, e outro para o certificado TLS e a chave privada.
+El campo `spec.containers.volumeMounts` se utiliza para montar un volumen en un directorio dentro del contenedor. En nuestro caso, estamos montando dos volúmenes, uno para el archivo de configuración de Nginx, y otro para el certificado TLS y la clave privada.
 
-E usamos o campo `spec.volumes` para definir os volumes que serão usados pelo Pod, e estamos definindo dois volumes, o `nginx-config-volume` e o `nginx-tls`.
+Y usamos el campo `spec.volumes` para definir los volúmenes que serán utilizados por el Pod, y estamos definiendo dos volúmenes, el `nginx-config-volume` y el `nginx-tls`.
 
-O volume `nginx-config-volume` é um volume do tipo `configMap`, e ele é usado para montar o arquivo de configuração do Nginx, que está armazenado no ConfigMap `nginx-config`. O próximo tópico é sobre ConfigMaps, então não se preocupe com isso agora.
+El volumen `nginx-config-volume` es un volumen del tipo `configMap`, y se utiliza para montar el archivo de configuración de Nginx, que está almacenado en el ConfigMap `nginx-config`. El próximo tema es sobre ConfigMaps, así que no te preocupes por eso ahora.
 
-Já o volume `nginx-tls` é um volume do tipo `secret`, e ele é usado para montar o Secret `meu-servico-web-tls-secret`, que contém o certificado TLS e a chave privada que serão usados para configurar o HTTPS no Nginx.
+El volumen `nginx-tls` es un volumen del tipo `secret`, y se utiliza para montar el Secret `meu-servico-web-tls-secret`, que contiene el certificado TLS y la clave privada que se utilizarán para configurar HTTPS en Nginx.
 
-E como estamos configurando um Nginx para usar o nosso Secret, precisamos falar onde queremos que os arquivos do Secret sejam montados, e para isso usamos o campo `spec.containers.volumeMounts.path` para definir o diretório onde queremos que os arquivos do Secret sejam montados, que neste caso é o diretório `/etc/nginx/tls`.
+Y como estamos configurando un Nginx para usar nuestro Secret, necesitamos hablar de dónde queremos que los archivos del Secret se monten, y para eso usamos el campo `spec.containers.volumeMounts.path` para definir el directorio donde queremos que se monten los archivos del Secret, que en este caso es el directorio `/etc/nginx/tls`.
 
-Falei que o volume `nginx-config-volume`, é um volume do tipo `configMap`, isso é uma ótima deixa para eu iniciar o próximo tópico, que é sobre ConfigMaps! :D
+Dije que el volumen `nginx-config-volume`, es un volumen del tipo `configMap`, eso es una gran introducción para iniciar el próximo tema, que es sobre ConfigMaps! :D
 
-Sendo assim, bora continuar o nosso exemplo de como usar o Nginx com HTTPS, mas no próximo tópico sobre ConfigMaps. \o/
-
+Así que, continuemos con nuestro ejemplo de cómo usar Nginx con HTTPS, pero en el próximo tema sobre ConfigMaps. \o/
 
 #### ConfigMaps
 
-ConfigMaps são usados para armazenar dados de configuração, como variáveis de ambiente, arquivos de configuração, etc. Eles são muito úteis para armazenar dados de configuração que podem ser usados por vários Pods.
+Los ConfigMaps se utilizan para almacenar datos de configuración, como variables de entorno, archivos de configuración, etc. Son muy útiles para almacenar datos de configuración que pueden ser utilizados por varios Pods.
 
-Os ConfigMaps são uma maneira eficiente de desacoplar os parâmetros de configuração das imagens de container. Isso permite que você tenha a mesma imagem de container em diferentes ambientes, como desenvolvimento, teste e produção, com diferentes configurações.
+Los ConfigMaps son una forma eficiente de desacoplar los parámetros de configuración de las imágenes de contenedores. Esto permite que tengas la misma imagen de contenedor en diferentes entornos, como desarrollo, prueba y producción, con diferentes configuraciones.
 
-Aqui estão alguns pontos importantes sobre o uso de ConfigMaps no Kubernetes:
+Aquí hay algunos puntos importantes sobre el uso de ConfigMaps en Kubernetes:
 
-- Atualizações: Os ConfigMaps não são atualizados automaticamente nos pods que os utilizam. Se você atualizar um ConfigMap, os pods existentes não receberão a nova configuração. Para que um pod receba a nova configuração, você precisa recriar o pod.
+- Actualizaciones: Los ConfigMaps no se actualizan automáticamente en los pods que los utilizan. Si actualizas un ConfigMap, los pods existentes no recibirán la nueva configuración. Para que un pod reciba la nueva configuración, necesitas recrear el pod.
 
-- Múltiplos ConfigMaps: É possível usar múltiplos ConfigMaps para um único pod. Isso é útil quando você tem diferentes aspectos da configuração que quer manter separados.
+- Múltiples ConfigMaps: Es posible usar múltiples ConfigMaps para un único pod. Esto es útil cuando tienes diferentes aspectos de la configuración que quieres mantener separados.
 
-- Variáveis de ambiente: Além de montar o ConfigMap em um volume, também é possível usar o ConfigMap para definir variáveis de ambiente para os containers no pod.
+- Variables de entorno: Además de montar el ConfigMap en un volumen, también es posible usar el ConfigMap para definir variables de entorno para los contenedores en el pod.
 
-- Imutabilidade: A partir da versão 1.19 do Kubernetes, é possível tornar ConfigMaps (e Secrets) imutáveis, o que pode melhorar o desempenho de sua cluster se você tiver muitos ConfigMaps ou Secrets.
+- Inmutabilidad: A partir de la versión 1.19 de Kubernetes, es posible hacer ConfigMaps (y Secrets) inmutables, lo que puede mejorar el rendimiento de tu clúster si tienes muchos ConfigMaps o Secrets.
 
+Como en el ejemplo del capítulo anterior, donde creamos un Pod con Nginx y usamos un ConfigMap para almacenar el archivo de configuración de Nginx, el `ConfigMap` se utiliza para almacenar el archivo de configuración de Nginx, en lugar de almacenar el archivo de configuración dentro del Pod, teniendo así un Pod más limpio y más fácil de mantener. Y claro, siempre es bueno usar las cosas para lo que fueron hechas, y el ConfigMap fue hecho para almacenar datos de configuración.
 
-Como no exemplo do capítulo anterior, onde criamos um Pod com o Nginx, e usamos um ConfigMap para armazenar o arquivo de configuração do Nginx, o `ConfigMap` é usado para armazenar o arquivo de configuração do Nginx, ao invés de armazenar o arquivo de configuração dentro do Pod, tendo assim um Pod mais limpo e mais fácil de manter. E claro, sempre é bom usar as coisas para o que elas foram feitas, e o ConfigMap foi feito para armazenar dados de configuração.
+Continuemos con nuestro ejemplo de cómo usar Nginx con HTTPS, pero ahora usando un ConfigMap para almacenar el archivo de configuración de Nginx.
 
-Bora continuar o nosso exemplo de como usar o Nginx com HTTPS, mas agora usando um ConfigMap para armazenar o arquivo de configuração do Nginx.
-
-Vamos criar o arquivo de configuração do Nginx chamado `nginx.conf`, que vai ser usado pelo ConfigMap:
+Vamos a crear el archivo de configuración de Nginx llamado `nginx.conf`, que será utilizado por el ConfigMap:
 
 ```bash
-events { } # configuração de eventos
+events { } # configuración de eventos
 
-http { # configuração do protocolo HTTP, que é o protocolo que o Nginx vai usar
-  server { # configuração do servidor
-    listen 80; # porta que o Nginx vai escutar
-    listen 443 ssl; # porta que o Nginx vai escutar para HTTPS e passando o parâmetro ssl para habilitar o HTTPS
+http { # configuración del protocolo HTTP, que es el protocolo que Nginx va a usar
+  server { # configuración del servidor
+    listen 80; # puerto que Nginx va a escuchar
+    listen 443 ssl; # puerto que Nginx va a escuchar para HTTPS y pasando el parámetro ssl para habilitar HTTPS
     
-    ssl_certificate /etc/nginx/tls/certificado.crt; # caminho do certificado TLS
-    ssl_certificate_key /etc/nginx/tls/chave-privada.key; # caminho da chave privada
+    ssl_certificate /etc/nginx/tls/certificado.crt; # ruta del certificado TLS
+    ssl_certificate_key /etc/nginx/tls/clave-privada.key; # ruta de la clave privada
 
-    location / { # configuração da rota /
-      return 200 'Bem-vindo ao Nginx!\n'; # retorna o código 200 e a mensagem Bem-vindo ao Nginx!
-      add_header Content-Type text/plain; # adiciona o header Content-Type com o valor text/plain
+    location / { # configuración de la ruta /
+      return 200 '¡Bienvenido a Nginx!\n'; # devuelve el código 200 y el mensaje ¡Bienvenido a Nginx!
+      add_header Content-Type text/plain; # añade el header Content-Type con el valor text/plain
     } 
   }
 }
@@ -578,16 +571,15 @@ http { # configuração do protocolo HTTP, que é o protocolo que o Nginx vai us
 
 &nbsp;
 
-Eu deixei o conteúdo do arquivo acima com comentários, para facilitar o entendimento.
+He dejado el contenido del archivo anterior con comentarios para facilitar la comprensión.
 
-O que o arquivo acima está fazendo é:
+Lo que el archivo anterior está haciendo es:
 
-- Configurando o Nginx para escutar as portas 80 e 443, sendo que a porta 443 vai ser usada para o HTTPS.
-- Configurando o Nginx para usar o certificado TLS e a chave privada que estão no diretório `/etc/nginx/tls`.
-- Configurando a rota `/` para retornar o código 200 e a mensagem `Bem-vindo ao Nginx!` com o header `Content-Type` com o valor `text/plain`.
+- Configurando Nginx para escuchar en los puertos 80 y 443, siendo el puerto 443 utilizado para HTTPS.
+- Configurando Nginx para usar el certificado TLS y la clave privada que se encuentran en el directorio `/etc/nginx/tls`.
+- Configurando la ruta `/` para devolver el código 200 y el mensaje `¡Bienvenido a Nginx!` con el header `Content-Type` con el valor `text/plain`.
 
-
-Agora vamos criar o ConfigMap `nginx-config` com o arquivo de configuração do Nginx:
+Ahora vamos a crear el ConfigMap `nginx-config` con el archivo de configuración de Nginx:
 
 ```bash
 kubectl create configmap nginx-config --from-file=nginx.conf
@@ -595,10 +587,10 @@ kubectl create configmap nginx-config --from-file=nginx.conf
 
 &nbsp;
 
-Simples demais, não? :)
+Muy sencillo, ¿verdad? :)
 
-O que estamos fazendo é criar um ConfigMap chamado `nginx-config` com o conteúdo do arquivo `nginx.conf`.
-Podemos fazer a mesma coisa através de um manifesto, como no exemplo abaixo:
+Lo que estamos haciendo es crear un ConfigMap llamado `nginx-config` con el contenido del archivo `nginx.conf`.
+Podemos hacer lo mismo a través de un manifiesto, como en el ejemplo a continuación:
 
 ```yaml
 apiVersion: v1
@@ -615,10 +607,10 @@ data:
         listen 443 ssl;
 
         ssl_certificate /etc/nginx/tls/certificado.crt;
-        ssl_certificate_key /etc/nginx/tls/chave-privada.key;
+        ssl_certificate_key /etc/nginx/tls/clave-privada.key;
 
         location / {
-          return 200 'Bem-vindo ao Nginx!\n';
+          return 200 '¡Bienvenido a Nginx!\n';
           add_header Content-Type text/plain;
         }
       }
@@ -627,12 +619,12 @@ data:
 
 &nbsp;
 
-O arquivo é bem parecido com os manifestos do `Secret`, mas com algumas diferenças:
+El archivo es muy similar a los manifiestos de `Secret`, pero con algunas diferencias:
 
-- O campo `kind` é `ConfigMap` ao invés de `Secret`.
-- O campo `data` é usado para definir o conteúdo do ConfigMap, e o campo `data` é um mapa de chave-valor, onde a chave é o nome do arquivo e o valor é o conteúdo do arquivo. Usamos o caractere `|` para definir o valor do campo `data` como um bloco de texto, e assim podemos definir o conteúdo do arquivo `nginx.conf` sem a necessidade de usar o caractere `\n` para quebrar as linhas do arquivo.
+- El campo `kind` es `ConfigMap` en lugar de `Secret`.
+- El campo `data` se utiliza para definir el contenido del ConfigMap, y el campo `data` es un mapa de clave-valor, donde la clave es el nombre del archivo y el valor es el contenido del archivo. Usamos el carácter `|` para definir el valor del campo `data` como un bloque de texto, y así podemos definir el contenido del archivo `nginx.conf` sin la necesidad de usar el carácter `\n` para romper las líneas del archivo.
 
-Agora é só aplicar o manifesto acima:
+Ahora solo queda aplicar el manifiesto anterior:
 
 ```bash
 kubectl apply -f nginx-config.yaml
@@ -640,7 +632,7 @@ kubectl apply -f nginx-config.yaml
 
 &nbsp;
 
-Para ver o conteúdo do ConfigMap que criamos, bastar executar o comando:
+Para ver el contenido del ConfigMap que creamos, basta con ejecutar el comando:
 
 ```bash
 kubectl get configmap nginx-config -o yaml
@@ -648,9 +640,9 @@ kubectl get configmap nginx-config -o yaml
 
 &nbsp;
 
-Você também pode usar o comando `kubectl describe configmap nginx-config` para ver o conteúdo do ConfigMap, mas o comando `kubectl get configmap nginx-config -o yaml` é bem mais completo.
+También puedes usar el comando `kubectl describe configmap nginx-config` para ver el contenido del ConfigMap, pero el comando `kubectl get configmap nginx-config -o yaml` es mucho más completo.
 
-Agora que já temos o nosso `ConfigMap` criado, vamos aplicar o manifesto que criamos no capítulo anterior, vou colar aqui o manifesto para facilitar:
+Ahora que ya tenemos nuestro `ConfigMap` creado, vamos a aplicar el manifiesto que creamos en el capítulo anterior, voy a pegar aquí el manifiesto para facilitar:
 
 ```yaml
 apiVersion: v1
@@ -667,28 +659,28 @@ spec:
     - containerPort: 80
     - containerPort: 443
     volumeMounts:
-    - name: nginx-config-volume # nome do volume que vamos usar para montar o arquivo de configuração do Nginx
-      mountPath: /etc/nginx/nginx.conf # caminho onde o arquivo de configuração do Nginx vai ser montado
-      subPath: nginx.conf # nome do arquivo de configuração do Nginx
-    - name: nginx-tls # nome do volume que vamos usar para montar o certificado TLS e a chave privada
-      mountPath: /etc/nginx/tls # caminho onde o certificado TLS e a chave privada vão ser montados
-  volumes: # lista de volumes que vamos usar no Pod
-  - name: nginx-config-volume # nome do volume que vamos usar para montar o arquivo de configuração do Nginx
-    configMap: # tipo do volume que vamos usar
-      name: nginx-config # nome do ConfigMap que vamos usar
-  - name: nginx-tls # nome do volume que vamos usar para montar o certificado TLS e a chave privada
-    secret: # tipo do volume que vamos usar
-      secretName: meu-servico-web-tls-secret # nome do Secret que vamos usar
-      items: # lista de arquivos que vamos montar, pois dentro da secret temos dois arquivos, o certificado TLS e a chave privada
-        - key: tls.crt # nome do arquivo que vamos montar, nome que está no campo `data` do Secret
-          path: certificado.crt # nome do arquivo que vai ser montado, nome que vai ser usado no campo `ssl_certificate` do arquivo de configuração do Nginx
-        - key: tls.key # nome do arquivo que vamos montar, nome que está no campo `data` do Secret
-          path: chave-privada.key # nome do arquivo que vai ser montado, nome que vai ser usado no campo `ssl_certificate_key` do arquivo de configuração do Nginx
+    - name: nginx-config-volume # nombre del volumen que vamos a usar para montar el archivo de configuración de Nginx
+      mountPath: /etc/nginx/nginx.conf # ruta donde se montará el archivo de configuración de Nginx
+      subPath: nginx.conf # nombre del archivo de configuración de Nginx
+    - name: nginx-tls # nombre del volumen que vamos a usar para montar el certificado TLS y la clave privada
+      mountPath: /etc/nginx/tls # ruta donde se montarán el certificado TLS y la clave privada
+  volumes: # lista de volúmenes que vamos a usar en el Pod
+  - name: nginx-config-volume # nombre del volumen que vamos a usar para montar el archivo de configuración de Nginx
+    configMap: # tipo del volumen que vamos a usar
+      name: nginx-config # nombre del ConfigMap que vamos a usar
+  - name: nginx-tls # nombre del volumen que vamos a usar para montar el certificado TLS y la clave privada
+    secret: # tipo del volumen que vamos a usar
+      secretName: mi-servicio-web-tls-secret # nombre del Secret que vamos a usar
+      items: # lista de archivos que vamos a montar, ya que dentro del secret tenemos dos archivos, el certificado TLS y la clave privada
+        - key: tls.crt # nombre del archivo que vamos a montar, nombre que está en el campo `data` del Secret
+          path: certificado.crt # nombre del archivo que se montará, nombre que se usará en el campo `ssl_certificate` del archivo de configuración de Nginx
+        - key: tls.key # nombre del archivo que vamos a montar, nombre que está en el campo `data` del Secret
+          path: clave-privada.key # nombre del archivo que se montará, nombre que se usará en el campo `ssl_certificate_key` del archivo de configuración de Nginx
 ```
 
 &nbsp;
 
-Agora é só aplicar o manifesto acima:
+Ahora solo queda aplicar el manifiesto anterior:
 
 ```bash
 kubectl apply -f nginx.yaml
@@ -696,7 +688,7 @@ kubectl apply -f nginx.yaml
 
 &nbsp;
 
-Listando os Pods:
+Listando los Pods:
 
 ```bash
 kubectl get pods
@@ -704,7 +696,7 @@ kubectl get pods
 
 &nbsp;
 
-Agora precisamos criar um Service para expor o Pod que criamos:
+Ahora necesitamos crear un Service para exponer el Pod que creamos:
 
 ```bash
 kubectl expose pod nginx
@@ -712,7 +704,7 @@ kubectl expose pod nginx
 
 &nbsp;
 
-Listando os Services:
+Listando los Services:
 
 ```bash
 kubectl get services
@@ -720,7 +712,7 @@ kubectl get services
 
 &nbsp;
 
-Bora fazer o `port-forward` para testar se o nosso Nginx está funcionando:
+Vamos a hacer el `port-forward` para probar si nuestro Nginx está funcionando:
 
 ```bash
 kubectl port-forward service/nginx 4443:443
@@ -728,31 +720,31 @@ kubectl port-forward service/nginx 4443:443
 
 &nbsp;
 
-O comando acima vai fazer o `port-forward` da porta 443 do Service `nginx` para a porta 4443 do seu computador, o `port-forward` salvando a nossa vida novamente! :)
+El comando anterior hará el `port-forward` del puerto 443 del Service `nginx` al puerto 4443 de tu computador, ¡el `port-forward` salvando nuestra vida una vez más! :)
 
-Vamos usar o `curl` para testar se o nosso Nginx está funcionando:
+Vamos a usar `curl` para probar si nuestro Nginx está funcionando:
 
 ```bash
 curl -k https://localhost:4443
 
-Bem-vindo ao Nginx!
+¡Bienvenido a Nginx!
 ```
 
 &nbsp;
 
-Funcionando lindamente!
-Lembre-se que esse é um exemplo bem simples, o objetivo aqui é mostrar como usar o ConfigMap e o Secret para montar arquivos dentro de um Pod. O certificado TLS e a chave privada que usamos aqui são auto-assinados, e não são recomendados para uso em produção e não são aceitos pelos navegadores, mas para testar está ótimo.
+¡Funcionando perfectamente!
+Recuerda que este es un ejemplo muy simple, el objetivo aquí es mostrar cómo usar el ConfigMap y el Secret para montar archivos dentro de un Pod. El certificado TLS y la clave privada que usamos aquí son auto-firmados, y no se recomiendan para uso en producción y no son aceptados por los navegadores, pero para probar está genial.
 
-Acho que já deu para entender como funciona o ConfigMap, e lembre-se que é possível usar o ConfigMap para montar arquivos, mas também é possível usar o ConfigMap para definir variáveis de ambiente, e isso é muito útil quando você precisa passar uma configuração para um container através de uma variável de ambiente.
+Creo que ya es posible entender cómo funciona el ConfigMap, y recuerda que es posible usar el ConfigMap para montar archivos, pero también es posible usar el ConfigMap para definir variables de entorno, y eso es muy útil cuando necesitas pasar una configuración a un contenedor a través de una variable de entorno.
 
-Caso você queira tornar um ConfigMap imutável, você pode usar o campo `immutable` no manifesto do ConfigMap, como no exemplo abaixo:
+En caso de que quieras hacer un ConfigMap inmutable, puedes usar el campo `immutable` en el manifiesto del ConfigMap, como en el ejemplo a continuación:
 
 ```yaml
 apiVersion: v1
 kind: ConfigMap
 metadata:
   name: nginx-config
-  immutable: true # torna o ConfigMap imutável
+  immutable: true # Convierte el ConfigMap en inmutable
 data:
   nginx.conf: |
     events { }
@@ -763,10 +755,10 @@ data:
         listen 443 ssl;
 
         ssl_certificate /etc/nginx/tls/certificado.crt;
-        ssl_certificate_key /etc/nginx/tls/chave-privada.key;
+        ssl_certificate_key /etc/nginx/tls/clave-privada.key;
 
         location / {
-          return 200 'Bem-vindo ao Nginx!\n';
+          return 200 '¡Bienvenido a Nginx!\n';
           add_header Content-Type text/plain;
         }
       }
@@ -775,16 +767,16 @@ data:
 
 &nbsp;
 
-Com isso, não será possível alterar o ConfigMap, e se você tentar alterar o ConfigMap, o Kubernetes vai retornar um erro.
+Con esto, no será posible alterar el ConfigMap, y si intentas alterar el ConfigMap, Kubernetes devolverá un error.
 
-Caso você queira deixar o ConfigMap em uma namespace específica, você pode usar o campo `namespace` no manifesto do ConfigMap, como no exemplo abaixo:
+En caso de que quieras colocar el ConfigMap en un namespace específico, puedes usar el campo `namespace` en el manifiesto del ConfigMap, como en el ejemplo a continuación:
 
 ```yaml
 apiVersion: v1
 kind: ConfigMap
 metadata:
   name: nginx-config
-  namespace: minha-namespace # deixa o ConfigMap na namespace `minha-namespace`
+  namespace: mi-namespace # deja el ConfigMap en el namespace `mi-namespace`
 data:
   nginx.conf: |
     events { }
@@ -795,10 +787,10 @@ data:
         listen 443 ssl;
 
         ssl_certificate /etc/nginx/tls/certificado.crt;
-        ssl_certificate_key /etc/nginx/tls/chave-privada.key;
+        ssl_certificate_key /etc/nginx/tls/clave-privada.key;
 
         location / {
-          return 200 'Bem-vindo ao Nginx!\n';
+          return 200 '¡Bienvenido a Nginx!\n';
           add_header Content-Type text/plain;
         }
       }
@@ -807,36 +799,33 @@ data:
 
 &nbsp;
 
-
-Enfim, acho que já vimos bastante coisa sobre ConfigMap, acho que já podemos ir para o próximo assunto, certo? \o/
+En fin, creo que ya hemos visto bastante sobre ConfigMap, creo que ya podemos pasar al siguiente tema, ¿verdad? \o/
 
 &nbsp;
-
-
 
 #### External Secret Operator
 
-External Secrets Operator é um maestro dos segredos do Kubernetes, capaz de trabalhar em perfeita harmonia com uma grande variedade de sistemas de gerenciamento de segredos externos. Isso inclui, mas não se limita a, gigantes como AWS Secrets Manager, HashiCorp Vault, Google Secrets Manager, Azure Key Vault e IBM Cloud Secrets Manager.
+External Secrets Operator es un maestro de los secretos de Kubernetes, capaz de trabajar en perfecta armonía con una amplia variedad de sistemas de gestión de secretos externos. Esto incluye, pero no se limita a, gigantes como AWS Secrets Manager, HashiCorp Vault, Google Secrets Manager, Azure Key Vault e IBM Cloud Secrets Manager.
 
-O papel do ESO é buscar informações dessas APIs externas e trazer para o palco do Kubernetes, transformando-as em Kubernetes Secrets prontos para uso.
+El papel del ESO es buscar información de esas APIs externas y traerla al escenario de Kubernetes, transformándola en Kubernetes Secrets listos para su uso.
 
-##### O Papel de Destaque do ESO
+##### El Papel Destacado del ESO
 
-A grande missão do ESO é sincronizar segredos de APIs externas para o ambiente do Kubernetes. Para tanto, ele se utiliza de três recursos de API personalizados: ExternalSecret, SecretStore e ClusterSecretStore. Estes recursos criam uma ponte entre o Kubernetes e as APIs externas, permitindo que os segredos sejam gerenciados e utilizados de maneira amigável e eficiente.
+La gran misión del ESO es sincronizar secretos de APIs externas con el entorno de Kubernetes. Para ello, utiliza tres recursos de API personalizados: ExternalSecret, SecretStore y ClusterSecretStore. Estos recursos crean un puente entre Kubernetes y las APIs externas, permitiendo que los secretos sean gestionados y utilizados de manera amigable y eficiente.
 
-Para deixar simples, o nosso ESO é o cara responsável por levar os Secrets do Kubernetes para um novo patamar, permitindo que você utilize as ferramentas que são especializadas em gerenciar segredos, como o Hashicorp Vault, por exemplo, e que você já conhece.
+Para simplificar, nuestro ESO es el encargado de llevar los Secrets de Kubernetes a un nuevo nivel, permitiéndote utilizar herramientas especializadas en la gestión de secretos, como Hashicorp Vault, por ejemplo, y que ya conoces.
 
-##### Conceitos-Chave do External Secrets Operator
+##### Conceptos Clave del External Secrets Operator
 
-Vamos explorar alguns conceitos fundamentais para o nosso trabalho com o External Secrets Operator (ESO).
+Vamos a explorar algunos conceptos fundamentales para nuestro trabajo con el External Secrets Operator (ESO).
 
 ##### SecretStore
 
-O SecretStore é um recurso que separa as preocupações de autenticação/acesso e os segredos e configurações necessários para as cargas de trabalho. Este recurso é baseado em namespaces.
+El SecretStore es un recurso que separa las preocupaciones de autenticación/acceso y los secretos y configuraciones necesarios para las cargas de trabajo. Este recurso está basado en namespaces.
 
-Imagine o SecretStore como um gerente de segredos que conhece a forma como acessar os dados. Ele contém referências a segredos que mantêm as credenciais para acessar a API externa.
+Imagina el SecretStore como un gestor de secretos que conoce la forma de acceder a los datos. Contiene referencias a secretos que mantienen las credenciales para acceder a la API externa.
 
-Aqui está um exemplo simplificado de como o SecretStore é definido:
+Aquí hay un ejemplo simplificado de cómo se define el SecretStore:
 
 ```yaml
 apiVersion: external-secrets.io/v1beta1
@@ -860,11 +849,11 @@ spec:
 
 ##### ExternalSecret
 
-Um ExternalSecret declara quais dados buscar e tem uma referência ao SecretStore, que sabe como acessar esses dados. O controlador usa esse ExternalSecret como um plano para criar segredos.
+Un ExternalSecret declara qué datos buscar y tiene una referencia al SecretStore, que sabe cómo acceder a esos datos. El controlador utiliza este ExternalSecret como un plan para crear secretos.
 
-Pense em um ExternalSecret como um pedido feito ao gerente de segredos (SecretStore) para buscar um segredo específico. A configuração do ExternalSecret define o que buscar, onde buscar e como formatar o segredo.
+Piensa en un ExternalSecret como una solicitud hecha al gestor de secretos (SecretStore) para buscar un secreto específico. La configuración del ExternalSecret define qué buscar, dónde buscar y cómo formatear el secreto.
 
-Aqui está um exemplo simplificado de como o ExternalSecret é definido:
+Aquí hay un ejemplo simplificado de cómo se define el ExternalSecret:
 
 ```yaml
 apiVersion: external-secrets.io/v1beta1
@@ -892,37 +881,36 @@ spec:
 
 ##### ClusterSecretStore
 
-O ClusterSecretStore é um SecretStore global, que pode ser referenciado por todos os namespaces. Você pode usá-lo para fornecer um gateway central para seu provedor de segredos. É como um SecretStore, mas com alcance em todo o cluster, ao invés de apenas um namespace.
+El ClusterSecretStore es un SecretStore global, que puede ser referenciado por todos los namespaces. Puedes usarlo para proporcionar una puerta de acceso central a tu proveedor de secretos. Es como un SecretStore, pero con alcance en todo el cluster, en lugar de solo un namespace.
 
-##### Controle de Acesso e Segurança
+##### Control de Acceso y Seguridad
 
-O ESO é um operador poderoso com acesso elevado. Ele cria/lê/atualiza segredos em todos os namespaces e tem acesso a segredos armazenados em algumas APIs externas. Portanto, é vital garantir que o ESO tenha apenas os privilégios mínimos necessários e que o SecretStore/ClusterSecretStore seja projetado com cuidado.
+El ESO es un operador poderoso con acceso elevado. Crea/lee/actualiza secretos en todos los namespaces y tiene acceso a secretos almacenados en algunas APIs externas. Por lo tanto, es vital asegurar que el ESO tenga solo los privilegios mínimos necesarios y que el SecretStore/ClusterSecretStore sea diseñado cuidadosamente.
 
-Além disso, considere a utilização do sistema de controle de admissão do Kubernetes (como OPA ou Kyverno) para um controle de acesso mais refinado.
+Además, considera la utilización del sistema de control de admisión de Kubernetes (como OPA o Kyverno) para un control de acceso más refinado.
 
-Agora que temos um bom entendimento dos conceitos-chave, vamos prosseguir para a instalação do ESO no Kubernetes.
+Ahora que tenemos una buena comprensión de los conceptos clave, vamos a proceder con la instalación del ESO en Kubernetes.
 
+#### Configurando el External Secrets Operator
 
-#### Configurando o External Secrets Operator
+Vamos a echar un vistazo a cómo instalar y configurar el External Secrets Operator en Kubernetes.
+En este ejemplo, vamos a utilizar el ESO para que Kubernetes pueda acceder a los secretos que están en un cluster Vault.
 
-Vamos dar uma olhada em como instalar e configurar o External Secrets Operator no Kubernetes.
-Nesse exemplo nós iremos utilizar o ESO para que o Kubernetes possa acessar os segregos que estão em um cluster Vault.
+Antes de comenzar, vamos a entender qué es Vault, en caso de que aún no lo conozcas.
 
-Antes de começar, vamos entender o que é o Vault, caso você ainda não conheça.
+##### ¿Qué es Vault?
 
-##### O que é o Vault?
+HashiCorp Vault es una herramienta para gestionar secretos de manera segura. Te permite almacenar y controlar el acceso a tokens, contraseñas, certificados, claves de cifrado y otra información sensible. En nuestro contexto, Vault se convierte en una solución poderosa para superar los problemas inherentes a la manera en que Kubernetes maneja los Secrets.
 
-HashiCorp Vault é uma ferramenta para gerenciar segredos de maneira segura. Ele permite que você armazene e controle o acesso a tokens, senhas, certificados, chaves de criptografia e outras informações sensíveis. No nosso contexto, o Vault se torna uma solução poderosa para superar os problemas inerentes à maneira como o Kubernetes lida com os Secrets.
+##### ¿Por Qué Usar Vault?
 
-##### Por que Usar o Vault?
+Con Vault, puedes centralizar la gestión de secretos, reduciendo la superficie de ataque y minimizando el riesgo de fuga de datos. Vault también ofrece control detallado de políticas de acceso, permitiendo determinar quién puede acceder a qué, cuándo y dónde.
 
-Com o Vault, você pode centralizar a gestão de segredos, reduzindo a superfície de ataque e minimizando o risco de vazamento de dados. O Vault também oferece controle detalhado de políticas de acesso, permitindo determinar quem pode acessar o que, quando e onde.
+##### Comandos Básicos de Vault
 
-##### Comandos Básicos do Vault
+Vault puede ser un poco complejo para los principiantes, pero si ya has trabajado con él, los comandos básicos son relativamente simples.
 
-O Vault pode ser um pouco complexo para os novatos, mas se você já trabalhou com ele, os comandos básicos são relativamente simples.
-
-**Instalando o Hashicorp Vault**
+**Instalando el Hashicorp Vault**
 
 ```bash
 wget -O- https://apt.releases.hashicorp.com/gpg | sudo gpg --dearmor -o /usr/share/keyrings/hashicorp-archive-keyring.gpg
@@ -932,85 +920,84 @@ echo "deb [signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://
 sudo apt update && sudo apt install vault
 ```
 
-**Iniciando o Vault em Modo Dev**
+**Iniciando Vault en Modo Dev**
 
 ```bash
 vault server -dev
 ```
 
-Este comando inicia o Vault em modo de desenvolvimento, que é útil para fins de aprendizado e experimentação.
+Este comando inicia Vault en modo de desarrollo, que es útil para fines de aprendizaje y experimentación.
 
-**Configurando o Ambiente**
+**Configurando el Ambiente**
 
 ```bash
 export VAULT_ADDR='http://127.0.0.1:8200'
 ```
 
-Isso define a variável de ambiente `VAULT_ADDR`, apontando para o endereço do servidor Vault.
+Esto establece la variable de entorno `VAULT_ADDR`, apuntando hacia la dirección del servidor Vault.
 
-**Escrevendo Secrets**
+**Escribiendo Secrets**
 
 ```bash
 vault kv put secret/my-secret password=my-password
 ```
 
-Este comando escreve um segredo chamado "my-secret" com a senha "my-password".
+Este comando escribe un secreto llamado `my-secret` con la contraseña `my-password`.
 
-**Lendo Secrets**
+**Leyendo Secrets**
 
 ```bash
 vault kv get secret/my-secret
 ```
 
-Este comando lê o segredo chamado "my-secret".
+Este comando lee el secreto llamado `my-secret`.
 
-##### O Vault no Contexto do Kubernetes
+##### El Vault en el Contexto de Kubernetes
 
-Agora que você se lembrou do básico do Vault, a próxima etapa é entender como ele pode trabalhar em conjunto com o Kubernetes e o ESO para aprimorar a gestão de segredos.
+Ahora que ha recordado lo básico de Vault, el siguiente paso es comprender cómo puede trabajar en conjunto con Kubernetes y ESO para mejorar la gestión de secretos.
 
+##### Instalación y Configuración de Vault en Kubernetes
 
-##### Instalando e Configurando o Vault no Kubernetes
+Ahora, vamos a sumergirnos en la parte práctica. Configuraremos Vault en Kubernetes, paso a paso, utilizando Helm. Al final de este proceso, tendremos Vault instalado, configurado y listo para usar.
 
-Vamos agora mergulhar na parte prática. Vamos configurar o Vault no Kubernetes, passo a passo, utilizando o Helm. No final deste processo, teremos o Vault instalado, configurado e pronto para o uso.
+##### Requisitos Previos
 
-##### Pré-requisitos
+Antes de comenzar, asegúrese de tener lo siguiente:
 
-Antes de começar, certifique-se de que você tem o seguinte:
+1. Una instancia de Kubernetes en funcionamiento.
+2. Helm instalado en su máquina local o en su clúster.
 
-1. Uma instância do Kubernetes em execução.
-2. O Helm instalado em sua máquina local ou no seu cluster.
+##### Instalando y Configurando Vault con Helm
 
-##### Instalando e Configurando o Vault com Helm
+Aquí están los pasos para instalar y configurar Vault utilizando Helm:
 
-Aqui estão os passos para instalar e configurar o Vault usando o Helm:
-
-**1. Adicione o repositório HashiCorp ao Helm**
+**1. Agregue el repositorio de HashiCorp a Helm**
 
 ```bash
 helm repo add hashicorp https://helm.releases.hashicorp.com
 ```
 
-Este comando adiciona o repositório Helm da HashiCorp à nossa configuração do Helm.
+Este comando agrega el repositorio Helm de HashiCorp a nuestra configuración de Helm.
 
-**2. Instale o Vault usando Helm**
+**2. Instale Vault utilizando Helm**
 
 ```bash
 helm install vault hashicorp/vault
 ```
 
-Este comando instala o Vault no cluster Kubernetes.
+Este comando instala Vault en el clúster Kubernetes.
 
-**3. Inicie uma shell interativa dentro do pod do Vault**
+**3. Inicie una shell interactiva dentro del pod de Vault**
 
 ```bash
 kubectl exec -ti vault-0 -- sh
 ```
 
-Este comando inicia uma shell interativa dentro do pod do Vault, permitindo que interajamos diretamente com o Vault.
+Este comando inicia una shell interactiva dentro del pod de Vault, lo que permite interactuar directamente con Vault.
 
-**4. Inicialize e desbloqueie o Vault**
+**4. Inicialice y desbloquee Vault**
 
-Nesse ponto é importante você guardar as chaves que são criadas no momento que você inicializa o seu cluster Vault, pois elas serão necessárias para desbloquear o Vault. Guarde essa informação em um local seguro, pois sem essas chaves você não conseguirá desbloquear o Vault.
+En este punto, es importante que guarde las claves que se generan cuando inicializa su clúster de Vault, ya que serán necesarias para desbloquear Vault. Almacene esta información en un lugar seguro, ya que sin estas claves no podrá desbloquear Vault.
 
 ```bash
 vault operator init
@@ -1018,9 +1005,9 @@ vault operator unseal
 vault login
 ```
 
-Estes comandos inicializam o Vault, removem o selo e fazem login.
+Estos comandos inicializan Vault, quitan el sello y realizan el inicio de sesión.
 
-**5. Crie uma política no Vault**
+**5. Cree una política en Vault**
 
 ```bash
 vault policy write external-secret-operator-policy -<<EOF
@@ -1030,73 +1017,71 @@ capabilities = ["read"]
 EOF
 ```
 
-Este comando cria uma política chamada "external-secret-operator-policy" que concede permissões de leitura no caminho "data/postgres".
+Este comando crea una política llamada "external-secret-operator-policy" que otorga permisos de lectura en la ruta "data/postgres".
 
-**6. Crie um token com a política que você acabou de definir**
+**6. Cree un token con la política que acaba de definir**
 
 ```bash
 vault token create -policy="external-secret-operator-policy"
 ```
 
-Este comando cria um token vinculado à política "external-secret-operator-policy".
+Este comando crea un token vinculado a la política "external-secret-operator-policy".
 
-**7. Habilite o armazenamento de segredos e adicione alguns segredos para teste**
+**7. Habilite el almacenamiento de secretos y agregue algunos secretos para realizar pruebas**
 
 ```bash
 vault secrets enable -path=data kv
 vault kv put data/postgres POSTGRES_USER=admin POSTGRES_PASSWORD=123456
 ```
 
-Estes comandos habilitam o armazenamento de segredos e adicionam um segredo de exemplo ao caminho "data/postgres".
+Estos comandos habilitan el almacenamiento de secretos y agregan un secreto de ejemplo a la ruta "data/postgres".
 
-E é isso! Agora você tem o Vault instalado e configurado no seu cluster Kubernetes.
+¡Y eso es todo! Ahora tiene Vault instalado y configurado en su clúster Kubernetes.
 
+##### Agregar el Repositorio del Operador de Secretos Externos a Helm
 
-
-##### Adicionando o Repositório do External Secrets Operator ao Helm
-
-Antes de instalar o ESO, precisamos adicionar o repositório External Secrets ao Helm. Faça isso com os seguintes comandos:
+Antes de instalar ESO, necesitamos agregar el repositorio de External Secrets a Helm. Hágalo con los siguientes comandos:
 
 ```bash
 helm repo add external-secrets https://charts.external-secrets.io
 helm repo update
 ```
 
-##### Instalando o External Secrets Operator
+##### Instalando el Operador de Secretos Externos
 
-Após a adição do repositório, você pode instalar o ESO com o comando abaixo:
+Después de agregar el repositorio, puede instalar ESO con el siguiente comando:
 
 ```bash
 helm install external-secrets external-secrets/external-secrets -n external-secrets --create-namespace --set installCRDs=true
 ```
 
-##### Verificando a Instalação do ESO
+##### Verificación de la Instalación de ESO
 
-Para verificar se o ESO foi instalado corretamente, você pode executar o seguinte comando:
+Para comprobar si ESO se ha instalado correctamente, puede ejecutar el siguiente comando:
 
 ```bash
 kubectl get all -n external-secrets
 ```
 
-##### Criando um Segredo no Kubernetes
+##### Creación de un Secreto en Kubernetes
 
-Agora, precisamos criar um segredo no Kubernetes que contém o token do Vault. Faça isso com o seguinte comando:
+Ahora, necesitamos crear un secreto en Kubernetes que contenga el token de Vault. Hágalo con el siguiente comando:
 
 ```bash
-kubectl create secret generic vault-token --from-literal=token=SEU_TOKEN_DO_VAULT
+kubectl create secret generic vault-token --from-literal=token=SU_TOKEN_DE_VAULT
 ```
 
-Lembre-se de substituir `SEU_TOKEN_DO_VAULT` pelo token real que você obteve do Vault.
+Recuerde reemplazar `SU_TOKEN_DE_VAULT` por el token real que obtuvo de Vault.
 
-Para verificar se o segredo foi criado corretamente, você pode executar o seguinte comando:
+Para verificar si el secreto se ha creado correctamente, puede ejecutar el siguiente comando:
 
 ```bash
 kubectl get secrets
 ```
 
-##### Configurando o ClusterSecretStore
+##### Configuración del ClusterSecretStore
 
-O próximo passo é configurar o ClusterSecretStore, que é o recurso que fornecerá um gateway central para seu provedor de segredos. Para fazer isso, você precisa criar um arquivo chamado `cluster-store.yaml` com o seguinte conteúdo:
+El siguiente paso es configurar el ClusterSecretStore, que es el recurso que proporcionará una pasarela central para su proveedor de secrets. Para hacerlo, debe crear un archivo llamado `cluster-store.yaml` con el siguiente contenido:
 
 ```yaml
 apiVersion: external-secrets.io/v1beta1
@@ -1115,15 +1100,15 @@ spec:
           key: "token" #Use this key to access the vault token
 ```
 
-Para aplicar essa configuração ao Kubernetes, use o seguinte comando:
+Para aplicar esta configuración en Kubernetes, utilice el siguiente comando:
 
 ```bash
 kubectl apply -f cluster-store.yaml
 ```
 
-##### Criando um ExternalSecret
+##### Creación de un ExternalSecret
 
-Finalmente, precisamos criar um ExternalSecret que especifica quais dados buscar do provedor de segredos. Para fazer isso, crie um arquivo chamado `ex-secrets.yaml` com o seguinte conteúdo:
+Finalmente, necesitamos crear un ExternalSecret que especifica qué datos buscar en el proveedor de secretos. Para hacerlo, cree un archivo llamado `ex-secrets.yaml` con el siguiente contenido:
 
 ```yaml
 apiVersion: external-secrets.io/v1beta1
@@ -1149,21 +1134,21 @@ spec:
         property: POSTGRES_PASSWORD
 ```
 
-Para aplicar essa configuração ao Kubernetes, use o seguinte comando:
+Para aplicar esta configuración en Kubernetes, utilice el siguiente comando:
 
 ```bash
 kubectl apply -f ex-secrets.yaml
 ```
 
-Para verificar a criação do ExternalSecret, você pode executar o seguinte comando:
+Para verificar la creación del ExternalSecret, puede ejecutar el siguiente comando:
 
 ```bash
 kubectl get externalsecret
 ```
 
-E aí está! Você instalou e configurou com sucesso o External Secrets Operator no Kubernetes. Lembre-se, este é apenas um exemplo de como usar o ESO para integrar o Vault com o Kubernetes, mas os mesmos princípios se aplicam a outros provedores de segredos.
+Eso es todo. Ha instalado y configurado con éxito el Operador de Secretos Externos en Kubernetes. Recuerde, este es solo un ejemplo de cómo usar ESO para integrar Vault con Kubernetes, pero los mismos principios se aplican a otros proveedores de secretos.
 
-Ótimo! Para verificar se a sincronização funcionou corretamente e para utilizar o segredo no seu cluster Kubernetes, você pode criar um deployment. Vamos fazer isso criando um arquivo `deployment.yaml` que define um deployment de exemplo. No exemplo abaixo, estaremos criando um deployment de um banco de dados PostgreSQL que faz uso do segredo que criamos anteriormente.
+Excelente. Para verificar si la sincronización funcionó correctamente y para usar el secreto en su clúster Kubernetes, puede crear un deployment. Haremos esto creando un archivo `deployment.yaml` que define un deployment de ejemplo. En el siguiente ejemplo, crearemos un deployment de una base de datos PostgreSQL que utiliza el secreto que creamos anteriormente.
 
 ```yaml
 apiVersion: apps/v1
@@ -1196,54 +1181,36 @@ spec:
               key: POSTGRES_PASSWORD
 ```
 
-Este arquivo define um deployment do PostgreSQL que tem um único réplica. Ele define duas variáveis de ambiente, `POSTGRES_USER` e `POSTGRES_PASSWORD`, que obtêm seus valores do segredo `postgres-secret` que criamos anteriormente usando o External Secrets Operator.
+Este archivo define un deployment de PostgreSQL con una única réplica. Establece dos variables de entorno, `POSTGRES_USER` y `POSTGRES_PASSWORD`, que obtienen sus valores del secreto `postgres-secret` que creamos previamente utilizando el Operador de Secretos Externos.
 
-Para criar o deployment, use o seguinte comando:
+Para crear el deployment, utilice el siguiente comando:
 
 ```bash
 kubectl apply -f deployment.yaml
 ```
 
-Depois de executar este comando, o Kubernetes criará o deployment e iniciará o contêiner do PostgreSQL. Os valores para `POSTGRES_USER` e `POSTGRES_PASSWORD` serão preenchidos com os valores do segredo `postgres-secret`.
+Después de ejecutar este comando, Kubernetes creará el deployment e iniciará el contenedor de PostgreSQL. Los valores de `POSTGRES_USER` y `POSTGRES_PASSWORD` se llenarán con los valores del secreto `postgres-secret`.
 
-Para verificar se o deployment foi criado com sucesso, você pode executar o seguinte comando:
+Para verificar si el deployment se creó con éxito, puede ejecutar el siguiente comando:
 
 ```bash
-kubectl get deployments
+kubectl get deployment
 ```
 
-Se tudo funcionou corretamente, você verá o seu deployment `postgres-deployment` listado.
+## Final del Día 8
 
-Com isso, você verificou que a sincronização do External Secrets Operator funcionou como esperado e que o segredo está sendo utilizado corretamente pelo seu deployment.
+Hoy dedicamos el día a dos componentes importantes de Kubernetes: Secrets y ConfigMaps.
 
+En Kubernetes, los Secrets son un recurso que nos permite gestionar información sensible, como contraseñas, tokens OAuth, claves SSH, etc. Debido a su naturaleza sensible, Kubernetes ofrece una serie de características para gestionar los Secrets de manera segura. Aprendimos cómo crear, obtener y describir un Secret, así como cómo eliminarlo. Fuimos un paso más allá al usar un Secret para almacenar un certificado TLS y una clave privada, que luego utilizamos para configurar Nginx para usar HTTPS. Montamos el certificado TLS y la clave privada en un Pod de Nginx utilizando un archivo de manifiesto para definir el Secret.
 
+Luego, exploramos ConfigMaps. Los ConfigMaps son una forma eficiente de separar los parámetros de configuración de las imágenes de los contenedores, lo que permite que una misma imagen de contenedor se ejecute en diferentes entornos, como desarrollo, pruebas y producción, con configuraciones diferentes. Aprendimos a actualizar un ConfigMap, cómo usarlo y cómo definir variables de entorno para los contenedores en un Pod utilizando ConfigMaps. También vimos cómo hacer que los ConfigMaps sean inmutables.
 
+Creamos un archivo de configuración de Nginx utilizando un ConfigMap, que luego utilizamos para configurar un Pod de Nginx. Exploramos cómo montar el ConfigMap en un volumen y cómo utilizar un archivo de manifiesto para definir el ConfigMap.
 
-## Final do Day-8
+Además, simplificamos el uso del Operador de Secretos Externos y su integración con Vault.
 
-Hoje o dia foi dedicado dois componentes importantes do Kubernetes: Secrets e ConfigMaps.
+Finalmente, combinamos ConfigMaps y Secrets para configurar un Pod de Nginx para utilizar HTTPS. Utilizamos el ConfigMap para almacenar el archivo de configuración de Nginx y el Secret para almacenar el certificado TLS y la clave privada.
 
-Secrets no Kubernetes são um recurso que nos permite gerenciar informações sensíveis, como senhas, tokens OAuth, chaves ssh, etc. Devido à sua natureza sensível, o Kubernetes oferece uma série de recursos para gerenciar Secrets de maneira segura. Usamos o recurso base64 para codificar nossas senhas e chaves secretas. Aprendemos como criar, obter e descrever um Secret, bem como como excluir um Secret.
+Esta combinación de ConfigMaps y Secrets nos permite gestionar eficientemente nuestras configuraciones y datos sensibles de manera segura, al tiempo que nos brinda un alto grado de flexibilidad y control sobre nuestras aplicaciones.
 
-Fomos além e usamos o Secret para armazenar um certificado TLS e uma chave privada, que usamos para configurar o Nginx para usar HTTPS. Usamos o Secret para montar o certificado TLS e a chave privada em um Pod do Nginx, e usamos um arquivo de manifesto para definir o Secret.
-
-Depois disso, exploramos ConfigMaps. ConfigMaps são uma maneira eficiente de separar parâmetros de configuração de imagens de container, permitindo que você tenha a mesma imagem de container rodando em diferentes ambientes como desenvolvimento, teste e produção, mas com configurações diferentes.
-
-Vimos:
-
-- Atualizar um ConfigMap.
-- Usar o ConfigMaps.
-- Usar o ConfigMap para definir variáveis de ambiente para os containers no Pod.
-- Tornar ConfigMaps imutáveis.
-- Criamos um arquivo de configuração do Nginx usando um ConfigMap, que usamos para configurar um Pod do Nginx. Também exploramos como montar o ConfigMap em um volume e como usar um arquivo de manifesto para definir o ConfigMap.
-- Descomplicamos o uso do External Secret Operator e sua integração com o Vault.
-
-Finalmente, usamos o ConfigMap e o Secret juntos para configurar um Pod do Nginx para usar HTTPS, onde o ConfigMap é usado para armazenar o arquivo de configuração do Nginx e o Secret é usado para armazenar o certificado TLS e a chave privada.
-
-Essa combinação de ConfigMaps e Secrets não só nos permite gerenciar nossas configurações e dados sensíveis de maneira eficiente e segura, mas também nos oferece um alto grau de flexibilidade e controle sobre as nossas aplicações.
-
-E isso é tudo por hoje, chega! :D
-
-Vejo você no próximo dia, até láááá! &nbsp; :wave: &nbsp; :v:
-
-&nbsp;
+¡Y eso es todo por hoy! Nos vemos en el próximo día. ¡Hasta entonces! 👋✌️
