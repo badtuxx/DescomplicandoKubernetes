@@ -1,0 +1,15 @@
+apiVersion: v1 # Versión de la API de Kubernetes
+kind: PersistentVolume # Tipo de objeto que estamos creando, en este caso un PersistentVolume
+metadata: # Información sobre el objeto
+  name: mi-pv # Nombre de nuestro PV
+  labels:
+    storage: local
+spec: # Especificaciones de nuestro PV
+  capacity: # Capacidad del PV
+    storage: 1Gi # 1 gigabyte de almacenamiento
+  accessModes: # Modos de acceso al PV
+    - ReadWriteOnce # Modo de acceso ReadWriteOnce, es decir, el PV se puede montar en modo lectura y escritura por un único nodo
+  persistentVolumeReclaimPolicy: Retain # Política de reclamación persistente del PV, es decir, el PV no se eliminará cuando se elimine el PVC
+  hostPath: # Tipo de almacenamiento que vamos a utilizar, en este caso un hostPath
+    path: "/mnt/data" # Ruta del hostPath en nuestro nodo, donde se creará el PV
+  storageClassName: standard # Nombre de la clase de almacenamiento que se utilizará
