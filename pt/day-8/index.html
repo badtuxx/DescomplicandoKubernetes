@@ -1,0 +1,1350 @@
+
+<!DOCTYPE HTML>
+<html lang="pt" >
+    <head>
+        <meta charset="UTF-8">
+        <title>Descomplicando Kubernetes dia 8 · HonKit</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="HonKit 3.6.20">
+        
+        
+        
+    
+    <link rel="stylesheet" href="../../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="../day-9/" />
+    
+    
+    <link rel="prev" href="../day-7/" />
+    
+
+    </head>
+    <body>
+        
+<div class="book honkit-cloak">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="Escreva para pesquisar" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        <li class="header">Sobre</li>
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../">
+            
+                <a href="../">
+            
+                    
+                    Introdução
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="header">Capítulos</li>
+        
+        
+    
+        <li class="chapter " data-level="2.1" data-path="../day-1/">
+            
+                <a href="../day-1/">
+            
+                    
+                    Descomplicando Kubernetes dia 1
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.2" data-path="../day-2/">
+            
+                <a href="../day-2/">
+            
+                    
+                    Descomplicando Kubernetes dia 2
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.3" data-path="../day-3/">
+            
+                <a href="../day-3/">
+            
+                    
+                    Descomplicando Kubernetes dia 3
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.4" data-path="../day-4/">
+            
+                <a href="../day-4/">
+            
+                    
+                    Descomplicando Kubernetes dia 4
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.5" data-path="../day-5/">
+            
+                <a href="../day-5/">
+            
+                    
+                    Descomplicando Kubernetes dia 5
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.6" data-path="../day-6/">
+            
+                <a href="../day-6/">
+            
+                    
+                    Descomplicando Kubernetes dia 6
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.7" data-path="../day-7/">
+            
+                <a href="../day-7/">
+            
+                    
+                    Descomplicando Kubernetes dia 7
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="2.8" data-path="./">
+            
+                <a href="./">
+            
+                    
+                    Descomplicando Kubernetes dia 8
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.9" data-path="../day-9/">
+            
+                <a href="../day-9/">
+            
+                    
+                    Descomplicando Kubernetes dia 9
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.10" data-path="../day-10/">
+            
+                <a href="../day-10/">
+            
+                    
+                    Descomplicando Kubernetes dia 10
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.11" data-path="../day-11/">
+            
+                <a href="../day-11/">
+            
+                    
+                    Descomplicando Kubernetes dia 11
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.12" data-path="../day-12/">
+            
+                <a href="../day-12/">
+            
+                    
+                    Descomplicando Kubernetes dia 12
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.13" data-path="../day-13/">
+            
+                <a href="../day-13/">
+            
+                    
+                    Descomplicando Kubernetes dia 13
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.14" data-path="../day-14/README.md">
+            
+                <span>
+            
+                    
+                    Descomplicando Kubernetes dia 14
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.15" data-path="../day-15/README.md">
+            
+                <span>
+            
+                    
+                    Descomplicando Kubernetes dia 15
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="header">Contribuir</li>
+        
+        
+    
+        <li class="chapter " data-level="3.1" data-path="../CONTRIBUTING.html">
+            
+                <a href="../CONTRIBUTING.html">
+            
+                    
+                    Como ajudar
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://github.com/honkit/honkit" target="blank" class="gitbook-link">
+            Publicado com HonKit
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href=".." >Descomplicando Kubernetes dia 8</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h1 id="descomplicando-o-kubernetes">Descomplicando o Kubernetes</h1>
+<h2 id="day-8">DAY-8</h2>
+<p> </p>
+<h3 id="conteúdo-do-day-8">Conteúdo do Day-8</h3>
+<ul>
+<li><a href="#descomplicando-o-kubernetes">Descomplicando o Kubernetes</a><ul>
+<li><a href="#day-8">DAY-8</a><ul>
+<li><a href="#conteúdo-do-day-8">Conteúdo do Day-8</a></li>
+<li><a href="#o-que-iremos-ver-hoje">O que iremos ver hoje?</a><ul>
+<li><a href="#o-que-são-secrets">O que são Secrets?</a><ul>
+<li><a href="#como-os-secrets-funcionam">Como os Secrets funcionam</a></li>
+<li><a href="#tipos-de-secrets">Tipos de Secrets</a></li>
+<li><a href="#antes-de-criar-um-secret-o-base64">Antes de criar um Secret, o Base64</a></li>
+<li><a href="#criando-nosso-primeiro-secret">Criando nosso primeiro Secret</a></li>
+<li><a href="#usando-o-nosso-primeiro-secret">Usando o nosso primeiro Secret</a></li>
+<li><a href="#criando-um-secret-para-armazenar-credenciais-docker">Criando um Secret para armazenar credenciais Docker</a></li>
+<li><a href="#criando-um-secret-tls">Criando um Secret TLS</a></li>
+</ul>
+</li>
+<li><a href="#configmaps">ConfigMaps</a></li>
+<li><a href="#external-secret-operator">External Secret Operator</a><ul>
+<li><a href="#o-papel-de-destaque-do-eso">O Papel de Destaque do ESO</a></li>
+<li><a href="#conceitos-chave-do-external-secrets-operator">Conceitos-Chave do External Secrets Operator</a></li>
+<li><a href="#secretstore">SecretStore</a></li>
+<li><a href="#externalsecret">ExternalSecret</a></li>
+<li><a href="#clustersecretstore">ClusterSecretStore</a></li>
+<li><a href="#controle-de-acesso-e-segurança">Controle de Acesso e Segurança</a></li>
+</ul>
+</li>
+<li><a href="#configurando-o-external-secrets-operator">Configurando o External Secrets Operator</a><ul>
+<li><a href="#o-que-é-o-vault">O que é o Vault?</a></li>
+<li><a href="#por-que-usar-o-vault">Por que Usar o Vault?</a></li>
+<li><a href="#comandos-básicos-do-vault">Comandos Básicos do Vault</a></li>
+<li><a href="#o-vault-no-contexto-do-kubernetes">O Vault no Contexto do Kubernetes</a></li>
+<li><a href="#instalando-e-configurando-o-vault-no-kubernetes">Instalando e Configurando o Vault no Kubernetes</a></li>
+<li><a href="#pré-requisitos">Pré-requisitos</a></li>
+<li><a href="#instalando-e-configurando-o-vault-com-helm">Instalando e Configurando o Vault com Helm</a></li>
+<li><a href="#adicionando-o-repositório-do-external-secrets-operator-ao-helm">Adicionando o Repositório do External Secrets Operator ao Helm</a></li>
+<li><a href="#instalando-o-external-secrets-operator">Instalando o External Secrets Operator</a></li>
+<li><a href="#verificando-a-instalação-do-eso">Verificando a Instalação do ESO</a></li>
+<li><a href="#criando-um-segredo-no-kubernetes">Criando um Segredo no Kubernetes</a></li>
+<li><a href="#configurando-o-clustersecretstore">Configurando o ClusterSecretStore</a></li>
+<li><a href="#criando-um-externalsecret">Criando um ExternalSecret</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#final-do-day-8">Final do Day-8</a></li>
+</ul>
+</li>
+</ul>
+<p> </p>
+<h3 id="o-que-iremos-ver-hoje">O que iremos ver hoje?</h3>
+<p>Hoje é dia de falar sobre duas coisas super importantes no mundo do Kubernetes, hoje nós vamos falar sobre <code>Secrets</code> e <code>ConfigMaps</code>.</p>
+<p>Sim, essas duas peças fundamentais para que você possa ter a sua aplicação rodando no Kubernetes da melhor forma possível, pois elas são responsáveis por armazenar as informações sensíveis da sua aplicação, como por exemplo, senhas, tokens, chaves de acesso, configurações, etc. </p>
+<p>Depois do dia de hoje você vai entender como funciona o armazenamento de informações sensíveis no Kubernetes e como você pode fazer para que a sua aplicação possa consumir essas informações da melhor forma possível.</p>
+<p>Bora lá?</p>
+<p> </p>
+<h4 id="o-que-são-secrets">O que são Secrets?</h4>
+<p>Os Secrets fornecem uma maneira segura e flexível de gerenciar informações sensíveis, como senhas, tokens OAuth, chaves SSH e outros dados que você não quer expor nas configurações de seus aplicaçãos.</p>
+<p>Um Secret é um objeto que contém um pequeno volume de informações sensíveis, como uma senha, um token ou uma chave. Essas informações podem ser consumidas por Pods ou usadas pelo sistema para realizar ações em nome de um Pod.</p>
+<p> </p>
+<h5 id="como-os-secrets-funcionam">Como os Secrets funcionam</h5>
+<p>Os Secrets são armazenados no Etcd, o armazenamento de dados distribuído do Kubernetes. Por padrão, eles são armazenados sem criptografia, embora o Etcd suporte criptografia para proteger os dados armazenados nele. Além disso, o acesso aos Secrets é restrito por meio de Role-Based Access Control (RBAC), o que permite controlar quais usuários e Pods podem acessar quais Secrets.</p>
+<p>Os Secrets podem ser montados em Pods como arquivos em volumes ou podem ser usados para preencher variáveis de ambiente para um container dentro de um Pod. Quando um Secret é atualizado, o Kubernetes não atualiza automaticamente os volumes montados ou as variáveis de ambiente que se referem a ele.</p>
+<p> </p>
+<h5 id="tipos-de-secrets">Tipos de Secrets</h5>
+<p>Existem vários tipos de Secrets que você pode usar, dependendo de suas necessidades específicas. Abaixo estão alguns dos tipos mais comuns de Secrets:</p>
+<ul>
+<li><p><strong>Opaque Secrets</strong> - são os Secrets mais simples e mais comuns. Eles armazenam dados arbitrários, como chaves de API, senhas e tokens. Os Opaque Secrets são codificados em base64 quando são armazenados no Kubernetes, mas não são criptografados. Eles podem ser usados para armazenar dados confidenciais, mas não são seguros o suficiente para armazenar informações altamente sensíveis, como senhas de banco de dados.</p>
+</li>
+<li><p><strong>kubernetes.io/service-account-token</strong> - são usados para armazenar tokens de acesso de conta de serviço. Esses tokens são usados para autenticar Pods com o Kubernetes API. Eles são montados automaticamente em Pods que usam contas de serviço.</p>
+</li>
+<li><p><strong>kubernetes.io/dockercfg</strong> e <strong>kubernetes.io/dockerconfigjson</strong> - são usados para armazenar credenciais de registro do Docker. Eles são usados para autenticar Pods com um registro do Docker. Eles são montados em Pods que usam imagens de container privadas.</p>
+</li>
+<li><p><strong>kubernetes.io/tls</strong>, <strong>kubernetes.io/ssh-auth</strong> e <strong>kubernetes.io/basic-auth</strong> - são usados para armazenar certificados TLS, chaves SSH e credenciais de autenticação básica, respectivamente. Eles são usados para autenticar Pods com outros serviços.</p>
+</li>
+<li><p><strong>bootstrap.kubernetes.io/token</strong> - são usados para armazenar tokens de inicialização de cluster. Eles são usados para autenticar nós com o plano de controle do Kubernetes.</p>
+</li>
+</ul>
+<p>Tem mais alguns tipos de Secrets, mas esses são os mais comuns. Você pode encontrar uma lista completa de tipos de Secrets na documentação do Kubernetes.</p>
+<p>Cada tipo de Secret tem um formato diferente. Por exemplo, os Secrets Opaque são armazenados como um mapa de strings, enquanto os Secrets TLS são armazenados como um mapa de strings com chaves adicionais para armazenar certificados e chaves, por isso é importante saber qual tipo de Secret você está usando para que você possa armazenar os dados corretamente.</p>
+<h5 id="antes-de-criar-um-secret-o-base64">Antes de criar um Secret, o Base64</h5>
+<p>Antes de começarmos a criar os nossos Secrets, precisamos entender o que é o Base64, pois esse é um assunto que sempre gera muitas dúvidas e sempre está presente quando falamos de Secrets.</p>
+<p>Primeira coisa, Base64 é criptografia? Não, Base64 não é criptografia, Base64 é um esquema de codificação binária para texto que visa garantir que os dados binários possam ser enviados por canais que são projetados para lidar apenas com texto. Esta codificação ajuda a garantir que os dados permaneçam intactos sem modificação durante o transporte.</p>
+<p>Base64 está comumente usado em várias aplicações, incluindo e-mail via MIME, armazenamento de senhas complexas, e muito mais.</p>
+<p>A codificação Base64 converte os dados binários em uma string de texto ASCII. Essa string contém apenas caracteres que são considerados seguros para uso em URLs, o que torna a codificação Base64 útil para codificar dados que estão sendo enviados pela Internet.</p>
+<p>No entanto, a codificação Base64 não é uma forma de criptografia e não deve ser usada como tal. Em particular, ela não fornece nenhuma confidencialidade. Qualquer um que tenha acesso à string codificada pode facilmente decodificá-la e recuperar os dados originais. Entender isso é importante para que você não armazene informações sensíveis em um formato codificado em Base64, pois isso não é seguro.</p>
+<p>Agora que você já sabe o que é o Base64, vamos ver como podemos codificar e decodificar uma string usando o Base64.</p>
+<p>Para codificar uma string em Base64, você pode usar o comando <code>base64</code> no Linux. Por exemplo, para codificar a string <code>giropops</code> em Base64, você pode executar o seguinte comando:</p>
+<pre><code class="lang-bash"><span class="hljs-built_in">echo</span> -n <span class="hljs-string">&apos;giropops&apos;</span> | base64
+</code></pre>
+<p> </p>
+<p>O comando acima irá retornar a string <code>Z2lyb3BvcHM=</code>. </p>
+<p>Para decodificar uma string em Base64, você pode usar o comando <code>base64</code> novamente, mas desta vez com a opção <code>-d</code>. Por exemplo, para decodificar a string <code>Z2lyb3BvcHM=</code> em Base64, você pode executar o seguinte comando:</p>
+<pre><code class="lang-bash"><span class="hljs-built_in">echo</span> -n <span class="hljs-string">&apos;Z2lyb3BvcHM=&apos;</span> | base64 -d
+</code></pre>
+<p> </p>
+<p>O comando acima irá retornar a string <code>giropops</code>, simples como voar!</p>
+<p>Estou usando o parâmetro <code>-n</code> no comando <code>echo</code> para que ele não adicione uma nova linha ao final da string, pois isso pode causar problemas ao codificar e decodificar a string.</p>
+<p>Pronto, acho que você já está pronto para criar os seus Secrets, então é hora de começar a brincar!</p>
+<p> </p>
+<h5 id="criando-nosso-primeiro-secret">Criando nosso primeiro Secret</h5>
+<p>Agora que você já sabe o que são os Secrets, já entender que Base64 não é criptografia e já sabe como codificar e decodificar uma string usando o Base64, vamos criar o nosso primeiro Secret.</p>
+<p>Primeiro, vamos criar um Secret do tipo Opaque. Este é o tipo de Secret mais comum, usado para armazenar informações arbitrárias.</p>
+<p>Para criar um Secret do tipo Opaque, você precisa criar um arquivo YAML que defina o Secret. Por exemplo, você pode criar um arquivo chamado <code>giropops-secret.yaml</code> com o seguinte conteúdo:</p>
+<pre><code class="lang-yaml"><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">v1</span>
+<span class="hljs-attr">kind:</span> <span class="hljs-string">Secret</span>
+<span class="hljs-attr">metadata:</span>
+  <span class="hljs-attr">name:</span> <span class="hljs-string">giropops-secret</span>
+<span class="hljs-attr">type:</span> <span class="hljs-string">Opaque</span>
+<span class="hljs-attr">data:</span> <span class="hljs-comment"># Inicio dos dados</span>
+    <span class="hljs-attr">username:</span> <span class="hljs-string">SmVmZXJzb25fbGluZG8=</span>
+    <span class="hljs-attr">password:</span> <span class="hljs-string">Z2lyb3BvcHM=</span>
+</code></pre>
+<p> </p>
+<p>O arquivo acima define um Secret chamado <code>giropops-secret</code> com dois campos de dados chamados <code>username</code> e <code>password</code>. O campo <code>password</code> contém a string <code>giropops</code> codificada em Base64. A minha pergunta é: qual é o valor do campo <code>username</code>?</p>
+<p>Caso você descubra, eu desafio você a fazer um Tweet ou um post em outra rede social com o valor do campo <code>username</code> e as hashtags #desafioDay8 e #DescomplicandoKubernetes. Se você fizer isso, eu vou te dar um prêmio, mas não vou falar qual é o prêmio, pois isso é um segredo! :D</p>
+<p>Outra informação importante que passamos para esse Secret foi o seu tipo, que é <code>Opaque</code>. Você pode ver que o tipo do Secret é definido no campo <code>type</code> do arquivo YAML.</p>
+<p>Agora que você já criou o arquivo YAML, você pode criar o Secret usando o comando <code>kubectl create</code> ou <code>kubectl apply</code>. Por exemplo, para criar o Secret usando o comando <code>kubectl create</code>, vá com o seguinte comando:</p>
+<pre><code class="lang-bash">kubectl create -f giropops-secret.yaml
+
+secret/giropops-secret created
+</code></pre>
+<p> </p>
+<p>Pronto, o nosso primeiro Secret foi criado! Agora você pode ver o Secret usando o comando <code>kubectl get</code>:</p>
+<pre><code class="lang-bash">kubectl get secret giropops-secret
+
+NAME              TYPE     DATA   AGE
+giropops-secret   Opaque   2      10s
+</code></pre>
+<p> </p>
+<p>A saída traz o nome do Secret, o seu tipo, a quantidade de dados que ele armazena e a quanto tempo ele foi criado.</p>
+<p>Caso você queira ver os dados armazenados no Secret, você pode usar o comando <code>kubectl get</code> com a opção <code>-o yaml</code>:</p>
+<pre><code class="lang-bash">kubectl get secret giropops-secret -o yaml
+
+apiVersion: v1
+data:
+  password: Z2lyb3BvcHM=
+  username: SmVmZXJzb25fbGluZG8=
+kind: Secret
+metadata:
+  creationTimestamp: <span class="hljs-string">&quot;2023-05-21T10:38:39Z&quot;</span>
+  name: giropops-secret
+  namespace: default
+  resourceVersion: <span class="hljs-string">&quot;466&quot;</span>
+  uid: ac816e95-8896-4ad4-9e64-4ee8258a8cda
+<span class="hljs-built_in">type</span>: Opaque
+</code></pre>
+<p> </p>
+<p>Simples assim! Portanto, mais uma vez, os dados armazenados no Secret não são criptografados e podem ser facilmente decodificados por qualquer pessoa que tenha acesso ao Secret, portanto, é fundamental controlar o acesso aos Secrets e não armazenar informações sensíveis neles.</p>
+<p>Você também pode ver os detalhes do Secret usando o comando <code>kubectl describe</code>:</p>
+<pre><code class="lang-bash">kubectl describe secret giropops-secret
+
+Name:         giropops-secret
+Namespace:    default
+Labels:       &lt;none&gt;
+Annotations:  &lt;none&gt;
+
+Type:  Opaque
+
+Data
+====
+password:  8 bytes
+username:  15 bytes
+</code></pre>
+<p> </p>
+<p>A saída do comando <code>kubectl describe</code> é muito parecido com o conteúdo do arquivo YAML que você criou para definir o Secret, mas com algumas informações adicionais, como o namespace do Secret, os labels e as annotations, coisas que você também pode definir no arquivo YAML.</p>
+<p>Caso você queira criar esse mesmo Secret usando o comando <code>kubectl create secret</code>, você pode executar o seguinte comando:</p>
+<pre><code class="lang-bash">kubectl create secret generic giropops-secret --from-literal=username=&lt;SEGREDO&gt; --from-literal=password=giropops
+</code></pre>
+<p> </p>
+<p>Fácil, aqui estamos usando o parâmetro <code>--from-literal</code> para definir os dados do Secret. Outras opções são <code>--from-file</code> e <code>--from-env-file</code>, que você pode usar para definir os dados do Secret a partir de um arquivo ou de variáveis de ambiente.</p>
+<p>Se você comparar as strings dos campos <code>username</code> e <code>password</code> do Secret criado usando o comando <code>kubectl create secret</code> com as strings dos campos <code>username</code> e <code>password</code> do Secret criado usando o arquivo YAML, você perceberá que são iguais. Isso acontece porque o comando <code>kubectl create secret</code> codifica os dados em Base64 automaticamente.</p>
+<p> </p>
+<h5 id="usando-o-nosso-primeiro-secret">Usando o nosso primeiro Secret</h5>
+<p>Agora que já temos o nosso primeiro Secret criado, é hora de saber como usa-lo em um Pod.</p>
+<p>Nesse nosso primeiro exemplo, somente irei mostrar como usar o Secret em um Pod, mas ainda sem nenhuma &quot;função&quot; especial, apenas para mostrar como usar o Secret.</p>
+<p>Para usar o Secret em um Pod, você precisa definir o campo <code>spec.containers[].env[].valueFrom.secretKeyRef</code> no arquivo YAML do Pod. Eu estou trazendo o campo nesse formato, para que você possa começar a se familiarizar com esse formato, pois você irá usa-lo bastante para buscar alguma informação mais especifica na linha de comando, usando o comando <code>kubectl get</code>, por exemplo.</p>
+<p>Voltando ao assunto principal, precisamos criar o nosso Pod, então vamos lá! Crie um arquivo chamado <code>giropops-pod.yaml</code> com o seguinte conteúdo:</p>
+<pre><code class="lang-yaml"><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">v1</span>
+<span class="hljs-attr">kind:</span> <span class="hljs-string">Pod</span>
+<span class="hljs-attr">metadata:</span>
+  <span class="hljs-attr">name:</span> <span class="hljs-string">giropops-pod</span>
+<span class="hljs-attr">spec:</span>
+  <span class="hljs-attr">containers:</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">giropops-container</span>
+    <span class="hljs-attr">image:</span> <span class="hljs-string">nginx</span>
+    <span class="hljs-attr">env:</span> <span class="hljs-comment"># Inicio da definição das variáveis de ambiente</span>
+    <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">USERNAME</span> <span class="hljs-comment"># Nome da variável de ambiente que será usada no Pod</span>
+      <span class="hljs-attr">valueFrom:</span> <span class="hljs-comment"># Inicio da definição de onde o valor da variável de ambiente será buscado</span>
+        <span class="hljs-attr">secretKeyRef:</span> <span class="hljs-comment"># Inicio da definição de que o valor da variável de ambiente será buscado em um Secret, através de uma chave</span>
+          <span class="hljs-attr">name:</span> <span class="hljs-string">giropops-secret</span> <span class="hljs-comment"># Nome do Secret que contém o valor da variável de ambiente que será usada no Pod</span>
+          <span class="hljs-attr">key:</span> <span class="hljs-string">username</span> <span class="hljs-comment"># Nome da chave do campo do Secret que contém o valor da variável de ambiente que será usada no Pod</span>
+    <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">PASSWORD</span> <span class="hljs-comment"># Nome da variável de ambiente que será usada no Pod</span>
+      <span class="hljs-attr">valueFrom:</span> <span class="hljs-comment"># Inicio da definição de onde o valor da variável de ambiente será buscado</span>
+        <span class="hljs-attr">secretKeyRef:</span> <span class="hljs-comment"># Inicio da definição de que o valor da variável de ambiente será buscado em um Secret, através de uma chave</span>
+          <span class="hljs-attr">name:</span> <span class="hljs-string">giropops-secret</span> <span class="hljs-comment"># Nome do Secret que contém o valor da variável de ambiente que será usada no Pod</span>
+          <span class="hljs-attr">key:</span> <span class="hljs-string">password</span> <span class="hljs-comment"># Nome da chave do campo do Secret que contém o valor da variável de ambiente que será usada no Pod</span>
+</code></pre>
+<p> </p>
+<p>Eu adicionei comentários nas linhas que são novas para você, para que você possa entender o que cada linha faz.</p>
+<p>Mas vou trazer aqui uma explicação mais detalhada sobre o campo <code>spec.containers[].env[].valueFrom.secretKeyRef</code>:</p>
+<ul>
+<li><p><code>spec.containers[].env[].valueFrom.secretKeyRef.name</code>: o nome do Secret que contém o valor da variável de ambiente que será usada no Pod;</p>
+</li>
+<li><p><code>spec.containers[].env[].valueFrom.secretKeyRef.key</code>: a chave do campo do Secret que contém o valor da variável de ambiente que será usada no Pod;</p>
+</li>
+</ul>
+<p>Com isso teremos um Pod, que terá um container chamado <code>giropops-container</code>, que terá duas variáveis de ambiente, <code>USERNAME</code> e <code>PASSWORD</code>, que terão os valores que estão definidos no Secret <code>giropops-secret</code>.</p>
+<p>Agora vamos criar o Pod usando o comando <code>kubectl apply</code>:</p>
+<pre><code class="lang-bash">kubectl apply -f giropops-pod.yaml
+
+pod/giropops-pod created
+</code></pre>
+<p> </p>
+<p>Agora vamos verificar se o Pod foi criado e se os Secrets foram injetados no Pod:</p>
+<pre><code class="lang-bash">kubectl get pods
+
+NAME           READY   STATUS    RESTARTS   AGE
+giropops-pod   1/1     Running   0          2m
+</code></pre>
+<p> </p>
+<p>Para verificar se os Secrets foram injetados no Pod, você pode usar o comando <code>kubectl exec</code> para executar o comando <code>env</code> dentro do container do Pod:</p>
+<pre><code class="lang-bash">kubectl <span class="hljs-built_in">exec</span> giropops-pod -- env
+
+PATH=/usr/<span class="hljs-built_in">local</span>/sbin:/usr/<span class="hljs-built_in">local</span>/bin:/usr/sbin:/usr/bin:/sbin:/bin
+HOSTNAME=giropops-pod
+NGINX_VERSION=1.23.4
+NJS_VERSION=0.7.11
+PKG_RELEASE=1~bullseye
+PASSWORD=giropops
+USERNAME=CENSURADO
+KUBERNETES_PORT_443_TCP_PROTO=tcp
+KUBERNETES_PORT_443_TCP_PORT=443
+KUBERNETES_PORT_443_TCP_ADDR=10.96.0.1
+KUBERNETES_SERVICE_HOST=10.96.0.1
+KUBERNETES_SERVICE_PORT=443
+KUBERNETES_SERVICE_PORT_HTTPS=443
+KUBERNETES_PORT=tcp://10.96.0.1:443
+KUBERNETES_PORT_443_TCP=tcp://10.96.0.1:443
+HOME=/root
+</code></pre>
+<p> </p>
+<p>Olha lá os nosso Secrets como variáveis de ambiente dentro do container do Pod!</p>
+<p>Pronto! Tarefa executada com sucesso! \o/</p>
+<p>Agora eu acho que já podemos partir para os próximos tipos de Secrets!</p>
+<p> </p>
+<h5 id="criando-um-secret-para-armazenar-credenciais-docker">Criando um Secret para armazenar credenciais Docker</h5>
+<p>O Docker Hub é um serviço de registro de imagens Docker, que permite que você armazene e compartilhe imagens Docker publicamente ou privadamente. Em 2022, o Docker Hub começou a limitar o número de downloads de imagens Docker públicas para 100 downloads por 6 horas para usuários não autenticados, e para usuários autenticados, o limite é de 200 downloads por 6 horas.</p>
+<p>Mas o ponto aqui é que você pode usar o Docker Hub para armazenar imagens Docker privadas, e para isso você precisa de uma conta no Docker Hub, e para acessar a sua conta no Docker Hub, você precisa de um nome de usuário e uma senha. Entendeu onde eu quero chegar? :D</p>
+<p>Para que o Kubernetes possa acessar o Docker Hub, você precisa criar um Secret que armazene o nome de usuário e a senha da sua conta no Docker Hub, e depois você precisa configurar o Kubernetes para usar esse Secret.</p>
+<p>Quando você executa <code>docker login</code> e tem a sua autenticação bem sucedida, o Docker cria um arquivo chamado <code>config.json</code> no diretório <code>~/.docker/</code> do seu usuário, e esse arquivo contém o nome de usuário e a senha da sua conta no Docker Hub, e é esse arquivo que você precisa usar para criar o seu Secret.</p>
+<p>Primeiro passo é pegar o conteúdo do seu arquivo <code>config.json</code> e codificar em base64, e para isso você pode usar o comando <code>base64</code>:</p>
+<pre><code class="lang-bash">base64 ~/.docker/config.json
+
+QXF1aSB0ZW0gcXVlIGVzdGFyIG8gY29udGXDumRvIGRvIHNldSBjb25maWcuanNvbiwgY29pc2EgbGluZGEgZG8gSmVmaW0=
+</code></pre>
+<p> </p>
+<p>Então vamos lá! Crie um arquivo chamado <code>dockerhub-secret.yaml</code> com o seguinte conteúdo:</p>
+<pre><code class="lang-yaml"><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">v1</span>
+<span class="hljs-attr">kind:</span> <span class="hljs-string">Secret</span>
+<span class="hljs-attr">metadata:</span>
+  <span class="hljs-attr">name:</span> <span class="hljs-string">docker-hub-secret</span> <span class="hljs-comment"># nome do Secret</span>
+<span class="hljs-attr">type:</span> <span class="hljs-string">kubernetes.io/dockerconfigjson</span> <span class="hljs-comment"># tipo do Secret, neste caso é um Secret que armazena credenciais Docker</span>
+<span class="hljs-attr">data:</span>
+  <span class="hljs-string">.dockerconfigjson:</span> <span class="hljs-string">|</span>  <span class="hljs-comment"># substitua este valor pelo conteúdo do seu arquivo config.json codificado em base64</span>
+    <span class="hljs-string">QXF1aSB0ZW0gcXVlIGVzdGFyIG8gY29udGXDumRvIGRvIHNldSBjb25maWcuanNvbiwgY29pc2EgbGluZGEgZG8gSmVmaW0=</span>
+</code></pre>
+<p> </p>
+<p>O que temos de novo aqui é no campo <code>type</code>, que define o tipo do Secret, e neste caso é um Secret que armazena credenciais Docker, e no campo <code>data</code> temos o campo <code>dockerconfigjson</code>, que é o nome do campo do Secret que armazena o conteúdo do arquivo <code>config.json</code> codificado em base64.</p>
+<p>Agora vamos criar o Secret usando o comando <code>kubectl apply</code>:</p>
+<pre><code class="lang-bash">kubectl apply -f dockerhub-secret.yaml
+
+secret/docker-hub-secret created
+</code></pre>
+<p> </p>
+<p>Para listar o Secret que acabamos de criar, você pode usar o comando <code>kubectl get</code>:</p>
+<pre><code class="lang-bash">kubectl get secrets
+
+NAME                TYPE                             DATA   AGE
+docker-hub-secret   kubernetes.io/dockerconfigjson   1      1s
+</code></pre>
+<p> </p>
+<p>Secret criada, agora já podemos testar o acesso ao Docker Hub!</p>
+<p>Agora o Kubernetes já tem acesso ao Docker Hub, e você pode usar o Kubernetes para fazer o pull de imagens Docker privadas do Docker Hub.</p>
+<p>Um coisa importante, sempre quando você precisar criar um Pod que precise utilizar uma imagem Docker privada do Docker Hub, você precisa configurar o Pod para usar o Secret que armazena as credenciais do Docker Hub, e para isso você precisa usar o campo <code>spec.imagePullSecrets</code> no arquivo YAML do Pod.</p>
+<pre><code class="lang-yaml"><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">v1</span>
+<span class="hljs-attr">kind:</span> <span class="hljs-string">Pod</span>
+<span class="hljs-attr">metadata:</span>
+  <span class="hljs-attr">name:</span> <span class="hljs-string">meu-pod</span>
+<span class="hljs-attr">spec:</span>
+  <span class="hljs-attr">containers:</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">meu-container</span>
+    <span class="hljs-attr">image:</span> <span class="hljs-string">minha-imagem-privada</span>
+  <span class="hljs-attr">imagePullSecrets:</span> <span class="hljs-comment"># campo que define o Secret que armazena as credenciais do Docker Hub</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">docker-hub-secret</span> <span class="hljs-comment"># nome do Secret</span>
+</code></pre>
+<p> </p>
+<p>Perceba a utilização do campo <code>spec.imagePullSecrets</code> no arquivo YAML do Pod, e o campo <code>name</code> que define o nome do Secret que armazena as credenciais do Docker Hub. É somente isso que você precisa fazer para que o Kubernetes possa acessar o Docker Hub.</p>
+<p> </p>
+<h5 id="criando-um-secret-tls">Criando um Secret TLS</h5>
+<p>O Secret <code>kubernetes.io/tls</code>, é usado para armazenar certificados TLS e chaves privadas. Eles são usados para fornecer segurança na comunicação entre os serviços no Kubernetes. Por exemplo, você pode usar um Secret TLS para configurar o HTTPS no seu serviço web.</p>
+<p>Para criar um Secret TLS, você precisa ter um certificado TLS e uma chave privada, e você precisa codificar o certificado e a chave privada em base64, para então criar o Secret.</p>
+<p>Vamos criar um Secret TLS para o nosso serviço web, mas para isso, você precisa ter um certificado TLS e uma chave privada antes de mais nada.</p>
+<p>Para criar um certificado TLS e uma chave privada, você pode usar o comando <code>openssl</code>:</p>
+<pre><code class="lang-bash">openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout chave-privada.key -out certificado.crt
+</code></pre>
+<p> </p>
+<p>No comando acima, estamos criando um certificado TLS e uma chave privada, e o certificado e a chave privada serão armazenados nos arquivos <code>certificado.crt</code> e <code>chave-privada.key</code>, respectivamente. Você pode substituir os nomes dos arquivos por qualquer nome que você quiser.
+Estamos usando o comando <code>openssl</code> para criar um certificado TLS auto-assinado, e para isso você precisa responder algumas perguntas, como o país, estado, cidade, etc. Você pode responder qualquer coisa, não tem problema. Esse certificado TLS auto-assinado é apenas para fins de teste, e não deve ser usado em produção. Estamos passando o parâmetro <code>-nodes</code> para que a chave privada não seja criptografada com uma senha, e o parâmetro <code>-days</code> para definir a validade do certificado TLS, que neste caso é de 365 dias. Já o parâmetro <code>-newkey</code> é usado para definir o algoritmo de criptografia da chave privada, que neste caso é o <code>rsa:2048</code>, que é um algoritmo de criptografia assimétrica que usa chaves de 2048 bits.</p>
+<p>Eu não quero entrar em detalhes sobre como o que é um certificado TLS e uma chave privada, mas, basicamente, um certificado TLS (Transport Layer Security) é usado para autenticar e estabelecer uma conexão segura entre duas partes, como um cliente e um servidor. Ele contém informações sobre a entidade para a qual foi emitido e a entidade que o emitiu, bem como a chave pública da entidade para a qual foi emitido.</p>
+<p>A chave privada, por outro lado, é usada para descriptografar a informação que foi criptografada com a chave pública. Ela deve ser mantida em segredo e nunca compartilhada, pois qualquer pessoa com acesso à chave privada pode decifrar a comunicação segura. Juntos, o certificado TLS e a chave privada formam um par de chaves que permite a autenticação e a comunicação segura entre as partes.</p>
+<p>Entendido? Espero que sim, porque eu não vou entrar em mais detalhes sobre isso. hahaha</p>
+<p>Agora vamos voltar o foco na criação do Secret TLS.</p>
+<p>Com o certificado TLS e a chave privada criados, vamos criar o nosso Secret, é somente para mudar um pouco, vamos criar o Secret usando o comando <code>kubectl apply</code>:</p>
+<pre><code class="lang-bash">kubectl create secret tls meu-servico-web-tls-secret --cert=certificado.crt --key=chave-privada.key
+
+secret/meu-servico-web-tls-secret created
+</code></pre>
+<p> </p>
+<p>Vamos ver se o Secret foi criado:</p>
+<pre><code class="lang-bash">kubectl get secrets
+NAME                         TYPE                             DATA   AGE
+meu-servico-web-tls-secret   kubernetes.io/tls                2      4s
+</code></pre>
+<p> </p>
+<p>Sim, o Secret está lá e é do tipo <code>kubernetes.io/tls</code>.</p>
+<p>Caso você queira ver o conteúdo do Secret, você pode usar o comando <code>kubectl get secret</code> com o parâmetro <code>-o yaml</code>:</p>
+<pre><code class="lang-bash">kubectl get secret meu-servico-web-tls-secret -o yaml
+</code></pre>
+<p> </p>
+<p>Agora você pode usar esse Secret para ter o Nginx rodando com HTTPS, e para isso você precisa usar o campo <code>spec.tls</code> no arquivo YAML do Pod:</p>
+<pre><code class="lang-yaml"><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">v1</span>
+<span class="hljs-attr">kind:</span> <span class="hljs-string">Pod</span>
+<span class="hljs-attr">metadata:</span>
+  <span class="hljs-attr">name:</span> <span class="hljs-string">nginx</span>
+  <span class="hljs-attr">labels:</span>
+    <span class="hljs-attr">app:</span> <span class="hljs-string">nginx</span>
+<span class="hljs-attr">spec:</span>
+  <span class="hljs-attr">containers:</span>
+    <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">nginx</span>
+      <span class="hljs-attr">image:</span> <span class="hljs-string">nginx</span>
+      <span class="hljs-attr">ports:</span>
+        <span class="hljs-bullet">-</span> <span class="hljs-attr">containerPort:</span> <span class="hljs-number">80</span>
+        <span class="hljs-bullet">-</span> <span class="hljs-attr">containerPort:</span> <span class="hljs-number">443</span>
+      <span class="hljs-attr">volumeMounts:</span>
+        <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">nginx-config-volume</span>
+          <span class="hljs-attr">mountPath:</span> <span class="hljs-string">/etc/nginx/nginx.conf</span>
+          <span class="hljs-attr">subPath:</span> <span class="hljs-string">nginx.conf</span>
+        <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">nginx-tls</span>
+          <span class="hljs-attr">mountPath:</span> <span class="hljs-string">/etc/nginx/tls</span>
+    <span class="hljs-attr">volumes:</span>
+    <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">nginx-config-volume</span>
+      <span class="hljs-attr">configMap:</span>
+        <span class="hljs-attr">name:</span> <span class="hljs-string">nginx-config</span>
+    <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">nginx-tls</span>
+      <span class="hljs-attr">secret:</span>
+        <span class="hljs-attr">secretName:</span> <span class="hljs-string">meu-servico-web-tls-secret</span>
+        <span class="hljs-attr">items:</span>
+          <span class="hljs-bullet">-</span> <span class="hljs-attr">key:</span> <span class="hljs-string">certificado.crt</span>
+            <span class="hljs-attr">path:</span> <span class="hljs-string">certificado.crt</span>
+          <span class="hljs-bullet">-</span> <span class="hljs-attr">key:</span> <span class="hljs-string">chave-privada.key</span>
+            <span class="hljs-attr">path:</span> <span class="hljs-string">chave-privada.key</span>
+</code></pre>
+<p> </p>
+<p>Aqui temos bastante informação nova, então vamos por partes.</p>
+<p>Primeira coisa que temos que falar é sobre o <code>spec.containers</code>, principalmente sobre os volumes, que é o campo <code>spec.containers.volumeMounts</code>. </p>
+<p>O campo <code>spec.containers.volumeMounts</code> é usado para montar um volume em um diretório dentro do container. No nosso caso, estamos montando dois volumes, um para o arquivo de configuração do Nginx, e outro para o certificado TLS e a chave privada.</p>
+<p>E usamos o campo <code>spec.volumes</code> para definir os volumes que serão usados pelo Pod, e estamos definindo dois volumes, o <code>nginx-config-volume</code> e o <code>nginx-tls</code>.</p>
+<p>O volume <code>nginx-config-volume</code> é um volume do tipo <code>configMap</code>, e ele é usado para montar o arquivo de configuração do Nginx, que está armazenado no ConfigMap <code>nginx-config</code>. O próximo tópico é sobre ConfigMaps, então não se preocupe com isso agora.</p>
+<p>Já o volume <code>nginx-tls</code> é um volume do tipo <code>secret</code>, e ele é usado para montar o Secret <code>meu-servico-web-tls-secret</code>, que contém o certificado TLS e a chave privada que serão usados para configurar o HTTPS no Nginx.</p>
+<p>E como estamos configurando um Nginx para usar o nosso Secret, precisamos falar onde queremos que os arquivos do Secret sejam montados, e para isso usamos o campo <code>spec.containers.volumeMounts.path</code> para definir o diretório onde queremos que os arquivos do Secret sejam montados, que neste caso é o diretório <code>/etc/nginx/tls</code>.</p>
+<p>Falei que o volume <code>nginx-config-volume</code>, é um volume do tipo <code>configMap</code>, isso é uma ótima deixa para eu iniciar o próximo tópico, que é sobre ConfigMaps! :D</p>
+<p>Sendo assim, bora continuar o nosso exemplo de como usar o Nginx com HTTPS, mas no próximo tópico sobre ConfigMaps. \o/</p>
+<h4 id="configmaps">ConfigMaps</h4>
+<p>ConfigMaps são usados para armazenar dados de configuração, como variáveis de ambiente, arquivos de configuração, etc. Eles são muito úteis para armazenar dados de configuração que podem ser usados por vários Pods.</p>
+<p>Os ConfigMaps são uma maneira eficiente de desacoplar os parâmetros de configuração das imagens de container. Isso permite que você tenha a mesma imagem de container em diferentes ambientes, como desenvolvimento, teste e produção, com diferentes configurações.</p>
+<p>Aqui estão alguns pontos importantes sobre o uso de ConfigMaps no Kubernetes:</p>
+<ul>
+<li><p>Atualizações: Os ConfigMaps não são atualizados automaticamente nos pods que os utilizam. Se você atualizar um ConfigMap, os pods existentes não receberão a nova configuração. Para que um pod receba a nova configuração, você precisa recriar o pod.</p>
+</li>
+<li><p>Múltiplos ConfigMaps: É possível usar múltiplos ConfigMaps para um único pod. Isso é útil quando você tem diferentes aspectos da configuração que quer manter separados.</p>
+</li>
+<li><p>Variáveis de ambiente: Além de montar o ConfigMap em um volume, também é possível usar o ConfigMap para definir variáveis de ambiente para os containers no pod.</p>
+</li>
+<li><p>Imutabilidade: A partir da versão 1.19 do Kubernetes, é possível tornar ConfigMaps (e Secrets) imutáveis, o que pode melhorar o desempenho de sua cluster se você tiver muitos ConfigMaps ou Secrets.</p>
+</li>
+</ul>
+<p>Como no exemplo do capítulo anterior, onde criamos um Pod com o Nginx, e usamos um ConfigMap para armazenar o arquivo de configuração do Nginx, o <code>ConfigMap</code> é usado para armazenar o arquivo de configuração do Nginx, ao invés de armazenar o arquivo de configuração dentro do Pod, tendo assim um Pod mais limpo e mais fácil de manter. E claro, sempre é bom usar as coisas para o que elas foram feitas, e o ConfigMap foi feito para armazenar dados de configuração.</p>
+<p>Bora continuar o nosso exemplo de como usar o Nginx com HTTPS, mas agora usando um ConfigMap para armazenar o arquivo de configuração do Nginx.</p>
+<p>Vamos criar o arquivo de configuração do Nginx chamado <code>nginx.conf</code>, que vai ser usado pelo ConfigMap:</p>
+<pre><code class="lang-bash">events { } <span class="hljs-comment"># configuração de eventos</span>
+
+http { <span class="hljs-comment"># configuração do protocolo HTTP, que é o protocolo que o Nginx vai usar</span>
+  server { <span class="hljs-comment"># configuração do servidor</span>
+    listen 80; <span class="hljs-comment"># porta que o Nginx vai escutar</span>
+    listen 443 ssl; <span class="hljs-comment"># porta que o Nginx vai escutar para HTTPS e passando o parâmetro ssl para habilitar o HTTPS</span>
+
+    ssl_certificate /etc/nginx/tls/certificado.crt; <span class="hljs-comment"># caminho do certificado TLS</span>
+    ssl_certificate_key /etc/nginx/tls/chave-privada.key; <span class="hljs-comment"># caminho da chave privada</span>
+
+    location / { <span class="hljs-comment"># configuração da rota /</span>
+      <span class="hljs-built_in">return</span> 200 <span class="hljs-string">&apos;Bem-vindo ao Nginx!\n&apos;</span>; <span class="hljs-comment"># retorna o código 200 e a mensagem Bem-vindo ao Nginx!</span>
+      add_header Content-Type text/plain; <span class="hljs-comment"># adiciona o header Content-Type com o valor text/plain</span>
+    } 
+  }
+}
+</code></pre>
+<p> </p>
+<p>Eu deixei o conteúdo do arquivo acima com comentários, para facilitar o entendimento.</p>
+<p>O que o arquivo acima está fazendo é:</p>
+<ul>
+<li>Configurando o Nginx para escutar as portas 80 e 443, sendo que a porta 443 vai ser usada para o HTTPS.</li>
+<li>Configurando o Nginx para usar o certificado TLS e a chave privada que estão no diretório <code>/etc/nginx/tls</code>.</li>
+<li>Configurando a rota <code>/</code> para retornar o código 200 e a mensagem <code>Bem-vindo ao Nginx!</code> com o header <code>Content-Type</code> com o valor <code>text/plain</code>.</li>
+</ul>
+<p>Agora vamos criar o ConfigMap <code>nginx-config</code> com o arquivo de configuração do Nginx:</p>
+<pre><code class="lang-bash">kubectl create configmap nginx-config --from-file=nginx.conf
+</code></pre>
+<p> </p>
+<p>Simples demais, não? :)</p>
+<p>O que estamos fazendo é criar um ConfigMap chamado <code>nginx-config</code> com o conteúdo do arquivo <code>nginx.conf</code>.
+Podemos fazer a mesma coisa através de um manifesto, como no exemplo abaixo:</p>
+<pre><code class="lang-yaml"><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">v1</span>
+<span class="hljs-attr">kind:</span> <span class="hljs-string">ConfigMap</span>
+<span class="hljs-attr">metadata:</span>
+  <span class="hljs-attr">name:</span> <span class="hljs-string">nginx-config</span>
+<span class="hljs-attr">data:</span>
+  <span class="hljs-attr">nginx.conf:</span> <span class="hljs-string">|
+    events { }
+</span>
+    <span class="hljs-string">http</span> {
+      <span class="hljs-string">server</span> {
+        <span class="hljs-string">listen</span> <span class="hljs-number">80</span><span class="hljs-string">;</span>
+        <span class="hljs-string">listen</span> <span class="hljs-number">443</span> <span class="hljs-string">ssl;</span>
+
+        <span class="hljs-string">ssl_certificate</span> <span class="hljs-string">/etc/nginx/tls/certificado.crt;</span>
+        <span class="hljs-string">ssl_certificate_key</span> <span class="hljs-string">/etc/nginx/tls/chave-privada.key;</span>
+
+        <span class="hljs-string">location</span> <span class="hljs-string">/</span> {
+          <span class="hljs-string">return</span> <span class="hljs-number">200</span> <span class="hljs-string">&apos;Bem-vindo ao Nginx!\n&apos;</span><span class="hljs-string">;</span>
+          <span class="hljs-string">add_header</span> <span class="hljs-string">Content-Type</span> <span class="hljs-string">text/plain;</span>
+        }
+      }
+    }
+</code></pre>
+<p> </p>
+<p>O arquivo é bem parecido com os manifestos do <code>Secret</code>, mas com algumas diferenças:</p>
+<ul>
+<li>O campo <code>kind</code> é <code>ConfigMap</code> ao invés de <code>Secret</code>.</li>
+<li>O campo <code>data</code> é usado para definir o conteúdo do ConfigMap, e o campo <code>data</code> é um mapa de chave-valor, onde a chave é o nome do arquivo e o valor é o conteúdo do arquivo. Usamos o caractere <code>|</code> para definir o valor do campo <code>data</code> como um bloco de texto, e assim podemos definir o conteúdo do arquivo <code>nginx.conf</code> sem a necessidade de usar o caractere <code>\n</code> para quebrar as linhas do arquivo.</li>
+</ul>
+<p>Agora é só aplicar o manifesto acima:</p>
+<pre><code class="lang-bash">kubectl apply -f nginx-config.yaml
+</code></pre>
+<p> </p>
+<p>Para ver o conteúdo do ConfigMap que criamos, bastar executar o comando:</p>
+<pre><code class="lang-bash">kubectl get configmap nginx-config -o yaml
+</code></pre>
+<p> </p>
+<p>Você também pode usar o comando <code>kubectl describe configmap nginx-config</code> para ver o conteúdo do ConfigMap, mas o comando <code>kubectl get configmap nginx-config -o yaml</code> é bem mais completo.</p>
+<p>Agora que já temos o nosso <code>ConfigMap</code> criado, vamos aplicar o manifesto que criamos no capítulo anterior, vou colar aqui o manifesto para facilitar:</p>
+<pre><code class="lang-yaml"><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">v1</span>
+<span class="hljs-attr">kind:</span> <span class="hljs-string">Pod</span>
+<span class="hljs-attr">metadata:</span>
+  <span class="hljs-attr">name:</span> <span class="hljs-string">nginx</span>
+  <span class="hljs-attr">labels:</span>
+    <span class="hljs-attr">app:</span> <span class="hljs-string">nginx</span>
+<span class="hljs-attr">spec:</span>
+  <span class="hljs-attr">containers:</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">nginx</span>
+    <span class="hljs-attr">image:</span> <span class="hljs-string">nginx</span>
+    <span class="hljs-attr">ports:</span>
+    <span class="hljs-bullet">-</span> <span class="hljs-attr">containerPort:</span> <span class="hljs-number">80</span>
+    <span class="hljs-bullet">-</span> <span class="hljs-attr">containerPort:</span> <span class="hljs-number">443</span>
+    <span class="hljs-attr">volumeMounts:</span>
+    <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">nginx-config-volume</span> <span class="hljs-comment"># nome do volume que vamos usar para montar o arquivo de configuração do Nginx</span>
+      <span class="hljs-attr">mountPath:</span> <span class="hljs-string">/etc/nginx/nginx.conf</span> <span class="hljs-comment"># caminho onde o arquivo de configuração do Nginx vai ser montado</span>
+      <span class="hljs-attr">subPath:</span> <span class="hljs-string">nginx.conf</span> <span class="hljs-comment"># nome do arquivo de configuração do Nginx</span>
+    <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">nginx-tls</span> <span class="hljs-comment"># nome do volume que vamos usar para montar o certificado TLS e a chave privada</span>
+      <span class="hljs-attr">mountPath:</span> <span class="hljs-string">/etc/nginx/tls</span> <span class="hljs-comment"># caminho onde o certificado TLS e a chave privada vão ser montados</span>
+  <span class="hljs-attr">volumes:</span> <span class="hljs-comment"># lista de volumes que vamos usar no Pod</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">nginx-config-volume</span> <span class="hljs-comment"># nome do volume que vamos usar para montar o arquivo de configuração do Nginx</span>
+    <span class="hljs-attr">configMap:</span> <span class="hljs-comment"># tipo do volume que vamos usar</span>
+      <span class="hljs-attr">name:</span> <span class="hljs-string">nginx-config</span> <span class="hljs-comment"># nome do ConfigMap que vamos usar</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">nginx-tls</span> <span class="hljs-comment"># nome do volume que vamos usar para montar o certificado TLS e a chave privada</span>
+    <span class="hljs-attr">secret:</span> <span class="hljs-comment"># tipo do volume que vamos usar</span>
+      <span class="hljs-attr">secretName:</span> <span class="hljs-string">meu-servico-web-tls-secret</span> <span class="hljs-comment"># nome do Secret que vamos usar</span>
+      <span class="hljs-attr">items:</span> <span class="hljs-comment"># lista de arquivos que vamos montar, pois dentro da secret temos dois arquivos, o certificado TLS e a chave privada</span>
+        <span class="hljs-bullet">-</span> <span class="hljs-attr">key:</span> <span class="hljs-string">tls.crt</span> <span class="hljs-comment"># nome do arquivo que vamos montar, nome que está no campo `data` do Secret</span>
+          <span class="hljs-attr">path:</span> <span class="hljs-string">certificado.crt</span> <span class="hljs-comment"># nome do arquivo que vai ser montado, nome que vai ser usado no campo `ssl_certificate` do arquivo de configuração do Nginx</span>
+        <span class="hljs-bullet">-</span> <span class="hljs-attr">key:</span> <span class="hljs-string">tls.key</span> <span class="hljs-comment"># nome do arquivo que vamos montar, nome que está no campo `data` do Secret</span>
+          <span class="hljs-attr">path:</span> <span class="hljs-string">chave-privada.key</span> <span class="hljs-comment"># nome do arquivo que vai ser montado, nome que vai ser usado no campo `ssl_certificate_key` do arquivo de configuração do Nginx</span>
+</code></pre>
+<p> </p>
+<p>Agora é só aplicar o manifesto acima:</p>
+<pre><code class="lang-bash">kubectl apply -f nginx.yaml
+</code></pre>
+<p> </p>
+<p>Listando os Pods:</p>
+<pre><code class="lang-bash">kubectl get pods
+</code></pre>
+<p> </p>
+<p>Agora precisamos criar um Service para expor o Pod que criamos:</p>
+<pre><code class="lang-bash">kubectl expose pod nginx
+</code></pre>
+<p> </p>
+<p>Listando os Services:</p>
+<pre><code class="lang-bash">kubectl get services
+</code></pre>
+<p> </p>
+<p>Bora fazer o <code>port-forward</code> para testar se o nosso Nginx está funcionando:</p>
+<pre><code class="lang-bash">kubectl port-forward service/nginx 4443:443
+</code></pre>
+<p> </p>
+<p>O comando acima vai fazer o <code>port-forward</code> da porta 443 do Service <code>nginx</code> para a porta 4443 do seu computador, o <code>port-forward</code> salvando a nossa vida novamente! :)</p>
+<p>Vamos usar o <code>curl</code> para testar se o nosso Nginx está funcionando:</p>
+<pre><code class="lang-bash">curl -k https://localhost:4443
+
+Bem-vindo ao Nginx!
+</code></pre>
+<p> </p>
+<p>Funcionando lindamente!
+Lembre-se que esse é um exemplo bem simples, o objetivo aqui é mostrar como usar o ConfigMap e o Secret para montar arquivos dentro de um Pod. O certificado TLS e a chave privada que usamos aqui são auto-assinados, e não são recomendados para uso em produção e não são aceitos pelos navegadores, mas para testar está ótimo.</p>
+<p>Acho que já deu para entender como funciona o ConfigMap, e lembre-se que é possível usar o ConfigMap para montar arquivos, mas também é possível usar o ConfigMap para definir variáveis de ambiente, e isso é muito útil quando você precisa passar uma configuração para um container através de uma variável de ambiente.</p>
+<p>Caso você queira tornar um ConfigMap imutável, você pode usar o campo <code>immutable</code> no manifesto do ConfigMap, como no exemplo abaixo:</p>
+<pre><code class="lang-yaml"><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">v1</span>
+<span class="hljs-attr">kind:</span> <span class="hljs-string">ConfigMap</span>
+<span class="hljs-attr">metadata:</span>
+  <span class="hljs-attr">name:</span> <span class="hljs-string">nginx-config</span>
+  <span class="hljs-attr">immutable:</span> <span class="hljs-literal">true</span> <span class="hljs-comment"># torna o ConfigMap imutável</span>
+<span class="hljs-attr">data:</span>
+  <span class="hljs-attr">nginx.conf:</span> <span class="hljs-string">|
+    events { }
+</span>
+    <span class="hljs-string">http</span> {
+      <span class="hljs-string">server</span> {
+        <span class="hljs-string">listen</span> <span class="hljs-number">80</span><span class="hljs-string">;</span>
+        <span class="hljs-string">listen</span> <span class="hljs-number">443</span> <span class="hljs-string">ssl;</span>
+
+        <span class="hljs-string">ssl_certificate</span> <span class="hljs-string">/etc/nginx/tls/certificado.crt;</span>
+        <span class="hljs-string">ssl_certificate_key</span> <span class="hljs-string">/etc/nginx/tls/chave-privada.key;</span>
+
+        <span class="hljs-string">location</span> <span class="hljs-string">/</span> {
+          <span class="hljs-string">return</span> <span class="hljs-number">200</span> <span class="hljs-string">&apos;Bem-vindo ao Nginx!\n&apos;</span><span class="hljs-string">;</span>
+          <span class="hljs-string">add_header</span> <span class="hljs-string">Content-Type</span> <span class="hljs-string">text/plain;</span>
+        }
+      }
+    }
+</code></pre>
+<p> </p>
+<p>Com isso, não será possível alterar o ConfigMap, e se você tentar alterar o ConfigMap, o Kubernetes vai retornar um erro.</p>
+<p>Caso você queira deixar o ConfigMap em uma namespace específica, você pode usar o campo <code>namespace</code> no manifesto do ConfigMap, como no exemplo abaixo:</p>
+<pre><code class="lang-yaml"><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">v1</span>
+<span class="hljs-attr">kind:</span> <span class="hljs-string">ConfigMap</span>
+<span class="hljs-attr">metadata:</span>
+  <span class="hljs-attr">name:</span> <span class="hljs-string">nginx-config</span>
+  <span class="hljs-attr">namespace:</span> <span class="hljs-string">minha-namespace</span> <span class="hljs-comment"># deixa o ConfigMap na namespace `minha-namespace`</span>
+<span class="hljs-attr">data:</span>
+  <span class="hljs-attr">nginx.conf:</span> <span class="hljs-string">|
+    events { }
+</span>
+    <span class="hljs-string">http</span> {
+      <span class="hljs-string">server</span> {
+        <span class="hljs-string">listen</span> <span class="hljs-number">80</span><span class="hljs-string">;</span>
+        <span class="hljs-string">listen</span> <span class="hljs-number">443</span> <span class="hljs-string">ssl;</span>
+
+        <span class="hljs-string">ssl_certificate</span> <span class="hljs-string">/etc/nginx/tls/certificado.crt;</span>
+        <span class="hljs-string">ssl_certificate_key</span> <span class="hljs-string">/etc/nginx/tls/chave-privada.key;</span>
+
+        <span class="hljs-string">location</span> <span class="hljs-string">/</span> {
+          <span class="hljs-string">return</span> <span class="hljs-number">200</span> <span class="hljs-string">&apos;Bem-vindo ao Nginx!\n&apos;</span><span class="hljs-string">;</span>
+          <span class="hljs-string">add_header</span> <span class="hljs-string">Content-Type</span> <span class="hljs-string">text/plain;</span>
+        }
+      }
+    }
+</code></pre>
+<p> </p>
+<p>Enfim, acho que já vimos bastante coisa sobre ConfigMap, acho que já podemos ir para o próximo assunto, certo? \o/</p>
+<p> </p>
+<h4 id="external-secret-operator">External Secret Operator</h4>
+<p>External Secrets Operator é um maestro dos segredos do Kubernetes, capaz de trabalhar em perfeita harmonia com uma grande variedade de sistemas de gerenciamento de segredos externos. Isso inclui, mas não se limita a, gigantes como AWS Secrets Manager, HashiCorp Vault, Google Secrets Manager, Azure Key Vault e IBM Cloud Secrets Manager.</p>
+<p>O papel do ESO é buscar informações dessas APIs externas e trazer para o palco do Kubernetes, transformando-as em Kubernetes Secrets prontos para uso.</p>
+<h5 id="o-papel-de-destaque-do-eso">O Papel de Destaque do ESO</h5>
+<p>A grande missão do ESO é sincronizar segredos de APIs externas para o ambiente do Kubernetes. Para tanto, ele se utiliza de três recursos de API personalizados: ExternalSecret, SecretStore e ClusterSecretStore. Estes recursos criam uma ponte entre o Kubernetes e as APIs externas, permitindo que os segredos sejam gerenciados e utilizados de maneira amigável e eficiente.</p>
+<p>Para deixar simples, o nosso ESO é o cara responsável por levar os Secrets do Kubernetes para um novo patamar, permitindo que você utilize as ferramentas que são especializadas em gerenciar segredos, como o Hashicorp Vault, por exemplo, e que você já conhece.</p>
+<h5 id="conceitos-chave-do-external-secrets-operator">Conceitos-Chave do External Secrets Operator</h5>
+<p>Vamos explorar alguns conceitos fundamentais para o nosso trabalho com o External Secrets Operator (ESO).</p>
+<h5 id="secretstore">SecretStore</h5>
+<p>O SecretStore é um recurso que separa as preocupações de autenticação/acesso e os segredos e configurações necessários para as cargas de trabalho. Este recurso é baseado em namespaces.</p>
+<p>Imagine o SecretStore como um gerente de segredos que conhece a forma como acessar os dados. Ele contém referências a segredos que mantêm as credenciais para acessar a API externa.</p>
+<p>Aqui está um exemplo simplificado de como o SecretStore é definido:</p>
+<pre><code class="lang-yaml"><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">external-secrets.io/v1beta1</span>
+<span class="hljs-attr">kind:</span> <span class="hljs-string">SecretStore</span>
+<span class="hljs-attr">metadata:</span>
+  <span class="hljs-attr">name:</span> <span class="hljs-string">secretstore-sample</span>
+<span class="hljs-attr">spec:</span>
+  <span class="hljs-attr">provider:</span>
+    <span class="hljs-attr">aws:</span>
+      <span class="hljs-attr">service:</span> <span class="hljs-string">SecretsManager</span>
+      <span class="hljs-attr">region:</span> <span class="hljs-string">us-east-1</span>
+      <span class="hljs-attr">auth:</span>
+        <span class="hljs-attr">secretRef:</span>
+          <span class="hljs-attr">accessKeyIDSecretRef:</span>
+            <span class="hljs-attr">name:</span> <span class="hljs-string">awssm-secret</span>
+            <span class="hljs-attr">key:</span> <span class="hljs-string">access-key</span>
+          <span class="hljs-attr">secretAccessKeySecretRef:</span>
+            <span class="hljs-attr">name:</span> <span class="hljs-string">awssm-secret</span>
+            <span class="hljs-attr">key:</span> <span class="hljs-string">secret-access-key</span>
+</code></pre>
+<h5 id="externalsecret">ExternalSecret</h5>
+<p>Um ExternalSecret declara quais dados buscar e tem uma referência ao SecretStore, que sabe como acessar esses dados. O controlador usa esse ExternalSecret como um plano para criar segredos.</p>
+<p>Pense em um ExternalSecret como um pedido feito ao gerente de segredos (SecretStore) para buscar um segredo específico. A configuração do ExternalSecret define o que buscar, onde buscar e como formatar o segredo.</p>
+<p>Aqui está um exemplo simplificado de como o ExternalSecret é definido:</p>
+<pre><code class="lang-yaml"><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">external-secrets.io/v1beta1</span>
+<span class="hljs-attr">kind:</span> <span class="hljs-string">ExternalSecret</span>
+<span class="hljs-attr">metadata:</span>
+  <span class="hljs-attr">name:</span> <span class="hljs-string">example</span>
+<span class="hljs-attr">spec:</span>
+  <span class="hljs-attr">refreshInterval:</span> <span class="hljs-string">1h</span>
+  <span class="hljs-attr">secretStoreRef:</span>
+    <span class="hljs-attr">name:</span> <span class="hljs-string">secretstore-sample</span>
+    <span class="hljs-attr">kind:</span> <span class="hljs-string">SecretStore</span>
+  <span class="hljs-attr">target:</span>
+    <span class="hljs-attr">name:</span> <span class="hljs-string">secret-to-be-created</span>
+    <span class="hljs-attr">creationPolicy:</span> <span class="hljs-string">Owner</span>
+  <span class="hljs-attr">data:</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-attr">secretKey:</span> <span class="hljs-string">secret-key-to-be-managed</span>
+    <span class="hljs-attr">remoteRef:</span>
+      <span class="hljs-attr">key:</span> <span class="hljs-string">provider-key</span>
+      <span class="hljs-attr">version:</span> <span class="hljs-string">provider-key-version</span>
+      <span class="hljs-attr">property:</span> <span class="hljs-string">provider-key-property</span>
+  <span class="hljs-attr">dataFrom:</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-attr">extract:</span>
+      <span class="hljs-attr">key:</span> <span class="hljs-string">remote-key-in-the-provider</span>
+</code></pre>
+<h5 id="clustersecretstore">ClusterSecretStore</h5>
+<p>O ClusterSecretStore é um SecretStore global, que pode ser referenciado por todos os namespaces. Você pode usá-lo para fornecer um gateway central para seu provedor de segredos. É como um SecretStore, mas com alcance em todo o cluster, ao invés de apenas um namespace.</p>
+<h5 id="controle-de-acesso-e-segurança">Controle de Acesso e Segurança</h5>
+<p>O ESO é um operador poderoso com acesso elevado. Ele cria/lê/atualiza segredos em todos os namespaces e tem acesso a segredos armazenados em algumas APIs externas. Portanto, é vital garantir que o ESO tenha apenas os privilégios mínimos necessários e que o SecretStore/ClusterSecretStore seja projetado com cuidado.</p>
+<p>Além disso, considere a utilização do sistema de controle de admissão do Kubernetes (como OPA ou Kyverno) para um controle de acesso mais refinado.</p>
+<p>Agora que temos um bom entendimento dos conceitos-chave, vamos prosseguir para a instalação do ESO no Kubernetes.</p>
+<h4 id="configurando-o-external-secrets-operator">Configurando o External Secrets Operator</h4>
+<p>Vamos dar uma olhada em como instalar e configurar o External Secrets Operator no Kubernetes.
+Nesse exemplo nós iremos utilizar o ESO para que o Kubernetes possa acessar os segregos que estão em um cluster Vault.</p>
+<p>Antes de começar, vamos entender o que é o Vault, caso você ainda não conheça.</p>
+<h5 id="o-que-é-o-vault">O que é o Vault?</h5>
+<p>HashiCorp Vault é uma ferramenta para gerenciar segredos de maneira segura. Ele permite que você armazene e controle o acesso a tokens, senhas, certificados, chaves de criptografia e outras informações sensíveis. No nosso contexto, o Vault se torna uma solução poderosa para superar os problemas inerentes à maneira como o Kubernetes lida com os Secrets.</p>
+<h5 id="por-que-usar-o-vault">Por que Usar o Vault?</h5>
+<p>Com o Vault, você pode centralizar a gestão de segredos, reduzindo a superfície de ataque e minimizando o risco de vazamento de dados. O Vault também oferece controle detalhado de políticas de acesso, permitindo determinar quem pode acessar o que, quando e onde.</p>
+<h5 id="comandos-básicos-do-vault">Comandos Básicos do Vault</h5>
+<p>O Vault pode ser um pouco complexo para os novatos, mas se você já trabalhou com ele, os comandos básicos são relativamente simples.</p>
+<p><strong>Instalando o Hashicorp Vault</strong></p>
+<pre><code class="lang-bash">wget -O- https://apt.releases.hashicorp.com/gpg | sudo gpg --dearmor -o /usr/share/keyrings/hashicorp-archive-keyring.gpg
+
+<span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;deb [signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com <span class="hljs-subst">$(lsb_release -cs)</span> main&quot;</span> | sudo tee /etc/apt/sources.list.d/hashicorp.list
+
+sudo apt update &amp;&amp; sudo apt install vault
+</code></pre>
+<p><strong>Iniciando o Vault em Modo Dev</strong></p>
+<pre><code class="lang-bash">vault server -dev
+</code></pre>
+<p>Este comando inicia o Vault em modo de desenvolvimento, que é útil para fins de aprendizado e experimentação.</p>
+<p><strong>Configurando o Ambiente</strong></p>
+<pre><code class="lang-bash"><span class="hljs-built_in">export</span> VAULT_ADDR=<span class="hljs-string">&apos;http://127.0.0.1:8200&apos;</span>
+</code></pre>
+<p>Isso define a variável de ambiente <code>VAULT_ADDR</code>, apontando para o endereço do servidor Vault.</p>
+<p><strong>Escrevendo Secrets</strong></p>
+<pre><code class="lang-bash">vault kv put secret/my-secret password=my-password
+</code></pre>
+<p>Este comando escreve um segredo chamado &quot;my-secret&quot; com a senha &quot;my-password&quot;.</p>
+<p><strong>Lendo Secrets</strong></p>
+<pre><code class="lang-bash">vault kv get secret/my-secret
+</code></pre>
+<p>Este comando lê o segredo chamado &quot;my-secret&quot;.</p>
+<h5 id="o-vault-no-contexto-do-kubernetes">O Vault no Contexto do Kubernetes</h5>
+<p>Agora que você se lembrou do básico do Vault, a próxima etapa é entender como ele pode trabalhar em conjunto com o Kubernetes e o ESO para aprimorar a gestão de segredos.</p>
+<h5 id="instalando-e-configurando-o-vault-no-kubernetes">Instalando e Configurando o Vault no Kubernetes</h5>
+<p>Vamos agora mergulhar na parte prática. Vamos configurar o Vault no Kubernetes, passo a passo, utilizando o Helm. No final deste processo, teremos o Vault instalado, configurado e pronto para o uso.</p>
+<h5 id="pré-requisitos">Pré-requisitos</h5>
+<p>Antes de começar, certifique-se de que você tem o seguinte:</p>
+<ol>
+<li>Uma instância do Kubernetes em execução.</li>
+<li>O Helm instalado em sua máquina local ou no seu cluster.</li>
+</ol>
+<h5 id="instalando-e-configurando-o-vault-com-helm">Instalando e Configurando o Vault com Helm</h5>
+<p>Aqui estão os passos para instalar e configurar o Vault usando o Helm:</p>
+<p><strong>1. Adicione o repositório HashiCorp ao Helm</strong></p>
+<pre><code class="lang-bash">helm repo add hashicorp https://helm.releases.hashicorp.com
+</code></pre>
+<p>Este comando adiciona o repositório Helm da HashiCorp à nossa configuração do Helm.</p>
+<p><strong>2. Instale o Vault usando Helm</strong></p>
+<pre><code class="lang-bash">helm install vault hashicorp/vault
+</code></pre>
+<p>Este comando instala o Vault no cluster Kubernetes.</p>
+<p><strong>3. Inicie uma shell interativa dentro do pod do Vault</strong></p>
+<pre><code class="lang-bash">kubectl <span class="hljs-built_in">exec</span> -ti vault-0 -- sh
+</code></pre>
+<p>Este comando inicia uma shell interativa dentro do pod do Vault, permitindo que interajamos diretamente com o Vault.</p>
+<p><strong>4. Inicialize e desbloqueie o Vault</strong></p>
+<p>Nesse ponto é importante você guardar as chaves que são criadas no momento que você inicializa o seu cluster Vault, pois elas serão necessárias para desbloquear o Vault. Guarde essa informação em um local seguro, pois sem essas chaves você não conseguirá desbloquear o Vault.</p>
+<pre><code class="lang-bash">vault operator init
+vault operator unseal
+vault login
+</code></pre>
+<p>Estes comandos inicializam o Vault, removem o selo e fazem login.</p>
+<p><strong>5. Crie uma política no Vault</strong></p>
+<pre><code class="lang-bash">vault policy write external-secret-operator-policy -&lt;&lt;<span class="hljs-string">EOF
+path &quot;data/postgres&quot; { 
+capabilities = [&quot;read&quot;]
+}
+EOF</span>
+</code></pre>
+<p>Este comando cria uma política chamada &quot;external-secret-operator-policy&quot; que concede permissões de leitura no caminho &quot;data/postgres&quot;.</p>
+<p><strong>6. Crie um token com a política que você acabou de definir</strong></p>
+<pre><code class="lang-bash">vault token create -policy=<span class="hljs-string">&quot;external-secret-operator-policy&quot;</span>
+</code></pre>
+<p>Este comando cria um token vinculado à política &quot;external-secret-operator-policy&quot;.</p>
+<p><strong>7. Habilite o armazenamento de segredos e adicione alguns segredos para teste</strong></p>
+<pre><code class="lang-bash">vault secrets <span class="hljs-built_in">enable</span> -path=data kv
+vault kv put data/postgres POSTGRES_USER=admin POSTGRES_PASSWORD=123456
+</code></pre>
+<p>Estes comandos habilitam o armazenamento de segredos e adicionam um segredo de exemplo ao caminho &quot;data/postgres&quot;.</p>
+<p>E é isso! Agora você tem o Vault instalado e configurado no seu cluster Kubernetes.</p>
+<h5 id="adicionando-o-repositório-do-external-secrets-operator-ao-helm">Adicionando o Repositório do External Secrets Operator ao Helm</h5>
+<p>Antes de instalar o ESO, precisamos adicionar o repositório External Secrets ao Helm. Faça isso com os seguintes comandos:</p>
+<pre><code class="lang-bash">helm repo add external-secrets https://charts.external-secrets.io
+helm  repo update
+</code></pre>
+<h5 id="instalando-o-external-secrets-operator">Instalando o External Secrets Operator</h5>
+<p>Após a adição do repositório, você pode instalar o ESO com o comando abaixo:</p>
+<pre><code class="lang-bash">helm install external-secrets external-secrets/external-secrets -n external-secrets --create-namespace --<span class="hljs-built_in">set</span> installCRDs=<span class="hljs-literal">true</span>
+</code></pre>
+<h5 id="verificando-a-instalação-do-eso">Verificando a Instalação do ESO</h5>
+<p>Para verificar se o ESO foi instalado corretamente, você pode executar o seguinte comando:</p>
+<pre><code class="lang-bash">kubectl get all -n external-secrets
+</code></pre>
+<h5 id="criando-um-segredo-no-kubernetes">Criando um Segredo no Kubernetes</h5>
+<p>Agora, precisamos criar um segredo no Kubernetes que contém o token do Vault. Faça isso com o seguinte comando:</p>
+<pre><code class="lang-bash">kubectl create secret generic vault-token --from-literal=token=SEU_TOKEN_DO_VAULT
+</code></pre>
+<p>Lembre-se de substituir <code>SEU_TOKEN_DO_VAULT</code> pelo token real que você obteve do Vault.</p>
+<p>Para verificar se o segredo foi criado corretamente, você pode executar o seguinte comando:</p>
+<pre><code class="lang-bash">kubectl get secrets
+</code></pre>
+<h5 id="configurando-o-clustersecretstore">Configurando o ClusterSecretStore</h5>
+<p>O próximo passo é configurar o ClusterSecretStore, que é o recurso que fornecerá um gateway central para seu provedor de segredos. Para fazer isso, você precisa criar um arquivo chamado <code>cluster-store.yaml</code> com o seguinte conteúdo:</p>
+<pre><code class="lang-yaml"><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">external-secrets.io/v1beta1</span>
+<span class="hljs-attr">kind:</span> <span class="hljs-string">ClusterSecretStore</span> <span class="hljs-comment">#Kubernetes resource type</span>
+<span class="hljs-attr">metadata:</span>
+  <span class="hljs-attr">name:</span> <span class="hljs-string">vault-backend</span> <span class="hljs-comment">#resource name</span>
+<span class="hljs-attr">spec:</span>
+  <span class="hljs-attr">provider:</span>
+    <span class="hljs-attr">vault:</span> <span class="hljs-comment">#specifies vault as the provider</span>
+      <span class="hljs-attr">server:</span> <span class="hljs-string">&quot;http://10.43.238.17:8200&quot;</span> <span class="hljs-comment">#the address of your vault instance</span>
+      <span class="hljs-attr">path:</span> <span class="hljs-string">&quot;data&quot;</span> <span class="hljs-comment">#path for accessing the secrets</span>
+      <span class="hljs-attr">version:</span> <span class="hljs-string">&quot;v1&quot;</span> <span class="hljs-comment">#Vault API version</span>
+      <span class="hljs-attr">auth:</span>
+        <span class="hljs-attr">tokenSecretRef:</span>
+          <span class="hljs-attr">name:</span> <span class="hljs-string">&quot;vault-token&quot;</span> <span class="hljs-comment">#Use a secret called vault-token</span>
+          <span class="hljs-attr">key:</span> <span class="hljs-string">&quot;token&quot;</span> <span class="hljs-comment">#Use this key to access the vault token</span>
+</code></pre>
+<p>Para aplicar essa configuração ao Kubernetes, use o seguinte comando:</p>
+<pre><code class="lang-bash">kubectl apply -f cluster-store.yaml
+</code></pre>
+<h5 id="criando-um-externalsecret">Criando um ExternalSecret</h5>
+<p>Finalmente, precisamos criar um ExternalSecret que especifica quais dados buscar do provedor de segredos. Para fazer isso, crie um arquivo chamado <code>ex-secrets.yaml</code> com o seguinte conteúdo:</p>
+<pre><code class="lang-yaml"><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">external-secrets.io/v1beta1</span>
+<span class="hljs-attr">kind:</span> <span class="hljs-string">ExternalSecret</span>
+<span class="hljs-attr">metadata:</span>
+  <span class="hljs-attr">name:</span> <span class="hljs-string">external-secret</span>
+<span class="hljs-attr">spec:</span>
+  <span class="hljs-attr">refreshInterval:</span> <span class="hljs-string">&quot;15s&quot;</span>
+  <span class="hljs-attr">secretStoreRef:</span>
+    <span class="hljs-attr">name:</span> <span class="hljs-string">vault-backend</span>
+    <span class="hljs-attr">kind:</span> <span class="hljs-string">ClusterSecretStore</span>
+  <span class="hljs-attr">target:</span>
+    <span class="hljs-attr">name:</span> <span class="hljs-string">postgres-secret</span>
+    <span class="hljs-attr">creationPolicy:</span> <span class="hljs-string">Owner</span>
+  <span class="hljs-attr">data:</span>
+    <span class="hljs-bullet">-</span> <span class="hljs-attr">secretKey:</span> <span class="hljs-string">POSTGRES_USER</span>
+      <span class="hljs-attr">remoteRef:</span>
+        <span class="hljs-attr">key:</span> <span class="hljs-string">data/postgres</span>
+        <span class="hljs-attr">property:</span> <span class="hljs-string">POSTGRES_USER</span>
+    <span class="hljs-bullet">-</span> <span class="hljs-attr">secretKey:</span> <span class="hljs-string">POSTGRES_PASSWORD</span>
+      <span class="hljs-attr">remoteRef:</span>
+        <span class="hljs-attr">key:</span> <span class="hljs-string">data/postgres</span>
+        <span class="hljs-attr">property:</span> <span class="hljs-string">POSTGRES_PASSWORD</span>
+</code></pre>
+<p>Para aplicar essa configuração ao Kubernetes, use o seguinte comando:</p>
+<pre><code class="lang-bash">kubectl apply -f ex-secrets.yaml
+</code></pre>
+<p>Para verificar a criação do ExternalSecret, você pode executar o seguinte comando:</p>
+<pre><code class="lang-bash">kubectl get externalsecret
+</code></pre>
+<p>E aí está! Você instalou e configurou com sucesso o External Secrets Operator no Kubernetes. Lembre-se, este é apenas um exemplo de como usar o ESO para integrar o Vault com o Kubernetes, mas os mesmos princípios se aplicam a outros provedores de segredos.</p>
+<p>Ótimo! Para verificar se a sincronização funcionou corretamente e para utilizar o segredo no seu cluster Kubernetes, você pode criar um deployment. Vamos fazer isso criando um arquivo <code>deployment.yaml</code> que define um deployment de exemplo. No exemplo abaixo, estaremos criando um deployment de um banco de dados PostgreSQL que faz uso do segredo que criamos anteriormente.</p>
+<pre><code class="lang-yaml"><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">apps/v1</span>
+<span class="hljs-attr">kind:</span> <span class="hljs-string">Deployment</span>
+<span class="hljs-attr">metadata:</span>
+  <span class="hljs-attr">name:</span> <span class="hljs-string">postgres-deployment</span>
+<span class="hljs-attr">spec:</span>
+  <span class="hljs-attr">replicas:</span> <span class="hljs-number">1</span>
+  <span class="hljs-attr">selector:</span>
+    <span class="hljs-attr">matchLabels:</span>
+      <span class="hljs-attr">app:</span> <span class="hljs-string">postgres</span>
+  <span class="hljs-attr">template:</span>
+    <span class="hljs-attr">metadata:</span>
+      <span class="hljs-attr">labels:</span>
+        <span class="hljs-attr">app:</span> <span class="hljs-string">postgres</span>
+    <span class="hljs-attr">spec:</span>
+      <span class="hljs-attr">containers:</span>
+      <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">postgres</span>
+        <span class="hljs-attr">image:</span> <span class="hljs-string">postgres:latest</span>
+        <span class="hljs-attr">env:</span>
+        <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">POSTGRES_USER</span>
+          <span class="hljs-attr">valueFrom:</span>
+            <span class="hljs-attr">secretKeyRef:</span>
+              <span class="hljs-attr">name:</span> <span class="hljs-string">postgres-secret</span>
+              <span class="hljs-attr">key:</span> <span class="hljs-string">POSTGRES_USER</span>
+        <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">POSTGRES_PASSWORD</span>
+          <span class="hljs-attr">valueFrom:</span>
+            <span class="hljs-attr">secretKeyRef:</span>
+              <span class="hljs-attr">name:</span> <span class="hljs-string">postgres-secret</span>
+              <span class="hljs-attr">key:</span> <span class="hljs-string">POSTGRES_PASSWORD</span>
+</code></pre>
+<p>Este arquivo define um deployment do PostgreSQL que tem um único réplica. Ele define duas variáveis de ambiente, <code>POSTGRES_USER</code> e <code>POSTGRES_PASSWORD</code>, que obtêm seus valores do segredo <code>postgres-secret</code> que criamos anteriormente usando o External Secrets Operator.</p>
+<p>Para criar o deployment, use o seguinte comando:</p>
+<pre><code class="lang-bash">kubectl apply -f deployment.yaml
+</code></pre>
+<p>Depois de executar este comando, o Kubernetes criará o deployment e iniciará o contêiner do PostgreSQL. Os valores para <code>POSTGRES_USER</code> e <code>POSTGRES_PASSWORD</code> serão preenchidos com os valores do segredo <code>postgres-secret</code>.</p>
+<p>Para verificar se o deployment foi criado com sucesso, você pode executar o seguinte comando:</p>
+<pre><code class="lang-bash">kubectl get deployments
+</code></pre>
+<p>Se tudo funcionou corretamente, você verá o seu deployment <code>postgres-deployment</code> listado.</p>
+<p>Com isso, você verificou que a sincronização do External Secrets Operator funcionou como esperado e que o segredo está sendo utilizado corretamente pelo seu deployment.</p>
+<h2 id="final-do-day-8">Final do Day-8</h2>
+<p>Hoje o dia foi dedicado dois componentes importantes do Kubernetes: Secrets e ConfigMaps.</p>
+<p>Secrets no Kubernetes são um recurso que nos permite gerenciar informações sensíveis, como senhas, tokens OAuth, chaves ssh, etc. Devido à sua natureza sensível, o Kubernetes oferece uma série de recursos para gerenciar Secrets de maneira segura. Usamos o recurso base64 para codificar nossas senhas e chaves secretas. Aprendemos como criar, obter e descrever um Secret, bem como como excluir um Secret.</p>
+<p>Fomos além e usamos o Secret para armazenar um certificado TLS e uma chave privada, que usamos para configurar o Nginx para usar HTTPS. Usamos o Secret para montar o certificado TLS e a chave privada em um Pod do Nginx, e usamos um arquivo de manifesto para definir o Secret.</p>
+<p>Depois disso, exploramos ConfigMaps. ConfigMaps são uma maneira eficiente de separar parâmetros de configuração de imagens de container, permitindo que você tenha a mesma imagem de container rodando em diferentes ambientes como desenvolvimento, teste e produção, mas com configurações diferentes.</p>
+<p>Vimos:</p>
+<ul>
+<li>Atualizar um ConfigMap.</li>
+<li>Usar o ConfigMaps.</li>
+<li>Usar o ConfigMap para definir variáveis de ambiente para os containers no Pod.</li>
+<li>Tornar ConfigMaps imutáveis.</li>
+<li>Criamos um arquivo de configuração do Nginx usando um ConfigMap, que usamos para configurar um Pod do Nginx. Também exploramos como montar o ConfigMap em um volume e como usar um arquivo de manifesto para definir o ConfigMap.</li>
+<li>Descomplicamos o uso do External Secret Operator e sua integração com o Vault.</li>
+</ul>
+<p>Finalmente, usamos o ConfigMap e o Secret juntos para configurar um Pod do Nginx para usar HTTPS, onde o ConfigMap é usado para armazenar o arquivo de configuração do Nginx e o Secret é usado para armazenar o certificado TLS e a chave privada.</p>
+<p>Essa combinação de ConfigMaps e Secrets não só nos permite gerenciar nossas configurações e dados sensíveis de maneira eficiente e segura, mas também nos oferece um alto grau de flexibilidade e controle sobre as nossas aplicações.</p>
+<p>E isso é tudo por hoje, chega! :D</p>
+<p>Vejo você no próximo dia, até láááá!   :wave:   :v:</p>
+<p> </p>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="../day-7/" class="navigation navigation-prev " aria-label="Previous page: Descomplicando Kubernetes dia 7">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="../day-9/" class="navigation navigation-next " aria-label="Next page: Descomplicando Kubernetes dia 9">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"Descomplicando Kubernetes dia 8","level":"2.8","depth":1,"next":{"title":"Descomplicando Kubernetes dia 9","level":"2.9","depth":1,"path":"day-9/README.md","ref":"day-9/README.md","articles":[]},"previous":{"title":"Descomplicando Kubernetes dia 7","level":"2.7","depth":1,"path":"day-7/README.md","ref":"day-7/README.md","articles":[]},"dir":"ltr"},"config":{"plugins":[],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"language":"pt","gitbook":"*"},"file":{"path":"day-8/README.md","mtime":"2024-01-18T11:49:32.111Z","type":"markdown"},"gitbook":{"version":"3.6.20","time":"2024-01-18T11:49:40.137Z"},"basePath":"..","book":{"language":"pt"}});
+        });
+    </script>
+</div>
+
+        
+    <noscript>
+        <style>
+            .honkit-cloak {
+                display: block !important;
+            }
+        </style>
+    </noscript>
+    <script>
+        // Restore sidebar state as critical path for prevent layout shift
+        function __init__getSidebarState(defaultValue){
+            var baseKey = "";
+            var key = baseKey + ":sidebar";
+            try {
+                var value = localStorage[key];
+                if (value === undefined) {
+                    return defaultValue;
+                }
+                var parsed = JSON.parse(value);
+                return parsed == null ? defaultValue : parsed;
+            } catch (e) {
+                return defaultValue;
+            }
+        }
+        function __init__restoreLastSidebarState() {
+            var isMobile = window.matchMedia("(max-width: 600px)").matches;
+            if (isMobile) {
+                // Init last state if not mobile
+                return;
+            }
+            var sidebarState = __init__getSidebarState(true);
+            var book = document.querySelector(".book");
+            // Show sidebar if it enabled
+            if (sidebarState && book) {
+                book.classList.add("without-animation", "with-summary");
+            }
+        }
+
+        try {
+            __init__restoreLastSidebarState();
+        } finally {
+            var book = document.querySelector(".book");
+            book.classList.remove("honkit-cloak");
+        }
+    </script>
+    <script src="../../gitbook/gitbook.js"></script>
+    <script src="../../gitbook/theme.js"></script>
+    
+        
+        <script src="../../gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+

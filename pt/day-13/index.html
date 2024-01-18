@@ -1,0 +1,869 @@
+
+<!DOCTYPE HTML>
+<html lang="pt" >
+    <head>
+        <meta charset="UTF-8">
+        <title>Descomplicando Kubernetes dia 13 · HonKit</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="HonKit 3.6.20">
+        
+        
+        
+    
+    <link rel="stylesheet" href="../../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="../day-14/README.md" />
+    
+    
+    <link rel="prev" href="../day-12/" />
+    
+
+    </head>
+    <body>
+        
+<div class="book honkit-cloak">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="Escreva para pesquisar" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        <li class="header">Sobre</li>
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../">
+            
+                <a href="../">
+            
+                    
+                    Introdução
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="header">Capítulos</li>
+        
+        
+    
+        <li class="chapter " data-level="2.1" data-path="../day-1/">
+            
+                <a href="../day-1/">
+            
+                    
+                    Descomplicando Kubernetes dia 1
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.2" data-path="../day-2/">
+            
+                <a href="../day-2/">
+            
+                    
+                    Descomplicando Kubernetes dia 2
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.3" data-path="../day-3/">
+            
+                <a href="../day-3/">
+            
+                    
+                    Descomplicando Kubernetes dia 3
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.4" data-path="../day-4/">
+            
+                <a href="../day-4/">
+            
+                    
+                    Descomplicando Kubernetes dia 4
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.5" data-path="../day-5/">
+            
+                <a href="../day-5/">
+            
+                    
+                    Descomplicando Kubernetes dia 5
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.6" data-path="../day-6/">
+            
+                <a href="../day-6/">
+            
+                    
+                    Descomplicando Kubernetes dia 6
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.7" data-path="../day-7/">
+            
+                <a href="../day-7/">
+            
+                    
+                    Descomplicando Kubernetes dia 7
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.8" data-path="../day-8/">
+            
+                <a href="../day-8/">
+            
+                    
+                    Descomplicando Kubernetes dia 8
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.9" data-path="../day-9/">
+            
+                <a href="../day-9/">
+            
+                    
+                    Descomplicando Kubernetes dia 9
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.10" data-path="../day-10/">
+            
+                <a href="../day-10/">
+            
+                    
+                    Descomplicando Kubernetes dia 10
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.11" data-path="../day-11/">
+            
+                <a href="../day-11/">
+            
+                    
+                    Descomplicando Kubernetes dia 11
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.12" data-path="../day-12/">
+            
+                <a href="../day-12/">
+            
+                    
+                    Descomplicando Kubernetes dia 12
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="2.13" data-path="./">
+            
+                <a href="./">
+            
+                    
+                    Descomplicando Kubernetes dia 13
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.14" data-path="../day-14/README.md">
+            
+                <span>
+            
+                    
+                    Descomplicando Kubernetes dia 14
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.15" data-path="../day-15/README.md">
+            
+                <span>
+            
+                    
+                    Descomplicando Kubernetes dia 15
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="header">Contribuir</li>
+        
+        
+    
+        <li class="chapter " data-level="3.1" data-path="../CONTRIBUTING.html">
+            
+                <a href="../CONTRIBUTING.html">
+            
+                    
+                    Como ajudar
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://github.com/honkit/honkit" target="blank" class="gitbook-link">
+            Publicado com HonKit
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href=".." >Descomplicando Kubernetes dia 13</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h1 id="descomplicando-o-kubernetes">Descomplicando o Kubernetes</h1>
+<h2 id="day-13-descomplicando-kyverno-e-as-policies-no-kubernetes">DAY-13: Descomplicando Kyverno e as Policies no Kubernetes</h2>
+<h2 id="conteúdo-do-day-13">Conteúdo do Day-13</h2>
+<ul>
+<li><a href="#descomplicando-o-kubernetes">Descomplicando o Kubernetes</a><ul>
+<li><a href="#day-13-descomplicando-kyverno-e-as-policies-no-kubernetes">DAY-13: Descomplicando Kyverno e as Policies no Kubernetes</a></li>
+<li><a href="#conteúdo-do-day-13">Conteúdo do Day-13</a></li>
+<li><a href="#o-que-iremos-ver-hoje">O que iremos ver hoje?</a></li>
+<li><a href="#inicio-do-day-13">Inicio do Day-13</a><ul>
+<li><a href="#introdução-ao-kyverno">Introdução ao Kyverno</a></li>
+<li><a href="#instalando-o-kyverno">Instalando o Kyverno</a><ul>
+<li><a href="#utilizando-helm">Utilizando Helm</a></li>
+</ul>
+</li>
+<li><a href="#verificando-a-instalação">Verificando a Instalação</a></li>
+<li><a href="#criando-a-nossa-primeira-policy">Criando a nossa primeira Policy</a></li>
+<li><a href="#mais-exemplos-de-policies">Mais exemplos de Policies</a><ul>
+<li><a href="#exemplo-de-política-adicionar-label-ao-namespace">Exemplo de Política: Adicionar Label ao Namespace</a><ul>
+<li><a href="#detalhes-da-política">Detalhes da Política</a></li>
+<li><a href="#arquivo-de-política-add-label-namespaceyaml">Arquivo de Política: <code>add-label-namespace.yaml</code></a></li>
+<li><a href="#utilização-da-política">Utilização da Política</a></li>
+</ul>
+</li>
+<li><a href="#exemplo-de-política-proibir-usuário-root">Exemplo de Política: Proibir Usuário Root</a><ul>
+<li><a href="#detalhes-da-política-1">Detalhes da Política</a></li>
+<li><a href="#arquivo-de-política-disallow-root-useryaml">Arquivo de Política: <code>disallow-root-user.yaml</code></a></li>
+<li><a href="#implementação-e-efeito">Implementação e Efeito</a></li>
+</ul>
+</li>
+<li><a href="#exemplo-de-política-gerar-configmap-para-namespace">Exemplo de Política: Gerar ConfigMap para Namespace</a><ul>
+<li><a href="#detalhes-da-política-2">Detalhes da Política</a></li>
+<li><a href="#arquivo-de-política-generate-configmap-for-namespaceyaml">Arquivo de Política: <code>generate-configmap-for-namespace.yaml</code></a></li>
+<li><a href="#implementação-e-utilidade">Implementação e Utilidade</a></li>
+</ul>
+</li>
+<li><a href="#exemplo-de-política-permitir-apenas-repositórios-confiáveis">Exemplo de Política: Permitir Apenas Repositórios Confiáveis</a><ul>
+<li><a href="#detalhes-da-política-3">Detalhes da Política</a></li>
+<li><a href="#arquivo-de-política-registry-allowedyaml">Arquivo de Política: <code>registry-allowed.yaml</code></a></li>
+<li><a href="#implementação-e-impacto">Implementação e Impacto</a></li>
+<li><a href="#exemplo-de-política-require-probes">Exemplo de Política: Require Probes</a></li>
+<li><a href="#detalhes-da-política-4">Detalhes da Política</a></li>
+<li><a href="#arquivo-de-política-require-probesyaml">Arquivo de Política: <code>require-probes.yaml</code></a></li>
+<li><a href="#implementação-e-impacto-1">Implementação e Impacto</a></li>
+</ul>
+</li>
+<li><a href="#exemplo-de-política-usando-o-exclude">Exemplo de Política: Usando o Exclude</a><ul>
+<li><a href="#detalhes-da-política-5">Detalhes da Política</a></li>
+<li><a href="#arquivo-de-política">Arquivo de Política</a></li>
+<li><a href="#implementação-e-efeitos">Implementação e Efeitos</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#conclusão">Conclusão</a><ul>
+<li><a href="#pontos-chave-aprendidos">Pontos-Chave Aprendidos</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="o-que-iremos-ver-hoje">O que iremos ver hoje?</h2>
+<p>Hoje, exploraremos as funcionalidades e aplicações do Kyverno, uma ferramenta de gerenciamento de políticas essencial para a segurança e eficiência de clusters Kubernetes. Com uma abordagem detalhada e prática, você aprenderá a usar o Kyverno para automatizar tarefas cruciais, garantir a conformidade com normas e regras estabelecidas e melhorar a administração geral de seus ambientes Kubernetes.</p>
+<p><strong>Principais Tópicos Abordados:</strong></p>
+<ol>
+<li><p><strong>Introdução ao Kyverno:</strong> Uma visão geral do Kyverno, destacando sua importância e as principais funções de validação, mutação e geração de recursos.</p>
+</li>
+<li><p><strong>Instalação e Configuração:</strong> Passo a passo para a instalação do Kyverno, incluindo métodos usando o Helm e arquivos YAML, e como verificar se a instalação foi bem-sucedida.</p>
+</li>
+<li><p><strong>Desenvolvendo Políticas Eficientes:</strong> Aprenda a criar políticas para diferentes cenários, desde garantir limites de CPU e memória em Pods até aplicar automaticamente labels a namespaces e restringir a execução de containers como root.</p>
+</li>
+<li><p><strong>Exemplos Práticos:</strong> Vários exemplos de políticas, ilustrando como o Kyverno pode ser aplicado para resolver problemas reais e melhorar a segurança e conformidade dos clusters Kubernetes.</p>
+</li>
+<li><p><strong>Dicas de Uso e Melhores Práticas:</strong> Orientações sobre como aproveitar ao máximo o Kyverno, incluindo dicas de segurança, eficiência e automatização de processos.</p>
+</li>
+</ol>
+<p>Ao final deste e-book, você terá uma compreensão abrangente do Kyverno e estará equipado com o conhecimento e as habilidades para implementá-lo efetivamente em seus próprios clusters Kubernetes. Este e-book é projetado tanto para iniciantes quanto para profissionais experientes, proporcionando informações valiosas e práticas para todos os níveis de expertise.</p>
+<hr>
+<h2 id="inicio-do-day-13">Inicio do Day-13</h2>
+<h3 id="introdução-ao-kyverno">Introdução ao Kyverno</h3>
+<p>Kyverno é uma ferramenta de gerenciamento de políticas para Kubernetes, focada na automação de várias tarefas relacionadas à segurança e configuração dos clusters de Kubernetes. Ele permite que você defina, gerencie e aplique políticas de forma declarativa para garantir que os clusters e suas cargas de trabalho estejam em conformidade com as regras e normas definidas.</p>
+<p><strong>Principais Funções do Kyverno:</strong></p>
+<ol>
+<li><p><strong>Validação de Recursos:</strong> Verifica se os recursos do Kubernetes estão em conformidade com as políticas definidas. Por exemplo, pode garantir que todos os Pods tenham limites de CPU e memória definidos.</p>
+</li>
+<li><p><strong>Mutação de Recursos:</strong> Modifica automaticamente os recursos do Kubernetes para atender às políticas definidas. Por exemplo, pode adicionar automaticamente labels específicos a todos os novos Pods.</p>
+</li>
+<li><p><strong>Geração de Recursos:</strong> Cria recursos adicionais do Kubernetes com base nas políticas definidas. Por exemplo, pode gerar NetworkPolicies para cada novo Namespace criado.</p>
+</li>
+</ol>
+<hr>
+<h3 id="instalando-o-kyverno">Instalando o Kyverno</h3>
+<p>A instalação do Kyverno em um cluster Kubernetes pode ser feita de várias maneiras, incluindo a utilização de um gerenciador de pacotes como o Helm, ou diretamente através de arquivos YAML. Aqui estão os passos básicos para instalar o Kyverno:</p>
+<h4 id="utilizando-helm">Utilizando Helm</h4>
+<p>O Helm é um gerenciador de pacotes para Kubernetes, que facilita a instalação e gerenciamento de aplicações. Para instalar o Kyverno com Helm, siga estes passos:</p>
+<ol>
+<li><p><strong>Adicione o Repositório do Kyverno:</strong></p>
+<pre><code class="lang-shell">helm repo add kyverno https://kyverno.github.io/kyverno/
+helm repo update
+</code></pre>
+</li>
+<li><p><strong>Instale o Kyverno:</strong></p>
+<p>Você pode instalar o Kyverno no namespace <code>kyverno</code> usando o seguinte comando:</p>
+<pre><code class="lang-shell">helm install kyverno kyverno/kyverno --namespace kyverno --create-namespace
+</code></pre>
+</li>
+</ol>
+<h3 id="verificando-a-instalação">Verificando a Instalação</h3>
+<p>Após a instalação, é importante verificar se o Kyverno foi instalado corretamente e está funcionando como esperado.</p>
+<ul>
+<li><p><strong>Verifique os Pods:</strong></p>
+<pre><code class="lang-shell">kubectl get pods -n kyverno
+</code></pre>
+<p>Este comando deve mostrar os pods do Kyverno em execução no namespace especificado.</p>
+</li>
+<li><p><strong>Verifique os CRDs:</strong></p>
+<pre><code class="lang-shell">kubectl get crd | grep kyverno
+</code></pre>
+<p>Este comando deve listar os CRDs relacionados ao Kyverno, indicando que foram criados corretamente.</p>
+</li>
+</ul>
+<p>Lembrando que é sempre importante consultar a documentação oficial para obter as instruções mais atualizadas e detalhadas, especialmente se estiver trabalhando com uma configuração específica ou uma versão mais recente do Kyverno ou do Kubernetes.</p>
+<hr>
+<h3 id="criando-a-nossa-primeira-policy">Criando a nossa primeira Policy</h3>
+<p>Kyverno permite que você defina, gerencie e aplique políticas de forma declarativa para garantir que os clusters e suas cargas de trabalho estejam em conformidade com as regras e normas definidas.</p>
+<p>As políticas, ou as policies em inglês, do Kyverno podem ser aplicadas de duas maneiras principais: a nível de cluster (<code>ClusterPolicy</code>) ou a nível de namespace específico (<code>Policy</code>).</p>
+<ol>
+<li><p><strong>ClusterPolicy</strong>: Quando você define uma política como <code>ClusterPolicy</code>, ela é aplicada a todos os namespaces no cluster. Ou seja, as regras definidas em uma <code>ClusterPolicy</code> são automaticamente aplicadas a todos os recursos correspondentes em todos os namespaces, a menos que especificamente excluídos.</p>
+</li>
+<li><p><strong>Policy</strong>: Se você deseja aplicar políticas a um namespace específico, você usaria o tipo <code>Policy</code>. As políticas definidas como <code>Policy</code> são aplicadas apenas dentro do namespace onde são criadas.</p>
+</li>
+</ol>
+<p>Se você não especificar nenhum namespace na política ou usar <code>ClusterPolicy</code>, o Kyverno assumirá que a política deve ser aplicada globalmente, ou seja, em todos os namespaces.</p>
+<hr>
+<p><strong>Exemplo de Políticas do Kyverno:</strong></p>
+<ol>
+<li><strong>Política de Limites de Recursos:</strong> Garantir que todos os containers em um Pod tenham limites de CPU e memória definidos. Isso pode ser importante para evitar o uso excessivo de recursos em um cluster compartilhado.</li>
+</ol>
+<p><strong>Arquivo <code>require-resources-limits.yaml</code>:</strong></p>
+<pre><code class="lang-yaml">   <span class="hljs-attr">apiVersion:</span> <span class="hljs-string">kyverno.io/v1</span>
+   <span class="hljs-attr">kind:</span> <span class="hljs-string">ClusterPolicy</span>
+   <span class="hljs-attr">metadata:</span>
+     <span class="hljs-attr">name:</span> <span class="hljs-string">require-cpu-memory-limits</span>
+   <span class="hljs-attr">spec:</span>
+     <span class="hljs-attr">validationFailureAction:</span> <span class="hljs-string">enforce</span>
+     <span class="hljs-attr">rules:</span>
+     <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">validate-limits</span>
+       <span class="hljs-attr">match:</span>
+         <span class="hljs-attr">resources:</span>
+           <span class="hljs-attr">kinds:</span>
+           <span class="hljs-bullet">-</span> <span class="hljs-string">Pod</span>
+       <span class="hljs-attr">validate:</span>
+         <span class="hljs-attr">message:</span> <span class="hljs-string">&quot;CPU and memory limits are required&quot;</span>
+         <span class="hljs-attr">pattern:</span>
+           <span class="hljs-attr">spec:</span>
+             <span class="hljs-attr">containers:</span>
+             <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">&quot;*&quot;</span>
+               <span class="hljs-attr">resources:</span>
+                 <span class="hljs-attr">limits:</span>
+                   <span class="hljs-attr">memory:</span> <span class="hljs-string">&quot;?*&quot;</span>
+                   <span class="hljs-attr">cpu:</span> <span class="hljs-string">&quot;?*&quot;</span>
+</code></pre>
+<p>Depois do arquivo criado, agora bastar realizar o deploy em nosso cluster Kubernetes.</p>
+<pre><code class="lang-bash">kubectl apply -f require-resources-limits.yaml
+</code></pre>
+<p>Agora, tenta realizar o deploy de um simples Nginx sem definir o limite para os recursos.</p>
+<p><strong>Arquivo <code>pod.yaml</code>:</strong></p>
+<pre><code class="lang-bash">apiVersion: v1
+kind: Pod
+metadata:
+  name: exemplo-pod
+spec:
+  containers:
+  - name: exemplo-container
+    image: nginx
+</code></pre>
+<pre><code class="lang-bash">kubectl apply -f pod.yaml
+</code></pre>
+<hr>
+<h3 id="mais-exemplos-de-policies">Mais exemplos de Policies</h3>
+<p>Continuando com a explicação e exemplos de políticas do Kyverno para gerenciamento de clusters Kubernetes:</p>
+<p>Entendi, vou formatar o texto para que esteja pronto para ser copiado para o Google Docs:</p>
+<hr>
+<h4 id="exemplo-de-política-adicionar-label-ao-namespace">Exemplo de Política: Adicionar Label ao Namespace</h4>
+<p>A política <code>add-label-namespace</code> é projetada para automatizar a adição de um label específico a todos os Namespaces em um cluster Kubernetes. Esta abordagem é essencial para a organização, monitoramento e controle de acesso em ambientes complexos.</p>
+<h5 id="detalhes-da-política">Detalhes da Política</h5>
+<p>O label adicionado por esta política é <code>Jeferson: &quot;Lindo_Demais&quot;</code>. A aplicação deste label a todos os Namespaces facilita a identificação e a categorização dos mesmos, permitindo uma gestão mais eficiente e uma padronização no uso de labels.</p>
+<h5 id="arquivo-de-política-add-label-namespaceyaml">Arquivo de Política: <code>add-label-namespace.yaml</code></h5>
+<pre><code class="lang-yaml"><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">kyverno.io/v1</span>
+<span class="hljs-attr">kind:</span> <span class="hljs-string">ClusterPolicy</span>
+<span class="hljs-attr">metadata:</span>
+  <span class="hljs-attr">name:</span> <span class="hljs-string">add-label-namespace</span>
+<span class="hljs-attr">spec:</span>
+  <span class="hljs-attr">rules:</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">add-label-ns</span>
+    <span class="hljs-attr">match:</span>
+      <span class="hljs-attr">resources:</span>
+        <span class="hljs-attr">kinds:</span>
+        <span class="hljs-bullet">-</span> <span class="hljs-string">Namespace</span>
+    <span class="hljs-attr">mutate:</span>
+      <span class="hljs-attr">patchStrategicMerge:</span>
+        <span class="hljs-attr">metadata:</span>
+          <span class="hljs-attr">labels:</span>
+            <span class="hljs-attr">Jeferson:</span> <span class="hljs-string">&quot;Lindo_Demais&quot;</span>
+</code></pre>
+<h5 id="utilização-da-política">Utilização da Política</h5>
+<p>Esta política garante que cada Namespace no cluster seja automaticamente etiquetado com <code>Jeferson: &quot;Lindo_Demais&quot;</code>. Isso é particularmente útil para garantir a conformidade e a uniformidade na atribuição de labels, facilitando operações como filtragem e busca de Namespaces com base em critérios específicos.</p>
+<hr>
+<h4 id="exemplo-de-política-proibir-usuário-root">Exemplo de Política: Proibir Usuário Root</h4>
+<p>A política <code>disallow-root-user</code> é uma regra de segurança crítica no gerenciamento de clusters Kubernetes. Ela proíbe a execução de containers como usuário root dentro de Pods. Este controle ajuda a prevenir possíveis vulnerabilidades de segurança e a reforçar as melhores práticas no ambiente de contêineres.</p>
+<h5 id="detalhes-da-política">Detalhes da Política</h5>
+<p>O principal objetivo desta política é garantir que nenhum Pod no cluster execute containers como o usuário root. A execução de containers como root pode expor o sistema a riscos de segurança, incluindo acessos não autorizados e potenciais danos ao sistema host.</p>
+<h5 id="arquivo-de-política-disallow-root-useryaml">Arquivo de Política: <code>disallow-root-user.yaml</code></h5>
+<pre><code class="lang-yaml"><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">kyverno.io/v1</span>
+<span class="hljs-attr">kind:</span> <span class="hljs-string">ClusterPolicy</span>
+<span class="hljs-attr">metadata:</span>
+  <span class="hljs-attr">name:</span> <span class="hljs-string">disallow-root-user</span>
+<span class="hljs-attr">spec:</span>
+  <span class="hljs-attr">validationFailureAction:</span> <span class="hljs-string">Enforce</span>
+  <span class="hljs-attr">rules:</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">check-runAsNonRoot</span>
+    <span class="hljs-attr">match:</span>
+      <span class="hljs-attr">resources:</span>
+        <span class="hljs-attr">kinds:</span>
+        <span class="hljs-bullet">-</span> <span class="hljs-string">Pod</span>
+    <span class="hljs-attr">validate:</span>
+      <span class="hljs-attr">message:</span> <span class="hljs-string">&quot;Running as root is not allowed. Set runAsNonRoot to true.&quot;</span>
+      <span class="hljs-attr">pattern:</span>
+        <span class="hljs-attr">spec:</span>
+          <span class="hljs-attr">containers:</span>
+          <span class="hljs-bullet">-</span> <span class="hljs-attr">securityContext:</span>
+              <span class="hljs-attr">runAsNonRoot:</span> <span class="hljs-literal">true</span>
+</code></pre>
+<h5 id="implementação-e-efeito">Implementação e Efeito</h5>
+<p>Ao aplicar esta política, todos os Pods que tentarem executar containers como usuário root serão impedidos, com a exibição de uma mensagem de erro indicando que a execução como root não é permitida. Isso assegura uma camada adicional de segurança no ambiente Kubernetes, evitando práticas que possam comprometer a integridade e a segurança do cluster.</p>
+<hr>
+<h4 id="exemplo-de-política-gerar-configmap-para-namespace">Exemplo de Política: Gerar ConfigMap para Namespace</h4>
+<p>A política <code>generate-configmap-for-namespace</code> é uma estratégia prática no gerenciamento de Kubernetes para automatizar a criação de ConfigMaps em Namespaces. Esta política simplifica a configuração e a gestão de múltiplos ambientes dentro de um cluster.</p>
+<h5 id="detalhes-da-política">Detalhes da Política</h5>
+<p>Esta política é projetada para criar automaticamente um ConfigMap em cada Namespace recém-criado. O ConfigMap gerado, denominado <code>default-configmap</code>, inclui um conjunto padrão de chaves e valores, facilitando a configuração inicial e a padronização dos Namespaces.</p>
+<h5 id="arquivo-de-política-generate-configmap-for-namespaceyaml">Arquivo de Política: <code>generate-configmap-for-namespace.yaml</code></h5>
+<pre><code class="lang-yaml"><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">kyverno.io/v1</span>
+<span class="hljs-attr">kind:</span> <span class="hljs-string">ClusterPolicy</span>
+<span class="hljs-attr">metadata:</span>
+  <span class="hljs-attr">name:</span> <span class="hljs-string">generate-configmap-for-namespace</span>
+<span class="hljs-attr">spec:</span>
+  <span class="hljs-attr">rules:</span>
+    <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">generate-namespace-configmap</span>
+      <span class="hljs-attr">match:</span>
+        <span class="hljs-attr">resources:</span>
+          <span class="hljs-attr">kinds:</span>
+            <span class="hljs-bullet">-</span> <span class="hljs-string">Namespace</span>
+      <span class="hljs-attr">generate:</span>
+        <span class="hljs-attr">kind:</span> <span class="hljs-string">ConfigMap</span>
+        <span class="hljs-attr">name:</span> <span class="hljs-string">default-configmap</span>
+        <span class="hljs-attr">namespace:</span> <span class="hljs-string">&quot;<span class="hljs-template-variable">{{request.object.metadata.name}}</span>&quot;</span>
+        <span class="hljs-attr">data:</span>
+          <span class="hljs-attr">data:</span>
+            <span class="hljs-attr">key1:</span> <span class="hljs-string">&quot;value1&quot;</span>
+            <span class="hljs-attr">key2:</span> <span class="hljs-string">&quot;value2&quot;</span>
+</code></pre>
+<h5 id="implementação-e-utilidade">Implementação e Utilidade</h5>
+<p>A aplicação desta política resulta na criação automática de um ConfigMap padrão em cada Namespace novo, proporcionando uma forma rápida e eficiente de distribuir configurações comuns e informações essenciais. Isso é particularmente útil em cenários onde a consistência e a automatização de configurações são cruciais.</p>
+<hr>
+<h4 id="exemplo-de-política-permitir-apenas-repositórios-confiáveis">Exemplo de Política: Permitir Apenas Repositórios Confiáveis</h4>
+<p>A política <code>ensure-images-from-trusted-repo</code> é essencial para a segurança dos clusters Kubernetes, garantindo que todos os Pods utilizem imagens provenientes apenas de repositórios confiáveis. Esta política ajuda a prevenir a execução de imagens não verificadas ou potencialmente mal-intencionadas.</p>
+<h5 id="detalhes-da-política">Detalhes da Política</h5>
+<p>Esta política impõe que todas as imagens de containers usadas nos Pods devem ser originárias de repositórios especificados e confiáveis. A estratégia é crucial para manter a integridade e a segurança do ambiente de containers, evitando riscos associados a imagens desconhecidas ou não autorizadas.</p>
+<h5 id="arquivo-de-política-registry-allowedyaml">Arquivo de Política: <code>registry-allowed.yaml</code></h5>
+<pre><code class="lang-yaml"><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">kyverno.io/v1</span>
+<span class="hljs-attr">kind:</span> <span class="hljs-string">ClusterPolicy</span>
+<span class="hljs-attr">metadata:</span>
+  <span class="hljs-attr">name:</span> <span class="hljs-string">ensure-images-from-trusted-repo</span>
+<span class="hljs-attr">spec:</span>
+  <span class="hljs-attr">validationFailureAction:</span> <span class="hljs-string">enforce</span>
+  <span class="hljs-attr">rules:</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">trusted-repo-check</span>
+    <span class="hljs-attr">match:</span>
+      <span class="hljs-attr">resources:</span>
+        <span class="hljs-attr">kinds:</span>
+        <span class="hljs-bullet">-</span> <span class="hljs-string">Pod</span>
+    <span class="hljs-attr">validate:</span>
+      <span class="hljs-attr">message:</span> <span class="hljs-string">&quot;Only images from trusted repositories are allowed&quot;</span>
+      <span class="hljs-attr">pattern:</span>
+        <span class="hljs-attr">spec:</span>
+          <span class="hljs-attr">containers:</span>
+          <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">&quot;*&quot;</span>
+            <span class="hljs-attr">image:</span> <span class="hljs-string">&quot;trustedrepo.com/*&quot;</span>
+</code></pre>
+<h5 id="implementação-e-impacto">Implementação e Impacto</h5>
+<p>Com a implementação desta política, qualquer tentativa de implantar um Pod com uma imagem de um repositório não confiável será bloqueada. A política assegura que apenas imagens de fontes aprovadas sejam usadas, fortalecendo a segurança do cluster contra vulnerabilidades e ataques externos.</p>
+<hr>
+<h5 id="exemplo-de-política-require-probes">Exemplo de Política: Require Probes</h5>
+<p>A política <code>require-readinessprobe</code> desempenha um papel crucial no gerenciamento de tráfego e na garantia da disponibilidade de serviços em um cluster Kubernetes. Ela exige que todos os Pods tenham uma sonda de prontidão (readiness probe) configurada, assegurando que o tráfego seja direcionado para os Pods apenas quando estiverem prontos para processar solicitações.</p>
+<h5 id="detalhes-da-política">Detalhes da Política</h5>
+<p>Esta política visa melhorar a confiabilidade e eficiência dos serviços executados no cluster, garantindo que os Pods estejam prontos para receber tráfego antes de serem expostos a solicitações externas. A sonda de prontidão verifica se o Pod está pronto para atender às solicitações, ajudando a evitar interrupções e problemas de desempenho.</p>
+<h5 id="arquivo-de-política-require-probesyaml">Arquivo de Política: <code>require-probes.yaml</code></h5>
+<pre><code class="lang-yaml"><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">kyverno.io/v1</span>
+<span class="hljs-attr">kind:</span> <span class="hljs-string">ClusterPolicy</span>
+<span class="hljs-attr">metadata:</span>
+  <span class="hljs-attr">name:</span> <span class="hljs-string">require-readinessprobe</span>
+<span class="hljs-attr">spec:</span>
+  <span class="hljs-attr">validationFailureAction:</span> <span class="hljs-string">Enforce</span>
+  <span class="hljs-attr">rules:</span>
+    <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">require-readinessProbe</span>
+      <span class="hljs-attr">match:</span>
+        <span class="hljs-attr">resources:</span>
+          <span class="hljs-attr">kinds:</span>
+            <span class="hljs-bullet">-</span> <span class="hljs-string">Pod</span>
+      <span class="hljs-attr">validate:</span>
+        <span class="hljs-attr">message:</span> <span class="hljs-string">&quot;Readiness probe is required.&quot;</span>
+        <span class="hljs-attr">pattern:</span>
+          <span class="hljs-attr">spec:</span>
+            <span class="hljs-attr">containers:</span>
+              <span class="hljs-bullet">-</span> <span class="hljs-attr">readinessProbe:</span>
+                  <span class="hljs-attr">httpGet:</span>
+                    <span class="hljs-attr">path:</span> <span class="hljs-string">&quot;/&quot;</span>
+                    <span class="hljs-attr">port:</span> <span class="hljs-number">8080</span>
+</code></pre>
+<h5 id="implementação-e-impacto">Implementação e Impacto</h5>
+<p>Com a aplicação desta política, todos os novos Pods ou Pods atualizados devem incluir uma configuração de sonda de prontidão, que normalmente envolve a especificação de um caminho e porta para checagem HTTP. Isso assegura que o serviço só receba tráfego quando estiver totalmente operacional, melhorando a confiabilidade e a experiência do usuário.</p>
+<hr>
+<h4 id="exemplo-de-política-usando-o-exclude">Exemplo de Política: Usando o Exclude</h4>
+<p>A política <code>require-resources-limits</code> é uma abordagem proativa para gerenciar a utilização de recursos em um cluster Kubernetes. Ela garante que todos os Pods tenham limites de recursos definidos, como CPU e memória, mas com uma exceção específica para um namespace.</p>
+<h5 id="detalhes-da-política">Detalhes da Política</h5>
+<p>Essa política impõe que cada Pod no cluster tenha limites explícitos de CPU e memória configurados. Isso é crucial para evitar o consumo excessivo de recursos, que pode afetar outros Pods e a estabilidade geral do cluster. No entanto, esta política exclui especificamente o namespace <code>giropops</code> desta regra.</p>
+<h5 id="arquivo-de-política">Arquivo de Política</h5>
+<pre><code class="lang-yaml"><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">kyverno.io/v1</span>
+<span class="hljs-attr">kind:</span> <span class="hljs-string">ClusterPolicy</span>
+<span class="hljs-attr">metadata:</span>
+  <span class="hljs-attr">name:</span> <span class="hljs-string">require-resources-limits</span>
+<span class="hljs-attr">spec:</span>
+  <span class="hljs-attr">validationFailureAction:</span> <span class="hljs-string">Enforce</span>
+  <span class="hljs-attr">rules:</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">validate-limits</span>
+    <span class="hljs-attr">match:</span>
+      <span class="hljs-attr">resources:</span>
+        <span class="hljs-attr">kinds:</span>
+        <span class="hljs-bullet">-</span> <span class="hljs-string">Pod</span>
+    <span class="hljs-attr">exclude:</span>
+      <span class="hljs-attr">resources:</span>
+        <span class="hljs-attr">namespaces:</span>
+        <span class="hljs-bullet">-</span> <span class="hljs-string">giropops</span>
+    <span class="hljs-attr">validate:</span>
+      <span class="hljs-attr">message:</span> <span class="hljs-string">&quot;Precisa definir o limites de recursos&quot;</span>
+      <span class="hljs-attr">pattern:</span>
+        <span class="hljs-attr">spec:</span>
+          <span class="hljs-attr">containers:</span>
+          <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">&quot;*&quot;</span>
+            <span class="hljs-attr">resources:</span>
+              <span class="hljs-attr">limits:</span>
+                <span class="hljs-attr">cpu:</span> <span class="hljs-string">&quot;?*&quot;</span>
+                <span class="hljs-attr">memory:</span> <span class="hljs-string">&quot;?*&quot;</span>
+</code></pre>
+<h5 id="implementação-e-efeitos">Implementação e Efeitos</h5>
+<p>Ao aplicar esta política, todos os Pods novos ou atualizados precisam ter limites de recursos claramente definidos, exceto aqueles no namespace <code>giropops</code>. Isso assegura uma melhor gestão de recursos e evita situações onde alguns Pods possam monopolizar recursos em detrimento de outros.</p>
+<hr>
+<h3 id="conclusão">Conclusão</h3>
+<p>Ao longo deste artigo, exploramos as capacidades e funcionalidades do Kyverno, uma ferramenta inovadora e essencial para o gerenciamento de políticas em clusters Kubernetes. Compreendemos como o Kyverno simplifica e automatiza tarefas críticas relacionadas à segurança, conformidade e configuração, tornando-se um componente indispensável na administração de ambientes Kubernetes.</p>
+<h4 id="pontos-chave-aprendidos">Pontos-Chave Aprendidos</h4>
+<ol>
+<li><p><strong>Automação e Conformidade:</strong> Vimos como o Kyverno permite definir, gerenciar e aplicar políticas de forma declarativa, garantindo que os recursos do Kubernetes estejam sempre em conformidade com as regras e normas estabelecidas. Esta abordagem reduz significativamente o esforço manual, minimiza erros e assegura uma maior consistência em todo o ambiente.</p>
+</li>
+<li><p><strong>Validação, Mutação e Geração de Recursos:</strong> Aprendemos sobre as três funções principais do Kyverno – validação, mutação e geração de recursos – e como cada uma delas desempenha um papel vital na gestão eficaz do cluster. Estas funções proporcionam um controle granular sobre os recursos, desde a garantia de limites de CPU e memória até a aplicação automática de labels e a criação dinâmica de ConfigMaps.</p>
+</li>
+<li><p><strong>Flexibilidade de Políticas:</strong> Discutimos a diferença entre <code>ClusterPolicy</code> e <code>Policy</code>, destacando como o Kyverno oferece flexibilidade para aplicar políticas em todo o cluster ou em namespaces específicos. Isso permite uma gestão personalizada e adaptada às necessidades de diferentes partes do cluster.</p>
+</li>
+<li><p><strong>Instalação e Verificação:</strong> Abordamos as várias maneiras de instalar o Kyverno, com foco especial no uso do Helm, um gerenciador de pacotes popular para Kubernetes. Também exploramos como verificar a instalação correta do Kyverno, assegurando que tudo esteja funcionando conforme esperado.</p>
+</li>
+<li><p><strong>Práticas de Segurança:</strong> O artigo enfatizou a importância da segurança em Kubernetes, demonstrada por políticas como a proibição de execução de containers como usuário root e a exigência de imagens provenientes de repositórios confiáveis. Essas políticas ajudam a prevenir vulnerabilidades e garantir a integridade do cluster.</p>
+</li>
+<li><p><strong>Automatização e Eficiência:</strong> Por fim, aprendemos como o Kyverno facilita a automatização e a eficiência operacional. As políticas do Kyverno reduzem a necessidade de intervenção manual, aumentam a segurança e ajudam na conformidade regulatória, tornando a administração do Kubernetes mais simples e confiável.</p>
+</li>
+</ol>
+<p>Em resumo, o Kyverno é uma ferramenta poderosa que transforma a maneira como as políticas são gerenciadas em Kubernetes. Seu enfoque na automação, flexibilidade e segurança o torna um componente essencial para qualquer administrador de Kubernetes que deseja otimizar a gestão de clusters, assegurar a conformidade e reforçar a segurança. Com o Kyverno, podemos atingir um nível mais alto de eficiência e confiança nos nossos ambientes Kubernetes, preparando-nos para enfrentar os desafios de um ecossistema em constante evolução.</p>
+<hr>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="../day-12/" class="navigation navigation-prev " aria-label="Previous page: Descomplicando Kubernetes dia 12">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="../day-14/README.md" class="navigation navigation-next " aria-label="Next page: Descomplicando Kubernetes dia 14">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"Descomplicando Kubernetes dia 13","level":"2.13","depth":1,"next":{"title":"Descomplicando Kubernetes dia 14","level":"2.14","depth":1,"path":"day-14/README.md","ref":"day-14/README.md","articles":[]},"previous":{"title":"Descomplicando Kubernetes dia 12","level":"2.12","depth":1,"path":"day-12/README.md","ref":"day-12/README.md","articles":[]},"dir":"ltr"},"config":{"plugins":[],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"language":"pt","gitbook":"*"},"file":{"path":"day-13/README.md","mtime":"2024-01-18T11:49:32.111Z","type":"markdown"},"gitbook":{"version":"3.6.20","time":"2024-01-18T11:49:40.137Z"},"basePath":"..","book":{"language":"pt"}});
+        });
+    </script>
+</div>
+
+        
+    <noscript>
+        <style>
+            .honkit-cloak {
+                display: block !important;
+            }
+        </style>
+    </noscript>
+    <script>
+        // Restore sidebar state as critical path for prevent layout shift
+        function __init__getSidebarState(defaultValue){
+            var baseKey = "";
+            var key = baseKey + ":sidebar";
+            try {
+                var value = localStorage[key];
+                if (value === undefined) {
+                    return defaultValue;
+                }
+                var parsed = JSON.parse(value);
+                return parsed == null ? defaultValue : parsed;
+            } catch (e) {
+                return defaultValue;
+            }
+        }
+        function __init__restoreLastSidebarState() {
+            var isMobile = window.matchMedia("(max-width: 600px)").matches;
+            if (isMobile) {
+                // Init last state if not mobile
+                return;
+            }
+            var sidebarState = __init__getSidebarState(true);
+            var book = document.querySelector(".book");
+            // Show sidebar if it enabled
+            if (sidebarState && book) {
+                book.classList.add("without-animation", "with-summary");
+            }
+        }
+
+        try {
+            __init__restoreLastSidebarState();
+        } finally {
+            var book = document.querySelector(".book");
+            book.classList.remove("honkit-cloak");
+        }
+    </script>
+    <script src="../../gitbook/gitbook.js"></script>
+    <script src="../../gitbook/theme.js"></script>
+    
+        
+        <script src="../../gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+

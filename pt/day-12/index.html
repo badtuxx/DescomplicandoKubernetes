@@ -1,0 +1,731 @@
+
+<!DOCTYPE HTML>
+<html lang="pt" >
+    <head>
+        <meta charset="UTF-8">
+        <title>Descomplicando Kubernetes dia 12 · HonKit</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="HonKit 3.6.20">
+        
+        
+        
+    
+    <link rel="stylesheet" href="../../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="../day-13/" />
+    
+    
+    <link rel="prev" href="../day-11/" />
+    
+
+    </head>
+    <body>
+        
+<div class="book honkit-cloak">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="Escreva para pesquisar" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        <li class="header">Sobre</li>
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../">
+            
+                <a href="../">
+            
+                    
+                    Introdução
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="header">Capítulos</li>
+        
+        
+    
+        <li class="chapter " data-level="2.1" data-path="../day-1/">
+            
+                <a href="../day-1/">
+            
+                    
+                    Descomplicando Kubernetes dia 1
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.2" data-path="../day-2/">
+            
+                <a href="../day-2/">
+            
+                    
+                    Descomplicando Kubernetes dia 2
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.3" data-path="../day-3/">
+            
+                <a href="../day-3/">
+            
+                    
+                    Descomplicando Kubernetes dia 3
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.4" data-path="../day-4/">
+            
+                <a href="../day-4/">
+            
+                    
+                    Descomplicando Kubernetes dia 4
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.5" data-path="../day-5/">
+            
+                <a href="../day-5/">
+            
+                    
+                    Descomplicando Kubernetes dia 5
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.6" data-path="../day-6/">
+            
+                <a href="../day-6/">
+            
+                    
+                    Descomplicando Kubernetes dia 6
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.7" data-path="../day-7/">
+            
+                <a href="../day-7/">
+            
+                    
+                    Descomplicando Kubernetes dia 7
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.8" data-path="../day-8/">
+            
+                <a href="../day-8/">
+            
+                    
+                    Descomplicando Kubernetes dia 8
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.9" data-path="../day-9/">
+            
+                <a href="../day-9/">
+            
+                    
+                    Descomplicando Kubernetes dia 9
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.10" data-path="../day-10/">
+            
+                <a href="../day-10/">
+            
+                    
+                    Descomplicando Kubernetes dia 10
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.11" data-path="../day-11/">
+            
+                <a href="../day-11/">
+            
+                    
+                    Descomplicando Kubernetes dia 11
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="2.12" data-path="./">
+            
+                <a href="./">
+            
+                    
+                    Descomplicando Kubernetes dia 12
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.13" data-path="../day-13/">
+            
+                <a href="../day-13/">
+            
+                    
+                    Descomplicando Kubernetes dia 13
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.14" data-path="../day-14/README.md">
+            
+                <span>
+            
+                    
+                    Descomplicando Kubernetes dia 14
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.15" data-path="../day-15/README.md">
+            
+                <span>
+            
+                    
+                    Descomplicando Kubernetes dia 15
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="header">Contribuir</li>
+        
+        
+    
+        <li class="chapter " data-level="3.1" data-path="../CONTRIBUTING.html">
+            
+                <a href="../CONTRIBUTING.html">
+            
+                    
+                    Como ajudar
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://github.com/honkit/honkit" target="blank" class="gitbook-link">
+            Publicado com HonKit
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href=".." >Descomplicando Kubernetes dia 12</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h1 id="descomplicando-o-kubernetes">Descomplicando o Kubernetes</h1>
+<h2 id="day-12-dominando-taints-e-tolerations">DAY-12: Dominando Taints e Tolerations</h2>
+<h2 id="conteúdo-do-day-12">Conteúdo do Day-12</h2>
+<ul>
+<li><a href="#descomplicando-o-kubernetes">Descomplicando o Kubernetes</a><ul>
+<li><a href="#day-12-dominando-taints-e-tolerations">DAY-12: Dominando Taints e Tolerations</a></li>
+<li><a href="#conteúdo-do-day-12">Conteúdo do Day-12</a><ul>
+<li><a href="#introdução">Introdução</a></li>
+<li><a href="#o-que-são-taints-e-tolerations">O que são Taints e Tolerations?</a></li>
+<li><a href="#por-que-usar-taints-e-tolerations">Por que usar Taints e Tolerations?</a></li>
+<li><a href="#anatomia-de-um-taint">Anatomia de um Taint</a></li>
+<li><a href="#anatomia-de-uma-toleration">Anatomia de uma Toleration</a></li>
+<li><a href="#aplicando-taints">Aplicando Taints</a></li>
+<li><a href="#configurando-tolerations">Configurando Tolerations</a></li>
+<li><a href="#cenários-de-uso">Cenários de Uso</a><ul>
+<li><a href="#isolamento-de-workloads">Isolamento de Workloads</a></li>
+<li><a href="#nodes-especializados">Nodes Especializados</a></li>
+<li><a href="#evacuação-e-manutenção-de-nodes">Evacuação e Manutenção de Nodes</a></li>
+</ul>
+</li>
+<li><a href="#combinando-taints-e-tolerations-com-affinity-rules">Combinando Taints e Tolerations com Affinity Rules</a></li>
+<li><a href="#exemplos-práticos">Exemplos Práticos</a><ul>
+<li><a href="#exemplo-1-isolamento-de-workloads">Exemplo 1: Isolamento de Workloads</a></li>
+<li><a href="#exemplo-2-utilizando-hardware-especializado">Exemplo 2: Utilizando Hardware Especializado</a></li>
+<li><a href="#exemplo-3-manutenção-de-nodes">Exemplo 3: Manutenção de Nodes</a></li>
+</ul>
+</li>
+<li><a href="#conclusão">Conclusão</a></li>
+<li><a href="#tarefas-do-dia">Tarefas do Dia</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#descomplicando-o-kubernetes-1">Descomplicando o Kubernetes</a><ul>
+<li><a href="#day-121-entendendo-e-dominando-os-selectors">DAY-12+1: Entendendo e Dominando os Selectors</a></li>
+<li><a href="#conteúdo-do-day-121">Conteúdo do Day-12+1</a><ul>
+<li><a href="#introdução-1">Introdução</a></li>
+<li><a href="#o-que-são-selectors">O que são Selectors?</a></li>
+<li><a href="#tipos-de-selectors">Tipos de Selectors</a><ul>
+<li><a href="#equality-based-selectors">Equality-based Selectors</a></li>
+<li><a href="#set-based-selectors">Set-based Selectors</a></li>
+</ul>
+</li>
+<li><a href="#selectors-em-ação">Selectors em Ação</a><ul>
+<li><a href="#em-services">Em Services</a></li>
+<li><a href="#em-replicasets">Em ReplicaSets</a></li>
+<li><a href="#em-jobs-e-cronjobs">Em Jobs e CronJobs</a></li>
+</ul>
+</li>
+<li><a href="#selectors-e-namespaces">Selectors e Namespaces</a></li>
+<li><a href="#cenários-de-uso-1">Cenários de Uso</a><ul>
+<li><a href="#roteamento-de-tráfego">Roteamento de Tráfego</a></li>
+<li><a href="#scaling-horizontal">Scaling Horizontal</a></li>
+<li><a href="#desastre-e-recuperação">Desastre e Recuperação</a></li>
+</ul>
+</li>
+<li><a href="#dicas-e-armadilhas">Dicas e Armadilhas</a></li>
+<li><a href="#exemplos-práticos-1">Exemplos Práticos</a><ul>
+<li><a href="#exemplo-1-selector-em-um-service">Exemplo 1: Selector em um Service</a></li>
+<li><a href="#exemplo-2-selector-em-um-replicaset">Exemplo 2: Selector em um ReplicaSet</a></li>
+<li><a href="#exemplo-3-selectors-avançados">Exemplo 3: Selectors Avançados</a></li>
+</ul>
+</li>
+<li><a href="#conclusão-1">Conclusão</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="introdução">Introdução</h3>
+<p>Olá, galera! No capítulo de hoje, vamos mergulhar fundo em um dos conceitos mais poderosos e flexíveis do Kubernetes: Taints e Tolerations. Prepare-se, pois este capítulo vai além do básico e entra em detalhes que você não vai querer perder. #VAIIII</p>
+<h3 id="o-que-são-taints-e-tolerations">O que são Taints e Tolerations?</h3>
+<p>Taints são &quot;manchas&quot; ou &quot;marcações&quot; aplicadas aos Nodes que os marcam para evitar que certos Pods sejam agendados neles. Por outro lado, Tolerations são configurações que podem ser aplicadas aos Pods para permitir que eles sejam agendados em Nodes com Taints específicos.</p>
+<h3 id="por-que-usar-taints-e-tolerations">Por que usar Taints e Tolerations?</h3>
+<p>Em um cluster Kubernetes diversificado, nem todos os Nodes são iguais. Alguns podem ter acesso a recursos especiais como GPUs, enquanto outros podem ser reservados para workloads críticos. Taints e Tolerations fornecem um mecanismo para garantir que os Pods sejam agendados nos Nodes apropriados.</p>
+<h3 id="anatomia-de-um-taint">Anatomia de um Taint</h3>
+<p>Um Taint é composto por uma <code>chave</code>, um <code>valor</code> e um <code>efeito</code>. O efeito pode ser:</p>
+<ul>
+<li><code>NoSchedule</code>: O Kubernetes não agenda o Pod a menos que ele tenha uma Toleration correspondente.</li>
+<li><code>PreferNoSchedule</code>: O Kubernetes tenta não agendar, mas não é uma garantia.</li>
+<li><code>NoExecute</code>: Os Pods existentes são removidos se não tiverem uma Toleration correspondente.</li>
+</ul>
+<h3 id="anatomia-de-uma-toleration">Anatomia de uma Toleration</h3>
+<p>Uma Toleration é definida pelos mesmos elementos de um Taint: <code>chave</code>, <code>valor</code> e <code>efeito</code>. Além disso, ela contém um <code>operador</code>, que pode ser <code>Equal</code> ou <code>Exists</code>.</p>
+<h3 id="aplicando-taints">Aplicando Taints</h3>
+<p>Para aplicar um Taint a um Node, você utiliza o comando <code>kubectl taint</code>. Por exemplo:</p>
+<pre><code class="lang-bash">kubectl taint nodes node1 key=value:NoSchedule
+</code></pre>
+<h3 id="configurando-tolerations">Configurando Tolerations</h3>
+<p>Tolerations são configuradas no PodSpec. Aqui está um exemplo:</p>
+<pre><code class="lang-yaml"><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">v1</span>
+<span class="hljs-attr">kind:</span> <span class="hljs-string">Pod</span>
+<span class="hljs-attr">metadata:</span>
+  <span class="hljs-attr">name:</span> <span class="hljs-string">my-pod</span>
+<span class="hljs-attr">spec:</span>
+  <span class="hljs-attr">tolerations:</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-attr">key:</span> <span class="hljs-string">&quot;key&quot;</span>
+    <span class="hljs-attr">operator:</span> <span class="hljs-string">&quot;Equal&quot;</span>
+    <span class="hljs-attr">value:</span> <span class="hljs-string">&quot;value&quot;</span>
+    <span class="hljs-attr">effect:</span> <span class="hljs-string">&quot;NoSchedule&quot;</span>
+</code></pre>
+<h3 id="cenários-de-uso">Cenários de Uso</h3>
+<h4 id="isolamento-de-workloads">Isolamento de Workloads</h4>
+<p>Imagine um cenário onde você tem Nodes que devem ser dedicados a workloads de produção e não devem executar Pods de desenvolvimento.</p>
+<p>Aplicar Taint:</p>
+<pre><code class="lang-bash">kubectl taint nodes prod-node environment=production:NoSchedule
+</code></pre>
+<p>Toleration em Pod de produção:</p>
+<pre><code class="lang-yaml"><span class="hljs-attr">tolerations:</span>
+<span class="hljs-bullet">-</span> <span class="hljs-attr">key:</span> <span class="hljs-string">&quot;environment&quot;</span>
+  <span class="hljs-attr">operator:</span> <span class="hljs-string">&quot;Equal&quot;</span>
+  <span class="hljs-attr">value:</span> <span class="hljs-string">&quot;production&quot;</span>
+  <span class="hljs-attr">effect:</span> <span class="hljs-string">&quot;NoSchedule&quot;</span>
+</code></pre>
+<h4 id="nodes-especializados">Nodes Especializados</h4>
+<p>Se você tem Nodes com GPUs e quer garantir que apenas Pods que necessitem de GPUs sejam agendados ali.</p>
+<p>Aplicar Taint:</p>
+<pre><code class="lang-bash">kubectl taint nodes gpu-node gpu=<span class="hljs-literal">true</span>:NoSchedule
+</code></pre>
+<p>Toleration em Pod que necessita de GPU:</p>
+<pre><code class="lang-yaml"><span class="hljs-attr">tolerations:</span>
+<span class="hljs-bullet">-</span> <span class="hljs-attr">key:</span> <span class="hljs-string">&quot;gpu&quot;</span>
+  <span class="hljs-attr">operator:</span> <span class="hljs-string">&quot;Equal&quot;</span>
+  <span class="hljs-attr">value:</span> <span class="hljs-string">&quot;true&quot;</span>
+  <span class="hljs-attr">effect:</span> <span class="hljs-string">&quot;NoSchedule&quot;</span>
+</code></pre>
+<h4 id="evacuação-e-manutenção-de-nodes">Evacuação e Manutenção de Nodes</h4>
+<p>Se você precisa realizar manutenção em um Node e quer evitar que novos Pods sejam agendados nele.</p>
+<p>Aplicar Taint:</p>
+<pre><code class="lang-bash">kubectl taint nodes node1 maintenance=<span class="hljs-literal">true</span>:NoExecute
+</code></pre>
+<h3 id="combinando-taints-e-tolerations-com-affinity-rules">Combinando Taints e Tolerations com Affinity Rules</h3>
+<p>Você pode combinar Taints e Tolerations com regras de afinidade para um controle ainda mais granular.</p>
+<h3 id="exemplos-práticos">Exemplos Práticos</h3>
+<h4 id="exemplo-1-isolamento-de-workloads">Exemplo 1: Isolamento de Workloads</h4>
+<p>Vamos criar um Node com um Taint e tentar agendar um Pod sem a Toleration correspondente.</p>
+<pre><code class="lang-bash"><span class="hljs-comment"># Aplicar Taint</span>
+kubectl taint nodes dev-node environment=development:NoSchedule
+
+<span class="hljs-comment"># Tentar agendar Pod</span>
+kubectl run nginx --image=nginx
+</code></pre>
+<p>Observe que o Pod não será agendado até que uma Toleration seja adicionada.</p>
+<h4 id="exemplo-2-utilizando-hardware-especializado">Exemplo 2: Utilizando Hardware Especializado</h4>
+<p>Vamos criar um Node com uma GPU e aplicar um Taint correspondente.</p>
+<pre><code class="lang-bash"><span class="hljs-comment"># Aplicar Taint</span>
+kubectl taint nodes gpu-node gpu=<span class="hljs-literal">true</span>:NoSchedule
+
+<span class="hljs-comment"># Agendar Pod com Toleration</span>
+kubectl apply -f gpu-pod.yaml
+</code></pre>
+<p>Onde <code>gpu-pod.yaml</code> contém a Toleration correspondente.</p>
+<h4 id="exemplo-3-manutenção-de-nodes">Exemplo 3: Manutenção de Nodes</h4>
+<p>Vamos simular uma manutenção, aplicando um Taint em um</p>
+<p> Node e observando como os Pods são removidos.</p>
+<pre><code class="lang-bash"><span class="hljs-comment"># Aplicar Taint</span>
+kubectl taint nodes node1 maintenance=<span class="hljs-literal">true</span>:NoExecute
+</code></pre>
+<h3 id="conclusão">Conclusão</h3>
+<p>Taints e Tolerations são ferramentas poderosas para o controle refinado do agendamento de Pods. Com elas, você pode isolar workloads, aproveitar hardware especializado e até gerenciar manutenções de forma mais eficaz.</p>
+<h3 id="tarefas-do-dia">Tarefas do Dia</h3>
+<ol>
+<li>Aplique um Taint em um dos seus Nodes e tente agendar um Pod sem a Toleration correspondente.</li>
+<li>Remova o Taint e observe o comportamento.</li>
+<li>Adicione uma Toleration ao Pod e repita o processo.</li>
+</ol>
+<h1 id="descomplicando-o-kubernetes">Descomplicando o Kubernetes</h1>
+<h2 id="day-121-entendendo-e-dominando-os-selectors">DAY-12+1: Entendendo e Dominando os Selectors</h2>
+<h2 id="conteúdo-do-day-121">Conteúdo do Day-12+1</h2>
+<h3 id="introdução">Introdução</h3>
+<p>E aí, pessoal! No capítulo de hoje, vamos nos aprofundar em um dos recursos mais versáteis e fundamentais do Kubernetes: os Selectors. Preparados? Então #VAIIII!</p>
+<h3 id="o-que-são-selectors">O que são Selectors?</h3>
+<p>Selectors são formas de selecionar recursos, como Pods, com base em suas labels. Eles são a cola que une vários componentes do Kubernetes, como Services e ReplicaSets.</p>
+<h3 id="tipos-de-selectors">Tipos de Selectors</h3>
+<h4 id="equality-based-selectors">Equality-based Selectors</h4>
+<p>Estes são os mais simples, usando operadores como <code>=</code>, <code>==</code>, e <code>!=</code>.</p>
+<p>Exemplo:</p>
+<pre><code class="lang-bash">kubectl get pods -l environment=production
+</code></pre>
+<h4 id="set-based-selectors">Set-based Selectors</h4>
+<p>Estes são mais complexos e usam operadores como <code>in</code>, <code>notin</code>, e <code>exists</code>.</p>
+<p>Exemplo:</p>
+<pre><code class="lang-bash">kubectl get pods -l <span class="hljs-string">&apos;environment in (production, qa)&apos;</span>
+</code></pre>
+<h3 id="selectors-em-ação">Selectors em Ação</h3>
+<h4 id="em-services">Em Services</h4>
+<p>Services usam selectors para direcionar tráfego para Pods específicos.</p>
+<p>Exemplo:</p>
+<pre><code class="lang-yaml"><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">v1</span>
+<span class="hljs-attr">kind:</span> <span class="hljs-string">Service</span>
+<span class="hljs-attr">metadata:</span>
+  <span class="hljs-attr">name:</span> <span class="hljs-string">my-service</span>
+<span class="hljs-attr">spec:</span>
+  <span class="hljs-attr">selector:</span>
+    <span class="hljs-attr">app:</span> <span class="hljs-string">MyApp</span>
+</code></pre>
+<h4 id="em-replicasets">Em ReplicaSets</h4>
+<p>ReplicaSets usam selectors para saber quais Pods gerenciar.</p>
+<p>Exemplo:</p>
+<pre><code class="lang-yaml"><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">apps/v1</span>
+<span class="hljs-attr">kind:</span> <span class="hljs-string">ReplicaSet</span>
+<span class="hljs-attr">metadata:</span>
+  <span class="hljs-attr">name:</span> <span class="hljs-string">my-replicaset</span>
+<span class="hljs-attr">spec:</span>
+  <span class="hljs-attr">selector:</span>
+    <span class="hljs-attr">matchLabels:</span>
+      <span class="hljs-attr">app:</span> <span class="hljs-string">MyApp</span>
+</code></pre>
+<h4 id="em-jobs-e-cronjobs">Em Jobs e CronJobs</h4>
+<p>Jobs e CronJobs também podem usar selectors para executar tarefas em Pods específicos.</p>
+<h3 id="selectors-e-namespaces">Selectors e Namespaces</h3>
+<p>É crucial entender que os selectors não atravessam namespaces; eles são eficazes apenas dentro do namespace atual, a menos que especificado de outra forma.</p>
+<h3 id="cenários-de-uso">Cenários de Uso</h3>
+<h4 id="roteamento-de-tráfego">Roteamento de Tráfego</h4>
+<p>Use selectors em Services para direcionar tráfego para versões específicas de uma aplicação.</p>
+<h4 id="scaling-horizontal">Scaling Horizontal</h4>
+<p>Use selectors em Horizontal Pod Autoscalers para escalar apenas os Pods que atendem a critérios específicos.</p>
+<h4 id="desastre-e-recuperação">Desastre e Recuperação</h4>
+<p>Em casos de failover, você pode usar selectors para direcionar tráfego para Pods em um cluster secundário.</p>
+<h3 id="dicas-e-armadilhas">Dicas e Armadilhas</h3>
+<ul>
+<li>Não mude as labels de Pods que são alvos de Services sem atualizar o selector do Service.</li>
+<li>Use selectors de forma consistente para evitar confusões.</li>
+</ul>
+<h3 id="exemplos-práticos">Exemplos Práticos</h3>
+<h4 id="exemplo-1-selector-em-um-service">Exemplo 1: Selector em um Service</h4>
+<p>Vamos criar um Service que seleciona todos os Pods com a label <code>frontend</code>.</p>
+<pre><code class="lang-bash">kubectl apply -f frontend-service.yaml
+</code></pre>
+<h4 id="exemplo-2-selector-em-um-replicaset">Exemplo 2: Selector em um ReplicaSet</h4>
+<p>Vamos criar um ReplicaSet que gerencia todos os Pods com a label <code>backend</code>.</p>
+<pre><code class="lang-bash">kubectl apply -f backend-replicaset.yaml
+</code></pre>
+<h4 id="exemplo-3-selectors-avançados">Exemplo 3: Selectors Avançados</h4>
+<p>Vamos fazer uma query complexa para selecionar Pods com base em múltiplas labels.</p>
+<pre><code class="lang-bash">kubectl get pods -l <span class="hljs-string">&apos;release-version in (v1, v2),environment!=debug&apos;</span>
+</code></pre>
+<h3 id="conclusão">Conclusão</h3>
+<p>Selectors são uma ferramenta poderosa e flexível no Kubernetes, permitindo um controle fino sobre como os recursos interagem. Dominar este conceito é fundamental para qualquer um que trabalhe com Kubernetes.</p>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="../day-11/" class="navigation navigation-prev " aria-label="Previous page: Descomplicando Kubernetes dia 11">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="../day-13/" class="navigation navigation-next " aria-label="Next page: Descomplicando Kubernetes dia 13">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"Descomplicando Kubernetes dia 12","level":"2.12","depth":1,"next":{"title":"Descomplicando Kubernetes dia 13","level":"2.13","depth":1,"path":"day-13/README.md","ref":"day-13/README.md","articles":[]},"previous":{"title":"Descomplicando Kubernetes dia 11","level":"2.11","depth":1,"path":"day-11/README.md","ref":"day-11/README.md","articles":[]},"dir":"ltr"},"config":{"plugins":[],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"language":"pt","gitbook":"*"},"file":{"path":"day-12/README.md","mtime":"2024-01-18T11:49:32.111Z","type":"markdown"},"gitbook":{"version":"3.6.20","time":"2024-01-18T11:49:40.137Z"},"basePath":"..","book":{"language":"pt"}});
+        });
+    </script>
+</div>
+
+        
+    <noscript>
+        <style>
+            .honkit-cloak {
+                display: block !important;
+            }
+        </style>
+    </noscript>
+    <script>
+        // Restore sidebar state as critical path for prevent layout shift
+        function __init__getSidebarState(defaultValue){
+            var baseKey = "";
+            var key = baseKey + ":sidebar";
+            try {
+                var value = localStorage[key];
+                if (value === undefined) {
+                    return defaultValue;
+                }
+                var parsed = JSON.parse(value);
+                return parsed == null ? defaultValue : parsed;
+            } catch (e) {
+                return defaultValue;
+            }
+        }
+        function __init__restoreLastSidebarState() {
+            var isMobile = window.matchMedia("(max-width: 600px)").matches;
+            if (isMobile) {
+                // Init last state if not mobile
+                return;
+            }
+            var sidebarState = __init__getSidebarState(true);
+            var book = document.querySelector(".book");
+            // Show sidebar if it enabled
+            if (sidebarState && book) {
+                book.classList.add("without-animation", "with-summary");
+            }
+        }
+
+        try {
+            __init__restoreLastSidebarState();
+        } finally {
+            var book = document.querySelector(".book");
+            book.classList.remove("honkit-cloak");
+        }
+    </script>
+    <script src="../../gitbook/gitbook.js"></script>
+    <script src="../../gitbook/theme.js"></script>
+    
+        
+        <script src="../../gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+

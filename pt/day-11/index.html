@@ -1,0 +1,781 @@
+
+<!DOCTYPE HTML>
+<html lang="pt" >
+    <head>
+        <meta charset="UTF-8">
+        <title>Descomplicando Kubernetes dia 11 · HonKit</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="HonKit 3.6.20">
+        
+        
+        
+    
+    <link rel="stylesheet" href="../../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="../day-12/" />
+    
+    
+    <link rel="prev" href="../day-10/" />
+    
+
+    </head>
+    <body>
+        
+<div class="book honkit-cloak">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="Escreva para pesquisar" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        <li class="header">Sobre</li>
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../">
+            
+                <a href="../">
+            
+                    
+                    Introdução
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="header">Capítulos</li>
+        
+        
+    
+        <li class="chapter " data-level="2.1" data-path="../day-1/">
+            
+                <a href="../day-1/">
+            
+                    
+                    Descomplicando Kubernetes dia 1
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.2" data-path="../day-2/">
+            
+                <a href="../day-2/">
+            
+                    
+                    Descomplicando Kubernetes dia 2
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.3" data-path="../day-3/">
+            
+                <a href="../day-3/">
+            
+                    
+                    Descomplicando Kubernetes dia 3
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.4" data-path="../day-4/">
+            
+                <a href="../day-4/">
+            
+                    
+                    Descomplicando Kubernetes dia 4
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.5" data-path="../day-5/">
+            
+                <a href="../day-5/">
+            
+                    
+                    Descomplicando Kubernetes dia 5
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.6" data-path="../day-6/">
+            
+                <a href="../day-6/">
+            
+                    
+                    Descomplicando Kubernetes dia 6
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.7" data-path="../day-7/">
+            
+                <a href="../day-7/">
+            
+                    
+                    Descomplicando Kubernetes dia 7
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.8" data-path="../day-8/">
+            
+                <a href="../day-8/">
+            
+                    
+                    Descomplicando Kubernetes dia 8
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.9" data-path="../day-9/">
+            
+                <a href="../day-9/">
+            
+                    
+                    Descomplicando Kubernetes dia 9
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.10" data-path="../day-10/">
+            
+                <a href="../day-10/">
+            
+                    
+                    Descomplicando Kubernetes dia 10
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="2.11" data-path="./">
+            
+                <a href="./">
+            
+                    
+                    Descomplicando Kubernetes dia 11
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.12" data-path="../day-12/">
+            
+                <a href="../day-12/">
+            
+                    
+                    Descomplicando Kubernetes dia 12
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.13" data-path="../day-13/">
+            
+                <a href="../day-13/">
+            
+                    
+                    Descomplicando Kubernetes dia 13
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.14" data-path="../day-14/README.md">
+            
+                <span>
+            
+                    
+                    Descomplicando Kubernetes dia 14
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.15" data-path="../day-15/README.md">
+            
+                <span>
+            
+                    
+                    Descomplicando Kubernetes dia 15
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="header">Contribuir</li>
+        
+        
+    
+        <li class="chapter " data-level="3.1" data-path="../CONTRIBUTING.html">
+            
+                <a href="../CONTRIBUTING.html">
+            
+                    
+                    Como ajudar
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://github.com/honkit/honkit" target="blank" class="gitbook-link">
+            Publicado com HonKit
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href=".." >Descomplicando Kubernetes dia 11</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h1 id="descomplicando-o-kubernetes">Descomplicando o Kubernetes</h1>
+<h2 id="day-11">DAY-11</h2>
+<p> </p>
+<h2 id="conteúdo-do-day-11">Conteúdo do Day-11</h2>
+<ul>
+<li><a href="#descomplicando-o-kubernetes">Descomplicando o Kubernetes</a><ul>
+<li><a href="#day-11">DAY-11</a></li>
+<li><a href="#conteúdo-do-day-11">Conteúdo do Day-11</a><ul>
+<li><a href="#início-da-aula-do-day-11">Início da aula do Day-11</a><ul>
+<li><a href="#o-que-iremos-ver-hoje">O que iremos ver hoje?</a></li>
+<li><a href="#introdução-ao-horizontal-pod-autoscaler-hpa">Introdução ao Horizontal Pod Autoscaler (HPA)</a></li>
+<li><a href="#como-o-hpa-funciona">Como o HPA Funciona?</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#introdução-ao-metrics-server">Introdução ao Metrics Server</a><ul>
+<li><a href="#por-que-o-metrics-server-é-importante-para-o-hpa">Por que o Metrics Server é importante para o HPA?</a></li>
+<li><a href="#instalando-o-metrics-server">Instalando o Metrics Server</a><ul>
+<li><a href="#no-amazon-eks-e-na-maioria-dos-clusters-kubernetes">No Amazon EKS e na maioria dos clusters Kubernetes</a></li>
+<li><a href="#no-minikube">No Minikube:</a></li>
+<li><a href="#no-kind-kubernetes-in-docker">No KinD (Kubernetes in Docker):</a></li>
+<li><a href="#verificando-a-instalação-do-metrics-server">Verificando a Instalação do Metrics Server</a></li>
+<li><a href="#obtendo-métricas">Obtendo Métricas</a></li>
+</ul>
+</li>
+<li><a href="#criando-um-hpa">Criando um HPA</a></li>
+<li><a href="#exemplos-práticos-com-hpa">Exemplos Práticos com HPA</a><ul>
+<li><a href="#autoscaling-com-base-na-utilização-de-cpu">Autoscaling com base na utilização de CPU</a></li>
+<li><a href="#autoscaling-com-base-na-utilização-de-memória">Autoscaling com base na utilização de Memória</a></li>
+<li><a href="#configuração-avançada-de-hpa-definindo-comportamento-de-escalonamento">Configuração Avançada de HPA: Definindo Comportamento de Escalonamento</a></li>
+<li><a href="#containerresource">ContainerResource</a></li>
+<li><a href="#detalhes-do-algoritmo-de-escalonamento">Detalhes do Algoritmo de Escalonamento</a></li>
+<li><a href="#configurações-avançadas-e-uso-prático">Configurações Avançadas e Uso Prático</a></li>
+<li><a href="#integrando-hpa-com-prometheus-para-métricas-customizadas">Integrando HPA com Prometheus para Métricas Customizadas</a></li>
+</ul>
+</li>
+<li><a href="#a-sua-lição-de-casa">A sua lição de casa</a></li>
+<li><a href="#final-do-day-11">Final do Day-11</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p> </p>
+<h3 id="início-da-aula-do-day-11">Início da aula do Day-11</h3>
+<h4 id="o-que-iremos-ver-hoje">O que iremos ver hoje?</h4>
+<p>Hoje é um dia particularmente fascinante! Vamos desbravar os territórios do Kubernetes, explorando a magia do Horizontal Pod Autoscaler (HPA), uma ferramenta indispensável para quem almeja uma operação eficiente e resiliente. Portanto, afivelem os cintos e preparem-se para uma jornada de descobertas. A aventura #VAIIII começar!</p>
+<h4 id="introdução-ao-horizontal-pod-autoscaler-hpa">Introdução ao Horizontal Pod Autoscaler (HPA)</h4>
+<p>O Horizontal Pod Autoscaler, carinhosamente conhecido como HPA, é uma das joias brilhantes incrustadas no coração do Kubernetes. Com o HPA, podemos ajustar automaticamente o número de réplicas de um conjunto de pods, assegurando que nosso aplicativo tenha sempre os recursos necessários para performar eficientemente, sem desperdiçar recursos. O HPA é como um maestro que, com a batuta das métricas, rege a orquestra de pods, assegurando que a harmonia seja mantida mesmo quando a sinfonia do tráfego de rede atinge seu crescendo.</p>
+<h4 id="como-o-hpa-funciona">Como o HPA Funciona?</h4>
+<p>O HPA é o olheiro vigilante que monitora as métricas dos nossos pods. A cada batida do seu coração métrico, que ocorre em intervalos regulares, ele avalia se os pods estão suando a camisa para atender às demandas ou se estão relaxando mais do que deveriam. Com base nessa avaliação, ele toma a decisão sábia de convocar mais soldados para o campo de batalha ou de dispensar alguns para um merecido descanso.</p>
+<p>Certamente! O Metrics Server é uma componente crucial para o funcionamento do Horizontal Pod Autoscaler (HPA), pois fornece as métricas necessárias para que o HPA tome decisões de escalonamento. Vamos entender um pouco mais sobre o Metrics Server e como instalá-lo em diferentes ambientes Kubernetes, incluindo Minikube e KinD.</p>
+<hr>
+<h2 id="introdução-ao-metrics-server">Introdução ao Metrics Server</h2>
+<p>Antes de começarmos a explorar o Horizontal Pod Autoscaler (HPA), é essencial termos o Metrics Server instalado em nosso cluster Kubernetes. O Metrics Server é um agregador de métricas de recursos de sistema, que coleta métricas como uso de CPU e memória dos nós e pods no cluster. Essas métricas são vitais para o funcionamento do HPA, pois são usadas para determinar quando e como escalar os recursos.</p>
+<h3 id="por-que-o-metrics-server-é-importante-para-o-hpa">Por que o Metrics Server é importante para o HPA?</h3>
+<p>O HPA utiliza métricas de uso de recursos para tomar decisões inteligentes sobre o escalonamento dos pods. Por exemplo, se a utilização da CPU de um pod exceder um determinado limite, o HPA pode decidir aumentar o número de réplicas desse pod. Da mesma forma, se a utilização da CPU for muito baixa, o HPA pode decidir reduzir o número de réplicas. Para fazer isso de forma eficaz, o HPA precisa ter acesso a métricas precisas e atualizadas, que são fornecidas pelo Metrics Server.
+Portanto, precisamos antes conhecer essa peça fundamental para o dia de hoje! :D</p>
+<h3 id="instalando-o-metrics-server">Instalando o Metrics Server</h3>
+<h4 id="no-amazon-eks-e-na-maioria-dos-clusters-kubernetes">No Amazon EKS e na maioria dos clusters Kubernetes</h4>
+<p>Durante a nossa aula, estou com um cluster EKS, e para instalar o Metrics Server, podemos usar o seguinte comando:</p>
+<pre><code class="lang-bash">kubectl apply -f https://github.com/kubernetes-sigs/metrics-server/releases/latest/download/components.yaml
+</code></pre>
+<p>Esse comando aplica o manifesto do Metrics Server ao seu cluster, instalando todos os componentes necessários.</p>
+<h4 id="no-minikube">No Minikube:</h4>
+<p>A instalação do Metrics Server no Minikube é bastante direta. Use o seguinte comando para habilitar o Metrics Server:</p>
+<pre><code class="lang-bash">minikube addons <span class="hljs-built_in">enable</span> metrics-server
+</code></pre>
+<p>Após a execução deste comando, o Metrics Server será instalado e ativado em seu cluster Minikube.</p>
+<h4 id="no-kind-kubernetes-in-docker">No KinD (Kubernetes in Docker):</h4>
+<p>Para o KinD, você pode usar o mesmo comando que usou para o EKS:</p>
+<pre><code class="lang-bash">kubectl apply -f https://github.com/kubernetes-sigs/metrics-server/releases/latest/download/components.yaml
+</code></pre>
+<h4 id="verificando-a-instalação-do-metrics-server">Verificando a Instalação do Metrics Server</h4>
+<p>Após a instalação do Metrics Server, é uma boa prática verificar se ele foi instalado corretamente e está funcionando como esperado. Execute o seguinte comando para obter a lista de pods no namespace <code>kube-system</code> e verificar se o pod do Metrics Server está em execução:</p>
+<pre><code class="lang-bash">kubectl get pods -n kube-system | grep metrics-server
+</code></pre>
+<h4 id="obtendo-métricas">Obtendo Métricas</h4>
+<p>Com o Metrics Server em execução, agora você pode começar a coletar métricas de seu cluster. Aqui está um exemplo de como você pode obter métricas de uso de CPU e memória para todos os seus nodes:</p>
+<pre><code class="lang-bash">kubectl top nodes
+</code></pre>
+<p>E para obter métricas de uso de CPU e memória para todos os seus pods:</p>
+<pre><code class="lang-bash">kubectl top pods
+</code></pre>
+<p>Esses comandos fornecem uma visão rápida da utilização de recursos em seu cluster, o que é crucial para entender e otimizar o desempenho de seus aplicativos.</p>
+<h3 id="criando-um-hpa">Criando um HPA</h3>
+<p>Antes de nos aprofundarmos no HPA, vamos recapitular criando um deployment simples para o nosso confiável servidor Nginx.</p>
+<pre><code class="lang-yaml"><span class="hljs-comment"># Definição de um Deployment para o servidor Nginx</span>
+<span class="hljs-attr">apiVersion:</span> <span class="hljs-string">apps/v1</span>  <span class="hljs-comment"># Versão da API que define um Deployment</span>
+<span class="hljs-attr">kind:</span> <span class="hljs-string">Deployment</span>     <span class="hljs-comment"># Tipo de recurso que estamos definindo</span>
+<span class="hljs-attr">metadata:</span>
+  <span class="hljs-attr">name:</span> <span class="hljs-string">nginx-deployment</span>  <span class="hljs-comment"># Nome do nosso Deployment</span>
+<span class="hljs-attr">spec:</span>
+  <span class="hljs-attr">replicas:</span> <span class="hljs-number">3</span>             <span class="hljs-comment"># Número inicial de réplicas</span>
+  <span class="hljs-attr">selector:</span>
+    <span class="hljs-attr">matchLabels:</span>
+      <span class="hljs-attr">app:</span> <span class="hljs-string">nginx</span>         <span class="hljs-comment"># Label que identifica os pods deste Deployment</span>
+  <span class="hljs-attr">template:</span>
+    <span class="hljs-attr">metadata:</span>
+      <span class="hljs-attr">labels:</span>
+        <span class="hljs-attr">app:</span> <span class="hljs-string">nginx</span>       <span class="hljs-comment"># Label aplicada aos pods</span>
+    <span class="hljs-attr">spec:</span>
+      <span class="hljs-attr">containers:</span>
+      <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">nginx</span>      <span class="hljs-comment"># Nome do contêiner</span>
+        <span class="hljs-attr">image:</span> <span class="hljs-string">nginx:latest</span>  <span class="hljs-comment"># Imagem do contêiner</span>
+        <span class="hljs-attr">ports:</span>
+        <span class="hljs-bullet">-</span> <span class="hljs-attr">containerPort:</span> <span class="hljs-number">80</span>  <span class="hljs-comment"># Porta exposta pelo contêiner</span>
+        <span class="hljs-attr">resources:</span>
+          <span class="hljs-attr">limits:</span>
+            <span class="hljs-attr">cpu:</span> <span class="hljs-string">500m</span>        <span class="hljs-comment"># Limite de CPU</span>
+            <span class="hljs-attr">memory:</span> <span class="hljs-string">256Mi</span>    <span class="hljs-comment"># Limite de memória</span>
+          <span class="hljs-attr">requests:</span>
+            <span class="hljs-attr">cpu:</span> <span class="hljs-string">250m</span>        <span class="hljs-comment"># Requisição de CPU</span>
+            <span class="hljs-attr">memory:</span> <span class="hljs-string">128Mi</span>    <span class="hljs-comment"># Requisição de memória</span>
+</code></pre>
+<p>Agora, com nosso deployment pronto, vamos dar o próximo passo na criação do nosso HPA.</p>
+<pre><code class="lang-yaml"><span class="hljs-comment"># Definição do HPA para o nginx-deployment</span>
+<span class="hljs-attr">apiVersion:</span> <span class="hljs-string">autoscaling/v2</span>  <span class="hljs-comment"># Versão da API que define um HPA</span>
+<span class="hljs-attr">kind:</span> <span class="hljs-string">HorizontalPodAutoscaler</span>  <span class="hljs-comment"># Tipo de recurso que estamos definindo</span>
+<span class="hljs-attr">metadata:</span>
+  <span class="hljs-attr">name:</span> <span class="hljs-string">nginx-deployment-hpa</span>  <span class="hljs-comment"># Nome do nosso HPA</span>
+<span class="hljs-attr">spec:</span>
+  <span class="hljs-attr">scaleTargetRef:</span>
+    <span class="hljs-attr">apiVersion:</span> <span class="hljs-string">apps/v1</span>        <span class="hljs-comment"># A versão da API do recurso alvo</span>
+    <span class="hljs-attr">kind:</span> <span class="hljs-string">Deployment</span>           <span class="hljs-comment"># O tipo de recurso alvo</span>
+    <span class="hljs-attr">name:</span> <span class="hljs-string">nginx-deployment</span>     <span class="hljs-comment"># O nome do recurso alvo</span>
+  <span class="hljs-attr">minReplicas:</span> <span class="hljs-number">3</span>               <span class="hljs-comment"># Número mínimo de réplicas</span>
+  <span class="hljs-attr">maxReplicas:</span> <span class="hljs-number">10</span>              <span class="hljs-comment"># Número máximo de réplicas</span>
+  <span class="hljs-attr">metrics:</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-attr">type:</span> <span class="hljs-string">Resource</span>             <span class="hljs-comment"># Tipo de métrica (recurso do sistema)</span>
+    <span class="hljs-attr">resource:</span>
+      <span class="hljs-attr">name:</span> <span class="hljs-string">cpu</span>                <span class="hljs-comment"># Nome da métrica (CPU neste caso)</span>
+      <span class="hljs-attr">target:</span>
+        <span class="hljs-attr">type:</span> <span class="hljs-string">Utilization</span>      <span class="hljs-comment"># Tipo de alvo (utilização)</span>
+        <span class="hljs-attr">averageUtilization:</span> <span class="hljs-number">50</span> <span class="hljs-comment"># Valor alvo (50% de utilização)</span>
+</code></pre>
+<p>Neste exemplo, criamos um HPA que monitora a utilização da CPU do nosso <code>nginx-deployment</code>. O HPA se esforçará para manter a utilização da CPU em torno de 50%, ajustando o número de réplicas entre 3 e 10 conforme necessário.</p>
+<p>Para aplicar esta configuração ao seu cluster Kubernetes, salve o conteúdo acima em um arquivo chamado</p>
+<p> <code>nginx-deployment-hpa.yaml</code> e execute o seguinte comando:</p>
+<pre><code class="lang-bash">kubectl apply -f nginx-deployment-hpa.yaml
+</code></pre>
+<p>Agora, você tem um HPA monitorando e ajustando a escala do seu <code>nginx-deployment</code> baseado na utilização da CPU. Fantástico, não é?</p>
+<h3 id="exemplos-práticos-com-hpa">Exemplos Práticos com HPA</h3>
+<p>Agora que você já entende o básico sobre o HPA, é hora de rolar as mangas e entrar na prática. Vamos explorar como o HPA responde a diferentes métricas e cenários.</p>
+<h4 id="autoscaling-com-base-na-utilização-de-cpu">Autoscaling com base na utilização de CPU</h4>
+<p>Vamos começar com um exemplo clássico de escalonamento baseado na utilização da CPU, que já discutimos anteriormente. Para tornar a aprendizagem mais interativa, vamos simular um aumento de tráfego e observar como o HPA responde a essa mudança.</p>
+<pre><code class="lang-bash">kubectl run -i --tty load-generator --image=busybox /bin/sh
+
+<span class="hljs-keyword">while</span> <span class="hljs-literal">true</span>; <span class="hljs-keyword">do</span> wget -q -O- http://nginx-deployment.default.svc.cluster.local; <span class="hljs-keyword">done</span>
+</code></pre>
+<p>Este script simples cria uma carga constante no nosso deployment, fazendo requisições contínuas ao servidor Nginx. Você poderá observar como o HPA ajusta o número de réplicas para manter a utilização da CPU em torno do limite definido.</p>
+<h4 id="autoscaling-com-base-na-utilização-de-memória">Autoscaling com base na utilização de Memória</h4>
+<p>O HPA não é apenas um mestre em lidar com a CPU, ele também tem um olho afiado para a memória. Vamos explorar como configurar o HPA para escalar baseado na utilização de memória.</p>
+<pre><code class="lang-yaml"><span class="hljs-comment"># Definição do HPA para escalonamento baseado em memória</span>
+<span class="hljs-attr">apiVersion:</span> <span class="hljs-string">autoscaling/v2</span>  <span class="hljs-comment"># Versão da API que define um HPA</span>
+<span class="hljs-attr">kind:</span> <span class="hljs-string">HorizontalPodAutoscaler</span>    <span class="hljs-comment"># Tipo de recurso que estamos definindo</span>
+<span class="hljs-attr">metadata:</span>
+  <span class="hljs-attr">name:</span> <span class="hljs-string">nginx-deployment-hpa-memory</span>  <span class="hljs-comment"># Nome do nosso HPA</span>
+<span class="hljs-attr">spec:</span>
+  <span class="hljs-attr">scaleTargetRef:</span>
+    <span class="hljs-attr">apiVersion:</span> <span class="hljs-string">apps/v1</span>              <span class="hljs-comment"># A versão da API do recurso alvo</span>
+    <span class="hljs-attr">kind:</span> <span class="hljs-string">Deployment</span>                 <span class="hljs-comment"># O tipo de recurso alvo</span>
+    <span class="hljs-attr">name:</span> <span class="hljs-string">nginx-deployment</span>           <span class="hljs-comment"># O nome do recurso alvo</span>
+  <span class="hljs-attr">minReplicas:</span> <span class="hljs-number">3</span>                     <span class="hljs-comment"># Número mínimo de réplicas</span>
+  <span class="hljs-attr">maxReplicas:</span> <span class="hljs-number">10</span>                    <span class="hljs-comment"># Número máximo de réplicas</span>
+  <span class="hljs-attr">metrics:</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-attr">type:</span> <span class="hljs-string">Resource</span>                   <span class="hljs-comment"># Tipo de métrica (recurso do sistema)</span>
+    <span class="hljs-attr">resource:</span>
+      <span class="hljs-attr">name:</span> <span class="hljs-string">memory</span>                   <span class="hljs-comment"># Nome da métrica (memória neste caso)</span>
+      <span class="hljs-attr">target:</span>
+        <span class="hljs-attr">type:</span> <span class="hljs-string">Utilization</span>            <span class="hljs-comment"># Tipo de alvo (utilização)</span>
+        <span class="hljs-attr">averageUtilization:</span> <span class="hljs-number">70</span>       <span class="hljs-comment"># Valor alvo (70% de utilização)</span>
+</code></pre>
+<p>Neste exemplo, o HPA vai ajustar o número de réplicas para manter a utilização de memória em cerca de 70%. Assim, nosso deployment pode respirar livremente mesmo quando a demanda aumenta.</p>
+<h4 id="configuração-avançada-de-hpa-definindo-comportamento-de-escalonamento">Configuração Avançada de HPA: Definindo Comportamento de Escalonamento</h4>
+<p>O HPA é flexível e permite que você defina como ele deve se comportar durante o escalonamento para cima e para baixo. Vamos explorar um exemplo:</p>
+<pre><code class="lang-yaml"><span class="hljs-comment"># Definição de HPA com configurações avançadas de comportamento</span>
+<span class="hljs-attr">apiVersion:</span> <span class="hljs-string">autoscaling/v2</span>      <span class="hljs-comment"># Versão da API que define um HPA</span>
+<span class="hljs-attr">kind:</span> <span class="hljs-string">HorizontalPodAutoscaler</span>        <span class="hljs-comment"># Tipo de recurso que estamos definindo</span>
+<span class="hljs-attr">metadata:</span>
+  <span class="hljs-attr">name:</span> <span class="hljs-string">nginx-deployment-hpa</span>         <span class="hljs-comment"># Nome do nosso HPA</span>
+<span class="hljs-attr">spec:</span>
+  <span class="hljs-attr">scaleTargetRef:</span>
+    <span class="hljs-attr">apiVersion:</span> <span class="hljs-string">apps/v1</span>              <span class="hljs-comment"># A versão da API do recurso alvo</span>
+    <span class="hljs-attr">kind:</span> <span class="hljs-string">Deployment</span>                 <span class="hljs-comment"># O tipo de recurso alvo</span>
+    <span class="hljs-attr">name:</span> <span class="hljs-string">nginx-deployment</span>           <span class="hljs-comment"># O nome do recurso alvo</span>
+  <span class="hljs-attr">minReplicas:</span> <span class="hljs-number">3</span>                     <span class="hljs-comment"># Número mínimo de réplicas</span>
+  <span class="hljs-attr">maxReplicas:</span> <span class="hljs-number">10</span>                    <span class="hljs-comment"># Número máximo de réplicas</span>
+  <span class="hljs-attr">metrics:</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-attr">type:</span> <span class="hljs-string">Resource</span>                   <span class="hljs-comment"># Tipo de métrica (recurso do sistema)</span>
+    <span class="hljs-attr">resource:</span>
+      <span class="hljs-attr">name:</span> <span class="hljs-string">cpu</span>                      <span class="hljs-comment"># Nome da métrica (CPU neste caso)</span>
+      <span class="hljs-attr">target:</span>
+        <span class="hljs-attr">type:</span> <span class="hljs-string">Utilization</span>            <span class="hljs-comment"># Tipo de alvo (utilização)</span>
+        <span class="hljs-attr">averageUtilization:</span> <span class="hljs-number">50</span>       <span class="hljs-comment"># Valor alvo (50% de utilização)</span>
+  <span class="hljs-attr">behavior:</span>
+    <span class="hljs-attr">scaleUp:</span>
+      <span class="hljs-attr">stabilizationWindowSeconds:</span> <span class="hljs-number">0</span>  <span class="hljs-comment"># Período de estabilização para escalonamento para cima</span>
+      <span class="hljs-attr">policies:</span>
+      <span class="hljs-bullet">-</span> <span class="hljs-attr">type:</span> <span class="hljs-string">Percent</span>                <span class="hljs-comment"># Tipo de política (percentual)</span>
+        <span class="hljs-attr">value:</span> <span class="hljs-number">100</span>                   <span class="hljs-comment"># Valor da política (100%)</span>
+        <span class="hljs-attr">periodSeconds:</span> <span class="hljs-number">15</span>            <span class="hljs-comment"># Período da política (15 segundos)</span>
+    <span class="hljs-attr">scaleDown:</span>
+      <span class="hljs-attr">stabilizationWindowSeconds:</span> <span class="hljs-number">300</span>  <span class="hljs-comment"># Período de estabilização para escalonamento para baixo</span>
+      <span class="hljs-attr">policies:</span>
+      <span class="hljs-bullet">-</span> <span class="hljs-attr">type:</span> <span class="hljs-string">Percent</span>                  <span class="hljs-comment"># Tipo de política (percentual)</span>
+        <span class="hljs-attr">value:</span> <span class="hljs-number">100</span>                     <span class="hljs-comment"># Valor da política (100%)</span>
+        <span class="hljs-attr">periodSeconds:</span> <span class="hljs-number">15</span>              <span class="hljs-comment"># Período da política (15 segundos)</span>
+</code></pre>
+<p>Neste exemplo, especificamos um comportamento de escalonamento onde o HPA pode escalar para cima imediatamente, mas vai esperar por 5 minutos (300 segundos) após o último escalonamento para cima antes de considerar um escalonamento para baixo. Isso ajuda a evitar flutuações rápidas na contagem de réplicas, proporcionando um ambiente mais estável para nossos pods.</p>
+<h4 id="containerresource">ContainerResource</h4>
+<p>O tipo de métrica <code>ContainerResource</code> no Kubernetes permite que você especifique métricas de recursos específicas do container para escalar. Diferente das métricas de recurso comuns que são aplicadas a todos os contêineres em um Pod, as métricas <code>ContainerResource</code> permitem especificar métricas para um contêiner específico dentro de um Pod. Isso pode ser útil em cenários onde você tem múltiplos contêineres em um Pod, mas quer escalar com base na utilização de recursos de um contêiner específico.</p>
+<p>Aqui está um exemplo de como você pode configurar um Horizontal Pod Autoscaler (HPA) usando uma métrica <code>ContainerResource</code> para escalar um Deployment com base na utilização de CPU de um contêiner específico:</p>
+<pre><code class="lang-yaml"><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">autoscaling/v2beta2</span>
+<span class="hljs-attr">kind:</span> <span class="hljs-string">HorizontalPodAutoscaler</span>
+<span class="hljs-attr">metadata:</span>
+  <span class="hljs-attr">name:</span> <span class="hljs-string">nginx-hpa</span>
+<span class="hljs-attr">spec:</span>
+  <span class="hljs-attr">scaleTargetRef:</span>
+    <span class="hljs-attr">apiVersion:</span> <span class="hljs-string">apps/v1</span>
+    <span class="hljs-attr">kind:</span> <span class="hljs-string">Deployment</span>
+    <span class="hljs-attr">name:</span> <span class="hljs-string">nginx</span>
+  <span class="hljs-attr">minReplicas:</span> <span class="hljs-number">3</span>
+  <span class="hljs-attr">maxReplicas:</span> <span class="hljs-number">10</span>
+  <span class="hljs-attr">metrics:</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-attr">type:</span> <span class="hljs-string">ContainerResource</span>
+    <span class="hljs-attr">containerResource:</span>
+      <span class="hljs-attr">name:</span> <span class="hljs-string">cpu</span>
+      <span class="hljs-attr">container:</span> <span class="hljs-string">nginx-NOME-COMPLETO-DO-CONTAINER</span>
+      <span class="hljs-attr">target:</span>
+        <span class="hljs-attr">type:</span> <span class="hljs-string">Utilization</span>
+        <span class="hljs-attr">averageUtilization:</span> <span class="hljs-number">50</span>
+</code></pre>
+<p>No exemplo acima:</p>
+<ul>
+<li>O tipo de métrica é definido como <code>ContainerResource</code>.</li>
+<li>Dentro do bloco <code>containerResource</code>, especificamos o nome da métrica (<code>cpu</code>), o nome do contêiner (<code>my-container</code>) e o alvo de utilização (<code>averageUtilization: 50</code>).</li>
+</ul>
+<p>Isso significa que o HPA vai ajustar o número de réplicas do Deployment <code>my-app</code> para manter a utilização média de CPU do contêiner <code>nginx-NOME-COMPLETO-DO-CONTAINER</code> em torno de 50%.</p>
+<p>Este tipo de configuração permite um controle mais granular sobre o comportamento de autoscaling, especialmente em ambientes onde os Pods contêm múltiplos contêineres com diferentes perfis de utilização de recursos.</p>
+<h4 id="detalhes-do-algoritmo-de-escalonamento">Detalhes do Algoritmo de Escalonamento</h4>
+<p><strong>Cálculo do Número de Réplicas</strong>
+O núcleo do Horizontal Pod Autoscaler (HPA) é o seu algoritmo de escalonamento, que determina o número ideal de réplicas com base nas métricas fornecidas. A fórmula básica utilizada pelo HPA para calcular o número desejado de réplicas é:</p>
+<p>[ \text{desiredReplicas} = \lceil \text{currentReplicas} \times \left( \frac{\text{currentMetricValue}}{\text{desiredMetricValue}} \right) \rceil ]</p>
+<p><strong>Exemplos com Valores Específicos:</strong></p>
+<ol>
+<li><p><strong>Exemplo de Escala para Cima:</strong></p>
+<ul>
+<li>Réplicas atuais: 2</li>
+<li>Valor atual da métrica (CPU): 80%</li>
+<li>Valor desejado da métrica (CPU): 50%</li>
+<li>Cálculo: (\lceil 2 \times (80\% / 50\%) \rceil = \lceil 3.2 \rceil = 4) réplicas</li>
+</ul>
+</li>
+<li><p><strong>Exemplo de Escala para Baixo:</strong></p>
+<ul>
+<li>Réplicas atuais: 5</li>
+<li>Valor atual da métrica (CPU): 30%</li>
+<li>Valor desejado da métrica (CPU): 50%</li>
+<li>Cálculo: (\lceil 5 \times (30\% / 50\%) \rceil = \lceil 3 \rceil = 3) réplicas</li>
+</ul>
+</li>
+</ol>
+<p><strong>Considerações Sobre Métricas e Estado dos Pods:</strong></p>
+<ul>
+<li><strong>Métricas de Recurso por Pod e Personalizadas:</strong> O HPA pode ser configurado para usar métricas padrão (como CPU e memória) ou métricas personalizadas definidas pelo usuário, permitindo maior flexibilidade.</li>
+<li><strong>Tratamento de Pods sem Métricas ou Não Prontos:</strong> Se um Pod não tiver métricas disponíveis ou não estiver pronto, ele pode ser excluído do cálculo de média, evitando decisões de escalonamento baseadas em dados incompletos.</li>
+</ul>
+<h4 id="configurações-avançadas-e-uso-prático">Configurações Avançadas e Uso Prático</h4>
+<p><strong>Configurando Métricas Personalizadas e Múltiplas Métricas:</strong>
+O HPA não se limita apenas a métricas de CPU e memória; ele pode ser configurado para usar uma variedade de métricas personalizadas.</p>
+<p><strong>Uso de Métricas Personalizadas: Exemplos e Dicas:</strong></p>
+<ul>
+<li><strong>Exemplo:</strong> Suponha que você tenha um serviço que deve escalar com base no número de solicitações HTTP por segundo. Você pode configurar o HPA para escalar com base nessa métrica personalizada.</li>
+<li><strong>Dicas:</strong> Ao usar métricas personalizadas, assegure-se de que as métricas sejam um indicador confiável da carga de trabalho e que o serviço de métricas esteja corretamente configurado e acessível pelo HPA.</li>
+</ul>
+<p><strong>Escalonamento com Base em Várias Métricas:</strong></p>
+<ul>
+<li>O HPA pode ser configurado para levar em conta várias métricas ao mesmo tempo, permitindo um controle mais refinado do escalonamento.</li>
+<li>Por exemplo, você pode configurar o HPA para escalar com base tanto na utilização de CPU quanto na memória, ou qualquer combinação de métricas padrão e personalizadas.</li>
+</ul>
+<h4 id="integrando-hpa-com-prometheus-para-métricas-customizadas">Integrando HPA com Prometheus para Métricas Customizadas</h4>
+<p>Para levar o autoscaling para o próximo nível, podemos integrar o HPA com o Prometheus. Com essa integração, podemos usar métricas do Prometheus para informar nossas decisões de autoscaling.</p>
+<p>A integração geralmente envolve a configuração de um adaptador de métricas personalizadas, como o <code>k8s-prometheus-adapter</code>. Uma vez configurado, o HPA pode acessar métricas do Prometheus e usá-las para tomar decisões de autoscaling. A documentação completa sobre como integrar o HPA com o Prometheus pode ser encontrada <a href="#adicionar-link">aqui</a>.</p>
+<h3 id="a-sua-lição-de-casa">A sua lição de casa</h3>
+<p>Agora que você foi equipado com o conhecimento sobre o HPA, é hora de colocar esse conhecimento em prática. Configure um HPA em seu ambiente e experimente com diferentes métricas: CPU, memória e métricas personalizadas. Documente suas observações e compreenda como o HPA responde a diferentes cargas e situações.</p>
+<h3 id="final-do-day-11">Final do Day-11</h3>
+<p>E assim, chegamos ao fim do Day-11, uma jornada repleta de aprendizado e exploração. Hoje, você descobriu o poder do Horizontal Pod Autoscaler e como ele pode ajudar a manter seu aplicativo performando de maneira eficiente, mesmo sob diferentes condições de carga. Você não apenas aprendeu como ele funciona, mas também colocou a mão na massa com exemplos práticos. Continue praticando e explorando, e nos vemos no próximo dia da nossa aventura pelo Kubernetes! #VAIIII</p>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="../day-10/" class="navigation navigation-prev " aria-label="Previous page: Descomplicando Kubernetes dia 10">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="../day-12/" class="navigation navigation-next " aria-label="Next page: Descomplicando Kubernetes dia 12">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"Descomplicando Kubernetes dia 11","level":"2.11","depth":1,"next":{"title":"Descomplicando Kubernetes dia 12","level":"2.12","depth":1,"path":"day-12/README.md","ref":"day-12/README.md","articles":[]},"previous":{"title":"Descomplicando Kubernetes dia 10","level":"2.10","depth":1,"path":"day-10/README.md","ref":"day-10/README.md","articles":[]},"dir":"ltr"},"config":{"plugins":[],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"language":"pt","gitbook":"*"},"file":{"path":"day-11/README.md","mtime":"2024-01-18T11:49:32.111Z","type":"markdown"},"gitbook":{"version":"3.6.20","time":"2024-01-18T11:49:40.137Z"},"basePath":"..","book":{"language":"pt"}});
+        });
+    </script>
+</div>
+
+        
+    <noscript>
+        <style>
+            .honkit-cloak {
+                display: block !important;
+            }
+        </style>
+    </noscript>
+    <script>
+        // Restore sidebar state as critical path for prevent layout shift
+        function __init__getSidebarState(defaultValue){
+            var baseKey = "";
+            var key = baseKey + ":sidebar";
+            try {
+                var value = localStorage[key];
+                if (value === undefined) {
+                    return defaultValue;
+                }
+                var parsed = JSON.parse(value);
+                return parsed == null ? defaultValue : parsed;
+            } catch (e) {
+                return defaultValue;
+            }
+        }
+        function __init__restoreLastSidebarState() {
+            var isMobile = window.matchMedia("(max-width: 600px)").matches;
+            if (isMobile) {
+                // Init last state if not mobile
+                return;
+            }
+            var sidebarState = __init__getSidebarState(true);
+            var book = document.querySelector(".book");
+            // Show sidebar if it enabled
+            if (sidebarState && book) {
+                book.classList.add("without-animation", "with-summary");
+            }
+        }
+
+        try {
+            __init__restoreLastSidebarState();
+        } finally {
+            var book = document.querySelector(".book");
+            book.classList.remove("honkit-cloak");
+        }
+    </script>
+    <script src="../../gitbook/gitbook.js"></script>
+    <script src="../../gitbook/theme.js"></script>
+    
+        
+        <script src="../../gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+

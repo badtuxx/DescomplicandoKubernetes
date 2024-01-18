@@ -1,0 +1,1135 @@
+
+<!DOCTYPE HTML>
+<html lang="pt" >
+    <head>
+        <meta charset="UTF-8">
+        <title>Descomplicando Kubernetes dia 6 · HonKit</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="HonKit 3.6.20">
+        
+        
+        
+    
+    <link rel="stylesheet" href="../../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="../day-7/" />
+    
+    
+    <link rel="prev" href="../day-5/" />
+    
+
+    </head>
+    <body>
+        
+<div class="book honkit-cloak">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="Escreva para pesquisar" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        <li class="header">Sobre</li>
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../">
+            
+                <a href="../">
+            
+                    
+                    Introdução
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="header">Capítulos</li>
+        
+        
+    
+        <li class="chapter " data-level="2.1" data-path="../day-1/">
+            
+                <a href="../day-1/">
+            
+                    
+                    Descomplicando Kubernetes dia 1
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.2" data-path="../day-2/">
+            
+                <a href="../day-2/">
+            
+                    
+                    Descomplicando Kubernetes dia 2
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.3" data-path="../day-3/">
+            
+                <a href="../day-3/">
+            
+                    
+                    Descomplicando Kubernetes dia 3
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.4" data-path="../day-4/">
+            
+                <a href="../day-4/">
+            
+                    
+                    Descomplicando Kubernetes dia 4
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.5" data-path="../day-5/">
+            
+                <a href="../day-5/">
+            
+                    
+                    Descomplicando Kubernetes dia 5
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="2.6" data-path="./">
+            
+                <a href="./">
+            
+                    
+                    Descomplicando Kubernetes dia 6
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.7" data-path="../day-7/">
+            
+                <a href="../day-7/">
+            
+                    
+                    Descomplicando Kubernetes dia 7
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.8" data-path="../day-8/">
+            
+                <a href="../day-8/">
+            
+                    
+                    Descomplicando Kubernetes dia 8
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.9" data-path="../day-9/">
+            
+                <a href="../day-9/">
+            
+                    
+                    Descomplicando Kubernetes dia 9
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.10" data-path="../day-10/">
+            
+                <a href="../day-10/">
+            
+                    
+                    Descomplicando Kubernetes dia 10
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.11" data-path="../day-11/">
+            
+                <a href="../day-11/">
+            
+                    
+                    Descomplicando Kubernetes dia 11
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.12" data-path="../day-12/">
+            
+                <a href="../day-12/">
+            
+                    
+                    Descomplicando Kubernetes dia 12
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.13" data-path="../day-13/">
+            
+                <a href="../day-13/">
+            
+                    
+                    Descomplicando Kubernetes dia 13
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.14" data-path="../day-14/README.md">
+            
+                <span>
+            
+                    
+                    Descomplicando Kubernetes dia 14
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.15" data-path="../day-15/README.md">
+            
+                <span>
+            
+                    
+                    Descomplicando Kubernetes dia 15
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="header">Contribuir</li>
+        
+        
+    
+        <li class="chapter " data-level="3.1" data-path="../CONTRIBUTING.html">
+            
+                <a href="../CONTRIBUTING.html">
+            
+                    
+                    Como ajudar
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://github.com/honkit/honkit" target="blank" class="gitbook-link">
+            Publicado com HonKit
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href=".." >Descomplicando Kubernetes dia 6</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h1 id="descomplicando-o-kubernetes">Descomplicando o Kubernetes</h1>
+<h2 id="day-6">DAY-6</h2>
+<p> </p>
+<p> </p>
+<h3 id="conteúdo-do-day-6">Conteúdo do Day-6</h3>
+<ul>
+<li><a href="#descomplicando-o-kubernetes">Descomplicando o Kubernetes</a><ul>
+<li><a href="#day-6">DAY-6</a><ul>
+<li><a href="#conteúdo-do-day-6">Conteúdo do Day-6</a></li>
+</ul>
+</li>
+<li><a href="#inicio-da-aula-do-day-6">Inicio da aula do Day-6</a><ul>
+<li><a href="#o-que-iremos-ver-hoje">O que iremos ver hoje?</a><ul>
+<li><a href="#o-que-são-volumes">O que são volumes?</a><ul>
+<li><a href="#empytdir">EmpytDir</a></li>
+<li><a href="#storage-class">Storage Class</a></li>
+<li><a href="#pv---persistent-volume">PV - Persistent Volume</a></li>
+<li><a href="#pvc---persistent-volume-claim">PVC - Persistent Volume Claim</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#a-sua-lição-de-casa">A sua lição de casa</a></li>
+</ul>
+</li>
+<li><a href="#final-do-day-6">Final do Day-6</a></li>
+</ul>
+</li>
+</ul>
+<h2 id="inicio-da-aula-do-day-6">Inicio da aula do Day-6</h2>
+<p> </p>
+<h3 id="o-que-iremos-ver-hoje">O que iremos ver hoje?</h3>
+<p>Durante o dia de hoje nós vamos aprender tudo sobre volumes, hoje é o dia de você finalmente descomplicar os volumes no Kubernetes! \o/</p>
+<p>Hojel nós iremos entender e configurar o que é um <code>configmap</code>, um <code>persistente volume (PV)</code> e um <code>persistent volume claim (PVC)</code>! E para isso iremos utilizar como exemplo diferentes tipos de clusters Kubernetes! Calma, eu explico melhor!</p>
+<p>Para ajudar no nosso aprendizado sobre volumes, vamos utlizar diferentes clusters Kubernetes! Vamos ter exemplos utilizando <code>EKS</code>, <code>kind</code> e instâncias em cloud providers.</p>
+<p>Então fique ciente de que hoje é o dia onde você irá descomplicar volumes no Kubernetes! #VAIIII</p>
+<p> </p>
+<h4 id="o-que-são-volumes">O que são volumes?</h4>
+<p>Para simplificar o seu entendimento nesse momento, volumes nada mais são do que um diretório dentro do <code>Pod</code> que pode ser utilizado para armazenar dados. Eles podem ser utilizados para armazenar dados que precisam ser persistidos, como por exemplo, dados de um banco de dados, ou dados de um sistema de arquivos distribuído.</p>
+<p>Quando estamos falando sobre volumes no Kubernetes, precisamos entender que temos basicamente dois tipos de volumes, os <code>ephemeral volumes</code> e os <code>persistent volumes</code>.</p>
+<p>Os <code>ephemeral volumes</code>, que inclusive já vimos durante o treinamento o <code>emptyDir</code>, são volumes que são criados e destruídos junto com o <code>Pod</code>. Ele é um volume também, porém com uma diferença, ele não é persistente. Caso ocorra algum problema com o <code>Pod</code> e ele seja removido, o <code>emptyDir</code> também será removido.</p>
+<p>Agora quando estamos falando sobre volumes do tipo <code>persistent volumes</code>, estamos falando sobre volumes que são criados e não são destruídos junto com o <code>Pod</code>, eles são persistidos, são volumes que seus dados são mantidos mesmo que o <code>Pod</code> seja removido.</p>
+<p>Esse tipo de volume é super importante para aplicações que precisam armazenar dados que precisam ser mantidos mesmo que o <code>Pod</code> seja removido, como por exemplo, um banco de dados.</p>
+<h5 id="empytdir">EmpytDir</h5>
+<p>Um volume do tipo EmptyDir é um volume que é criado no momento em que o Pod é criado, e ele é destruído quando o Pod é destruído, ou seja, ele é um volume temporário.</p>
+<p>No dia-a-dia, você não vai usar muito esse tipo de volume, mas é importante que você saiba que ele existe. Um dos casos de uso mais comuns é quando você precisa compartilhar dados entre os containers de um Pod. Imagina que você tem dois containers em um Pod e um deles possui um diretório com dados, e você quer que o outro container tenha acesso a esses dados. Nesse caso, você pode criar um volume do tipo EmptyDir e compartilhar esse volume entre os dois containers.</p>
+<p>Chame o arquivo de <code>pod-emptydir.yaml</code>.</p>
+<pre><code class="lang-yaml"><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">v1</span> <span class="hljs-comment"># versão da API do Kubernetes</span>
+<span class="hljs-attr">kind:</span> <span class="hljs-string">Pod</span> <span class="hljs-comment"># tipo de objeto que estamos criando</span>
+<span class="hljs-attr">metadata:</span> <span class="hljs-comment"># metadados do Pod</span>
+  <span class="hljs-attr">name:</span> <span class="hljs-string">giropops</span> <span class="hljs-comment"># nome do Pod</span>
+<span class="hljs-attr">spec:</span> <span class="hljs-comment"># especificação do Pod</span>
+  <span class="hljs-attr">containers:</span> <span class="hljs-comment"># lista de containers</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">girus</span> <span class="hljs-comment"># nome do container </span>
+    <span class="hljs-attr">image:</span> <span class="hljs-string">ubuntu</span> <span class="hljs-comment"># imagem do container</span>
+    <span class="hljs-attr">args:</span> <span class="hljs-comment"># argumentos que serão passados para o container</span>
+    <span class="hljs-bullet">-</span> <span class="hljs-string">sleep</span> <span class="hljs-comment"># usando o comando sleep para manter o container em execução</span>
+    <span class="hljs-bullet">-</span> <span class="hljs-string">infinity</span> <span class="hljs-comment"># o argumento infinity faz o container esperar para sempre</span>
+    <span class="hljs-attr">volumeMounts:</span> <span class="hljs-comment"># lista de volumes que serão montados no container</span>
+    <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">primeiro-emptydir</span> <span class="hljs-comment"># nome do volume</span>
+      <span class="hljs-attr">mountPath:</span> <span class="hljs-string">/giropops</span> <span class="hljs-comment"># diretório onde o volume será montado </span>
+  <span class="hljs-attr">volumes:</span> <span class="hljs-comment"># lista de volumes</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">primeiro-emptydir</span> <span class="hljs-comment"># nome do volume</span>
+    <span class="hljs-attr">emptyDir:</span> <span class="hljs-comment"># tipo do volume</span>
+      <span class="hljs-attr">sizeLimit:</span> <span class="hljs-string">256Mi</span> <span class="hljs-comment"># tamanho máximo do volume</span>
+</code></pre>
+<p> </p>
+<p>Precisamos entender o que está acontecendo no nosso arquivo <code>pod-emptydir.yaml</code>, afinal agora temos novas informações, como por exemplo, o <code>volumeMounts</code> e o <code>volumes</code>.</p>
+<pre><code class="lang-yaml">    <span class="hljs-attr">volumeMounts:</span> <span class="hljs-comment"># lista de volumes que serão montados no container</span>
+    <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">primeiro-emptydir</span> <span class="hljs-comment"># nome do volume</span>
+      <span class="hljs-attr">mountPath:</span> <span class="hljs-string">/giropops</span> <span class="hljs-comment"># diretório onde o volume será montado </span>
+  <span class="hljs-attr">volumes:</span> <span class="hljs-comment"># lista de volumes</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">primeiro-emptydir</span> <span class="hljs-comment"># nome do volume</span>
+    <span class="hljs-attr">emptyDir:</span> <span class="hljs-comment"># tipo do volume</span>
+      <span class="hljs-attr">sizeLimit:</span> <span class="hljs-string">256Mi</span> <span class="hljs-comment"># tamanho máximo do volume</span>
+</code></pre>
+<p> </p>
+<p>Vou detalhar o que está acontecendo no nosso arquivo <code>pod-emptydir.yaml</code>.</p>
+<ul>
+<li><code>volumeMounts</code>: é uma lista de volumes que serão montados no container. Nesse caso, estamos montando um volume chamado <code>primeiro-emptydir</code> no diretório <code>/giropops</code> dentro do container.<ul>
+<li><code>name</code>: é o nome do volume que será montado no container.</li>
+<li><code>mountPath</code>: é o diretório onde o volume será montado no container.</li>
+</ul>
+</li>
+<li><code>volumes</code>: é uma lista de volumes que serão criados no momento em que o Pod for criado. Nesse caso, estamos criando um volume do tipo <code>emptyDir</code> chamado <code>primeiro-emptydir</code>.<ul>
+<li><code>name</code>: é o nome do volume que será criado.</li>
+<li><code>emptyDir</code>: é o tipo do volume que será criado.<ul>
+<li><code>sizeLimit</code>: é o tamanho máximo do volume que será criado.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p> </p>
+<p>Essas são configurações básicas para criarmos um volume do tipo EmptyDir, caso você queira saber mais sobre esse tipo de volume, você pode acessar a <a href="https://kubernetes.io/docs/concepts/storage/volumes/#emptydir" target="_blank">documentação oficial</a>.</p>
+<p>Agora vamos criar o Pod.</p>
+<pre><code class="lang-bash">kubectl create -f pod-emptydir.yaml
+</code></pre>
+<p>Agora vamos verificar se o Pod foi criado.</p>
+<pre><code class="lang-bash">kubectl get pods
+</code></pre>
+<p>Você pode ver a saída do comando <code>kubectl describe pod giropops</code> para ver o volume que foi criado.</p>
+<pre><code class="lang-bash">kubectl describe pod giropops
+</code></pre>
+<p>Agora vamos para dentro do container.</p>
+<pre><code class="lang-bash">kubectl <span class="hljs-built_in">exec</span> -it ubuntu -- bash
+</code></pre>
+<p>Agora vamos criar um arquivo dentro do diretório <code>/giropops</code>.</p>
+<pre><code class="lang-bash">touch /giropops/FUNCIONAAAAAA
+</code></pre>
+<p>Pronto, o nosso arquivo foi criado dentro do diretório <code>/giropops</code>, que é um diretório dentro do volume do tipo EmptyDir.</p>
+<p>Se você digitar <code>mount</code>, vai ver que o diretório <code>/giropops</code> está montado certinho dentro de nosso container.</p>
+<p>Quando você remover o Pod, o volume do tipo EmptyDir também será removido.</p>
+<pre><code class="lang-bash">kubectl delete pod giropops
+</code></pre>
+<p> </p>
+<p>Vamos criar o Pod novamente.</p>
+<pre><code class="lang-bash">kubectl create -f pod-emptydir.yaml
+</code></pre>
+<p> </p>
+<p>Pod criado, agora vamos para dentro do container.</p>
+<pre><code class="lang-bash">kubectl <span class="hljs-built_in">exec</span> -it ubuntu -- bash
+</code></pre>
+<p>Vamos verificar se o arquivo que criamos anteriormente ainda existe.</p>
+<pre><code class="lang-bash">ls /giropops
+</code></pre>
+<p> </p>
+<p>Como você pode ver, o arquivo que criamos anteriormente não existe mais, pois o volume do tipo EmptyDir foi destruído quando o Pod foi destruído.</p>
+<p> </p>
+<h5 id="storage-class">Storage Class</h5>
+<p>Uma StorageClass no Kubernetes é um objeto que descreve e define diferentes classes de armazenamento disponíveis no cluster. Essas classes de armazenamento podem ser usadas para provisionar dinamicamente PersistentVolumes (PVs) de acordo com os requisitos dos PersistentVolumeClaims (PVCs) criados pelos usuários.</p>
+<p>A StorageClass é útil para gerenciar e organizar diferentes tipos de armazenamento, como armazenamento em disco rápido e caro ou armazenamento em disco mais lento e barato. Além disso, a StorageClass pode ser usada para definir diferentes políticas de retenção, provisionamento e outras características de armazenamento específicas.</p>
+<p>Os administradores do cluster podem criar e gerenciar várias StorageClasses para permitir que os usuários finais escolham a classe de armazenamento adequada para suas necessidades.</p>
+<p>Cada StorageClass é definida com um provisionador, que é responsável por criar PersistentVolumes dinamicamente conforme necessário. Os provisionadores podem ser internos (fornecidos pelo próprio Kubernetes) ou externos (fornecidos por provedores de armazenamento específicos).</p>
+<p>Inclusive os provisionadores podem ser diferentes para cada provedor de nuvem ou onde o Kubernetes está sendo executado. Vou listar alguns provisionadores que são usados e seus respectivos provedores:</p>
+<ul>
+<li><code>kubernetes.io/aws-ebs</code>: AWS Elastic Block Store (EBS)</li>
+<li><code>kubernetes.io/azure-disk</code>: Azure Disk</li>
+<li><code>kubernetes.io/gce-pd</code>: Google Compute Engine (GCE) Persistent Disk</li>
+<li><code>kubernetes.io/cinder</code>: OpenStack Cinder</li>
+<li><code>kubernetes.io/vsphere-volume</code>: vSphere</li>
+<li><code>kubernetes.io/no-provisioner</code>: Volumes locais</li>
+<li><code>kubernetes.io/host-path</code>: Volumes locais</li>
+</ul>
+<p>E se você estiver usando o Kubernetes em um ambiente local, como o Minikube, o provisionador padrão é o <code>kubernetes.io/host-path</code>, que cria volumes PersistentVolume no diretório do host. Já no Kind, o provisionador padrão é o <code>rancher.io/local-path</code>, que cria volumes PersistentVolume no diretório do host.</p>
+<p>Para ver a lista completa de provisionadores, consulte a documentação do Kubernetes no link <a href="https://kubernetes.io/docs/concepts/storage/storage-classes/#provisioner" target="_blank">https://kubernetes.io/docs/concepts/storage/storage-classes/#provisioner</a>.</p>
+<p> </p>
+<p>Para você ver os <code>Storage Classes</code> disponíveis no seu cluster, basta executar o seguinte comando:</p>
+<pre><code class="lang-bash">kubectl get storageclass
+</code></pre>
+<p> </p>
+<pre><code class="lang-bash">NAME                 PROVISIONER             RECLAIMPOLICY   VOLUMEBINDINGMODE      ALLOWVOLUMEEXPANSION   AGE
+standard (default)   rancher.io/local-path   Delete          WaitForFirstConsumer   <span class="hljs-literal">false</span>                  21m
+</code></pre>
+<p> </p>
+<p>Como você pode ver, no Kind, o provisionador padrão é o <code>rancher.io/local-path</code>, que cria volumes PersistentVolume no diretório do host.</p>
+<p>Já no EKS, o provisionador padrão é o <code>kubernetes.io/aws-ebs</code>, que cria volumes PersistentVolume no EBS da AWS.</p>
+<pre><code class="lang-bash">NAME            PROVISIONER             RECLAIMPOLICY   VOLUMEBINDINGMODE      ALLOWVOLUMEEXPANSION   AGE
+gp2 (default)   kubernetes.io/aws-ebs   Delete          WaitForFirstConsumer   <span class="hljs-literal">false</span>                  6h5m
+</code></pre>
+<p> </p>
+<p>Vamos ver os detalhes do nosso <code>Storage Class</code> padrão:</p>
+<pre><code class="lang-bash">kubectl describe storageclass standard
+</code></pre>
+<p> </p>
+<pre><code class="lang-bash">Name:            standard
+IsDefaultClass:  Yes
+Annotations:     kubectl.kubernetes.io/last-applied-configuration={<span class="hljs-string">&quot;apiVersion&quot;</span>:<span class="hljs-string">&quot;storage.k8s.io/v1&quot;</span>,<span class="hljs-string">&quot;kind&quot;</span>:<span class="hljs-string">&quot;StorageClass&quot;</span>,<span class="hljs-string">&quot;metadata&quot;</span>:{<span class="hljs-string">&quot;annotations&quot;</span>:{<span class="hljs-string">&quot;storageclass.kubernetes.io/is-default-class&quot;</span>:<span class="hljs-string">&quot;true&quot;</span>},<span class="hljs-string">&quot;name&quot;</span>:<span class="hljs-string">&quot;standard&quot;</span>},<span class="hljs-string">&quot;provisioner&quot;</span>:<span class="hljs-string">&quot;rancher.io/local-path&quot;</span>,<span class="hljs-string">&quot;reclaimPolicy&quot;</span>:<span class="hljs-string">&quot;Delete&quot;</span>,<span class="hljs-string">&quot;volumeBindingMode&quot;</span>:<span class="hljs-string">&quot;WaitForFirstConsumer&quot;</span>}
+,storageclass.kubernetes.io/is-default-class=<span class="hljs-literal">true</span>
+Provisioner:           rancher.io/local-path
+Parameters:            &lt;none&gt;
+AllowVolumeExpansion:  &lt;<span class="hljs-built_in">unset</span>&gt;
+MountOptions:          &lt;none&gt;
+ReclaimPolicy:         Delete
+VolumeBindingMode:     WaitForFirstConsumer
+Events:                &lt;none&gt;
+</code></pre>
+<p> </p>
+<p>Uma coisa que podemos ver é que o nosso <code>Storage Class</code> está com a opção <code>IsDefaultClass</code> como <code>Yes</code>, o que significa que ele é o <code>Storage Class</code> padrão do nosso cluster, com isso todos os <code>Persistent Volume Claims</code> que não tiverem um <code>Storage Class</code> definido, irão utilizar esse <code>Storage Class</code> como padrão.</p>
+<p> </p>
+<p>Vamos criar um novo <code>Storage Class</code> para o nosso cluster Kubernetes no kind, com o nome &quot;local-storage&quot;, e vamos definir o provisionador como &quot;kubernetes.io/host-path&quot;, que cria volumes PersistentVolume no diretório do host.</p>
+<pre><code class="lang-bash">apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: giropops
+provisioner: kubernetes.io/no-provisioner
+reclaimPolicy: Retain
+volumeBindingMode: WaitForFirstConsumer
+</code></pre>
+<p> </p>
+<pre><code class="lang-bash">kubectl apply -f storageclass.yaml
+</code></pre>
+<p> </p>
+<pre><code class="lang-bash">storageclass.storage.k8s.io/giropops created
+</code></pre>
+<p> </p>
+<p>Pronto! Agora nós temos um novo <code>Storage Class</code> criado no nosso cluster Kubernetes no kind, com o nome &quot;giropops&quot;, e com o provisionador &quot;kubernetes.io/no-provisioner&quot;, que cria volumes PersistentVolume no diretório do host.</p>
+<p>Para saber mais detalhes sobre o <code>Storage Class</code> que criamos, execute o seguinte comando:</p>
+<pre><code class="lang-bash">kubectl describe storageclass giropops
+</code></pre>
+<p> </p>
+<pre><code class="lang-bash">Name:            giropops
+IsDefaultClass:  No
+Annotations:     kubectl.kubernetes.io/last-applied-configuration={<span class="hljs-string">&quot;apiVersion&quot;</span>:<span class="hljs-string">&quot;storage.k8s.io/v1&quot;</span>,<span class="hljs-string">&quot;kind&quot;</span>:<span class="hljs-string">&quot;StorageClass&quot;</span>,<span class="hljs-string">&quot;metadata&quot;</span>:{<span class="hljs-string">&quot;annotations&quot;</span>:{},<span class="hljs-string">&quot;name&quot;</span>:<span class="hljs-string">&quot;giropops&quot;</span>},<span class="hljs-string">&quot;provisioner&quot;</span>:<span class="hljs-string">&quot;kubernetes.io/no-provisioner&quot;</span>,<span class="hljs-string">&quot;reclaimPolicy&quot;</span>:<span class="hljs-string">&quot;Retain&quot;</span>,<span class="hljs-string">&quot;volumeBindingMode&quot;</span>:<span class="hljs-string">&quot;WaitForFirstConsumer&quot;</span>}
+
+Provisioner:           kubernetes.io/no-provisioner
+Parameters:            &lt;none&gt;
+AllowVolumeExpansion:  &lt;<span class="hljs-built_in">unset</span>&gt;
+MountOptions:          &lt;none&gt;
+ReclaimPolicy:         Retain
+VolumeBindingMode:     WaitForFirstConsumer
+Events:                &lt;none&gt;
+</code></pre>
+<p> </p>
+<p>Lembrando que criamos esse <code>Storage Class</code> com o provisionador &quot;kubernetes.io/no-provisioner&quot;, mas você pode criar um <code>Storage Class</code> com qualquer provisionador que você quiser, como o &quot;kubernetes.io/aws-ebs&quot;, que cria volumes PersistentVolume no EBS da AWS.</p>
+<p> </p>
+<h5 id="pv---persistent-volume">PV - Persistent Volume</h5>
+<p>O PV é um objeto que representa um recurso de armazenamento físico em um cluster Kubernetes. Ele pode ser um disco rígido em um nó do cluster, um dispositivo de armazenamento em rede (NAS) ou mesmo um serviço de armazenamento em nuvem, como o AWS EBS ou Google Cloud Persistent Disk. </p>
+<p>O PV é utilizado para fornecer armazenamento durável, ou seja, os dados armazenados no PV permanecem disponíveis mesmo quando o container é reiniciado ou movido para outro nó.</p>
+<p>No Kubernetes, você pode usar várias soluções de armazenamento como Persistent Volumes (PVs). Essas soluções podem ser divididas em dois tipos: armazenamento local e armazenamento em rede. Vou te dar exemplos de algumas opções populares de cada tipo:</p>
+<p><strong>Armazenamento local:</strong></p>
+<ul>
+<li>HostPath: É uma maneira simples de usar um diretório do nó do cluster como armazenamento. É útil principalmente para testes e desenvolvimento, pois não é apropriado para ambientes de produção, já que os dados armazenados só estão disponíveis no nó específico.</li>
+</ul>
+<p><strong>Armazenamento em rede:</strong></p>
+<ul>
+<li><p>NFS (Network File System): É um sistema de arquivos de rede que permite compartilhar arquivos entre várias máquinas na rede. É uma opção comum para armazenamento compartilhado em um cluster Kubernetes.</p>
+</li>
+<li><p>iSCSI (Internet Small Computer System Interface): É um protocolo que permite a conexão de dispositivos de armazenamento de blocos, como SAN (Storage Area Network), por meio de redes IP. Pode ser usado como um PV no Kubernetes.</p>
+</li>
+<li><p>Ceph RBD (RADOS Block Device): É uma solução de armazenamento distribuído e altamente escalável que oferece suporte ao armazenamento em bloco, objeto e arquivo. Com o RBD, você pode criar volumes de blocos virtualizados que podem ser montados como PVs no Kubernetes.</p>
+</li>
+<li><p>GlusterFS: É um sistema de arquivos distribuído e escalável que permite criar volumes de armazenamento compartilhado em vários nós do cluster. Pode ser usado como um PV no Kubernetes.</p>
+</li>
+<li><p>Serviços de armazenamento em nuvem: Fornecedores de nuvem como AWS, Google Cloud e Microsoft Azure oferecem soluções de armazenamento que podem ser integradas ao Kubernetes. Exemplos incluem AWS Elastic Block Store (EBS), Google Cloud Persistent Disk e Azure Disk Storage.</p>
+</li>
+</ul>
+<p>Agora que já sabemos o que é um PV, vamos entender como nós podemos utilizar o <code>kubectl</code> para gerenciar os PVs.</p>
+<p>Primeira coisa, vamos listar os PVs que temos no nosso cluster:</p>
+<pre><code class="lang-bash">kubectl get pv -A
+</code></pre>
+<pre><code class="lang-bash">No resources found
+</code></pre>
+<p> </p>
+<p>Com o comando acima estamos listando todos os PVs que temos no nosso cluster, e como podemos ver, não temos nenhum PV criado, ainda. :)</p>
+<p>Vamos resolver isso, bora criar um PV?</p>
+<p>Para isso, vamos criar um arquivo chamado <code>pv.yaml</code>:</p>
+<pre><code class="lang-yaml"><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">v1</span> <span class="hljs-comment"># Versão da API do Kubernetes</span>
+<span class="hljs-attr">kind:</span> <span class="hljs-string">PersistentVolume</span> <span class="hljs-comment"># Tipo de objeto que estamos criando, no caso um PersistentVolume</span>
+<span class="hljs-attr">metadata:</span> <span class="hljs-comment"># Informações sobre o objeto</span>
+  <span class="hljs-attr">name:</span> <span class="hljs-string">meu-pv</span> <span class="hljs-comment"># Nome do nosso PV</span>
+  <span class="hljs-attr">labels:</span>
+    <span class="hljs-attr">storage:</span> <span class="hljs-string">local</span>
+<span class="hljs-attr">spec:</span> <span class="hljs-comment"># Especificações do nosso PV</span>
+  <span class="hljs-attr">capacity:</span> <span class="hljs-comment"># Capacidade do PV</span>
+    <span class="hljs-attr">storage:</span> <span class="hljs-string">1Gi</span> <span class="hljs-comment"># 1 Gigabyte de armazenamento</span>
+  <span class="hljs-attr">accessModes:</span> <span class="hljs-comment"># Modos de acesso ao PV</span>
+    <span class="hljs-bullet">-</span> <span class="hljs-string">ReadWriteOnce</span> <span class="hljs-comment"># Modo de acesso ReadWriteOnce, ou seja, o PV pode ser montado como leitura e escrita por um único nó</span>
+  <span class="hljs-attr">persistentVolumeReclaimPolicy:</span> <span class="hljs-string">Retain</span> <span class="hljs-comment"># Política de reivindicação do PV, ou seja, o PV não será excluído quando o PVC for excluído</span>
+  <span class="hljs-attr">hostPath:</span> <span class="hljs-comment"># Tipo de armazenamento que vamos utilizar, no caso um hostPath</span>
+    <span class="hljs-attr">path:</span> <span class="hljs-string">&quot;/mnt/data&quot;</span> <span class="hljs-comment"># Caminho do hostPath, do nosso nó, onde o PV será criado</span>
+  <span class="hljs-attr">storageClassName:</span> <span class="hljs-string">standard</span> <span class="hljs-comment"># Nome da classe de armazenamento que será utilizada</span>
+</code></pre>
+<p> </p>
+<p>Antes de criar o PV, eu preciso falar um pouquinho mais sobre o arquivo que criamos, principalmente sobre o que temos de diferente em relação aos outros arquivos que criamos até agora.</p>
+<ul>
+<li><code>kind: PersistentVolume</code>: Aqui estamos definindo o tipo de objeto que estamos criando, no caso um <code>PersistentVolume</code>.</li>
+</ul>
+<p>Outro ponto importante de mencionar é a seção <code>spec</code>, que é onde definimos as especificações do nosso PV.</p>
+<ul>
+<li><code>spec.capacity.storage</code>: Aqui estamos definindo a capacidade do nosso PV, no caso 1 Gigabyte de armazenamento.</li>
+<li><code>spec.accessModes</code>: Aqui estamos definindo os modos de acesso ao PV, no caso o modo <code>ReadWriteOnce</code>, que significa que o PV pode ser montado como leitura e escrita por um único nó. Aqui nós temos mais alguns modos de acesso:<ul>
+<li><code>ReadOnlyMany</code>: O PV pode ser montado como somente leitura por vários nós.</li>
+<li><code>ReadWriteMany</code>: O PV pode ser montado como leitura e escrita por vários nós.</li>
+</ul>
+</li>
+<li><code>spec.persistentVolumeReclaimPolicy</code>: Aqui estamos definindo a política de reivindicação do PV, no caso a política <code>Retain</code>, que significa que o PV não será excluído quando o PVC for excluído. Aqui nós temos mais algumas políticas:<ul>
+<li><code>Recycle</code>: O PV será excluído quando o PVC for excluído, mas antes disso ele será limpo, ou seja, todos os dados serão apagados.</li>
+<li><code>Delete</code>: O PV será excluído quando o PVC for excluído.</li>
+</ul>
+</li>
+</ul>
+<p>Outra seção importante é a seção <code>hostPath</code>, que é onde definimos o tipo de armazenamento que vamos utilizar, no caso um <code>hostPath</code>. Vou detalhar abaixo os tipos de armazenamento que podemos utilizar:</p>
+<ul>
+<li><code>hostPath</code>: É uma maneira simples de usar um diretório do nó do cluster como armazenamento. É útil principalmente para testes e desenvolvimento, pois não é apropriado para ambientes de produção, já que os dados armazenados só estão disponíveis no nó específico. Ele é ideal em cenários de testes com somente um node.</li>
+<li><code>nfs</code>: É um sistema de arquivos de rede que permite compartilhar arquivos entre várias máquinas na rede. É uma opção comum para armazenamento compartilhado em um cluster Kubernetes.</li>
+<li><code>iscsi</code>: É um protocolo que permite a conexão de dispositivos de armazenamento de blocos, como SAN (Storage Area Network), por meio de redes IP.</li>
+<li><code>csi</code>: Que significa Container Storage Interface, é um recurso que permite a integração de soluções de armazenamento de terceiros com o Kubernetes. O CSI permite que os provedores de armazenamento implementem seus próprios plugins de armazenamento e os integrem ao Kubernetes. É graças ao CSI que podemos utilizar soluções de armazenamento de terceiros, como o AWS EBS, Google Cloud Persistent Disk e Azure Disk Storage.</li>
+<li><code>cephfs</code>: É um sistema de arquivos distribuído e escalável que permite criar volumes de armazenamento compartilhado em vários nós do cluster.</li>
+<li><code>local</code>: É um tipo de armazenamento que permite a criação de volumes locais, onde você pode especificar o caminho do diretório onde os dados serão armazenados. É útil principalmente para testes e desenvolvimento, já que não é apropriado para ambientes de produção, já que os dados armazenados só estão disponíveis no node específico. A diferença entre o <code>hostPath</code> e o <code>local</code> é que o <code>local</code> é um recurso nativo do Kubernetes, enquanto o <code>hostPath</code> é um recurso do Kubernetes que utiliza o recurso nativo do Docker e não é recomendado quando estamos com mais de um node no cluster.</li>
+<li><code>fc</code>: É um protocolo que permite a conexão de dispositivos de armazenamento de blocos utilizando redes de fibra óptica. É uma opção comum para armazenamento compartilhado em um cluster Kubernetes.</li>
+</ul>
+<p>Eu listei somente os tipos de armazenamento mais comuns, mas você pode encontrar mais informações sobre os tipos de armazenamento no <a href="https://kubernetes.io/docs/concepts/storage/persistent-volumes/#types-of-persistent-volumes" target="_blank">Kubernetes Docs</a>.</p>
+<p>E por último, temos a seção <code>storageClassName</code>, que é onde definimos o nome da classe de armazenamento que iremos adicionar o PV.</p>
+<p> </p>
+<p>Conforme vamos avançando no treinamento, vamos conhecendo mais detalhes sobre cada tipo de armazenamento.</p>
+<p>Pronto, tudo está pronto para criarmos o PV.</p>
+<pre><code class="lang-bash">kubectl apply -f pv.yaml
+persistentvolume/meu-pv created
+</code></pre>
+<p> </p>
+<p>Vamos listar o nosso PV para ver se ele foi criado corretamente.</p>
+<pre><code class="lang-bash">kubectl get pv
+</code></pre>
+<p> </p>
+<pre><code class="lang-bash">NAME     CAPACITY   ACCESS MODES   RECLAIM POLICY   STATUS      CLAIM   STORAGECLASS   REASON   AGE
+meu-pv   1Gi        RWO            Retain           Available           standard                10s
+</code></pre>
+<p> </p>
+<p>PV criado com sucesso.</p>
+<p>Podemos ver que o nosso PV está com o status <code>Available</code>, o que significa que ele está disponível para ser utilizado por um PVC.</p>
+<p>Vamos ver os detalhes do nosso PV.</p>
+<pre><code class="lang-bash">kubectl describe pv meu-pv
+</code></pre>
+<p> </p>
+<pre><code class="lang-bash">Name:            meu-pv
+Labels:          storage=<span class="hljs-built_in">local</span>
+Annotations:     &lt;none&gt;
+Finalizers:      [kubernetes.io/pv-protection]
+StorageClass:    standard
+Status:          Available
+Claim:           
+Reclaim Policy:  Retain
+Access Modes:    RWO
+VolumeMode:      Filesystem
+Capacity:        1Gi
+Node Affinity:   &lt;none&gt;
+Message:         
+Source:
+    Type:          HostPath (bare host directory volume)
+    Path:          /mnt/data
+    HostPathType:  
+Events:            &lt;none&gt;
+</code></pre>
+<p> </p>
+<p>Dessa forma estamos criando o PV utilizando o provisionador <code>hostPath</code>, que é um provisionador para ser utilizado em testes e desenvolvimento, já que os dados armazenados só estão disponíveis no node específico, por isso bora para mais um exemplo, mas agora utilizando o provisionador <code>nfs</code>, que é um sistema de arquivos de rede que permite compartilhar arquivos entre várias máquinas na rede.</p>
+<p> </p>
+<p>Primeira coisa que vamos fazer é criar o diretório que será compartilhado entre os nodes do cluster. Lembrando que para esse exemplo, estou utilizando uma máquina Linux para criar o compartilhamento NFS, mas você pode utilizar qualquer outro sistema operacional, desde que ele tenha suporte ao NFS.</p>
+<pre><code class="lang-bash">mkdir /mnt/nfs
+</code></pre>
+<p> </p>
+<p>Precisamos instalar os pacotes <code>nfs-kernel-server</code> e <code>nfs-common</code> para que o servidor NFS e o cliente NFS sejam instalados.</p>
+<pre><code class="lang-bash">sudo apt-get install nfs-kernel-server nfs-common
+</code></pre>
+<p> </p>
+<p>Vamos editar o arquivo <code>/etc/exports</code>, que é o arquivo de configuração do NFS, e adicionar o diretório que será compartilhado entre os nodes do cluster.</p>
+<pre><code class="lang-bash">sudo vi /etc/exports
+</code></pre>
+<p> </p>
+<pre><code class="lang-bash">/mnt/nfs *(rw,sync,no_root_squash,no_subtree_check)
+</code></pre>
+<p> </p>
+<p>Onde:</p>
+<ul>
+<li><p><code>/mnt/nfs</code>: é o diretório que você deseja compartilhar.</p>
+</li>
+<li><p><code>*</code>: permite que qualquer host acesse o diretório compartilhado. Para maior segurança, você pode substituir * por um intervalo de IPs ou por IPs específicos dos clientes que terão acesso ao diretório compartilhado. Por exemplo, 192.168.1.0/24 permitiria que todos os hosts na sub-rede 192.168.1.0/24 acessassem o diretório compartilhado.</p>
+</li>
+<li><p><code>rw</code>: concede permissões de leitura e gravação aos clientes.</p>
+</li>
+<li><p><code>sync</code>: garante que as solicitações de gravação sejam confirmadas somente quando as alterações tiverem sido realmente gravadas no disco.</p>
+</li>
+<li><p><code>no_root_squash</code>: permite que o usuário root em um cliente NFS acesse os arquivos como root. Caso contrário, o acesso seria limitado a um usuário não privilegiado.</p>
+</li>
+<li><p><code>no_subtree_check</code>: desativa a verificação de subárvore, o que pode melhorar a confiabilidade em alguns casos. A verificação de subárvore normalmente verifica se um arquivo faz parte do diretório exportado.</p>
+</li>
+</ul>
+<p>Agora vamos falar para o NFS que o diretório <code>/mnt/nfs</code> está disponível para ser compartilhado.</p>
+<pre><code class="lang-bash">sudo exportfs -arv
+</code></pre>
+<p> </p>
+<p>Maravilha! Vamos agora verificar se o NFS está funcionando corretamente.</p>
+<pre><code class="lang-bash">showmount -e
+</code></pre>
+<p> </p>
+<pre><code class="lang-bash">Export list <span class="hljs-keyword">for</span> localhost:
+/mnt/nfs *
+</code></pre>
+<p> </p>
+<p>Já era! O nosso NFS está funcionando corretamente. \o/</p>
+<p>Agora que já temos o nosso NFS funcionando, vamos criar o nosso StorageClass para o provisionador <code>nfs</code>.</p>
+<p>Para esse exemplo, vamos criar um arquivo chamado <code>storageclass-nfs.yaml</code> e adicionar o seguinte conteúdo.</p>
+<pre><code class="lang-yaml"><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">storage.k8s.io/v1</span> <span class="hljs-comment"># Versão da API do Kubernetes</span>
+<span class="hljs-attr">kind:</span> <span class="hljs-string">StorageClass</span> <span class="hljs-comment"># Tipo de objeto que estamos criando, no caso um StorageClass</span>
+<span class="hljs-attr">metadata:</span> <span class="hljs-comment"># Informações sobre o objeto</span>
+  <span class="hljs-attr">name:</span> <span class="hljs-string">nfs</span> <span class="hljs-comment"># Nome do nosso StorageClass</span>
+<span class="hljs-attr">provisioner:</span> <span class="hljs-string">kubernetes.io/no-provisioner</span> <span class="hljs-comment"># Provisionador que será utilizado para criar o PV</span>
+<span class="hljs-attr">reclaimPolicy:</span> <span class="hljs-string">Retain</span> <span class="hljs-comment"># Política de reivindicação do PV, ou seja, o PV não será excluído quando o PVC for excluído</span>
+<span class="hljs-attr">volumeBindingMode:</span> <span class="hljs-string">WaitForFirstConsumer</span>
+<span class="hljs-attr">parameters:</span> <span class="hljs-comment"># Parâmetros que serão utilizados pelo provisionador</span>
+  <span class="hljs-attr">archiveOnDelete:</span> <span class="hljs-string">&quot;false&quot;</span> <span class="hljs-comment"># Parâmetro que indica se os dados do PV devem ser arquivados quando o PV for excluído</span>
+</code></pre>
+<p> </p>
+<p>O Kubernetes não possui um provisionador <code>nfs</code> nativo, então não é possível fazer com que o provisionador <code>kubernetes.io/no-provisioner</code> crie um PV utilizando um servidor NFS automaticamente, para que isso seja possível, precisamos utilizar um provisionador <code>nfs</code> externo, mas isso não é o foco nesse momento, então vamos criar o nosso PV manualmente, afinal de contas, já estamos experts em PVs, certo?</p>
+<p>Bora lá!</p>
+<p>Então já podemos criar o PV e associa-lo ao Storage Class, e para isso vamos criar um novo arquivo chamado <code>pv-nfs.yaml</code> e adicionar o seguinte conteúdo.</p>
+<pre><code class="lang-yaml"><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">v1</span> <span class="hljs-comment"># Versão da API do Kubernetes</span>
+<span class="hljs-attr">kind:</span> <span class="hljs-string">PersistentVolume</span> <span class="hljs-comment"># Tipo de objeto que estamos criando, no caso um PersistentVolume</span>
+<span class="hljs-attr">metadata:</span> <span class="hljs-comment"># Informações sobre o objeto</span>
+  <span class="hljs-attr">name:</span> <span class="hljs-string">meu-pv-nfs</span> <span class="hljs-comment"># Nome do nosso PV</span>
+  <span class="hljs-attr">labels:</span>
+    <span class="hljs-attr">storage:</span> <span class="hljs-string">nfs</span> <span class="hljs-comment"># Label que será utilizada para identificar o PV</span>
+<span class="hljs-attr">spec:</span> <span class="hljs-comment"># Especificações do nosso PV</span>
+  <span class="hljs-attr">capacity:</span> <span class="hljs-comment"># Capacidade do PV</span>
+    <span class="hljs-attr">storage:</span> <span class="hljs-string">1Gi</span> <span class="hljs-comment"># 1 Gigabyte de armazenamento</span>
+  <span class="hljs-attr">accessModes:</span> <span class="hljs-comment"># Modos de acesso ao PV</span>
+    <span class="hljs-bullet">-</span> <span class="hljs-string">ReadWriteOnce</span> <span class="hljs-comment"># Modo de acesso ReadWriteOnce, ou seja, o PV pode ser montado como leitura e escrita por um único nó</span>
+  <span class="hljs-attr">persistentVolumeReclaimPolicy:</span> <span class="hljs-string">Retain</span> <span class="hljs-comment"># Política de reivindicação do PV, ou seja, o PV não será excluído quando o PVC for excluído</span>
+  <span class="hljs-attr">nfs:</span> <span class="hljs-comment"># Tipo de armazenamento que vamos utilizar, no caso o NFS</span>
+    <span class="hljs-attr">server:</span> <span class="hljs-string">IP_DO_SERVIDOR_NFS</span> <span class="hljs-comment"># Endereço do servidor NFS</span>
+    <span class="hljs-attr">path:</span> <span class="hljs-string">&quot;/mnt/nfs&quot;</span> <span class="hljs-comment"># Compartilhamento do servidor NFS</span>
+  <span class="hljs-attr">storageClassName:</span> <span class="hljs-string">nfs</span> <span class="hljs-comment"># Nome da classe de armazenamento que será utilizada</span>
+</code></pre>
+<p> </p>
+<p>Agora vamos criar o nosso PV.</p>
+<pre><code class="lang-bash">kubectl apply -f pv-nfs.yaml
+</code></pre>
+<p> </p>
+<pre><code class="lang-bash">persistentvolume/meu-pv created
+</code></pre>
+<p> </p>
+<p>Tudo certo com o nosso PV, agora eu acho que já podemos passar para o próximo tópico, que é o PVC.</p>
+<p> </p>
+<h5 id="pvc---persistent-volume-claim">PVC - Persistent Volume Claim</h5>
+<p>O PVC é uma solicitação de armazenamento feita pelos usuários ou aplicativos no cluster Kubernetes. Ele permite que os usuários solicitem um volume específico, com base em tamanho, tipo de armazenamento e outras características. O PVC age como uma &quot;assinatura&quot; que reivindica um PV para ser usado por um contêiner. O Kubernetes tenta associar automaticamente um PVC a um PV compatível, garantindo que o armazenamento seja alocado corretamente.</p>
+<p>Através do PVC, as pessoas podem abstrair os detalhes de cada tipo de armazenamento, permitindo maior flexibilidade e portabilidade entre diferentes ambientes e provedores de infraestrutura. Ele também permite que os usuários solicitem volumes com diferentes características, como tamanho, tipo de armazenamento e modo de acesso.</p>
+<p>Todo PVC é associado a um <code>Storage Class</code> ou a um <code>Persistent Volume</code>. O <code>Storage Class</code> é um objeto que descreve e define diferentes classes de armazenamento disponíveis no cluster. Já o <code>Persistent Volume</code> é um recurso que representa um volume de armazenamento disponível para ser usado pelo cluster.</p>
+<p>Vamos criar o nosso primeiro PVC para o PV que criamos anteriormente.</p>
+<p>Para isso, vamos criar um arquivo chamado <code>pvc.yaml</code> e adicionar o seguinte conteúdo:</p>
+<pre><code class="lang-yaml"><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">v1</span> <span class="hljs-comment"># versão da API do Kubernetes</span>
+<span class="hljs-attr">kind:</span> <span class="hljs-string">PersistentVolumeClaim</span> <span class="hljs-comment"># tipo de recurso, no caso, um PersistentVolumeClaim</span>
+<span class="hljs-attr">metadata:</span> <span class="hljs-comment"># metadados do recurso</span>
+  <span class="hljs-attr">name:</span> <span class="hljs-string">meu-pvc</span> <span class="hljs-comment"># nome do PVC</span>
+<span class="hljs-attr">spec:</span> <span class="hljs-comment"># especificação do PVC</span>
+  <span class="hljs-attr">accessModes:</span> <span class="hljs-comment"># modo de acesso ao volume</span>
+    <span class="hljs-bullet">-</span> <span class="hljs-string">ReadWriteOnce</span> <span class="hljs-comment"># modo de acesso RWO, ou seja, somente leitura e escrita por um nó</span>
+  <span class="hljs-attr">resources:</span> <span class="hljs-comment"># recursos do PVC</span>
+    <span class="hljs-attr">requests:</span> <span class="hljs-comment"># solicitação de recursos</span>
+      <span class="hljs-attr">storage:</span> <span class="hljs-string">1Gi</span> <span class="hljs-comment"># tamanho do volume que ele vai solicitar</span>
+  <span class="hljs-attr">storageClassName:</span> <span class="hljs-string">nfs</span> <span class="hljs-comment"># nome da classe de armazenamento que será utilizada</span>
+  <span class="hljs-attr">selector:</span> <span class="hljs-comment"># seletor de labels</span>
+    <span class="hljs-attr">matchLabels:</span> <span class="hljs-comment"># labels que serão utilizadas para selecionar o PV</span>
+      <span class="hljs-attr">storage:</span> <span class="hljs-string">nfs</span> <span class="hljs-comment"># label que será utilizada para selecionar o PV</span>
+</code></pre>
+<p> </p>
+<p>Aqui nós estamos definindo o nosso PVC, e vou falar um pouco sobre as principais seções do nosso arquivo.</p>
+<p>A seção <code>accessModes</code> é onde definimos o modo de acesso ao volume, que pode ser <code>ReadWriteOnce</code> (RWO), <code>ReadOnlyMany</code> (ROM) ou <code>ReadWriteMany</code> (RWM). O RWO significa que o volume pode ser montado como somente leitura e escrita por um nó. O ROM significa que o volume pode ser montado como somente leitura por vários nós. O RWM significa que o volume pode ser montado como leitura e escrita por vários nós.</p>
+<p>A seção <code>resources</code> é onde definimos os recursos que o PVC irá solicitar. Nesse caso, estamos solicitando um volume de 1Gi.</p>
+<p>Ainda temos a seção <code>storageClassName</code>, que é onde definimos o nome da classe de armazenamento que iremos associar ao PVC.</p>
+<p>E por fim, temos a seção <code>selector</code>, que é onde definimos o seletor de labels que será utilizado para selecionar o PV que será associado ao PVC.</p>
+<p>Vamos criar o nosso PVC.</p>
+<pre><code class="lang-bash">kubectl apply -f pvc.yaml
+persistentvolumeclaim/meu-pvc created
+</code></pre>
+<p> </p>
+<p>Pronto, PVC criado! Vamos conferir se ele foi criado corretamente.</p>
+<pre><code class="lang-bash">kubectl get pvc
+</code></pre>
+<p> </p>
+<pre><code class="lang-bash">NAME      STATUS    VOLUME   CAPACITY   ACCESS MODES   STORAGECLASS   AGE
+meu-pvc   Pending                                      nfs            5s
+</code></pre>
+<p> </p>
+<p>Está lá! Porém o status dele está como <code>Pending</code>, vamos ver se tem alguma informação que nos ajude a entender o que está acontecendo.</p>
+<pre><code class="lang-bash">kubectl describe pvc meu-pvc
+</code></pre>
+<p> </p>
+<pre><code class="lang-bash">Name:          meu-pvc
+Namespace:     default
+StorageClass:  nfs
+Status:        Pending
+Volume:        
+Labels:        &lt;none&gt;
+Annotations:   &lt;none&gt;
+Finalizers:    [kubernetes.io/pvc-protection]
+Capacity:      
+Access Modes:  
+VolumeMode:    Filesystem
+Used By:       &lt;none&gt;
+Events:
+  Type    Reason                Age                 From                         Message
+  ----    ------                ----                ----                         -------
+  Normal  WaitForFirstConsumer  15s (x4 over 1m5s)  persistentvolume-controller  waiting <span class="hljs-keyword">for</span> first consumer to be created before binding
+</code></pre>
+<p> </p>
+<p>Repare na parte dos eventos, lá diz que o PVC está esperando o primeiro consumidor ser criado antes de ser vinculado. O que isso significa?</p>
+<p>Significa que o PVC está esperando que um Pod seja criado para que ele possa ser vinculado ao PV, então bora criar o nosso Pod.</p>
+<p>Vamos usar o nosso já conhecido Nginx como exemplo, então vamos criar um arquivo chamado <code>pod.yaml</code> e adicionar o seguinte conteúdo:</p>
+<pre><code class="lang-yaml"><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">v1</span>
+<span class="hljs-attr">kind:</span> <span class="hljs-string">Pod</span>
+<span class="hljs-attr">metadata:</span>
+  <span class="hljs-attr">name:</span> <span class="hljs-string">nginx-pod</span>
+<span class="hljs-attr">spec:</span>
+  <span class="hljs-attr">containers:</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">nginx</span>
+    <span class="hljs-attr">image:</span> <span class="hljs-string">nginx:latest</span>
+    <span class="hljs-attr">ports:</span>
+    <span class="hljs-bullet">-</span> <span class="hljs-attr">containerPort:</span> <span class="hljs-number">80</span>
+    <span class="hljs-attr">volumeMounts:</span>
+    <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">meu-pvc</span>
+      <span class="hljs-attr">mountPath:</span> <span class="hljs-string">/usr/share/nginx/html</span>
+  <span class="hljs-attr">volumes:</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">meu-pvc</span>
+    <span class="hljs-attr">persistentVolumeClaim:</span>
+      <span class="hljs-attr">claimName:</span> <span class="hljs-string">meu-pvc</span>
+</code></pre>
+<p> </p>
+<p>O que estamos fazendo aqui é basicamente o seguinte:</p>
+<ul>
+<li>Criando um Pod com o nome <code>nginx-pod</code>;</li>
+<li>Utilizando a imagem <code>nginx:latest</code> como base;</li>
+<li>Expondo a porta 80;</li>
+<li>Definindo um volume chamado <code>meu-pvc</code> e montando ele no caminho <code>/usr/share/nginx/html</code> dentro do container;</li>
+<li>Por fim, definindo que o volume <code>meu-pvc</code> é um <code>PersistentVolumeClaim</code> e que o nome do PVC é <code>meu-pvc</code>.</li>
+</ul>
+<p>Esse trecho do arquivo <code>pod.yaml</code> é responsável por montar o volume <code>meu-pvc</code> no caminho <code>/usr/share/nginx/html</code> dentro do container.</p>
+<pre><code class="lang-yaml">    <span class="hljs-attr">volumeMounts:</span> <span class="hljs-comment"># montando o volume no container</span>
+    <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">meu-pvc</span>  <span class="hljs-comment"># nome do volume</span>
+      <span class="hljs-attr">mountPath:</span> <span class="hljs-string">/usr/share/nginx/html</span> <span class="hljs-comment"># caminho onde o volume será montado no container</span>
+  <span class="hljs-attr">volumes:</span> <span class="hljs-comment"># definindo o volume que será utilizado pelo Pod</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">meu-pvc</span> <span class="hljs-comment"># nome do volume</span>
+    <span class="hljs-attr">persistentVolumeClaim:</span> <span class="hljs-comment"># tipo de volume, no caso, um PersistentVolumeClaim</span>
+      <span class="hljs-attr">claimName:</span> <span class="hljs-string">meu-pvc</span> <span class="hljs-comment"># nome do PVC</span>
+</code></pre>
+<p>Esclarecido! Vamos criar o nosso Pod.</p>
+<pre><code class="lang-bash">kubectl apply -f pod.yaml
+pod/nginx-pod created
+</code></pre>
+<p> </p>
+<p>Bora ver se está tudo certo com o nosso Pod.</p>
+<pre><code class="lang-bash">NAME        READY   STATUS    RESTARTS   AGE
+nginx-pod   1/1     Running   0          21s
+</code></pre>
+<p> </p>
+<p>Parece que sim! Agora vamos ver se o nosso PVC foi vinculado ao PV.</p>
+<pre><code class="lang-bash">kubectl get pvc
+</code></pre>
+<p> </p>
+<pre><code class="lang-bash">NAME      STATUS   VOLUME       CAPACITY   ACCESS MODES   STORAGECLASS   AGE
+meu-pvc   Bound    meu-pv-nfs   1Gi        RWO            nfs            3m8s
+</code></pre>
+<p> </p>
+<p>Opa! Temos um vinculo! </p>
+<p>Vamos ver se tem alguma coisa nova na saída do <code>get pv</code>.</p>
+<pre><code class="lang-bash">kubectl get pv
+</code></pre>
+<p> </p>
+<pre><code class="lang-bash">NAME         CAPACITY   ACCESS MODES   RECLAIM POLICY   STATUS   CLAIM             STORAGECLASS   REASON   AGE
+meu-pv-nfs   1Gi        RWO            Retain           Bound    default/meu-pvc   nfs                     3m42s
+</code></pre>
+<p> </p>
+<p>Agora sim! Temos um PV com o status <code>Bound</code> e um PVC com o status <code>Bound</code> também. \o/</p>
+<p>E pra finalizar o nosso primeiro teste, vamos ver se o nosso Pod está utilizando o nosso volume.</p>
+<pre><code class="lang-bash">kubectl describe pod nginx-pod
+</code></pre>
+<p> </p>
+<pre><code class="lang-bash">Name:             nginx-pod
+Namespace:        default
+Priority:         0
+Service Account:  default
+Node:             kind-linuxtips-worker/172.18.0.4
+Start Time:       Tue, 11 Apr 2023 01:47:48 +0200
+Labels:           &lt;none&gt;
+Annotations:      &lt;none&gt;
+Status:           Running
+IP:               10.244.2.3
+IPs:
+  IP:  10.244.2.3
+Containers:
+  nginx:
+    Container ID:   containerd://b5946958f63c392c8a77b06811f7859113a1dd260ebcc2113579af6b32c4f549
+    Image:          nginx:latest
+    Image ID:       docker.io/library/nginx@sha256:2ab30d6ac53580a6db8b657abf0f68d75360ff5cc1670a85acb5bd85ba1b19c0
+    Port:           80/TCP
+    Host Port:      0/TCP
+    State:          Running
+      Started:      Tue, 11 Apr 2023 01:47:50 +0200
+    Ready:          True
+    Restart Count:  0
+    Environment:    &lt;none&gt;
+    Mounts:
+      /usr/share/nginx/html from meu-pvc (rw)
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-8874f (ro)
+Conditions:
+  Type              Status
+  Initialized       True 
+  Ready             True 
+  ContainersReady   True 
+  PodScheduled      True 
+Volumes:
+  meu-pvc:
+    Type:       PersistentVolumeClaim (a reference to a PersistentVolumeClaim <span class="hljs-keyword">in</span> the same namespace)
+    ClaimName:  meu-pvc
+    ReadOnly:   <span class="hljs-literal">false</span>
+  kube-api-access-8874f:
+    Type:                    Projected (a volume that contains injected data from multiple sources)
+    TokenExpirationSeconds:  3607
+    ConfigMapName:           kube-root-ca.crt
+    ConfigMapOptional:       &lt;nil&gt;
+    DownwardAPI:             <span class="hljs-literal">true</span>
+QoS Class:                   BestEffort
+Node-Selectors:              &lt;none&gt;
+Tolerations:                 node.kubernetes.io/not-ready:NoExecute op=Exists <span class="hljs-keyword">for</span> 300s
+                             node.kubernetes.io/unreachable:NoExecute op=Exists <span class="hljs-keyword">for</span> 300s
+Events:
+  Type    Reason     Age   From               Message
+  ----    ------     ----  ----               -------
+  Normal  Scheduled  8s    default-scheduler  Successfully assigned default/nginx-pod to kind-linuxtips-worker
+  Normal  Pulling    7s    kubelet            Pulling image <span class="hljs-string">&quot;nginx:latest&quot;</span>
+  Normal  Pulled     6s    kubelet            Successfully pulled image <span class="hljs-string">&quot;nginx:latest&quot;</span> <span class="hljs-keyword">in</span> 799.112685ms (799.119928ms including waiting)
+  Normal  Created    6s    kubelet            Created container nginx
+  Normal  Started    6s    kubelet            Started container nginx
+</code></pre>
+<p> </p>
+<p>Pronto! O nosso Pod está utilizando o nosso volume! Todo o conteúdo que for criado dentro do Pod será armazenado no nosso volume, e mesmo que o Pod seja removido, o conteúdo não será perdido.</p>
+<p>Agora vamos testar o nosso volume. Vamos criar um arquivo HTML simples no diretório <code>/mnt/data</code> do nosso servidor NFS.</p>
+<pre><code class="lang-bash"><span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;&lt;h1&gt;GIROPOPS STRIGUS GIRUS&lt;/h1&gt;&quot;</span> &gt; /mnt/data/index.html
+</code></pre>
+<p> </p>
+<p>Agora vamos ver se o nosso arquivo foi criado.</p>
+<pre><code class="lang-bash">kubectl <span class="hljs-built_in">exec</span> -it nginx-pod -- ls /usr/share/nginx/html
+</code></pre>
+<p> </p>
+<pre><code class="lang-bash">index.html
+</code></pre>
+<p> </p>
+<p>Está lá! Vamos dar um <code>curl</code> de dentro do Pod para ver se o Ngix está servindo o nosso arquivo.</p>
+<pre><code class="lang-bash">kubectl <span class="hljs-built_in">exec</span> -it nginx-pod -- curl localhost
+</code></pre>
+<p> </p>
+<pre><code class="lang-bash">&lt;h1&gt;GIROPOPS STRIGUS GIRUS&lt;/h1&gt;
+</code></pre>
+<p>Tudo rolando maravilhosamente bem! :D</p>
+<p> </p>
+<h3 id="a-sua-lição-de-casa">A sua lição de casa</h3>
+<p>A sua lição de casa é criar um deployment do Nginx, que possua um volume montado no <code>/usr/share/nginx/html</code>. Fique a vontade em utilizar diferentes tipos de provisionadores e/ou diferentes tipos de PV.
+Deixe a sua imaginação te guiar e aproveite para estudar as diferentes aplicabilidades. :)</p>
+<p> </p>
+<h2 id="final-do-day-6">Final do Day-6</h2>
+<p>Durante o Day-6 você aprendeu tudo sobre volumes no Kubernetes! Durante o Day-6 você aprender o que é um <code>StorageClass</code>, um <code>PV</code> e um <code>PVC</code>, e mais do que isso, você aprendeu tudo isso de forma prática!
+Agora é começar a usar todo o seu conhecimento adquirido para começar melhorar os deployments do seu cluster.
+Espero que tenha gostado e aprendido muita coisa nova!</p>
+<p> </p>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="../day-5/" class="navigation navigation-prev " aria-label="Previous page: Descomplicando Kubernetes dia 5">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="../day-7/" class="navigation navigation-next " aria-label="Next page: Descomplicando Kubernetes dia 7">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"Descomplicando Kubernetes dia 6","level":"2.6","depth":1,"next":{"title":"Descomplicando Kubernetes dia 7","level":"2.7","depth":1,"path":"day-7/README.md","ref":"day-7/README.md","articles":[]},"previous":{"title":"Descomplicando Kubernetes dia 5","level":"2.5","depth":1,"path":"day-5/README.md","ref":"day-5/README.md","articles":[]},"dir":"ltr"},"config":{"plugins":[],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"language":"pt","gitbook":"*"},"file":{"path":"day-6/README.md","mtime":"2024-01-18T11:49:32.111Z","type":"markdown"},"gitbook":{"version":"3.6.20","time":"2024-01-18T11:49:40.137Z"},"basePath":"..","book":{"language":"pt"}});
+        });
+    </script>
+</div>
+
+        
+    <noscript>
+        <style>
+            .honkit-cloak {
+                display: block !important;
+            }
+        </style>
+    </noscript>
+    <script>
+        // Restore sidebar state as critical path for prevent layout shift
+        function __init__getSidebarState(defaultValue){
+            var baseKey = "";
+            var key = baseKey + ":sidebar";
+            try {
+                var value = localStorage[key];
+                if (value === undefined) {
+                    return defaultValue;
+                }
+                var parsed = JSON.parse(value);
+                return parsed == null ? defaultValue : parsed;
+            } catch (e) {
+                return defaultValue;
+            }
+        }
+        function __init__restoreLastSidebarState() {
+            var isMobile = window.matchMedia("(max-width: 600px)").matches;
+            if (isMobile) {
+                // Init last state if not mobile
+                return;
+            }
+            var sidebarState = __init__getSidebarState(true);
+            var book = document.querySelector(".book");
+            // Show sidebar if it enabled
+            if (sidebarState && book) {
+                book.classList.add("without-animation", "with-summary");
+            }
+        }
+
+        try {
+            __init__restoreLastSidebarState();
+        } finally {
+            var book = document.querySelector(".book");
+            book.classList.remove("honkit-cloak");
+        }
+    </script>
+    <script src="../../gitbook/gitbook.js"></script>
+    <script src="../../gitbook/theme.js"></script>
+    
+        
+        <script src="../../gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+

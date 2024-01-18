@@ -1,0 +1,1074 @@
+
+<!DOCTYPE HTML>
+<html lang="pt" >
+    <head>
+        <meta charset="UTF-8">
+        <title>Descomplicando Kubernetes dia 5 · HonKit</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="HonKit 3.6.20">
+        
+        
+        
+    
+    <link rel="stylesheet" href="../../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="../day-6/" />
+    
+    
+    <link rel="prev" href="../day-4/" />
+    
+
+    </head>
+    <body>
+        
+<div class="book honkit-cloak">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="Escreva para pesquisar" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        <li class="header">Sobre</li>
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../">
+            
+                <a href="../">
+            
+                    
+                    Introdução
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="header">Capítulos</li>
+        
+        
+    
+        <li class="chapter " data-level="2.1" data-path="../day-1/">
+            
+                <a href="../day-1/">
+            
+                    
+                    Descomplicando Kubernetes dia 1
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.2" data-path="../day-2/">
+            
+                <a href="../day-2/">
+            
+                    
+                    Descomplicando Kubernetes dia 2
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.3" data-path="../day-3/">
+            
+                <a href="../day-3/">
+            
+                    
+                    Descomplicando Kubernetes dia 3
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.4" data-path="../day-4/">
+            
+                <a href="../day-4/">
+            
+                    
+                    Descomplicando Kubernetes dia 4
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="2.5" data-path="./">
+            
+                <a href="./">
+            
+                    
+                    Descomplicando Kubernetes dia 5
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.6" data-path="../day-6/">
+            
+                <a href="../day-6/">
+            
+                    
+                    Descomplicando Kubernetes dia 6
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.7" data-path="../day-7/">
+            
+                <a href="../day-7/">
+            
+                    
+                    Descomplicando Kubernetes dia 7
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.8" data-path="../day-8/">
+            
+                <a href="../day-8/">
+            
+                    
+                    Descomplicando Kubernetes dia 8
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.9" data-path="../day-9/">
+            
+                <a href="../day-9/">
+            
+                    
+                    Descomplicando Kubernetes dia 9
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.10" data-path="../day-10/">
+            
+                <a href="../day-10/">
+            
+                    
+                    Descomplicando Kubernetes dia 10
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.11" data-path="../day-11/">
+            
+                <a href="../day-11/">
+            
+                    
+                    Descomplicando Kubernetes dia 11
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.12" data-path="../day-12/">
+            
+                <a href="../day-12/">
+            
+                    
+                    Descomplicando Kubernetes dia 12
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.13" data-path="../day-13/">
+            
+                <a href="../day-13/">
+            
+                    
+                    Descomplicando Kubernetes dia 13
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.14" data-path="../day-14/README.md">
+            
+                <span>
+            
+                    
+                    Descomplicando Kubernetes dia 14
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.15" data-path="../day-15/README.md">
+            
+                <span>
+            
+                    
+                    Descomplicando Kubernetes dia 15
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="header">Contribuir</li>
+        
+        
+    
+        <li class="chapter " data-level="3.1" data-path="../CONTRIBUTING.html">
+            
+                <a href="../CONTRIBUTING.html">
+            
+                    
+                    Como ajudar
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://github.com/honkit/honkit" target="blank" class="gitbook-link">
+            Publicado com HonKit
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href=".." >Descomplicando Kubernetes dia 5</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h1 id="descomplicando-o-kubernetes---expert-mode">Descomplicando o Kubernetes - Expert Mode</h1>
+<h2 id="day-5">DAY-5</h2>
+<p> </p>
+<h2 id="conteúdo-do-day-5">Conteúdo do Day-5</h2>
+<ul>
+<li><a href="#descomplicando-o-kubernetes---expert-mode">Descomplicando o Kubernetes - Expert Mode</a><ul>
+<li><a href="#day-5">DAY-5</a></li>
+<li><a href="#conteúdo-do-day-5">Conteúdo do Day-5</a></li>
+<li><a href="#inicio-da-aula-do-day-5">Inicio da aula do Day-5</a><ul>
+<li><a href="#o-que-iremos-ver-hoje">O que iremos ver hoje?</a></li>
+<li><a href="#instalação-de-um-cluster-kubernetes">Instalação de um cluster Kubernetes</a><ul>
+<li><a href="#o-que-é-um-cluster-kubernetes">O que é um cluster Kubernetes?</a></li>
+<li><a href="#formas-de-instalar-o-kubernetes">Formas de instalar o Kubernetes</a></li>
+<li><a href="#criando-um-cluster-kubernetes-com-o-kubeadm">Criando um cluster Kubernetes com o kubeadm</a><ul>
+<li><a href="#instalando-o-kubeadm">Instalando o kubeadm</a></li>
+<li><a href="#desativando-o-uso-do-swap-no-sistema">Desativando o uso do swap no sistema</a></li>
+<li><a href="#carregando-os-módulos-do-kernel">Carregando os módulos do kernel</a></li>
+<li><a href="#configurando-parâmetros-do-sistema">Configurando parâmetros do sistema</a></li>
+<li><a href="#instalando-os-pacotes-do-kubernetes">Instalando os pacotes do Kubernetes</a></li>
+<li><a href="#instalando-o-docker-e-o-containerd">Instalando o Docker e o containerd</a></li>
+<li><a href="#configurando-o-containerd">Configurando o containerd</a></li>
+<li><a href="#habilitando-o-serviço-do-kubelet">Habilitando o serviço do kubelet</a></li>
+<li><a href="#configurando-as-portas">Configurando as portas</a></li>
+<li><a href="#iniciando-o-cluster">Iniciando o cluster</a></li>
+<li><a href="#entendendo-o-arquivo-adminconf">Entendendo o arquivo admin.conf</a></li>
+<li><a href="#instalando-o-weave-net">Instalando o Weave Net</a></li>
+<li><a href="#o-que-é-o-cni">O que é o CNI?</a></li>
+</ul>
+</li>
+<li><a href="#visualizando-detalhes-dos-nodes">Visualizando detalhes dos nodes</a></li>
+</ul>
+</li>
+<li><a href="#a-sua-lição-de-casa">A sua lição de casa</a></li>
+</ul>
+</li>
+<li><a href="#final-do-day-5">Final do Day-5</a></li>
+</ul>
+</li>
+</ul>
+<p> </p>
+<h2 id="inicio-da-aula-do-day-5">Inicio da aula do Day-5</h2>
+<h3 id="o-que-iremos-ver-hoje">O que iremos ver hoje?</h3>
+<p>Hoje nós iremos falar como instalar o Kubernetes em um cluster com 03 nodes, onde um deles será o control plane e os outros dois serão os workers.</p>
+<p>Nós iremos utilizar o <code>kubeadm</code> para configurar o nosso cluster. Nós iremos conhecer no detalhe como criar um cluster utilizando 03 instancias EC2 da AWS, mas você pode utilizar qualquer outro tipo de instância, desde que seja uma instância Linux, o importante é entender o processo de instalação do Kubernetes e como seus componentes trabalham juntos.</p>
+<p>Espero que você se divirta durante o Day-5, e que aprenda muito com o conteúdo que preparamos para você. Hoje o dia será mais curtinho, mas não menos importante. Bora lá! #VAIIII</p>
+<h3 id="instalação-de-um-cluster-kubernetes">Instalação de um cluster Kubernetes</h3>
+<h4 id="o-que-é-um-cluster-kubernetes">O que é um cluster Kubernetes?</h4>
+<p>Um cluster Kubernetes é um conjunto de nodes que trabalham juntos para executar todos os nossos <code>pods</code>. Um cluster Kubernetes é composto por nodes que podem ser tanto <code>control plane</code> quanto <code>workers</code>. O <code>control plane</code> é responsável por gerenciar o cluster, enquanto os <code>workers</code> são responsáveis por executar os <code>pods</code> que são criados no cluster pelos usuários.</p>
+<p>Quando estamos pensando em um cluster Kubernetes, precisamos lembrar que a principal função do Kubernetes é orquestrar containers. O Kubernetes é um orquestrador de containers, sendo assim quando estamos falando de um cluster Kubernetes, estamos falando de um cluster de orquestradores de containers. Eu sempre gosto de pensar em um cluster Kubernetes como se fosse uma orquestra, onde temos uma pessoa regendo a orquestra, que é o <code>control plane</code>, e temos as pessoas musicistas, que estão executando os instrumentos, que são os <code>workers</code>.</p>
+<p>Sendo assim, o <code>control plane</code> é responsável por gerenciar o cluster, como por exemplo:</p>
+<ul>
+<li>Criar e gerenciar os recursos do cluster, como por exemplo, <code>namespaces</code>, <code>deployments</code>, <code>services</code>, <code>configmaps</code>, <code>secrets</code>, etc.</li>
+<li>Gerenciar os <code>workers</code> do cluster.</li>
+<li>Gerenciar a rede do cluster. </li>
+<li><p>O <code>etcd</code> desempenha um papel crucial na manutenção da estabilidade e confiabilidade do cluster. Ele armazena as informações de configuração de todos os componentes do <code>control plane</code>, incluindo os detalhes dos serviços, <code>pods</code> e outros recursos do cluster. Graças ao seu design distribuído, o <code>etcd</code> é capaz de tolerar falhas e garantir a continuidade dos dados, mesmo em caso de falha de um ou mais nós. Além disso, ele suporta a comunicação segura entre os componentes do cluster, usando criptografia <code>TLS</code> para proteger os dados.</p>
+</li>
+<li><p>O <code>scheduler</code> é o componente responsável por decidir em qual nó os <code>pods</code> serão executados, levando em consideração os requisitos e os recursos disponíveis. O <code>scheduler</code> também monitora constantemente a situação do cluster e, se necessário, ajusta a distribuição dos pods para garantir a melhor utilização dos recursos e manter a harmonia entre os componentes. </p>
+</li>
+<li><p>O <code>controller-manager</code> é responsável por gerenciar os diferentes controladores que regulam o estado do cluster e mantêm tudo funcionando. Ele monitora constantemente o estado atual dos recursos e compara-os com o estado desejado, fazendo ajustes conforme necessário.</p>
+</li>
+<li><p>Onde está o <code>api-server</code> é o componente central que expõe a API do Kubernetes, permitindo que outros componentes do <code>control plane</code>, como o <code>controller-manager</code> e o <code>scheduler</code>, bem como ferramentas externas, se comuniquem e interajam com o cluster. O <code>api-server</code> é a principal interface de comunicação do Kubernetes, autenticando e autorizando solicitações, processando-as e fornecendo as respostas apropriadas. Ele garante que as informações sejam compartilhadas e acessadas de forma segura e eficiente, possibilitando uma colaboração harmoniosa entre todos os componentes do cluster.</p>
+</li>
+</ul>
+<p>Já no lado dos <code>workers</code>, as coisa são bem mais simples, pois a principal função deles é executar os <code>pods</code> que são criados no cluster pelos usuários. Nos <code>workers</code> nós temos, por padrão, os seguintes componentes do Kubernetes:</p>
+<ul>
+<li><p>O <code>kubelet</code> é o agente que funciona em cada nó do cluster, garantindo que os containers estejam funcionando conforme o esperado dentro dos pods. Ele assume o controle de cada nó, garantindo que os containers estejam sendo executados conforme as instruções recebidas do <code>control plane</code>. Ele monitora constantemente o estado atual dos <code>pods</code> e compara-os com o estado desejado. Caso haja alguma divergência, o <code>kubelet</code> faz os ajustes necessários para que os containers sigam funcionando perfeitamente.</p>
+</li>
+<li><p>O <code>kube-proxy</code>, que é o componente responsável fazer ser possível que os <code>pods</code> e os <code>services</code> se comuniquem entre si e com o mundo externo. Ele observa o <code>control plane</code> para identificar mudanças na configuração dos serviços e, em seguida, atualiza as regras de encaminhamento de tráfego para garantir que tudo continue fluindo conforme o esperado.</p>
+</li>
+</ul>
+<ul>
+<li>Todos os <code>pods</code> de nossas aplicações.</li>
+</ul>
+<h4 id="formas-de-instalar-o-kubernetes">Formas de instalar o Kubernetes</h4>
+<p>Hoje nós iremos focar a instalação do Kubernetes utilizando o <code>kubeadm</code>, que é uma das formas mais antigas para a criação de um cluster Kubernetes. Mas existem outras formas de instalar o Kubernetes, vou detalhar algumas delas aqui:</p>
+<ul>
+<li><p><strong><code>kubeadm</code></strong>: É uma ferramenta para criar e gerenciar um cluster Kubernetes em vários nós. Ele automatiza muitas das tarefas de configuração do cluster, incluindo a instalação do control plane e dos nodes. É altamente configurável e pode ser usado para criar clusters personalizados.</p>
+</li>
+<li><p><strong><code>Kubespray</code></strong>: É uma ferramenta que usa o Ansible para implantar e gerenciar um cluster Kubernetes em vários nós. Ele oferece muitas opções para personalizar a instalação do cluster, incluindo a escolha do provedor de rede, o número de réplicas do control plane, o tipo de armazenamento e muito mais. É uma boa opção para implantar um cluster em vários ambientes, incluindo nuvens públicas e privadas.</p>
+</li>
+<li><p><strong><code>Cloud Providers</code></strong>: Muitos provedores de nuvem, como AWS, Google Cloud Platform e Microsoft Azure, oferecem opções para implantar um cluster Kubernetes em sua infraestrutura. Eles geralmente fornecem modelos predefinidos que podem ser usados para implantar um cluster com apenas alguns cliques. Alguns provedores de nuvem também oferecem serviços gerenciados de Kubernetes que lidam com toda a configuração e gerenciamento do cluster.</p>
+</li>
+<li><p><strong><code>Kubernetes Gerenciados</code></strong>: São serviços gerenciados oferecidos por alguns provedores de nuvem, como Amazon EKS, o GKE do Google Cloud e o AKS, da Azure. Eles oferecem um cluster Kubernetes gerenciado onde você só precisa se preocupar em implantar e gerenciar seus aplicativos. Esses serviços lidam com a configuração, atualização e manutenção do cluster para você. Nesse caso, você não tem que gerenciar o <code>control plane</code> do cluster, pois ele é gerenciado pelo provedor de nuvem.</p>
+</li>
+<li><p><strong><code>Kops</code></strong>: É uma ferramenta para implantar e gerenciar clusters Kubernetes na nuvem. Ele foi projetado especificamente para implantação em nuvens públicas como AWS, GCP e Azure. Kops permite criar, atualizar e gerenciar clusters Kubernetes na nuvem. Algumas das principais vantagens do uso do Kops são a personalização, escalabilidade e segurança. No entanto, o uso do Kops pode ser mais complexo do que outras opções de instalação do Kubernetes, especialmente se você não estiver familiarizado com a nuvem em que está implantando.</p>
+</li>
+<li><p><strong><code>Minikube</code> e <code>kind</code></strong>: São ferramentas que permitem criar um cluster Kubernetes localmente, em um único nó. São úteis para testar e aprender sobre o Kubernetes, pois você pode criar um cluster em poucos minutos e começar a implantar aplicativos imediatamente. Elas também são úteis para pessoas desenvolvedoras que precisam testar suas aplicações em um ambiente Kubernetes sem precisar configurar um cluster em um ambiente de produção.</p>
+</li>
+</ul>
+<p>Ainda existem outras formas de instalar o Kubernetes, mas essas são as mais comuns. Para mais detalhes sobre as outras formas de instalar o Kubernetes, você pode consultar a documentação oficial do Kubernetes.</p>
+<h4 id="criando-um-cluster-kubernetes-com-o-kubeadm">Criando um cluster Kubernetes com o kubeadm</h4>
+<p>Agora que você já sabe o que é o Kubernetes e quais são as suas principais funcionalidades, vamos começar a instalar o Kubernetes em nosso cluster. Nesse momento iremos ver como realizar a criação de um cluster Kubernetes utilizando o <code>kubeadm</code>, porém no decorrer da nossa jornada iremos ver outras formas de instalar o Kubernetes.</p>
+<p>Como falado, o <code>kubeadm</code> é uma ferramenta para criar e gerenciar um cluster Kubernetes em vários nós. Ele automatiza muitas das tarefas de configuração do cluster, incluindo a instalação do <code>control plane</code> e dos <code>nodes</code>.</p>
+<p>Primeira coisa, para que possamos seguir em frente, temos que entender quais são os pré-requisitos para a instalação do Kubernetes. Para isso, você pode consultar a documentação oficial do Kubernetes, mas vou listar aqui os principais pré-requisitos:</p>
+<ul>
+<li><p>Linux</p>
+</li>
+<li><p>2 GB ou mais de RAM por máquina (menos de 2 GB não é recomendado)</p>
+</li>
+<li><p>2 CPUs ou mais</p>
+</li>
+<li><p>Conexão de rede entre todas os nodes no cluster (pode ser via rede pública ou privada)</p>
+</li>
+<li><p>Algumas portas precisam estar abertas para que o cluster funcione corretamente, as principais:</p>
+<ul>
+<li><p>Porta 6443: É a porta padrão usada pelo Kubernetes API Server para se comunicar com os componentes do cluster. É a porta principal usada para gerenciar o cluster e deve estar sempre aberta.</p>
+</li>
+<li><p>Portas 10250-10255: Essas portas são usadas pelo kubelet para se comunicar com o control plane do Kubernetes. A porta 10250 é usada para comunicação de leitura/gravação e a porta 10255 é usada apenas para comunicação de leitura.</p>
+</li>
+<li><p>Porta 30000-32767: Essas portas são usadas para serviços NodePort que precisam ser acessíveis fora do cluster. O Kubernetes aloca uma porta aleatória dentro desse intervalo para cada serviço NodePort e redireciona o tráfego para o pod correspondente.</p>
+</li>
+<li><p>Porta 2379-2380: Essas portas são usadas pelo etcd, o banco de dados de chave-valor distribuído usado pelo control plane do Kubernetes. A porta 2379 é usada para comunicação de leitura/gravação e a porta 2380 é usada apenas para comunicação de eleição.</p>
+</li>
+</ul>
+</li>
+</ul>
+<p> </p>
+<h5 id="instalando-o-kubeadm">Instalando o kubeadm</h5>
+<p>Estamos aqui para configurar nosso ambiente Kubernetes e, olha só, é simples como voar! Vamos lá!</p>
+<h5 id="desativando-o-uso-do-swap-no-sistema">Desativando o uso do swap no sistema</h5>
+<p>Primeiro, vamos desativar a utilização de swap no sistema. Isso é necessário porque o Kubernetes não trabalha bem com swap ativado:</p>
+<pre><code>sudo swapoff -a
+</code></pre><h5 id="carregando-os-módulos-do-kernel">Carregando os módulos do kernel</h5>
+<p>Agora, vamos carregar os módulos do kernel necessários para o funcionamento do Kubernetes:</p>
+<pre><code>cat &lt;&lt;EOF | sudo tee /etc/modules-load.d/k8s.conf
+overlay
+br_netfilter
+EOF
+
+sudo modprobe overlay
+sudo modprobe br_netfilter
+</code></pre><h5 id="configurando-parâmetros-do-sistema">Configurando parâmetros do sistema</h5>
+<p>Em seguida, vamos configurar alguns parâmetros do sistema. Isso garantirá que nosso cluster funcione corretamente:</p>
+<pre><code>cat &lt;&lt;EOF | sudo tee /etc/sysctl.d/k8s.conf
+net.bridge.bridge-nf-call-iptables  = 1
+net.bridge.bridge-nf-call-ip6tables = 1
+net.ipv4.ip_forward                 = 1
+EOF
+
+sudo sysctl --system
+</code></pre><h5 id="instalando-os-pacotes-do-kubernetes">Instalando os pacotes do Kubernetes</h5>
+<p>Hora de instalar os pacotes do Kubernetes! Coisa linda de ai meu Deus! Aqui vamos nós:</p>
+<pre><code>sudo apt-get update &amp;&amp; sudo apt-get install -y apt-transport-https curl
+
+curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
+
+echo &quot;deb https://apt.kubernetes.io/ kubernetes-xenial main&quot; | sudo tee /etc/apt/sources.list.d/kubernetes.list
+
+sudo apt-get update
+sudo apt-get install -y kubelet kubeadm kubectl
+
+sudo apt-mark hold kubelet kubeadm kubectl
+</code></pre><h5 id="instalando-o-containerd">Instalando o containerd</h5>
+<p>Em seguida, vamos instalar o containerd, que são essenciais para nosso ambiente Kubernetes:</p>
+<pre><code>sudo apt-get update &amp;&amp; sudo apt-get install -y apt-transport-https ca-certificates curl gnupg lsb-release
+
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
+
+echo &quot;deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable&quot; | sudo tee /etc/apt/sources.list.d/docker.list &gt; /dev/null
+
+sudo apt-get update &amp;&amp; sudo apt-get install -y containerd.io
+</code></pre><h5 id="configurando-o-containerd">Configurando o containerd</h5>
+<p>Agora, vamos configurar o containerd para que ele funcione adequadamente com o nosso cluster:</p>
+<pre><code>sudo containerd config default | sudo tee /etc/containerd/config.toml
+
+sudo sed -i &apos;s/SystemdCgroup = false/SystemdCgroup = true/g&apos; /etc/containerd/config.toml
+
+sudo systemctl restart containerd
+sudo systemctl status containerd
+</code></pre><h5 id="habilitando-o-serviço-do-kubelet">Habilitando o serviço do kubelet</h5>
+<p>Por fim, vamos habilitar o serviço do kubelet para que ele inicie automaticamente com o sistema:</p>
+<pre><code>sudo systemctl enable --now kubelet
+</code></pre><h5 id="configurando-as-portas">Configurando as portas</h5>
+<p>Antes de iniciar o cluster, lembre-se das portas que precisam estar abertas para que o cluster funcione corretamente. Precisamos ter as portas TCP 6443, 10250-10255, 30000-32767 e 2379-2380 abertas entre os nodes do cluster. No nosso exemplo, onde estaremos usando somente um node <code>control plane</code>, não precisamos nos preocupar com algumas quando temos mais de um node <code>control plane</code>, pois eles precisam se comunicar entre si para manter o estado do cluster, ou ainda as portas 30000-32767, que são usadas para serviços NodePort que precisam ser acessíveis fora do cluster. Elas nós podemos ir abrindo conforme a necessidade, conforme vamos criando os nossos serviços.</p>
+<p>Por agora o que precisamos garantir são as portas TCP 6443 somente no <code>control plane</code> e as 10250-10255 abertas em todos nodes do cluster.</p>
+<p>Em nosso exemplo vamos utilizar como CNI o Weave Net, que é um CNI que utiliza o protocolo de roteamento de pacotes do Kubernetes para criar uma rede entre os pods. Falarei mais sobre ele mais pra frente, mas como estamos falando das portas que são importantes para o cluster funcionar, precisamos abrir a porta TCP 6783 e as portas UDP 6783 e 6784, para que o Weave Net funcione corretamente.</p>
+<p>Então já sabe, não esqueça de abrir as portas TCP 6443, 10250-10255 e 6783 no seu firewall.</p>
+<h5 id="inicializando-o-cluster">Inicializando o cluster</h5>
+<p>Agora que temos tudo configurado, vamos iniciar o nosso cluster:</p>
+<pre><code>sudo kubeadm init --pod-network-cidr=10.10.0.0/16 --apiserver-advertise-address=&lt;O IP QUE VAI FALAR COM OS NODES&gt;
+</code></pre><p> </p>
+<p>Substitua <code>&lt;O IP QUE VAI FALAR COM OS NODES&gt;</code> pelo endereço IP da máquina que está atuando como <code>control plane</code>.</p>
+<p>Após a execução bem-sucedida do comando acima, você verá uma mensagem informando que o cluster foi inicializado com sucesso e todos os detalhes de sua inicialização, conforme é possível ver na saída do comando:</p>
+<pre><code class="lang-bash">[init] Using Kubernetes version: v1.26.3
+[preflight] Running pre-flight checks
+[preflight] Pulling images required <span class="hljs-keyword">for</span> setting up a Kubernetes cluster
+[preflight] This might take a minute or two, depending on the speed of your internet connection
+[preflight] You can also perform this action <span class="hljs-keyword">in</span> beforehand using <span class="hljs-string">&apos;kubeadm config images pull&apos;</span>
+[certs] Using certificateDir folder <span class="hljs-string">&quot;/etc/kubernetes/pki&quot;</span>
+[certs] Generating <span class="hljs-string">&quot;ca&quot;</span> certificate and key
+[certs] Generating <span class="hljs-string">&quot;apiserver&quot;</span> certificate and key
+[certs] apiserver serving cert is signed <span class="hljs-keyword">for</span> DNS names [k8s-01 kubernetes kubernetes.default kubernetes.default.svc kubernetes.default.svc.cluster.local] and IPs [10.96.0.1 172.31.57.89]
+[certs] Generating <span class="hljs-string">&quot;apiserver-kubelet-client&quot;</span> certificate and key
+[certs] Generating <span class="hljs-string">&quot;front-proxy-ca&quot;</span> certificate and key
+[certs] Generating <span class="hljs-string">&quot;front-proxy-client&quot;</span> certificate and key
+[certs] Generating <span class="hljs-string">&quot;etcd/ca&quot;</span> certificate and key
+[certs] Generating <span class="hljs-string">&quot;etcd/server&quot;</span> certificate and key
+[certs] etcd/server serving cert is signed <span class="hljs-keyword">for</span> DNS names [k8s-01 localhost] and IPs [172.31.57.89 127.0.0.1 ::1]
+[certs] Generating <span class="hljs-string">&quot;etcd/peer&quot;</span> certificate and key
+[certs] etcd/peer serving cert is signed <span class="hljs-keyword">for</span> DNS names [k8s-01 localhost] and IPs [172.31.57.89 127.0.0.1 ::1]
+[certs] Generating <span class="hljs-string">&quot;etcd/healthcheck-client&quot;</span> certificate and key
+[certs] Generating <span class="hljs-string">&quot;apiserver-etcd-client&quot;</span> certificate and key
+[certs] Generating <span class="hljs-string">&quot;sa&quot;</span> key and public key
+[kubeconfig] Using kubeconfig folder <span class="hljs-string">&quot;/etc/kubernetes&quot;</span>
+[kubeconfig] Writing <span class="hljs-string">&quot;admin.conf&quot;</span> kubeconfig file
+[kubeconfig] Writing <span class="hljs-string">&quot;kubelet.conf&quot;</span> kubeconfig file
+[kubeconfig] Writing <span class="hljs-string">&quot;controller-manager.conf&quot;</span> kubeconfig file
+[kubeconfig] Writing <span class="hljs-string">&quot;scheduler.conf&quot;</span> kubeconfig file
+[kubelet-start] Writing kubelet environment file with flags to file <span class="hljs-string">&quot;/var/lib/kubelet/kubeadm-flags.env&quot;</span>
+[kubelet-start] Writing kubelet configuration to file <span class="hljs-string">&quot;/var/lib/kubelet/config.yaml&quot;</span>
+[kubelet-start] Starting the kubelet
+[control-plane] Using manifest folder <span class="hljs-string">&quot;/etc/kubernetes/manifests&quot;</span>
+[control-plane] Creating static Pod manifest <span class="hljs-keyword">for</span> <span class="hljs-string">&quot;kube-apiserver&quot;</span>
+[control-plane] Creating static Pod manifest <span class="hljs-keyword">for</span> <span class="hljs-string">&quot;kube-controller-manager&quot;</span>
+[control-plane] Creating static Pod manifest <span class="hljs-keyword">for</span> <span class="hljs-string">&quot;kube-scheduler&quot;</span>
+[etcd] Creating static Pod manifest <span class="hljs-keyword">for</span> <span class="hljs-built_in">local</span> etcd <span class="hljs-keyword">in</span> <span class="hljs-string">&quot;/etc/kubernetes/manifests&quot;</span>
+[wait-control-plane] Waiting <span class="hljs-keyword">for</span> the kubelet to boot up the control plane as static Pods from directory <span class="hljs-string">&quot;/etc/kubernetes/manifests&quot;</span>. This can take up to 4m0s
+[apiclient] All control plane components are healthy after 7.504091 seconds
+[upload-config] Storing the configuration used <span class="hljs-keyword">in</span> ConfigMap <span class="hljs-string">&quot;kubeadm-config&quot;</span> <span class="hljs-keyword">in</span> the <span class="hljs-string">&quot;kube-system&quot;</span> Namespace
+[kubelet] Creating a ConfigMap <span class="hljs-string">&quot;kubelet-config&quot;</span> <span class="hljs-keyword">in</span> namespace kube-system with the configuration <span class="hljs-keyword">for</span> the kubelets <span class="hljs-keyword">in</span> the cluster
+[upload-certs] Skipping phase. Please see --upload-certs
+[mark-control-plane] Marking the node k8s-01 as control-plane by adding the labels: [node-role.kubernetes.io/control-plane node.kubernetes.io/exclude-from-external-load-balancers]
+[mark-control-plane] Marking the node k8s-01 as control-plane by adding the taints [node-role.kubernetes.io/control-plane:NoSchedule]
+[bootstrap-token] Using token: if9hn9.xhxo6s89byj9rsmd
+[bootstrap-token] Configuring bootstrap tokens, cluster-info ConfigMap, RBAC Roles
+[bootstrap-token] Configured RBAC rules to allow Node Bootstrap tokens to get nodes
+[bootstrap-token] Configured RBAC rules to allow Node Bootstrap tokens to post CSRs <span class="hljs-keyword">in</span> order <span class="hljs-keyword">for</span> nodes to get long term certificate credentials
+[bootstrap-token] Configured RBAC rules to allow the csrapprover controller automatically approve CSRs from a Node Bootstrap Token
+[bootstrap-token] Configured RBAC rules to allow certificate rotation <span class="hljs-keyword">for</span> all node client certificates <span class="hljs-keyword">in</span> the cluster
+[bootstrap-token] Creating the <span class="hljs-string">&quot;cluster-info&quot;</span> ConfigMap <span class="hljs-keyword">in</span> the <span class="hljs-string">&quot;kube-public&quot;</span> namespace
+[kubelet-finalize] Updating <span class="hljs-string">&quot;/etc/kubernetes/kubelet.conf&quot;</span> to point to a rotatable kubelet client certificate and key
+[addons] Applied essential addon: CoreDNS
+[addons] Applied essential addon: kube-proxy
+
+Your Kubernetes control-plane has initialized successfully!
+
+To start using your cluster, you need to run the following as a regular user:
+
+  mkdir -p <span class="hljs-variable">$HOME</span>/.kube
+  sudo cp -i /etc/kubernetes/admin.conf <span class="hljs-variable">$HOME</span>/.kube/config
+  sudo chown $(id -u):$(id -g) <span class="hljs-variable">$HOME</span>/.kube/config
+
+Alternatively, <span class="hljs-keyword">if</span> you are the root user, you can run:
+
+  <span class="hljs-built_in">export</span> KUBECONFIG=/etc/kubernetes/admin.conf
+
+You should now deploy a pod network to the cluster.
+Run <span class="hljs-string">&quot;kubectl apply -f [podnetwork].yaml&quot;</span> with one of the options listed at:
+  https://kubernetes.io/docs/concepts/cluster-administration/addons/
+
+Then you can join any number of worker nodes by running the following on each as root:
+
+kubeadm join 172.31.57.89:6443 --token if9hn9.xhxo6s89byj9rsmd \
+    --discovery-token-ca-cert-hash sha256:ad583497a4171d1fc7d21e2ca2ea7b32bdc8450a1a4ca4cfa2022748a99fa477
+</code></pre>
+<p> </p>
+<p>Inclusive, você verá uma lista de comandos para configurar o acesso ao cluster com o kubectl. Copie e cole esse comando em seu terminal:</p>
+<pre><code>mkdir -p $HOME/.kube
+sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+sudo chown $(id -u):$(id -g) $HOME/.kube/config
+</code></pre><p> </p>
+<p>Essa configuração é necessária para que o kubectl possa se comunicar com o cluster, pois quando estamos copiando o arquivo <code>admin.conf</code> para o diretório <code>.kube</code> do usuário, estamos copiando o arquivo com as permissões de root, esse é o motivo de executarmos o comando <code>sudo chown $(id -u):$(id -g) $HOME/.kube/config</code> para alterar as permissões do arquivo para o usuário que está executando o comando.</p>
+<h5 id="entendendo-o-arquivo-adminconf">Entendendo o arquivo admin.conf</h5>
+<p>Agora precisamos entender o que temos dentro do arquivo <code>admin.conf</code>. Antes de mais nada precisamos conhecer alguns pontos importantes sobre o a estrutura do arquivo <code>admin.conf</code>:</p>
+<ul>
+<li><p>É um arquivo de configuração do kubectl, que é o cliente de linha de comando do Kubernetes. Ele é usado para se comunicar com o cluster Kubernetes.</p>
+</li>
+<li><p>Contém as informações de acesso ao cluster, como o endereço do servidor API, o certificado de cliente e o token de autenticação.</p>
+</li>
+<li><p>Eu posso ter mais de um contexto dentro do arquivo <code>admin.conf</code>, onde cada contexto é um cluster Kubernetes. Por exemplo, eu posso ter um contexto para o cluster de produção e outro para o cluster de desenvolvimento, simples como voar.</p>
+</li>
+<li><p>Ele contém os dados de acesso ao cluster, portanto, se alguém tiver acesso a esse arquivo, ele terá acesso ao cluster. (Desde que tenha acesso ao cluster, claro).</p>
+</li>
+<li><p>O arquivo <code>admin.conf</code> é criado quando o cluster é inicializado.</p>
+</li>
+</ul>
+<p>Vou copiar aqui o conteúdo de um exemplo de arquivo <code>admin.conf</code>:</p>
+<pre><code class="lang-yaml"><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">v1</span>
+
+<span class="hljs-attr">clusters:</span>
+<span class="hljs-bullet">-</span> <span class="hljs-attr">cluster:</span>
+    <span class="hljs-attr">certificate-authority-data:</span> <span class="hljs-string">SEU_CERTIFICADO_AQUI</span>
+    <span class="hljs-attr">server:</span> <span class="hljs-string">https://172.31.57.89:6443</span>
+  <span class="hljs-attr">name:</span> <span class="hljs-string">kubernetes</span>
+
+<span class="hljs-attr">contexts:</span>
+<span class="hljs-bullet">-</span> <span class="hljs-attr">context:</span>
+    <span class="hljs-attr">cluster:</span> <span class="hljs-string">kubernetes</span>
+    <span class="hljs-attr">user:</span> <span class="hljs-string">kubernetes-admin</span>
+  <span class="hljs-attr">name:</span> <span class="hljs-string">kubernetes-admin@kubernetes</span>
+
+<span class="hljs-attr">current-context:</span> <span class="hljs-string">kubernetes-admin@kubernetes</span>
+
+<span class="hljs-attr">kind:</span> <span class="hljs-string">Config</span>
+
+<span class="hljs-attr">preferences:</span> {}
+
+<span class="hljs-attr">users:</span>
+<span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">kubernetes-admin</span>
+  <span class="hljs-attr">user:</span>
+    <span class="hljs-attr">client-certificate-data:</span> <span class="hljs-string">SUA_CHAVE_PUBLICA_AQUI</span>
+    <span class="hljs-attr">client-key-data:</span> <span class="hljs-string">SUA_CHAVE_PRIVADA_AQUI</span>
+</code></pre>
+<p> </p>
+<p>Simplificando, temos a seguinte estrutura:</p>
+<pre><code class="lang-yaml"><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">v1</span>
+<span class="hljs-attr">clusters:</span>
+<span class="hljs-comment">#...</span>
+<span class="hljs-attr">contexts:</span>
+<span class="hljs-comment">#...</span>
+<span class="hljs-attr">current-context:</span> <span class="hljs-string">kind-kind-multinodes</span>
+<span class="hljs-attr">kind:</span> <span class="hljs-string">Config</span>
+<span class="hljs-attr">preferences:</span> {}
+<span class="hljs-attr">users:</span>
+<span class="hljs-comment">#...</span>
+</code></pre>
+<p> </p>
+<p>Vamos ver o que temos dentro de cada seção:</p>
+<p><strong>Clusters</strong></p>
+<p>A seção clusters contém informações sobre os clusters Kubernetes que você deseja acessar, como o endereço do servidor API e o certificado de autoridade. Neste arquivo, há somente um cluster chamado kubernetes, que é o cluster que acabamos de criar.</p>
+<pre><code class="lang-yaml"><span class="hljs-bullet">-</span> <span class="hljs-attr">cluster:</span>
+    <span class="hljs-attr">certificate-authority-data:</span> <span class="hljs-string">SEU_CERTIFICADO_AQUI</span>
+    <span class="hljs-attr">server:</span> <span class="hljs-string">https://172.31.57.89:6443</span>
+  <span class="hljs-attr">name:</span> <span class="hljs-string">kubernetes</span>
+</code></pre>
+<p> </p>
+<p><strong>Contextos</strong></p>
+<p>A seção contexts define configurações específicas para cada combinação de cluster, usuário e namespace. Nós somente temos um contexto configurado. Ele é chamado kubernetes-admin@kubernetes e combina o cluster kubernetes com o usuário kubernetes-admin.</p>
+<pre><code class="lang-yaml"><span class="hljs-bullet">-</span> <span class="hljs-attr">context:</span>
+    <span class="hljs-attr">cluster:</span> <span class="hljs-string">kubernetes</span>
+    <span class="hljs-attr">user:</span> <span class="hljs-string">kubernetes-admin</span>
+  <span class="hljs-attr">name:</span> <span class="hljs-string">kubernetes-admin@kubernetes</span>
+</code></pre>
+<p> </p>
+<p><strong>Contexto atual</strong></p>
+<p>A propriedade current-context indica o contexto atualmente ativo, ou seja, qual combinação de cluster, usuário e namespace será usada ao executar comandos kubectl. Neste arquivo, o contexto atual é o kubernetes-admin@kubernetes.</p>
+<pre><code class="lang-yaml"><span class="hljs-attr">current-context:</span> <span class="hljs-string">kubernetes-admin@kubernetes</span>
+</code></pre>
+<p> </p>
+<p><strong>Preferências</strong></p>
+<p>A seção preferences contém configurações globais que afetam o comportamento do kubectl. Aqui podemos definir o editor de texto padrão, por exemplo.</p>
+<pre><code class="lang-yaml"><span class="hljs-attr">preferences:</span> {}
+</code></pre>
+<p> </p>
+<p><strong>Usuários</strong></p>
+<p>A seção users contém informações sobre os usuários e suas credenciais para acessar os clusters. Neste arquivo, há somente um usuário chamado kubernetes-admin. Ele contém os dados do certificado de cliente e da chave do cliente.</p>
+<pre><code class="lang-yaml"><span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">kubernetes-admin</span>
+  <span class="hljs-attr">user:</span>
+    <span class="hljs-attr">client-certificate-data:</span> <span class="hljs-string">SUA_CHAVE_PUBLICA_AQUI</span>
+    <span class="hljs-attr">client-key-data:</span> <span class="hljs-string">SUA_CHAVE_PRIVADA_AQUI</span>
+</code></pre>
+<p> </p>
+<p>Outra informação super importante que está contida nesse arquivo é referente as credenciais de acesso ao cluster. Essas credenciais são usadas para autenticar o usuário que está executando o comando kubectl. Essas credenciais são:</p>
+<ul>
+<li><p><strong>Token de autenticação</strong>: É um token de acesso que é usado para autenticar o usuário que está executando o comando kubectl. Esse token é gerado automaticamente quando o cluster é inicializado. Esse token é usado para autenticar o usuário que está executando o comando kubectl. Esse token é gerado automaticamente quando o cluster é inicializado.</p>
+</li>
+<li><p><strong>certificate-authority-data</strong>: Este campo contém a representação em base64 do certificado da autoridade de certificação (CA) do cluster. A CA é responsável por assinar e emitir certificados para o cluster. O certificado da CA é usado para verificar a autenticidade dos certificados apresentados pelo servidor de API e pelos clientes, garantindo que a comunicação entre eles seja segura e confiável.</p>
+</li>
+<li><p><strong>client-certificate-data</strong>: Este campo contém a representação em base64 do certificado do cliente. O certificado do cliente é usado para autenticar o usuário ao se comunicar com o servidor de API do Kubernetes. O certificado é assinado pela autoridade de certificação (CA) do cluster e inclui informações sobre o usuário e sua chave pública.</p>
+</li>
+<li><p><strong>client-key-data</strong>: Este campo contém a representação em base64 da chave privada do cliente. A chave privada é usada para assinar as solicitações enviadas ao servidor de API do Kubernetes, permitindo que o servidor verifique a autenticidade da solicitação. A chave privada deve ser mantida em sigilo e não compartilhada com outras pessoas ou sistemas.</p>
+</li>
+</ul>
+<p>Esses campos são importantes para estabelecer uma comunicação segura e autenticada entre o cliente (geralmente o kubectl ou outras ferramentas de gerenciamento) e o servidor de API do Kubernetes. Eles permitem que o servidor de API verifique a identidade do cliente e vice-versa, garantindo que apenas usuários e sistemas autorizados possam acessar e gerenciar os recursos do cluster.</p>
+<p> </p>
+<p>Você pode encontrar os arquivos que são utilizados para adicionar essas credentiais ao seu cluster em <code>/etc/kubernetes/pki/</code>.
+Lá temos os seguintes arquivos que são utilizados para adicionar essas credenciais ao seu cluster:</p>
+<ul>
+<li><p><strong>client-certificate-data</strong>: O arquivo de certificado do cliente geralmente é encontrado em /etc/kubernetes/pki/apiserver-kubelet-client.crt.</p>
+</li>
+<li><p><strong>client-key-data</strong>: O arquivo da chave privada do cliente geralmente é encontrado em /etc/kubernetes/pki/apiserver-kubelet-client.key.</p>
+</li>
+<li><p><strong>certificate-authority-data</strong>: O arquivo do certificado da autoridade de certificação (CA) geralmente é encontrado em /etc/kubernetes/pki/ca.crt.</p>
+</li>
+</ul>
+<p>Vale lembrar que esse arquivo é gerado automaticamente quando o cluster é inicializado, e são adicionados ao arquivo <code>admin.conf</code> que é utilizado para acessar o cluster. Essas credenciais são copiadas para o arquivo <code>admin.conf</code> já convertidas para base64.</p>
+<p> </p>
+<p>Pronto, agora você já sabe o porquê copiamos o arquivo <code>admin.conf</code> para o diretório <code>~/.kube/</code> e como ele funciona.</p>
+<p>Caso você queira, você pode acessar o conteúdo do arquivo <code>admin.conf</code> com o seguinte comando:</p>
+<pre><code class="lang-bash">kubectl config view
+</code></pre>
+<p> </p>
+<p>Ele somente irá omitir os dados de certificados e chaves privadas, que são muito grandes para serem exibidos no terminal.</p>
+<p> </p>
+<h5 id="adicionando-os-demais-nodes-ao-cluster">Adicionando os demais nodes ao cluster</h5>
+<p>Agora que já temos o nosso cluster inicializado e já estamos entendendo muito bem o que é o arquivo <code>admin.conf</code>, chegou o momento de adicionar os demais nodes ao nosso cluster.</p>
+<p>Para isso, vamos novamente utilizar o comando <code>kubeadm</code>, porém ao invés de executar o comando no node do control plane, nesse momento precisamos rodar o comando diretamente no node que queremos adicionar ao cluster.</p>
+<p>Quando inicializamos o nosso cluster, o <code>kubeadm</code> nos mostrou o comando que precisamos executar no novos nodes, para que eles possam ser adicinados ao cluster como <code>workers</code>.</p>
+<pre><code class="lang-bash">sudo kubeadm join 172.31.57.89:6443 --token if9hn9.xhxo6s89byj9rsmd \
+    --discovery-token-ca-cert-hash sha256:ad583497a4171d1fc7d21e2ca2ea7b32bdc8450a1a4ca4cfa2022748a99fa477
+</code></pre>
+<p> </p>
+<p>O comando kubeadm join é usado para adicionar um novo node ao cluster Kubernetes existente. Ele é executado nos worker nodes para que eles possam se juntar ao cluster e receber instruções do control plane. Vamos analisar as partes do comando fornecido:</p>
+<ul>
+<li><p><strong>kubeadm join</strong>: O comando base para adicionar um novo nó ao cluster.</p>
+</li>
+<li><p><strong>172.31.57.89:6443</strong>: Endereço IP e porta do servidor de API do nó mestre (control plane). Neste exemplo, o nó mestre está localizado no IP 172.31.57.89 e a porta é 6443.</p>
+</li>
+<li><p><strong>--token if9hn9.xhxo6s89byj9rsmd</strong>: O token é usado para autenticar o nó trabalhador no nó mestre durante o processo de adesão. Os tokens são gerados pelo nó mestre e têm uma validade limitada (por padrão, 24 horas). Neste exemplo, o token é if9hn9.xhxo6s89byj9rsmd.</p>
+</li>
+<li><p><strong>--discovery-token-ca-cert-hash sha256:ad583497a4171d1fc7d21e2ca2ea7b32bdc8450a1a4ca4cfa2022748a99fa477</strong>: Este é um hash criptográfico do certificado da autoridade de certificação (CA) do control plane. Ele é usado para garantir que o nó worker esteja se comunicando com o nó do control plane correto e autêntico. O valor após sha256: é o hash do certificado CA.</p>
+</li>
+</ul>
+<p>Ao executar este comando no worker, ele iniciará o processo de adesão ao cluster. Se o token for válido e o hash do certificado CA corresponder ao certificado CA do nó do control plane, o nó worker será autenticado e adicionado ao cluster. Após a adesão bem-sucedida, o novo node começará a executar os Pods e a receber instruções do control plane, conforme necessário.</p>
+<p>Após executar o <code>join</code> em cada worker node, vá até o node que criamos para ser o control plane, e execute:</p>
+<pre><code class="lang-bash">kubectl get nodes
+</code></pre>
+<p> </p>
+<pre><code class="lang-bash">NAME     STATUS   ROLES           AGE   VERSION
+k8s-01   NotReady    control-plane   4m   v1.26.3
+k8s-02   NotReady    &lt;none&gt;          3m   v1.26.3
+k8s-03   NotReady    &lt;none&gt;          3m   v1.26.3
+</code></pre>
+<p> </p>
+<p>Agora você já consegue ver que os dois novos nodes foram adicionados ao cluster, porém ainda estão com o status <code>Not Ready</code>, pois ainda não instalamos o nosso plugin de rede para que seja possível a comunicação entre os pods. Vamos resolver isso agora. :)</p>
+<h5 id="instalando-o-weave-net">Instalando o Weave Net</h5>
+<p>Agora que o cluster está inicializado, vamos instalar o Weave Net:</p>
+<pre><code>$ kubectl apply -f https://github.com/weaveworks/weave/releases/download/v2.8.1/weave-daemonset-k8s.yaml
+</code></pre><p> </p>
+<p>Aguarde alguns minutos até que todos os componentes do cluster estejam em funcionamento. Você pode verificar o status dos componentes do cluster com o seguinte comando:</p>
+<pre><code>kubectl get pods -n kube-system
+</code></pre><p> </p>
+<pre><code>kubectl get nodes
+</code></pre><p> </p>
+<pre><code class="lang-bash">NAME     STATUS   ROLES           AGE   VERSION
+k8s-01   Ready    control-plane   7m   v1.26.3
+k8s-02   Ready    &lt;none&gt;          6m   v1.26.3
+k8s-03   Ready    &lt;none&gt;          6m   v1.26.3
+</code></pre>
+<p> </p>
+<p>O Weave Net é um plugin de rede que permite que os pods se comuniquem entre si. Ele também permite que os pods se comuniquem com o mundo externo, como outros clusters ou a Internet. 
+Quando o Kubernetes é instalado, ele resolve vários problemas por si só, porém quando o assunto é a comunicação entre os pods, ele não resolve. Por isso, precisamos instalar um plugin de rede para resolver esse problema.</p>
+<h5 id="o-que-é-o-cni">O que é o CNI?</h5>
+<p>CNI é uma especificação e conjunto de bibliotecas para a configuração de interfaces de rede em containers. A CNI permite que diferentes soluções de rede sejam integradas ao Kubernetes, facilitando a comunicação entre os Pods (grupos de containers) e serviços.</p>
+<p>Com isso, temos diferentes plugins de redes, que seguem a especificação CNI, e que podem ser utilizados no Kubernetes. O Weave Net é um desses plugins de rede.</p>
+<p>Entre os plugins de rede mais utilizados no Kubernetes, temos:</p>
+<ul>
+<li><p><strong>Calico</strong> é um dos plugins de rede mais populares e amplamente utilizados no Kubernetes. Ele fornece segurança de rede e permite a implementação de políticas de rede. O Calico utiliza o BGP (Border Gateway Protocol) para rotear tráfego entre os nós do cluster, proporcionando um desempenho eficiente e escalável.</p>
+</li>
+<li><p><strong>Flannel</strong> é um plugin de rede simples e fácil de configurar, projetado para o Kubernetes. Ele cria uma rede overlay que permite que os Pods se comuniquem entre si, mesmo em diferentes nós do cluster. O Flannel atribui um intervalo de IPs a cada nó e utiliza um protocolo simples para rotear o tráfego entre os nós.</p>
+</li>
+<li><p><strong>Weave</strong> é outra solução popular de rede para Kubernetes. Ele fornece uma rede overlay que permite a comunicação entre os Pods em diferentes nós. Além disso, o Weave suporta criptografia de rede e gerenciamento de políticas de rede. Ele também pode ser integrado com outras soluções, como o Calico, para fornecer recursos adicionais de segurança e políticas de rede.</p>
+</li>
+<li><p><strong>Cilium</strong> é um plugin de rede focado em segurança e desempenho. Ele utiliza o BPF (Berkeley Packet Filter) para fornecer políticas de rede e segurança de alto desempenho. O Cilium também oferece recursos avançados, como balanceamento de carga, monitoramento e solução de problemas de rede.</p>
+</li>
+<li><p><strong>Kube-router</strong> é uma solução de rede leve para Kubernetes. Ele utiliza o BGP e IPVS (IP Virtual Server) para rotear o tráfego entre os nós do cluster, proporcionando um desempenho eficiente e escalável. Kube-router também suporta políticas de rede e permite a implementação de firewalls entre os Pods.</p>
+</li>
+</ul>
+<p>Esses são apenas alguns dos plugins de rede mais populares e amplamente utilizados no Kubernetes. Você pode encontrar uma lista completa de plugins de rede no site do Kubernetes.</p>
+<p>Agora, qual você deverá escolher? A resposta é simples: o que melhor se adequar às suas necessidades. Cada plugin de rede tem suas vantagens e desvantagens, e você deve escolher aquele que melhor se adequar ao seu ambiente.</p>
+<p>Minha dica, procure não ficar inventando muita moda, tenta utilizar os que são já validados e bem aceitos pela comunidade, como o Weave Net, Calico, Flannel, etc. </p>
+<p>O meu preferido é o <code>Weave Net</code> pela simplicidade de instalação e os recursos oferecidos.</p>
+<p>Um cara que eu tenho gostado bastante é o <code>Cilium</code>, ele é bem completo e tem uma comunidade bem ativa, além de utilizar o BPF, que é um assunto super quente no mundo Kubernetes!</p>
+<p> </p>
+<p>Pronto, já temos o nosso cluster inicializado e o Weave Net instalado. Agora, vamos criar um Deployment para testar a comunicação entre os Pods.</p>
+<pre><code class="lang-bash">kubectl create deployment nginx --image=nginx --replicas 3
+</code></pre>
+<p> </p>
+<pre><code class="lang-bash">kubectl get pods -o wide
+</code></pre>
+<p> </p>
+<pre><code class="lang-bash">NAME                     READY   STATUS    RESTARTS   AGE   IP          NODE     NOMINATED NODE   READINESS GATES
+nginx-748c667d99-8brrj   1/1     Running   0          12s   10.32.0.4   k8s-02   &lt;none&gt;           &lt;none&gt;
+nginx-748c667d99-8knx2   1/1     Running   0          12s   10.40.0.2   k8s-03   &lt;none&gt;           &lt;none&gt;
+nginx-748c667d99-l6w7r   1/1     Running   0          12s   10.40.0.1   k8s-03   &lt;none&gt;           &lt;none&gt;
+</code></pre>
+<p> </p>
+<p>Pronto, nosso cluster está funcionando e os Pods estão em execução em diferentes nós.</p>
+<p>Agora você já pode se divertir e utilizar o seu mais novo cluster Kubernetes!</p>
+<p> </p>
+<h4 id="visualizando-detalhes-dos-nodes">Visualizando detalhes dos nodes</h4>
+<p>Agora que já temos o nosso clustes com 03 nodes, nós podemos visualizar os detalhes de cada um deles, e assim entender cada detalhe.</p>
+<p>Para ver a descrição do node, basta executar o comando abaixo:</p>
+<pre><code class="lang-bash">kubectl describe node k8s-01
+</code></pre>
+<p> </p>
+<pre><code class="lang-bash">Name:               k8s-01
+Roles:              control-plane
+Labels:             beta.kubernetes.io/arch=amd64
+                    beta.kubernetes.io/os=linux
+                    kubernetes.io/arch=amd64
+                    kubernetes.io/hostname=k8s-01
+                    kubernetes.io/os=linux
+                    node-role.kubernetes.io/control-plane=
+                    node.kubernetes.io/exclude-from-external-load-balancers=
+Annotations:        kubeadm.alpha.kubernetes.io/cri-socket: unix:///var/run/containerd/containerd.sock
+                    node.alpha.kubernetes.io/ttl: 0
+                    volumes.kubernetes.io/controller-managed-attach-detach: <span class="hljs-literal">true</span>
+CreationTimestamp:  Fri, 07 Apr 2023 11:52:46 +0000
+Taints:             node-role.kubernetes.io/control-plane:NoSchedule
+Unschedulable:      <span class="hljs-literal">false</span>
+Lease:
+  HolderIdentity:  k8s-01
+  AcquireTime:     &lt;<span class="hljs-built_in">unset</span>&gt;
+  RenewTime:       Fri, 07 Apr 2023 12:49:09 +0000
+Conditions:
+  Type                 Status  LastHeartbeatTime                 LastTransitionTime                Reason                       Message
+  ----                 ------  -----------------                 ------------------                ------                       -------
+  NetworkUnavailable   False   Fri, 07 Apr 2023 11:57:03 +0000   Fri, 07 Apr 2023 11:57:03 +0000   WeaveIsUp                    Weave pod has <span class="hljs-built_in">set</span> this
+  MemoryPressure       False   Fri, 07 Apr 2023 12:48:25 +0000   Fri, 07 Apr 2023 11:52:45 +0000   KubeletHasSufficientMemory   kubelet has sufficient memory available
+  DiskPressure         False   Fri, 07 Apr 2023 12:48:25 +0000   Fri, 07 Apr 2023 11:52:45 +0000   KubeletHasNoDiskPressure     kubelet has no disk pressure
+  PIDPressure          False   Fri, 07 Apr 2023 12:48:25 +0000   Fri, 07 Apr 2023 11:52:45 +0000   KubeletHasSufficientPID      kubelet has sufficient PID available
+  Ready                True    Fri, 07 Apr 2023 12:48:25 +0000   Fri, 07 Apr 2023 11:57:05 +0000   KubeletReady                 kubelet is posting ready status. AppArmor enabled
+Addresses:
+  InternalIP:  172.31.57.89
+  Hostname:    k8s-01
+Capacity:
+  cpu:                2
+  ephemeral-storage:  7941576Ki
+  hugepages-2Mi:      0
+  memory:             4015088Ki
+  pods:               110
+Allocatable:
+  cpu:                2
+  ephemeral-storage:  7318956430
+  hugepages-2Mi:      0
+  memory:             3912688Ki
+  pods:               110
+System Info:
+  Machine ID:                 c8a6ad1dd24342c48ba303688d3ada1f
+  System UUID:                ec2b271b-8df3-f164-b01c-3b5078a2d15b
+  Boot ID:                    93ae6b0c-13fa-432d-b15a-d3725b6c0e72
+  Kernel Version:             5.15.0-1031-aws
+  OS Image:                   Ubuntu 22.04.2 LTS
+  Operating System:           linux
+  Architecture:               amd64
+  Container Runtime Version:  containerd://1.6.20
+  Kubelet Version:            v1.26.3
+  Kube-Proxy Version:         v1.26.3
+PodCIDR:                      10.10.0.0/24
+PodCIDRs:                     10.10.0.0/24
+Non-terminated Pods:          (6 <span class="hljs-keyword">in</span> total)
+  Namespace                   Name                              CPU Requests  CPU Limits  Memory Requests  Memory Limits  Age
+  ---------                   ----                              ------------  ----------  ---------------  -------------  ---
+  kube-system                 etcd-k8s-01                       100m (5%)     0 (0%)      100Mi (2%)       0 (0%)         56m
+  kube-system                 kube-apiserver-k8s-01             250m (12%)    0 (0%)      0 (0%)           0 (0%)         56m
+  kube-system                 kube-controller-manager-k8s-01    200m (10%)    0 (0%)      0 (0%)           0 (0%)         56m
+  kube-system                 kube-proxy-skpfc                  0 (0%)        0 (0%)      0 (0%)           0 (0%)         56m
+  kube-system                 kube-scheduler-k8s-01             100m (5%)     0 (0%)      0 (0%)           0 (0%)         56m
+  kube-system                 weave-net-hks8s                   100m (5%)     0 (0%)      0 (0%)           0 (0%)         52m
+Allocated resources:
+  (Total limits may be over 100 percent, i.e., overcommitted.)
+  Resource           Requests    Limits
+  --------           --------    ------
+  cpu                750m (37%)  0 (0%)
+  memory             100Mi (2%)  0 (0%)
+  ephemeral-storage  0 (0%)      0 (0%)
+  hugepages-2Mi      0 (0%)      0 (0%)
+Events:
+  Type     Reason                   Age   From             Message
+  ----     ------                   ----  ----             -------
+  Normal   Starting                 56m   kube-proxy       
+  Normal   Starting                 56m   kubelet          Starting kubelet.
+  Warning  InvalidDiskCapacity      56m   kubelet          invalid capacity 0 on image filesystem
+  Normal   NodeHasSufficientMemory  56m   kubelet          Node k8s-01 status is now: NodeHasSufficientMemory
+  Normal   NodeHasNoDiskPressure    56m   kubelet          Node k8s-01 status is now: NodeHasNoDiskPressure
+  Normal   NodeHasSufficientPID     56m   kubelet          Node k8s-01 status is now: NodeHasSufficientPID
+  Normal   NodeAllocatableEnforced  56m   kubelet          Updated Node Allocatable <span class="hljs-built_in">limit</span> across pods
+  Normal   RegisteredNode           56m   node-controller  Node k8s-01 event: Registered Node k8s-01 <span class="hljs-keyword">in</span> Controller
+  Normal   NodeReady                52m   kubelet          Node k8s-01 status is now: NodeReady
+</code></pre>
+<p> </p>
+<p>Na saída do comando acima é possível ver detalhes como o nome do node, o IP interno, o hostname, a capacidade de CPU, memória, armazenamento, pods, etc. Também é possível ver os pods que estão rodando no node, os recursos alocados e os eventos que ocorreram no node.</p>
+<p>Caso você queira visualizar detalhes dos outros dois nodes, basta utilizar o comando abaixo:</p>
+<pre><code class="lang-bash">kubectl get nodes k8s-02 -o wide
+kubectl get nodes k8s-03 -o wide
+</code></pre>
+<p> </p>
+<pre><code class="lang-bash">NAME     STATUS   ROLES    AGE   VERSION   INTERNAL-IP    EXTERNAL-IP   OS-IMAGE             KERNEL-VERSION    CONTAINER-RUNTIME
+k8s-02   Ready    &lt;none&gt;   59m   v1.26.3   172.31.59.34   &lt;none&gt;        Ubuntu 22.04.2 LTS   5.15.0-1031-aws   containerd://1.6.20
+</code></pre>
+<p> </p>
+<p>Estou utilizando o parâmetro <code>-o wide</code> para que o comando retorne mais detalhes sobre o node, como o IP externo e o IP interno.</p>
+<p>E claro, você ainda pode utilizar o comando <code>kubectl describe node</code> para visualizar mais detalhes dos demais nodes, como fizemos para o node <code>k8s-01</code>.</p>
+<h3 id="a-sua-lição-de-casa">A sua lição de casa</h3>
+<p>A sua lição de casa é realizar a instalação do cluster Kubernetes utilizando o Kubeadm. Use a criatividade e teste diferentes plugins de redes.</p>
+<p>O mais importante é você ter um cluster Kubernetes funcionando e pronto para ser utilizado, e mais do que isso, é importante que você entenda como o cluster funciona e sinta-se confortável para realizar sua manutenção e a administração.</p>
+<p> </p>
+<h2 id="final-do-day-5">Final do Day-5</h2>
+<p>Durante o Day-5 você aprendeu como criar um cluster Kubernetes utilizando 3 nodes através do Kubeadm. Você ainda aprender todos os detalhes importantes sobre o cluster e seus componentes. Fizemos a instalação do plugin de rede Weave Net e ainda conhecemos o que é o CNI e os plugins de rede mais utilizados no Kubernetes.</p>
+<p>Agora partiu documentação do Kubernetes para que você possa se aprofundar ainda mais no assunto e construir um cluster Kubernetes ainda mais robusto e seguro.</p>
+<p> </p>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="../day-4/" class="navigation navigation-prev " aria-label="Previous page: Descomplicando Kubernetes dia 4">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="../day-6/" class="navigation navigation-next " aria-label="Next page: Descomplicando Kubernetes dia 6">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"Descomplicando Kubernetes dia 5","level":"2.5","depth":1,"next":{"title":"Descomplicando Kubernetes dia 6","level":"2.6","depth":1,"path":"day-6/README.md","ref":"day-6/README.md","articles":[]},"previous":{"title":"Descomplicando Kubernetes dia 4","level":"2.4","depth":1,"path":"day-4/README.md","ref":"day-4/README.md","articles":[]},"dir":"ltr"},"config":{"plugins":[],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"language":"pt","gitbook":"*"},"file":{"path":"day-5/README.md","mtime":"2024-01-18T11:49:32.111Z","type":"markdown"},"gitbook":{"version":"3.6.20","time":"2024-01-18T11:49:40.137Z"},"basePath":"..","book":{"language":"pt"}});
+        });
+    </script>
+</div>
+
+        
+    <noscript>
+        <style>
+            .honkit-cloak {
+                display: block !important;
+            }
+        </style>
+    </noscript>
+    <script>
+        // Restore sidebar state as critical path for prevent layout shift
+        function __init__getSidebarState(defaultValue){
+            var baseKey = "";
+            var key = baseKey + ":sidebar";
+            try {
+                var value = localStorage[key];
+                if (value === undefined) {
+                    return defaultValue;
+                }
+                var parsed = JSON.parse(value);
+                return parsed == null ? defaultValue : parsed;
+            } catch (e) {
+                return defaultValue;
+            }
+        }
+        function __init__restoreLastSidebarState() {
+            var isMobile = window.matchMedia("(max-width: 600px)").matches;
+            if (isMobile) {
+                // Init last state if not mobile
+                return;
+            }
+            var sidebarState = __init__getSidebarState(true);
+            var book = document.querySelector(".book");
+            // Show sidebar if it enabled
+            if (sidebarState && book) {
+                book.classList.add("without-animation", "with-summary");
+            }
+        }
+
+        try {
+            __init__restoreLastSidebarState();
+        } finally {
+            var book = document.querySelector(".book");
+            book.classList.remove("honkit-cloak");
+        }
+    </script>
+    <script src="../../gitbook/gitbook.js"></script>
+    <script src="../../gitbook/theme.js"></script>
+    
+        
+        <script src="../../gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+
