@@ -1,0 +1,773 @@
+
+<!DOCTYPE HTML>
+<html lang="es" >
+    <head>
+        <meta charset="UTF-8">
+        <title>Simplificando Kubernetes día 2 · HonKit</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="HonKit 3.6.20">
+        
+        
+        
+    
+    <link rel="stylesheet" href="../../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="../day_three/" />
+    
+    
+    <link rel="prev" href="../day_one/" />
+    
+
+    </head>
+    <body>
+        
+<div class="book honkit-cloak">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="Escribe para buscar" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        <li class="header">Sobre</li>
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../">
+            
+                <a href="../">
+            
+                    
+                    Introducción
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="header">Capítulos</li>
+        
+        
+    
+        <li class="chapter " data-level="2.1" data-path="../day_one/">
+            
+                <a href="../day_one/">
+            
+                    
+                    Simplificando Kubernetes día 1
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="2.2" data-path="./">
+            
+                <a href="./">
+            
+                    
+                    Simplificando Kubernetes día 2
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.3" data-path="../day_three/">
+            
+                <a href="../day_three/">
+            
+                    
+                    Simplificando Kubernetes día 3
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.4" data-path="../day_four/">
+            
+                <a href="../day_four/">
+            
+                    
+                    Simplificando Kubernetes día 4
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.5" data-path="../day_five/">
+            
+                <a href="../day_five/">
+            
+                    
+                    Simplificando Kubernetes día 5
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.6" data-path="../day_six/">
+            
+                <a href="../day_six/">
+            
+                    
+                    Simplificando Kubernetes día 6
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="header">Extras</li>
+        
+        
+    
+        <li class="chapter " data-level="3.1" data-path="../extras/cloud-providers/cloud-providers.html">
+            
+                <a href="../extras/cloud-providers/cloud-providers.html">
+            
+                    
+                    Cloud providers
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.2" data-path="../extras/exame_tips.html">
+            
+                <a href="../extras/exame_tips.html">
+            
+                    
+                    Consejos para el examen
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.3" data-path="../extras/pod_security_policy.html">
+            
+                <a href="../extras/pod_security_policy.html">
+            
+                    
+                    Pod security policy
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="header">Contribuir</li>
+        
+        
+    
+        <li class="chapter " data-level="4.1" data-path="../CONTRIBUTING.html">
+            
+                <a href="../CONTRIBUTING.html">
+            
+                    
+                    Cómo ayudar
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://github.com/honkit/honkit" target="blank" class="gitbook-link">
+            Publicado con HonKit
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href=".." >Simplificando Kubernetes día 2</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h1 id="simplificando-kubernetes">Simplificando Kubernetes</h1>
+<p> </p>
+<h2 id="día-2">Día 2</h2>
+<p> </p>
+<h3 id="contenido-del-día-2">Contenido del Día 2</h3>
+<ul>
+<li><a href="#simplificando-kubernetes">Simplificando Kubernetes</a><ul>
+<li><a href="#día-2">Día 2</a><ul>
+<li><a href="#contenido-del-día-2">Contenido del Día 2</a></li>
+<li><a href="#ínicio-de-la-clase-día-2">Ínicio de la clase Día 2</a></li>
+<li><a href="#qué-vamos-a-ver-hoy">¿Qué vamos a ver hoy?</a></li>
+<li><a href="#qué-es-un-pod">¿Qué es un Pod?</a><ul>
+<li><a href="#creando-un-pod">Creando un Pod</a></li>
+<li><a href="#visualización-de-detalles-sobre-los-pods">Visualización de detalles sobre los Pods</a></li>
+<li><a href="#eliminando-un-pod">Eliminando un Pod</a></li>
+<li><a href="#creando-un-pod-mediante-un-archivo-yaml">Creando un Pod mediante un archivo YAML</a></li>
+<li><a href="#visualizando-los-registros-logs-del-pod">Visualizando los registros (logs) del Pod</a></li>
+<li><a href="#creando-un-pod-con-múltiples-contenedores">Creando un Pod con múltiples contenedores</a></li>
+</ul>
+</li>
+<li><a href="#los-comandos-attach-y-exec">Los comandos <code>attach</code> y <code>exec</code></a></li>
+<li><a href="#creando-un-contenedor-con-límites-de-memoria-y-cpu">Creando un contenedor con límites de memoria y CPU</a></li>
+<li><a href="#agregando-un-volumen-emptydir-al-pod">Agregando un volumen EmptyDir al Pod</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p> </p>
+<h3 id="ínicio-de-la-clase-día-2">Ínicio de la clase Día 2</h3>
+<p> </p>
+<h3 id="¿qué-vamos-a-ver-hoy">¿Qué vamos a ver hoy?</h3>
+<p>Durante la clase de hoy, veremos todos los detalles importantes sobre la unidad más pequeña de Kubernetes, el Pod.
+Vamos a abordar desde la creación de un Pod simple, pasando por Pods con múltiples contenedores, con volúmenes e incluso con limitación en el consumo de recursos, como CPU o memoria.
+Y por supuesto, aprenderemos cómo ver todos los detalles de un Pod en funcionamiento y jugaremos bastante con nuestros archivos YAML.</p>
+<h3 id="¿qué-es-un-pod">¿Qué es un Pod?</h3>
+<p>Lo primero, el Pod es la unidad más pequeña dentro de un clúster de Kubernetes.</p>
+<p>Cuando hablamos de Pod, debemos pensar en él como una caja que contiene uno o más contenedores. Estos contenedores comparten los mismos recursos del Pod, como por ejemplo, la dirección IP, el namespace, el volumen, etc.</p>
+<p>Entonces, cuando hablamos de Pod, nos referimos a uno o más contenedores que comparten los mismos recursos, punto.
+ </p>
+<h4 id="creando-un-pod">Creando un Pod</h4>
+<p>Básicamente, existen dos formas de crear un Pod: la primera es mediante un comando en la terminal y la segunda es a través de un archivo YAML.</p>
+<p>Comencemos creando un Pod mediante un comando en la terminal.</p>
+<pre><code class="lang-bash">kubectl run giropops --image=nginx --port=80
+</code></pre>
+<p>El comando anterior creará un Pod llamado giropops, con una imagen de nginx y el puerto 80 expuesto.</p>
+<h4 id="visualización-de-detalles-sobre-los-pods">Visualización de detalles sobre los Pods</h4>
+<p>Para ver el Pod creado, podemos utilizar el siguiente comando:</p>
+<pre><code class="lang-bash">kubectl get pods
+</code></pre>
+<p>El comando anterior listará todos los Pods que están en ejecución en el clúster, en el espacio de nombres (namespace) predeterminado.</p>
+<p>Sí, en Kubernetes tenemos espacios de nombres (namespaces), pero eso es tema para otro día. Por ahora, nos centraremos en los Pods y solo debemos saber que por defecto, Kubernetes creará todos los objetos dentro del espacio de nombres predeterminado si no especificamos otro.</p>
+<p>Para ver los Pods en ejecución en todos los espacios de nombres, podemos usar el siguiente comando:</p>
+<pre><code class="lang-bash">kubectl get pods --all-namespaces
+</code></pre>
+<p>O también, podemos utilizar el siguiente comando:</p>
+<pre><code class="lang-bash">kubectl get pods -A
+</code></pre>
+<p>Ahora bien, si deseas ver todos los Pods de un espacio de nombres específico, puedes utilizar el siguiente comando:</p>
+<pre><code class="lang-bash">kubectl get pods -n &lt;namespace&gt;
+</code></pre>
+<p>Por ejemplo:</p>
+<pre><code class="lang-bash">kubectl get pods -n kube-system
+</code></pre>
+<p>El comando anterior listará todos los Pods en ejecución en el espacio de nombres kube-system, que es el espacio de nombres donde Kubernetes creará todos los objetos relacionados con el clúster, como los Pods de CoreDNS, Kube-Proxy, Kube-Controller-Manager, Kube-Scheduler, etc.</p>
+<p>Si deseas obtener aún más detalles sobre el Pod, puedes solicitar a Kubernetes que muestre los detalles del Pod en formato YAML mediante el siguiente comando:</p>
+<pre><code class="lang-bash">kubectl get pods &lt;nombre-del-pod&gt; -o yaml
+</code></pre>
+<p>Por ejemplo:</p>
+<pre><code class="lang-bash">kubectl get pods giropops -o yaml
+</code></pre>
+<p>El comando anterior mostrará todos los detalles del Pod en formato YAML, prácticamente igual a lo que verías en el archivo YAML que creamos para crear el Pod, pero con algunos detalles adicionales, como el UID del Pod, el nombre del nodo donde se está ejecutando el Pod, etc. Después de todo, este Pod ya está en ejecución, por lo que Kubernetes ya tiene más detalles sobre él.</p>
+<p>Otra salida interesante es el formato JSON, que puedes visualizar utilizando el siguiente comando:</p>
+<pre><code class="lang-bash">kubectl get pods &lt;nombre-del-pod&gt; -o json
+</code></pre>
+<p>Por ejemplo:</p>
+<pre><code class="lang-bash">kubectl get pods giropops -o json
+</code></pre>
+<p>En otras palabras, al usar el parámetro <code>-o</code>, puedes elegir el formato de salida que deseas ver, como yaml, json, wide, etc.</p>
+<p>La salida &apos;wide&apos; es interesante, ya que proporciona más detalles sobre el Pod, como la dirección IP del Pod y el nodo en el que se está ejecutando.</p>
+<pre><code class="lang-bash">kubectl get pods &lt;nombre-del-pod&gt; -o wide
+</code></pre>
+<p>Por ejemplo:</p>
+<pre><code class="lang-bash">kubectl get pods giropops -o wide
+</code></pre>
+<p>Ahora bien, si deseas ver los detalles del Pod en formato YAML pero sin necesidad de utilizar el comando <code>get</code>, puedes emplear el comando:</p>
+<pre><code class="lang-bash">kubectl describe pods &lt;nombre-del-pod&gt;
+</code></pre>
+<p>Por ejemplo:</p>
+<pre><code class="lang-bash">kubectl describe pods giropops
+</code></pre>
+<p>Mediante el comando <code>describe</code>, podrás visualizar todos los detalles del Pod, incluidos los detalles del contenedor que se encuentra dentro del Pod.</p>
+<h4 id="eliminando-un-pod">Eliminando un Pod</h4>
+<p>Ahora, vamos a eliminar el Pod que creamos utilizando el siguiente comando:</p>
+<pre><code class="lang-bash">kubectl delete pods giropops
+</code></pre>
+<p>¿Fácil, verdad? Ahora, vamos a crear un Pod a través de un archivo YAML.</p>
+<p> </p>
+<h4 id="creando-un-pod-mediante-un-archivo-yaml">Creando un Pod mediante un archivo YAML</h4>
+<p>Vamos a crear un archivo YAML llamado pod.yaml con el siguiente contenido:</p>
+<pre><code class="lang-yaml"><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">v1</span> <span class="hljs-comment"># versión de la API de Kubernetes</span>
+<span class="hljs-attr">kind:</span> <span class="hljs-string">Pod</span> <span class="hljs-comment"># tipo de objeto que estamos creando</span>
+<span class="hljs-attr">metadata:</span> <span class="hljs-comment"># metadatos del Pod </span>
+  <span class="hljs-attr">name:</span> <span class="hljs-string">giropops</span> <span class="hljs-comment"># nombre del Pod que estamos creando</span>
+<span class="hljs-attr">labels:</span> <span class="hljs-comment"># etiquetas del Pod</span>
+  <span class="hljs-attr">run:</span> <span class="hljs-string">giropops</span> <span class="hljs-comment"># etiqueta run con el valor giropops</span>
+<span class="hljs-attr">spec:</span> <span class="hljs-comment"># especificación del Pod</span>
+  <span class="hljs-attr">containers:</span> <span class="hljs-comment"># contenedores que están dentro del Pod</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">giropops</span> <span class="hljs-comment"># nombre del contenedor</span>
+    <span class="hljs-attr">image:</span> <span class="hljs-string">nginx</span> <span class="hljs-comment"># imagen del contenedor</span>
+    <span class="hljs-attr">ports:</span> <span class="hljs-comment"># puertos que están siendo expuestos por el contenedor</span>
+    <span class="hljs-bullet">-</span> <span class="hljs-attr">containerPort:</span> <span class="hljs-number">80</span> <span class="hljs-comment"># puerto 80 expuesto por el contenedor</span>
+</code></pre>
+<p>Ahora, vamos a crear el Pod utilizando el archivo YAML que acabamos de crear.</p>
+<pre><code class="lang-bash">kubectl apply -f pod.yaml
+</code></pre>
+<p>El comando anterior creará el Pod utilizando el archivo YAML que creamos.</p>
+<p>Para ver el Pod creado, podemos utilizar el siguiente comando:</p>
+<pre><code class="lang-bash">kubectl get pods
+</code></pre>
+<p>Dado que utilizamos el comando <code>apply</code>, creo que vale la pena explicar lo que hace.</p>
+<p>El comando <code>apply</code> realiza lo que su nombre indica: aplica el archivo YAML al clúster, es decir, crea el objeto que se describe en el archivo YAML en el clúster. Si el objeto ya existe, actualizará el objeto con la información que se encuentra en el archivo YAML.</p>
+<p>Otro comando que puedes utilizar para crear un objeto en el clúster es el comando <code>create</code>, que también crea el objeto que se describe en el archivo YAML en el clúster; sin embargo, si el objeto ya existe, devolverá un error. Por esta razón, el comando <code>apply</code> es más comúnmente utilizado, ya que actualiza el objeto en caso de que ya exista. :)</p>
+<p>Ahora, vamos a ver los detalles del Pod que acabamos de crear.</p>
+<pre><code class="lang-bash">kubectl describe pods giropops
+</code></pre>
+<h4 id="visualizando-los-registros-logs-del-pod">Visualizando los registros (logs) del Pod</h4>
+<p>Otro comando muy útil para ver lo que está sucediendo con el Pod, específicamente para ver lo que el contenedor está registrando, es el siguiente:</p>
+<pre><code class="lang-bash">kubectl logs giropops
+</code></pre>
+<p>Donde &quot;giropops&quot; es el nombre del Pod que creamos.</p>
+<p>Si deseas ver los registros del contenedor en tiempo real, puedes utilizar el siguiente comando:</p>
+<pre><code class="lang-bash">kubectl logs -f giropops
+</code></pre>
+<p>¡Simple, verdad? Ahora, vamos a eliminar el Pod que creamos, utilizando el comando:</p>
+<pre><code class="lang-bash">kubectl delete pods giropops
+</code></pre>
+<p> </p>
+<h4 id="creando-un-pod-con-múltiples-contenedores">Creando un Pod con múltiples contenedores</h4>
+<p>Vamos a crear un archivo YAML llamado pod-multi-container.yaml con el siguiente contenido:</p>
+<pre><code class="lang-yaml"><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">v1</span> <span class="hljs-comment"># versión de la API de Kubernetes</span>
+<span class="hljs-attr">kind:</span> <span class="hljs-string">Pod</span> <span class="hljs-comment"># tipo de objeto que estamos creando</span>
+<span class="hljs-attr">metadata:</span> <span class="hljs-comment"># metadatos del Pod </span>
+  <span class="hljs-attr">name:</span> <span class="hljs-string">giropops</span> <span class="hljs-comment"># nombre del Pod que estamos creando</span>
+<span class="hljs-attr">labels:</span> <span class="hljs-comment"># etiquetas del Pod</span>
+  <span class="hljs-attr">run:</span> <span class="hljs-string">giropops</span> <span class="hljs-comment"># etiqueta run con el valor giropops</span>
+<span class="hljs-attr">spec:</span> <span class="hljs-comment"># especificación del Pod</span>
+  <span class="hljs-attr">containers:</span> <span class="hljs-comment"># contenedores que están dentro del Pod</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">girus</span> <span class="hljs-comment"># nombre del contenedor</span>
+    <span class="hljs-attr">image:</span> <span class="hljs-string">nginx</span> <span class="hljs-comment"># imagen del contenedor</span>
+    <span class="hljs-attr">ports:</span> <span class="hljs-comment"># puertos que están siendo expuestos por el contenedor</span>
+    <span class="hljs-bullet">-</span> <span class="hljs-attr">containerPort:</span> <span class="hljs-number">80</span> <span class="hljs-comment"># puerto 80 expuesto por el contenedor</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">strigus</span> <span class="hljs-comment"># nombre del contenedor</span>
+    <span class="hljs-attr">image:</span> <span class="hljs-string">alpine</span> <span class="hljs-comment"># imagen del contenedor</span>
+    <span class="hljs-attr">args:</span>
+    <span class="hljs-bullet">-</span> <span class="hljs-string">sleep</span>
+    <span class="hljs-bullet">-</span> <span class="hljs-string">&quot;1800&quot;</span>
+</code></pre>
+<p>Con el manifiesto anterior, estamos creando un Pod con dos contenedores: uno llamado &quot;girus&quot; con la imagen de nginx y otro llamado &quot;strigus&quot; con la imagen de alpine. Es importante recordar que el contenedor de Alpine se crea con el comando <code>sleep 1800</code> para que el contenedor no se detenga, a diferencia del contenedor de Nginx que tiene un proceso principal en ejecución en primer plano, lo que evita que el contenedor se detenga.</p>
+<p>El Alpine es una distribución Linux muy ligera que no tiene un proceso principal en primer plano en funcionamiento. Por lo tanto, necesitamos ejecutar el comando <code>sleep 1800</code> para mantener en funcionamiento el contenedor, añadiendo así un proceso principal en primer plano.</p>
+<p>Ahora, crearemos el Pod utilizando el archivo YAML que acabamos de crear.</p>
+<pre><code class="lang-bash">kubectl apply -f pod-multi-container.yaml
+</code></pre>
+<p>Para ver el Pod creado, podemos usar el siguiente comando:</p>
+<pre><code class="lang-bash">kubectl get pods
+</code></pre>
+<p>Ahora, vamos a ver los detalles del Pod que acabamos de crear.</p>
+<pre><code class="lang-bash">kubectl describe pods giropops
+</code></pre>
+<h3 id="los-comandos-attach-y-exec">Los comandos <code>attach</code> y <code>exec</code></h3>
+<p>Vamos a conocer dos nuevos comandos, <code>attach</code> y <code>exec</code>.</p>
+<p>El comando <code>attach</code> se utiliza para conectarse a un contenedor que se está ejecutando dentro de un Pod. Por ejemplo, nos conectaremos al contenedor de Alpine que se está ejecutando dentro del Pod que creamos.</p>
+<pre><code class="lang-bash">kubectl attach giropops -c strigus
+</code></pre>
+<p>Usar <code>attach</code> es similar a conectarse directamente a una consola de una máquina virtual; no estamos creando ningún proceso dentro del contenedor, solo nos estamos conectando a él.</p>
+<p>Por esta razón, si intentamos utilizar <code>attach</code> para conectarnos al contenedor donde se está ejecutando Nginx, nos conectaremos al contenedor y quedaremos atrapados en el proceso de Nginx que se está ejecutando en primer plano, y no podremos ejecutar ningún otro comando.</p>
+<pre><code class="lang-bash">kubectl attach giropops -c girus
+</code></pre>
+<p>Para salir del contenedor, simplemente presiona las teclas <code>Ctrl + C</code>.</p>
+<p>¿Entendido? Solo utilizaremos <code>attach</code> para conectarnos a un contenedor que se está ejecutando dentro de un Pod, y no para ejecutar comandos dentro del contenedor.</p>
+<p>Ahora bien, si deseas ejecutar comandos dentro del contenedor, puedes usar el comando <code>exec</code>.</p>
+<p>El comando <code>exec</code> se utiliza para ejecutar comandos dentro de un contenedor que se está ejecutando dentro de un Pod. Por ejemplo, vamos a ejecutar el comando <code>ls</code> dentro del contenedor de Alpine que se está ejecutando dentro del Pod que creamos.</p>
+<pre><code class="lang-bash">kubectl <span class="hljs-built_in">exec</span> giropops -c strigus -- ls
+</code></pre>
+<p>También podemos utilizar <code>exec</code> para conectarnos a un contenedor que se está ejecutando dentro de un Pod; sin embargo, para hacerlo, debemos pasar el parámetro <code>-it</code> al comando <code>exec</code>.</p>
+<pre><code class="lang-bash">kubectl <span class="hljs-built_in">exec</span> giropops -c strigus -it -- sh
+</code></pre>
+<p>El parámetro <code>-it</code> se utiliza para que el comando <code>exec</code> cree un proceso dentro del contenedor con interactividad y un terminal, haciendo que el comando <code>exec</code> se comporte de manera similar al comando <code>attach</code>, pero con la diferencia de que el comando <code>exec</code> crea un proceso dentro del contenedor, en este caso, el proceso <code>sh</code>. Es por esta razón que el comando <code>exec</code> se utiliza con mayor frecuencia, ya que crea un proceso dentro del contenedor, a diferencia del comando <code>attach</code>, que no crea ningún proceso dentro del contenedor.</p>
+<p>En este caso, incluso podemos conectarnos al contenedor de Nginx, ya que se conectará al contenedor creando un proceso que es nuestro intérprete de comandos <code>sh</code>, lo que nos permitirá ejecutar cualquier comando dentro del contenedor, ya que tenemos un shell para interactuar con él.</p>
+<pre><code class="lang-bash">kubectl <span class="hljs-built_in">exec</span> giropops -c girus -it -- sh
+</code></pre>
+<p>Para salir del contenedor, simplemente presiona la tecla <code>Ctrl + D</code>.</p>
+<p> </p>
+<h3 id="creando-un-contenedor-con-límites-de-memoria-y-cpu">Creando un contenedor con límites de memoria y CPU</h3>
+<p>Vamos a crear un archivo YAML llamado pod-limitado.yaml con el siguiente contenido:</p>
+<pre><code class="lang-yaml"><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">v1</span> <span class="hljs-comment"># versión de la API de Kubernetes</span>
+<span class="hljs-attr">kind:</span> <span class="hljs-string">Pod</span> <span class="hljs-comment"># tipo de objeto que estamos creando</span>
+<span class="hljs-attr">metadata:</span> <span class="hljs-comment"># metadatos del Pod</span>
+  <span class="hljs-attr">name:</span> <span class="hljs-string">giropops</span> <span class="hljs-comment"># nombre del Pod que estamos creando</span>
+<span class="hljs-attr">labels:</span> <span class="hljs-comment"># etiquetas del Pod</span>
+  <span class="hljs-attr">run:</span> <span class="hljs-string">giropops</span> <span class="hljs-comment"># etiqueta run con el valor giropops</span>
+<span class="hljs-attr">spec:</span> <span class="hljs-comment"># especificación del Pod </span>
+  <span class="hljs-attr">containers:</span> <span class="hljs-comment"># contenedores que están dentro del Pod </span>
+  <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">girus</span> <span class="hljs-comment"># nombre del contenedor </span>
+    <span class="hljs-attr">image:</span> <span class="hljs-string">nginx</span> <span class="hljs-comment"># imagen del contenedor</span>
+    <span class="hljs-attr">ports:</span> <span class="hljs-comment"># puertos que están siendo expuestos por el contenedor</span>
+    <span class="hljs-bullet">-</span> <span class="hljs-attr">containerPort:</span> <span class="hljs-number">80</span> <span class="hljs-comment"># puerto 80 expuesto por el contenedor</span>
+    <span class="hljs-attr">resources:</span> <span class="hljs-comment"># recursos que están siendo utilizados por el contenedor</span>
+      <span class="hljs-attr">limits:</span> <span class="hljs-comment"># límites máximos de recursos que el contenedor puede utilizar</span>
+        <span class="hljs-attr">memory:</span> <span class="hljs-string">&quot;128Mi&quot;</span> <span class="hljs-comment"># límite de memoria que está siendo utilizado por el contenedor, en este caso 128 megabytes como máximo </span>
+        <span class="hljs-attr">cpu:</span> <span class="hljs-string">&quot;0.5&quot;</span> <span class="hljs-comment"># límite máximo de CPU que el contenedor puede utilizar, en este caso 50% de una CPU como máximo</span>
+      <span class="hljs-attr">requests:</span> <span class="hljs-comment"># recursos garantizados al contenedor</span>
+        <span class="hljs-attr">memory:</span> <span class="hljs-string">&quot;64Mi&quot;</span> <span class="hljs-comment"># memoria garantizada al contenedor, en este caso 64 megabytes</span>
+        <span class="hljs-attr">cpu:</span> <span class="hljs-string">&quot;0.3&quot;</span> <span class="hljs-comment"># CPU garantizada al contenedor, en este caso 30% de una CPU</span>
+</code></pre>
+<p>Observe que estamos introduciendo algunos nuevos campos, como <code>resources</code>, <code>limits</code> y <code>requests</code>.</p>
+<p>El campo <code>resources</code> se utiliza para definir los recursos que utiliza el contenedor, y dentro de él encontramos los campos <code>limits</code> y <code>requests</code>.</p>
+<p>El campo <code>limits</code> se utiliza para definir los límites máximos de recursos que puede utilizar el contenedor, y el campo <code>requests</code> se utiliza para definir los recursos garantizados al contenedor.</p>
+<p>¡Super simple!</p>
+<p>Los valores que pasamos para los campos <code>limits</code> y <code>requests</code> fueron:</p>
+<ul>
+<li><code>memory</code>: la cantidad de memoria que el contenedor puede utilizar, por ejemplo, <code>128Mi</code> o <code>1Gi</code>. El valor <code>Mi</code> significa mebibytes y el valor <code>Gi</code> significa gibibytes. El valor <code>M</code> significa megabytes y el valor <code>G</code> significa gigabytes. El valor <code>Mi</code> se utiliza para definir el límite de memoria en mebibytes, ya que Kubernetes utiliza el sistema de unidades binarias, y no el sistema de unidades decimales. El valor <code>M</code> se utiliza para definir el límite de memoria en megabytes, ya que Docker utiliza el sistema de unidades decimales, y no el sistema de unidades binarias. Por lo tanto, si estás utilizando Docker, puedes usar el valor <code>M</code> para definir el límite de memoria, pero si estás utilizando Kubernetes, debes usar el valor <code>Mi</code> para definir el límite de memoria.</li>
+</ul>
+<p>Ahora vamos a crear el Pod con los límites de memoria y CPU.</p>
+<pre><code class="lang-bash">kubectl create -f pod-limitado.yaml
+</code></pre>
+<p>Ahora verifiquemos si el Pod ha sido creado.</p>
+<pre><code class="lang-bash">kubectl get pods
+</code></pre>
+<p>Comprobemos los detalles del Pod.</p>
+<pre><code class="lang-bash">kubectl describe pod giropops
+</code></pre>
+<p>Observe que el Pod se creó exitosamente y los límites de memoria y CPU se establecieron según el archivo YAML.</p>
+<p>A continuación, se muestra la parte de la salida del comando <code>describe</code> que muestra los límites de memoria y CPU.</p>
+<pre><code class="lang-bash">Containers:
+  girus:
+    Container ID:   docker://e7b0c7b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0
+    Image:          nginx
+    Image ID:       docker-pullable://nginx@sha256:0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b
+    Port:           80/TCP
+    Host Port:      0/TCP
+    State:          Running
+      Started:      Wed, 01 Jan 2023 00:00:00 +0000
+    Ready:          True
+    Restart Count:  0
+    Limits:
+      cpu:     500m
+      memory:  128Mi
+    Requests:
+      cpu:        300m
+      memory:     64Mi
+    Environment:  &lt;none&gt;
+    Mounts:
+      /var/run/secrets/kubernetes.io/serviceaccount from default-token-0b0b0 (ro)
+</code></pre>
+<p>Observe en la salida anterior que se muestra el campo CPU con el valor <code>500m</code>. Esto significa que el contenedor puede utilizar como máximo el 50% de una CPU, ya que una CPU equivale a 1000 milicpus, y el 50% de 1000 milicpus son 500 milicpus.</p>
+<p>Por lo tanto, si deseas establecer un límite de CPU al 50% de una CPU, puedes definir el valor <code>500m</code>, o puedes establecer el valor <code>0.5</code>, que es lo mismo que establecer el valor <code>500m</code>.</p>
+<p>Para probar los límites de memoria y CPU, puedes ejecutar el comando <code>stress</code> dentro del contenedor. Este es un comando que hace que el contenedor consuma recursos de CPU y memoria. Recuerda instalar el comando <code>stress</code>, ya que no está instalado por defecto.</p>
+<p>Para facilitar las pruebas, crearemos un Pod con Ubuntu y limitaremos la memoria, además, instalaremos el comando <code>stress</code> dentro del contenedor.</p>
+<p>Llama al archivo <code>pod-ubuntu-limitado.yaml</code>.</p>
+<pre><code class="lang-yaml"><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">v1</span>
+<span class="hljs-attr">kind:</span> <span class="hljs-string">Pod</span>
+<span class="hljs-attr">metadata:</span>
+  <span class="hljs-attr">name:</span> <span class="hljs-string">giropops</span>
+<span class="hljs-attr">spec:</span>
+  <span class="hljs-attr">containers:</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">girus</span>
+    <span class="hljs-attr">image:</span> <span class="hljs-string">ubuntu</span>
+    <span class="hljs-attr">args:</span>
+    <span class="hljs-bullet">-</span> <span class="hljs-string">sleep</span>
+    <span class="hljs-bullet">-</span> <span class="hljs-string">infinity</span>
+    <span class="hljs-attr">resources:</span>
+      <span class="hljs-attr">limits:</span>
+        <span class="hljs-attr">memory:</span> <span class="hljs-string">&quot;128Mi&quot;</span>
+        <span class="hljs-attr">cpu:</span> <span class="hljs-string">&quot;0.5&quot;</span>
+      <span class="hljs-attr">requests:</span>
+        <span class="hljs-attr">memory:</span> <span class="hljs-string">&quot;64Mi&quot;</span>
+        <span class="hljs-attr">cpu:</span> <span class="hljs-string">&quot;0.3&quot;</span>
+</code></pre>
+<p>Observa que usamos el parámetro <code>infinity</code>, el cual hace que el contenedor espere indefinidamente y, por lo tanto, permanezca en ejecución.</p>
+<p>Ahora crearemos el Pod.</p>
+<pre><code class="lang-bash">kubectl create -f pod-ubuntu-limitado.yaml
+</code></pre>
+<p>Una vez creado, el contenedor de Ubuntu con los límites de memoria y CPU se ejecutará. Luego, podrás conectarte a él y probar el comando <code>stress</code> para ver cómo afecta el consumo de recursos en el contenedor.</p>
+<p>Ahora verificaremos si el Pod ha sido creado.</p>
+<pre><code class="lang-bash">kubectl get pods
+</code></pre>
+<p>Luego, accederemos al interior del contenedor.</p>
+<pre><code class="lang-bash">kubectl <span class="hljs-built_in">exec</span> -it giropops -- bash
+</code></pre>
+<p>A continuación, instalaremos el comando <code>stress</code>.</p>
+<pre><code class="lang-bash">apt update
+apt install -y stress
+</code></pre>
+<p>Finalmente, ejecutaremos el comando <code>stress</code> para consumir memoria.</p>
+<pre><code class="lang-bash">stress --vm 1 --vm-bytes 100M
+</code></pre>
+<p>Hasta aquí todo está bien, ya que definimos el límite de memoria en 128Mi, y el comando <code>stress</code> está consumiendo 100M, así que está todo correcto.</p>
+<p>Ahora vamos a aumentar el consumo de memoria a 200M.</p>
+<pre><code class="lang-bash">stress --vm 1 --vm-bytes 200M
+</code></pre>
+<p>Observa que el comando <code>stress</code> no puede consumir 200M, ya que el límite de memoria es de 128Mi, que es menor que 200M. Esto generará un error y el comando <code>stress</code> se detendrá.</p>
+<p>¡Hemos alcanzado nuestro objetivo, hemos alcanzado el límite de nuestro contenedor! :D</p>
+<p>¿Quieres jugar un poco más con el comando <code>stress</code>? Echa un vistazo a su <code>--help</code>.</p>
+<pre><code class="lang-bash">stress --<span class="hljs-built_in">help</span>
+</code></pre>
+<p>Este comando ofrece varias opciones para experimentar con el consumo de memoria y CPU. Puedes explorar estas opciones para entender mejor cómo el comando <code>stress</code> puede simular diferentes cargas en tu contenedor y probar cómo responde ante distintas condiciones. ¡Diviértete probando y descubriendo cómo puedes ajustar el rendimiento del contenedor con el uso de <code>stress</code>!</p>
+<p> </p>
+<h3 id="agregando-un-volumen-emptydir-al-pod">Agregando un volumen EmptyDir al Pod</h3>
+<p>Una cosa, no es el momento adecuado para entrar en detalles más profundos sobre volúmenes. Tendremos todo un día para hablar sobre volúmenes, así que no te preocupes por eso por ahora.</p>
+<p>Hoy nos centraremos en asegurarnos de estar muy cómodos con los Pods, desde su creación, administración, ejecución de comandos, etc.</p>
+<p>Así que vamos a crear un Pod con un volumen EmptyDir.</p>
+<p>Pero primero, ¿qué es un volumen EmptyDir?</p>
+<p>Un volumen del tipo EmptyDir es un volumen que se crea cuando se crea el Pod y se destruye cuando el Pod se elimina, es decir, es un volumen temporal.</p>
+<p>En el día a día, es posible que no uses mucho este tipo de volumen, pero es importante que sepas que existe. Uno de los casos de uso más comunes es cuando necesitas compartir datos entre los contenedores de un Pod. Imagina que tienes dos contenedores en un Pod y uno de ellos tiene un directorio con datos, y deseas que el otro contenedor tenga acceso a esos datos. En este caso, puedes crear un volumen del tipo EmptyDir y compartirlo entre los dos contenedores.</p>
+<p>Llama al archivo <code>pod-emptydir.yaml</code>.</p>
+<pre><code class="lang-yaml"><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">v1</span>
+<span class="hljs-attr">kind:</span> <span class="hljs-string">Pod</span>
+<span class="hljs-attr">metadata:</span>
+  <span class="hljs-attr">name:</span> <span class="hljs-string">giropops</span>
+<span class="hljs-attr">spec:</span>
+  <span class="hljs-attr">containers:</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">girus</span>
+    <span class="hljs-attr">image:</span> <span class="hljs-string">ubuntu</span>
+    <span class="hljs-attr">args:</span>
+    <span class="hljs-bullet">-</span> <span class="hljs-string">sleep</span>
+    <span class="hljs-bullet">-</span> <span class="hljs-string">infinity</span>
+    <span class="hljs-attr">volumeMounts:</span>
+    <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">primeiro-emptydir</span>
+      <span class="hljs-attr">mountPath:</span> <span class="hljs-string">/giropops</span>
+  <span class="hljs-attr">volumes:</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">primeiro-emptydir</span>
+    <span class="hljs-attr">emptyDir:</span>
+      <span class="hljs-attr">sizeLimit:</span> <span class="hljs-string">256Mi</span>
+</code></pre>
+<p>Ahora crearemos el Pod.</p>
+<pre><code class="lang-bash">kubectl create -f pod-emptydir.yaml
+</code></pre>
+<p>Ahora verificaremos si el Pod ha sido creado.</p>
+<pre><code class="lang-bash">kubectl get pods
+</code></pre>
+<p>Puedes observar la salida del comando <code>kubectl describe pod giropops</code> para ver el volumen que se ha creado.</p>
+<pre><code class="lang-bash">kubectl describe pod giropops
+</code></pre>
+<p>Luego, accederemos al interior del contenedor.</p>
+<pre><code class="lang-bash">kubectl <span class="hljs-built_in">exec</span> -it giropops -- bash
+</code></pre>
+<p>A continuación, crearemos un archivo dentro del directorio <code>/giropops</code>.</p>
+<pre><code class="lang-bash">touch /giropops/FUNCIONAAAAAA
+</code></pre>
+<p>Listo, hemos creado nuestro archivo dentro del directorio <code>/giropops</code>, que es un directorio dentro del volumen de tipo EmptyDir. :-)</p>
+<p>Recordando una vez más que aún veremos mucho, muchísimo más sobre volúmenes, así que no te preocupes por eso por ahora.</p>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="../day_one/" class="navigation navigation-prev " aria-label="Previous page: Simplificando Kubernetes día 1">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="../day_three/" class="navigation navigation-next " aria-label="Next page: Simplificando Kubernetes día 3">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"Simplificando Kubernetes día 2","level":"2.2","depth":1,"next":{"title":"Simplificando Kubernetes día 3","level":"2.3","depth":1,"path":"day_three/README.md","ref":"day_three/README.md","articles":[]},"previous":{"title":"Simplificando Kubernetes día 1","level":"2.1","depth":1,"path":"day_one/README.md","ref":"day_one/README.md","articles":[]},"dir":"ltr"},"config":{"plugins":[],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"language":"es","gitbook":"*"},"file":{"path":"day_two/README.md","mtime":"2024-01-18T11:56:50.668Z","type":"markdown"},"gitbook":{"version":"3.6.20","time":"2024-01-18T11:57:12.977Z"},"basePath":"..","book":{"language":"es"}});
+        });
+    </script>
+</div>
+
+        
+    <noscript>
+        <style>
+            .honkit-cloak {
+                display: block !important;
+            }
+        </style>
+    </noscript>
+    <script>
+        // Restore sidebar state as critical path for prevent layout shift
+        function __init__getSidebarState(defaultValue){
+            var baseKey = "";
+            var key = baseKey + ":sidebar";
+            try {
+                var value = localStorage[key];
+                if (value === undefined) {
+                    return defaultValue;
+                }
+                var parsed = JSON.parse(value);
+                return parsed == null ? defaultValue : parsed;
+            } catch (e) {
+                return defaultValue;
+            }
+        }
+        function __init__restoreLastSidebarState() {
+            var isMobile = window.matchMedia("(max-width: 600px)").matches;
+            if (isMobile) {
+                // Init last state if not mobile
+                return;
+            }
+            var sidebarState = __init__getSidebarState(true);
+            var book = document.querySelector(".book");
+            // Show sidebar if it enabled
+            if (sidebarState && book) {
+                book.classList.add("without-animation", "with-summary");
+            }
+        }
+
+        try {
+            __init__restoreLastSidebarState();
+        } finally {
+            var book = document.querySelector(".book");
+            book.classList.remove("honkit-cloak");
+        }
+    </script>
+    <script src="../../gitbook/gitbook.js"></script>
+    <script src="../../gitbook/theme.js"></script>
+    
+        
+        <script src="../../gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+

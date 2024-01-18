@@ -1,0 +1,1657 @@
+
+<!DOCTYPE HTML>
+<html lang="es" >
+    <head>
+        <meta charset="UTF-8">
+        <title>Simplificando Kubernetes día 4 · HonKit</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="HonKit 3.6.20">
+        
+        
+        
+    
+    <link rel="stylesheet" href="../../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="../day_five/" />
+    
+    
+    <link rel="prev" href="../day_three/" />
+    
+
+    </head>
+    <body>
+        
+<div class="book honkit-cloak">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="Escribe para buscar" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        <li class="header">Sobre</li>
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../">
+            
+                <a href="../">
+            
+                    
+                    Introducción
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="header">Capítulos</li>
+        
+        
+    
+        <li class="chapter " data-level="2.1" data-path="../day_one/">
+            
+                <a href="../day_one/">
+            
+                    
+                    Simplificando Kubernetes día 1
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.2" data-path="../day_two/">
+            
+                <a href="../day_two/">
+            
+                    
+                    Simplificando Kubernetes día 2
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.3" data-path="../day_three/">
+            
+                <a href="../day_three/">
+            
+                    
+                    Simplificando Kubernetes día 3
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="2.4" data-path="./">
+            
+                <a href="./">
+            
+                    
+                    Simplificando Kubernetes día 4
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.5" data-path="../day_five/">
+            
+                <a href="../day_five/">
+            
+                    
+                    Simplificando Kubernetes día 5
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.6" data-path="../day_six/">
+            
+                <a href="../day_six/">
+            
+                    
+                    Simplificando Kubernetes día 6
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="header">Extras</li>
+        
+        
+    
+        <li class="chapter " data-level="3.1" data-path="../extras/cloud-providers/cloud-providers.html">
+            
+                <a href="../extras/cloud-providers/cloud-providers.html">
+            
+                    
+                    Cloud providers
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.2" data-path="../extras/exame_tips.html">
+            
+                <a href="../extras/exame_tips.html">
+            
+                    
+                    Consejos para el examen
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.3" data-path="../extras/pod_security_policy.html">
+            
+                <a href="../extras/pod_security_policy.html">
+            
+                    
+                    Pod security policy
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="header">Contribuir</li>
+        
+        
+    
+        <li class="chapter " data-level="4.1" data-path="../CONTRIBUTING.html">
+            
+                <a href="../CONTRIBUTING.html">
+            
+                    
+                    Cómo ayudar
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://github.com/honkit/honkit" target="blank" class="gitbook-link">
+            Publicado con HonKit
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href=".." >Simplificando Kubernetes día 4</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h1 id="simplificando-kubernetes">Simplificando Kubernetes</h1>
+<h2 id="día-4">Día 4</h2>
+<p> </p>
+<h2 id="contenido-del-día-4">Contenido del Día 4</h2>
+<ul>
+<li><a href="#simplificando-kubernetes">Simplificando Kubernetes</a><ul>
+<li><a href="#día-4">Día 4</a></li>
+<li><a href="#contenido-del-día-4">Contenido del Día 4</a></li>
+<li><a href="#inicio-de-la-lección-del-día-4">Inicio de la Lección del Día 4</a><ul>
+<li><a href="#qué-veremos-hoy">¿Qué veremos hoy?</a></li>
+<li><a href="#replicaset">ReplicaSet</a><ul>
+<li><a href="#el-deployment-y-el-replicaset">El Deployment y el ReplicaSet</a></li>
+<li><a href="#creando-un-replicaset">Creando un ReplicaSet</a></li>
+<li><a href="#desactivando-el-replicaset">Desactivando el ReplicaSet</a></li>
+</ul>
+</li>
+<li><a href="#el-daemonset">El DaemonSet</a><ul>
+<li><a href="#creando-un-daemonset">Creando un DaemonSet</a></li>
+<li><a href="#creación-de-un-daemonset-utilizando-el-comando-kubectl-create">Creación de un DaemonSet utilizando el comando kubectl create</a></li>
+<li><a href="#añadiendo-un-nodo-al-clúster">Añadiendo un nodo al clúster</a></li>
+<li><a href="#eliminando-un-daemonset">Eliminando un DaemonSet</a></li>
+</ul>
+</li>
+<li><a href="#las-sondas-de-kubernetes">Las sondas de Kubernetes</a><ul>
+<li><a href="#qué-son-las-sondas">¿Qué son las sondas?</a></li>
+<li><a href="#sonda-de-integridad-liveness-probe">Sonda de Integridad (Liveness Probe)</a></li>
+<li><a href="#sonda-de-preparación-readiness-probe">Sonda de preparación (Readiness Probe)</a></li>
+<li><a href="#sonda-de-inicio">Sonda de Inicio</a></li>
+</ul>
+</li>
+<li><a href="#ejemplo-con-todas-las-sondas">Ejemplo con todas las sondas</a></li>
+<li><a href="#tu-tarea">Tu tarea</a></li>
+<li><a href="#final-del-día-4">Final del Día 4</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p> </p>
+<h2 id="inicio-de-la-lección-del-día-4">Inicio de la Lección del Día 4</h2>
+<h3 id="¿qué-veremos-hoy">¿Qué veremos hoy?</h3>
+<p>Hoy es el día para hablar sobre dos objetos muy importantes en Kubernetes: los <code>ReplicaSets</code> y los <code>DaemonSets</code>.</p>
+<p>Ya sabemos lo que es un <code>Deployment</code> y también entendemos los detalles de un <code>Pod</code>, así que ahora vamos a conocer estos dos conceptos que están fuertemente relacionados con los <code>Deployment</code> y los <code>Pod</code>. Cuando hablamos de <code>Deployment</code>, es imposible no mencionar los <code>ReplicaSets</code>, ya que un <code>Deployment</code> es un objeto que crea un <code>ReplicaSet</code>, y a su vez, un <code>ReplicaSet</code> es un objeto que crea un <code>Pod</code>. Todo está conectado.</p>
+<p>Por otro lado, nuestro querido <code>DaemonSet</code> es un objeto que crea un <code>Pod</code>, y este <code>Pod</code> es un objeto que se ejecuta en todos los nodos del clúster. Es sumamente importante para nosotros, ya que con un <code>DaemonSet</code> podemos asegurarnos de tener al menos un <code>Pod</code> funcionando en cada nodo del clúster. Por ejemplo, imagina que necesitas instalar los agentes de <code>Datadog</code> o un <code>exporter</code> de <code>Prometheus</code> en todos los nodos del clúster. Para eso, necesitas un <code>DaemonSet</code>.</p>
+<p>A lo largo del día de hoy, aprenderemos cómo asegurarnos de que nuestros <code>Pods</code> estén funcionando correctamente utilizando las <code>Probes</code> de Kubernetes.</p>
+<p>Hablaremos sobre las <code>Readiness Probe</code>, <code>Liveness Probe</code> y <code>Startup Probe</code>, y por supuesto, proporcionaremos ejemplos prácticos y detallados.</p>
+<p>Hoy es el día en el que aprenderás sobre estos dos objetos tan importantes y asegurarte de que nunca implementemos nuestros <code>Pods</code> en producción sin verificar primero que estén funcionando correctamente y siendo supervisados por las <code>Probes</code> de Kubernetes.</p>
+<p>¡Vamos allá! #VAIIII</p>
+<h3 id="replicaset">ReplicaSet</h3>
+<p>Una cosa es muy importante de saber: cuando creamos un <code>Deployment</code> en Kubernetes, automáticamente estamos creando, además del <code>Deployment</code>, un <code>ReplicaSet</code>, y este <code>ReplicaSet</code> es quien crea los <code>Pods</code> que están dentro del <code>Deployment</code>.</p>
+<p>¿Confuso, verdad?</p>
+<p>No, no lo es, y te lo explicaré.</p>
+<p>Cuando creamos un <code>Deployment</code>, Kubernetes crea un <code>ReplicaSet</code> para generar y gestionar las réplicas de los <code>Pods</code> en nuestro clúster. Este es el encargado de observar los <code>Pods</code> y garantizar el número de réplicas que hemos definido en el <code>Deployment</code>.</p>
+<p>Es posible crear un <code>ReplicaSet</code> sin un <code>Deployment</code>, pero no es una buena práctica, ya que el <code>ReplicaSet</code> no tiene la capacidad de gestionar versiones de <code>Pods</code> ni de realizar <code>RollingUpdate</code> de los <code>Pods</code>.</p>
+<p>Y aquí está lo interesante: cuando actualizamos la versión de un <code>Pod</code> con el <code>Deployment</code>, este crea un nuevo <code>ReplicaSet</code> para gestionar las réplicas de los <code>Pods</code>. Una vez que la actualización termina, el <code>Deployment</code> elimina las réplicas del <code>ReplicaSet</code> antiguo y solo deja las réplicas del nuevo <code>ReplicaSet</code>.</p>
+<p>Sin embargo, no se elimina el <code>ReplicaSet</code> antiguo; se mantiene allí, ya que puede usarse para hacer un <code>Rollback</code> de la versión del <code>Pod</code> en caso de problemas. Sí, cuando necesitamos hacer un <code>Rollback</code> de una actualización en nuestros <code>Pods</code>, el <code>Deployment</code> simplemente cambia el <code>ReplicaSet</code> que se utiliza para gestionar las réplicas de los <code>Pods</code>, utilizando el <code>ReplicaSet</code> antiguo.</p>
+<p>¿Lo hacemos en la práctica?</p>
+<p>Creo que te ayudará a entenderlo mejor.</p>
+<h4 id="el-deployment-y-el-replicaset">El Deployment y el ReplicaSet</h4>
+<p>Crearemos un <code>Deployment</code> con el nombre de <code>nginx-deployment</code> y crearemos 3 réplicas del <code>Pod</code> de <code>nginx</code>.</p>
+<pre><code class="lang-yaml"><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">apps/v1</span>
+<span class="hljs-attr">kind:</span> <span class="hljs-string">Deployment</span>
+<span class="hljs-attr">metadata:</span>
+  <span class="hljs-attr">labels:</span>
+    <span class="hljs-attr">app:</span> <span class="hljs-string">nginx-deployment</span>
+  <span class="hljs-attr">name:</span> <span class="hljs-string">nginx-deployment</span>
+<span class="hljs-attr">spec:</span>
+  <span class="hljs-attr">replicas:</span> <span class="hljs-number">3</span>
+  <span class="hljs-attr">selector:</span>
+    <span class="hljs-attr">matchLabels:</span>
+      <span class="hljs-attr">app:</span> <span class="hljs-string">nginx-deployment</span>
+  <span class="hljs-attr">strategy:</span> {}
+  <span class="hljs-attr">template:</span>
+    <span class="hljs-attr">metadata:</span>
+      <span class="hljs-attr">labels:</span>
+        <span class="hljs-attr">app:</span> <span class="hljs-string">nginx-deployment</span>
+    <span class="hljs-attr">spec:</span>
+      <span class="hljs-attr">containers:</span>
+      <span class="hljs-bullet">-</span> <span class="hljs-attr">image:</span> <span class="hljs-string">nginx</span>
+        <span class="hljs-attr">name:</span> <span class="hljs-string">nginx</span>
+        <span class="hljs-attr">resources:</span>
+          <span class="hljs-attr">limits:</span>
+            <span class="hljs-attr">cpu:</span> <span class="hljs-string">&quot;0.5&quot;</span>
+            <span class="hljs-attr">memory:</span> <span class="hljs-string">256Mi</span>
+          <span class="hljs-attr">requests:</span>
+            <span class="hljs-attr">cpu:</span> <span class="hljs-number">0.25</span>
+            <span class="hljs-attr">memory:</span> <span class="hljs-string">128Mi</span>
+</code></pre>
+<p> </p>
+<p>Verifiquemos si se ha creado el <code>Deployment</code>.</p>
+<pre><code class="lang-bash">kubectl get deployments
+</code></pre>
+<p> </p>
+<p>Nuestra salida se verá similar a esto.</p>
+<pre><code class="lang-bash">NAME               READY   UP-TO-DATE   AVAILABLE   AGE
+nginx-deployment   3/3     3            3           7s
+</code></pre>
+<p> </p>
+<p>¡Simple, ya lo sabíamos! ¡Jeferson, quiero saber sobre el <code>ReplicaSet</code>!</p>
+<p>Calma, porque nuestro querido <code>Deployment</code> ya ha creado el <code>ReplicaSet</code> por nosotros.</p>
+<p>Verifiquemos el <code>ReplicaSet</code> que se ha creado.</p>
+<pre><code class="lang-bash">kubectl get replicasets
+</code></pre>
+<p>Nuestra salida se verá similar a esto.</p>
+<pre><code class="lang-bash">NAME                          DESIRED   CURRENT   READY   AGE
+nginx-deployment-6dd8d7cfbd   1         1         1       37s
+</code></pre>
+<p> </p>
+<p>Un detalle importante en la salida anterior es que el <code>ReplicaSet</code> tiene el mismo nombre que el <code>Deployment</code>, seguido de un sufijo aleatorio. Además, en esta salida podemos ver que el <code>ReplicaSet</code> actualmente tiene 1 réplica del <code>Pod</code> de <code>nginx</code> en ejecución, según lo que definimos en el <code>Deployment</code>.</p>
+<p>Aumentemos el número de réplicas del <code>Pod</code> de <code>nginx</code> a 3.</p>
+<pre><code class="lang-bash">kubectl scale deployment nginx-deployment --replicas=3
+</code></pre>
+<p> </p>
+<p>Esta es una forma de aumentar el número de réplicas del <code>Pod</code> de <code>nginx</code> sin necesidad de editar el <code>Deployment</code>. Sin embargo, no lo recomiendo; prefiero editar el <code>Deployment</code> y luego aplicar los cambios nuevamente. Esto es una cuestión de preferencia y organización. Personalmente, no me gusta la idea de tener que usar <code>scale</code> en el <code>Deployment</code> para aumentar o disminuir el número de réplicas del <code>Pod</code> de <code>nginx</code>, sin tener ese cambio registrado en <code>git</code>, por ejemplo.</p>
+<p>Modifiquemos el <code>Deployment</code> para tener 3 réplicas.</p>
+<pre><code class="lang-yaml"><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">apps/v1</span>
+<span class="hljs-attr">kind:</span> <span class="hljs-string">Deployment</span>
+<span class="hljs-attr">metadata:</span>
+  <span class="hljs-attr">labels:</span>
+    <span class="hljs-attr">app:</span> <span class="hljs-string">nginx-deployment</span>
+  <span class="hljs-attr">name:</span> <span class="hljs-string">nginx-deployment</span>
+<span class="hljs-attr">spec:</span>
+  <span class="hljs-attr">replicas:</span> <span class="hljs-number">3</span>
+  <span class="hljs-attr">selector:</span>
+    <span class="hljs-attr">matchLabels:</span>
+      <span class="hljs-attr">app:</span> <span class="hljs-string">nginx-deployment</span>
+  <span class="hljs-attr">strategy:</span> {}
+  <span class="hljs-attr">template:</span>
+    <span class="hljs-attr">metadata:</span>
+      <span class="hljs-attr">labels:</span>
+        <span class="hljs-attr">app:</span> <span class="hljs-string">nginx-deployment</span>
+    <span class="hljs-attr">spec:</span>
+      <span class="hljs-attr">containers:</span>
+      <span class="hljs-bullet">-</span> <span class="hljs-attr">image:</span> <span class="hljs-string">nginx</span>
+        <span class="hljs-attr">name:</span> <span class="hljs-string">nginx</span>
+        <span class="hljs-attr">resources:</span>
+          <span class="hljs-attr">limits:</span>
+            <span class="hljs-attr">cpu:</span> <span class="hljs-string">&quot;0.5&quot;</span>
+            <span class="hljs-attr">memory:</span> <span class="hljs-string">256Mi</span>
+          <span class="hljs-attr">requests:</span>
+            <span class="hljs-attr">cpu:</span> <span class="hljs-number">0.25</span>
+            <span class="hljs-attr">memory:</span> <span class="hljs-string">128Mi</span>
+</code></pre>
+<p> </p>
+<p>¡Listo! Ahora conoces las dos opciones para aumentar el número de réplicas del <code>Pod</code> de <code>nginx</code>. Siéntete libre de elegir la opción que te parezca mejor.</p>
+<p>Yo continuaré usando la opción de editar el <code>Deployment</code> y luego aplicar los cambios.</p>
+<pre><code class="lang-bash">kubectl apply -f nginx-deployment.yaml
+</code></pre>
+<p> </p>
+<p>Verifiquemos nuevamente nuestro <code>ReplicaSet</code>.</p>
+<pre><code class="lang-bash">kubectl get replicasets
+</code></pre>
+<p> </p>
+<p>Nuestra salida será similar a esta.</p>
+<pre><code class="lang-bash">NAME                          DESIRED   CURRENT   READY   AGE
+nginx-deployment-6dd8d7cfbd   3         3         3       5m24s
+</code></pre>
+<p> </p>
+<p>Observe que el nombre del <code>ReplicaSet</code> sigue siendo el mismo, pero el número de réplicas cambió a 3. Cuando solo modificamos el número de réplicas en nuestro <code>Deployment</code>, el <code>ReplicaSet</code> permanece igual, ya que su función principal es administrar las réplicas del <code>Pod</code> de <code>nginx</code>.</p>
+<p>Ahora cambiemos la versión de <code>nginx</code> a la 1.19.2.</p>
+<pre><code class="lang-yaml"><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">apps/v1</span>
+<span class="hljs-attr">kind:</span> <span class="hljs-string">Deployment</span>
+<span class="hljs-attr">metadata:</span>
+  <span class="hljs-attr">labels:</span>
+    <span class="hljs-attr">app:</span> <span class="hljs-string">nginx-deployment</span>
+  <span class="hljs-attr">name:</span> <span class="hljs-string">nginx-deployment</span>
+<span class="hljs-attr">spec:</span>
+  <span class="hljs-attr">replicas:</span> <span class="hljs-number">3</span>
+  <span class="hljs-attr">selector:</span>
+    <span class="hljs-attr">matchLabels:</span>
+      <span class="hljs-attr">app:</span> <span class="hljs-string">nginx-deployment</span>
+  <span class="hljs-attr">strategy:</span> {}
+  <span class="hljs-attr">template:</span>
+    <span class="hljs-attr">metadata:</span>
+      <span class="hljs-attr">labels:</span>
+        <span class="hljs-attr">app:</span> <span class="hljs-string">nginx-deployment</span>
+    <span class="hljs-attr">spec:</span>
+      <span class="hljs-attr">containers:</span>
+      <span class="hljs-bullet">-</span> <span class="hljs-attr">image:</span> <span class="hljs-string">nginx:1.19.2</span>
+        <span class="hljs-attr">name:</span> <span class="hljs-string">nginx</span>
+        <span class="hljs-attr">resources:</span>
+          <span class="hljs-attr">limits:</span>
+            <span class="hljs-attr">cpu:</span> <span class="hljs-string">&quot;0.5&quot;</span>
+            <span class="hljs-attr">memory:</span> <span class="hljs-string">256Mi</span>
+          <span class="hljs-attr">requests:</span>
+            <span class="hljs-attr">cpu:</span> <span class="hljs-number">0.25</span>
+            <span class="hljs-attr">memory:</span> <span class="hljs-string">128Mi</span>
+</code></pre>
+<p> </p>
+<p>Aplicaremos los cambios.</p>
+<pre><code class="lang-bash">kubectl apply -f nginx-deployment.yaml
+</code></pre>
+<p> </p>
+<p>¡Listo! Ahora el <code>Deployment</code> está utilizando la versión 1.19.2 de <code>nginx</code>.</p>
+<p>Vamos verificar nuevamente nuestro <code>ReplicaSet</code>.</p>
+<pre><code class="lang-bash">kubectl get replicasets
+</code></pre>
+<p> </p>
+<p>Tendremos la siguiente salida.</p>
+<pre><code class="lang-bash">NAME                          DESIRED   CURRENT   READY   AGE
+nginx-deployment-6dd8d7cfbd   0         0         0       8m53s
+nginx-deployment-7858bcf56f   1         1         1       13s
+</code></pre>
+<p> </p>
+<p>Ahora sí, tenemos un nuevo <code>ReplicaSet</code> con el nombre <code>nginx-deployment-7858bcf56f</code>, y el antiguo <code>ReplicaSet</code> con el nombre <code>nginx-deployment-6dd8d7cfbd</code> ha sido vaciado, ya que ya no forma parte del <code>Deployment</code>, pero permanece en el clúster, ya que puede usarse para hacer un rollback a la versión anterior de <code>nginx</code>.</p>
+<p>Vamos a ver un detalle interesante en nuestro <code>Deployment</code>.</p>
+<pre><code class="lang-bash">kubectl describe deployment nginx-deployment
+</code></pre>
+<p> </p>
+<p>Observa la línea relacionada con el <code>ReplicaSet</code> que está siendo gestionado por el <code>Deployment</code>.</p>
+<pre><code class="lang-bash">NewReplicaSet:   nginx-deployment-7858bcf56f (3/3 replicas created)
+</code></pre>
+<p> </p>
+<p>Sí, en la salida de <code>describe</code> podemos ver que el <code>Deployment</code> está gestionando el <code>ReplicaSet</code> con el nombre <code>nginx-deployment-7858bcf56f</code> y que tiene 3 réplicas del <code>Pod</code> de <code>nginx</code> en ejecución.</p>
+<p>Si deseas hacer el rollback a la versión anterior de <code>nginx</code>, simplemente sigue los pasos que ya vimos anteriormente.</p>
+<pre><code class="lang-bash">kubectl rollout undo deployment nginx-deployment
+</code></pre>
+<p> </p>
+<p>Con esto se realizará el rollback a la versión anterior de <code>nginx</code> y el <code>ReplicaSet</code> con el nombre <code>nginx-deployment-7858bcf56f</code> se vaciará, mientras que el <code>ReplicaSet</code> con el nombre <code>nginx-deployment-6dd8d7cfbd</code> se llenará nuevamente con 3 réplicas del <code>Pod</code> de <code>nginx</code>.</p>
+<p>Volvamos a listar nuestros <code>ReplicaSets</code>.</p>
+<pre><code class="lang-bash">kubectl get replicasets
+</code></pre>
+<p> </p>
+<p>Lo que tenemos ahora es esto.</p>
+<pre><code class="lang-bash">NAME                          DESIRED   CURRENT   READY   AGE
+nginx-deployment-6dd8d7cfbd   3         3         3       15m
+nginx-deployment-7858bcf56f   0         0         0       6m28s
+</code></pre>
+<p> </p>
+<p>Y si volvemos a observar el <code>Deployment</code>.</p>
+<pre><code class="lang-bash">kubectl describe deployment nginx-deployment
+</code></pre>
+<p> </p>
+<p>Tendremos la siguiente salida.</p>
+<pre><code class="lang-bash">NewReplicaSet:   nginx-deployment-6dd8d7cfbd (3/3 replicas created)
+</code></pre>
+<p> </p>
+<p>¡Realmente es bastante simple, verdad?</p>
+<p>Ahora ya sabes cómo gestionar las réplicas del <code>Pod</code> de <code>nginx</code> usando el <code>Deployment</code> y, por consiguiente, el <code>ReplicaSet</code>.</p>
+<p> </p>
+<h4 id="creando-un-replicaset">Creando un ReplicaSet</h4>
+<p>Como se mencionó anteriormente, es posible crear un <code>ReplicaSet</code> sin usar un <code>Deployment</code>, aunque insisto, no lo hagas, ya que el <code>Deployment</code> es la forma más fácil de gestionar los <code>ReplicaSets</code> y la salud de los <code>Pods</code>.</p>
+<p>Pero adelante, si deseas crear un <code>ReplicaSet</code> sin utilizar un <code>Deployment</code>, simplemente sigue estos pasos.</p>
+<p>Para nuestro ejemplo, crearemos un archivo llamado <code>nginx-replicaset.yaml</code> y colocaremos el siguiente contenido:</p>
+<pre><code class="lang-yaml"><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">apps/v1</span>
+<span class="hljs-attr">kind:</span> <span class="hljs-string">ReplicaSet</span>
+<span class="hljs-attr">metadata:</span>
+  <span class="hljs-attr">labels:</span>
+    <span class="hljs-attr">app:</span> <span class="hljs-string">nginx-app</span>
+  <span class="hljs-attr">name:</span> <span class="hljs-string">nginx-replicaset</span>
+<span class="hljs-attr">spec:</span>
+  <span class="hljs-attr">replicas:</span> <span class="hljs-number">3</span>
+  <span class="hljs-attr">selector:</span>
+    <span class="hljs-attr">matchLabels:</span>
+      <span class="hljs-attr">app:</span> <span class="hljs-string">nginx-app</span>
+  <span class="hljs-attr">template:</span>
+    <span class="hljs-attr">metadata:</span>
+      <span class="hljs-attr">labels:</span>
+        <span class="hljs-attr">app:</span> <span class="hljs-string">nginx-app</span>
+    <span class="hljs-attr">spec:</span>
+      <span class="hljs-attr">containers:</span>
+      <span class="hljs-bullet">-</span> <span class="hljs-attr">image:</span> <span class="hljs-string">nginx:1.19.2</span>
+        <span class="hljs-attr">name:</span> <span class="hljs-string">nginx</span>
+        <span class="hljs-attr">resources:</span>
+          <span class="hljs-attr">limits:</span>
+            <span class="hljs-attr">cpu:</span> <span class="hljs-string">&quot;0.5&quot;</span>
+            <span class="hljs-attr">memory:</span> <span class="hljs-string">256Mi</span>
+          <span class="hljs-attr">requests:</span>
+            <span class="hljs-attr">cpu:</span> <span class="hljs-number">0.25</span>
+            <span class="hljs-attr">memory:</span> <span class="hljs-string">128Mi</span>
+</code></pre>
+<p> </p>
+<p>Antes de aplicar nuestro manifiesto, comprendamos lo que estamos haciendo.
+Si observas el archivo, no hay nada nuevo, es decir, nada que no hayas aprendido hasta ahora. La principal diferencia es que ahora estamos usando <code>kind: ReplicaSet</code> en lugar de <code>kind: Deployment</code>, e incluso la <code>APIVersion</code> es la misma.</p>
+<p>Ahora apliquemos nuestro manifiesto.</p>
+<pre><code class="lang-bash">kubectl apply -f nginx-replicaset.yaml
+</code></pre>
+<p> </p>
+<p>La salida será la siguiente.</p>
+<pre><code class="lang-bash">NAME                          DESIRED   CURRENT   READY   AGE
+nginx-deployment-6dd8d7cfbd   3         3         3       21m
+nginx-deployment-7858bcf56f   0         0         0       12m
+nginx-replicaset              3         3         3       6s
+</code></pre>
+<p> </p>
+<p>Ahora tenemos 3 <code>ReplicaSets</code> siendo gestionados por Kubernetes, de los cuales 2 están siendo gestionados por el <code>Deployment</code> y el otro es el que acabamos de crear.</p>
+<p>Veamos la lista de los <code>Pods</code> en ejecución.</p>
+<pre><code class="lang-bash">kubectl get pods
+</code></pre>
+<p> </p>
+<p>Todo funcionando mágicamente, ¿verdad?</p>
+<p>Ahora hagamos una prueba, cambiemos la versión de <code>nginx</code> a la versión 1.19.3. Para ello, editaremos el archivo <code>nginx-replicaset.yaml</code> y cambiaremos la versión de <code>nginx</code> a la 1.19.3.</p>
+<pre><code class="lang-yaml"><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">apps/v1</span>
+<span class="hljs-attr">kind:</span> <span class="hljs-string">ReplicaSet</span>
+<span class="hljs-attr">metadata:</span>
+  <span class="hljs-attr">labels:</span>
+    <span class="hljs-attr">app:</span> <span class="hljs-string">nginx-app</span>
+  <span class="hljs-attr">name:</span> <span class="hljs-string">nginx-replicaset</span>
+<span class="hljs-attr">spec:</span>
+  <span class="hljs-attr">replicas:</span> <span class="hljs-number">3</span>
+  <span class="hljs-attr">selector:</span>
+    <span class="hljs-attr">matchLabels:</span>
+      <span class="hljs-attr">app:</span> <span class="hljs-string">nginx-app</span>
+  <span class="hljs-attr">template:</span>
+    <span class="hljs-attr">metadata:</span>
+      <span class="hljs-attr">labels:</span>
+        <span class="hljs-attr">app:</span> <span class="hljs-string">nginx-app</span>
+    <span class="hljs-attr">spec:</span>
+      <span class="hljs-attr">containers:</span>
+      <span class="hljs-bullet">-</span> <span class="hljs-attr">image:</span> <span class="hljs-string">nginx:1.19.3</span>
+        <span class="hljs-attr">name:</span> <span class="hljs-string">nginx</span>
+        <span class="hljs-attr">resources:</span>
+          <span class="hljs-attr">limits:</span>
+            <span class="hljs-attr">cpu:</span> <span class="hljs-string">&quot;0.5&quot;</span>
+            <span class="hljs-attr">memory:</span> <span class="hljs-string">256Mi</span>
+          <span class="hljs-attr">requests:</span>
+            <span class="hljs-attr">cpu:</span> <span class="hljs-number">0.25</span>
+            <span class="hljs-attr">memory:</span> <span class="hljs-string">128Mi</span>
+</code></pre>
+<p> </p>
+<p>Listo, ahora vamos a aplicar los cambios.</p>
+<pre><code class="lang-bash">kubectl apply -f nginx-replicaset.yaml
+</code></pre>
+<p> </p>
+<p>Vamos a listar los <code>Pods</code> nuevamente.</p>
+<pre><code class="lang-bash">kubectl get pods
+</code></pre>
+<p> </p>
+<p>Observe que no ocurrió nada, es decir, el <code>ReplicaSet</code> no realizó el rollout de la nueva versión de <code>nginx</code>. Esto sucede porque el <code>ReplicaSet</code> no gestiona las versiones, solo se asegura de que el número de réplicas del <code>Pod</code> esté siempre activo.</p>
+<p>Si observas los detalles del <code>ReplicaSet</code>, verás que está gestionando 3 réplicas del <code>Pod</code> y que la imagen de <code>nginx</code> es la versión 1.19.3, sin embargo, no recreó los <code>Pods</code> con la nueva versión de <code>nginx</code>, lo hará solo si eliminas manualmente los <code>Pods</code> o si el <code>Pod</code> muere por alguna razón.</p>
+<pre><code class="lang-bash">kubectl describe replicaset nginx-replicaset
+</code></pre>
+<p> </p>
+<p>Ahora vamos a eliminar uno de los <code>Pods</code> para que el <code>ReplicaSet</code> cree un nuevo <code>Pod</code> con la nueva versión de <code>nginx</code>.</p>
+<pre><code class="lang-bash">kubectl delete pod nginx-replicaset-8r6md
+</code></pre>
+<p> </p>
+<p>Ahora el <code>ReplicaSet</code> creará un nuevo <code>Pod</code> con la nueva versión de <code>nginx</code>, lo que nos generará un problema, ya que ahora tendremos dos versiones de <code>nginx</code> ejecutándose en nuestro clúster.</p>
+<pre><code class="lang-bash">kubectl get pods -o=jsonpath=<span class="hljs-string">&apos;{range .items[*]}{&quot;\n&quot;}{.metadata.name}{&quot;\t&quot;}{range .spec.containers[*]}{.image}{&quot;\t&quot;}{end}{end}&apos;</span>
+</code></pre>
+<p> </p>
+<p>Esta es una forma de listar los <code>Pods</code> y las imágenes que están utilizando, sé que es bastante extraño, pero explicaré lo que está sucediendo.</p>
+<ul>
+<li><p><code>kubectl get pods</code>: este comando lista todos los Pods en el clúster.</p>
+</li>
+<li><p><code>-o=jsonpath</code>: este parámetro especifica que queremos usar la salida en formato JSONPath para mostrar la información de los Pods.</p>
+</li>
+<li><p><code>&apos;{range .items[*]}{&quot;\n&quot;}{.metadata.name}{&quot;\t&quot;}{range .spec.containers[*]}{.image}{&quot;\t&quot;}{end}{end}&apos;</code>: esta es la expresión JSONPath que define el formato de salida del comando. Utiliza la función range para iterar sobre todos los objetos <code>items</code> (es decir, los Pods) devueltos por el comando <code>kubectl get pods</code>. Luego muestra el nombre del Pod <code>({.metadata.name})</code> seguido de un tabulador <code>(\t)</code>, e itera sobre todos los contenedores <code>({range .spec.containers[*]})</code> dentro del Pod, mostrando la imagen utilizada por cada uno <code>({.image})</code>. Finalmente, agrega un salto de línea <code>(\n)</code> y cierra el segundo rango con <code>{end}{end}</code>.</p>
+</li>
+</ul>
+<p>Sí, lo sé, sigue siendo confuso.</p>
+<p>Pero te contaré un secreto, con el tiempo y utilizando esto repetidamente, las cosas empiezan a volverse más fáciles, ¡así que no te rindas! ¡Hacia adelante, ni para tomar impulso!</p>
+<p>Aún hablaremos con más detalles sobre cómo usar <code>metadata</code> para tener una salida más amigable y precisa.</p>
+<h4 id="desactivando-el-replicaset">Desactivando el ReplicaSet</h4>
+<p>Para eliminar el <code>ReplicaSet</code> y todos los <code>Pods</code> que está gestionando, simplemente ejecuta el siguiente comando.</p>
+<pre><code class="lang-bash">kubectl delete replicaset nginx-replicaset
+</code></pre>
+<p> </p>
+<p>Si deseas hacerlo utilizando el archivo de manifiesto, ejecuta el siguiente comando.</p>
+<pre><code class="lang-bash">kubectl delete -f nginx-replicaset.yaml
+</code></pre>
+<p> </p>
+<p>Listo, se ha eliminado nuestro <code>ReplicaSet</code> y todos los <code>Pods</code> que estaba gestionando.</p>
+<p>A lo largo de nuestra sesión, ya hemos aprendido cómo crear un <code>ReplicaSet</code> y cómo funciona, pero aún hay mucho más que aprender, así que continuemos.</p>
+<p> </p>
+<h3 id="el-daemonset">El DaemonSet</h3>
+<p>Ya sabemos qué es un <code>Pod</code>, un <code>Deployment</code> y un <code>ReplicaSet</code>, pero ahora es el momento de conocer otro objeto en Kubernetes: el <code>DaemonSet</code>.</p>
+<p>El <code>DaemonSet</code> es un objeto que garantiza que todos los nodos en el clúster ejecuten una réplica de un <code>Pod</code>. En otras palabras, asegura que todos los nodos del clúster tengan una copia del mismo <code>Pod</code>.</p>
+<p>El <code>DaemonSet</code> es muy útil para ejecutar <code>Pods</code> que deben ejecutarse en todos los nodos del clúster, como por ejemplo, un <code>Pod</code> que realiza el monitoreo de registros o un <code>Pod</code> que realiza el monitoreo de métricas.</p>
+<p>Algunos casos de uso comunes de los <code>DaemonSets</code> son:</p>
+<ul>
+<li>Ejecutar agentes de monitoreo, como el <code>Prometheus Node Exporter</code> o <code>Fluentd</code>.</li>
+<li>Ejecutar un proxy de red en todos los nodos del clúster, como <code>kube-proxy</code>, <code>Weave Net</code>, <code>Calico</code> o <code>Flannel</code>.</li>
+<li>Ejecutar agentes de seguridad en cada nodo del clúster, como <code>Falco</code> o <code>Sysdig</code>.</li>
+</ul>
+<p>Por lo tanto, si nuestro clúster tiene 3 nodos, el <code>DaemonSet</code> garantizará que todos los nodos ejecuten una réplica del <code>Pod</code> que está gestionando, es decir, 3 réplicas del <code>Pod</code>.</p>
+<p>Si agregamos otro nodo al clúster, el <code>DaemonSet</code> garantizará que todos los nodos ejecuten una réplica del <code>Pod</code> que está gestionando, es decir, 4 réplicas del <code>Pod</code>.</p>
+<h4 id="creando-un-daemonset">Creando un DaemonSet</h4>
+<p>Vamos con nuestro primer ejemplo, vamos a crear un <code>DaemonSet</code> que asegurará que todos los nodos del clúster ejecuten una réplica del <code>Pod</code> del <code>node-exporter</code>, que es un exportador de métricas para <code>Prometheus</code>.</p>
+<p>Para lograrlo, vamos a crear un archivo llamado <code>node-exporter-daemonset.yaml</code> y agregar el siguiente contenido.</p>
+<pre><code class="lang-yaml"><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">apps/v1</span> <span class="hljs-comment"># Versión de la API de Kubernetes del objeto</span>
+<span class="hljs-attr">kind:</span> <span class="hljs-string">DaemonSet</span> <span class="hljs-comment"># Tipo de objeto</span>
+<span class="hljs-attr">metadata:</span> <span class="hljs-comment"># Información sobre el objeto</span>
+  <span class="hljs-attr">name:</span> <span class="hljs-string">node-exporter</span> <span class="hljs-comment"># Nombre del objeto</span>
+<span class="hljs-attr">spec:</span> <span class="hljs-comment"># Especificación del objeto</span>
+  <span class="hljs-attr">selector:</span> <span class="hljs-comment"># Selector del objeto</span>
+    <span class="hljs-attr">matchLabels:</span> <span class="hljs-comment"># Etiquetas que se usarán para seleccionar los Pods</span>
+      <span class="hljs-attr">app:</span> <span class="hljs-string">node-exporter</span> <span class="hljs-comment"># Etiqueta que se usará para seleccionar los Pods</span>
+  <span class="hljs-attr">template:</span> <span class="hljs-comment"># Plantilla del objeto</span>
+    <span class="hljs-attr">metadata:</span> <span class="hljs-comment"># Información sobre el objeto</span>
+      <span class="hljs-attr">labels:</span> <span class="hljs-comment"># Etiquetas que se agregarán a los Pods</span>
+        <span class="hljs-attr">app:</span> <span class="hljs-string">node-exporter</span> <span class="hljs-comment"># Etiqueta que se agregará a los Pods</span>
+    <span class="hljs-attr">spec:</span> <span class="hljs-comment"># Especificación del objeto, en este caso, la especificación del Pod</span>
+      <span class="hljs-attr">hostNetwork:</span> <span class="hljs-literal">true</span> <span class="hljs-comment"># Habilita el uso de la red del host, usar con precaución</span>
+      <span class="hljs-attr">containers:</span> <span class="hljs-comment"># Lista de contenedores que se ejecutarán en el Pod</span>
+      <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">node-exporter</span> <span class="hljs-comment"># Nombre del contenedor</span>
+        <span class="hljs-attr">image:</span> <span class="hljs-string">prom/node-exporter:latest</span> <span class="hljs-comment"># Imagen del contenedor</span>
+        <span class="hljs-attr">ports:</span> <span class="hljs-comment"># Lista de puertos que se expondrán en el contenedor</span>
+        <span class="hljs-bullet">-</span> <span class="hljs-attr">containerPort:</span> <span class="hljs-number">9100</span> <span class="hljs-comment"># Puerto que se expondrá en el contenedor</span>
+          <span class="hljs-attr">hostPort:</span> <span class="hljs-number">9100</span> <span class="hljs-comment"># Puerto que se expondrá en el host</span>
+        <span class="hljs-attr">volumeMounts:</span> <span class="hljs-comment"># Lista de puntos de montaje de volúmenes en el contenedor, ya que node-exporter necesita acceso a /proc y /sys</span>
+        <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">proc</span> <span class="hljs-comment"># Nombre del volumen</span>
+          <span class="hljs-attr">mountPath:</span> <span class="hljs-string">/host/proc</span> <span class="hljs-comment"># Ruta donde se montará el volumen en el contenedor</span>
+          <span class="hljs-attr">readOnly:</span> <span class="hljs-literal">true</span> <span class="hljs-comment"># Habilita el modo de solo lectura</span>
+        <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">sys</span> <span class="hljs-comment"># Nombre del volumen</span>
+          <span class="hljs-attr">mountPath:</span> <span class="hljs-string">/host/sys</span> <span class="hljs-comment"># Ruta donde se montará el volumen en el contenedor</span>
+          <span class="hljs-attr">readOnly:</span> <span class="hljs-literal">true</span> <span class="hljs-comment"># Habilita el modo de solo lectura</span>
+      <span class="hljs-attr">volumes:</span> <span class="hljs-comment"># Lista de volúmenes que se utilizarán en el Pod</span>
+      <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">proc</span> <span class="hljs-comment"># Nombre del volumen</span>
+        <span class="hljs-attr">hostPath:</span> <span class="hljs-comment"># Tipo de volumen</span>
+          <span class="hljs-attr">path:</span> <span class="hljs-string">/proc</span> <span class="hljs-comment"># Ruta del volumen en el host</span>
+      <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">sys</span> <span class="hljs-comment"># Nombre del volumen</span>
+        <span class="hljs-attr">hostPath:</span> <span class="hljs-comment"># Tipo de volumen</span>
+          <span class="hljs-attr">path:</span> <span class="hljs-string">/sys</span> <span class="hljs-comment"># Ruta del volumen en el host</span>
+</code></pre>
+<p> </p>
+<p>He dejado el archivo comentado para facilitar la comprensión, ahora vamos a crear el <code>DaemonSet</code> utilizando el archivo de manifiesto.</p>
+<pre><code class="lang-bash">kubectl apply -f node-exporter-daemonset.yaml
+</code></pre>
+<p> </p>
+<p>Ahora verifiquemos si el <code>DaemonSet</code> se ha creado.</p>
+<pre><code class="lang-bash">kubectl get daemonset
+</code></pre>
+<p> </p>
+<p>Como podemos ver, el <code>DaemonSet</code> se ha creado exitosamente.</p>
+<pre><code class="lang-bash">NAME            DESIRED   CURRENT   READY   UP-TO-DATE   AVAILABLE   NODE SELECTOR   AGE
+node-exporter   2         2         2       2            2           &lt;none&gt;          5m24s
+</code></pre>
+<p> </p>
+<p>Si deseamos verificar los <code>Pods</code> que el <code>DaemonSet</code> está gestionando, solo ejecutamos el siguiente comando.</p>
+<pre><code class="lang-bash">kubectl get pods -l app=node-exporter
+</code></pre>
+<p> </p>
+<p>Solo para recordar, estamos utilizando el parámetro <code>-l</code> para filtrar los <code>Pods</code> que tienen la etiqueta <code>app=node-exporter</code>, que es el caso de nuestro <code>DaemonSet</code>.</p>
+<p>Como podemos ver, el <code>DaemonSet</code> está gestionando 2 <code>Pods</code>, uno en cada nodo del clúster.</p>
+<pre><code class="lang-bash">NAME                  READY   STATUS    RESTARTS   AGE
+node-exporter-k8wp9   1/1     Running   0          6m14s
+node-exporter-q8zvw   1/1     Running   0          6m14s
+</code></pre>
+<p> </p>
+<p>Nuestros <code>Pods</code> de <code>node-exporter</code> se han creado con éxito, ahora verifiquemos si se están ejecutando en todos los nodos del clúster.</p>
+<pre><code class="lang-bash">kubectl get pods -o wide -l app=node-exporter
+</code></pre>
+<p> </p>
+<p>Con el comando anterior, podemos ver en qué nodo se está ejecutando cada <code>Pod</code>.</p>
+<pre><code class="lang-bash">NAME                                READY   STATUS    RESTARTS   AGE     IP               NODE                            NOMINATED NODE   READINESS GATES
+node-exporter-k8wp9                 1/1     Running   0          3m49s   192.168.8.145    ip-192-168-8-145.ec2.internal   &lt;none&gt;           &lt;none&gt;
+node-exporter-q8zvw                 1/1     Running   0          3m49s   192.168.55.68    ip-192-168-55-68.ec2.internal   &lt;none&gt;           &lt;none&gt;
+</code></pre>
+<p> </p>
+<p>Como podemos ver, los <code>Pods</code> de <code>node-exporter</code> se están ejecutando en ambos nodos del clúster.</p>
+<p>Para ver los detalles del <code>DaemonSet</code>, solo ejecutamos el siguiente comando.</p>
+<pre><code class="lang-bash">kubectl describe daemonset node-exporter
+</code></pre>
+<p> </p>
+<p>El comando anterior devolverá una salida similar a la siguiente.</p>
+<pre><code class="lang-bash">Name:           node-exporter
+Selector:       app=node-exporter
+Node-Selector:  &lt;none&gt;
+Labels:         &lt;none&gt;
+Annotations:    deprecated.daemonset.template.generation: 1
+Desired Number of Nodes Scheduled: 2
+Current Number of Nodes Scheduled: 2
+Number of Nodes Scheduled with Up-to-date Pods: 2
+Number of Nodes Scheduled with Available Pods: 2
+Number of Nodes Misscheduled: 0
+Pods Status:  2 Running / 0 Waiting / 0 Succeeded / 0 Failed
+Pod Template:
+  Labels:  app=node-exporter
+  Containers:
+   node-exporter:
+    Image:        prom/node-exporter:latest
+    Port:         9100/TCP
+    Host Port:    9100/TCP
+    Environment:  &lt;none&gt;
+    Mounts:
+      /host/proc from proc (ro)
+      /host/sys from sys (ro)
+  Volumes:
+   proc:
+    Type:          HostPath (bare host directory volume)
+    Path:          /proc
+    HostPathType:  
+   sys:
+    Type:          HostPath (bare host directory volume)
+    Path:          /sys
+    HostPathType:  
+Events:
+  Type    Reason            Age   From                  Message
+  ----    ------            ----  ----                  -------
+  Normal  SuccessfulCreate  9m6s  daemonset-controller  Created pod: node-exporter-q8zvw
+  Normal  SuccessfulCreate  9m6s  daemonset-controller  Created pod: node-exporter-k8wp9
+</code></pre>
+<p> </p>
+<p>En la salida anterior, podemos ver información muy importante relacionada con el <code>DaemonSet</code>, como por ejemplo, el número de nodos que el <code>DaemonSet</code> está gestionando, el número de <code>Pods</code> que se están ejecutando en cada nodo, etc.</p>
+<h4 id="creación-de-un-daemonset-utilizando-el-comando-kubectl-create">Creación de un DaemonSet utilizando el comando kubectl create</h4>
+<p>Aún puedes crear un <code>DaemonSet</code> utilizando el comando <code>kubectl create</code>, pero prefiero usar el archivo de manifiesto, ya que así puedo versionar mi <code>DaemonSet</code>. Sin embargo, si deseas crear un <code>DaemonSet</code> utilizando el comando <code>kubectl create</code>, simplemente ejecuta el siguiente comando.</p>
+<pre><code class="lang-bash">kubectl create daemonset node-exporter --image=prom/node-exporter:latest --port=9100 --host-port=9100
+</code></pre>
+<p> </p>
+<p>En el comando anterior, faltan algunos parámetros, pero los dejé así para facilitar la comprensión. Si deseas ver todos los parámetros que se pueden usar en el comando <code>kubectl create daemonset</code>, simplemente ejecuta el siguiente comando.</p>
+<pre><code class="lang-bash">kubectl create daemonset --<span class="hljs-built_in">help</span>
+</code></pre>
+<p> </p>
+<p>A mí me gusta usar <code>kubectl create</code> solo para crear un archivo de ejemplo, para que pueda basarme en él al crear mi archivo de manifiesto. Sin embargo, si deseas crear un manifiesto para un <code>DaemonSet</code> utilizando el comando <code>kubectl create</code>, simplemente ejecuta el siguiente comando.</p>
+<pre><code class="lang-bash">kubectl create daemonset node-exporter --image=prom/node-exporter:latest --port=9100 --host-port=9100 -o yaml --dry-run=client &gt; node-exporter-daemonset.yaml
+</code></pre>
+<p> </p>
+<p>¡Así de simple! Te explicaré lo que está sucediendo en el comando anterior.</p>
+<ul>
+<li><code>kubectl create daemonset node-exporter</code> - Crea un <code>DaemonSet</code> llamado <code>node-exporter</code>.</li>
+<li><code>--image=prom/node-exporter:latest</code> - Utiliza la imagen <code>prom/node-exporter:latest</code> para crear los <code>Pods</code>.</li>
+<li><code>--port=9100</code> - Define el puerto <code>9100</code> para el <code>Pod</code>.</li>
+<li><code>--host-port=9100</code> - Define el puerto <code>9100</code> para el nodo.</li>
+<li><code>-o yaml</code> - Define el formato del archivo de manifiesto como <code>yaml</code>.</li>
+<li><code>--dry-run=client</code> - Ejecuta el comando sin crear el <code>DaemonSet</code>, solo simula la creación del <code>DaemonSet</code>.</li>
+<li><code>&gt; node-exporter-daemonset.yaml</code> - Redirige la salida del comando al archivo <code>node-exporter-daemonset.yaml</code>.</li>
+</ul>
+<p>¡Más sencillo, ¿verdad?</p>
+<h4 id="añadiendo-un-nodo-al-clúster">Añadiendo un nodo al clúster</h4>
+<p>Ahora que ya sabemos cómo crear un <code>DaemonSet</code>, vamos a aumentar el número de nodos en nuestro clúster.</p>
+<p>Actualmente tenemos dos réplicas.</p>
+<pre><code class="lang-bash">kubectl get nodes
+</code></pre>
+<p> </p>
+<pre><code class="lang-bash">NAME                             STATUS   ROLES    AGE    VERSION
+ip-192-168-55-68.ec2.internal    Ready    &lt;ninguno&gt;   113m   v1.23.16-eks-48e63af
+ip-192-168-8-145.ec2.internal    Ready    &lt;ninguno&gt;   113m   v1.23.16-eks-48e63af
+</code></pre>
+<p> </p>
+<p>Vamos a aumentar el número de nodos a 3.</p>
+<p>Estoy utilizando <code>eksctl</code> para crear el clúster, por lo que utilizaré el comando <code>eksctl scale nodegroup</code> para aumentar el número de nodos en el clúster. Si estás utilizando otro administrador de clúster, puedes usar el comando que prefieras para aumentar el número de nodos en el clúster.</p>
+<pre><code class="lang-bash">eksctl scale nodegroup --cluster=eks-cluster --nodes 3 --name eks-cluster-nodegroup
+</code></pre>
+<p> </p>
+<pre><code class="lang-bash">2023-03-11 13:31:48 [ℹ]  scaling nodegroup <span class="hljs-string">&quot;eks-cluster-nodegroup&quot;</span> <span class="hljs-keyword">in</span> cluster eks-cluster
+2023-03-11 13:31:49 [ℹ]  waiting <span class="hljs-keyword">for</span> scaling of nodegroup <span class="hljs-string">&quot;eks-cluster-nodegroup&quot;</span> to complete
+2023-03-11 13:33:17 [ℹ]  nodegroup successfully scaled
+</code></pre>
+<p> </p>
+<p>Verifiquemos si el nodo ha sido agregado al clúster.</p>
+<pre><code class="lang-bash">kubectl get nodes
+</code></pre>
+<p> </p>
+<pre><code class="lang-bash">NAME                             STATUS   ROLES    AGE    VERSION
+ip-192-168-45-194.ec2.internal   Ready    &lt;ninguno&gt;   47s    v1.23.16-eks-48e63af
+ip-192-168-55-68.ec2.internal    Ready    &lt;ninguno&gt;   113m   v1.23.16-eks-48e63af
+ip-192-168-8-145.ec2.internal    Ready    &lt;ninguno&gt;   113m   v1.23.16-eks-48e63af
+</code></pre>
+<p> </p>
+<p>Listo, ahora tenemos 3 nodos en el clúster.</p>
+<p>Pero la pregunta que no quiere callar es: ¿El <code>DaemonSet</code> ha creado un <code>Pod</code> en el nuevo nodo?</p>
+<p>Vamos a verificarlo.</p>
+<pre><code class="lang-bash">kubectl get pods -o wide -l app=node-exporter
+</code></pre>
+<p> </p>
+<pre><code class="lang-bash">NAME                  READY   STATUS    RESTARTS   AGE   IP               NODE                             NOMINATED NODE   READINESS GATES
+node-exporter-k8wp9   1/1     Running   0          20m   192.168.8.145    ip-192-168-8-145.ec2.internal    &lt;ninguno&gt;           &lt;ninguno&gt;
+node-exporter-q8zvw   1/1     Running   0          20m   192.168.55.68    ip-192-168-55-68.ec2.internal    &lt;ninguno&gt;           &lt;ninguno&gt;
+node-exporter-xffgq   1/1     Running   0          70s   192.168.45.194   ip-192-168-45-194.ec2.internal   &lt;ninguno&gt;           &lt;ninguno&gt;
+</code></pre>
+<p> </p>
+<p>Parece que tenemos un nuevo <code>Pod</code> en el nodo <code>ip-192-168-45-194.ec2.internal</code>, pero verifiquemos si el <code>DaemonSet</code> está gestionando ese nodo.</p>
+<pre><code class="lang-bash">kubectl describe daemonset node-exporter
+</code></pre>
+<p> </p>
+<pre><code class="lang-bash">Desired Number of Nodes Scheduled: 3
+Current Number of Nodes Scheduled: 3
+Number of Nodes Scheduled with Up-to-date Pods: 3
+Number of Nodes Scheduled with Available Pods: 3
+Number of Nodes Misscheduled: 0
+Pods Status:  3 Running / 0 Waiting / 0 Succeeded / 0 Failed
+</code></pre>
+<p> </p>
+<p>Todo está en paz y armonía, el <code>DaemonSet</code> está gestionando el nuevo <code>Pod</code> en el nuevo <code>nodo</code>. Y, por supuesto, si por alguna razón el <code>Pod</code> se cae, el <code>DaemonSet</code> creará un nuevo <code>Pod</code> en el mismo <code>nodo</code>. Y, por supuesto, en la versión 2, si la cantidad de nodos disminuye, el <code>DaemonSet</code> eliminará los <code>Pods</code> en exceso. Y hablando de eso, déjame disminuir el número de nodos en el clúster para ahorrar algunos Dólares/Euros.</p>
+<pre><code class="lang-bash">eksctl scale nodegroup --cluster=eks-cluster --nodes 2 --name eks-cluster-nodegroup
+</code></pre>
+<p> </p>
+<h4 id="eliminando-un-daemonset">Eliminando un DaemonSet</h4>
+<p>Para eliminar un <code>DaemonSet</code> es muy sencillo, simplemente ejecuta el comando <code>kubectl delete daemonset &lt;nombre-del-daemonset&gt;</code>.</p>
+<pre><code class="lang-bash">kubectl delete daemonset node-exporter
+</code></pre>
+<p> </p>
+<pre><code class="lang-bash">daemonset.apps <span class="hljs-string">&quot;node-exporter&quot;</span> eliminado
+</code></pre>
+<p> </p>
+<p>O también puedes eliminar el <code>DaemonSet</code> a través del manifiesto.</p>
+<pre><code class="lang-bash">kubectl delete -f node-exporter-daemonset.yaml
+</code></pre>
+<p> </p>
+<p>¡Así de simple!</p>
+<p>Creo que el tema del <code>DaemonSet</code> ya está bastante claro. Aún veremos todos estos objetos que hemos aprendido hasta ahora varias veces a lo largo de nuestro recorrido, así que no te preocupes, practicaremos mucho más.</p>
+<p> </p>
+<h3 id="las-sondas-de-kubernetes">Las sondas de Kubernetes</h3>
+<p>Antes de continuar, quería presentarte algo nuevo además de los dos nuevos objetos que ya has aprendido hoy. Quería que terminaras este día sintiéndote seguro de que eres capaz de crear un <code>Pod</code>, un <code>Deployment</code>, un <code>ReplicaSet</code> o un <code>DaemonSet</code>, pero también de que puedes supervisar tus aplicaciones que se ejecutan dentro del clúster de manera efectiva y utilizando los recursos que Kubernetes ya nos proporciona.</p>
+<h4 id="¿qué-son-las-sondas">¿Qué son las sondas?</h4>
+<p>Las sondas son una forma de supervisar tu <code>Pod</code> y saber si está en un estado saludable o no. Con ellas, puedes asegurarte de que tus <code>Pods</code> se están ejecutando y respondiendo de manera correcta, y lo que es más importante, que Kubernetes está evaluando lo que se está ejecutando dentro de tu <code>Pod</code>.</p>
+<p>Hoy en día, tenemos disponibles tres tipos de sondas: <code>livenessProbe</code>, <code>readinessProbe</code> y <code>startupProbe</code>. Vamos a explorar en detalle cada una de ellas.</p>
+<h4 id="sonda-de-integridad-liveness-probe">Sonda de Integridad (Liveness Probe)</h4>
+<p>La <code>livenessProbe</code> es nuestra sonda de verificación de integridad, lo que hace es comprobar si lo que se está ejecutando dentro del <code>Pod</code> está saludable. Creamos una forma de probar si lo que tenemos dentro del <code>Pod</code> está respondiendo como se espera. Si la prueba falla, el <code>Pod</code> se reiniciará.</p>
+<p>Para que quede más claro, utilizaremos nuevamente el ejemplo con <code>Nginx</code>. Me gusta usar <code>Nginx</code> como ejemplo porque sé que todos lo conocen, y así es mucho más fácil entender lo que está sucediendo. Después de todo, estás aquí para aprender Kubernetes, y si es con algo que ya conoces, es mucho más fácil de entender.</p>
+<p>Bueno, vamos allá. Es hora de crear un nuevo <code>Deployment</code> con <code>Nginx</code>. Utilizaremos el ejemplo que ya utilizamos cuando aprendimos sobre <code>Deployment</code>.</p>
+<p>Para ello, crea un archivo llamado <code>nginx-liveness.yaml</code> y pega el siguiente contenido.</p>
+<pre><code class="lang-yaml"><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">apps/v1</span>
+<span class="hljs-attr">kind:</span> <span class="hljs-string">Deployment</span>
+<span class="hljs-attr">metadata:</span>
+  <span class="hljs-attr">labels:</span>
+    <span class="hljs-attr">app:</span> <span class="hljs-string">nginx-deployment</span>
+  <span class="hljs-attr">name:</span> <span class="hljs-string">nginx-deployment</span>
+<span class="hljs-attr">spec:</span>
+  <span class="hljs-attr">replicas:</span> <span class="hljs-number">3</span>
+  <span class="hljs-attr">selector:</span>
+    <span class="hljs-attr">matchLabels:</span>
+      <span class="hljs-attr">app:</span> <span class="hljs-string">nginx-deployment</span>
+  <span class="hljs-attr">strategy:</span> {}
+  <span class="hljs-attr">template:</span>
+    <span class="hljs-attr">metadata:</span>
+      <span class="hljs-attr">labels:</span>
+        <span class="hljs-attr">app:</span> <span class="hljs-string">nginx-deployment</span>
+    <span class="hljs-attr">spec:</span>
+      <span class="hljs-attr">containers:</span>
+      <span class="hljs-bullet">-</span> <span class="hljs-attr">image:</span> <span class="hljs-string">nginx:1.19.2</span>
+        <span class="hljs-attr">name:</span> <span class="hljs-string">nginx</span>
+        <span class="hljs-attr">resources:</span>
+          <span class="hljs-attr">limits:</span>
+            <span class="hljs-attr">cpu:</span> <span class="hljs-string">&quot;0.5&quot;</span>
+            <span class="hljs-attr">memory:</span> <span class="hljs-string">256Mi</span>
+          <span class="hljs-attr">requests:</span>
+            <span class="hljs-attr">cpu:</span> <span class="hljs-number">0.25</span>
+            <span class="hljs-attr">memory:</span> <span class="hljs-string">128Mi</span>
+        <span class="hljs-attr">livenessProbe:</span> <span class="hljs-comment"># Aquí es donde agregaremos nuestra livenessProbe</span>
+          <span class="hljs-attr">tcpSocket:</span> <span class="hljs-comment"># Aquí usaremos tcpSocket para conectarnos al contenedor a través del protocolo TCP</span>
+            <span class="hljs-attr">port:</span> <span class="hljs-number">80</span> <span class="hljs-comment"># Puerto TCP al que nos conectaremos en el contenedor</span>
+          <span class="hljs-attr">initialDelaySeconds:</span> <span class="hljs-number">10</span> <span class="hljs-comment"># Cuántos segundos esperaremos antes de realizar la primera verificación</span>
+          <span class="hljs-attr">periodSeconds:</span> <span class="hljs-number">10</span> <span class="hljs-comment"># Cada cuántos segundos realizaremos la verificación</span>
+          <span class="hljs-attr">timeoutSeconds:</span> <span class="hljs-number">5</span> <span class="hljs-comment"># Cuántos segundos esperaremos antes de considerar que la verificación ha fallado</span>
+          <span class="hljs-attr">failureThreshold:</span> <span class="hljs-number">3</span> <span class="hljs-comment"># Cuántos fallos consecutivos aceptaremos antes de reiniciar el contenedor</span>
+</code></pre>
+<p> </p>
+<p>Con esto tenemos algunas novedades, y solo utilizamos una sonda, que es la <code>livenessProbe</code>.</p>
+<p>Lo que declaramos con la regla anterior es que queremos probar si el <code>Pod</code> está respondiendo a través del protocolo TCP, utilizando la opción <code>tcpSocket</code>, en el puerto 80 que se definió mediante la opción <code>port</code>. También hemos definido que queremos esperar 10 segundos para realizar la primera verificación utilizando <code>initialDelaySeconds</code>, y debido a <code>periodSeconds</code>, queremos que se realice la verificación cada 10 segundos. Si la verificación falla, esperaremos 5 segundos, debido a <code>timeoutSeconds</code>, para volver a intentarlo, y como usamos <code>failureThreshold</code>, si falla 3 veces seguidas, reiniciaremos el <code>Pod</code>.</p>
+<p>¿Quedó más claro? Sigamos con otro ejemplo.</p>
+<p>Digamos que ya no queremos utilizar <code>tcpSocket</code>, sino <code>httpGet</code> para intentar acceder a un endpoint dentro de nuestro <code>Pod</code>.</p>
+<p>Para ello, modifiquemos nuestro <code>nginx-deployment.yaml</code> de la siguiente manera.</p>
+<pre><code class="lang-yaml"><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">apps/v1</span>
+<span class="hljs-attr">kind:</span> <span class="hljs-string">Deployment</span>
+<span class="hljs-attr">metadata:</span>
+  <span class="hljs-attr">labels:</span>
+    <span class="hljs-attr">app:</span> <span class="hljs-string">nginx-deployment</span>
+  <span class="hljs-attr">name:</span> <span class="hljs-string">nginx-deployment</span>
+<span class="hljs-attr">spec:</span>
+  <span class="hljs-attr">replicas:</span> <span class="hljs-number">3</span>
+  <span class="hljs-attr">selector:</span>
+    <span class="hljs-attr">matchLabels:</span>
+      <span class="hljs-attr">app:</span> <span class="hljs-string">nginx-deployment</span>
+  <span class="hljs-attr">strategy:</span> {}
+  <span class="hljs-attr">template:</span>
+    <span class="hljs-attr">metadata:</span>
+      <span class="hljs-attr">labels:</span>
+        <span class="hljs-attr">app:</span> <span class="hljs-string">nginx-deployment</span>
+    <span class="hljs-attr">spec:</span>
+      <span class="hljs-attr">containers:</span>
+      <span class="hljs-bullet">-</span> <span class="hljs-attr">image:</span> <span class="hljs-string">nginx:1.19.2</span>
+        <span class="hljs-attr">name:</span> <span class="hljs-string">nginx</span>
+        <span class="hljs-attr">resources:</span>
+          <span class="hljs-attr">limits:</span>
+            <span class="hljs-attr">cpu:</span> <span class="hljs-string">&quot;0.5&quot;</span>
+            <span class="hljs-attr">memory:</span> <span class="hljs-string">256Mi</span>
+          <span class="hljs-attr">requests:</span>
+            <span class="hljs-attr">cpu:</span> <span class="hljs-number">0.25</span>
+            <span class="hljs-attr">memory:</span> <span class="hljs-string">128Mi</span>
+        <span class="hljs-attr">livenessProbe:</span> <span class="hljs-comment"># Aquí es donde agregaremos nuestra livenessProbe</span>
+          <span class="hljs-attr">httpGet:</span> <span class="hljs-comment"># Aquí usaremos httpGet para conectarnos al contenedor a través del protocolo HTTP</span>
+            <span class="hljs-attr">path:</span> <span class="hljs-string">/</span> <span class="hljs-comment"># Endpoint que usaremos para conectarnos al contenedor</span>
+            <span class="hljs-attr">port:</span> <span class="hljs-number">80</span> <span class="hljs-comment"># Puerto TCP al que nos conectaremos en el contenedor</span>
+          <span class="hljs-attr">initialDelaySeconds:</span> <span class="hljs-number">10</span> <span class="hljs-comment"># Cuántos segundos esperaremos antes de realizar la primera verificación</span>
+          <span class="hljs-attr">periodSeconds:</span> <span class="hljs-number">10</span> <span class="hljs-comment"># Cada cuántos segundos realizaremos la verificación</span>
+          <span class="hljs-attr">timeoutSeconds:</span> <span class="hljs-number">5</span> <span class="hljs-comment"># Cuántos segundos esperaremos antes de considerar que la verificación ha fallado</span>
+          <span class="hljs-attr">failureThreshold:</span> <span class="hljs-number">3</span> <span class="hljs-comment"># Cuántos fallos consecutivos aceptaremos antes de reiniciar el contenedor</span>
+</code></pre>
+<p> </p>
+<p>Observa que ahora hemos cambiado algunas cosas, aunque mantenemos el mismo objetivo: verificar si <code>Nginx</code> está respondiendo correctamente. Cambiamos la forma en que lo probamos. Ahora estamos usando <code>httpGet</code> para verificar si <code>Nginx</code> responde correctamente a través del protocolo HTTP, y para eso, usamos el endpoint <code>/</code> y el puerto 80.</p>
+<p>Lo nuevo aquí es la opción <code>path</code>, que es el endpoint que usaremos para verificar si <code>Nginx</code> responde correctamente, y, por supuesto, <code>httpGet</code> es la forma en que realizamos nuestra prueba, utilizando el protocolo HTTP.</p>
+<p> </p>
+<p>Elige cuál de los dos ejemplos prefieres y crea tu <code>Deployment</code> con el siguiente comando.</p>
+<pre><code class="lang-bash">kubectl apply -f nginx-deployment.yaml
+</code></pre>
+<p> </p>
+<p>Para verificar si el <code>Deployment</code> se creó correctamente, ejecuta el siguiente comando.</p>
+<pre><code class="lang-bash">kubectl get deployments
+</code></pre>
+<p> </p>
+<p>Deberías ver algo similar a esto.</p>
+<pre><code class="lang-bash">NAME                                READY   STATUS    RESTARTS   AGE
+nginx-deployment-7557d7fc6c-dx48d   1/1     Running   0          14s
+nginx-deployment-7557d7fc6c-tbk4w   1/1     Running   0          12s
+nginx-deployment-7557d7fc6c-wv876   1/1     Running   0          16s
+</code></pre>
+<p> </p>
+<p>Para obtener más detalles sobre tu <code>Pod</code> y verificar si nuestra sonda está funcionando correctamente, usa el siguiente comando.</p>
+<pre><code class="lang-bash">kubectl describe pod nginx-deployment-7557d7fc6c-dx48d
+</code></pre>
+<p> </p>
+<p>La salida debería ser similar a esta.</p>
+<pre><code class="lang-bash">Name:             nginx-deployment-589d6fc888-42fmg
+Namespace:        default
+Priority:         0
+Service Account:  default
+Node:             ip-192-168-39-119.ec2.internal/192.168.39.119
+Start Time:       Thu, 16 Mar 2023 18:49:53 +0100
+Labels:           app=nginx-deployment
+                  pod-template-hash=589d6fc888
+Annotations:      kubernetes.io/psp: eks.privileged
+Status:           Running
+IP:               192.168.49.40
+IPs:
+  IP:           192.168.49.40
+Controlled By:  ReplicaSet/nginx-deployment-589d6fc888
+Containers:
+  nginx:
+    Container ID:   docker://f7fc28a1fafbf53471ba144d4fb48bc029d289d93b3565b839ae89a1f38cd894
+    Image:          nginx:1.19.2
+    Image ID:       docker-pullable://nginx@sha256:c628b67d21744fce822d22fdcc0389f6bd763daac23a6b77147d0712ea7102d0
+    Port:           &lt;none&gt;
+    Host Port:      &lt;none&gt;
+    State:          Running
+      Started:      Thu, 16 Mar 2023 18:49:59 +0100
+    Ready:          True
+    Restart Count:  0
+    Limits:
+      cpu:     500m
+      memory:  256Mi
+    Requests:
+      cpu:        250m
+      memory:     128Mi
+    Liveness:     http-get http://:80/ delay=10s timeout=5s period=10s <span class="hljs-comment">#success=1 #failure=3</span>
+    Environment:  &lt;none&gt;
+    Mounts:
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-8srlq (ro)
+Conditions:
+  Type              Status
+  Initialized       True 
+  Ready             True 
+  ContainersReady   True 
+  PodScheduled      True 
+Volumes:
+  kube-api-access-8srlq:
+    Type:                    Projected (a volume that contains injected data from multiple sources)
+    TokenExpirationSeconds:  3607
+    ConfigMapName:           kube-root-ca.crt
+    ConfigMapOptional:       &lt;nil&gt;
+    DownwardAPI:             <span class="hljs-literal">true</span>
+QoS Class:                   Burstable
+Node-Selectors:              &lt;none&gt;
+Tolerations:                 node.kubernetes.io/not-ready:NoExecute op=Exists <span class="hljs-keyword">for</span> 300s
+                             node.kubernetes.io/unreachable:NoExecute op=Exists <span class="hljs-keyword">for</span> 300s
+Events:
+  Type    Reason     Age   From               Message
+  ----    ------     ----  ----               -------
+  Normal  Scheduled  21s   default-scheduler  Successfully assigned default/nginx-deployment-589d6fc888-42fmg to ip-192-168-39-119.ec2.internal
+  Normal  Pulling    20s   kubelet            Pulling image <span class="hljs-string">&quot;nginx:1.19.2&quot;</span>
+  Normal  Pulled     15s   kubelet            Successfully pulled image <span class="hljs-string">&quot;nginx:1.19.2&quot;</span> <span class="hljs-keyword">in</span> 4.280120301s (4.280125621s including waiting)
+  Normal  Created    15s   kubelet            Created container nginx
+  Normal  Started    15s   kubelet            Started container nginx
+</code></pre>
+<p> </p>
+<p>Aquí tenemos la información más importante para nosotros en este momento:</p>
+<pre><code class="lang-bash">    Liveness:     http-get http://:80/ delay=10s timeout=5s period=10s <span class="hljs-comment">#success=1 #failure=3</span>
+</code></pre>
+<p> </p>
+<p>La salida de arriba es parte de la salida del comando <code>kubectl describe pod</code>. Todo está funcionando maravillosamente bien.</p>
+<p>Ahora, hagamos lo siguiente: cambiemos nuestro <code>Deployment</code> para que nuestra sonda falle. Para ello, vamos a cambiar el <code>endpoint</code> que estamos usando. Cambiaremos el <code>path</code> a <code>/giropops</code>.</p>
+<p> </p>
+<pre><code class="lang-yaml"><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">apps/v1</span>
+<span class="hljs-attr">kind:</span> <span class="hljs-string">Deployment</span>
+<span class="hljs-attr">metadata:</span>
+  <span class="hljs-attr">labels:</span>
+    <span class="hljs-attr">app:</span> <span class="hljs-string">nginx-deployment</span>
+  <span class="hljs-attr">name:</span> <span class="hljs-string">nginx-deployment</span>
+<span class="hljs-attr">spec:</span>
+  <span class="hljs-attr">replicas:</span> <span class="hljs-number">3</span>
+  <span class="hljs-attr">selector:</span>
+    <span class="hljs-attr">matchLabels:</span>
+      <span class="hljs-attr">app:</span> <span class="hljs-string">nginx-deployment</span>
+  <span class="hljs-attr">strategy:</span> {}
+  <span class="hljs-attr">template:</span>
+    <span class="hljs-attr">metadata:</span>
+      <span class="hljs-attr">labels:</span>
+        <span class="hljs-attr">app:</span> <span class="hljs-string">nginx-deployment</span>
+    <span class="hljs-attr">spec:</span>
+      <span class="hljs-attr">containers:</span>
+      <span class="hljs-bullet">-</span> <span class="hljs-attr">image:</span> <span class="hljs-string">nginx:1.19.2</span>
+        <span class="hljs-attr">name:</span> <span class="hljs-string">nginx</span>
+        <span class="hljs-attr">resources:</span>
+          <span class="hljs-attr">limits:</span>
+            <span class="hljs-attr">cpu:</span> <span class="hljs-string">&quot;0.5&quot;</span>
+            <span class="hljs-attr">memory:</span> <span class="hljs-string">256Mi</span>
+          <span class="hljs-attr">requests:</span>
+            <span class="hljs-attr">cpu:</span> <span class="hljs-number">0.25</span>
+            <span class="hljs-attr">memory:</span> <span class="hljs-string">128Mi</span>
+        <span class="hljs-attr">livenessProbe:</span> <span class="hljs-comment"># Aquí es donde vamos a agregar nuestra sonda de integridad (`livenessProbe`).</span>
+          <span class="hljs-attr">httpGet:</span> <span class="hljs-comment"># Aquí vamos a utilizar `httpGet`, donde nos conectaremos al contenedor a través del protocolo HTTP.</span>
+            <span class="hljs-attr">path:</span> <span class="hljs-string">/giropops</span> <span class="hljs-comment"># ¿Qué `endpoint` vamos a utilizar para conectarnos al contenedor?</span>
+            <span class="hljs-attr">port:</span> <span class="hljs-number">80</span> <span class="hljs-comment"># ¿Qué puerto TCP vamos a utilizar para conectarnos al contenedor?</span>
+          <span class="hljs-attr">initialDelaySeconds:</span> <span class="hljs-number">10</span> <span class="hljs-comment"># ¿Cuántos segundos vamos a esperar para realizar la primera verificación?</span>
+          <span class="hljs-attr">periodSeconds:</span> <span class="hljs-number">10</span> <span class="hljs-comment"># ¿Cada cuántos segundos vamos a ejecutar la verificación?</span>
+          <span class="hljs-attr">timeoutSeconds:</span> <span class="hljs-number">5</span> <span class="hljs-comment"># ¿Cuántos segundos vamos a esperar antes de considerar que la verificación ha fallado?</span>
+          <span class="hljs-attr">failureThreshold:</span> <span class="hljs-number">3</span> <span class="hljs-comment"># ¿Cuántas fallas consecutivas vamos a permitir antes de reiniciar el contenedor?</span>
+</code></pre>
+<p> </p>
+<p>Vamos aplicar los cambios en nuestro <code>Deployment</code>:</p>
+<pre><code class="lang-bash">kubectl apply -f deployment.yaml
+</code></pre>
+<p> </p>
+<p>Después de un tiempo, notarás que Kubernetes ha finalizado la actualización de nuestro <code>Deployment</code>.
+Si esperas un poco más, te darás cuenta de que los <code>Pods</code> se están reiniciando con frecuencia.</p>
+<p>Todo esto se debe a que nuestra <code>livenessProbe</code> está fallando, ya que el <code>endpoint</code> está incorrecto.</p>
+<p>Podemos ver más detalles sobre lo que está ocurriendo en la salida del comando <code>kubectl describe pod</code>:</p>
+<pre><code class="lang-bash">kubectl describe pod nginx-deployment-7557d7fc6c-dx48d
+</code></pre>
+<p> </p>
+<pre><code class="lang-bash">Name:             nginx-deployment-7557d7fc6c-dx48d
+Namespace:        default
+Priority:         0
+Service Account:  default
+Node:             ip-192-168-39-119.ec2.internal/192.168.39.119
+Start Time:       Thu, 16 Mar 2023 18:51:00 +0100
+Labels:           app=nginx-deployment
+                  pod-template-hash=7557d7fc6c
+Annotations:      kubernetes.io/psp: eks.privileged
+Status:           Running
+IP:               192.168.44.84
+IPs:
+  IP:           192.168.44.84
+Controlled By:  ReplicaSet/nginx-deployment-7557d7fc6c
+Containers:
+  nginx:
+    Container ID:   docker://c070d9c08bec40ad14562512d7bd8507a44279a327f1b3ecac1621da7ccf21b4
+    Image:          nginx:1.19.2
+    Image ID:       docker-pullable://nginx@sha256:c628b67d21744fce822d22fdcc0389f6bd763daac23a6b77147d0712ea7102d0
+    Port:           &lt;none&gt;
+    Host Port:      &lt;none&gt;
+    State:          Running
+      Started:      Thu, 16 Mar 2023 18:51:41 +0100
+    Last State:     Terminated
+      Reason:       Completed
+      Exit Code:    0
+      Started:      Thu, 16 Mar 2023 18:51:02 +0100
+      Finished:     Thu, 16 Mar 2023 18:51:40 +0100
+    Ready:          True
+    Restart Count:  1
+    Limits:
+      cpu:     500m
+      memory:  256Mi
+    Requests:
+      cpu:        250m
+      memory:     128Mi
+    Liveness:     http-get http://:80/giropops delay=10s timeout=5s period=10s <span class="hljs-comment">#success=1 #failure=3</span>
+    Environment:  &lt;none&gt;
+    Mounts:
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-4sk2f (ro)
+Conditions:
+  Type              Status
+  Initialized       True 
+  Ready             True 
+  ContainersReady   True 
+  PodScheduled      True 
+Volumes:
+  kube-api-access-4sk2f:
+    Type:                    Projected (a volume that contains injected data from multiple sources)
+    TokenExpirationSeconds:  3607
+    ConfigMapName:           kube-root-ca.crt
+    ConfigMapOptional:       &lt;nil&gt;
+    DownwardAPI:             <span class="hljs-literal">true</span>
+QoS Class:                   Burstable
+Node-Selectors:              &lt;none&gt;
+Tolerations:                 node.kubernetes.io/not-ready:NoExecute op=Exists <span class="hljs-keyword">for</span> 300s
+                             node.kubernetes.io/unreachable:NoExecute op=Exists <span class="hljs-keyword">for</span> 300s
+Events:
+  Type     Reason     Age               From               Message
+  ----     ------     ----              ----               -------
+  Normal   Scheduled  44s               default-scheduler  Successfully assigned default/nginx-deployment-7557d7fc6c-dx48d to ip-192-168-39-119.ec2.internal
+  Normal   Pulled     4s (x2 over 43s)  kubelet            Container image <span class="hljs-string">&quot;nginx:1.19.2&quot;</span> already present on machine
+  Normal   Created    4s (x2 over 43s)  kubelet            Created container nginx
+  Warning  Unhealthy  4s (x3 over 24s)  kubelet            Liveness probe failed: HTTP probe failed with statuscode: 404
+  Normal   Killing    4s                kubelet            Container nginx failed liveness probe, will be restarted
+  Normal   Started    3s (x2 over 42s)  kubelet            Started container nginx
+</code></pre>
+<p>En la última parte de la salida del comando <code>kubectl describe pod</code>, puedes observar que Kubernetes está intentando ejecutar nuestra <code>livenessProbe</code> y está fallando. Incluso muestra cuántas veces ha intentado ejecutar la <code>livenessProbe</code> y ha fallado, lo que resultó en la reinicialización de nuestro <code>Pod</code>.</p>
+<p>Creo que ahora está más claro cómo funciona la <code>livenessProbe</code>. Ahora es el momento de pasar a la siguiente sonda, la <code>readinessProbe</code>.</p>
+<h4 id="sonda-de-preparación-readiness-probe">Sonda de preparación (Readiness Probe)</h4>
+<p>La <code>readinessProbe</code> es una forma en que Kubernetes verifica si su contenedor está listo para recibir tráfico, es decir, si está preparado para recibir solicitudes externas.</p>
+<p>Esta es nuestra sonda de lectura, que comprueba si nuestro contenedor está listo para recibir solicitudes. Si está listo, aceptará solicitudes; de lo contrario, no las aceptará y se eliminará de la dirección del servicio. Esto impide que el tráfico llegue a él.</p>
+<p>Aunque aún veremos qué son los <code>service</code> y <code>endpoint</code>, por ahora basta con saber que el <code>endpoint</code> es la dirección que nuestro <code>service</code> usará para acceder a nuestro <code>Pod</code>. Sin embargo, dedicaremos todo un día a hablar sobre <code>service</code> y <code>endpoint</code>, así que por ahora, relájate.</p>
+<p>Retomando el tema, nuestra sonda actual garantizará que nuestro <code>Pod</code> esté en condiciones de recibir solicitudes.</p>
+<p>Vamos a un ejemplo para aclarar esto. Para ello, crearemos un archivo llamado <code>nginx-readiness.yaml</code> y agregaremos el siguiente contenido:</p>
+<pre><code class="lang-yaml"><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">apps/v1</span>
+<span class="hljs-attr">kind:</span> <span class="hljs-string">Deployment</span>
+<span class="hljs-attr">metadata:</span>
+  <span class="hljs-attr">labels:</span>
+    <span class="hljs-attr">app:</span> <span class="hljs-string">nginx-deployment</span>
+  <span class="hljs-attr">name:</span> <span class="hljs-string">nginx-deployment</span>
+<span class="hljs-attr">spec:</span>
+  <span class="hljs-attr">replicas:</span> <span class="hljs-number">3</span>
+  <span class="hljs-attr">selector:</span>
+    <span class="hljs-attr">matchLabels:</span>
+      <span class="hljs-attr">app:</span> <span class="hljs-string">nginx-deployment</span>
+  <span class="hljs-attr">strategy:</span> {}
+  <span class="hljs-attr">template:</span>
+    <span class="hljs-attr">metadata:</span>
+      <span class="hljs-attr">labels:</span>
+        <span class="hljs-attr">app:</span> <span class="hljs-string">nginx-deployment</span>
+    <span class="hljs-attr">spec:</span>
+      <span class="hljs-attr">containers:</span>
+      <span class="hljs-bullet">-</span> <span class="hljs-attr">image:</span> <span class="hljs-string">nginx:1.19.2</span>
+        <span class="hljs-attr">name:</span> <span class="hljs-string">nginx</span>
+        <span class="hljs-attr">resources:</span>
+          <span class="hljs-attr">limits:</span>
+            <span class="hljs-attr">cpu:</span> <span class="hljs-string">&quot;0.5&quot;</span>
+            <span class="hljs-attr">memory:</span> <span class="hljs-string">256Mi</span>
+          <span class="hljs-attr">requests:</span>
+            <span class="hljs-attr">cpu:</span> <span class="hljs-number">0.25</span>
+            <span class="hljs-attr">memory:</span> <span class="hljs-string">128Mi</span>
+        <span class="hljs-attr">readinessProbe:</span> <span class="hljs-comment"># Donde definimos nuestra sonda de preparación</span>
+          <span class="hljs-attr">httpGet:</span> <span class="hljs-comment"># El tipo de prueba que vamos a ejecutar, en este caso, una prueba HTTP</span>
+            <span class="hljs-attr">path:</span> <span class="hljs-string">/</span> <span class="hljs-comment"># La ruta que vamos a probar</span>
+            <span class="hljs-attr">port:</span> <span class="hljs-number">80</span> <span class="hljs-comment"># El puerto que vamos a probar</span>
+          <span class="hljs-attr">initialDelaySeconds:</span> <span class="hljs-number">10</span> <span class="hljs-comment"># El tiempo que esperaremos antes de ejecutar la sonda por primera vez</span>
+          <span class="hljs-attr">periodSeconds:</span> <span class="hljs-number">10</span> <span class="hljs-comment"># Cada cuánto tiempo vamos a ejecutar la sonda</span>
+          <span class="hljs-attr">timeoutSeconds:</span> <span class="hljs-number">5</span> <span class="hljs-comment"># Cuánto tiempo esperaremos antes de considerar que la sonda ha fallado</span>
+          <span class="hljs-attr">successThreshold:</span> <span class="hljs-number">2</span> <span class="hljs-comment"># Cuántas veces la sonda debe pasar para considerar que el contenedor está listo</span>
+          <span class="hljs-attr">failureThreshold:</span> <span class="hljs-number">3</span> <span class="hljs-comment"># Cuántas veces la sonda debe pasar para considerar que el contenedor NO está listo</span>
+</code></pre>
+<p> </p>
+<p>Vamos a verificar si nuestros <code>Pods</code> están en funcionamiento:</p>
+<pre><code class="lang-bash">kubectl get pods
+</code></pre>
+<p> </p>
+<pre><code class="lang-bash">NAME                               READY   STATUS    RESTARTS   AGE
+nginx-deployment-fbdc9b65f-trnnz   0/1     Running   0          6s
+nginx-deployment-fbdc9b65f-z8n4m   0/1     Running   0          6s
+nginx-deployment-fbdc9b65f-zn8zh   0/1     Running   0          6s
+</code></pre>
+<p> </p>
+<p>Podemos observar que ahora los <code>Pods</code> tardan un poco más en estar listos, ya que estamos ejecutando nuestra <code>readinessProbe</code>, y por esta razón debemos esperar los 10 segundos iniciales que definimos para que se ejecute la prueba por primera vez, ¿recuerdas?</p>
+<p>Si esperas un momento, verás que los <code>Pods</code> estarán listos, y puedes comprobarlo ejecutando el comando:</p>
+<pre><code class="lang-bash">kubectl get pods
+</code></pre>
+<p> </p>
+<pre><code class="lang-bash">NAME                               READY   STATUS    RESTARTS   AGE
+nginx-deployment-fbdc9b65f-trnnz   1/1     Running   0          30s
+nginx-deployment-fbdc9b65f-z8n4m   1/1     Running   0          30s
+nginx-deployment-fbdc9b65f-zn8zh   1/1     Running   0          30s
+</code></pre>
+<p> </p>
+<p>Listo, como por arte de magia, ahora nuestros <code>Pods</code> están listos para recibir solicitudes.</p>
+<p>Echemos un vistazo a la descripción de nuestro <code>Pod</code>:</p>
+<pre><code class="lang-bash">kubectl describe pod nginx-deployment-fbdc9b65f-trnnz
+</code></pre>
+<p> </p>
+<pre><code class="lang-bash">Name:             nginx-deployment-fbdc9b65f-trnnz
+Namespace:        default
+Priority:         0
+Service Account:  default
+Node:             ip-192-168-39-119.ec2.internal/192.168.39.119
+Start Time:       Thu, 16 Mar 2023 19:10:07 +0100
+Labels:           app=nginx-deployment
+                  pod-template-hash=fbdc9b65f
+Annotations:      kubernetes.io/psp: eks.privileged
+Status:           Running
+IP:               192.168.49.40
+IPs:
+  IP:           192.168.49.40
+Controlled By:  ReplicaSet/nginx-deployment-fbdc9b65f
+Containers:
+  nginx:
+    Container ID:   docker://09538e27e29c5c649efa88fe148336abd5a47dd4e5a8d32b40b268fb1818dfc4
+    Image:          nginx:1.19.2
+    Image ID:       docker-pullable://nginx@sha256:c628b67d21744fce822d22fdcc0389f6bd763daac23a6b77147d0712ea7102d0
+    Port:           &lt;none&gt;
+    Host Port:      &lt;none&gt;
+    State:          Running
+      Started:      Thu, 16 Mar 2023 19:10:08 +0100
+    Ready:          True
+    Restart Count:  0
+    Limits:
+      cpu:     500m
+      memory:  256Mi
+    Requests:
+      cpu:        250m
+      memory:     128Mi
+    Readiness:    http-get http://:80/ delay=10s timeout=5s period=10s <span class="hljs-comment">#success=2 #failure=3</span>
+    Environment:  &lt;none&gt;
+    Mounts:
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-zpfvb (ro)
+Conditions:
+  Type              Status
+  Initialized       True 
+  Ready             True 
+  ContainersReady   True 
+  PodScheduled      True 
+Volumes:
+  kube-api-access-zpfvb:
+    Type:                    Projected (a volume that contains injected data from multiple sources)
+    TokenExpirationSeconds:  3607
+    ConfigMapName:           kube-root-ca.crt
+    ConfigMapOptional:       &lt;nil&gt;
+    DownwardAPI:             <span class="hljs-literal">true</span>
+QoS Class:                   Burstable
+Node-Selectors:              &lt;none&gt;
+Tolerations:                 node.kubernetes.io/not-ready:NoExecute op=Exists <span class="hljs-keyword">for</span> 300s
+                             node.kubernetes.io/unreachable:NoExecute op=Exists <span class="hljs-keyword">for</span> 300s
+Events:
+  Type    Reason     Age   From               Message
+  ----    ------     ----  ----               -------
+  Normal  Scheduled  60s   default-scheduler  Successfully assigned default/nginx-deployment-fbdc9b65f-trnnz to ip-192-168-39-119.ec2.internal
+  Normal  Pulled     59s   kubelet            Container image <span class="hljs-string">&quot;nginx:1.19.2&quot;</span> already present on machine
+  Normal  Created    59s   kubelet            Created container nginx
+  Normal  Started    59s   kubelet            Started container nginx
+</code></pre>
+<p> </p>
+<p>Listo, nuestra sonda está ahí y funcionando, y con esto podemos asegurarnos de que nuestros <code>Pods</code> estén listos para recibir solicitudes.</p>
+<p>Vamos a cambiar nuestro <code>path</code> a <code>/giropops</code> y ver qué sucede:</p>
+<pre><code class="lang-yaml"><span class="hljs-string">...</span>
+        <span class="hljs-attr">readinessProbe:</span> <span class="hljs-comment"># Aquí es donde definimos nuestra sonda de lectura</span>
+          <span class="hljs-attr">httpGet:</span> <span class="hljs-comment"># El tipo de prueba que vamos a realizar, en este caso, vamos a realizar una prueba HTTP</span>
+            <span class="hljs-attr">path:</span> <span class="hljs-string">/giropops</span> <span class="hljs-comment"># La ruta que vamos a probar</span>
+            <span class="hljs-attr">port:</span> <span class="hljs-number">80</span> <span class="hljs-comment"># El puerto que vamos a probar</span>
+          <span class="hljs-attr">initialDelaySeconds:</span> <span class="hljs-number">10</span> <span class="hljs-comment"># El tiempo que vamos a esperar para ejecutar la sonda por primera vez</span>
+          <span class="hljs-attr">periodSeconds:</span> <span class="hljs-number">10</span> <span class="hljs-comment"># Con qué frecuencia vamos a ejecutar la sonda</span>
+          <span class="hljs-attr">timeoutSeconds:</span> <span class="hljs-number">5</span> <span class="hljs-comment"># El tiempo que vamos a esperar para considerar que la sonda falló</span>
+          <span class="hljs-attr">successThreshold:</span> <span class="hljs-number">2</span> <span class="hljs-comment"># El número de veces que la sonda debe pasar para considerar que el contenedor está listo</span>
+          <span class="hljs-attr">failureThreshold:</span> <span class="hljs-number">3</span> <span class="hljs-comment"># El número de veces que la sonda debe fallar para considerar que el contenedor no está listo</span>
+</code></pre>
+<p> </p>
+<pre><code class="lang-bash">kubectl apply -f nginx-deployment.yaml
+</code></pre>
+<p> </p>
+<pre><code class="lang-bash">deployment.apps/nginx-deployment configured
+</code></pre>
+<p> </p>
+<p>Muy bien, ahora veamos el resultado de este lío:</p>
+<pre><code class="lang-bash">kubectl get pods
+</code></pre>
+<p>En este punto, puedes ver que Kubernetes está intentando actualizar nuestro <code>Deployment</code>, pero no está teniendo éxito, ya que la sonda falló en el primer <code>Pod</code> que intentó actualizar.</p>
+<pre><code class="lang-bash">NAME                                READY   STATUS    RESTARTS   AGE
+nginx-deployment-5fd6c688d8-kjf8d   0/1     Running   0          93s
+nginx-deployment-fbdc9b65f-trnnz    1/1     Running   0          9m21s
+nginx-deployment-fbdc9b65f-z8n4m    1/1     Running   0          9m21s
+nginx-deployment-fbdc9b65f-zn8zh    1/1     Running   0          9m21s
+</code></pre>
+<p> </p>
+<p>Vamos a verificar nuestro <code>rollout</code>:</p>
+<pre><code class="lang-bash">kubectl rollout status deployment/nginx-deployment
+</code></pre>
+<pre><code class="lang-bash">Esperando a que el despliegue <span class="hljs-string">&quot;nginx-deployment&quot;</span> termine: 1 de 3 nuevas réplicas han sido actualizadas...
+</code></pre>
+<p>Aun después de un tiempo, nuestro <code>rollout</code> no ha finalizado, sigue esperando a que la sonda pase.</p>
+<p>Podemos ver los detalles del <code>Pod</code> con problema:</p>
+<pre><code class="lang-bash">kubectl describe pod nginx-deployment-5fd6c688d8-kjf8d
+</code></pre>
+<p> </p>
+<pre><code class="lang-bash">Events:
+  Type     Reason     Age                   From               Message
+  ----     ------     ----                  ----               -------
+  Normal   Scheduled  4m4s                  default-scheduler  Successfully assigned default/nginx-deployment-5fd6c688d8-kjf8d to ip-192-168-8-176.ec2.internal
+  Normal   Pulled     4m3s                  kubelet            Container image <span class="hljs-string">&quot;nginx:1.19.2&quot;</span> already present on machine
+  Normal   Created    4m3s                  kubelet            Created container nginx
+  Normal   Started    4m3s                  kubelet            Started container nginx
+  Warning  Unhealthy  34s (x22 over 3m44s)  kubelet            Readiness probe failed: HTTP probe failed with statuscode: 404
+</code></pre>
+<p> </p>
+<p>Solamente he pegado la parte final de la salida, que es la parte más interesante en este momento. Es en esta parte donde podemos ver que nuestro <code>Pod</code> no está saludable, y por lo tanto, Kubernetes no puede actualizar nuestro <code>Deployment</code>.</p>
+<p> </p>
+<h4 id="sonda-de-inicio">Sonda de Inicio</h4>
+<p>Ha llegado el momento de hablar sobre la sonda de inicio (<code>startupProbe</code>), que en mi humilde opinión, es la menos utilizada pero muy importante.</p>
+<p>Esta sonda es responsable de verificar si nuestro contenedor se ha iniciado correctamente y si está listo para recibir solicitudes.</p>
+<p>Es bastante similar a la sonda de preparación (<code>readinessProbe</code>), pero la diferencia es que la sonda de inicio (<code>startupProbe</code>) se ejecuta solo una vez al comienzo de la vida de nuestro contenedor, mientras que la sonda de preparación (<code>readinessProbe</code>) se ejecuta periódicamente.</p>
+<p>Para entenderlo mejor, veamos un ejemplo creando un archivo llamado <code>nginx-startup.yaml</code>:&quot;</p>
+<pre><code class="lang-yaml"><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">apps/v1</span>
+<span class="hljs-attr">kind:</span> <span class="hljs-string">Deployment</span>
+<span class="hljs-attr">metadata:</span>
+  <span class="hljs-attr">labels:</span>
+    <span class="hljs-attr">app:</span> <span class="hljs-string">nginx-deployment</span>
+  <span class="hljs-attr">name:</span> <span class="hljs-string">nginx-deployment</span>
+<span class="hljs-attr">spec:</span>
+  <span class="hljs-attr">replicas:</span> <span class="hljs-number">3</span>
+  <span class="hljs-attr">selector:</span>
+    <span class="hljs-attr">matchLabels:</span>
+      <span class="hljs-attr">app:</span> <span class="hljs-string">nginx-deployment</span>
+  <span class="hljs-attr">strategy:</span> {}
+  <span class="hljs-attr">template:</span>
+    <span class="hljs-attr">metadata:</span>
+      <span class="hljs-attr">labels:</span>
+        <span class="hljs-attr">app:</span> <span class="hljs-string">nginx-deployment</span>
+    <span class="hljs-attr">spec:</span>
+      <span class="hljs-attr">containers:</span>
+      <span class="hljs-bullet">-</span> <span class="hljs-attr">image:</span> <span class="hljs-string">nginx:1.19.2</span>
+        <span class="hljs-attr">name:</span> <span class="hljs-string">nginx</span>
+        <span class="hljs-attr">resources:</span>
+          <span class="hljs-attr">limits:</span>
+            <span class="hljs-attr">cpu:</span> <span class="hljs-string">&quot;0.5&quot;</span>
+            <span class="hljs-attr">memory:</span> <span class="hljs-string">256Mi</span>
+          <span class="hljs-attr">requests:</span>
+            <span class="hljs-attr">cpu:</span> <span class="hljs-number">0.25</span>
+            <span class="hljs-attr">memory:</span> <span class="hljs-string">128Mi</span>
+        <span class="hljs-attr">startupProbe:</span> <span class="hljs-comment"># Donde definimos nuestra sonda de inicio</span>
+          <span class="hljs-attr">httpGet:</span> <span class="hljs-comment"># El tipo de prueba que ejecutaremos, en este caso, ejecutaremos una prueba HTTP</span>
+            <span class="hljs-attr">path:</span> <span class="hljs-string">/</span> <span class="hljs-comment"># La ruta que probaremos</span>
+            <span class="hljs-attr">port:</span> <span class="hljs-number">80</span> <span class="hljs-comment"># El puerto que probaremos</span>
+          <span class="hljs-attr">initialDelaySeconds:</span> <span class="hljs-number">10</span> <span class="hljs-comment"># El tiempo que esperaremos para ejecutar la sonda por primera vez</span>
+          <span class="hljs-attr">periodSeconds:</span> <span class="hljs-number">10</span> <span class="hljs-comment"># Cada cuánto tiempo ejecutaremos la sonda</span>
+          <span class="hljs-attr">timeoutSeconds:</span> <span class="hljs-number">5</span> <span class="hljs-comment"># El tiempo que esperaremos para considerar que la sonda falló</span>
+          <span class="hljs-attr">successThreshold:</span> <span class="hljs-number">2</span> <span class="hljs-comment"># El número de veces que la sonda debe pasar para considerar que el contenedor está listo</span>
+          <span class="hljs-attr">failureThreshold:</span> <span class="hljs-number">3</span> <span class="hljs-comment"># El número de veces que la sonda debe fallar para considerar que el contenedor no está listo</span>
+</code></pre>
+<p> </p>
+<p>Vamos a aplicar nuestra configuración:</p>
+<pre><code class="lang-bash">kubectl apply -f nginx-startup.yaml
+</code></pre>
+<p>Cuando intentes aplicarla, recibirás un error porque <code>successThreshold</code> no puede ser mayor que 1, ya que <code>startupProbe</code> se ejecuta solo una vez, ¿recuerdas?</p>
+<p>De la misma manera, <code>failureThreshold</code> tampoco puede ser mayor que 1, así que vamos a modificar nuestro archivo a:</p>
+<pre><code class="lang-yaml"><span class="hljs-string">...</span>
+        <span class="hljs-attr">startupProbe:</span> <span class="hljs-comment"># Donde definimos nuestra sonda de inicio</span>
+          <span class="hljs-attr">httpGet:</span> <span class="hljs-comment"># El tipo de prueba que ejecutaremos, en este caso, ejecutaremos una prueba HTTP</span>
+            <span class="hljs-attr">path:</span> <span class="hljs-string">/</span> <span class="hljs-comment"># La ruta que probaremos</span>
+            <span class="hljs-attr">port:</span> <span class="hljs-number">80</span> <span class="hljs-comment"># El puerto que probaremos</span>
+          <span class="hljs-attr">initialDelaySeconds:</span> <span class="hljs-number">10</span> <span class="hljs-comment"># El tiempo que esperaremos para ejecutar la sonda por primera vez</span>
+          <span class="hljs-attr">periodSeconds:</span> <span class="hljs-number">10</span> <span class="hljs-comment"># Cada cuánto tiempo ejecutaremos la sonda</span>
+          <span class="hljs-attr">timeoutSeconds:</span> <span class="hljs-number">5</span> <span class="hljs-comment"># El tiempo que esperaremos para considerar que la sonda falló</span>
+          <span class="hljs-attr">successThreshold:</span> <span class="hljs-number">1</span> <span class="hljs-comment"># El número de veces que la sonda debe pasar para considerar que el contenedor está listo</span>
+          <span class="hljs-attr">failureThreshold:</span> <span class="hljs-number">1</span> <span class="hljs-comment"># El número de veces que la sonda debe fallar para considerar que el contenedor no está listo</span>
+</code></pre>
+<p> </p>
+<p>Ahora aplicamos la configuración nuevamente:</p>
+<pre><code class="lang-bash">kubectl apply -f nginx-startup.yaml
+</code></pre>
+<p> </p>
+<p>Listo, ¡aplicado! ¡Uf! \o/</p>
+<p>Observe que tu definición es muy similar a la <code>readinessProbe</code>, pero recuerda que solo se ejecutará una vez, cuando se inicie el contenedor. Por lo tanto, si algo sale mal después de eso, no te ayudará, ya que no se ejecutará de nuevo.</p>
+<p>Por esta razón, es muy importante siempre tener una combinación de sondas, para tener un contenedor más resistente y poder detectar problemas más rápidamente.</p>
+<p>Vamos a verificar si nuestros <code>Pods</code> están saludables:</p>
+<pre><code class="lang-bash">NAME                                READY   STATUS    RESTARTS   AGE
+nginx-deployment-6fbd5f9794-66sww   1/1     Running   0          2m12s
+nginx-deployment-6fbd5f9794-cmwq8   1/1     Running   0          2m12s
+nginx-deployment-6fbd5f9794-kvrp8   1/1     Running   0          2m12s
+</code></pre>
+<p> </p>
+<p>Si deseas verificar si nuestra sonda está presente, simplemente usa el siguiente comando:</p>
+<pre><code class="lang-bash">kubectl describe pod nginx-deployment-6fbd5f9794-66sww
+</code></pre>
+<p>Verás algo similar a esto:</p>
+<pre><code class="lang-bash">    Startup:      http-get http://:80/ delay=10s timeout=5s period=10s <span class="hljs-comment">#success=1 #failure=1</span>
+</code></pre>
+<h3 id="ejemplo-con-todas-las-sondas">Ejemplo con todas las sondas</h3>
+<p>Vamos a nuestro ejemplo final de hoy, utilizaremos todas las sondas que hemos visto hasta ahora. Crearemos un archivo llamado <code>nginx-todas-probes.yaml</code>:</p>
+<pre><code class="lang-yaml"><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">apps/v1</span>
+<span class="hljs-attr">kind:</span> <span class="hljs-string">Deployment</span>
+<span class="hljs-attr">metadata:</span>
+  <span class="hljs-attr">labels:</span>
+    <span class="hljs-attr">app:</span> <span class="hljs-string">nginx-deployment</span>
+  <span class="hljs-attr">name:</span> <span class="hljs-string">nginx-deployment</span>
+<span class="hljs-attr">spec:</span>
+  <span class="hljs-attr">replicas:</span> <span class="hljs-number">3</span>
+  <span class="hljs-attr">selector:</span>
+    <span class="hljs-attr">matchLabels:</span>
+      <span class="hljs-attr">app:</span> <span class="hljs-string">nginx-deployment</span>
+  <span class="hljs-attr">strategy:</span> {}
+  <span class="hljs-attr">template:</span>
+    <span class="hljs-attr">metadata:</span>
+      <span class="hljs-attr">labels:</span>
+        <span class="hljs-attr">app:</span> <span class="hljs-string">nginx-deployment</span>
+    <span class="hljs-attr">spec:</span>
+      <span class="hljs-attr">containers:</span>
+      <span class="hljs-bullet">-</span> <span class="hljs-attr">image:</span> <span class="hljs-string">nginx:1.19.2</span>
+        <span class="hljs-attr">name:</span> <span class="hljs-string">nginx</span>
+        <span class="hljs-attr">resources:</span>
+          <span class="hljs-attr">limits:</span>
+            <span class="hljs-attr">cpu:</span> <span class="hljs-string">&quot;0.5&quot;</span>
+            <span class="hljs-attr">memory:</span> <span class="hljs-string">256Mi</span>
+          <span class="hljs-attr">requests:</span>
+            <span class="hljs-attr">cpu:</span> <span class="hljs-number">0.25</span>
+            <span class="hljs-attr">memory:</span> <span class="hljs-string">128Mi</span>
+        <span class="hljs-attr">livenessProbe:</span> <span class="hljs-comment"># Donde definimos nuestra sonda de vida</span>
+          <span class="hljs-attr">exec:</span> <span class="hljs-comment"># El tipo exec se utiliza cuando queremos ejecutar algo dentro del contenedor.</span>
+            <span class="hljs-attr">command:</span> <span class="hljs-comment"># Donde definiremos qué comando ejecutaremos</span>
+              <span class="hljs-bullet">-</span> <span class="hljs-string">curl</span>
+              <span class="hljs-bullet">-</span> <span class="hljs-string">-f</span>
+              <span class="hljs-bullet">-</span> <span class="hljs-string">http://localhost:80/</span>
+          <span class="hljs-attr">initialDelaySeconds:</span> <span class="hljs-number">10</span> <span class="hljs-comment"># El tiempo que esperaremos para ejecutar la sonda por primera vez</span>
+          <span class="hljs-attr">periodSeconds:</span> <span class="hljs-number">10</span> <span class="hljs-comment"># Cada cuánto tiempo ejecutaremos la sonda</span>
+          <span class="hljs-attr">timeoutSeconds:</span> <span class="hljs-number">5</span> <span class="hljs-comment"># El tiempo que esperaremos para considerar que la sonda falló</span>
+          <span class="hljs-attr">successThreshold:</span> <span class="hljs-number">1</span> <span class="hljs-comment"># Cuántas veces debe pasar la sonda para considerar que el contenedor está listo</span>
+          <span class="hljs-attr">failureThreshold:</span> <span class="hljs-number">3</span> <span class="hljs-comment"># Cuántas veces debe fallar la sonda para considerar que el contenedor no está listo</span>
+        <span class="hljs-attr">readinessProbe:</span> <span class="hljs-comment"># Donde definimos nuestra sonda de disponibilidad</span>
+          <span class="hljs-attr">httpGet:</span> <span class="hljs-comment"># El tipo de prueba que ejecutaremos, en este caso, ejecutaremos una prueba HTTP</span>
+            <span class="hljs-attr">path:</span> <span class="hljs-string">/</span> <span class="hljs-comment"># La ruta que probaremos</span>
+            <span class="hljs-attr">port:</span> <span class="hljs-number">80</span> <span class="hljs-comment"># El puerto que probaremos</span>
+          <span class="hljs-attr">initialDelaySeconds:</span> <span class="hljs-number">10</span> <span class="hljs-comment"># El tiempo que esperaremos para ejecutar la sonda por primera vez</span>
+          <span class="hljs-attr">periodSeconds:</span> <span class="hljs-number">10</span> <span class="hljs-comment"># Cada cuánto tiempo ejecutaremos la sonda</span>
+          <span class="hljs-attr">timeoutSeconds:</span> <span class="hljs-number">5</span> <span class="hljs-comment"># El tiempo que esperaremos para considerar que la sonda falló</span>
+          <span class="hljs-attr">successThreshold:</span> <span class="hljs-number">1</span> <span class="hljs-comment"># Cuántas veces debe pasar la sonda para considerar que el contenedor está listo</span>
+          <span class="hljs-attr">failureThreshold:</span> <span class="hljs-number">3</span> <span class="hljs-comment"># Cuántas veces debe fallar la sonda para considerar que el contenedor no está listo</span>
+        <span class="hljs-attr">startupProbe:</span> <span class="hljs-comment"># Donde definimos nuestra sonda de inicio</span>
+          <span class="hljs-attr">tcpSocket:</span> <span class="hljs-comment"># El tipo de prueba que ejecutaremos, en este caso, ejecutaremos una prueba TCP</span>
+            <span class="hljs-attr">port:</span> <span class="hljs-number">80</span> <span class="hljs-comment"># El puerto que probaremos</span>
+          <span class="hljs-attr">initialDelaySeconds:</span> <span class="hljs-number">10</span> <span class="hljs-comment"># El tiempo que esperaremos para ejecutar la sonda por primera vez</span>
+          <span class="hljs-attr">periodSeconds:</span> <span class="hljs-number">10</span> <span class="hljs-comment"># Cada cuánto tiempo ejecutaremos la sonda</span>
+          <span class="hljs-attr">timeoutSeconds:</span> <span class="hljs-number">5</span> <span class="hljs-comment"># El tiempo que esperaremos para considerar que la sonda falló</span>
+          <span class="hljs-attr">successThreshold:</span> <span class="hljs-number">1</span> <span class="hljs-comment"># Cuántas veces debe pasar la sonda para considerar que el contenedor está listo</span>
+          <span class="hljs-attr">failureThreshold:</span> <span class="hljs-number">3</span> <span class="hljs-comment"># Cuántas veces debe fallar la sonda para considerar que el contenedor no está listo</span>
+</code></pre>
+<p>Listo, estamos utilizando las tres sondas, vamos a aplicarlas:</p>
+<pre><code class="lang-bash">kubectl apply -f nginx-todas-probes.yaml
+</code></pre>
+<p>Y veremos si nuestros <code>Pods</code> están saludables:</p>
+<pre><code class="lang-bash">kubectl get pods
+</code></pre>
+<p>Revisa la salida del <code>describe pods</code> para ver si nuestras sondas están presentes:</p>
+<pre><code class="lang-bash">...
+    Liveness:     <span class="hljs-built_in">exec</span> [curl -f http://localhost:80/] delay=10s timeout=5s period=10s <span class="hljs-comment">#success=1 #failure=3</span>
+    Readiness:    http-get http://:80/ delay=10s timeout=5s period=10s <span class="hljs-comment">#success=1 #failure=3</span>
+    Startup:      tcp-socket :80 delay=10s timeout=5s period=10s <span class="hljs-comment">#success=1 #failure=3</span>
+</code></pre>
+<p>¡Todas están ahí! ¡Maravilloso!</p>
+<p>Ahora podemos decir que sabemos cómo cuidar bien de nuestros <code>Pods</code>, mantenerlos siempre saludables y bajo control.</p>
+<p>No olvides consultar la documentación oficial de Kubernetes para obtener más información sobre las sondas y, por supuesto, si tienes alguna pregunta, no dudes en preguntar.</p>
+<h3 id="tu-tarea">Tu tarea</h3>
+<p>Tu tarea es practicar todo lo que has aprendido hasta ahora. Lo más importante es replicar todo el contenido que se ha presentado hasta ahora para que puedas afianzarlo y, lo más importante, interiorizarlo.</p>
+<p>Crea tus propios ejemplos, lee la documentación, haz preguntas y, por supuesto, si tienes alguna pregunta, no dudes en preguntar.</p>
+<p>Todo lo que crees a partir de ahora debería tener sondas definidas para garantizar el buen funcionamiento de tu clúster.</p>
+<p>Sin olvidar que es inadmisible tener un clúster de Kubernetes con tus <code>pods</code> en ejecución sin sondas configuradas adecuadamente, así como límites de recursos.</p>
+<p>¡Eso es todo, así de simple! :D</p>
+<h3 id="final-del-día-4">Final del Día 4</h3>
+<p>Durante el Día 4, aprendiste todo sobre <code>ReplicaSet</code> y <code>DaemonSet</code>. Hoy fue importante para entender que un clúster de Kubernetes es mucho más que un conjunto de <code>Pods</code> ejecutándose en un grupo de nodos. Y aún estamos al principio de nuestra jornada, todavía veremos muchos, quizás decenas de objetos que nos ayudarán a administrar nuestro clúster de manera más efectiva.</p>
+<p>Hoy también aprendiste cómo garantizar pruebas en tus contenedores, ya sea en el momento del inicio o durante la ejecución, para que nuestras aplicaciones sean más estables y confiables.&quot;</p>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="../day_three/" class="navigation navigation-prev " aria-label="Previous page: Simplificando Kubernetes día 3">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="../day_five/" class="navigation navigation-next " aria-label="Next page: Simplificando Kubernetes día 5">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"Simplificando Kubernetes día 4","level":"2.4","depth":1,"next":{"title":"Simplificando Kubernetes día 5","level":"2.5","depth":1,"path":"day_five/README.md","ref":"day_five/README.md","articles":[]},"previous":{"title":"Simplificando Kubernetes día 3","level":"2.3","depth":1,"path":"day_three/README.md","ref":"day_three/README.md","articles":[]},"dir":"ltr"},"config":{"plugins":[],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"language":"es","gitbook":"*"},"file":{"path":"day_four/README.md","mtime":"2024-01-18T11:56:50.668Z","type":"markdown"},"gitbook":{"version":"3.6.20","time":"2024-01-18T11:57:12.977Z"},"basePath":"..","book":{"language":"es"}});
+        });
+    </script>
+</div>
+
+        
+    <noscript>
+        <style>
+            .honkit-cloak {
+                display: block !important;
+            }
+        </style>
+    </noscript>
+    <script>
+        // Restore sidebar state as critical path for prevent layout shift
+        function __init__getSidebarState(defaultValue){
+            var baseKey = "";
+            var key = baseKey + ":sidebar";
+            try {
+                var value = localStorage[key];
+                if (value === undefined) {
+                    return defaultValue;
+                }
+                var parsed = JSON.parse(value);
+                return parsed == null ? defaultValue : parsed;
+            } catch (e) {
+                return defaultValue;
+            }
+        }
+        function __init__restoreLastSidebarState() {
+            var isMobile = window.matchMedia("(max-width: 600px)").matches;
+            if (isMobile) {
+                // Init last state if not mobile
+                return;
+            }
+            var sidebarState = __init__getSidebarState(true);
+            var book = document.querySelector(".book");
+            // Show sidebar if it enabled
+            if (sidebarState && book) {
+                book.classList.add("without-animation", "with-summary");
+            }
+        }
+
+        try {
+            __init__restoreLastSidebarState();
+        } finally {
+            var book = document.querySelector(".book");
+            book.classList.remove("honkit-cloak");
+        }
+    </script>
+    <script src="../../gitbook/gitbook.js"></script>
+    <script src="../../gitbook/theme.js"></script>
+    
+        
+        <script src="../../gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+

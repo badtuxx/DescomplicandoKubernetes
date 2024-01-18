@@ -1,0 +1,14 @@
+apiVersion: v1 # versión de la API de Kubernetes
+kind: PersistentVolumeClaim # tipo de recurso, en este caso, un PersistentVolumeClaim
+metadata: # metadatos del recurso
+  name: mi-pvc # nombre del PVC
+spec: # especificación del PVC
+  accessModes: # modo de acceso al volumen
+    - ReadWriteOnce # modo de acceso RWO, es decir, solo lectura y escritura por un nodo
+  resources: # recursos del PVC
+    requests: # solicitud de recursos
+      storage: 1Gi # tamaño del volumen que se solicitará
+  storageClassName: nfs # nombre de la clase de almacenamiento que se utilizará
+  selector: # selector de etiquetas
+    matchLabels: # etiquetas que se utilizarán para seleccionar el PV
+      storage: nfs # etiqueta que se utilizará para seleccionar el PV
