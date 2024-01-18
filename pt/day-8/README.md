@@ -1065,7 +1065,7 @@ Antes de instalar o ESO, precisamos adicionar o repositório External Secrets ao
 
 ```bash
 helm repo add external-secrets https://charts.external-secrets.io
-helm repo update
+helm  repo update
 ```
 
 ##### Instalando o External Secrets Operator

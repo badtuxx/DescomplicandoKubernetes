@@ -4,23 +4,21 @@
 * [Introdução](README.md)
 
 ## Capítulos
-* [Descomplicando Kubernetes dia 1](day_one/README.md)
-* [Descomplicando Kubernetes dia 2](day_two/README.md)
-* [Descomplicando Kubernetes dia 3](day_three/README.md)
-* [Descomplicando Kubernetes dia 4](day_four/README.md)
-* [Descomplicando Kubernetes dia 5](day_five/README.md)
-* [Descomplicando Kubernetes dia 6](day_six/README.md)
-* [Descomplicando Kubernetes dia 7](day_seven/README.md)
-* [Descomplicando Kubernetes dia 8](day_eight/README.md)
-* [Descomplicando Kubernetes dia 9](day_nine/README.md)
-* [Descomplicando Kubernetes dia 10](day_ten/README.md)
-* [Descomplicando Kubernetes dia 11](day_eleven/README.md)
-
-
-## Extras
-* [Cloud providers](extras/cloud-providers/cloud-providers.md)
-* [Dicas para o exame](extras/exame_tips.md)
-* [Pod security policy](extras/pod_security_policy.md)
+* [Descomplicando Kubernetes dia 1](day-1/README.md)
+* [Descomplicando Kubernetes dia 2](day-2/README.md)
+* [Descomplicando Kubernetes dia 3](day-3/README.md)
+* [Descomplicando Kubernetes dia 4](day-4/README.md)
+* [Descomplicando Kubernetes dia 5](day-5/README.md)
+* [Descomplicando Kubernetes dia 6](day-6/README.md)
+* [Descomplicando Kubernetes dia 7](day-7/README.md)
+* [Descomplicando Kubernetes dia 8](day-8/README.md)
+* [Descomplicando Kubernetes dia 9](day-9/README.md)
+* [Descomplicando Kubernetes dia 10](day-10/README.md)
+* [Descomplicando Kubernetes dia 11](day-11/README.md)
+* [Descomplicando Kubernetes dia 12](day-12/README.md)
+* [Descomplicando Kubernetes dia 13](day-13/README.md)
+* [Descomplicando Kubernetes dia 14](day-14/README.md)
+* [Descomplicando Kubernetes dia 15](day-15/README.md)
 
 ## Contribuir
 * [Como ajudar](CONTRIBUTING.md)
