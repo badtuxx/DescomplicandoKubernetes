@@ -1,0 +1,947 @@
+
+<!DOCTYPE HTML>
+<html lang="es" >
+    <head>
+        <meta charset="UTF-8">
+        <title>Simplificando Kubernetes dia 7 · HonKit</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="HonKit 3.6.20">
+        
+        
+        
+    
+    <link rel="stylesheet" href="../../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="../day-8/" />
+    
+    
+    <link rel="prev" href="../day-6/" />
+    
+
+    </head>
+    <body>
+        
+<div class="book honkit-cloak">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="Escribe para buscar" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        <li class="header">Sobre</li>
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../">
+            
+                <a href="../">
+            
+                    
+                    Introducción
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="header">Capítulos</li>
+        
+        
+    
+        <li class="chapter " data-level="2.1" data-path="../day-1/">
+            
+                <a href="../day-1/">
+            
+                    
+                    Simplificando Kubernetes dia 1
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.2" data-path="../day-2/">
+            
+                <a href="../day-2/">
+            
+                    
+                    Simplificando Kubernetes dia 2
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.3" data-path="../day-3/">
+            
+                <a href="../day-3/">
+            
+                    
+                    Simplificando Kubernetes dia 3
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.4" data-path="../day-4/">
+            
+                <a href="../day-4/">
+            
+                    
+                    Simplificando Kubernetes dia 4
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.5" data-path="../day-5/">
+            
+                <a href="../day-5/">
+            
+                    
+                    Simplificando Kubernetes dia 5
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.6" data-path="../day-6/">
+            
+                <a href="../day-6/">
+            
+                    
+                    Simplificando Kubernetes dia 6
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="2.7" data-path="./">
+            
+                <a href="./">
+            
+                    
+                    Simplificando Kubernetes dia 7
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.8" data-path="../day-8/">
+            
+                <a href="../day-8/">
+            
+                    
+                    Simplificando Kubernetes dia 8
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.9" data-path="../day-9/">
+            
+                <a href="../day-9/">
+            
+                    
+                    Simplificando Kubernetes dia 9
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.10" data-path="../day-10/">
+            
+                <a href="../day-10/">
+            
+                    
+                    Simplificando Kubernetes dia 10
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.11" data-path="../day-11/README.md">
+            
+                <span>
+            
+                    
+                    Simplificando Kubernetes dia 11
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.12" data-path="../day-12/README.md">
+            
+                <span>
+            
+                    
+                    Simplificando Kubernetes dia 12
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.13" data-path="../day-13/README.md">
+            
+                <span>
+            
+                    
+                    Simplificando Kubernetes dia 13
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.14" data-path="../day-14/README.md">
+            
+                <span>
+            
+                    
+                    Simplificando Kubernetes dia 14
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.15" data-path="../day-15/README.md">
+            
+                <span>
+            
+                    
+                    Simplificando Kubernetes dia 15
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="header">Contribuir</li>
+        
+        
+    
+        <li class="chapter " data-level="3.1" data-path="../CONTRIBUTING.html">
+            
+                <a href="../CONTRIBUTING.html">
+            
+                    
+                    Cómo ayudar
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://github.com/honkit/honkit" target="blank" class="gitbook-link">
+            Publicado con HonKit
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href=".." >Simplificando Kubernetes dia 7</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h1 id="simplificando-kubernetes">Simplificando Kubernetes</h1>
+<h2 id="día-7">Día 7</h2>
+<p> </p>
+<h2 id="contenido-del-día-7">Contenido del Día 7</h2>
+<ul>
+<li><a href="#simplificando-kubernetes">Simplificando Kubernetes</a><ul>
+<li><a href="#día-7">Día 7</a></li>
+<li><a href="#contenido-del-día-7">Contenido del Día 7</a></li>
+<li><a href="#inicio-de-la-lección-del-día-7">Inicio de la Lección del Día 7</a><ul>
+<li><a href="#qué-veremos-hoy">¿Qué veremos hoy?</a><ul>
+<li><a href="#qué-es-un-statefulset">¿Qué es un StatefulSet?</a><ul>
+<li><a href="#cuándo-usar-statefulsets">¿Cuándo usar StatefulSets?</a></li>
+<li><a href="#y-cómo-funcionan">¿Y cómo funcionan?</a></li>
+<li><a href="#el-statefulset-y-los-volúmenes-persistentes">El StatefulSet y los volúmenes persistentes</a></li>
+<li><a href="#el-statefulset-y-el-headless-service">El StatefulSet y el Headless Service</a></li>
+<li><a href="#creación-de-un-statefulset">Creación de un StatefulSet</a></li>
+<li><a href="#eliminando-un-statefulset">Eliminando un StatefulSet</a></li>
+<li><a href="#eliminando-un-servicio-headless">Eliminando un Servicio Headless</a></li>
+<li><a href="#eliminando-un-pvc">Eliminando un PVC</a></li>
+</ul>
+</li>
+<li><a href="#servicios">Servicios</a><ul>
+<li><a href="#tipos-de-servicios">Tipos de Servicios</a></li>
+<li><a href="#cómo-funcionan-los-servicios">Cómo funcionan los Servicios</a></li>
+<li><a href="#los-servicios-y-los-endpoints">Los Servicios y los Endpoints</a></li>
+<li><a href="#creando-un-servicio">Creando un Servicio</a><ul>
+<li><a href="#clusterip">ClusterIP</a></li>
+<li><a href="#nodeport">NodePort</a></li>
+<li><a href="#loadbalancer">LoadBalancer</a></li>
+<li><a href="#externalname">ExternalName</a></li>
+</ul>
+</li>
+<li><a href="#verificando-los-services">Verificando los Services</a></li>
+<li><a href="#verificando-los-endpoints">Verificando los Endpoints</a></li>
+<li><a href="#eliminando-un-service">Eliminando un Service</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#tu-tarea">Tu tarea</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="inicio-de-la-lección-del-día-7">Inicio de la Lección del Día 7</h2>
+<p> </p>
+<h3 id="¿qué-veremos-hoy">¿Qué veremos hoy?</h3>
+<p>Hoy hablaremos sobre dos recursos muy importantes en Kubernetes: <code>StatefulSet</code> y <code>Service</code>.
+Vamos a enseñarte cómo crear y administrar <code>StatefulSets</code> para que puedas desarrollar aplicaciones que necesiten mantener la identidad del <code>Pod</code> y persistir datos en volúmenes locales. Ejemplos comunes de uso de <code>StatefulSets</code> son bases de datos, sistemas de mensajería y sistemas de archivos distribuidos.</p>
+<p>Otra pieza fundamental sobre la que hablaremos es el <code>Service</code>. El <code>Service</code> es un objeto que te permite exponer una aplicación al mundo exterior. Se encarga de balancear la carga entre los <code>Pods</code> expuestos y también de realizar la resolución de nombres DNS para los <code>Pods</code> expuestos.
+Hay diversos tipos de <code>Services</code> sobre los que hablaremos hoy.</p>
+<p>Así que prepárate para un viaje muy interesante acerca de estos dos recursos tan importantes para Kubernetes y para el día a día de aquellos que trabajan con él.</p>
+<p> </p>
+<h4 id="¿qué-es-un-statefulset">¿Qué es un StatefulSet?</h4>
+<p>Los <code>StatefulSets</code> son una funcionalidad de Kubernetes que gestiona la implementación y la escalabilidad de un conjunto de Pods, proporcionando garantías sobre el orden de implementación y la singularidad de estos Pods.</p>
+<p>A diferencia de los <code>Deployments</code> y <code>Replicasets</code>, que se consideran sin estado (<code>stateless</code>), los <code>StatefulSets</code> se utilizan cuando se necesitan garantías adicionales sobre la implementación y la escalabilidad. Aseguran que los nombres y direcciones de los Pods sean consistentes y estables con el tiempo.</p>
+<p> </p>
+<h5 id="¿cuándo-usar-statefulsets">¿Cuándo usar StatefulSets?</h5>
+<p>Los <code>StatefulSets</code> son útiles para aplicaciones que requieran una o más de las siguientes características:</p>
+<ul>
+<li>Identidad de red estable y única.</li>
+<li>Almacenamiento persistente estable.</li>
+<li>Orden de implementación y escalabilidad garantizado.</li>
+<li>Orden de actualizaciones y regresiones garantizado.</li>
+<li>Algunas aplicaciones que cumplen con estos requisitos son bases de datos, sistemas de colas y cualquier aplicación que necesite persistencia de datos o identidad de red estable.</li>
+</ul>
+<p> </p>
+<h5 id="¿y-cómo-funcionan">¿Y cómo funcionan?</h5>
+<p>Los <code>StatefulSets</code> funcionan creando una serie de Pods replicados. Cada réplica es una instancia de la misma aplicación creada a partir de la misma especificación (<code>spec</code>), pero se puede diferenciar por su índice y nombre de host.</p>
+<p>A diferencia de los <code>Deployments</code> y <code>Replicasets</code>, donde las réplicas son intercambiables, cada <code>Pod</code> en un <code>StatefulSet</code> tiene un índice persistente y un nombre de host que se asocian a su identidad.</p>
+<p>Por ejemplo, si un <code>StatefulSet</code> tiene el nombre <code>giropops</code> y una especificación con tres réplicas, creará tres Pods: <code>giropops-0</code>, <code>giropops-1</code>, <code>giropops-2</code>. Se garantiza el orden de los índices. El Pod <code>giropops-1</code> no se iniciará hasta que el Pod <code>giropops-0</code> esté disponible y listo.</p>
+<p>La misma garantía de orden se aplica a la escalabilidad y las actualizaciones.</p>
+<p> </p>
+<h5 id="el-statefulset-y-los-volúmenes-persistentes">El StatefulSet y los volúmenes persistentes</h5>
+<p>Un aspecto clave de los <code>StatefulSets</code> es la integración con los Volumes Persistentes. Cuando un <code>Pod</code> se recrea, se vuelve a conectar al mismo Volume Persistente, garantizando la persistencia de los datos entre las recreaciones de los <code>Pods</code>.</p>
+<p>Por defecto, Kubernetes crea un <code>PersistentVolume</code> para cada <code>Pod</code> en un <code>StatefulSet</code>, que luego se vincula a ese <code>Pod</code> durante la vida útil del <code>StatefulSet</code>.</p>
+<p>Esto es útil para aplicaciones que necesitan un almacenamiento persistente y estable, como bases de datos.</p>
+<p> </p>
+<h5 id="el-statefulset-y-el-headless-service">El StatefulSet y el Headless Service</h5>
+<p>Para entender la relación entre el <code>StatefulSet</code> y el <code>Headless Service</code>, primero es necesario comprender qué es un <code>Headless Service</code>.</p>
+<p>En Kubernetes, un servicio es una abstracción que define un conjunto lógico de <code>Pods</code> y una manera de acceder a ellos. Normalmente, un servicio tiene una dirección IP y enruta el tráfico hacia los <code>Pods</code>. Sin embargo, un <code>Headless Service</code> es un tipo especial de servicio que no tiene su propia dirección IP. En su lugar, devuelve directamente las direcciones IP de los <code>Pods</code> asociados a él.</p>
+<p>Ahora bien, ¿qué relación tienen los <code>StatefulSets</code> con los <code>Headless Services</code>?</p>
+<p>Los <code>StatefulSets</code> y los <code>Headless Services</code> generalmente trabajan juntos en la gestión de aplicaciones con estado. El <code>Headless Service</code> es responsable de permitir la comunicación de red entre los <code>Pods</code> en un <code>StatefulSet</code>, mientras que el <code>StatefulSet</code> gestiona la implementación y la escalabilidad de estos <code>Pods</code>.</p>
+<p>Así es como funcionan juntos:</p>
+<p>Cuando se crea un <code>StatefulSet</code>, normalmente se asocia con un <code>Headless Service</code>. Se utiliza para controlar el dominio DNS de los <code>Pods</code> creados por el <code>StatefulSet</code>. Cada <code>Pod</code> obtiene un nombre de host DNS que sigue el formato: <code>&lt;nombre-del-pod&gt;.&lt;nombre-del-servicio&gt;.&lt;namespace&gt;.svc.cluster.local</code>. Esto permite que cada <code>Pod</code> sea accesible individualmente.</p>
+<p>Por ejemplo, si tienes un <code>StatefulSet</code> llamado <code>giropops</code> con tres réplicas y un <code>Headless Service</code> llamado <code>nginx</code>, los <code>Pods</code> creados serán <code>giropops-0</code>, <code>giropops-1</code>, <code>giropops-2</code> y tendrán las siguientes direcciones de host DNS: <code>giropops-0.nginx.default.svc.cluster.local</code>, <code>giropops-1.nginx.default.svc.cluster.local</code>, <code>giropops-2.nginx.default.svc.cluster.local</code>.</p>
+<p>Esta combinación de <code>StatefulSets</code> y <code>Headless Services</code> permite que las aplicaciones con estado, como las bases de datos, tengan una identidad de red estable y predecible, facilitando la comunicación entre diferentes instancias de la misma aplicación.</p>
+<p>Bueno, ahora que ya has comprendido cómo funciona esto, creo que ya podemos dar los primeros pasos con el <code>StatefulSet</code>.</p>
+<p> </p>
+<h5 id="creación-de-un-statefulset">Creación de un StatefulSet</h5>
+<p>Para crear un <code>StatefulSet</code>, necesitamos un archivo de configuración que describa el <code>StatefulSet</code> que deseamos crear. No es posible crear un <code>StatefulSet</code> sin un manifiesto YAML, a diferencia de lo que ocurre con el <code>Pod</code> y el <code>Deployment</code>.</p>
+<p>En nuestro ejemplo, utilizaremos <code>Nginx</code> como la aplicación que será gestionada por el <code>StatefulSet</code>, y haremos que cada <code>Pod</code> tenga un volumen persistente asociado a él. Con esto, obtendremos una página web diferente para cada <code>Pod</code>.</p>
+<p>Para ello, crearemos el archivo <code>nginx-statefulset.yaml</code> con el siguiente contenido:</p>
+<pre><code class="lang-yaml"><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">apps/v1</span>
+<span class="hljs-attr">kind:</span> <span class="hljs-string">StatefulSet</span> <span class="hljs-comment"># Tipo de recurso que estamos creando, en este caso, un StatefulSet</span>
+<span class="hljs-attr">metadata:</span>
+  <span class="hljs-attr">name:</span> <span class="hljs-string">nginx</span>
+<span class="hljs-attr">spec:</span>
+  <span class="hljs-attr">serviceName:</span> <span class="hljs-string">&quot;nginx&quot;</span>
+  <span class="hljs-attr">replicas:</span> <span class="hljs-number">3</span>
+  <span class="hljs-attr">selector:</span>
+    <span class="hljs-attr">matchLabels:</span>
+      <span class="hljs-attr">app:</span> <span class="hljs-string">nginx</span>
+  <span class="hljs-attr">template:</span>
+    <span class="hljs-attr">metadata:</span>
+      <span class="hljs-attr">labels:</span>
+        <span class="hljs-attr">app:</span> <span class="hljs-string">nginx</span>
+    <span class="hljs-attr">spec:</span>
+      <span class="hljs-attr">containers:</span>
+      <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">nginx</span>
+        <span class="hljs-attr">image:</span> <span class="hljs-string">nginx</span>
+        <span class="hljs-attr">ports:</span>
+        <span class="hljs-bullet">-</span> <span class="hljs-attr">containerPort:</span> <span class="hljs-number">80</span>
+          <span class="hljs-attr">name:</span> <span class="hljs-string">web</span>
+        <span class="hljs-attr">volumeMounts:</span>
+        <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">www</span>
+          <span class="hljs-attr">mountPath:</span> <span class="hljs-string">/usr/share/nginx/html</span>
+  <span class="hljs-attr">volumeClaimTemplates:</span> <span class="hljs-comment"># Dado que estamos utilizando un StatefulSet, necesitamos crear una plantilla de reclamación de volumen para cada Pod. En lugar de crear un volumen directamente, creamos una plantilla que se utilizará para crear un volumen para cada Pod.</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-attr">metadata:</span>
+      <span class="hljs-attr">name:</span> <span class="hljs-string">www</span> <span class="hljs-comment"># Nombre del volumen, de esta manera tendremos el volumen www-0, www-1 y www-2</span>
+    <span class="hljs-attr">spec:</span>
+      <span class="hljs-attr">accessModes:</span> [ <span class="hljs-string">&quot;ReadWriteOnce&quot;</span> ]
+      <span class="hljs-attr">resources:</span>
+        <span class="hljs-attr">requests:</span>
+          <span class="hljs-attr">storage:</span> <span class="hljs-string">1Gi</span>
+</code></pre>
+<p> </p>
+<p>Ahora, crearemos el <code>StatefulSet</code> con el siguiente comando:</p>
+<pre><code class="lang-bash">kubectl apply -f nginx-statefulset.yaml
+</code></pre>
+<p> </p>
+<p>Para verificar si el <code>StatefulSet</code> se ha creado, podemos utilizar el siguiente comando:</p>
+<pre><code class="lang-bash">kubectl get statefulset
+NAME    READY   AGE
+nginx   3/3     2m38s
+</code></pre>
+<p> </p>
+<p>Si deseamos obtener más detalles, podemos utilizar el siguiente comando:</p>
+<pre><code class="lang-bash">kubectl describe statefulset nginx
+
+Name:               nginx
+Namespace:          default
+CreationTimestamp:  Thu, 18 May 2023 23:44:45 +0200
+Selector:           app=nginx
+Labels:             &lt;none&gt;
+Annotations:        &lt;none&gt;
+Replicas:           3 desired | 3 total
+Update Strategy:    RollingUpdate
+  Partition:        0
+Pods Status:        3 Running / 0 Waiting / 0 Succeeded / 0 Failed
+Pod Template:
+  Labels:  app=nginx
+  Containers:
+   nginx:
+    Image:        nginx
+    Port:         80/TCP
+    Host Port:    0/TCP
+    Environment:  &lt;none&gt;
+    Mounts:
+      /usr/share/nginx/html from www (rw)
+  Volumes:  &lt;none&gt;
+Volume Claims:
+  Name:          www
+  StorageClass:  
+  Labels:        &lt;none&gt;
+  Annotations:   &lt;none&gt;
+  Capacity:      1Gi
+  Access Modes:  [ReadWriteOnce]
+Events:
+  Type    Reason            Age   From                    Message
+  ----    ------            ----  ----                    -------
+  Normal  SuccessfulCreate  112s  statefulset-controller  create Claim www-nginx-0 Pod nginx-0 <span class="hljs-keyword">in</span> StatefulSet nginx success
+  Normal  SuccessfulCreate  112s  statefulset-controller  create Pod nginx-0 <span class="hljs-keyword">in</span> StatefulSet nginx successful
+  Normal  SuccessfulCreate  102s  statefulset-controller  create Claim www-nginx-1 Pod nginx-1 <span class="hljs-keyword">in</span> StatefulSet nginx success
+  Normal  SuccessfulCreate  102s  statefulset-controller  create Pod nginx-1 <span class="hljs-keyword">in</span> StatefulSet nginx successful
+  Normal  SuccessfulCreate  96s   statefulset-controller  create Claim www-nginx-2 Pod nginx-2 <span class="hljs-keyword">in</span> StatefulSet nginx success
+  Normal  SuccessfulCreate  96s   statefulset-controller  create Pod nginx-2 <span class="hljs-keyword">in</span> StatefulSet nginx successful
+</code></pre>
+<p> </p>
+<p>Para verificar si los <code>Pods</code> se han creado, podemos utilizar el siguiente comando:</p>
+<pre><code class="lang-bash">kubectl get pods
+NAME      READY   STATUS    RESTARTS   AGE
+nginx-0   1/1     Running   0          24s
+nginx-1   1/1     Running   0          14s
+nginx-2   1/1     Running   0          8s
+</code></pre>
+<p> </p>
+<p>Ahora tenemos nuestro <code>StatefulSet</code> creado, pero aún necesitamos crear el <code>Headless Service</code> para poder acceder a los <code>Pods</code> de manera individual. Para ello, crearemos el archivo <code>nginx-headless-service.yaml</code> con el siguiente contenido:</p>
+<pre><code class="lang-yaml"><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">v1</span>
+<span class="hljs-attr">kind:</span> <span class="hljs-string">Service</span>
+<span class="hljs-attr">metadata:</span>
+  <span class="hljs-attr">name:</span> <span class="hljs-string">nginx</span>
+  <span class="hljs-attr">labels:</span>
+    <span class="hljs-attr">app:</span> <span class="hljs-string">nginx</span>
+<span class="hljs-attr">spec:</span>
+  <span class="hljs-attr">ports:</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-attr">port:</span> <span class="hljs-number">80</span>
+    <span class="hljs-attr">name:</span> <span class="hljs-string">web</span>
+  <span class="hljs-attr">clusterIP:</span> <span class="hljs-string">None</span> <span class="hljs-comment"># Dado que estamos creando un Headless Service, no queremos que tenga una dirección IP, así que definimos clusterIP como None</span>
+  <span class="hljs-attr">selector:</span>
+    <span class="hljs-attr">app:</span> <span class="hljs-string">nginx</span>
+</code></pre>
+<p> </p>
+<p>Listo, con el archivo creado, es hora de crear el <code>Headless Service</code> con el siguiente comando:</p>
+<pre><code class="lang-bash">kubectl apply -f nginx-headless-service.yaml
+</code></pre>
+<p> </p>
+<p>Para verificar si el <code>Headless Service</code> se ha creado, podemos utilizar el siguiente comando:</p>
+<pre><code class="lang-bash">nslookup nginx-0.nginx
+</code></pre>
+<p> </p>
+<p>A continuación, accederemos al <code>Pod</code> utilizando la dirección IP. Para ello, utilizaremos el siguiente comando:</p>
+<pre><code class="lang-bash">wget -O- http://&lt;dirección-ip-del-pod&gt;
+</code></pre>
+<p> </p>
+<p>Necesitamos cambiar el contenido de la página web en cada <code>Pod</code> para verificar si estamos accediendo al <code>Pod</code> correcto. Para ello, utilizaremos el siguiente comando:</p>
+<pre><code class="lang-bash"><span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;Pod 0&quot;</span> &gt; /usr/share/nginx/html/index.html
+</code></pre>
+<p> </p>
+<p>Finalmente, accederemos al <code>Pod</code> nuevamente utilizando la dirección IP. Para ello, utilizaremos el siguiente comando:</p>
+<pre><code class="lang-bash">wget -O- http://&lt;dirección-ip-del-pod&gt;
+</code></pre>
+<p> </p>
+<p>La salida del comando debería ser:</p>
+<pre><code class="lang-bash">Connecting to &lt;endereço-ip-do-pod&gt;:80 (&lt;endereço-ip-do-pod&gt;:80)
+Pod 0
+</code></pre>
+<p> </p>
+<p>Si lo deseas, puedes repetir los mismos pasos para los otros <code>Pods</code>, simplemente cambia el número del <code>Pod</code> en el comando <code>nslookup</code> y en el comando <code>echo</code>.</p>
+<p> </p>
+<h5 id="eliminando-un-statefulset">Eliminando un StatefulSet</h5>
+<p>Para eliminar un <code>StatefulSet</code>, debemos usar el siguiente comando:</p>
+<pre><code class="lang-bash">kubectl delete statefulset nginx
+</code></pre>
+<p> </p>
+<p>También podemos eliminar el <code>StatefulSet</code> utilizando el siguiente comando:</p>
+<pre><code class="lang-bash">kubectl delete -f nginx-statefulset.yaml
+</code></pre>
+<p> </p>
+<h5 id="eliminando-un-servicio-headless">Eliminando un Servicio Headless</h5>
+<p>Para eliminar un <code>Servicio Headless</code>, debemos usar el siguiente comando:</p>
+<pre><code class="lang-bash">kubectl delete service nginx
+</code></pre>
+<p> </p>
+<p>También podemos eliminar el <code>Servicio Headless</code> utilizando el siguiente comando:</p>
+<pre><code class="lang-bash">kubectl delete -f nginx-headless-service.yaml
+</code></pre>
+<p> </p>
+<h5 id="eliminando-un-pvc">Eliminando un PVC</h5>
+<p>Para eliminar un <code>Volume</code>, debemos usar el siguiente comando:</p>
+<pre><code class="lang-bash">kubectl delete pvc www-0
+</code></pre>
+<p> </p>
+<h4 id="servicios">Servicios</h4>
+<p>Los servicios en Kubernetes son una abstracción que define un conjunto lógico de <code>Pods</code> y una política para acceder a ellos. Permiten exponer uno o varios <code>Pods</code> para que sean accesibles por otros <code>Pods</code>, sin importar dónde se estén ejecutando en el clúster.</p>
+<p>Los servicios se definen utilizando la API de Kubernetes, normalmente a través de un archivo de manifiesto YAML.</p>
+<p> </p>
+<h5 id="tipos-de-servicios">Tipos de Servicios</h5>
+<p>Existen cuatro tipos principales de servicios:</p>
+<p><strong>ClusterIP</strong> (por defecto): Expone el servicio en una dirección IP interna dentro del clúster. Este tipo hace que el servicio solo sea accesible dentro del clúster.</p>
+<p><strong>NodePort</strong>: Expone el servicio en el mismo puerto de cada nodo seleccionado en el clúster utilizando NAT. Hace que el servicio sea accesible desde fuera del clúster a través de <nodeip>:<nodeport>.</nodeport></nodeip></p>
+<p><strong>LoadBalancer</strong>: Crea un balanceador de carga externo en el entorno de la nube actual (si es compatible) y asigna una dirección IP fija externa al clúster para el servicio.</p>
+<p><strong>ExternalName</strong>: Mapea el servicio al contenido del campo externalName (por ejemplo, foo.bar.example.com), devolviendo un registro CNAME con su valor.</p>
+<p> </p>
+<h5 id="cómo-funcionan-los-servicios">Cómo funcionan los Servicios</h5>
+<p>Los servicios en Kubernetes proporcionan una abstracción que define un conjunto lógico de <code>Pods</code> y una política para acceder a ellos. Los conjuntos de <code>Pods</code> se determinan mediante <code>selectores de etiquetas</code> (<code>Label Selectors</code>). Aunque cada <code>Pod</code> tiene una dirección IP única, estas direcciones IP no se exponen fuera del clúster sin un servicio.</p>
+<p>Siempre es importante enfatizar la importancia de las &quot;etiquetas&quot; (<code>labels</code>) en Kubernetes, ya que son la base de la mayoría de las operaciones en Kubernetes, así que trata las etiquetas con cuidado.</p>
+<p> </p>
+<h5 id="los-servicios-y-los-endpoints">Los Servicios y los Endpoints</h5>
+<p>Como mencioné antes, los servicios en Kubernetes representan un conjunto estable de Pods que brindan una funcionalidad específica. La característica principal de los servicios es que mantienen una dirección IP y un puerto de servicio constantes a lo largo del tiempo, incluso si los Pods subyacentes se reemplazan.</p>
+<p>Para implementar esta abstracción, Kubernetes utiliza otra abstracción llamada <code>Endpoint</code>. Cuando se crea un servicio, Kubernetes también crea un objeto <code>Endpoint</code> con el mismo nombre. Este objeto <code>Endpoint</code> realiza un seguimiento de las direcciones IP y los puertos de los <code>Pods</code> que cumplen con los criterios de selección del servicio.</p>
+<p>Por ejemplo, cuando creas un <code>Service</code>, automáticamente se crea un <code>Endpoint</code> que representa los <code>Pods</code> que están siendo expuestos por el <code>Service</code>.</p>
+<p>Para ver los <code>Endpoints</code> creados, puedes utilizar el siguiente comando:</p>
+<pre><code class="lang-bash">kubectl get endpoints mi-servicio
+</code></pre>
+<p> </p>
+<p>Veremos más detalles sobre esto más adelante, pero es importante que sepas qué son los <code>Endpoints</code> y cuál es su función en Kubernetes.</p>
+<p> </p>
+<h5 id="creando-un-servicio">Creando un Servicio</h5>
+<p>Para crear un <code>Service</code>, necesitamos utilizar el siguiente comando:</p>
+<pre><code class="lang-bash">kubectl expose deployment MI_DEPLOYMENT --port=80 --<span class="hljs-built_in">type</span>=NodePort
+</code></pre>
+<p> </p>
+<p>Observe que en el comando anterior estamos creando un <code>Service</code> del tipo <code>NodePort</code>, lo que significa que el <code>Service</code> será accesible desde fuera del clúster usando <nodeip>:<nodeport>.</nodeport></nodeip></p>
+<p>También estamos proporcionando el parámetro <code>--port=80</code> para exponer el <code>Service</code> en el puerto 80.</p>
+<p>Ah, y no olvides proporcionar el nombre de la implementación (<code>Deployment</code>) que deseas exponer. En el caso anterior, estamos exponiendo la implementación con el nombre <code>MI_DEPLOYMENT</code>. Podemos crear un <code>Service</code> para una Implementación (<code>Deployment</code>), un <code>Pod</code>, un <code>ReplicaSet</code>, un <code>ReplicationController</code> o incluso para otro <code>Service</code>.</p>
+<p>¡Sí, incluso para otro <code>Service</code>!</p>
+<p>La creación de un servicio basado en otro servicio es menos común, pero hay situaciones en las que puede ser útil.</p>
+<p>Un buen ejemplo sería cuando deseas cambiar temporalmente el tipo de servicio de un <code>ClusterIP</code> a un <code>NodePort</code> o <code>LoadBalancer</code> con fines de resolución de problemas o mantenimiento, sin alterar la configuración del servicio original. En este caso, podrías crear un nuevo servicio que exponga el servicio <code>ClusterIP</code>, realizar tus tareas y luego eliminar el nuevo servicio, manteniendo intacta la configuración original.</p>
+<p>Otro ejemplo es cuando deseas exponer la misma aplicación en diferentes contextos, con diferentes políticas de acceso. Por ejemplo, puedes tener un servicio <code>ClusterIP</code> para la comunicación interna entre microservicios, un servicio <code>NodePort</code> para el acceso desde la red interna de tu organización y un servicio <code>LoadBalancer</code> para el acceso desde internet. En este caso, los tres servicios podrían apuntar al mismo conjunto de <code>Pods</code>, pero cada uno proporcionaría una vía de acceso diferente, con diferentes políticas de seguridad y control de acceso.</p>
+<p>Sin embargo, estos son casos de uso bastante específicos. En la mayoría de los escenarios, crearías servicios directamente para exponer <code>Deployments</code>, <code>StatefulSets</code> o <code>Pods</code>.</p>
+<p> </p>
+<p>Crearemos algunos <code>Services</code> para que puedas entender mejor cómo funcionan, y al final, realizaremos un ejemplo más completo utilizando el <code>Deployment</code> de Giropops-Senhas.</p>
+<p> </p>
+<h6 id="clusterip">ClusterIP</h6>
+<p>Para crear un servicio <code>ClusterIP</code> mediante <code>kubectl</code>, puedes utilizar el comando <code>kubectl expose</code> de la siguiente manera:</p>
+<pre><code class="lang-bash">kubectl expose deployment mi-deployment --port=80 --target-port=8080
+</code></pre>
+<p>Este comando creará un servicio ClusterIP que expone el <code>mi-deployment</code> en el puerto 80, redirigiendo el tráfico al puerto 8080 de los Pods de esta implementación.</p>
+<p>Para crear un servicio <code>ClusterIP</code> mediante YAML, puedes usar un archivo como este:</p>
+<pre><code class="lang-yaml"><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">v1</span>
+<span class="hljs-attr">kind:</span> <span class="hljs-string">Service</span> <span class="hljs-comment"># Tipo del objeto, en este caso, un Service</span>
+<span class="hljs-attr">metadata:</span>
+  <span class="hljs-attr">name:</span> <span class="hljs-string">mi-servicio</span>
+<span class="hljs-attr">spec:</span>
+  <span class="hljs-attr">selector:</span> <span class="hljs-comment"># Selecciona los Pods que serán expuestos por el Service</span>
+    <span class="hljs-attr">app:</span> <span class="hljs-string">mi-aplicacion</span> <span class="hljs-comment"># En este caso, los Pods con la etiqueta app=mi-aplicacion</span>
+  <span class="hljs-attr">ports:</span>
+    <span class="hljs-bullet">-</span> <span class="hljs-attr">protocol:</span> <span class="hljs-string">TCP</span>
+      <span class="hljs-attr">port:</span> <span class="hljs-number">80</span> <span class="hljs-comment"># Puerto del Service</span>
+      <span class="hljs-attr">targetPort:</span> <span class="hljs-number">8080</span> <span class="hljs-comment"># Puerto de los Pods</span>
+</code></pre>
+<p> </p>
+<p>Este archivo YAML creará un servicio que corresponde a los <code>Pods</code> con la etiqueta <code>app=mi-aplicacion</code>, y redirige el tráfico del puerto 80 del servicio al puerto 8080 de los <code>Pods</code>. Observa que estamos usando el campo <code>selector</code> para definir qué <code>Pods</code> serán expuestos por el <code>Service</code>.</p>
+<p>Como no hemos especificado el campo <code>type</code>, Kubernetes creará un <code>Service</code> del tipo <code>ClusterIP</code> de manera predeterminada.</p>
+<p>¡Es bastante sencillo, verdad?</p>
+<p> </p>
+<h6 id="nodeport">NodePort</h6>
+<p>Para crear un servicio <code>NodePort</code> mediante la CLI, puedes usar el comando kubectl expose con la opción --type=NodePort. Por ejemplo:</p>
+<pre><code class="lang-bash">kubectl expose deployment mi-deployment --<span class="hljs-built_in">type</span>=NodePort --port=80 --target-port=8080
+</code></pre>
+<p> </p>
+<p>Para crear un servicio <code>NodePort</code> mediante YAML, puedes usar un archivo como este:</p>
+<pre><code class="lang-yaml"><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">v1</span>
+<span class="hljs-attr">kind:</span> <span class="hljs-string">Service</span>
+<span class="hljs-attr">metadata:</span>
+  <span class="hljs-attr">name:</span> <span class="hljs-string">mi-servicio</span>
+<span class="hljs-attr">spec:</span>
+  <span class="hljs-attr">type:</span> <span class="hljs-string">NodePort</span> <span class="hljs-comment"># Tipo del Service</span>
+  <span class="hljs-attr">selector:</span>
+    <span class="hljs-attr">app:</span> <span class="hljs-string">mi-aplicacion</span>
+  <span class="hljs-attr">ports:</span>
+    <span class="hljs-bullet">-</span> <span class="hljs-attr">protocol:</span> <span class="hljs-string">TCP</span>
+      <span class="hljs-attr">port:</span> <span class="hljs-number">80</span> <span class="hljs-comment"># Puerto del Service, que se mapeará al puerto 8080 del Pod</span>
+      <span class="hljs-attr">targetPort:</span> <span class="hljs-number">8080</span> <span class="hljs-comment"># Puerto de los Pods</span>
+      <span class="hljs-attr">nodePort:</span> <span class="hljs-number">30080</span>   <span class="hljs-comment"># Puerto del Node, que se mapeará al puerto 80 del Service</span>
+</code></pre>
+<p> </p>
+<p>Aquí estamos especificando el campo <code>type</code> como <code>NodePort</code>, y también estamos especificando el campo <code>nodePort</code>, que define el puerto del Node que se mapeará al puerto 80 del Service. Recuerda que el puerto del Node debe estar entre 30000 y 32767, y cuando no especificamos el campo <code>nodePort</code>, Kubernetes elegirá automáticamente un puerto aleatorio dentro de este rango. :)</p>
+<p> </p>
+<h6 id="loadbalancer">LoadBalancer</h6>
+<p>El Service del tipo <code>LoadBalancer</code> es una de las formas más comunes de exponer un servicio al tráfico de internet en Kubernetes. Provisiona automáticamente un balanceador de carga del proveedor de nube en el que se está ejecutando el clúster Kubernetes, si está disponible.</p>
+<p>Para crear un servicio <code>LoadBalancer</code> mediante la CLI, puedes usar el comando kubectl expose con la opción --type=LoadBalancer.</p>
+<pre><code class="lang-bash">kubectl expose deployment mi-deployment --<span class="hljs-built_in">type</span>=LoadBalancer --port=80 --target-port=8080
+</code></pre>
+<p>Si deseas crear un servicio <code>LoadBalancer</code> mediante YAML, puedes usar un archivo como este:</p>
+<pre><code class="lang-yaml"><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">v1</span>
+<span class="hljs-attr">kind:</span> <span class="hljs-string">Service</span>
+<span class="hljs-attr">metadata:</span>
+  <span class="hljs-attr">name:</span> <span class="hljs-string">mi-servicio</span>
+<span class="hljs-attr">spec:</span>
+  <span class="hljs-attr">type:</span> <span class="hljs-string">LoadBalancer</span>
+  <span class="hljs-attr">selector:</span>
+    <span class="hljs-attr">app:</span> <span class="hljs-string">mi-aplicacion</span>
+  <span class="hljs-attr">ports:</span>
+    <span class="hljs-bullet">-</span> <span class="hljs-attr">protocol:</span> <span class="hljs-string">TCP</span>
+      <span class="hljs-attr">port:</span> <span class="hljs-number">80</span>
+      <span class="hljs-attr">targetPort:</span> <span class="hljs-number">8080</span>
+</code></pre>
+<p> </p>
+<p>No hay nada nuevo aquí, solo el hecho de que le estás pidiendo a Kubernetes que cree un <code>Service</code> del tipo <code>LoadBalancer</code>.</p>
+<p>Deseas exponer un servicio para que pueda ser accedido externamente por usuarios o sistemas que no están dentro de tu clúster Kubernetes. Este tipo de servicio puede ser útil cuando:</p>
+<ul>
+<li><p><strong>Proveedores de nube</strong>: Tu clúster Kubernetes está alojado en un proveedor de nube que admite balanceadores de carga, como AWS, GCP, Azure, etc. En este caso, cuando se crea un servicio del tipo LoadBalancer, automáticamente se provisiona un balanceador de carga en el proveedor de nube.</p>
+</li>
+<li><p><strong>Tráfico externo</strong>: Necesitas que tu aplicación sea accesible fuera del clúster. El <code>LoadBalancer</code> expone una IP accesible externamente que dirige el tráfico hacia los pods del servicio.</p>
+</li>
+</ul>
+<p>Es importante recordar que el uso de <code>LoadBalancers</code> puede tener costos adicionales, ya que estás utilizando recursos adicionales de tu proveedor de nube. Por lo tanto, siempre es recomendable verificar los costos asociados antes de implementarlos. ;)</p>
+<p> </p>
+<h6 id="externalname">ExternalName</h6>
+<p>El tipo de servicio <code>ExternalName</code> es un poco diferente de los otros tipos de servicio. No expone un conjunto de <code>Pods</code>, sino un nombre de host externo. Por ejemplo, puedes tener un servicio que exponga una base de datos externa o un servicio de correo electrónico externo.</p>
+<p>El tipo <code>ExternalName</code> es útil cuando deseas:</p>
+<ul>
+<li><p><strong>Crear un alias para un servicio externo:</strong> Supongamos que tienes una base de datos alojada fuera de tu clúster Kubernetes, pero quieres que tus aplicaciones dentro del clúster se refieran a ella por el mismo nombre, como si estuviera dentro del clúster. En este caso, puedes usar un ExternalName para crear un alias para la dirección de la base de datos.</p>
+</li>
+<li><p><strong>Abstraer servicios dependientes del entorno:</strong> Otro uso común para ExternalName es cuando tienes diferentes entornos, como producción y desarrollo, que tienen diferentes servicios externos. Puedes usar el mismo nombre de servicio en todos los entornos, pero apuntar a diferentes direcciones externas.</p>
+</li>
+</ul>
+<p>Lamentablemente, este tipo de servicio se utiliza poco debido a la falta de conocimiento de las personas, ¡pero eso no te pasará a ti!</p>
+<p>Vamos a crear un ejemplo de <code>ExternalName</code> usando kubectl expose:</p>
+<pre><code class="lang-bash">kubectl create service externalname mi-servicio --external-name mi-db.giropops.com.br
+</code></pre>
+<p> </p>
+<p>Aquí estamos pasando como parámetro el nombre del servicio y la dirección externa que queremos exponer al clúster.</p>
+<p>Ahora, si deseas crear un <code>ExternalName</code> mediante YAML, puedes usar un archivo como este:</p>
+<pre><code class="lang-yaml"><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">v1</span>
+<span class="hljs-attr">kind:</span> <span class="hljs-string">Service</span>
+<span class="hljs-attr">metadata:</span>
+  <span class="hljs-attr">name:</span> <span class="hljs-string">mi-servicio</span>
+<span class="hljs-attr">spec:</span>
+  <span class="hljs-attr">type:</span> <span class="hljs-string">ExternalName</span>
+  <span class="hljs-attr">externalName:</span> <span class="hljs-string">mi-db.giropops.com.br</span>
+</code></pre>
+<p> </p>
+<p>Aquí estamos especificando el campo <code>type</code> como <code>ExternalName</code> y también estamos especificando el campo <code>externalName</code>, que define la dirección externa que deseamos exponer al clúster. ¡Nada del otro mundo! :)</p>
+<p>Ah, y recuerda que <code>ExternalName</code> no admite <code>selectors</code> ni <code>ports</code>, ya que no expone un conjunto de <code>Pods</code>, sino un nombre de host externo.</p>
+<p>Y recuerda parte 2, <code>ExternalName</code> acepta un nombre de host válido de acuerdo con el estándar <code>DNS (RFC-1123)</code>, que puede ser un nombre de dominio o una dirección IP.</p>
+<p> </p>
+<h5 id="verificando-los-services">Verificando los Services</h5>
+<p>Ahora que hemos creado algunos <code>Services</code>, es hora de aprender cómo ver los detalles de ellos.</p>
+<p>Para visualizar los Services en ejecución en tu clúster Kubernetes en el espacio de nombres (<code>namespace</code>) por defecto, puedes usar el comando <code>kubectl get services</code>. Este comando listará todos los Services junto con información básica como el tipo de servicio, la dirección IP y el puerto.</p>
+<pre><code class="lang-bash">kubectl get services
+</code></pre>
+<p> </p>
+<p>Si deseas obtener los <code>Services</code> de un espacio de nombres específico, puedes usar el comando <code>kubectl get services -n &lt;namespace&gt;</code>. Por ejemplo:</p>
+<pre><code class="lang-bash">kubectl get services -n kube-system
+</code></pre>
+<p> </p>
+<p>Para visualizar los <code>Services</code> en todos los espacios de nombres, puedes usar el comando <code>kubectl get services --all-namespaces</code> o <code>kubectl get services -A</code>.</p>
+<pre><code class="lang-bash">kubectl get services -A
+</code></pre>
+<p> </p>
+<p>Para ver los detalles de un <code>Service</code> específico, puedes usar el comando <code>kubectl describe service</code>, pasando el nombre del <code>Service</code> como parámetro. Por ejemplo:</p>
+<pre><code class="lang-bash">kubectl describe service mi-servicio
+</code></pre>
+<p> </p>
+<h5 id="verificando-los-endpoints">Verificando los Endpoints</h5>
+<p>Los <code>Endpoints</code> son una parte importante de los <code>Services</code>, ya que son responsables de mantener la asociación entre el <code>Service</code> y los <code>Pods</code> que está exponiendo.</p>
+<p>Con eso en mente, vamos a aprender cómo ver los detalles de los <code>Endpoints</code>.</p>
+<p>Primero, para ver los <code>Endpoints</code> de un <code>Service</code> específico, puedes usar el siguiente comando:</p>
+<pre><code class="lang-bash">kubectl get endpoints mi-servicio
+</code></pre>
+<p> </p>
+<p>Para ver los <code>Endpoints</code> de todos los <code>Services</code>, puedes usar el siguiente comando:</p>
+<pre><code class="lang-bash">kubectl get endpoints -A
+</code></pre>
+<p> </p>
+<p>Ahora, para ver los detalles de un <code>Endpoints</code> específico, es tan sencillo como volar, solo usa el siguiente comando:</p>
+<pre><code class="lang-bash">kubectl describe endpoints mi-servicio
+</code></pre>
+<p> </p>
+<p>Con esto, podrás obtener información detallada sobre cómo los <code>Endpoints</code> están asociados con los <code>Pods</code> y cómo se maneja el tráfico dentro de tus <code>Services</code>.</p>
+<p> </p>
+<h5 id="eliminando-un-service">Eliminando un Service</h5>
+<p>Ahora que hemos aprendido mucho sobre los <code>Services</code>, vamos a aprender cómo eliminarlos.</p>
+<p>Para eliminar un <code>Service</code> mediante la CLI, puedes usar el comando <code>kubectl delete service</code>, pasando el nombre del <code>Service</code> como parámetro. Por ejemplo:</p>
+<pre><code class="lang-bash">kubectl delete service mi-servicio
+</code></pre>
+<p> </p>
+<p>Para eliminar un <code>Service</code> mediante YAML, puedes usar el comando <code>kubectl delete</code>, pasando el archivo YAML como parámetro. Por ejemplo:</p>
+<pre><code class="lang-bash">kubectl delete -f mi-servicio.yaml
+</code></pre>
+<p> </p>
+<p>Con esto, hemos cubierto bastante sobre los <code>Services</code>. Creo que ya puedes actualizar tu currículum y decir que eres un experto en <code>Services</code> en Kubernetes. :)</p>
+<p> </p>
+<h3 id="tu-tarea">Tu tarea</h3>
+<p>Te propongo crear y administrar un <code>StatefulSet</code> en tu propio entorno de Kubernetes. Comienza creando un <code>StatefulSet</code> simple con un par de <code>Pods</code> y luego intenta escalarlo a más <code>Pods</code>. Experimenta también eliminando un <code>Pod</code> y observa cómo Kubernetes maneja la situación.</p>
+<p>Luego, juega un poco con los <code>Services</code>. Expón tu <code>StatefulSet</code> a través de un <code>Service</code> tipo <code>ClusterIP</code> y luego intenta cambiarlo a <code>NodePort</code> o <code>LoadBalancer</code>. Prueba la conectividad para asegurarte de que todo funcione correctamente.</p>
+<p>Por último, pero no menos importante, crea un <code>Service</code> de tipo <code>ExternalName</code> y apúntalo a un servicio externo de tu elección. Verifica que el servicio externo sea accesible desde dentro de tus <code>Pods</code>.</p>
+<p>Recuerda que la práctica hace al maestro, ¡así que no te saltes esta tarea! ;) Y si tienes preguntas o problemas, no dudes en pedir ayuda. ¡Estamos aquí para aprender juntos!</p>
+<p>¡Hasta aquí llegamos por el Día 7! Durante este día, has aprendido acerca de dos recursos esenciales en Kubernetes: <code>StatefulSets</code> y <code>Services</code>. A través de ellos, puedes administrar aplicaciones que necesitan mantener la identidad del <code>Pod</code>, persistir datos y exponer esas aplicaciones al mundo exterior.</p>
+<p>Espero que hayas disfrutado del contenido de hoy y recuerda hacer la tarea. La práctica es fundamental para consolidar todo este conocimiento y realmente marca la diferencia.</p>
+<p>Nos vemos en el próximo día, donde continuaremos nuestra aventura en este mágico mundo de los contenedores. ¡Hasta entonces! <strong>#VAIIII</strong></p>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="../day-6/" class="navigation navigation-prev " aria-label="Previous page: Simplificando Kubernetes dia 6">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="../day-8/" class="navigation navigation-next " aria-label="Next page: Simplificando Kubernetes dia 8">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"Simplificando Kubernetes dia 7","level":"2.7","depth":1,"next":{"title":"Simplificando Kubernetes dia 8","level":"2.8","depth":1,"path":"day-8/README.md","ref":"day-8/README.md","articles":[]},"previous":{"title":"Simplificando Kubernetes dia 6","level":"2.6","depth":1,"path":"day-6/README.md","ref":"day-6/README.md","articles":[]},"dir":"ltr"},"config":{"plugins":[],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"language":"es","gitbook":"*"},"file":{"path":"day-7/README.md","mtime":"2024-01-18T12:10:11.335Z","type":"markdown"},"gitbook":{"version":"3.6.20","time":"2024-01-18T12:10:30.996Z"},"basePath":"..","book":{"language":"es"}});
+        });
+    </script>
+</div>
+
+        
+    <noscript>
+        <style>
+            .honkit-cloak {
+                display: block !important;
+            }
+        </style>
+    </noscript>
+    <script>
+        // Restore sidebar state as critical path for prevent layout shift
+        function __init__getSidebarState(defaultValue){
+            var baseKey = "";
+            var key = baseKey + ":sidebar";
+            try {
+                var value = localStorage[key];
+                if (value === undefined) {
+                    return defaultValue;
+                }
+                var parsed = JSON.parse(value);
+                return parsed == null ? defaultValue : parsed;
+            } catch (e) {
+                return defaultValue;
+            }
+        }
+        function __init__restoreLastSidebarState() {
+            var isMobile = window.matchMedia("(max-width: 600px)").matches;
+            if (isMobile) {
+                // Init last state if not mobile
+                return;
+            }
+            var sidebarState = __init__getSidebarState(true);
+            var book = document.querySelector(".book");
+            // Show sidebar if it enabled
+            if (sidebarState && book) {
+                book.classList.add("without-animation", "with-summary");
+            }
+        }
+
+        try {
+            __init__restoreLastSidebarState();
+        } finally {
+            var book = document.querySelector(".book");
+            book.classList.remove("honkit-cloak");
+        }
+    </script>
+    <script src="../../gitbook/gitbook.js"></script>
+    <script src="../../gitbook/theme.js"></script>
+    
+        
+        <script src="../../gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+
