@@ -83,23 +83,23 @@ Fique à vontade para aprender muito sobre Kubernetes utilizando esse livro!
 <summary>DAY-3</summary>
 
 - [DAY-3](day-3/README.md#day-3)
-  - [Inicio da aula do Day-3](#inicio-da-aula-do-day-3)
-  - [O que iremos ver hoje?](#o-que-iremos-ver-hoje)
-  - [O que é um Deployment?](#o-que-é-um-deployment)
-    - [Como criar um Deployment?](#como-criar-um-deployment)
-      - [O que cada parte do arquivo significa?](#o-que-cada-parte-do-arquivo-significa)
-    - [Como aplicar o Deployment?](#como-aplicar-o-deployment)
-    - [Como verificar os Pods que o Deployment está gerenciando?](#como-verificar-os-pods-que-o-deployment-está-gerenciando)
-    - [Como verificar o ReplicaSet que o Deployment está gerenciando?](#como-verificar-o-replicaset-que-o-deployment-está-gerenciando)
-    - [Como verificar os detalhes do Deployment?](#como-verificar-os-detalhes-do-deployment)
-    - [Como atualizar o Deployment?](#como-atualizar-o-deployment)
-    - [E qual é a estratégia de atualização padrão do Deployment?](#e-qual-é-a-estratégia-de-atualização-padrão-do-deployment)
-    - [As estratégias de atualização do Deployment](#as-estratégias-de-atualização-do-deployment)
-      - [Estratégia RollingUpdate](#estratégia-rollingupdate)
-      - [Estratégia Recreate](#estratégia-recreate)
-      - [Fazendo o rollback de uma atualização](#fazendo-o-rollback-de-uma-atualização)
-    - [Removendo um Deployment](#removendo-um-deployment)
-  - [Conclusão](#conclusão)
+  - [Inicio da aula do Day-3](day-3/README.md#inicio-da-aula-do-day-3)
+  - [O que iremos ver hoje?](day-3/README.md#o-que-iremos-ver-hoje)
+  - [O que é um Deployment?](day-3/README.md#o-que-é-um-deployment)
+    - [Como criar um Deployment?](day-3/README.md#como-criar-um-deployment)
+      - [O que cada parte do arquivo significa?](day-3/README.md#o-que-cada-parte-do-arquivo-significa)
+    - [Como aplicar o Deployment?](day-3/README.md#como-aplicar-o-deployment)
+    - [Como verificar os Pods que o Deployment está gerenciando?](day-3/README.md#como-verificar-os-pods-que-o-deployment-está-gerenciando)
+    - [Como verificar o ReplicaSet que o Deployment está gerenciando?](day-3/README.md#como-verificar-o-replicaset-que-o-deployment-está-gerenciando)
+    - [Como verificar os detalhes do Deployment?](day-3/README.md#como-verificar-os-detalhes-do-deployment)
+    - [Como atualizar o Deployment?](day-3/README.md#como-atualizar-o-deployment)
+    - [E qual é a estratégia de atualização padrão do Deployment?](day-3/README.md#e-qual-é-a-estratégia-de-atualização-padrão-do-deployment)
+    - [As estratégias de atualização do Deployment](day-3/README.md#as-estratégias-de-atualização-do-deployment)
+      - [Estratégia RollingUpdate](day-3/README.md#estratégia-rollingupdate)
+      - [Estratégia Recreate](day-3/README.md#estratégia-recreate)
+      - [Fazendo o rollback de uma atualização](day-3/README.md#fazendo-o-rollback-de-uma-atualização)
+    - [Removendo um Deployment](day-3/README.md#removendo-um-deployment)
+  - [Conclusão](day-3/README.md#conclusão)
 
 </details>
 
@@ -224,10 +224,40 @@ Fique à vontade para aprender muito sobre Kubernetes utilizando esse livro!
         - [Criando um Secret TLS](day-8/README.md#criando-um-secret-tls)
       - [ConfigMaps](day-8/README.md#configmaps)
   - [Final do Day-8](day-8/README.md#final-do-day-8)
+  - 
 </details>
 
 <details>
 <summary>DAY-9</summary>
+
+- [Descomplicando o Kubernetes](day-9/README.md#descomplicando-o-kubernetes)
+  - [DAY-9: Descomplicando o Ingress no Kubernetes](day-9/README.md#day-9-descomplicando-o-ingress-no-kubernetes)
+  - [Conteúdo do Day-9](day-9/README.md#conteúdo-do-day-9)
+  - [O que iremos ver hoje?](day-9/README.md#o-que-iremos-ver-hoje)
+    - [Conteúdo do Day-9](day-9/README.md#conteúdo-do-day-9-1)
+- [O Que é o Ingress?](day-9/README.md#o-que-é-o-ingress)
+  - [Teoria: O que é Ingress?](day-9/README.md#teoria-o-que-é-ingress)
+  - [Prática: Mãos à Obra](day-9/README.md#prática-mãos-à-obra)
+    - [Criando um Serviço Simples](day-9/README.md#criando-um-serviço-simples)
+- [Seção 2: Componentes do Ingress](day-9/README.md#seção-2-componentes-do-ingress)
+  - [Introdução](day-9/README.md#introdução)
+  - [Teoria: Componentes Chave](day-9/README.md#teoria-componentes-chave)
+    - [Ingress Controller](day-9/README.md#ingress-controller)
+    - [Ingress Resources](day-9/README.md#ingress-resources)
+    - [Annotations e Customizations](day-9/README.md#annotations-e-customizations)
+  - [Prática: Montando o Quebra-Cabeça](day-9/README.md#prática-montando-o-quebra-cabeça)
+    - [Instalando um Nginx Ingress Controller](day-9/README.md#instalando-um-nginx-ingress-controller)
+      - [Instalando o Nginx Ingress Controller no Kind](day-9/README.md#instalando-o-nginx-ingress-controller-no-kind)
+        - [Introdução](day-9/README.md#introdução-1)
+        - [Criando o Cluster com Configurações Especiais](day-9/README.md#criando-o-cluster-com-configurações-especiais)
+        - [Instalando um Ingress Controller](day-9/README.md#instalando-um-ingress-controller)
+    - [Criando um Recurso de Ingress](day-9/README.md#criando-um-recurso-de-ingress)
+    - [Annotations para Customização](day-9/README.md#annotations-para-customização)
+- [Seção 3: Configurando Rotas](day-9/README.md#seção-3-configurando-rotas)
+  - [Introdução](day-9/README.md#introdução-2)
+  - [Teoria: O Que São Rotas?](day-9/README.md#teoria-o-que-são-rotas)
+  - [Prática: Configurando Rotas Simples](day-9/README.md#prática-configurando-rotas-simples)
+  - [Prática: Configurando Rotas Avançadas](day-9/README.md#prática-configurando-rotas-avançadas)
 
 </details>
 
@@ -238,6 +268,127 @@ Fique à vontade para aprender muito sobre Kubernetes utilizando esse livro!
 
 <details>
 <summary>DAY-11</summary>
+
+- [Descomplicando o Kubernetes](day-11/README.md#descomplicando-o-kubernetes)
+  - [DAY-11](day-11/README.md#day-11)
+  - [Conteúdo do Day-11](day-11/README.md#conteúdo-do-day-11)
+    - [Início da aula do Day-11](day-11/README.md#início-da-aula-do-day-11)
+      - [O que iremos ver hoje?](day-11/README.md#o-que-iremos-ver-hoje)
+      - [Introdução ao Horizontal Pod Autoscaler (HPA)](day-11/README.md#introdução-ao-horizontal-pod-autoscaler-hpa)
+      - [Como o HPA Funciona?](day-11/README.md#como-o-hpa-funciona)
+  - [Introdução ao Metrics Server](day-11/README.md#introdução-ao-metrics-server)
+    - [Por que o Metrics Server é importante para o HPA?](day-11/README.md#por-que-o-metrics-server-é-importante-para-o-hpa)
+    - [Instalando o Metrics Server](day-11/README.md#instalando-o-metrics-server)
+      - [No Amazon EKS e na maioria dos clusters Kubernetes](day-11/README.md#no-amazon-eks-e-na-maioria-dos-clusters-kubernetes)
+      - [No Minikube:](day-11/README.md#no-minikube)
+      - [No KinD (Kubernetes in Docker):](day-11/README.md#no-kind-kubernetes-in-docker)
+      - [Verificando a Instalação do Metrics Server](day-11/README.md#verificando-a-instalação-do-metrics-server)
+      - [Obtendo Métricas](day-11/README.md#obtendo-métricas)
+    - [Criando um HPA](day-11/README.md#criando-um-hpa)
+    - [Exemplos Práticos com HPA](day-11/README.md#exemplos-práticos-com-hpa)
+      - [Autoscaling com base na utilização de CPU](day-11/README.md#autoscaling-com-base-na-utilização-de-cpu)
+      - [Autoscaling com base na utilização de Memória](day-11/README.md#autoscaling-com-base-na-utilização-de-memória)
+      - [Configuração Avançada de HPA: Definindo Comportamento de Escalonamento](day-11/README.md#configuração-avançada-de-hpa-definindo-comportamento-de-escalonamento)
+      - [ContainerResource](day-11/README.md#containerresource)
+      - [Detalhes do Algoritmo de Escalonamento](day-11/README.md#detalhes-do-algoritmo-de-escalonamento)
+      - [Configurações Avançadas e Uso Prático](day-11/README.md#configurações-avançadas-e-uso-prático)
+      - [Integrando HPA com Prometheus para Métricas Customizadas](day-11/README.md#integrando-hpa-com-prometheus-para-métricas-customizadas)
+    - [A sua lição de casa](day-11/README.md#a-sua-lição-de-casa)
+    - [Final do Day-11](day-11/README.md#final-do-day-11)
+
+</details>
+
+
+<details>
+<summary>DAY-12</summary>
+
+- [Descomplicando o Kubernetes](day-12/README.md#descomplicando-o-kubernetes)
+  - [DAY-12: Dominando Taints e Tolerations](day-12/README.md#day-12-dominando-taints-e-tolerations)
+  - [Conteúdo do Day-12](day-12/README.md#conteúdo-do-day-12)
+    - [Introdução](day-12/README.md#introdução)
+    - [O que são Taints e Tolerations?](day-12/README.md#o-que-são-taints-e-tolerations)
+    - [Por que usar Taints e Tolerations?](day-12/README.md#por-que-usar-taints-e-tolerations)
+    - [Anatomia de um Taint](day-12/README.md#anatomia-de-um-taint)
+    - [Anatomia de uma Toleration](day-12/README.md#anatomia-de-uma-toleration)
+    - [Aplicando Taints](day-12/README.md#aplicando-taints)
+    - [Configurando Tolerations](day-12/README.md#configurando-tolerations)
+    - [Cenários de Uso](day-12/README.md#cenários-de-uso)
+      - [Isolamento de Workloads](day-12/README.md#isolamento-de-workloads)
+      - [Nodes especializados](day-12/README.md#nodes-especializados)
+      - [Evacuação e Manutenção de Nodes](day-12/README.md#evacuação-e-manutenção-de-nodes)
+    - [Combinando Taints e Tolerations com Affinity Rules](day-12/README.md#combinando-taints-e-tolerations-com-affinity-rules)
+    - [Exemplos Práticos](day-12/README.md#exemplos-práticos)
+      - [Exemplo 1: Isolamento de Workloads](day-12/README.md#exemplo-1-isolamento-de-workloads)
+      - [Exemplo 2: Utilizando Hardware Especializado](day-12/README.md#exemplo-2-utilizando-hardware-especializado)
+      - [Exemplo 3: Manutenção de Nodes](day-12/README.md#exemplo-3-manutenção-de-nodes)
+    - [O que são Selectors?](day-12/README.md#o-que-são-selectors)
+    - [Tipos de Selectors](day-12/README.md#tipos-de-selectors)
+      - [Equality-based Selectors](day-12/README.md#equality-based-selectors)
+      - [Set-based Selectors](day-12/README.md#set-based-selectors)
+    - [Selectors em Ação](day-12/README.md#selectors-em-ação)
+      - [Em Services](day-12/README.md#em-services)
+      - [Em ReplicaSets](day-12/README.md#em-replicasets)
+      - [Em Jobs e CronJobs](day-12/README.md#em-jobs-e-cronjobs)
+    - [Selectors e Namespaces](day-12/README.md#selectors-e-namespaces)
+    - [Cenários de Uso](day-12/README.md#cenários-de-uso-1)
+      - [Roteamento de Tráfego](day-12/README.md#roteamento-de-tráfego)
+      - [Scaling Horizontal](day-12/README.md#scaling-horizontal)
+      - [Desastre e Recuperação](day-12/README.md#desastre-e-recuperação)
+    - [Dicas e Armadilhas](day-12/README.md#dicas-e-armadilhas)
+    - [Exemplos Práticos](day-12/README.md#exemplos-práticos-1)
+      - [Exemplo 1: Selector em um Service](day-12/README.md#exemplo-1-selector-em-um-service)
+      - [Exemplo 2: Selector em um ReplicaSet](day-12/README.md#exemplo-2-selector-em-um-replicaset)
+      - [Exemplo 3: Selectors Avançados](day-12/README.md#exemplo-3-selectors-avançados)
+
+</details>
+
+
+<details>
+<summary>DAY-13</summary>
+
+- [Descomplicando o Kubernetes](day-13/README.md#descomplicando-o-kubernetes)
+  - [DAY-13: Descomplicando Kyverno e as Policies no Kubernetes](day-13/README.md#day-13-descomplicando-kyverno-e-as-policies-no-kubernetes)
+  - [Conteúdo do Day-13](day-13/README.md#conteúdo-do-day-13)
+  - [O que iremos ver hoje?](day-13/README.md#o-que-iremos-ver-hoje)
+  - [Inicio do Day-13](day-13/README.md#inicio-do-day-13)
+    - [Introdução ao Kyverno](day-13/README.md#introdução-ao-kyverno)
+    - [Instalando o Kyverno](day-13/README.md#instalando-o-kyverno)
+      - [Utilizando Helm](day-13/README.md#utilizando-helm)
+    - [Verificando a Instalação](day-13/README.md#verificando-a-instalação)
+    - [Criando a nossa primeira Policy](day-13/README.md#criando-a-nossa-primeira-policy)
+    - [Mais exemplos de Policies](day-13/README.md#mais-exemplos-de-policies)
+      - [Exemplo de Política: Adicionar Label ao Namespace](day-13/README.md#exemplo-de-política-adicionar-label-ao-namespace)
+        - [Detalhes da Política](day-13/README.md#detalhes-da-política)
+        - [Arquivo de Política: `add-label-namespace.yaml`](day-13/README.md#arquivo-de-política-add-label-namespaceyaml)
+        - [Utilização da Política](day-13/README.md#utilização-da-política)
+      - [Exemplo de Política: Proibir Usuário Root](day-13/README.md#exemplo-de-política-proibir-usuário-root)
+        - [Detalhes da Política](day-13/README.md#detalhes-da-política-1)
+        - [Arquivo de Política: `disallow-root-user.yaml`](day-13/README.md#arquivo-de-política-disallow-root-useryaml)
+        - [Implementação e Efeito](day-13/README.md#implementação-e-efeito)
+      - [Exemplo de Política: Gerar ConfigMap para Namespace](day-13/README.md#exemplo-de-política-gerar-configmap-para-namespace)
+        - [Detalhes da Política](day-13/README.md#detalhes-da-política-2)
+        - [Arquivo de Política: `generate-configmap-for-namespace.yaml`](day-13/README.md#arquivo-de-política-generate-configmap-for-namespaceyaml)
+        - [Implementação e Utilidade](day-13/README.md#implementação-e-utilidade)
+      - [Exemplo de Política: Permitir Apenas Repositórios Confiáveis](day-13/README.md#exemplo-de-política-permitir-apenas-repositórios-confiáveis)
+        - [Detalhes da Política](day-13/README.md#detalhes-da-política-3)
+        - [Arquivo de Política: `registry-allowed.yaml`](day-13/README.md#arquivo-de-política-registry-allowedyaml)
+        - [Implementação e Impacto](day-13/README.md#implementação-e-impacto)
+        - [Exemplo de Política: Require Probes](day-13/README.md#exemplo-de-política-require-probes)
+        - [Detalhes da Política](day-13/README.md#detalhes-da-política-4)
+        - [Arquivo de Política: `require-probes.yaml`](day-13/README.md#arquivo-de-política-require-probesyaml)
+        - [Implementação e Impacto](day-13/README.md#implementação-e-impacto-1)
+      - [Exemplo de Política: Usando o Exclude](day-13/README.md#exemplo-de-política-usando-o-exclude)
+        - [Detalhes da Política](day-13/README.md#detalhes-da-política-5)
+        - [Arquivo de Política](day-13/README.md#arquivo-de-política)
+        - [Implementação e Efeitos](day-13/README.md#implementação-e-efeitos)
+    - [Conclusão](day-13/README.md#conclusão)
+      - [Pontos-Chave Aprendidos](day-13/README.md#pontos-chave-aprendidos)
+
+</details>
+
+
+<details>
+<summary>DAY-14</summary>
 
 </details>
 
