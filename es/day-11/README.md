@@ -1,197 +1,194 @@
-# Descomplicando o Kubernetes
-## DAY-11
+# Simplificando Kubernetes
+
+## Día 11
 
 &nbsp;
 
-## Conteúdo do Day-11
+## Contenido del Día 11
 
-- [Descomplicando o Kubernetes](#descomplicando-o-kubernetes)
-  - [DAY-11](#day-11)
-  - [Conteúdo do Day-11](#conteúdo-do-day-11)
-    - [Início da aula do Day-11](#início-da-aula-do-day-11)
-      - [O que iremos ver hoje?](#o-que-iremos-ver-hoje)
-      - [Introdução ao Horizontal Pod Autoscaler (HPA)](#introdução-ao-horizontal-pod-autoscaler-hpa)
-      - [Como o HPA Funciona?](#como-o-hpa-funciona)
-  - [Introdução ao Metrics Server](#introdução-ao-metrics-server)
-    - [Por que o Metrics Server é importante para o HPA?](#por-que-o-metrics-server-é-importante-para-o-hpa)
-    - [Instalando o Metrics Server](#instalando-o-metrics-server)
-      - [No Amazon EKS e na maioria dos clusters Kubernetes](#no-amazon-eks-e-na-maioria-dos-clusters-kubernetes)
-      - [No Minikube:](#no-minikube)
-      - [No KinD (Kubernetes in Docker):](#no-kind-kubernetes-in-docker)
-      - [Verificando a Instalação do Metrics Server](#verificando-a-instalação-do-metrics-server)
-      - [Obtendo Métricas](#obtendo-métricas)
-    - [Criando um HPA](#criando-um-hpa)
-    - [Exemplos Práticos com HPA](#exemplos-práticos-com-hpa)
-      - [Autoscaling com base na utilização de CPU](#autoscaling-com-base-na-utilização-de-cpu)
-      - [Autoscaling com base na utilização de Memória](#autoscaling-com-base-na-utilização-de-memória)
-      - [Configuração Avançada de HPA: Definindo Comportamento de Escalonamento](#configuração-avançada-de-hpa-definindo-comportamento-de-escalonamento)
+- [Simplificando Kubernetes](#simplificando-kubernetes)
+  - [Día 11](#día-11)
+  - [Contenido del Día 11](#contenido-del-día-11)
+    - [Comienzo de la lección del Día 11](#comienzo-de-la-lección-del-día-11)
+      - [¿Qué veremos hoy?](#qué-veremos-hoy)
+      - [Introducción al Escalador Automático de Pods Horizontales (HPA)](#introducción-al-escalador-automático-de-pods-horizontales-hpa)
+      - [¿Cómo funciona el HPA?](#cómo-funciona-el-hpa)
+  - [Introducción al Metrics Server](#introducción-al-metrics-server)
+    - [¿Por qué es importante el Metrics Server para el HPA?](#por-qué-es-importante-el-metrics-server-para-el-hpa)
+    - [Instalación del Metrics Server](#instalación-del-metrics-server)
+      - [En Amazon EKS y la mayoría de los clústeres Kubernetes](#en-amazon-eks-y-la-mayoría-de-los-clústeres-kubernetes)
+      - [En Minikube](#en-minikube)
+      - [En KinD (Kubernetes in Docker)](#en-kind-kubernetes-in-docker)
+      - [Verificando la Instalación del Metrics Server](#verificando-la-instalación-del-metrics-server)
+      - [Obteniendo Métricas](#obteniendo-métricas)
+    - [Creando un HPA](#creando-un-hpa)
+    - [Ejemplos Prácticos con HPA](#ejemplos-prácticos-con-hpa)
+      - [Escalado automático basado en el uso de CPU](#escalado-automático-basado-en-el-uso-de-cpu)
+      - [Escalado automático basado en el uso de Memoria](#escalado-automático-basado-en-el-uso-de-memoria)
+      - [Configuración Avanzada de HPA: Definición del Comportamiento de Escalado](#configuración-avanzada-de-hpa-definición-del-comportamiento-de-escalado)
       - [ContainerResource](#containerresource)
-      - [Detalhes do Algoritmo de Escalonamento](#detalhes-do-algoritmo-de-escalonamento)
-      - [Configurações Avançadas e Uso Prático](#configurações-avançadas-e-uso-prático)
-      - [Integrando HPA com Prometheus para Métricas Customizadas](#integrando-hpa-com-prometheus-para-métricas-customizadas)
-    - [A sua lição de casa](#a-sua-lição-de-casa)
-    - [Final do Day-11](#final-do-day-11)
-  
+      - [Detalles del Algoritmo de Escalado](#detalles-del-algoritmo-de-escalado)
+      - [Configuraciones Avanzadas y Uso Práctico](#configuraciones-avanzadas-y-uso-práctico)
+      - [Integración del HPA con Prometheus para Métricas Personalizadas](#integración-del-hpa-con-prometheus-para-métricas-personalizadas)
+    - [Tu Tarea](#tu-tarea)
+    - [Fin del Día 11](#fin-del-día-11)
+
 &nbsp;
 
-### Início da aula do Day-11
+### Comienzo de la lección del Día 11
 
-#### O que iremos ver hoje?
+#### ¿Qué veremos hoy?
 
-Hoje é um dia particularmente fascinante! Vamos desbravar os territórios do Kubernetes, explorando a magia do Horizontal Pod Autoscaler (HPA), uma ferramenta indispensável para quem almeja uma operação eficiente e resiliente. Portanto, afivelem os cintos e preparem-se para uma jornada de descobertas. A aventura #VAIIII começar!
+¡Hoy es un día particularmente fascinante! Vamos a explorar los territorios de Kubernetes, adentrándonos en la magia del Escalador Automático de Pods Horizontales (Horizontal Pod Autoscaler - HPA, por sus siglas en inglés), una herramienta indispensable para aquellos que buscan una operación eficiente y resistente. Así que abróchense los cinturones y prepárense para un viaje de descubrimientos. ¡La aventura #VAIIII comienza!
 
-#### Introdução ao Horizontal Pod Autoscaler (HPA)
+#### Introducción al Escalador Automático de Pods Horizontales (HPA)
 
-O Horizontal Pod Autoscaler, carinhosamente conhecido como HPA, é uma das joias brilhantes incrustadas no coração do Kubernetes. Com o HPA, podemos ajustar automaticamente o número de réplicas de um conjunto de pods, assegurando que nosso aplicativo tenha sempre os recursos necessários para performar eficientemente, sem desperdiçar recursos. O HPA é como um maestro que, com a batuta das métricas, rege a orquestra de pods, assegurando que a harmonia seja mantida mesmo quando a sinfonia do tráfego de rede atinge seu crescendo.
+El Escalador Automático de Pods Horizontales, cariñosamente conocido como HPA, es una de las joyas brillantes incrustadas en el corazón de Kubernetes. Con el HPA, podemos ajustar automáticamente el número de réplicas de un conjunto de pods, asegurando que nuestra aplicación siempre tenga los recursos necesarios para funcionar de manera eficiente, sin desperdiciar recursos. El HPA es como un director de orquesta que, con la batuta de las métricas, dirige la orquesta de pods, asegurando que la armonía se mantenga incluso cuando la sinfonía del tráfico de red alcance su clímax.
 
-#### Como o HPA Funciona?
+#### ¿Cómo funciona el HPA?
 
-O HPA é o olheiro vigilante que monitora as métricas dos nossos pods. A cada batida do seu coração métrico, que ocorre em intervalos regulares, ele avalia se os pods estão suando a camisa para atender às demandas ou se estão relaxando mais do que deveriam. Com base nessa avaliação, ele toma a decisão sábia de convocar mais soldados para o campo de batalha ou de dispensar alguns para um merecido descanso.
+El HPA es el vigilante que monitorea las métricas de nuestros pods. En cada latido de su corazón métrico, que ocurre a intervalos regulares, evalúa si los pods están esforzándose al máximo para satisfacer las demandas o si están descansando más de lo necesario. Basándose en esta evaluación, toma la sabia decisión de convocar a más soldados al campo de batalla o de darles un merecido descanso.
 
-Certamente! O Metrics Server é uma componente crucial para o funcionamento do Horizontal Pod Autoscaler (HPA), pois fornece as métricas necessárias para que o HPA tome decisões de escalonamento. Vamos entender um pouco mais sobre o Metrics Server e como instalá-lo em diferentes ambientes Kubernetes, incluindo Minikube e KinD.
+¿El servidor de métricas es importante para el funcionamiento del Escalador Automático de Pods Horizontales (HPA)? ¡Absolutamente! El servidor de métricas es un componente crucial, ya que proporciona las métricas necesarias para que el HPA tome decisiones de escalado. Ahora, profundicemos un poco más en el servidor de métricas y cómo instalarlo en diferentes entornos de Kubernetes, incluyendo Minikube y KinD.
 
----
+## Introducción al Metrics Server
 
-## Introdução ao Metrics Server
+Antes de comenzar a explorar el Escalador Automático de Pods Horizontales (HPA), es esencial tener el Metrics Server instalado en nuestro clúster Kubernetes. El Metrics Server es un agregador de métricas de recursos del sistema que recopila métricas como el uso de la CPU y la memoria de los nodos y pods en el clúster. Estas métricas son vitales para el funcionamiento del HPA, ya que se utilizan para determinar cuándo y cómo escalar los recursos.
 
-Antes de começarmos a explorar o Horizontal Pod Autoscaler (HPA), é essencial termos o Metrics Server instalado em nosso cluster Kubernetes. O Metrics Server é um agregador de métricas de recursos de sistema, que coleta métricas como uso de CPU e memória dos nós e pods no cluster. Essas métricas são vitais para o funcionamento do HPA, pois são usadas para determinar quando e como escalar os recursos.
+### ¿Por qué es importante el Metrics Server para el HPA?
 
-### Por que o Metrics Server é importante para o HPA?
+El HPA utiliza métricas de uso de recursos para tomar decisiones inteligentes sobre la escalabilidad de los pods. Por ejemplo, si el uso de la CPU de un pod supera cierto límite, el HPA puede decidir aumentar el número de réplicas de ese pod. Del mismo modo, si el uso de la CPU es muy bajo, el HPA puede decidir reducir el número de réplicas. Para hacer esto de manera efectiva, el HPA necesita acceder a métricas precisas y actualizadas, que son proporcionadas por el Metrics Server.
+Por lo tanto, es fundamental comprender esta pieza clave para el día de hoy. :D
 
-O HPA utiliza métricas de uso de recursos para tomar decisões inteligentes sobre o escalonamento dos pods. Por exemplo, se a utilização da CPU de um pod exceder um determinado limite, o HPA pode decidir aumentar o número de réplicas desse pod. Da mesma forma, se a utilização da CPU for muito baixa, o HPA pode decidir reduzir o número de réplicas. Para fazer isso de forma eficaz, o HPA precisa ter acesso a métricas precisas e atualizadas, que são fornecidas pelo Metrics Server.
-Portanto, precisamos antes conhecer essa peça fundamental para o dia de hoje! :D
+### Instalación del Metrics Server
 
-### Instalando o Metrics Server
+#### En Amazon EKS y la mayoría de los clústeres Kubernetes
 
-#### No Amazon EKS e na maioria dos clusters Kubernetes
-
-Durante a nossa aula, estou com um cluster EKS, e para instalar o Metrics Server, podemos usar o seguinte comando:
+Durante nuestra lección, estoy utilizando un clúster EKS, y para instalar el Metrics Server, podemos utilizar el siguiente comando:
 
 ```bash
 kubectl apply -f https://github.com/kubernetes-sigs/metrics-server/releases/latest/download/components.yaml
 ```
 
-Esse comando aplica o manifesto do Metrics Server ao seu cluster, instalando todos os componentes necessários.
+Este comando aplica el manifiesto del Metrics Server a su clúster, instalando todos los componentes necesarios.
 
-#### No Minikube:
+#### En Minikube
 
-A instalação do Metrics Server no Minikube é bastante direta. Use o seguinte comando para habilitar o Metrics Server:
+La instalación del Metrics Server en Minikube es bastante sencilla. Utilice el siguiente comando para habilitar el Metrics Server:
 
 ```bash
 minikube addons enable metrics-server
 ```
 
-Após a execução deste comando, o Metrics Server será instalado e ativado em seu cluster Minikube.
+Después de ejecutar este comando, el Metrics Server se instalará y activará en su clúster Minikube.
 
-#### No KinD (Kubernetes in Docker):
+#### En KinD (Kubernetes in Docker)
 
-Para o KinD, você pode usar o mesmo comando que usou para o EKS:
+Para KinD, puede utilizar el mismo comando que utilizó para EKS:
 
 ```bash
 kubectl apply -f https://github.com/kubernetes-sigs/metrics-server/releases/latest/download/components.yaml
 ```
 
-#### Verificando a Instalação do Metrics Server
+#### Verificando la Instalación del Metrics Server
 
-Após a instalação do Metrics Server, é uma boa prática verificar se ele foi instalado corretamente e está funcionando como esperado. Execute o seguinte comando para obter a lista de pods no namespace `kube-system` e verificar se o pod do Metrics Server está em execução:
+Después de instalar el Metrics Server, es una buena práctica verificar si se ha instalado correctamente y si está funcionando según lo previsto. Ejecute el siguiente comando para obtener la lista de pods en el espacio de nombres `kube-system` y verificar si el pod del Metrics Server está en ejecución:
 
 ```bash
 kubectl get pods -n kube-system | grep metrics-server
 ```
 
-#### Obtendo Métricas
+#### Obteniendo Métricas
 
-Com o Metrics Server em execução, agora você pode começar a coletar métricas de seu cluster. Aqui está um exemplo de como você pode obter métricas de uso de CPU e memória para todos os seus nodes:
+Con el Metrics Server en funcionamiento, ahora puede comenzar a recopilar métricas de su clúster. Aquí hay un ejemplo de cómo puede obtener métricas de uso de CPU y memoria para todos sus nodos:
 
 ```bash
 kubectl top nodes
 ```
 
-E para obter métricas de uso de CPU e memória para todos os seus pods:
+Y para obtener métricas de uso de CPU y memoria para todos sus pods:
 
 ```bash
 kubectl top pods
 ```
 
-Esses comandos fornecem uma visão rápida da utilização de recursos em seu cluster, o que é crucial para entender e otimizar o desempenho de seus aplicativos.
+Estos comandos proporcionan una visión rápida del uso de recursos en su clúster, lo cual es fundamental para comprender y optimizar el rendimiento de sus aplicaciones.
 
-### Criando um HPA
+### Creando un HPA
 
-Antes de nos aprofundarmos no HPA, vamos recapitular criando um deployment simples para o nosso confiável servidor Nginx.
+Antes de profundizar en el HPA, hagamos un resumen creando un despliegue simple para nuestro confiable servidor Nginx.
 
 ```yaml
-# Definição de um Deployment para o servidor Nginx
-apiVersion: apps/v1  # Versão da API que define um Deployment
-kind: Deployment     # Tipo de recurso que estamos definindo
+# Definición de un Despliegue para el servidor Nginx
+apiVersion: apps/v1  # Versión de la API que define un Despliegue
+kind: Deployment     # Tipo de recurso que estamos definiendo
 metadata:
-  name: nginx-deployment  # Nome do nosso Deployment
+  name: nginx-deployment  # Nombre de nuestro Despliegue
 spec:
   replicas: 3             # Número inicial de réplicas
   selector:
     matchLabels:
-      app: nginx         # Label que identifica os pods deste Deployment
+      app: nginx         # Etiqueta que identifica los pods de este Despliegue
   template:
     metadata:
       labels:
-        app: nginx       # Label aplicada aos pods
+        app: nginx       # Etiqueta aplicada a los pods
     spec:
       containers:
-      - name: nginx      # Nome do contêiner
-        image: nginx:latest  # Imagem do contêiner
+      - name: nginx      # Nombre del contenedor
+        image: nginx:latest  # Imagen del contenedor
         ports:
-        - containerPort: 80  # Porta exposta pelo contêiner
+        - containerPort: 80  # Puerto expuesto por el contenedor
         resources:
           limits:
-            cpu: 500m        # Limite de CPU
-            memory: 256Mi    # Limite de memória
+            cpu: 500m        # Límite de CPU
+            memory: 256Mi    # Límite de memoria
           requests:
-            cpu: 250m        # Requisição de CPU
-            memory: 128Mi    # Requisição de memória
+            cpu: 250m        # Solicitud de CPU
+            memory: 128Mi    # Solicitud de memoria
 ```
 
-Agora, com nosso deployment pronto, vamos dar o próximo passo na criação do nosso HPA.
+Ahora, con nuestro despliegue listo, demos el siguiente paso en la creación de nuestro HPA.
 
 ```yaml
-# Definição do HPA para o nginx-deployment
-apiVersion: autoscaling/v2  # Versão da API que define um HPA
-kind: HorizontalPodAutoscaler  # Tipo de recurso que estamos definindo
+# Definición del HPA para nginx-deployment
+apiVersion: autoscaling/v2  # Versión de la API que define un HPA
+kind: HorizontalPodAutoscaler  # Tipo de recurso que estamos definiendo
 metadata:
-  name: nginx-deployment-hpa  # Nome do nosso HPA
+  name: nginx-deployment-hpa  # Nombre de nuestro HPA
 spec:
   scaleTargetRef:
-    apiVersion: apps/v1        # A versão da API do recurso alvo
-    kind: Deployment           # O tipo de recurso alvo
-    name: nginx-deployment     # O nome do recurso alvo
+    apiVersion: apps/v1        # Versión de la API del recurso objetivo
+    kind: Deployment           # Tipo de recurso objetivo
+    name: nginx-deployment     # Nombre del recurso objetivo
   minReplicas: 3               # Número mínimo de réplicas
   maxReplicas: 10              # Número máximo de réplicas
   metrics:
-  - type: Resource             # Tipo de métrica (recurso do sistema)
+  - type: Resource             # Tipo de métrica (recurso del sistema)
     resource:
-      name: cpu                # Nome da métrica (CPU neste caso)
+      name: cpu                # Nombre de la métrica (CPU en este caso)
       target:
-        type: Utilization      # Tipo de alvo (utilização)
-        averageUtilization: 50 # Valor alvo (50% de utilização)
+        type: Utilization      # Tipo de destino (utilización)
+        averageUtilization: 50 # Valor objetivo (50% de utilización)
 ```
 
-Neste exemplo, criamos um HPA que monitora a utilização da CPU do nosso `nginx-deployment`. O HPA se esforçará para manter a utilização da CPU em torno de 50%, ajustando o número de réplicas entre 3 e 10 conforme necessário.
+En este ejemplo, creamos un HPA que supervisa el uso de la CPU de nuestro `nginx-deployment`. El HPA se esforzará por mantener el uso de la CPU en torno al 50%, ajustando el número de réplicas entre 3 y 10 según sea necesario.
 
-Para aplicar esta configuração ao seu cluster Kubernetes, salve o conteúdo acima em um arquivo chamado
-
- `nginx-deployment-hpa.yaml` e execute o seguinte comando:
+Para aplicar esta configuración a su clúster Kubernetes, guarde el contenido anterior en un archivo llamado `nginx-deployment-hpa.yaml` y ejecute el siguiente comando:
 
 ```bash
 kubectl apply -f nginx-deployment-hpa.yaml
 ```
 
-Agora, você tem um HPA monitorando e ajustando a escala do seu `nginx-deployment` baseado na utilização da CPU. Fantástico, não é?
+Ahora que tienes un HPA supervisando y ajustando la escala de tu `nginx-deployment` basado en el uso de la CPU. ¡Fantástico, ¿verdad?
 
-### Exemplos Práticos com HPA
+### Ejemplos Prácticos con HPA
 
-Agora que você já entende o básico sobre o HPA, é hora de rolar as mangas e entrar na prática. Vamos explorar como o HPA responde a diferentes métricas e cenários.
+Ahora que ya tienes una comprensión básica del HPA, es hora de poner manos a la obra. Exploraremos cómo el HPA responde a diferentes métricas y escenarios.
 
-#### Autoscaling com base na utilização de CPU
+#### Escalado automático basado en el uso de CPU
 
-Vamos começar com um exemplo clássico de escalonamento baseado na utilização da CPU, que já discutimos anteriormente. Para tornar a aprendizagem mais interativa, vamos simular um aumento de tráfego e observar como o HPA responde a essa mudança.
+Comencemos con un ejemplo clásico de escalado basado en el uso de la CPU, que ya discutimos anteriormente. Para que el aprendizaje sea más interactivo, simularemos un aumento de tráfico y observaremos cómo el HPA responde a este cambio.
 
 ```bash
 kubectl run -i --tty load-generator --image=busybox /bin/sh
@@ -199,83 +196,82 @@ kubectl run -i --tty load-generator --image=busybox /bin/sh
 while true; do wget -q -O- http://nginx-deployment.default.svc.cluster.local; done
 ```
 
-Este script simples cria uma carga constante no nosso deployment, fazendo requisições contínuas ao servidor Nginx. Você poderá observar como o HPA ajusta o número de réplicas para manter a utilização da CPU em torno do limite definido.
+Este sencillo script crea una carga constante en nuestro despliegue, realizando solicitudes continuas al servidor Nginx. Podrás observar cómo el HPA ajusta el número de réplicas para mantener el uso de la CPU cerca del límite definido.
 
-#### Autoscaling com base na utilização de Memória
+#### Escalado automático basado en el uso de Memoria
 
-O HPA não é apenas um mestre em lidar com a CPU, ele também tem um olho afiado para a memória. Vamos explorar como configurar o HPA para escalar baseado na utilização de memória.
+El HPA no solo es experto en el manejo de la CPU, sino que también tiene un agudo sentido para la memoria. Exploraremos cómo configurar el HPA para escalar basado en el uso de la memoria.
 
 ```yaml
-# Definição do HPA para escalonamento baseado em memória
-apiVersion: autoscaling/v2  # Versão da API que define um HPA
-kind: HorizontalPodAutoscaler    # Tipo de recurso que estamos definindo
+# Definición del HPA para escalado basado en memoria
+apiVersion: autoscaling/v2  # Versión de la API que define un HPA
+kind: HorizontalPodAutoscaler  # Tipo de recurso que estamos definiendo
 metadata:
-  name: nginx-deployment-hpa-memory  # Nome do nosso HPA
+  name: nginx-deployment-hpa-memory  # Nombre de nuestro HPA
 spec:
   scaleTargetRef:
-    apiVersion: apps/v1              # A versão da API do recurso alvo
-    kind: Deployment                 # O tipo de recurso alvo
-    name: nginx-deployment           # O nome do recurso alvo
-  minReplicas: 3                     # Número mínimo de réplicas
-  maxReplicas: 10                    # Número máximo de réplicas
+    apiVersion: apps/v1  # Versión de la API del recurso objetivo
+    kind: Deployment     # Tipo de recurso objetivo
+    name: nginx-deployment  # Nombre del recurso objetivo
+  minReplicas: 3          # Número mínimo de réplicas
+  maxReplicas: 10         # Número máximo de réplicas
   metrics:
-  - type: Resource                   # Tipo de métrica (recurso do sistema)
+  - type: Resource        # Tipo de métrica (recurso del sistema)
     resource:
-      name: memory                   # Nome da métrica (memória neste caso)
+      name: memory        # Nombre de la métrica (memoria en este caso)
       target:
-        type: Utilization            # Tipo de alvo (utilização)
-        averageUtilization: 70       # Valor alvo (70% de utilização)
+        type: Utilization  # Tipo de objetivo (utilización)
+        averageUtilization: 70  # Valor objetivo (70% de utilización)
 ```
 
-Neste exemplo, o HPA vai ajustar o número de réplicas para manter a utilização de memória em cerca de 70%. Assim, nosso deployment pode respirar livremente mesmo quando a demanda aumenta.
+En este ejemplo, el HPA ajustará el número de réplicas para mantener el uso de la memoria en alrededor del 70%. De esta manera, nuestro despliegue puede funcionar sin problemas incluso cuando la demanda aumenta.
 
-#### Configuração Avançada de HPA: Definindo Comportamento de Escalonamento
+#### Configuración Avanzada de HPA: Definición del Comportamiento de Escalado
 
-O HPA é flexível e permite que você defina como ele deve se comportar durante o escalonamento para cima e para baixo. Vamos explorar um exemplo:
+El HPA es flexible y te permite definir cómo debe comportarse durante el escalado hacia arriba y hacia abajo. Vamos a explorar un ejemplo:
 
 ```yaml
-# Definição de HPA com configurações avançadas de comportamento
-apiVersion: autoscaling/v2      # Versão da API que define um HPA
-kind: HorizontalPodAutoscaler        # Tipo de recurso que estamos definindo
+# Definición de HPA con configuración avanzada de comportamiento
+apiVersion: autoscaling/v2  # Versión de la API que define un HPA
+kind: HorizontalPodAutoscaler  # Tipo de recurso que estamos definiendo
 metadata:
-  name: nginx-deployment-hpa         # Nome do nosso HPA
+  name: nginx-deployment-hpa  # Nombre de nuestro HPA
 spec:
   scaleTargetRef:
-    apiVersion: apps/v1              # A versão da API do recurso alvo
-    kind: Deployment                 # O tipo de recurso alvo
-    name: nginx-deployment           # O nome do recurso alvo
-  minReplicas: 3                     # Número mínimo de réplicas
-  maxReplicas: 10                    # Número máximo de réplicas
+    apiVersion: apps/v1  # Versión de la API del recurso objetivo
+    kind: Deployment     # Tipo de recurso objetivo
+    name: nginx-deployment  # Nombre del recurso objetivo
+  minReplicas: 3  # Número mínimo de réplicas
+  maxReplicas: 10  # Número máximo de réplicas
   metrics:
-  - type: Resource                   # Tipo de métrica (recurso do sistema)
+  - type: Resource  # Tipo de métrica (recurso del sistema)
     resource:
-      name: cpu                      # Nome da métrica (CPU neste caso)
+      name: cpu  # Nombre de la métrica (CPU en este caso)
       target:
-        type: Utilization            # Tipo de alvo (utilização)
-        averageUtilization: 50       # Valor alvo (50% de utilização)
+        type: Utilization  # Tipo de objetivo (utilización)
+        averageUtilization: 50  # Valor objetivo (50% de utilización)
   behavior:
     scaleUp:
-      stabilizationWindowSeconds: 0  # Período de estabilização para escalonamento para cima
+      stabilizationWindowSeconds: 0  # Período de estabilización para el escalado hacia arriba
       policies:
-      - type: Percent                # Tipo de política (percentual)
-        value: 100                   # Valor da política (100%)
-        periodSeconds: 15            # Período da política (15 segundos)
+      - type: Percent  # Tipo de política (porcentaje)
+        value: 100  # Valor de la política (100%)
+        periodSeconds: 15  # Período de la política (15 segundos)
     scaleDown:
-      stabilizationWindowSeconds: 300  # Período de estabilização para escalonamento para baixo
+      stabilizationWindowSeconds: 300  # Período de estabilización para el escalado hacia abajo
       policies:
-      - type: Percent                  # Tipo de política (percentual)
-        value: 100                     # Valor da política (100%)
-        periodSeconds: 15              # Período da política (15 segundos)
+      - type: Percent  # Tipo de política (porcentaje)
+        value: 100  # Valor de la política (100%)
+        periodSeconds: 15  # Período de la política (15 segundos)
 ```
 
-Neste exemplo, especificamos um comportamento de escalonamento onde o HPA pode escalar para cima imediatamente, mas vai esperar por 5 minutos (300 segundos) após o último escalonamento para cima antes de considerar um escalonamento para baixo. Isso ajuda a evitar flutuações rápidas na contagem de réplicas, proporcionando um ambiente mais estável para nossos pods.
-
+En este ejemplo, especificamos un comportamiento de escalado en el que el HPA puede escalar hacia arriba de inmediato, pero esperará durante 5 minutos (300 segundos) después del último escalado hacia arriba antes de considerar un escalado hacia abajo. Esto ayuda a evitar fluctuaciones rápidas en el recuento de réplicas, proporcionando un entorno más estable para nuestros pods.
 
 #### ContainerResource
 
-O tipo de métrica `ContainerResource` no Kubernetes permite que você especifique métricas de recursos específicas do container para escalar. Diferente das métricas de recurso comuns que são aplicadas a todos os contêineres em um Pod, as métricas `ContainerResource` permitem especificar métricas para um contêiner específico dentro de um Pod. Isso pode ser útil em cenários onde você tem múltiplos contêineres em um Pod, mas quer escalar com base na utilização de recursos de um contêiner específico.
+El tipo de métrica `ContainerResource` en Kubernetes te permite especificar métricas de recursos específicas del contenedor para el escalado. A diferencia de las métricas de recursos comunes que se aplican a todos los contenedores en un Pod, las métricas `ContainerResource` te permiten especificar métricas para un contenedor específico dentro de un Pod. Esto puede ser útil en escenarios en los que tienes múltiples contenedores en un Pod, pero deseas escalar en función del uso de recursos de un contenedor en particular.
 
-Aqui está um exemplo de como você pode configurar um Horizontal Pod Autoscaler (HPA) usando uma métrica `ContainerResource` para escalar um Deployment com base na utilização de CPU de um contêiner específico:
+Aquí tienes un ejemplo de cómo configurar un Horizontal Pod Autoscaler (HPA) utilizando una métrica `ContainerResource` para escalar un Deployment en función del uso de CPU de un contenedor específico:
 
 ```yaml
 apiVersion: autoscaling/v2beta2
@@ -293,70 +289,72 @@ spec:
   - type: ContainerResource
     containerResource:
       name: cpu
-      container: nginx-NOME-COMPLETO-DO-CONTAINER
+      container: nginx-NOMBRE-COMPLETO-DEL-CONTENEDOR
       target:
         type: Utilization
         averageUtilization: 50
 ```
 
-No exemplo acima:
+En el ejemplo anterior:
 
-- O tipo de métrica é definido como `ContainerResource`.
-- Dentro do bloco `containerResource`, especificamos o nome da métrica (`cpu`), o nome do contêiner (`my-container`) e o alvo de utilização (`averageUtilization: 50`).
+- El tipo de métrica se define como `ContainerResource`.
+- Dentro del bloque `containerResource`, especificamos el nombre de la métrica (`cpu`), el nombre del contenedor (`mi-contenedor`) y el objetivo de utilización (`averageUtilization: 50`).
 
-Isso significa que o HPA vai ajustar o número de réplicas do Deployment `my-app` para manter a utilização média de CPU do contêiner `nginx-NOME-COMPLETO-DO-CONTAINER` em torno de 50%.
+Esto significa que el HPA ajustará el número de réplicas del Deployment `my-app` para mantener el uso promedio de CPU del contenedor `nginx-NOMBRE-COMPLETO-DEL-CONTENEDOR` en alrededor del 50%.
 
-Este tipo de configuração permite um controle mais granular sobre o comportamento de autoscaling, especialmente em ambientes onde os Pods contêm múltiplos contêineres com diferentes perfis de utilização de recursos.
+Este tipo de configuración permite un control más granular sobre el comportamiento del escalado automático, especialmente en entornos donde los Pods contienen múltiples contenedores con perfiles de uso de recursos diferentes.
 
+#### Detalles del Algoritmo de Escalado
 
-#### Detalhes do Algoritmo de Escalonamento
-
-**Cálculo do Número de Réplicas**
-O núcleo do Horizontal Pod Autoscaler (HPA) é o seu algoritmo de escalonamento, que determina o número ideal de réplicas com base nas métricas fornecidas. A fórmula básica utilizada pelo HPA para calcular o número desejado de réplicas é:
+**Cálculo del Número de Réplicas**
+El núcleo del Horizontal Pod Autoscaler (HPA) es su algoritmo de escalado, que determina el número óptimo de réplicas en función de las métricas proporcionadas. La fórmula básica utilizada por el HPA para calcular el número deseado de réplicas es:
 
 \[ \text{desiredReplicas} = \lceil \text{currentReplicas} \times \left( \frac{\text{currentMetricValue}}{\text{desiredMetricValue}} \right) \rceil \]
 
-**Exemplos com Valores Específicos:**
-1. **Exemplo de Escala para Cima:**
-   - Réplicas atuais: 2
-   - Valor atual da métrica (CPU): 80%
-   - Valor desejado da métrica (CPU): 50%
+**Ejemplos con Valores Específicos:**
+
+1. **Ejemplo de Escalado hacia Arriba:**
+   - Réplicas actuales: 2
+   - Valor actual de la métrica (CPU): 80%
+   - Valor deseado de la métrica (CPU): 50%
    - Cálculo: \(\lceil 2 \times (80\% / 50\%) \rceil = \lceil 3.2 \rceil = 4\) réplicas
 
-2. **Exemplo de Escala para Baixo:**
-   - Réplicas atuais: 5
-   - Valor atual da métrica (CPU): 30%
-   - Valor desejado da métrica (CPU): 50%
+2. **Ejemplo de Escalado hacia Abajo:**
+   - Réplicas actuales: 5
+   - Valor actual de la métrica (CPU): 30%
+   - Valor deseado de la métrica (CPU): 50%
    - Cálculo: \(\lceil 5 \times (30\% / 50\%) \rceil = \lceil 3 \rceil = 3\) réplicas
 
-**Considerações Sobre Métricas e Estado dos Pods:**
-- **Métricas de Recurso por Pod e Personalizadas:** O HPA pode ser configurado para usar métricas padrão (como CPU e memória) ou métricas personalizadas definidas pelo usuário, permitindo maior flexibilidade.
-- **Tratamento de Pods sem Métricas ou Não Prontos:** Se um Pod não tiver métricas disponíveis ou não estiver pronto, ele pode ser excluído do cálculo de média, evitando decisões de escalonamento baseadas em dados incompletos.
+**Consideraciones sobre Métricas y Estado de los Pods:**
 
-#### Configurações Avançadas e Uso Prático
+- **Métricas de Recursos por Pod y Personalizadas:** El HPA se puede configurar para utilizar métricas estándar (como CPU y memoria) o métricas personalizadas definidas por el usuario, lo que permite una mayor flexibilidad.
+- **Tratamiento de Pods sin Métricas o no Listos:** Si un Pod no tiene métricas disponibles o no está listo, puede ser excluido del cálculo promedio, evitando decisiones de escalado basadas en datos incompletos.
 
-**Configurando Métricas Personalizadas e Múltiplas Métricas:**
-O HPA não se limita apenas a métricas de CPU e memória; ele pode ser configurado para usar uma variedade de métricas personalizadas.
+#### Configuraciones Avanzadas y Uso Práctico
 
-**Uso de Métricas Personalizadas: Exemplos e Dicas:**
-- **Exemplo:** Suponha que você tenha um serviço que deve escalar com base no número de solicitações HTTP por segundo. Você pode configurar o HPA para escalar com base nessa métrica personalizada.
-- **Dicas:** Ao usar métricas personalizadas, assegure-se de que as métricas sejam um indicador confiável da carga de trabalho e que o serviço de métricas esteja corretamente configurado e acessível pelo HPA.
+**Configuración de Métricas Personalizadas y Múltiples Métricas:**
+El HPA no se limita a métricas de CPU y memoria; se puede configurar para utilizar una variedad de métricas personalizadas.
 
-**Escalonamento com Base em Várias Métricas:**
-- O HPA pode ser configurado para levar em conta várias métricas ao mesmo tempo, permitindo um controle mais refinado do escalonamento.
-- Por exemplo, você pode configurar o HPA para escalar com base tanto na utilização de CPU quanto na memória, ou qualquer combinação de métricas padrão e personalizadas.
+**Uso de Métricas Personalizadas: Ejemplos y Consejos:**
 
+- **Ejemplo:** Supongamos que tiene un servicio que debe escalar según el número de solicitudes HTTP por segundo. Puede configurar el HPA para escalar en función de esta métrica personalizada.
+- **Consejos:** Al utilizar métricas personalizadas, asegúrese de que las métricas sean un indicador confiable de la carga de trabajo y de que el servicio de métricas esté configurado correctamente y sea accesible para el HPA.
 
-#### Integrando HPA com Prometheus para Métricas Customizadas
+**Escalado Basado en Múltiples Métricas:**
 
-Para levar o autoscaling para o próximo nível, podemos integrar o HPA com o Prometheus. Com essa integração, podemos usar métricas do Prometheus para informar nossas decisões de autoscaling.
+- El HPA se puede configurar para tener en cuenta varias métricas al mismo tiempo, lo que permite un control más refinado del escalado.
+- Por ejemplo, puede configurar el HPA para escalar en función tanto del uso de la CPU como de la memoria, o cualquier combinación de métricas estándar y personalizadas.
 
-A integração geralmente envolve a configuração de um adaptador de métricas personalizadas, como o `k8s-prometheus-adapter`. Uma vez configurado, o HPA pode acessar métricas do Prometheus e usá-las para tomar decisões de autoscaling. A documentação completa sobre como integrar o HPA com o Prometheus pode ser encontrada [aqui](#adicionar-link).
+#### Integración del HPA con Prometheus para Métricas Personalizadas
 
-### A sua lição de casa
+Para llevar el escalado automático al siguiente nivel, podemos integrar el HPA con Prometheus. Con esta integración, podemos utilizar métricas de Prometheus para informar nuestras decisiones de escalado automático.
 
-Agora que você foi equipado com o conhecimento sobre o HPA, é hora de colocar esse conhecimento em prática. Configure um HPA em seu ambiente e experimente com diferentes métricas: CPU, memória e métricas personalizadas. Documente suas observações e compreenda como o HPA responde a diferentes cargas e situações.
+La integración generalmente implica configurar un adaptador de métricas personalizadas, como el `k8s-prometheus-adapter`. Una vez configurado, el HPA puede acceder a las métricas de Prometheus y utilizarlas para tomar decisiones de escalado automático. Puede encontrar la documentación completa sobre cómo integrar el HPA con Prometheus [aquí](#enlace-a-la-documentación).
 
-### Final do Day-11
+### Tu Tarea
 
-E assim, chegamos ao fim do Day-11, uma jornada repleta de aprendizado e exploração. Hoje, você descobriu o poder do Horizontal Pod Autoscaler e como ele pode ajudar a manter seu aplicativo performando de maneira eficiente, mesmo sob diferentes condições de carga. Você não apenas aprendeu como ele funciona, mas também colocou a mão na massa com exemplos práticos. Continue praticando e explorando, e nos vemos no próximo dia da nossa aventura pelo Kubernetes! #VAIIII
+Ahora que has adquirido conocimientos sobre el HPA, es hora de poner en práctica ese conocimiento. Configura un HPA en tu entorno y experimenta con diferentes métricas: CPU, memoria y métricas personalizadas. Documenta tus observaciones y comprende cómo responde el HPA a diferentes cargas y situaciones.
+
+### Fin del Día 11
+
+Y así llegamos al final del Día 11, un viaje lleno de aprendizaje y exploración. Hoy has descubierto el poder del Horizontal Pod Autoscaler y cómo puede ayudar a que tu aplicación funcione eficientemente incluso bajo diferentes condiciones de carga. No solo has aprendido cómo funciona, sino que también has puesto en práctica ejemplos prácticos. Sigue practicando y explorando, ¡y nos vemos en el próximo día de nuestra aventura en Kubernetes! #VAIIII
