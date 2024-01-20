@@ -11,13 +11,27 @@
 
 ### Contenido del Día 9
 
-- [¿Por qué?](#por-que-)
+- [Simplificando Kubernetes](#simplificando-kubernetes)
+  - [DÍA 9](#día-9)
+    - [¿Qué veremos hoy?](#qué-veremos-hoy)
+    - [Contenido del Día 9](#contenido-del-día-9)
+- [¿Qué es Ingress?](#qué-es-ingress)
+- [Componentes de Ingress](#componentes-de-ingress)
+  - [Componentes Clave](#componentes-clave)
+    - [Controlador de Ingress](#controlador-de-ingress)
+    - [Recursos de Ingress](#recursos-de-ingress)
+    - [Anotaciones y Personalizaciones](#anotaciones-y-personalizaciones)
+    - [Instalación del Nginx Ingress Controller](#instalación-del-nginx-ingress-controller)
+      - [Instalación del Controlador de Ingress Nginx en Kind](#instalación-del-controlador-de-ingress-nginx-en-kind)
+        - [Creación del Clúster con Configuraciones Especiales](#creación-del-clúster-con-configuraciones-especiales)
+        - [Instalación de un Controlador de Ingress](#instalación-de-un-controlador-de-ingress)
+    - [Instalación de Giropops-Senhas en el Cluster](#instalación-de-giropops-senhas-en-el-cluster)
+    - [Creación de un Recurso de Ingress](#creación-de-un-recurso-de-ingress)
+- [TBD (Por determinar)](#tbd-por-determinar)
 
 &nbsp;
 
 # ¿Qué es Ingress?
-
-## ¿Qué es Ingress?
 
 Ingress es un recurso de Kubernetes que gestiona el acceso externo a los servicios dentro de un clúster. Funciona como una capa de enrutamiento HTTP/HTTPS, permitiendo la definición de reglas para dirigir el tráfico externo a diferentes servicios backend. Ingress se implementa a través de un controlador de Ingress, que puede ser alimentado por varias soluciones, como NGINX, Traefik o Istio, por mencionar algunas.
 

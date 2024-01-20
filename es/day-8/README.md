@@ -34,7 +34,6 @@
         - [Instalación y Configuración de Vault en Kubernetes](#instalación-y-configuración-de-vault-en-kubernetes)
         - [Requisitos Previos](#requisitos-previos)
         - [Instalando y Configurando Vault con Helm](#instalando-y-configurando-vault-con-helm)
-- [Este comando agrega el repositorio Helm de HashiCorp a nuestra configuración de Helm.](#este-comando-agrega-el-repositorio-helm-de-hashicorp-a-nuestra-configuración-de-helm)
         - [Agregar el Repositorio del Operador de Secretos Externos a Helm](#agregar-el-repositorio-del-operador-de-secretos-externos-a-helm)
         - [Instalando el Operador de Secretos Externos](#instalando-el-operador-de-secretos-externos)
         - [Verificación de la Instalación de ESO](#verificación-de-la-instalación-de-eso)
@@ -978,12 +977,7 @@ Aquí están los pasos para instalar y configurar Vault utilizando Helm:
 helm repo add hashicorp https://helm.releases.hashicorp.com
 ```
 
-<<<<<<< HEAD
 Este comando agrega el repositorio Helm de HashiCorp a nuestra configuración de Helm.
-=======
-#################
-Este comando adiciona o repositório Helm da HashiCorp à nossa configuração do Helm.
->>>>>>> 56019ba70c5320a1b7dc63d54c013d46fef8569a
 
 **2. Instale Vault utilizando Helm**
 
