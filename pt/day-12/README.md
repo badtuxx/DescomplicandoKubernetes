@@ -6,332 +6,302 @@
 - [Descomplicando o Kubernetes](#descomplicando-o-kubernetes)
   - [DAY-12: Dominando Taints e Tolerations](#day-12-dominando-taints-e-tolerations)
   - [Conteúdo do Day-12](#conteúdo-do-day-12)
-    - [Introdução](#introdução)
-    - [O que são Taints e Tolerations?](#o-que-são-taints-e-tolerations)
-    - [Por que usar Taints e Tolerations?](#por-que-usar-taints-e-tolerations)
-    - [Anatomia de um Taint](#anatomia-de-um-taint)
-    - [Anatomia de uma Toleration](#anatomia-de-uma-toleration)
-    - [Aplicando Taints](#aplicando-taints)
-    - [Configurando Tolerations](#configurando-tolerations)
-    - [Cenários de Uso](#cenários-de-uso)
-      - [Isolamento de Workloads](#isolamento-de-workloads)
-      - [Nodes Especializados](#nodes-especializados)
-      - [Evacuação e Manutenção de Nodes](#evacuação-e-manutenção-de-nodes)
-    - [Combinando Taints e Tolerations com Affinity Rules](#combinando-taints-e-tolerations-com-affinity-rules)
-    - [Exemplos Práticos](#exemplos-práticos)
-      - [Exemplo 1: Isolamento de Workloads](#exemplo-1-isolamento-de-workloads)
-      - [Exemplo 2: Utilizando Hardware Especializado](#exemplo-2-utilizando-hardware-especializado)
-      - [Exemplo 3: Manutenção de Nodes](#exemplo-3-manutenção-de-nodes)
-    - [Conclusão](#conclusão)
-    - [Tarefas do Dia](#tarefas-do-dia)
-- [Descomplicando o Kubernetes](#descomplicando-o-kubernetes-1)
-  - [DAY-12+1: Entendendo e Dominando os Selectors](#day-121-entendendo-e-dominando-os-selectors)
-  - [Conteúdo do Day-12+1](#conteúdo-do-day-121)
-    - [Introdução](#introdução-1)
-    - [O que são Selectors?](#o-que-são-selectors)
-    - [Tipos de Selectors](#tipos-de-selectors)
-      - [Equality-based Selectors](#equality-based-selectors)
-      - [Set-based Selectors](#set-based-selectors)
-    - [Selectors em Ação](#selectors-em-ação)
-      - [Em Services](#em-services)
-      - [Em ReplicaSets](#em-replicasets)
-      - [Em Jobs e CronJobs](#em-jobs-e-cronjobs)
-    - [Selectors e Namespaces](#selectors-e-namespaces)
-    - [Cenários de Uso](#cenários-de-uso-1)
-      - [Roteamento de Tráfego](#roteamento-de-tráfego)
-      - [Scaling Horizontal](#scaling-horizontal)
-      - [Desastre e Recuperação](#desastre-e-recuperação)
-    - [Dicas e Armadilhas](#dicas-e-armadilhas)
-    - [Exemplos Práticos](#exemplos-práticos-1)
-      - [Exemplo 1: Selector em um Service](#exemplo-1-selector-em-um-service)
-      - [Exemplo 2: Selector em um ReplicaSet](#exemplo-2-selector-em-um-replicaset)
-      - [Exemplo 3: Selectors Avançados](#exemplo-3-selectors-avançados)
-    - [Conclusão](#conclusão-1)
+    - [O que vamos ver no dia de hoje?](#o-que-vamos-ver-no-dia-de-hoje)
+    - [O Nosso cluster de exemplo](#o-nosso-cluster-de-exemplo)
+    - [O que são Taints?](#o-que-são-taints)
 
 
-### Introdução
 
-Olá, galera! No capítulo de hoje, vamos mergulhar fundo em um dos conceitos mais poderosos e flexíveis do Kubernetes: Taints e Tolerations. Prepare-se, pois este capítulo vai além do básico e entra em detalhes que você não vai querer perder. #VAIIII
+### O que vamos ver no dia de hoje?
 
-### O que são Taints e Tolerations?
+Hoje é dia de falar sobre Taints, Tolerations, Affinity e Antiaffinity. Vamos entender como eles podem nos ajudar no dia-a-dia na administração de um cluster Kubernetes.
 
-Taints são "manchas" ou "marcações" aplicadas aos Nodes que os marcam para evitar que certos Pods sejam agendados neles. Por outro lado, Tolerations são configurações que podem ser aplicadas aos Pods para permitir que eles sejam agendados em Nodes com Taints específicos.
+Com eles podemos isolar workloads, garantir que Pods sejam agendados em Nodes específicos e até mesmo evitar que Pods sejam agendados em determinados Nodes do cluster.
 
-### Por que usar Taints e Tolerations?
+Bora lá, pois o dia será intenso de coisas novas e com certeza você vai aprender muito! Bora?
 
-Em um cluster Kubernetes diversificado, nem todos os Nodes são iguais. Alguns podem ter acesso a recursos especiais como GPUs, enquanto outros podem ser reservados para workloads críticos. Taints e Tolerations fornecem um mecanismo para garantir que os Pods sejam agendados nos Nodes apropriados.
+### O Nosso cluster de exemplo
 
-### Anatomia de um Taint
-
-Um Taint é composto por uma `chave`, um `valor` e um `efeito`. O efeito pode ser:
-
-- `NoSchedule`: O Kubernetes não agenda o Pod a menos que ele tenha uma Toleration correspondente.
-- `PreferNoSchedule`: O Kubernetes tenta não agendar, mas não é uma garantia.
-- `NoExecute`: Os Pods existentes são removidos se não tiverem uma Toleration correspondente.
-
-### Anatomia de uma Toleration
-
-Uma Toleration é definida pelos mesmos elementos de um Taint: `chave`, `valor` e `efeito`. Além disso, ela contém um `operador`, que pode ser `Equal` ou `Exists`.
-
-### Aplicando Taints
-
-Para aplicar um Taint a um Node, você utiliza o comando `kubectl taint`. Por exemplo:
+Para que possamos ter alguns exemplos mais divertido, vamos imaginar que temos um empresa chamada Strigus, e que essa empresa tem o seu cluster Kubernetes de produção composto por 08 nodes, sendo 4 control planes e 4 workers. Ele está dividido em duas regiões, São Paulo e Salvador, chamadas de strigus-br-sp e strigus-br-ssa respectivamente. E cada região tem dois datacenters, strigus-sp-1 e strigus-sp-2 em São Paulo e strigus-br-ssa-1 e strigus-br-ssa-2 em Salvador.
 
 ```bash
-kubectl taint nodes node1 key=value:NoSchedule
+kubectl get nodes
+NAME                     STATUS   ROLES           AGE     VERSION
+strigus-control-plane1   Ready    control-plane   65d     v1.27.3
+strigus-control-plane2   Ready    control-plane   61d     v1.27.3
+strigus-control-plane3   Ready    control-plane   65d     v1.27.3
+strigus-control-plane4   Ready    control-plane   65d     v1.27.3
+strigus-worker1          Ready    <none>          61d     v1.27.3
+strigus-worker2          Ready    <none>          62d     v1.27.3
+strigus-worker3          Ready    <none>          61d     v1.27.3
+strigus-worker4          Ready    <none>          62d     v1.27.3
 ```
 
-### Configurando Tolerations
+A nossa missão é criar as Labels e Taints necessárias para que nosso cluster fique organizado, seguro e com alta disponibilidade. E com isso, com alguns ajustes em nossos deployments, garantir que nossos Pods sejam agendados nos Nodes corretos e distribuídos entre os datacenters corretamente.
 
-Tolerations são configuradas no PodSpec. Aqui está um exemplo:
+A distribuição dos nossos nodes nas regiões e datacenters é a seguinte:
 
-```yaml
-apiVersion: v1
-kind: Pod
-metadata:
-  name: my-pod
-spec:
-  tolerations:
-  - key: "key"
-    operator: "Equal"
-    value: "value"
-    effect: "NoSchedule"
-```
+- strigus-br-sp
+  - strigus-br-sp-1
+    - strigus-control-plane1
+    - strigus-worker3
+  - strigus-br-sp-2
+    - strigus-control-plane4
+    - strigus-worker1
 
-### Cenários de Uso
-
-#### Isolamento de Workloads
-
-Imagine um cenário onde você tem Nodes que devem ser dedicados a workloads de produção e não devem executar Pods de desenvolvimento.
-
-Aplicar Taint:
+- strigus-br-ssa
+  - strigus-br-ssa-1
+    - strigus-control-plane2
+    - strigus-worker2
+  - strigus-br-ssa-2
+    - strigus-control-plane3
+    - strigus-worker4
+  
+A primeira coisa que precisamos fazer é criar as Labels em nossos Nodes. Para isso, vamos utilizar o comando `kubectl label nodes` e vamos adicionar as labels `region` e `datacenter` em cada um dos nossos Nodes.
 
 ```bash
-kubectl taint nodes prod-node environment=production:NoSchedule
+kubectl label nodes strigus-control-plane1 region=strigus-br-sp datacenter=strigus-br-sp-1
+kubectl label nodes strigus-control-plane2 region=strigus-br-ssa datacenter=strigus-br-ssa-1
+kubectl label nodes strigus-control-plane3 region=strigus-br-ssa datacenter=strigus-br-ssa-2
+kubectl label nodes strigus-control-plane4 region=strigus-br-sp datacenter=strigus-br-sp-2
+kubectl label nodes strigus-worker1 region=strigus-br-sp datacenter=strigus-br-sp-2
+kubectl label nodes strigus-worker2 region=strigus-br-ssa datacenter=strigus-br-ssa-1
+kubectl label nodes strigus-worker3 region=strigus-br-sp datacenter=strigus-br-sp-1
+kubectl label nodes strigus-worker4 region=strigus-br-ssa datacenter=strigus-br-ssa-2
 ```
 
-Toleration em Pod de produção:
-
-```yaml
-tolerations:
-- key: "environment"
-  operator: "Equal"
-  value: "production"
-  effect: "NoSchedule"
-```
-
-#### Nodes Especializados
-
-Se você tem Nodes com GPUs e quer garantir que apenas Pods que necessitem de GPUs sejam agendados ali.
-
-Aplicar Taint:
+Com o comando acima estamos utilizando o `kubectl label nodes` para adicionar as labels `region` e `datacenter` em cada um dos nossos Nodes. Agora, se executarmos o comando `kubectl get nodes strigus-control-plane1 --show-labels`, veremos algo como:
 
 ```bash
-kubectl taint nodes gpu-node gpu=true:NoSchedule
+NAME                     STATUS   ROLES           AGE     VERSION   LABELS
+strigus-control-plane1   Ready    control-plane   65d     v1.27.3   beta.kubernetes.io/arch=amd64,beta.kubernetes.io/os=linux,datacenter=strigus-br-sp-1,kubernetes.io/arch=amd64,kubernetes.io/hostname=strigus-control-plane1,kubernetes.io/os=linux,node-role.kubernetes.io/control-plane=,region=strigus-br-sp
 ```
 
-Toleration em Pod que necessita de GPU:
+Pronto, as nossas labels estão criadas, com isso já conseguimos ter um pouco mais de organização em nosso cluster.
 
-```yaml
-tolerations:
-- key: "gpu"
-  operator: "Equal"
-  value: "true"
-  effect: "NoSchedule"
-```
-
-#### Evacuação e Manutenção de Nodes
-
-Se você precisa realizar manutenção em um Node e quer evitar que novos Pods sejam agendados nele.
-
-Aplicar Taint:
+Mas ainda não acabou o nosso trabalho, cada uma das regiões possui um node com um hardware especial, que é uma GPU. Vamos criar uma label para identificar esses nodes, mas por enquanto é somente para identificar, não vamos fazer nada com eles ainda.
 
 ```bash
-kubectl taint nodes node1 maintenance=true:NoExecute
+kubectl label nodes strigus-worker1 gpu=true
+kubectl label nodes strigus-worker4 gpu=true
 ```
 
-### Combinando Taints e Tolerations com Affinity Rules
+Pronto, por enquanto isso resolve, mas com certeza precisaremos adicionar mais labels em nossos nodes no futuro, mas por enquanto isso já resolve o nosso problema.
 
-Você pode combinar Taints e Tolerations com regras de afinidade para um controle ainda mais granular.
+Caso eu queira remover alguma Label, basta utilizar o comando `kubectl label nodes strigus-control-plane1 region-` e a label será removida.
 
-### Exemplos Práticos
+Agora vamos entender como funcionam as Taints.
 
-#### Exemplo 1: Isolamento de Workloads
 
-Vamos criar um Node com um Taint e tentar agendar um Pod sem a Toleration correspondente.
+### O que são Taints?
+
+Taints são "manchas" ou "marcações" aplicadas aos Nodes que os marcam para evitar que certos Pods sejam agendados neles. Essa é uma forma bastante comum de isolar workloads em um cluster Kubernetes, por exemplo em momentos de manutenção ou quando você tem Nodes com recursos especiais, como GPUs.
+
+Os Taints são aplicados nos Nodes e podem ter um efeito de `NoSchedule`, `PreferNoSchedule` ou `NoExecute`. O efeito `NoSchedule` faz com que o Kubernetes não agende Pods nesse Node a menos que eles tenham uma Toleration correspondente. O efeito `PreferNoSchedule` faz com que o Kubernetes tente não agendar, mas não é uma garantia. E o efeito `NoExecute` faz com que os Pods existentes sejam removidos se não tiverem uma Toleration correspondente.
+
+
+Agora vamos entender isso na prática!
+
+Em nosso primeiro exemplo vamos conhecer a Taint `NoSchedule`. Para que você possa configurar um Taint em um Node, você utiliza o comando `kubectl taint`. Por exemplo:
 
 ```bash
-# Aplicar Taint
-kubectl taint nodes dev-node environment=development:NoSchedule
-
-# Tentar agendar Pod
-kubectl run nginx --image=nginx
+kubectl taint nodes strigus-worker1 key=value:NoSchedule
 ```
 
-Observe que o Pod não será agendado até que uma Toleration seja adicionada.
+No comando acima, estamos aplicando um Taint no Node `strigus-worker` com a chave `key` e o valor `value` e com o efeito `NoSchedule`. Isso significa que o Kubernetes não irá agendar nenhum Pod nesse Node a menos que ele tenha uma Toleration correspondente, que veremos mais adiante.
 
-#### Exemplo 2: Utilizando Hardware Especializado
+Nesse exemplo estamos utilizando a chave `key` e o valor `value`, mas você pode utilizar qualquer chave e valor que desejar. Por exemplo, você pode utilizar `environment=production` para marcar um Node como sendo de produção, ou `gpu=true` para marcar um Node com uma GPU.
 
-Vamos criar um Node com uma GPU e aplicar um Taint correspondente.
+Você irá entender melhor o porquê de utilizar Taints e o porquê de utilizar chaves e valores específicos quando falarmos sobre Tolerations.
+
+Para visualizar os Taints aplicados em um Node, você pode utilizar o comando `kubectl describe node strigus-worker1`. Você verá algo como:
 
 ```bash
-# Aplicar Taint
-kubectl taint nodes gpu-node gpu=true:NoSchedule
-
-# Agendar Pod com Toleration
-kubectl apply -f gpu-pod.yaml
+Taints:             key=value:NoSchedule
 ```
 
-Onde `gpu-pod.yaml` contém a Toleration correspondente.
+Está lá conforme esperado! Agora o que precisamos fazer é testar! 
+O nosso cluster ainda não está com nenhuma aplicação em execução, somente os Pods do próprio Kubernetes, então vamos criar alguns para testar. :)
 
-#### Exemplo 3: Manutenção de Nodes
-
-Vamos simular uma manutenção, aplicando um Taint em um
-
- Node e observando como os Pods são removidos.
+Para esse teste, vamos criar um Deployment com 10 réplicas do Nginx, e vamos ver o que acontece.
 
 ```bash
-# Aplicar Taint
-kubectl taint nodes node1 maintenance=true:NoExecute
+kubectl create deployment nginx --image=nginx --replicas=10
 ```
 
-### Conclusão
-
-Taints e Tolerations são ferramentas poderosas para o controle refinado do agendamento de Pods. Com elas, você pode isolar workloads, aproveitar hardware especializado e até gerenciar manutenções de forma mais eficaz.
-
-### Tarefas do Dia
-
-1. Aplique um Taint em um dos seus Nodes e tente agendar um Pod sem a Toleration correspondente.
-2. Remova o Taint e observe o comportamento.
-3. Adicione uma Toleration ao Pod e repita o processo.
-
-# Descomplicando o Kubernetes
-## DAY-12+1: Entendendo e Dominando os Selectors
-
-## Conteúdo do Day-12+1
-
-
-
-
-
-### Introdução
-
-E aí, pessoal! No capítulo de hoje, vamos nos aprofundar em um dos recursos mais versáteis e fundamentais do Kubernetes: os Selectors. Preparados? Então #VAIIII!
-
-### O que são Selectors?
-
-Selectors são formas de selecionar recursos, como Pods, com base em suas labels. Eles são a cola que une vários componentes do Kubernetes, como Services e ReplicaSets.
-
-### Tipos de Selectors
-
-#### Equality-based Selectors
-
-Estes são os mais simples, usando operadores como `=`, `==`, e `!=`.
-
-Exemplo:
+Agora vamos verificar se os Pods foram criados e se estão em execução.
 
 ```bash
-kubectl get pods -l environment=production
+kubectl get pods -o wide
 ```
 
-#### Set-based Selectors
-
-Estes são mais complexos e usam operadores como `in`, `notin`, e `exists`.
-
-Exemplo:
+A saída será algo como:
 
 ```bash
-kubectl get pods -l 'environment in (production, qa)'
+NAME                     READY   STATUS    RESTARTS   AGE   IP           NODE              NOMINATED NODE   READINESS GATES
+nginx-77b4fdf86c-4rwb9   1/1     Running   0          12s   10.244.4.3   strigus-worker3   <none>           <none>
+nginx-77b4fdf86c-chpgb   1/1     Running   0          12s   10.244.6.2   strigus-worker2   <none>           <none>
+nginx-77b4fdf86c-dplq7   1/1     Running   0          12s   10.244.5.3   strigus-worker4   <none>           <none>
+nginx-77b4fdf86c-l5vwq   1/1     Running   0          12s   10.244.6.4   strigus-worker2   <none>           <none>
+nginx-77b4fdf86c-nwwvn   1/1     Running   0          12s   10.244.5.2   strigus-worker4   <none>           <none>
+nginx-77b4fdf86c-qz9t4   1/1     Running   0          12s   10.244.5.4   strigus-worker4   <none>           <none>
+nginx-77b4fdf86c-r4lt6   1/1     Running   0          12s   10.244.6.5   strigus-worker2   <none>           <none>
+nginx-77b4fdf86c-rmqnm   1/1     Running   0          12s   10.244.4.4   strigus-worker3   <none>           <none>
+nginx-77b4fdf86c-rsgbg   1/1     Running   0          12s   10.244.4.2   strigus-worker3   <none>           <none>
+nginx-77b4fdf86c-wnxg7   1/1     Running   0          12s   10.244.6.3   strigus-worker2   <none>           <none>
 ```
 
-### Selectors em Ação
+Perceba que não temos nenhum Pod em execução no Node `strigus-worker1`, que é o Node que aplicamos o Taint. Isso acontece porque o Kubernetes não irá agendar nenhum Pod nesse Node a menos que ele tenha uma Toleration correspondente, que veremos mais adiante.
 
-#### Em Services
-
-Services usam selectors para direcionar tráfego para Pods específicos.
-
-Exemplo:
-
-```yaml
-apiVersion: v1
-kind: Service
-metadata:
-  name: my-service
-spec:
-  selector:
-    app: MyApp
-```
-
-#### Em ReplicaSets
-
-ReplicaSets usam selectors para saber quais Pods gerenciar.
-
-Exemplo:
-
-```yaml
-apiVersion: apps/v1
-kind: ReplicaSet
-metadata:
-  name: my-replicaset
-spec:
-  selector:
-    matchLabels:
-      app: MyApp
-```
-
-#### Em Jobs e CronJobs
-
-Jobs e CronJobs também podem usar selectors para executar tarefas em Pods específicos.
-
-### Selectors e Namespaces
-
-É crucial entender que os selectors não atravessam namespaces; eles são eficazes apenas dentro do namespace atual, a menos que especificado de outra forma.
-
-### Cenários de Uso
-
-#### Roteamento de Tráfego
-
-Use selectors em Services para direcionar tráfego para versões específicas de uma aplicação.
-
-#### Scaling Horizontal
-
-Use selectors em Horizontal Pod Autoscalers para escalar apenas os Pods que atendem a critérios específicos.
-
-#### Desastre e Recuperação
-
-Em casos de failover, você pode usar selectors para direcionar tráfego para Pods em um cluster secundário.
-
-### Dicas e Armadilhas
-
-- Não mude as labels de Pods que são alvos de Services sem atualizar o selector do Service.
-- Use selectors de forma consistente para evitar confusões.
-
-### Exemplos Práticos
-
-#### Exemplo 1: Selector em um Service
-
-Vamos criar um Service que seleciona todos os Pods com a label `frontend`.
+Agora vamos remover o Taint do Node `strigus-worker1` e ver o que acontece.
 
 ```bash
-kubectl apply -f frontend-service.yaml
+kubectl taint nodes strigus-worker1 key=value:NoSchedule-
 ```
 
-#### Exemplo 2: Selector em um ReplicaSet
-
-Vamos criar um ReplicaSet que gerencia todos os Pods com a label `backend`.
+Os Pods não serão movidos automaticamente para o Node `strigus-worker1`, mas podemos usar o comando `kubectl rollout restart deployment nginx` para reiniciar o Deployment e o Kubernetes redistribuirá os Pods entre os Nodes disponíveis.
 
 ```bash
-kubectl apply -f backend-replicaset.yaml
+kubectl rollout restart deployment nginx
 ```
 
-#### Exemplo 3: Selectors Avançados
-
-Vamos fazer uma query complexa para selecionar Pods com base em múltiplas labels.
+Agora vamos verificar se os Pods foram criados e se estão em execução.
 
 ```bash
-kubectl get pods -l 'release-version in (v1, v2),environment!=debug'
+kubectl get pods -o wide
 ```
 
-### Conclusão
+A saída será algo como:
 
-Selectors são uma ferramenta poderosa e flexível no Kubernetes, permitindo um controle fino sobre como os recursos interagem. Dominar este conceito é fundamental para qualquer um que trabalhe com Kubernetes.
+```bash
+NAME                     READY   STATUS    RESTARTS   AGE   IP            NODE              NOMINATED NODE   READINESS GATES
+nginx-7c58f9889c-6qcpl   1/1     Running   0          28s   10.244.4.10   strigus-worker3   <none>           <none>
+nginx-7c58f9889c-lj7p5   1/1     Running   0          29s   10.244.3.3    strigus-worker1   <none>           <none>
+nginx-7c58f9889c-mdrj7   1/1     Running   0          29s   10.244.4.9    strigus-worker3   <none>           <none>
+nginx-7c58f9889c-nr7h9   1/1     Running   0          29s   10.244.6.9    strigus-worker2   <none>           <none>
+nginx-7c58f9889c-pqrb9   1/1     Running   0          26s   10.244.3.4    strigus-worker1   <none>           <none>
+nginx-7c58f9889c-pzx7n   1/1     Running   0          29s   10.244.5.8    strigus-worker4   <none>           <none>
+nginx-7c58f9889c-qn9hh   1/1     Running   0          28s   10.244.5.9    strigus-worker4   <none>           <none>
+nginx-7c58f9889c-wmm2n   1/1     Running   0          26s   10.244.6.11   strigus-worker2   <none>           <none>
+nginx-7c58f9889c-znrjt   1/1     Running   0          29s   10.244.3.2    strigus-worker1   <none>           <none>
+nginx-7c58f9889c-zp9g9   1/1     Running   0          28s   10.244.6.10   strigus-worker2   <none>           <none>
+```
+
+Pronto, ele redistribuiu os Pods entre os Nodes disponíveis, e voltou a executar Pods no Node `strigus-worker1`, afinal, nós removemos o Taint dele.
+
+Agora vamos testar o efeito `NoExecute`. Para isso, vamos aplicar um Taint no Node `strigus-worker1` com o efeito `NoExecute`.
+
+```bash
+kubectl taint nodes strigus-worker1 key=value:NoExecute
+```
+
+Diferente do efeito `NoSchedule`, o efeito `NoExecute` faz com que os Pods existentes sejam removidos se não tiverem uma Toleration correspondente. 
+
+Vamos ver o que aconteceu com os nossos Pods.
+
+```bash
+NAME                     READY   STATUS    RESTARTS   AGE     IP            NODE              NOMINATED NODE   READINESS GATES
+nginx-7c58f9889c-6qcpl   1/1     Running   0          2m29s   10.244.4.10   strigus-worker3   <none>           <none>
+nginx-7c58f9889c-gm6tb   1/1     Running   0          5s      10.244.4.11   strigus-worker3   <none>           <none>
+nginx-7c58f9889c-lnhmf   1/1     Running   0          5s      10.244.5.10   strigus-worker4   <none>           <none>
+nginx-7c58f9889c-mdrj7   1/1     Running   0          2m30s   10.244.4.9    strigus-worker3   <none>           <none>
+nginx-7c58f9889c-mz78w   1/1     Running   0          5s      10.244.6.12   strigus-worker2   <none>           <none>
+nginx-7c58f9889c-nr7h9   1/1     Running   0          2m30s   10.244.6.9    strigus-worker2   <none>           <none>
+nginx-7c58f9889c-pzx7n   1/1     Running   0          2m30s   10.244.5.8    strigus-worker4   <none>           <none>
+nginx-7c58f9889c-qn9hh   1/1     Running   0          2m29s   10.244.5.9    strigus-worker4   <none>           <none>
+nginx-7c58f9889c-wmm2n   1/1     Running   0          2m27s   10.244.6.11   strigus-worker2   <none>           <none>
+nginx-7c58f9889c-zp9g9   1/1     Running   0          2m29s   10.244.6.10   strigus-worker2   <none>           <none>
+```
+
+Funcionou! Os Pods que estavam executando no Node `strigus-worker1` foram removidos e agendados em outros Nodes.
+
+Nesse caso, o Kubernetes não irá agendar nenhum Pod nesse Node a menos que ele tenha uma Toleration para o Taint que aplicamos.
+
+Isso é interessante em momentos que você precisa realizar manutenção em um Node, garantindo que não teremos nenhum Pod executando nele e que nenhum Pod será agendado nesse Node.
+
+Agora vamos remover o Taint do Node `strigus-worker1` e ver o que acontece.
+
+```bash
+kubectl taint nodes strigus-worker1 key=value:NoExecute-
+```
+
+Mais uma vez vale lembrar, o Kubernetes não irá mover os Pods automaticamente para o Node `strigus-worker1`, mas podemos usar o comando `kubectl rollout restart deployment nginx` para reiniciar o Deployment e o Kubernetes redistribuirá os Pods entre os Nodes disponíveis.
+
+```bash
+kubectl rollout restart deployment nginx
+```
+
+Simples como voar!
+
+Agora vamos entender o efeito `PreferNoSchedule`. Para isso, vamos aplicar um Taint no Node `strigus-worker1` com o efeito `PreferNoSchedule`.
+
+```bash
+kubectl taint nodes strigus-worker1 key=value:PreferNoSchedule
+```
+
+Diferente do efeito `NoSchedule`, o efeito `PreferNoSchedule` faz com que o Kubernetes tente não agendar, mas não é uma garantia.
+
+Ele tentará agendar os Pods em outros Nodes, mas se não for possível, ele irá agendar no Node que tem o Taint.
+
+Os nossos Pods estão distribuidos da seguinte forma:
+
+```bash
+NAME                     READY   STATUS    RESTARTS   AGE   IP            NODE              NOMINATED NODE   READINESS GATES
+nginx-67668985bc-6h2ml   1/1     Running   0          9s    10.244.3.5    strigus-worker1   <none>           <none>
+nginx-67668985bc-dbnxr   1/1     Running   0          9s    10.244.5.11   strigus-worker4   <none>           <none>
+nginx-67668985bc-hxkt8   1/1     Running   0          9s    10.244.3.6    strigus-worker1   <none>           <none>
+nginx-67668985bc-ldwck   1/1     Running   0          9s    10.244.6.13   strigus-worker2   <none>           <none>
+nginx-67668985bc-nvcd8   1/1     Running   0          7s    10.244.3.7    strigus-worker1   <none>           <none>
+nginx-67668985bc-pwz4d   1/1     Running   0          9s    10.244.4.12   strigus-worker3   <none>           <none>
+nginx-67668985bc-v2s2b   1/1     Running   0          7s    10.244.4.13   strigus-worker3   <none>           <none>
+nginx-67668985bc-xdqjw   1/1     Running   0          7s    10.244.5.13   strigus-worker4   <none>           <none>
+nginx-67668985bc-xkdt8   1/1     Running   0          7s    10.244.5.12   strigus-worker4   <none>           <none>
+nginx-67668985bc-zdtsq   1/1     Running   0          7s    10.244.6.14   strigus-worker2   <none>           <none>
+```
+
+Temos Pods em execução no Node `strigus-worker1`, que é o Node que aplicamos o Taint, pois esses Pods já estavam em execução antes de aplicarmos o Taint.
+
+Agora vamos aumentar o número de réplicas do nosso Deployment para 20 e ver o que acontece.
+
+```bash
+kubectl scale deployment nginx --replicas=20
+```
+
+Agora vamos verificar se os Pods foram criados e se estão em execução.
+
+```bash
+kubectl get pods -o wide
+```
+
+A saída será algo como:
+
+```bash
+NAME                     READY   STATUS    RESTARTS   AGE     IP            NODE              NOMINATED NODE   READINESS GATES
+nginx-67668985bc-6h2ml   1/1     Running   0          2m24s   10.244.3.5    strigus-worker1   <none>           <none>
+nginx-67668985bc-9298b   1/1     Running   0          22s     10.244.5.17   strigus-worker4   <none>           <none>
+nginx-67668985bc-c8nck   1/1     Running   0          22s     10.244.4.17   strigus-worker3   <none>           <none>
+nginx-67668985bc-dbnxr   1/1     Running   0          2m24s   10.244.5.11   strigus-worker4   <none>           <none>
+nginx-67668985bc-fds62   1/1     Running   0          22s     10.244.6.18   strigus-worker2   <none>           <none>
+nginx-67668985bc-gtmq8   1/1     Running   0          22s     10.244.4.19   strigus-worker3   <none>           <none>
+nginx-67668985bc-hxkt8   1/1     Running   0          2m24s   10.244.3.6    strigus-worker1   <none>           <none>
+nginx-67668985bc-kbtqc   1/1     Running   0          22s     10.244.4.20   strigus-worker3   <none>           <none>
+nginx-67668985bc-ldwck   1/1     Running   0          2m24s   10.244.6.13   strigus-worker2   <none>           <none>
+nginx-67668985bc-mtsxv   1/1     Running   0          22s     10.244.6.19   strigus-worker2   <none>           <none>
+nginx-67668985bc-nvcd8   1/1     Running   0          2m22s   10.244.3.7    strigus-worker1    <none>           <none>
+nginx-67668985bc-pwz4d   1/1     Running   0          2m24s   10.244.4.12   strigus-worker3   <none>           <none>
+nginx-67668985bc-snvnt   1/1     Running   0          22s     10.244.5.16   strigus-worker4   <none>           <none>
+nginx-67668985bc-txgd4   1/1     Running   0          22s     10.244.4.18   strigus-worker3   <none>           <none>
+nginx-67668985bc-v2s2b   1/1     Running   0          2m22s   10.244.4.13   strigus-worker3   <none>           <none>
+nginx-67668985bc-w9hmj   1/1     Running   0          22s     10.244.6.20   strigus-worker2   <none>           <none>
+nginx-67668985bc-xdqjw   1/1     Running   0          2m22s   10.244.5.13   strigus-worker4   <none>           <none>
+nginx-67668985bc-xkdt8   1/1     Running   0          2m22s   10.244.5.12   strigus-worker4   <none>           <none>
+nginx-67668985bc-zdtsq   1/1     Running   0          2m22s   10.244.6.14   strigus-worker2   <none>           <none>
+nginx-67668985bc-zfglb   1/1     Running   0          22s     10.244.6.21   strigus-worker2   <none>           <none>
+```
+
+O que vemos na saída do comando é que o Kube-Scheduler agendou os Pods em outros Nodes, mantendo somente os Pods que já estavam em execução no Node `strigus-worker1`.
+
+O Kube-scheduler somente irá agendar novos pods no Node `strigus-worker1` se não houver nenhum outro Node disponível. Simples demais, não?!?
+
+
+TBD
