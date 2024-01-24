@@ -1,16 +1,18 @@
 # Descomplicando o Kubernetes
-## DAY-12: Dominando Taints e Tolerations
+## DAY-12: Descomplicando Taints, Tolerations e Affinity
 
 ## Conteúdo do Day-12
 
 - [Descomplicando o Kubernetes](#descomplicando-o-kubernetes)
-  - [DAY-12: Dominando Taints e Tolerations](#day-12-dominando-taints-e-tolerations)
+  - [DAY-12: Descomplicando Taints, Tolerations e Affinity](#day-12-descomplicando-taints-tolerations-e-affinity)
   - [Conteúdo do Day-12](#conteúdo-do-day-12)
     - [O que vamos ver no dia de hoje?](#o-que-vamos-ver-no-dia-de-hoje)
     - [O Nosso cluster de exemplo](#o-nosso-cluster-de-exemplo)
     - [O que são Taints?](#o-que-são-taints)
     - [O que são Tolerations?](#o-que-são-tolerations)
     - [O que são Affinity e Antiaffinity?](#o-que-são-affinity-e-antiaffinity)
+    - [O Antiaffinity?](#o-antiaffinity)
+    - [O que vimos no dia de hoje?](#o-que-vimos-no-dia-de-hoje)
 
 
 
@@ -513,13 +515,149 @@ nginx-5dd89c4b9b-nlcgs   1/1     Running   0          4s    10.244.5.36   strigu
 nginx-5dd89c4b9b-trgw7   1/1     Running   0          4s    10.244.3.12   strigus-worker1    <none>           <none>
 ```
 
-Isso demonstra o poder do Affinity. Podemos controlar com precisão onde nossos Pods são agendados, garantindo que workloads críticos tenham os recursos que necessitam. Sensacional demais!
+Isso demonstra o poder do Affinity. Podemos controlar com precisão onde nossos Pods serão agendados, garantindo que workloads críticos tenham os recursos que necessitam. Sensacional demais!
 
 Agora vamos entender o conceito de Antiaffinity.
 
 
-TBD
+### O Antiaffinity?
 
+O Antiaffinity é o conceito contrário ao Affinity. Com ele você pode definir regras para que Pods não sejam agendados em Nodes específicos.
 
+Vamos conhecer ele na prática!
 
+Vamos relembrar como os nossos Nodes estão distribuidos.
 
+- strigus-br-sp
+  - strigus-br-sp-1
+    - strigus-control-plane1
+    - strigus-worker3
+  - strigus-br-sp-2
+    - strigus-control-plane4
+    - strigus-worker1
+
+- strigus-br-ssa
+  - strigus-br-ssa-1
+    - strigus-control-plane2
+    - strigus-worker2
+  - strigus-br-ssa-2
+    - strigus-control-plane3
+    - strigus-worker4
+
+Ou seja, duas regiões e duas zonas de disponibilidade em cada região, certo?
+
+Cada Node está com as labels `region` e `datacenter` devidamente configuradas, representando a região e a zona de disponibilidade que ele está.
+
+Agora vamos imaginar que precisamos garantir que a nossa estará sendo distribuida entre as regiões e zonas de disponibilidade, ou seja, precisamos garantir que os nossos Pods não sejam agendados em Nodes que estejam na mesma região e na mesma zona de disponibilidade.
+
+Para isso, vamos utilizar o conceito de Antiaffinity. \o/
+
+Vamos criar um Deployment com 5 réplicas do Nginx com a seguinte configuração:
+
+```yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: nginx
+  name: nginx
+spec:
+  replicas: 5
+  selector:
+    matchLabels:
+      app: nginx
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      containers:
+      - image: nginx
+        name: nginx
+      affinity:
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+          - labelSelector:
+              matchExpressions:
+              - key: app
+                operator: In
+                values:
+                - nginx
+            topologyKey: "datacenter"
+```
+
+Vamos entender o que estamos fazendo:
+
+```yaml
+      affinity:
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+          - labelSelector:
+              matchExpressions:
+              - key: app
+                operator: In
+                values:
+                - nginx
+            topologyKey: "datacenter"
+```
+
+Onde:
+
+- `affinity` é o início da configuração de Affinity.
+- `podAntiAffinity` é o conceito de Antiaffinity para Pods.
+- `requiredDuringSchedulingIgnoredDuringExecution` é usado para indicar que o Pod só pode ser agendado em um Node que atenda aos requisitos de Antiaffinity, está falando que essa regra é obrigatória no momento do agendamento do Pod, mas que pode ser ignorada durante a execução do Pod.
+- `labelSelector` é usado para indicar os termos de seleção de Pods, que será usado para selecionar os Pods que atendem aos requisitos de Antiaffinity.
+- `matchExpressions` é usado para indicar as expressões de seleção de Pods, ou seja, o nome da label, o operador e o valor da label.
+- `key` é o nome da label que queremos utilizar para selecionar os Pods.
+- `operator` é o operador que queremos utilizar. Nesse caso, estamos utilizando o operador `In`, que significa que o valor da label precisa estar dentro dos valores que estamos informando.
+- `values` é o valor da label que queremos utilizar para selecionar os Pods.
+- `topologyKey` é usado para indicar a chave de topologia que será usada para selecionar os Pods. Nesse caso, estamos utilizando a chave `datacenter`, que é a chave que representa a zona de disponibilidade.
+
+Sendo assim, estamos falando para o Kubernetes que o nosso Pod só pode ser agendado em um Node que não tenha nenhum Pod com a label `app=nginx` na mesma zona de disponibilidade.
+
+Você já deve estar imaginando que isso irá dar errado, certo? Pois somente temos 4 datacenters, e estamos tentando agendar 5 Pods, ou seja, um Pod não será agendado.
+
+Vamos aplicar esse Deployment e ver o que acontece.
+
+```bash
+kubectl apply -f nginx-deployment.yaml
+```
+
+Se verificarmos os Pods agora, veremos que somente 4 Pods estão rodando, e um Pod não foi agendado.
+
+```bash
+kubectl get pods -o wide
+```
+
+A saída mostrará algo como:
+
+```bash
+NAME                     READY   STATUS    RESTARTS   AGE   IP            NODE              NOMINATED NODE   READINESS GATES
+nginx-58b9c8f764-7rqr7   1/1     Running   0          8s    10.244.4.32   strigus-worker3   <none>           <none>
+nginx-58b9c8f764-mfpp7   1/1     Running   0          8s    10.244.6.33   strigus-worker2   <none>           <none>
+nginx-58b9c8f764-n45p6   1/1     Running   0          8s    10.244.3.15   strigus-worker    <none>           <none>
+nginx-58b9c8f764-qwjdk   0/1     Pending   0          8s    <none>        <none>            <none>           <none>
+nginx-58b9c8f764-qzffs   1/1     Running   0          8s    10.244.5.38   strigus-worker4   <none>           <none>
+```
+
+Perceba que o Pod `nginx-58b9c8f764-qwjdk` está com o status `Pending`, pois não foi possível agendar ele em nenhum Node, pois em nossa regra nós falamos que ele não pode ser agendado em Nodes que tenham Pods com a label `app=nginx` na mesma zona de disponibilidade, ou seja, não teremos nenhum Node que atenda a essa regra.
+
+Sensacional demais, eu sei! \o/
+
+### O que vimos no dia de hoje?
+
+No conteúdo de hoje, focamos em conceitos avançados de Kubernetes, explorando Taints, Tolerations, Affinity, e Antiaffinity. Esses são elementos cruciais para o gerenciamento eficiente de um cluster Kubernetes, permitindo controle refinado sobre onde e como os Pods são agendados.
+
+**Taints e Tolerations**:
+- **Taints**: Utilizados para "manchar" Nodes, prevenindo que certos Pods sejam agendados neles, exceto se tiverem Tolerations correspondentes.
+- **Tolerations**: Permitem que Pods sejam agendados em Nodes com Taints específicos.
+
+**Affinity e Antiaffinity**:
+- **Affinity**: Permite especificar que Pods sejam agendados em Nodes específicos, baseados em labels.
+- **Antiaffinity**: Utilizado para evitar que Pods sejam agendados em Nodes específicos, ajudando na distribuição equilibrada de Pods em diferentes Nodes.
+
+Vimos como organizar e gerenciar um cluster Kubernetes considerando diferentes cenários, como manutenção de Nodes, uso de recursos especiais (GPUs), e a distribuição de Pods em diferentes regiões e datacenters para alta disponibilidade.
+
+Abordamos também como os Taints e Tolerations podem ser usados na prática, com comandos específicos para adicionar e remover Taints, e como aplicar Tolerations em Pods. Isso incluiu a configuração de Taints com diferentes efeitos como `NoSchedule`, `PreferNoSchedule`, e `NoExecute`.
+
+No contexto de Affinity e Antiaffinity, detalhamos como esses conceitos são aplicados para assegurar que Pods sejam alocados em Nodes específicos ou distribuídos entre Nodes para evitar pontos únicos de falha, demonstrando a importância desses conceitos para a confiabilidade e eficiência de um cluster Kubernetes.
