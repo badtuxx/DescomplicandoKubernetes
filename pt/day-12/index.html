@@ -380,6 +380,8 @@
 <li><a href="#o-que-vamos-ver-no-dia-de-hoje">O que vamos ver no dia de hoje?</a></li>
 <li><a href="#o-nosso-cluster-de-exemplo">O Nosso cluster de exemplo</a></li>
 <li><a href="#o-que-são-taints">O que são Taints?</a></li>
+<li><a href="#o-que-são-tolerations">O que são Tolerations?</a></li>
+<li><a href="#o-que-são-affinity-e-antiaffinity">O que são Affinity e Antiaffinity?</a></li>
 </ul>
 </li>
 </ul>
@@ -394,13 +396,13 @@
 <pre><code class="lang-bash">kubectl get nodes
 NAME                     STATUS   ROLES           AGE     VERSION
 strigus-control-plane1   Ready    control-plane   65d     v1.27.3
-strigus-control-plane2   Ready    control-plane   61d     v1.27.3
+strigus-control-plane2   Ready    control-plane   65d     v1.27.3
 strigus-control-plane3   Ready    control-plane   65d     v1.27.3
 strigus-control-plane4   Ready    control-plane   65d     v1.27.3
-strigus-worker1          Ready    &lt;none&gt;          61d     v1.27.3
-strigus-worker2          Ready    &lt;none&gt;          62d     v1.27.3
-strigus-worker3          Ready    &lt;none&gt;          61d     v1.27.3
-strigus-worker4          Ready    &lt;none&gt;          62d     v1.27.3
+strigus-worker1          Ready    &lt;none&gt;          65d     v1.27.3
+strigus-worker2          Ready    &lt;none&gt;          65d     v1.27.3
+strigus-worker3          Ready    &lt;none&gt;          65d     v1.27.3
+strigus-worker4          Ready    &lt;none&gt;          65d     v1.27.3
 </code></pre>
 <p>A nossa missão é criar as Labels e Taints necessárias para que nosso cluster fique organizado, seguro e com alta disponibilidade. E com isso, com alguns ajustes em nossos deployments, garantir que nossos Pods sejam agendados nos Nodes corretos e distribuídos entre os datacenters corretamente.</p>
 <p>A distribuição dos nossos nodes nas regiões e datacenters é a seguinte:</p>
@@ -591,6 +593,159 @@ nginx-67668985bc-zfglb   1/1     Running   0          22s     10.244.6.21   stri
 </code></pre>
 <p>O que vemos na saída do comando é que o Kube-Scheduler agendou os Pods em outros Nodes, mantendo somente os Pods que já estavam em execução no Node <code>strigus-worker1</code>.</p>
 <p>O Kube-scheduler somente irá agendar novos pods no Node <code>strigus-worker1</code> se não houver nenhum outro Node disponível. Simples demais, não?!?</p>
+<h3 id="o-que-são-tolerations">O que são Tolerations?</h3>
+<p>Agora que entendemos como os Taints funcionam e como eles influenciam o agendamento de Pods nos Nodes, vamos mergulhar no mundo das Tolerations. As Tolerations são como o &quot;antídoto&quot; para os Taints. Elas permitem que um Pod seja agendado em um Node que possui um Taint específico. Em outras palavras, elas &quot;toleram&quot; as Taints.</p>
+<p>Vamos voltar ao nosso cluster da Strigus para entender melhor como isso funciona.</p>
+<p>Imagine que temos um workload crítico que precisa ser executado em um Node com GPU. Já marcamos nossos Nodes com GPU com a label <code>gpu=true</code>, e agora vamos usar Tolerations para garantir que nosso Pod possa ser agendado nesses Nodes. Isso não faz com que o Pod seja agendado nesses Nodes, mas permite que ele seja agendado nesses Nodes. Entendeu a diferença?</p>
+<p>Primeiro, vamos criar um Taint no Node <code>strigus-worker1</code>, que possui uma GPU.</p>
+<pre><code class="lang-bash">kubectl taint nodes strigus-worker1 gpu=<span class="hljs-literal">true</span>:NoSchedule
+</code></pre>
+<p>Com esse Taint, estamos dizendo que nenhum Pod será agendado nesse Node, a menos que ele tenha uma Toleration específica para a Taint <code>gpu=true</code>.</p>
+<p>Vamos criar um Deployment com 5 réplicas do Nginx e ver o que acontece.</p>
+<pre><code class="lang-bash">kubectl create deployment nginx --image=nginx --replicas=5
+</code></pre>
+<p>Agora vamos verificar se os Pods foram criados e se estão em execução.</p>
+<pre><code class="lang-bash">NAME                     READY   STATUS    RESTARTS   AGE   IP            NODE              NOMINATED NODE   READINESS GATES
+nginx-77b4fdf86c-274jk   1/1     Running   0          5s    10.244.6.31   strigus-worker2   &lt;none&gt;           &lt;none&gt;
+nginx-77b4fdf86c-97r8d   1/1     Running   0          5s    10.244.5.25   strigus-worker4   &lt;none&gt;           &lt;none&gt;
+nginx-77b4fdf86c-cm96h   1/1     Running   0          5s    10.244.6.30   strigus-worker2   &lt;none&gt;           &lt;none&gt;
+nginx-77b4fdf86c-rhdmh   1/1     Running   0          5s    10.244.4.29   strigus-worker3   &lt;none&gt;           &lt;none&gt;
+nginx-77b4fdf86c-ttqzg   1/1     Running   0          5s    10.244.4.30   strigus-worker3   &lt;none&gt;           &lt;none&gt;
+</code></pre>
+<p>Como esperado, nenhum Pod foi agendado no Node <code>strigus-worker1</code>, que é o Node que aplicamos o Taint.</p>
+<p>Agora, vamos modificar o nosso Deployment do Nginx para que ele tenha uma Toleration para a Taint <code>gpu=true</code>.</p>
+<p>Para ficar mais fácil, vamos criar um manifesto para o nosso Deployment utilizando o comando <code>kubectl create deployment nginx --image=nginx --replicas=5 --dry-run=client -o yaml &gt; gpu-deployment.yaml</code>.</p>
+<p>Agora vamos editar o arquivo <code>gpu-deployment.yaml</code> e adicionar a Toleration para a Taint <code>gpu=true</code>.</p>
+<pre><code class="lang-yaml"><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">apps/v1</span>
+<span class="hljs-attr">kind:</span> <span class="hljs-string">Deployment</span>
+<span class="hljs-attr">metadata:</span>
+  <span class="hljs-attr">labels:</span>
+    <span class="hljs-attr">app:</span> <span class="hljs-string">nginx</span>
+  <span class="hljs-attr">name:</span> <span class="hljs-string">nginx</span>
+<span class="hljs-attr">spec:</span>
+  <span class="hljs-attr">replicas:</span> <span class="hljs-number">5</span>
+  <span class="hljs-attr">selector:</span>
+    <span class="hljs-attr">matchLabels:</span>
+      <span class="hljs-attr">app:</span> <span class="hljs-string">nginx</span>
+  <span class="hljs-attr">template:</span>
+    <span class="hljs-attr">metadata:</span>
+      <span class="hljs-attr">labels:</span>
+        <span class="hljs-attr">app:</span> <span class="hljs-string">nginx</span>
+    <span class="hljs-attr">spec:</span>
+      <span class="hljs-attr">containers:</span>
+      <span class="hljs-bullet">-</span> <span class="hljs-attr">image:</span> <span class="hljs-string">nginx</span>
+        <span class="hljs-attr">name:</span> <span class="hljs-string">nginx</span>
+      <span class="hljs-attr">tolerations:</span>
+      <span class="hljs-bullet">-</span> <span class="hljs-attr">key:</span> <span class="hljs-string">gpu</span>
+        <span class="hljs-attr">operator:</span> <span class="hljs-string">Equal</span>
+        <span class="hljs-attr">value:</span> <span class="hljs-string">&quot;true&quot;</span>
+        <span class="hljs-attr">effect:</span> <span class="hljs-string">NoSchedule</span>
+</code></pre>
+<p>Vamos entender o que adicionamos no arquivo.</p>
+<pre><code class="lang-yaml">      <span class="hljs-attr">tolerations:</span>
+      <span class="hljs-bullet">-</span> <span class="hljs-attr">key:</span> <span class="hljs-string">gpu</span>
+        <span class="hljs-attr">operator:</span> <span class="hljs-string">Equal</span>
+        <span class="hljs-attr">value:</span> <span class="hljs-string">&quot;true&quot;</span>
+        <span class="hljs-attr">effect:</span> <span class="hljs-string">NoSchedule</span>
+</code></pre>
+<p>Onde:</p>
+<ul>
+<li><code>key</code> é a chave do Taint que queremos tolerar.</li>
+<li><code>operator</code> é o operador que queremos utilizar. Nesse caso, estamos utilizando o operador <code>Equal</code>, que significa que o valor do Taint precisa ser igual ao valor da Toleration.</li>
+<li><code>value</code> é o valor do Taint que queremos tolerar.</li>
+<li><code>effect</code> é o efeito do Taint que queremos tolerar. Nesse caso, estamos utilizando o efeito <code>NoSchedule</code>, que significa que o Kubernetes não irá agendar nenhum Pod nesse Node a menos que ele tenha uma Toleration correspondente.</li>
+</ul>
+<p>Vamos aplicar esse Deployment e ver o que acontece.</p>
+<pre><code class="lang-bash">kubectl apply -f gpu-deployment.yaml
+</code></pre>
+<p>Se verificarmos os Pods agora, veremos que o nosso Pod <code>gpu-pod</code> está rodando no Node <code>strigus-worker1</code>.</p>
+<pre><code class="lang-bash">kubectl get pods -o wide
+</code></pre>
+<p>A saída mostrará algo como:</p>
+<pre><code class="lang-bash">NAME                    READY   STATUS    RESTARTS   AGE   IP            NODE              NOMINATED NODE   READINESS GATES
+nginx-7b68fffb4-czrpt   1/1     Running   0          11s   10.244.5.24   strigus-worker4   &lt;none&gt;           &lt;none&gt;
+nginx-7b68fffb4-d577x   1/1     Running   0          11s   10.244.4.28   strigus-worker3   &lt;none&gt;           &lt;none&gt;
+nginx-7b68fffb4-g2kxr   1/1     Running   0          11s   10.244.3.10   strigus-worker1    &lt;none&gt;           &lt;none&gt;
+nginx-7b68fffb4-m5kln   1/1     Running   0          11s   10.244.6.29   strigus-worker2   &lt;none&gt;           &lt;none&gt;
+nginx-7b68fffb4-n6kck   1/1     Running   0          11s   10.244.3.11   strigus-worker1    &lt;none&gt;           &lt;none&gt;
+</code></pre>
+<p>Isso demonstra o poder das Tolerations em combinação com os Taints. Podemos controlar com precisão onde nossos Pods são agendados, garantindo que workloads críticos tenham os recursos que necessitam.</p>
+<p>Para remover o Taint do Node <code>strigus-worker1</code>, basta usar o comando <code>kubectl taint nodes strigus-worker1 gpu=true:NoSchedule-</code>.</p>
+<p>Mas lembrando mais uma vez, as Tolerations não fazem com que o Pod seja agendado nesses Nodes, mas permite que ele seja agendado nesses Nodes.</p>
+<p>Então, caso você queira garantir que determinado Pod seja executado em determinado Node, você precisa utilizar o conceito de Affinity, que veremos agora.</p>
+<h3 id="o-que-são-affinity-e-antiaffinity">O que são Affinity e Antiaffinity?</h3>
+<p>Affinity e Antiaffinity são conceitos que permitem que você defina regras para o agendamento de Pods em determinados Nodes. Com eles você pode definir regras para que Pods sejam agendados em Nodes específicos, ou até mesmo para que Pods não sejam agendados em Nodes específicos.</p>
+<p>Vamos entender como isso funciona na prática.</p>
+<p>Você se lembra que adicionamos a label <code>gpu=true</code> nos Nodes que possuem GPU? Então, vamos utilizar essa label para garantir que o nosso Pod seja agendado somente neles. Para isso, vamos utilizar o conceito de Affinity.</p>
+<p>Vamos criar um Deployment com 5 réplicas do Nginx com a seguinte configuração:</p>
+<pre><code class="lang-yaml"><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">apps/v1</span>
+<span class="hljs-attr">kind:</span> <span class="hljs-string">Deployment</span>
+<span class="hljs-attr">metadata:</span>
+  <span class="hljs-attr">labels:</span>
+    <span class="hljs-attr">app:</span> <span class="hljs-string">nginx</span>
+  <span class="hljs-attr">name:</span> <span class="hljs-string">nginx</span>
+<span class="hljs-attr">spec:</span>
+  <span class="hljs-attr">replicas:</span> <span class="hljs-number">5</span>
+  <span class="hljs-attr">selector:</span>
+    <span class="hljs-attr">matchLabels:</span>
+      <span class="hljs-attr">app:</span> <span class="hljs-string">nginx</span>
+  <span class="hljs-attr">template:</span>
+    <span class="hljs-attr">metadata:</span>
+      <span class="hljs-attr">labels:</span>
+        <span class="hljs-attr">app:</span> <span class="hljs-string">nginx</span>
+    <span class="hljs-attr">spec:</span>
+      <span class="hljs-attr">containers:</span>
+      <span class="hljs-bullet">-</span> <span class="hljs-attr">image:</span> <span class="hljs-string">nginx</span>
+        <span class="hljs-attr">name:</span> <span class="hljs-string">nginx</span>
+      <span class="hljs-attr">affinity:</span>
+        <span class="hljs-attr">nodeAffinity:</span>
+          <span class="hljs-attr">requiredDuringSchedulingIgnoredDuringExecution:</span>
+            <span class="hljs-attr">nodeSelectorTerms:</span>
+            <span class="hljs-bullet">-</span> <span class="hljs-attr">matchExpressions:</span>
+              <span class="hljs-bullet">-</span> <span class="hljs-attr">key:</span> <span class="hljs-string">gpu</span>
+                <span class="hljs-attr">operator:</span> <span class="hljs-string">In</span>
+                <span class="hljs-attr">values:</span>
+                <span class="hljs-bullet">-</span> <span class="hljs-string">&quot;true&quot;</span>
+</code></pre>
+<p>Vamos entender o que temos de novo:</p>
+<pre><code class="lang-yaml">      <span class="hljs-attr">affinity:</span>
+        <span class="hljs-attr">nodeAffinity:</span>
+          <span class="hljs-attr">requiredDuringSchedulingIgnoredDuringExecution:</span>
+            <span class="hljs-attr">nodeSelectorTerms:</span>
+            <span class="hljs-bullet">-</span> <span class="hljs-attr">matchExpressions:</span>
+              <span class="hljs-bullet">-</span> <span class="hljs-attr">key:</span> <span class="hljs-string">gpu</span>
+                <span class="hljs-attr">operator:</span> <span class="hljs-string">In</span>
+                <span class="hljs-attr">values:</span>
+                <span class="hljs-bullet">-</span> <span class="hljs-string">&quot;true&quot;</span>
+</code></pre>
+<p>Onde:</p>
+<ul>
+<li><code>affinity</code> é o início da configuração de Affinity.</li>
+<li><code>nodeAffinity</code> é o conceito de Affinity para Nodes.</li>
+<li><code>requiredDuringSchedulingIgnoredDuringExecution</code> é usado para indicar que o Pod só pode ser agendado em um Node que atenda aos requisitos de Affinity, está falando que essa regra é obrigatória no momento do agendamento do Pod, mas que pode ser ignorada durante a execução do Pod.</li>
+<li><code>nodeSelectorTerms</code> é usado para indicar os termos de seleção de Nodes, que será usado para selecionar os Nodes que atendem aos requisitos de Affinity.</li>
+<li><code>matchExpressions</code> é usado para indicar as expressões de seleção de Nodes, ou seja, o nome da label, o operador e o valor da label.</li>
+<li><code>key</code> é o nome da label que queremos utilizar para selecionar os Nodes.</li>
+<li><code>operator</code> é o operador que queremos utilizar. Nesse caso, estamos utilizando o operador <code>In</code>, que significa que o valor da label precisa estar dentro dos valores que estamos informando.</li>
+<li><code>values</code> é o valor da label que queremos utilizar para selecionar os Nodes.</li>
+</ul>
+<p>Sendo assim, estamos falando para o Kubernetes que o nosso Pod só pode ser agendado em um Node que tenha a label <code>gpu=true</code>. Simples assim!</p>
+<p>Vamos aplicar esse Deployment e ver o que acontece.</p>
+<pre><code class="lang-bash">kubectl apply -f gpu-deployment.yaml
+</code></pre>
+<p>Se verificarmos os Pods agora, veremos que os nossos Pods estão rodando somente nos Nodes que possuem a label <code>gpu=true</code>.</p>
+<pre><code class="lang-bash">kubectl get pods -o wide
+</code></pre>
+<p>A saída mostrará algo como:</p>
+<pre><code class="lang-bash">NAME                     READY   STATUS    RESTARTS   AGE   IP            NODE              NOMINATED NODE   READINESS GATES
+nginx-5dd89c4b9b-hwzcx   1/1     Running   0          4s    10.244.3.13   strigus-worker1    &lt;none&gt;           &lt;none&gt;
+nginx-5dd89c4b9b-m4fj2   1/1     Running   0          4s    10.244.5.37   strigus-worker4   &lt;none&gt;           &lt;none&gt;
+nginx-5dd89c4b9b-msnv8   1/1     Running   0          4s    10.244.3.14   strigus-worker1    &lt;none&gt;           &lt;none&gt;
+nginx-5dd89c4b9b-nlcgs   1/1     Running   0          4s    10.244.5.36   strigus-worker4   &lt;none&gt;           &lt;none&gt;
+nginx-5dd89c4b9b-trgw7   1/1     Running   0          4s    10.244.3.12   strigus-worker1    &lt;none&gt;           &lt;none&gt;
+</code></pre>
+<p>Isso demonstra o poder do Affinity. Podemos controlar com precisão onde nossos Pods são agendados, garantindo que workloads críticos tenham os recursos que necessitam. Sensacional demais!</p>
+<p>Agora vamos entender o conceito de Antiaffinity.</p>
 <p>TBD</p>
 
                                 
@@ -635,7 +790,7 @@ nginx-67668985bc-zfglb   1/1     Running   0          22s     10.244.6.21   stri
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Descomplicando Kubernetes dia 12","level":"2.12","depth":1,"next":{"title":"Descomplicando Kubernetes dia 13","level":"2.13","depth":1,"path":"day-13/README.md","ref":"day-13/README.md","articles":[]},"previous":{"title":"Descomplicando Kubernetes dia 11","level":"2.11","depth":1,"path":"day-11/README.md","ref":"day-11/README.md","articles":[]},"dir":"ltr"},"config":{"plugins":[],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"language":"pt","gitbook":"*"},"file":{"path":"day-12/README.md","mtime":"2024-01-24T12:19:27.678Z","type":"markdown"},"gitbook":{"version":"3.6.20","time":"2024-01-24T12:19:41.174Z"},"basePath":"..","book":{"language":"pt"}});
+            gitbook.page.hasChanged({"page":{"title":"Descomplicando Kubernetes dia 12","level":"2.12","depth":1,"next":{"title":"Descomplicando Kubernetes dia 13","level":"2.13","depth":1,"path":"day-13/README.md","ref":"day-13/README.md","articles":[]},"previous":{"title":"Descomplicando Kubernetes dia 11","level":"2.11","depth":1,"path":"day-11/README.md","ref":"day-11/README.md","articles":[]},"dir":"ltr"},"config":{"plugins":[],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"language":"pt","gitbook":"*"},"file":{"path":"day-12/README.md","mtime":"2024-01-24T13:16:18.557Z","type":"markdown"},"gitbook":{"version":"3.6.20","time":"2024-01-24T13:16:28.045Z"},"basePath":"..","book":{"language":"pt"}});
         });
     </script>
 </div>
