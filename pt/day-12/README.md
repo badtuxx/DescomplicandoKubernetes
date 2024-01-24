@@ -12,7 +12,7 @@
     - [O que são Tolerations?](#o-que-são-tolerations)
     - [O que são Affinity e Antiaffinity?](#o-que-são-affinity-e-antiaffinity)
     - [O Antiaffinity?](#o-antiaffinity)
-    - [O que vimos no dia de hoje?](#o-que-vimos-no-dia-de-hoje)
+    - [Final do Day-12](#final-do-day-12)
 
 
 
@@ -217,7 +217,7 @@ nginx-7c58f9889c-wmm2n   1/1     Running   0          2m27s   10.244.6.11   stri
 nginx-7c58f9889c-zp9g9   1/1     Running   0          2m29s   10.244.6.10   strigus-worker2   <none>           <none>
 ```
 
-Funcionou! Os Pods que estavam executando no Node `strigus-worker1` foram removidos e agendados em outros Nodes.
+Funcionou! Os Pods que estavam sendo executados no Node `strigus-worker1` foram removidos e agendados em outros Nodes.
 
 Nesse caso, o Kubernetes não irá agendar nenhum Pod nesse Node a menos que ele tenha uma Toleration para o Taint que aplicamos.
 
@@ -644,7 +644,7 @@ Perceba que o Pod `nginx-58b9c8f764-qwjdk` está com o status `Pending`, pois n�
 
 Sensacional demais, eu sei! \o/
 
-### O que vimos no dia de hoje?
+### Final do Day-12
 
 No conteúdo de hoje, focamos em conceitos avançados de Kubernetes, explorando Taints, Tolerations, Affinity, e Antiaffinity. Esses são elementos cruciais para o gerenciamento eficiente de um cluster Kubernetes, permitindo controle refinado sobre onde e como os Pods são agendados.
 
