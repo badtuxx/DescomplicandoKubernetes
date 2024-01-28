@@ -56,7 +56,7 @@
     <link rel="shortcut icon" href="../../gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="../day-14/README.md" />
+    <link rel="next" href="../day-14/" />
     
     
     <link rel="prev" href="../day-12/" />
@@ -279,9 +279,9 @@
             
         </li>
     
-        <li class="chapter " data-level="2.14" data-path="../day-14/README.md">
+        <li class="chapter " data-level="2.14" data-path="../day-14/">
             
-                <span>
+                <a href="../day-14/">
             
                     
                     Descomplicando Kubernetes dia 14
@@ -448,7 +448,6 @@
 </li>
 </ol>
 <p>Ao final deste e-book, você terá uma compreensão abrangente do Kyverno e estará equipado com o conhecimento e as habilidades para implementá-lo efetivamente em seus próprios clusters Kubernetes. Este e-book é projetado tanto para iniciantes quanto para profissionais experientes, proporcionando informações valiosas e práticas para todos os níveis de expertise.</p>
-<hr>
 <h2 id="inicio-do-day-13">Inicio do Day-13</h2>
 <h3 id="introdução-ao-kyverno">Introdução ao Kyverno</h3>
 <p>Kyverno é uma ferramenta de gerenciamento de políticas para Kubernetes, focada na automação de várias tarefas relacionadas à segurança e configuração dos clusters de Kubernetes. Ele permite que você defina, gerencie e aplique políticas de forma declarativa para garantir que os clusters e suas cargas de trabalho estejam em conformidade com as regras e normas definidas.</p>
@@ -461,7 +460,6 @@
 <li><p><strong>Geração de Recursos:</strong> Cria recursos adicionais do Kubernetes com base nas políticas definidas. Por exemplo, pode gerar NetworkPolicies para cada novo Namespace criado.</p>
 </li>
 </ol>
-<hr>
 <h3 id="instalando-o-kyverno">Instalando o Kyverno</h3>
 <p>A instalação do Kyverno em um cluster Kubernetes pode ser feita de várias maneiras, incluindo a utilização de um gerenciador de pacotes como o Helm, ou diretamente através de arquivos YAML. Aqui estão os passos básicos para instalar o Kyverno:</p>
 <h4 id="utilizando-helm">Utilizando Helm</h4>
@@ -493,7 +491,6 @@ helm repo update
 </li>
 </ul>
 <p>Lembrando que é sempre importante consultar a documentação oficial para obter as instruções mais atualizadas e detalhadas, especialmente se estiver trabalhando com uma configuração específica ou uma versão mais recente do Kyverno ou do Kubernetes.</p>
-<hr>
 <h3 id="criando-a-nossa-primeira-policy">Criando a nossa primeira Policy</h3>
 <p>Kyverno permite que você defina, gerencie e aplique políticas de forma declarativa para garantir que os clusters e suas cargas de trabalho estejam em conformidade com as regras e normas definidas.</p>
 <p>As políticas, ou as policies em inglês, do Kyverno podem ser aplicadas de duas maneiras principais: a nível de cluster (<code>ClusterPolicy</code>) ou a nível de namespace específico (<code>Policy</code>).</p>
@@ -504,7 +501,6 @@ helm repo update
 </li>
 </ol>
 <p>Se você não especificar nenhum namespace na política ou usar <code>ClusterPolicy</code>, o Kyverno assumirá que a política deve ser aplicada globalmente, ou seja, em todos os namespaces.</p>
-<hr>
 <p><strong>Exemplo de Políticas do Kyverno:</strong></p>
 <ol>
 <li><strong>Política de Limites de Recursos:</strong> Garantir que todos os containers em um Pod tenham limites de CPU e memória definidos. Isso pode ser importante para evitar o uso excessivo de recursos em um cluster compartilhado.</li>
@@ -549,11 +545,9 @@ spec:
 </code></pre>
 <pre><code class="lang-bash">kubectl apply -f pod.yaml
 </code></pre>
-<hr>
 <h3 id="mais-exemplos-de-policies">Mais exemplos de Policies</h3>
 <p>Continuando com a explicação e exemplos de políticas do Kyverno para gerenciamento de clusters Kubernetes:</p>
 <p>Entendi, vou formatar o texto para que esteja pronto para ser copiado para o Google Docs:</p>
-<hr>
 <h4 id="exemplo-de-política-adicionar-label-ao-namespace">Exemplo de Política: Adicionar Label ao Namespace</h4>
 <p>A política <code>add-label-namespace</code> é projetada para automatizar a adição de um label específico a todos os Namespaces em um cluster Kubernetes. Esta abordagem é essencial para a organização, monitoramento e controle de acesso em ambientes complexos.</p>
 <h5 id="detalhes-da-política">Detalhes da Política</h5>
@@ -578,7 +572,6 @@ spec:
 </code></pre>
 <h5 id="utilização-da-política">Utilização da Política</h5>
 <p>Esta política garante que cada Namespace no cluster seja automaticamente etiquetado com <code>Jeferson: &quot;Lindo_Demais&quot;</code>. Isso é particularmente útil para garantir a conformidade e a uniformidade na atribuição de labels, facilitando operações como filtragem e busca de Namespaces com base em critérios específicos.</p>
-<hr>
 <h4 id="exemplo-de-política-proibir-usuário-root">Exemplo de Política: Proibir Usuário Root</h4>
 <p>A política <code>disallow-root-user</code> é uma regra de segurança crítica no gerenciamento de clusters Kubernetes. Ela proíbe a execução de containers como usuário root dentro de Pods. Este controle ajuda a prevenir possíveis vulnerabilidades de segurança e a reforçar as melhores práticas no ambiente de contêineres.</p>
 <h5 id="detalhes-da-política">Detalhes da Política</h5>
@@ -606,7 +599,6 @@ spec:
 </code></pre>
 <h5 id="implementação-e-efeito">Implementação e Efeito</h5>
 <p>Ao aplicar esta política, todos os Pods que tentarem executar containers como usuário root serão impedidos, com a exibição de uma mensagem de erro indicando que a execução como root não é permitida. Isso assegura uma camada adicional de segurança no ambiente Kubernetes, evitando práticas que possam comprometer a integridade e a segurança do cluster.</p>
-<hr>
 <h4 id="exemplo-de-política-gerar-configmap-para-namespace">Exemplo de Política: Gerar ConfigMap para Namespace</h4>
 <p>A política <code>generate-configmap-for-namespace</code> é uma estratégia prática no gerenciamento de Kubernetes para automatizar a criação de ConfigMaps em Namespaces. Esta política simplifica a configuração e a gestão de múltiplos ambientes dentro de um cluster.</p>
 <h5 id="detalhes-da-política">Detalhes da Política</h5>
@@ -634,7 +626,6 @@ spec:
 </code></pre>
 <h5 id="implementação-e-utilidade">Implementação e Utilidade</h5>
 <p>A aplicação desta política resulta na criação automática de um ConfigMap padrão em cada Namespace novo, proporcionando uma forma rápida e eficiente de distribuir configurações comuns e informações essenciais. Isso é particularmente útil em cenários onde a consistência e a automatização de configurações são cruciais.</p>
-<hr>
 <h4 id="exemplo-de-política-permitir-apenas-repositórios-confiáveis">Exemplo de Política: Permitir Apenas Repositórios Confiáveis</h4>
 <p>A política <code>ensure-images-from-trusted-repo</code> é essencial para a segurança dos clusters Kubernetes, garantindo que todos os Pods utilizem imagens provenientes apenas de repositórios confiáveis. Esta política ajuda a prevenir a execução de imagens não verificadas ou potencialmente mal-intencionadas.</p>
 <h5 id="detalhes-da-política">Detalhes da Política</h5>
@@ -662,7 +653,6 @@ spec:
 </code></pre>
 <h5 id="implementação-e-impacto">Implementação e Impacto</h5>
 <p>Com a implementação desta política, qualquer tentativa de implantar um Pod com uma imagem de um repositório não confiável será bloqueada. A política assegura que apenas imagens de fontes aprovadas sejam usadas, fortalecendo a segurança do cluster contra vulnerabilidades e ataques externos.</p>
-<hr>
 <h5 id="exemplo-de-política-require-probes">Exemplo de Política: Require Probes</h5>
 <p>A política <code>require-readinessprobe</code> desempenha um papel crucial no gerenciamento de tráfego e na garantia da disponibilidade de serviços em um cluster Kubernetes. Ela exige que todos os Pods tenham uma sonda de prontidão (readiness probe) configurada, assegurando que o tráfego seja direcionado para os Pods apenas quando estiverem prontos para processar solicitações.</p>
 <h5 id="detalhes-da-política">Detalhes da Política</h5>
@@ -692,7 +682,6 @@ spec:
 </code></pre>
 <h5 id="implementação-e-impacto">Implementação e Impacto</h5>
 <p>Com a aplicação desta política, todos os novos Pods ou Pods atualizados devem incluir uma configuração de sonda de prontidão, que normalmente envolve a especificação de um caminho e porta para checagem HTTP. Isso assegura que o serviço só receba tráfego quando estiver totalmente operacional, melhorando a confiabilidade e a experiência do usuário.</p>
-<hr>
 <h4 id="exemplo-de-política-usando-o-exclude">Exemplo de Política: Usando o Exclude</h4>
 <p>A política <code>require-resources-limits</code> é uma abordagem proativa para gerenciar a utilização de recursos em um cluster Kubernetes. Ela garante que todos os Pods tenham limites de recursos definidos, como CPU e memória, mas com uma exceção específica para um namespace.</p>
 <h5 id="detalhes-da-política">Detalhes da Política</h5>
@@ -727,7 +716,6 @@ spec:
 </code></pre>
 <h5 id="implementação-e-efeitos">Implementação e Efeitos</h5>
 <p>Ao aplicar esta política, todos os Pods novos ou atualizados precisam ter limites de recursos claramente definidos, exceto aqueles no namespace <code>giropops</code>. Isso assegura uma melhor gestão de recursos e evita situações onde alguns Pods possam monopolizar recursos em detrimento de outros.</p>
-<hr>
 <h3 id="conclusão">Conclusão</h3>
 <p>Ao longo deste artigo, exploramos as capacidades e funcionalidades do Kyverno, uma ferramenta inovadora e essencial para o gerenciamento de políticas em clusters Kubernetes. Compreendemos como o Kyverno simplifica e automatiza tarefas críticas relacionadas à segurança, conformidade e configuração, tornando-se um componente indispensável na administração de ambientes Kubernetes.</p>
 <h4 id="pontos-chave-aprendidos">Pontos-Chave Aprendidos</h4>
@@ -779,7 +767,7 @@ spec:
                 </a>
                 
                 
-                <a href="../day-14/README.md" class="navigation navigation-next " aria-label="Next page: Descomplicando Kubernetes dia 14">
+                <a href="../day-14/" class="navigation navigation-next " aria-label="Next page: Descomplicando Kubernetes dia 14">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -790,7 +778,7 @@ spec:
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Descomplicando Kubernetes dia 13","level":"2.13","depth":1,"next":{"title":"Descomplicando Kubernetes dia 14","level":"2.14","depth":1,"path":"day-14/README.md","ref":"day-14/README.md","articles":[]},"previous":{"title":"Descomplicando Kubernetes dia 12","level":"2.12","depth":1,"path":"day-12/README.md","ref":"day-12/README.md","articles":[]},"dir":"ltr"},"config":{"plugins":[],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"language":"pt","gitbook":"*"},"file":{"path":"day-13/README.md","mtime":"2024-01-24T13:57:05.518Z","type":"markdown"},"gitbook":{"version":"3.6.20","time":"2024-01-24T13:57:20.079Z"},"basePath":"..","book":{"language":"pt"}});
+            gitbook.page.hasChanged({"page":{"title":"Descomplicando Kubernetes dia 13","level":"2.13","depth":1,"next":{"title":"Descomplicando Kubernetes dia 14","level":"2.14","depth":1,"path":"day-14/README.md","ref":"day-14/README.md","articles":[]},"previous":{"title":"Descomplicando Kubernetes dia 12","level":"2.12","depth":1,"path":"day-12/README.md","ref":"day-12/README.md","articles":[]},"dir":"ltr"},"config":{"plugins":[],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"language":"pt","gitbook":"*"},"file":{"path":"day-13/README.md","mtime":"2024-01-28T18:05:57.826Z","type":"markdown"},"gitbook":{"version":"3.6.20","time":"2024-01-28T18:06:05.591Z"},"basePath":"..","book":{"language":"pt"}});
         });
     </script>
 </div>

@@ -1,0 +1,1259 @@
+
+<!DOCTYPE HTML>
+<html lang="pt" >
+    <head>
+        <meta charset="UTF-8">
+        <title>Descomplicando Kubernetes dia 14 · HonKit</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="HonKit 3.6.20">
+        
+        
+        
+    
+    <link rel="stylesheet" href="../../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="../day-15/README.md" />
+    
+    
+    <link rel="prev" href="../day-13/" />
+    
+
+    </head>
+    <body>
+        
+<div class="book honkit-cloak">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="Escreva para pesquisar" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        <li class="header">Sobre</li>
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../">
+            
+                <a href="../">
+            
+                    
+                    Introdução
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="header">Capítulos</li>
+        
+        
+    
+        <li class="chapter " data-level="2.1" data-path="../day-1/">
+            
+                <a href="../day-1/">
+            
+                    
+                    Descomplicando Kubernetes dia 1
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.2" data-path="../day-2/">
+            
+                <a href="../day-2/">
+            
+                    
+                    Descomplicando Kubernetes dia 2
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.3" data-path="../day-3/">
+            
+                <a href="../day-3/">
+            
+                    
+                    Descomplicando Kubernetes dia 3
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.4" data-path="../day-4/">
+            
+                <a href="../day-4/">
+            
+                    
+                    Descomplicando Kubernetes dia 4
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.5" data-path="../day-5/">
+            
+                <a href="../day-5/">
+            
+                    
+                    Descomplicando Kubernetes dia 5
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.6" data-path="../day-6/">
+            
+                <a href="../day-6/">
+            
+                    
+                    Descomplicando Kubernetes dia 6
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.7" data-path="../day-7/">
+            
+                <a href="../day-7/">
+            
+                    
+                    Descomplicando Kubernetes dia 7
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.8" data-path="../day-8/">
+            
+                <a href="../day-8/">
+            
+                    
+                    Descomplicando Kubernetes dia 8
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.9" data-path="../day-9/">
+            
+                <a href="../day-9/">
+            
+                    
+                    Descomplicando Kubernetes dia 9
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.10" data-path="../day-10/">
+            
+                <a href="../day-10/">
+            
+                    
+                    Descomplicando Kubernetes dia 10
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.11" data-path="../day-11/">
+            
+                <a href="../day-11/">
+            
+                    
+                    Descomplicando Kubernetes dia 11
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.12" data-path="../day-12/">
+            
+                <a href="../day-12/">
+            
+                    
+                    Descomplicando Kubernetes dia 12
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.13" data-path="../day-13/">
+            
+                <a href="../day-13/">
+            
+                    
+                    Descomplicando Kubernetes dia 13
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="2.14" data-path="./">
+            
+                <a href="./">
+            
+                    
+                    Descomplicando Kubernetes dia 14
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.15" data-path="../day-15/README.md">
+            
+                <span>
+            
+                    
+                    Descomplicando Kubernetes dia 15
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="header">Contribuir</li>
+        
+        
+    
+        <li class="chapter " data-level="3.1" data-path="../CONTRIBUTING.html">
+            
+                <a href="../CONTRIBUTING.html">
+            
+                    
+                    Como ajudar
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://github.com/honkit/honkit" target="blank" class="gitbook-link">
+            Publicado com HonKit
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href=".." >Descomplicando Kubernetes dia 14</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h1 id="descomplicando-o-kubernetes">Descomplicando o Kubernetes</h1>
+<h2 id="day-14-descomplicando-network-policies-no-kubernetes">DAY-14: Descomplicando Network Policies no Kubernetes</h2>
+<h2 id="conteúdo-do-day-14">Conteúdo do Day-14</h2>
+<ul>
+<li><a href="#descomplicando-o-kubernetes">Descomplicando o Kubernetes</a><ul>
+<li><a href="#day-14-descomplicando-network-policies-no-kubernetes">DAY-14: Descomplicando Network Policies no Kubernetes</a></li>
+<li><a href="#conteúdo-do-day-14">Conteúdo do Day-14</a></li>
+<li><a href="#o-que-iremos-ver-hoje">O que iremos ver hoje?</a><ul>
+<li><a href="#o-que-são-network-policies">O que são Network Policies?</a><ul>
+<li><a href="#para-que-servem-as-network-policies">Para que Servem as Network Policies?</a></li>
+<li><a href="#conceitos-fundamentais-ingress-e-egress">Conceitos Fundamentais: Ingress e Egress</a></li>
+<li><a href="#como-funcionam-as-network-policies">Como Funcionam as Network Policies?</a></li>
+<li><a href="#ainda-não-é-padrão">Ainda não é padrão</a></li>
+<li><a href="#criando-um-cluster-eks-com-network-policies">Criando um Cluster EKS com Network Policies</a><ul>
+<li><a href="#instalando-o-eksctl">Instalando o EKSCTL</a></li>
+<li><a href="#instalando-o-aws-cli">Instalando o AWS CLI</a></li>
+<li><a href="#criando-o-cluster-eks">Criando o Cluster EKS</a></li>
+<li><a href="#instalando-o-aws-vpc-cni-plugin">Instalando o AWS VPC CNI Plugin</a></li>
+<li><a href="#habilitando-o-network-policy-nas-configurações-avançadas-do-cni">Habilitando o Network Policy nas Configurações Avançadas do CNI</a></li>
+</ul>
+</li>
+<li><a href="#instalando-o-nginx-ingress-controller">Instalando o Nginx Ingress Controller</a></li>
+</ul>
+</li>
+<li><a href="#instalando-um-nginx-ingress-controller">Instalando um Nginx Ingress Controller</a><ul>
+<li><a href="#nossa-aplicação-de-exemplo">Nossa Aplicação de Exemplo</a></li>
+<li><a href="#permitindo-tráfego-dentro-do-mesmo-namespace">Permitindo Tráfego Dentro do Mesmo Namespace</a></li>
+<li><a href="#egress">Egress</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="o-que-iremos-ver-hoje">O que iremos ver hoje?</h2>
+<p>Hoje vamos dedicar o nosso tempo para entender o mundo das Network Policies no Kubernetes. Essa é uma ferramenta essencial para a segurança e o gerenciamento eficaz da comunicação entre os Pods em um cluster Kubernetes. Vamos aprender como as Network Policies funcionam, suas aplicações práticas e como você pode implementá-las para proteger suas aplicações no Kubernetes.
+Com certeza será um dia com muito conteúdo e aprendizado. Bora lá?</p>
+<h3 id="o-que-são-network-policies">O que são Network Policies?</h3>
+<p>No Kubernetes, uma Network Policy é um conjunto de regras que definem como os Pods podem se comunicar entre si e com outros endpoints de rede. Por padrão, os Pods em um cluster Kubernetes podem se comunicar livremente entre si, o que pode não ser ideal para todos os cenários. As Network Policies permitem que você restrinja esse acesso, garantindo que apenas o tráfego permitido possa fluir entre os Pods ou para/endereços IP externos.</p>
+<h4 id="para-que-servem-as-network-policies">Para que Servem as Network Policies?</h4>
+<p>Network Policies são usadas para:</p>
+<ul>
+<li><strong>Isolar</strong> Pods de tráfego não autorizado.</li>
+<li><strong>Controlar</strong> o acesso à serviços específicos.</li>
+<li><strong>Implementar</strong> padrões de segurança e conformidade.</li>
+</ul>
+<h4 id="conceitos-fundamentais-ingress-e-egress">Conceitos Fundamentais: Ingress e Egress</h4>
+<ul>
+<li><strong>Ingress</strong>: Regras de ingresso controlam o tráfego de entrada para um Pod.</li>
+<li><strong>Egress</strong>: Regras de saída controlam o tráfego de saída de um Pod.</li>
+</ul>
+<p>Ter o entendimento desses conceitos é fundamental para entender como as Network Policies funcionam, pois você precisará especificar se uma regra se aplica ao tráfego de entrada ou de saída.</p>
+<h4 id="como-funcionam-as-network-policies">Como Funcionam as Network Policies?</h4>
+<p>Network Policies utilizam <code>SELECTORS</code> para identificar grupos de Pods e definir regras de tráfego para eles. A política pode especificar:</p>
+<ul>
+<li><strong>Ingress (entrada)</strong>: quais Pods ou endereços IP podem se conectar a Pods selecionados.</li>
+<li><strong>Egress (saída)</strong>: para quais Pods ou endereços IP os Pods selecionados podem se conectar.</li>
+</ul>
+<h4 id="ainda-não-é-padrão">Ainda não é padrão</h4>
+<p>Infelizmente, as Network Policies ainda não são um recurso padrão em todos os clusters Kubernetes. Recentemente a AWS anunciou o suporte a Network Policies no EKS, mas ainda não é um recurso padrão, para que você possa utilizar as Network Policies no EKS, você precisa instalar o CNI da AWS e depois habilitar o Network Policy nas configurações avançadas do CNI.</p>
+<p>Para verificar se o seu cluster suporta Network Policies, você pode executar o seguinte comando:</p>
+<pre><code class="lang-bash">kubectl api-versions | grep networking
+</code></pre>
+<p>Se você receber a mensagem <code>networking.k8s.io/v1</code>, significa que o seu cluster suporta Network Policies. Se você receber a mensagem <code>networking.k8s.io/v1beta1</code>, significa que o seu cluster não suporta Network Policies.</p>
+<p>Se o seu cluster não suportar Network Policies, você pode utilizar o Calico para implementar as Network Policies no seu cluster. Para isso, você precisa instalar o Calico no seu cluster. Você pode encontrar mais informações sobre o Calico <a href="https://docs.projectcalico.org/getting-started/kubernetes/" target="_blank">aqui</a>.</p>
+<p>Outros CNI que suportam Network Policies são o Weave Net e o Cilium, por exemplo.</p>
+<h4 id="criando-um-cluster-eks-com-network-policies">Criando um Cluster EKS com Network Policies</h4>
+<p>Eu acredito que nessa altura do treinamento, você já saiba o que é um cluster EKS, certo?</p>
+<p>Mas mesmo assim, eu vou fazer um pequena apresentação somente para resfrescar a sua memória ou então ajudar quem está chegando agora por aqui. hahaha</p>
+<p>O EKS é o Kubernetes gerenciado pela AWS, mas o que isso significa?</p>
+<p>Quando falamos sobre clusters Kubernetes gerenciados, estamos falando que que não precisaremos nos preocupar com a instalação e configuração do Kubernetes, pois isso será feito pela AWS. Nós precisaremos apenas criar o nosso cluster e gerenciar as nossas aplicações.</p>
+<p>Como você já sabe, nós temos dois tipos de Nodes, os Nodes do Control Plane e os Nodes Workers. No EKS, os Nodes do Control Plane são gerenciados pela AWS, ou seja, não precisaremos nos preocupar com eles. Já os Workers, nós precisaremos criar e gerenciar, pelo menos na maioria dos casos.</p>
+<p>Antes de começar, vamos entender os três tipos de cluster EKS que podemos ter:</p>
+<ul>
+<li><strong>Managed Node Groups</strong>: Nesse tipo de cluster, os Nodes Workers são gerenciados pela AWS, ou seja, não precisaremos nos preocupar com eles. A AWS irá criar e gerenciar os Nodes Workers para nós. Esse tipo de cluster é ideal para quem não quer se preocupar com a administração dos Nodes Workers.</li>
+<li><strong>Self-Managed Node Groups</strong>: Nesse tipo de cluster, os Nodes Workers são gerenciados por nós, ou seja, precisaremos criar e gerenciar os Nodes Workers. Esse tipo de cluster é ideal para quem quer ter o controle total sobre os Nodes Workers.</li>
+<li><strong>Fargate</strong>: Nesse tipo de cluster, os Nodes Workers são gerenciados pela AWS, mas não precisaremos nos preocupar com eles, pois a AWS irá criar e gerenciar os Nodes Workers para nós. Esse tipo de cluster é ideal para quem não quer se preocupar com a administração dos Nodes Workers, mas também não quer se preocupar com a criação e gerenciamento dos Nodes Workers.</li>
+</ul>
+<p>Evidentemente, cada tipo tem os seus prós e contras, e você precisa analisar o seu cenário para escolher o tipo de cluster que melhor se encaixa nas suas necessidades.</p>
+<p>Na maioria dos casos de ambientes produtivos, iremos optar pelo tipo Self-Managed Node Groups, pois assim teremos o controle total sobre os Nodes Workers, podendo customiza-lo e gerencia-lo da forma que acharmos melhor. Agora, se você não quer se preocupar com a administração dos Nodes Workers, você pode optar pelo tipo Managed Node Groups ou Fargate.</p>
+<p>Quando optamos pelo Fargate, temos que levar em consideração que não teremos acesso aos Nodes Workers, pois eles são gerenciados pela AWS. Isso significa menos liberdade e recursos, mas também significa menos preocupação e menos trabalho com a administração dos Nodes Workers.</p>
+<p>Para o nosso exemplo, vamos escolher do tipo &apos;Managed Node Groups&apos;, pois assim não precisaremos nos preocupar com a administração dos Nodes Workers, mas lembre-se que você pode escolher o tipo que melhor se encaixa nas suas necessidades.</p>
+<p>Para criar o cluster vamos utilizar o EKSCTL, que é uma ferramenta de linha de comando que nos ajuda a criar e gerenciar clusters EKS. Você pode encontrar mais informações sobre o EKSCTL <a href="https://eksctl.io/" target="_blank">aqui</a>.</p>
+<p>Ela acabou se tornando uma das formas oficiais de criar e gerenciar clusters EKS, e é a ferramenta que eu mais utilizo para criar e gerenciar clusters EKS. Alias, acredito que seja a ferramenta mais utilizada para criar clusters EKS, quando não estamos utilizando alguma ferramenta de IaC, como o Terraform, por exemplo.</p>
+<h5 id="instalando-o-eksctl">Instalando o EKSCTL</h5>
+<p>Para instalar o EKSCTL, você pode seguir as instruções <a href="https://eksctl.io/installation/" target="_blank">aqui</a>.</p>
+<p>Ele está disponível para Linux, MacOS e Windows. Além de ser possível de rodar em um container Docker.</p>
+<p>Em nosso exemplo, vamos utilizar o Linux, claro! hahaha</p>
+<p>Para instalar o EKSCTL no Linux, você pode executar o seguinte comando:</p>
+<pre><code class="lang-bash"><span class="hljs-comment"># for ARM systems, set ARCH to: `arm64`, `armv6` or `armv7`</span>
+ARCH=amd64
+PLATFORM=$(uname -s)_<span class="hljs-variable">$ARCH</span>
+
+curl -sLO <span class="hljs-string">&quot;https://github.com/eksctl-io/eksctl/releases/latest/download/eksctl_<span class="hljs-variable">$PLATFORM</span>.tar.gz&quot;</span>
+
+<span class="hljs-comment"># (Optional) Verify checksum</span>
+curl -sL <span class="hljs-string">&quot;https://github.com/eksctl-io/eksctl/releases/latest/download/eksctl_checksums.txt&quot;</span> | grep <span class="hljs-variable">$PLATFORM</span> | sha256sum --check
+
+tar -xzf eksctl_<span class="hljs-variable">$PLATFORM</span>.tar.gz -C /tmp &amp;&amp; rm eksctl_<span class="hljs-variable">$PLATFORM</span>.tar.gz
+
+sudo mv /tmp/eksctl /usr/<span class="hljs-built_in">local</span>/bin
+</code></pre>
+<p>Eu literalmente copiei e colei o comando acima do site do EKSCTL, então não tem erro. Mas lembrando, sempre é bom consultar o site oficial para verificar se não houve nenhuma alteração.</p>
+<p>Aqui estamos fazendo o seguinte:</p>
+<ul>
+<li>Definindo a arquitetura do nosso sistema, no meu caso, <code>amd64</code>. Você pode verificar a arquitetura do seu sistema executando o comando <code>uname -m</code>.</li>
+<li>Definindo a plataforma do nosso sistema, no meu caso, <code>Linux_amd64</code>. </li>
+<li>Baixando o binário do EKSCTL.</li>
+<li>Descompactando o binário do EKSCTL.</li>
+<li>Movendo o binário do EKSCTL para o diretório <code>/usr/local/bin</code>.</li>
+</ul>
+<p>Validando a instalação do EKSCTL:</p>
+<pre><code class="lang-bash">eksctl version
+</code></pre>
+<p>A saída deve ser algo parecido com isso:</p>
+<pre><code class="lang-bash">0.169.0
+</code></pre>
+<p>Essa é a versão do EKSCTL que estamos utilizando no momento de criação desse treinamento, mas você pode estar utilizando uma versão mais recente.</p>
+<h5 id="instalando-o-aws-cli">Instalando o AWS CLI</h5>
+<p>Agora que temos o EKSCTL instalado, precisamos ter o AWS CLI instalado e configurado, pois o EKSCTL utiliza o AWS CLI para se comunicar com a AWS. Você pode encontrar mais informações sobre o AWS CLI <a href="https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-install.html" target="_blank">aqui</a>.</p>
+<p>O AWS CLI é uma ferramenta de linha de comando que nos ajuda a interagir com os serviços da AWS, ele é super poderoso e é uma das ferramentas mais utilizadas para interagir com os serviços da AWS.</p>
+<p>Vou colar abaixo os comandos para instalar o AWS CLI no Linux, mas lembre-se, sempre é bom consultar o site oficial para verificar se não houve nenhuma alteração.</p>
+<pre><code class="lang-bash">curl <span class="hljs-string">&quot;https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip&quot;</span> -o <span class="hljs-string">&quot;awscliv2.zip&quot;</span>
+unzip awscliv2.zip
+sudo ./aws/install
+</code></pre>
+<p>Validando a instalação do AWS CLI:</p>
+<pre><code class="lang-bash">aws --version
+</code></pre>
+<p>No meu caso, a versão que estou utilizando é a seguinte:</p>
+<pre><code class="lang-bash">aws-cli/2.15.10 Python/3.11.6 Linux/6.5.0-14-generic exe/x86_64.zorin.17 prompt/off
+</code></pre>
+<p>Agora que temos o AWS CLI instalado, precisamos configurar o AWS CLI, para isso, você pode executar o seguinte comando:</p>
+<pre><code class="lang-bash">aws configure
+</code></pre>
+<p>Aqui você precisa informar as suas credenciais da AWS, que você pode encontrar <a href="https://console.aws.amazon.com/iam/home?#/securi
+ty_credentials" target="_blank">aqui</a>.</p>
+<p>As informações que você precisa informar são:</p>
+<ul>
+<li>AWS Access Key ID</li>
+<li>AWS Secret Access Key</li>
+<li>Default region name</li>
+<li>Default output format</li>
+</ul>
+<p>O seu Access Key ID e o Secret Access Key pode ser encontrados <a href="https://console.aws.amazon.com/iam/home?#/security_credentials" target="_blank">aqui</a>. Já a região fica a seu critero, eu vou utilizar a região <code>us-east-1</code>, mas você pode utilizar a região que preferir. E por fim, o formato de saída, eu vou utilizar o formato <code>json</code>, mas você pode utilizar outra opção, como <code>text</code>, por exemplo.</p>
+<h5 id="criando-o-cluster-eks">Criando o Cluster EKS</h5>
+<p>Agora que temos o AWS CLI instalado e configurado, podemos criar o nosso cluster EKS.</p>
+<p>Podemos cria-lo através da linha de comando somente ou então podemos criar um arquivo de configuração para facilitar a criação do cluster.</p>
+<p>Primeiro vou trazer o comando que iremos utilizar e na sequência vou explicar o que estamos fazendo e trazer o arquivo de configuração.</p>
+<pre><code class="lang-bash">eksctl create cluster --name=eks-cluster --version=1.28 --region=us-east-1 --nodegroup-name=eks-cluster-nodegroup --node-type=t3.medium --nodes=2 --nodes-min=1 --nodes-max=3 --managed
+</code></pre>
+<p>Aqui estamos fazendo o seguinte:</p>
+<ul>
+<li><code>eksctl create cluster</code>: Comando para criar o cluster.</li>
+<li><code>--name</code>: Nome do cluster.</li>
+<li><code>--version</code>: Versão do Kubernetes que iremos utilizar, no meu caso, <code>1.28</code>.</li>
+<li><code>--region</code>: Região onde o cluster será criado, no meu caso, <code>us-east-1</code>.</li>
+<li><code>--nodegroup-name</code>: Nome do Node Group.</li>
+<li><code>--node-type</code>: Tipo de instância que iremos utilizar para os Nodes Workers, no meu caso, <code>t3.medium</code>.</li>
+<li><code>--nodes</code>: Quantidade de Nodes Workers que iremos criar, no meu caso, <code>2</code>.</li>
+<li><code>--nodes-min</code>: Quantidade mínima de Nodes Workers que iremos criar, no meu caso, <code>1</code>.</li>
+<li><code>--nodes-max</code>: Quantidade máxima de Nodes Workers que iremos criar, no meu caso, <code>3</code>.</li>
+<li><code>--managed</code>: Tipo de Node Group que iremos utilizar, no meu caso, <code>managed</code>.</li>
+</ul>
+<p>A saída do comando deve ser algo parecido com isso:</p>
+<pre><code class="lang-bash">2024-01-26 16:12:39 [ℹ]  eksctl version 0.168.0
+2024-01-26 16:12:39 [ℹ]  using region us-east-1
+2024-01-26 16:12:40 [ℹ]  skipping us-east-1e from selection because it doesn<span class="hljs-string">&apos;t support the following instance type(s): t3.medium
+2024-01-26 16:12:40 [ℹ]  setting availability zones to [us-east-1c us-east-1d]
+2024-01-26 16:12:40 [ℹ]  subnets for us-east-1c - public:192.168.0.0/19 private:192.168.64.0/19
+2024-01-26 16:12:40 [ℹ]  subnets for us-east-1d - public:192.168.32.0/19 private:192.168.96.0/19
+2024-01-26 16:12:40 [ℹ]  nodegroup &quot;eks-cluster-nodegroup&quot; will use &quot;&quot; [AmazonLinux2/1.28]
+2024-01-26 16:12:40 [ℹ]  using Kubernetes version 1.28
+2024-01-26 16:12:40 [ℹ]  creating EKS cluster &quot;eks-cluster&quot; in &quot;us-east-1&quot; region with managed nodes
+2024-01-26 16:12:40 [ℹ]  will create 2 separate CloudFormation stacks for cluster itself and the initial managed nodegroup
+2024-01-26 16:12:40 [ℹ]  if you encounter any issues, check CloudFormation console or try &apos;</span>eksctl utils describe-stacks --region=us-east-1 --cluster=eks-cluster<span class="hljs-string">&apos;
+2024-01-26 16:12:40 [ℹ]  Kubernetes API endpoint access will use default of {publicAccess=true, privateAccess=false} for cluster &quot;eks-cluster&quot; in &quot;us-east-1&quot;
+2024-01-26 16:12:40 [ℹ]  CloudWatch logging will not be enabled for cluster &quot;eks-cluster&quot; in &quot;us-east-1&quot;
+2024-01-26 16:12:40 [ℹ]  you can enable it with &apos;</span>eksctl utils update-cluster-logging --enable-types={SPECIFY-YOUR-LOG-TYPES-HERE (e.g. all)} --region=us-east-1 --cluster=eks-cluster<span class="hljs-string">&apos;
+2024-01-26 16:12:40 [ℹ]  
+2 sequential tasks: { create cluster control plane &quot;eks-cluster&quot;, 
+    2 sequential sub-tasks: { 
+        wait for control plane to become ready,
+        create managed nodegroup &quot;eks-cluster-nodegroup&quot;,
+    } 
+}
+2024-01-26 16:12:40 [ℹ]  building cluster stack &quot;eksctl-eks-cluster-cluster&quot;
+2024-01-26 16:12:40 [ℹ]  deploying stack &quot;eksctl-eks-cluster-cluster&quot;
+2024-01-26 16:13:10 [ℹ]  waiting for CloudFormation stack &quot;eksctl-eks-cluster-cluster&quot;
+2024-01-26 16:13:41 [ℹ]  waiting for CloudFormation stack &quot;eksctl-eks-cluster-cluster&quot;
+2024-01-26 16:14:41 [ℹ]  waiting for CloudFormation stack &quot;eksctl-eks-cluster-cluster&quot;
+2024-01-26 16:24:48 [ℹ]  building managed nodegroup stack &quot;eksctl-eks-cluster-nodegroup-eks-cluster-nodegroup&quot;
+2024-01-26 16:24:49 [ℹ]  deploying stack &quot;eksctl-eks-cluster-nodegroup-eks-cluster-nodegroup&quot;
+2024-01-26 16:24:49 [ℹ]  waiting for CloudFormation stack &quot;eksctl-eks-cluster-nodegroup-eks-cluster-nodegroup&quot;
+2024-01-26 16:27:40 [ℹ]  waiting for the control plane to become ready
+2024-01-26 16:27:40 [✔]  saved kubeconfig as &quot;/home/jeferson/.kube/config&quot;
+2024-01-26 16:27:40 [ℹ]  no tasks
+2024-01-26 16:27:40 [✔]  all EKS cluster resources for &quot;eks-cluster&quot; have been created
+2024-01-26 16:27:41 [ℹ]  nodegroup &quot;eks-cluster-nodegroup&quot; has 2 node(s)
+2024-01-26 16:27:41 [ℹ]  node &quot;ip-192-168-55-232.ec2.internal&quot; is ready
+2024-01-26 16:27:41 [ℹ]  node &quot;ip-192-168-7-245.ec2.internal&quot; is ready
+2024-01-26 16:27:41 [ℹ]  waiting for at least 1 node(s) to become ready in &quot;eks-cluster-nodegroup&quot;
+2024-01-26 16:27:41 [ℹ]  nodegroup &quot;eks-cluster-nodegroup&quot; has 2 node(s)
+2024-01-26 16:27:41 [ℹ]  node &quot;ip-192-168-55-232.ec2.internal&quot; is ready
+2024-01-26 16:27:41 [ℹ]  node &quot;ip-192-168-7-245.ec2.internal&quot; is ready
+2024-01-26 16:27:42 [ℹ]  kubectl command should work with &quot;/home/jeferson/.kube/config&quot;, try &apos;</span>kubectl get nodes<span class="hljs-string">&apos;
+2024-01-26 16:27:42 [✔]  EKS cluster &quot;eks-cluster&quot; in &quot;us-east-1&quot; region is ready
+</span></code></pre>
+<p>Pronto, cluster deployado com sucesso! :D</p>
+<p>Para vizualizar o nosso cluster, podemos executar o seguinte comando:</p>
+<pre><code class="lang-bash">kubectl get nodes
+</code></pre>
+<p>A saída deve ser algo parecido com isso:</p>
+<pre><code class="lang-bash">ip-192-168-22-217.ec2.internal   Ready    &lt;none&gt;   20m   v1.28.5-eks-5e0fdde
+ip-192-168-50-0.ec2.internal     Ready    &lt;none&gt;   20m   v1.28.5-eks-5e0fdde
+</code></pre>
+<p>Agora vamos fazer o seguinte, vamos criar arquivo de configuração do EKSCTL para facilitar a criação do cluster da próxima vez. Para isso, vamos criar um arquivo chamado <code>eksctl.yaml</code> e adicionar o seguinte conteúdo:</p>
+<pre><code class="lang-yaml"><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">eksctl.io/v1alpha5</span> <span class="hljs-comment"># Versão da API do EKSCTL</span>
+<span class="hljs-attr">kind:</span> <span class="hljs-string">ClusterConfig</span> <span class="hljs-comment"># Tipo de recurso que estamos criando</span>
+
+<span class="hljs-attr">metadata:</span> <span class="hljs-comment"># Metadados do recurso</span>
+  <span class="hljs-attr">name:</span> <span class="hljs-string">eks-cluster</span> <span class="hljs-comment"># Nome do cluster</span>
+  <span class="hljs-attr">region:</span> <span class="hljs-string">us-east-1</span> <span class="hljs-comment"># Região onde o cluster será criado</span>
+
+<span class="hljs-attr">managedNodeGroups:</span> <span class="hljs-comment"># Node Groups que serão criados, estamos utilizando o tipo Managed Node Groups</span>
+<span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">eks-cluster-nodegroup</span> <span class="hljs-comment"># Nome do Node Group</span>
+  <span class="hljs-attr">instanceType:</span> <span class="hljs-string">t3.medium</span> <span class="hljs-comment"># Tipo de instância que iremos utilizar para os Nodes Workers</span>
+  <span class="hljs-attr">desiredCapacity:</span> <span class="hljs-number">2</span> <span class="hljs-comment"># Quantidade de Nodes Workers que iremos criar</span>
+  <span class="hljs-attr">minSize:</span> <span class="hljs-number">1</span> <span class="hljs-comment"># Quantidade mínima de Nodes Workers que iremos criar</span>
+  <span class="hljs-attr">maxSize:</span> <span class="hljs-number">3</span> <span class="hljs-comment"># Quantidade máxima de Nodes Workers que iremos criar</span>
+</code></pre>
+<p>Conforme você pode ver, estamos criando um cluster EKS com a mesma configuração que utilizamos anteriormente, mas agora estamos utilizando um arquivo de configuração para facilitar e deixar tudo mais bonitinho. :D</p>
+<p>Para criar o cluster utilizando o arquivo de configuração, você pode executar o seguinte comando:</p>
+<pre><code class="lang-bash">eksctl create cluster -f eksctl.yaml
+</code></pre>
+<p>A saída deve ser algo parecido com a que tivemos anteriormente, nada de novo para acrescentar aqui.</p>
+<p>Pronto, agora que temos o nosso cluster EKS criado, vamos instalar o CNI da AWS e habilitar o Network Policy nas configurações avançadas do CNI.</p>
+<h5 id="instalando-o-aws-vpc-cni-plugin">Instalando o AWS VPC CNI Plugin</h5>
+<p>O AWS VPC CNI Plugin é um plugin de rede que permite que os Pods se comuniquem com outros Pods e serviços dentro do cluster. Ele também permite que os Pods se comuniquem com serviços fora do cluster, como o Amazon S3, por exemplo.</p>
+<p>Vamos utilizar o EKSCTL para instalar o AWS VPC CNI Plugin, para isso, você pode executar o seguinte comando:</p>
+<pre><code class="lang-bash">eksctl create addon --name vpc-cni --version v1.16.0-eksbuild.1 --cluster eks-cluster --force
+</code></pre>
+<p>Lembrando que você precisa substituir o nome do cluster e a versão do CNI pela versão do seu cluster.</p>
+<p>Você pode verificar o link abaixo para verificar a versão do CNI que você precisa utilizar:</p>
+<p><a href="https://docs.aws.amazon.com/eks/latest/userguide/managing-vpc-cni.html" target="_blank">https://docs.aws.amazon.com/eks/latest/userguide/managing-vpc-cni.html</a></p>
+<p>Você deve escolher a versão do CNI de acordo com a versão do Kubernetes que você está utilizando, então fique atento a isso.</p>
+<p>Bem, voltando ao comando, o que estamos fazendo aqui é o seguinte:</p>
+<ul>
+<li><code>eksctl create addon</code>: Comando para instalar um Addon no cluster.</li>
+<li><code>--name</code>: Nome do Addon.</li>
+<li><code>--version</code>: Versão do Addon.</li>
+<li><code>--cluster</code>: Nome do cluster.</li>
+<li><code>--force</code>: Forçar a instalação do Addon.</li>
+</ul>
+<p>A saída deve ser algo parecido com isso:</p>
+<pre><code class="lang-bash">2024-01-28 14:12:44 [!]  no IAM OIDC provider associated with cluster, try <span class="hljs-string">&apos;eksctl utils associate-iam-oidc-provider --region=us-east-1 --cluster=eks-cluster&apos;</span>
+2024-01-28 14:12:44 [ℹ]  Kubernetes version <span class="hljs-string">&quot;1.28&quot;</span> <span class="hljs-keyword">in</span> use by cluster <span class="hljs-string">&quot;eks-cluster&quot;</span>
+2024-01-28 14:12:44 [!]  OIDC is disabled but policies are required/specified <span class="hljs-keyword">for</span> this addon. Users are responsible <span class="hljs-keyword">for</span> attaching the policies to all nodegroup roles
+2024-01-28 14:12:45 [ℹ]  creating addon
+2024-01-28 14:13:49 [ℹ]  addon <span class="hljs-string">&quot;vpc-cni&quot;</span> active
+</code></pre>
+<p>Apesar de ser o CNI padrão do EKS, ele não vem instalado por padrão, então precisamos instala-lo manualmente.</p>
+<p>Caso queira visualizar os Addons instalados no seu cluster, você pode executar o seguinte comando:</p>
+<pre><code class="lang-bash">eksctl get addon --cluster eks-cluster
+</code></pre>
+<p>A saída deve ser algo parecido com isso:</p>
+<pre><code class="lang-bash">2024-01-28 14:16:44 [ℹ]  Kubernetes version <span class="hljs-string">&quot;1.28&quot;</span> <span class="hljs-keyword">in</span> use by cluster <span class="hljs-string">&quot;eks-cluster&quot;</span>
+2024-01-28 14:16:44 [ℹ]  getting all addons
+2024-01-28 14:16:45 [ℹ]  to see issues <span class="hljs-keyword">for</span> an addon run `eksctl get addon --name &lt;addon-name&gt; --cluster &lt;cluster-name&gt;`
+NAME    VERSION            STATUS    ISSUES    IAMROLE    UPDATE AVAILABLE    CONFIGURATION VALUES
+vpc-cni    v1.16.0-eksbuild.1    ACTIVE    0        v1.16.2-eksbuild.1
+</code></pre>
+<p>Ou então acessar o console da AWS e verificar os Addons instalados no seu cluster, conforme a imagem abaixo:</p>
+<p><img src="images/image-1.png?raw=true" alt="Alt text" title="EKS Cluster"></p>
+<p>Pronto, CNI instalado com sucesso! :D</p>
+<h5 id="habilitando-o-network-policy-nas-configurações-avançadas-do-cni">Habilitando o Network Policy nas Configurações Avançadas do CNI</h5>
+<p>Agora que temos o CNI da AWS instalado, precisamos habilitar o Network Policy nas configurações avançadas do CNI, para isso, precisamos acessar o console da AWS e seguir os seguintes passos:</p>
+<ul>
+<li>Acessar o console da AWS.</li>
+<li>Acessar o serviço EKS.</li>
+<li>Selecionar o seu cluster.</li>
+<li>Selecionar a aba <code>Add-ons</code>.</li>
+<li>Selecionar o edit do Addon <code>vpc-cni</code>.</li>
+<li>Configuração Avançada do CNI.</li>
+<li>Habilitar o Network Policy.</li>
+</ul>
+<p><img src="images/image-2.png?raw=true" alt="Alt text" title="EKS Cluster"></p>
+<p>Depois de alguns minutos, você pode acessar o Addon <code>vpc-cni</code> novamente e verificar se o Network Policy está habilitado e atualizado com o Network Policy habilitado.</p>
+<p><img src="images/image-3.png?raw=true" alt="Alt text" title="EKS Cluster"></p>
+<p>Pronto, cluster configurado! Agora já podemos continuar com o nosso exemplo. :D</p>
+<h4 id="instalando-o-nginx-ingress-controller">Instalando o Nginx Ingress Controller</h4>
+<h3 id="instalando-um-nginx-ingress-controller">Instalando um Nginx Ingress Controller</h3>
+<p>Para que tudo funcione bem em nosso exemplo, vamos instalar o Nginx Ingress Controller. É importante observar a versão do Ingress Controller que você está instalando, pois as versões mais recentes ou mais antigas podem não ser compatíveis com o Kubernetes que você está usando. Para este tutorial, vamos usar a versão 1.9.5.
+No seu terminal, execute os seguintes comandos:</p>
+<pre><code class="lang-bash">kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.9.5/deploy/static/provider/cloud/deploy.yaml
+</code></pre>
+<p>Verifique se o Ingress Controller foi instalado corretamente:</p>
+<pre><code class="lang-bash">kubectl get pods -n ingress-nginx
+</code></pre>
+<p>Você pode utilizar a opção <code>wait</code> do <code>kubectl</code>, assim quando os pods estiverem prontos, ele irá liberar o shell, veja:</p>
+<pre><code class="lang-bash">kubectl <span class="hljs-built_in">wait</span> --namespace ingress-nginx \
+  --<span class="hljs-keyword">for</span>=condition=ready pod \
+  --selector=app.kubernetes.io/component=controller \
+  --timeout=90s
+</code></pre>
+<p>Pronto, Ingress Controller instalado com sucesso! :D</p>
+<p>Vamos seguir em frente e criar a nossa aplicação de exemplo.</p>
+<h4 id="nossa-aplicação-de-exemplo">Nossa Aplicação de Exemplo</h4>
+<p>Para que possamos brincar com as Network Policies, vamos utilizar uma aplicação de exemplo, o nosso já conhecido Giropops-Senhas. Essa aplicação é composta por uma aplicação Flask, e utiliza o Redis para armazenar as últimas senhas criadas. A aplicação Flask utiliza a porta 5000 e o Redis utiliza a porta 6379.
+Para que nossos usuários possam ter acesso ao cluster, a nossa aplicação está exposta através de um Ingress Controller, que está configurado para utilizar o endereço <code>giropops-senhas.containers.expert</code>. Já o nosso Redis está exposto através de um Service do tipo ClusterIP, que está configurado para utilizar o endereço <code>redis-service.giropops.svc.cluster.local</code>. O endereço da nossa aplicação dentro do cluster é <code>giropops.giropops.svc.cluster.local</code>. Como podemos ver, temos 3 endereços diferentes para a nossa aplicação, e cada um deles é utilizado para um propósito diferente.</p>
+<p>Vale lembrar que a nossa aplicação está rodando no namespace <code>giropops</code>.</p>
+<p>Para que você possa fazer o deploy da nossa aplicação, vamos criar um arquivo chamado <code>giropops-deployment.yaml</code> com o seguinte conteúdo:</p>
+<pre><code class="lang-yaml"><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">apps/v1</span>
+<span class="hljs-attr">kind:</span> <span class="hljs-string">Deployment</span>
+<span class="hljs-attr">metadata:</span>
+  <span class="hljs-attr">labels:</span>
+    <span class="hljs-attr">app:</span> <span class="hljs-string">giropops-senhas</span>
+  <span class="hljs-attr">name:</span> <span class="hljs-string">giropops-senhas</span>
+<span class="hljs-attr">spec:</span>
+  <span class="hljs-attr">replicas:</span> <span class="hljs-number">2</span>
+  <span class="hljs-attr">selector:</span>
+    <span class="hljs-attr">matchLabels:</span>
+      <span class="hljs-attr">app:</span> <span class="hljs-string">giropops-senhas</span>
+  <span class="hljs-attr">template:</span>
+    <span class="hljs-attr">metadata:</span>
+      <span class="hljs-attr">labels:</span>
+        <span class="hljs-attr">app:</span> <span class="hljs-string">giropops-senhas</span>
+    <span class="hljs-attr">spec:</span>
+      <span class="hljs-attr">containers:</span>
+      <span class="hljs-bullet">-</span> <span class="hljs-attr">image:</span> <span class="hljs-string">linuxtips/giropops-senhas:1.0</span>
+        <span class="hljs-attr">name:</span> <span class="hljs-string">giropops-senhas</span>
+        <span class="hljs-attr">ports:</span>
+        <span class="hljs-bullet">-</span> <span class="hljs-attr">containerPort:</span> <span class="hljs-number">5000</span>
+        <span class="hljs-attr">imagePullPolicy:</span> <span class="hljs-string">Always</span>
+</code></pre>
+<p>E para criar o nosso Service, vamos criar um arquivo chamado <code>giropops-service.yaml</code> com o seguinte conteúdo:</p>
+<pre><code class="lang-yaml"><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">v1</span>
+<span class="hljs-attr">kind:</span> <span class="hljs-string">Service</span>
+<span class="hljs-attr">metadata:</span>
+  <span class="hljs-attr">name:</span> <span class="hljs-string">giropops-senhas</span>
+<span class="hljs-attr">spec:</span>
+  <span class="hljs-attr">selector:</span>
+    <span class="hljs-attr">app:</span> <span class="hljs-string">giropops-senhas</span>
+  <span class="hljs-attr">ports:</span>
+    <span class="hljs-bullet">-</span> <span class="hljs-attr">protocol:</span> <span class="hljs-string">TCP</span>
+      <span class="hljs-attr">port:</span> <span class="hljs-number">6379</span>
+      <span class="hljs-attr">targetPort:</span> <span class="hljs-number">6379</span>
+  <span class="hljs-attr">type:</span> <span class="hljs-string">ClusterIP</span>
+</code></pre>
+<p>Precisamos ainda do Redis, que vamos criar com o arquivo <code>redis-deployment.yaml</code>:</p>
+<pre><code class="lang-yaml"><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">apps/v1</span>
+<span class="hljs-attr">kind:</span> <span class="hljs-string">Deployment</span>
+<span class="hljs-attr">metadata:</span>
+  <span class="hljs-attr">labels:</span>
+    <span class="hljs-attr">app:</span> <span class="hljs-string">redis</span>
+  <span class="hljs-attr">name:</span> <span class="hljs-string">redis-deployment</span>
+<span class="hljs-attr">spec:</span>
+  <span class="hljs-attr">replicas:</span> <span class="hljs-number">1</span>
+  <span class="hljs-attr">selector:</span>
+    <span class="hljs-attr">matchLabels:</span>
+      <span class="hljs-attr">app:</span> <span class="hljs-string">redis</span>
+  <span class="hljs-attr">template:</span>
+    <span class="hljs-attr">metadata:</span>
+      <span class="hljs-attr">labels:</span>
+        <span class="hljs-attr">app:</span> <span class="hljs-string">redis</span>
+    <span class="hljs-attr">spec:</span>
+      <span class="hljs-attr">containers:</span>
+      <span class="hljs-bullet">-</span> <span class="hljs-attr">image:</span> <span class="hljs-string">redis</span>
+        <span class="hljs-attr">name:</span> <span class="hljs-string">redis</span>
+        <span class="hljs-attr">ports:</span>
+          <span class="hljs-bullet">-</span> <span class="hljs-attr">containerPort:</span> <span class="hljs-number">6379</span>
+        <span class="hljs-attr">resources:</span>
+          <span class="hljs-attr">limits:</span>
+            <span class="hljs-attr">memory:</span> <span class="hljs-string">&quot;256Mi&quot;</span>
+            <span class="hljs-attr">cpu:</span> <span class="hljs-string">&quot;500m&quot;</span>
+          <span class="hljs-attr">requests:</span>
+            <span class="hljs-attr">memory:</span> <span class="hljs-string">&quot;128Mi&quot;</span>
+            <span class="hljs-attr">cpu:</span> <span class="hljs-string">&quot;250m&quot;</span>
+</code></pre>
+<p>E o Service do Redis, que vamos criar com o arquivo <code>redis-service.yaml</code>:</p>
+<pre><code class="lang-yaml"><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">v1</span>
+<span class="hljs-attr">kind:</span> <span class="hljs-string">Service</span>
+<span class="hljs-attr">metadata:</span>
+  <span class="hljs-attr">name:</span> <span class="hljs-string">redis-service</span>
+<span class="hljs-attr">spec:</span>
+  <span class="hljs-attr">selector:</span>
+    <span class="hljs-attr">app:</span> <span class="hljs-string">redis</span>
+  <span class="hljs-attr">ports:</span>
+    <span class="hljs-bullet">-</span> <span class="hljs-attr">protocol:</span> <span class="hljs-string">TCP</span>
+      <span class="hljs-attr">port:</span> <span class="hljs-number">6379</span>
+      <span class="hljs-attr">targetPort:</span> <span class="hljs-number">6379</span>
+  <span class="hljs-attr">type:</span> <span class="hljs-string">ClusterIP</span>
+</code></pre>
+<p>E por fim, vamos criar o nosso Ingress Controller, que vamos criar com o arquivo <code>giropops-ingress.yaml</code>:</p>
+<pre><code class="lang-yaml"><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">networking.k8s.io/v1</span>
+<span class="hljs-attr">kind:</span> <span class="hljs-string">Ingress</span>
+<span class="hljs-attr">metadata:</span>
+  <span class="hljs-attr">name:</span> <span class="hljs-string">giropops-ingress</span>
+  <span class="hljs-attr">annotations:</span>
+    <span class="hljs-attr">nginx.ingress.kubernetes.io/rewrite-target:</span> <span class="hljs-string">/</span>
+<span class="hljs-attr">spec:</span>
+  <span class="hljs-attr">ingressClassName:</span> <span class="hljs-string">nginx</span>
+  <span class="hljs-attr">rules:</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-attr">host:</span> <span class="hljs-string">giropops-senhas.containers.expert</span>
+    <span class="hljs-attr">http:</span>
+      <span class="hljs-attr">paths:</span>
+      <span class="hljs-bullet">-</span> <span class="hljs-attr">path:</span> <span class="hljs-string">/</span>
+        <span class="hljs-attr">pathType:</span> <span class="hljs-string">Prefix</span>
+        <span class="hljs-attr">backend:</span>
+          <span class="hljs-attr">service:</span>
+            <span class="hljs-attr">name:</span> <span class="hljs-string">giropops-senhas</span>
+            <span class="hljs-attr">port:</span>
+              <span class="hljs-attr">number:</span> <span class="hljs-number">5000</span>
+</code></pre>
+<p>Vamos criar o namespace <code>giropops</code>:</p>
+<pre><code class="lang-bash">kubectl create namespace giropops
+</code></pre>
+<p>Pronto, agora que temos todos os arquivos necessários, vamos fazer o deploy da nossa aplicação:</p>
+<pre><code class="lang-bash">kubectl apply -f giropops-deployment.yaml -n giropops
+kubectl apply -f giropops-service.yaml -n giropops
+kubectl apply -f redis-deployment.yaml -n giropops
+kubectl apply -f redis-service.yaml -n giropops 
+kubectl apply -f giropops-ingress.yaml -n giropops
+</code></pre>
+<p>Vamos verificar se a nossa aplicação está rodando corretamente:</p>
+<pre><code class="lang-bash">kubectl get pods -n giropops
+</code></pre>
+<p>Verifique se os Serviços e o Ingress Controller estão rodando corretamente:</p>
+<pre><code class="lang-bash">kubectl get svc -n giropops
+kubectl get ingress -n giropops
+</code></pre>
+<p>Parece que tudo está funcionando corretamente. Vamos testar a nossa aplicação:</p>
+<pre><code class="lang-bash">curl giropops-senhas.containers.expert
+</code></pre>
+<p>Ahhhh, vale lembrar que o endereço <code>giropops-senhas.containers.expert</code> somente funcionará aqui no meu exemplo, pois eu já tenho o DNS configurado para esse endereço. Para que você possa testar a sua aplicação, você precisará adicionar o endereço da nossa aplicação no arquivo <code>/etc/hosts</code> do seu computador. Para isso, você precisa adicionar o seu endereço IP e o endereço <code>giropops-senhas.containers.expert</code> no arquivo <code>/etc/hosts</code>. Por exemplo:</p>
+<pre><code class="lang-bash">192.168.100.10 giropops-senhas.containers.expert
+</code></pre>
+<p>Agora sim, vamos testar a nossa aplicação:</p>
+<pre><code class="lang-bash">curl giropops-senhas.containers.expert
+</code></pre>
+<p>Você pode acessar o endereço <code>giropops-senhas.containers.expert</code> no seu navegador para verificar se a aplicação está funcionando corretamente.</p>
+<p>Pronto, agora que temos a nossa aplicação rodando, vamos começar a brincar com as Network Policies.</p>
+<h4 id="permitindo-tráfego-dentro-do-mesmo-namespace">Permitindo Tráfego Dentro do Mesmo Namespace</h4>
+<p>Em nosso exemplo, tanto a nossa aplicação quanto o Redis estão rodando no mesmo namespace, o namespace <code>giropops</code>. Por padrão, os Pods podem se comunicar livremente entre si. Vamos criar uma Network Policy para restringir o acesso ao Redis, permitindo que somente que pods do namespace <code>giropops</code> possam acessar o Redis.</p>
+<p>Para isso, vamos criar o arquivo <code>permitir-redis-somente-mesmo-ns.yaml</code> com o seguinte conteúdo:</p>
+<pre><code class="lang-yaml"><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">networking.k8s.io/v1</span>
+<span class="hljs-attr">kind:</span> <span class="hljs-string">NetworkPolicy</span>
+<span class="hljs-attr">metadata:</span>
+  <span class="hljs-attr">name:</span> <span class="hljs-string">redis-allow-same-namespace</span>
+  <span class="hljs-attr">namespace:</span> <span class="hljs-string">giropops</span>
+<span class="hljs-attr">spec:</span>
+  <span class="hljs-attr">podSelector:</span>
+    <span class="hljs-attr">matchLabels:</span>
+      <span class="hljs-attr">app:</span> <span class="hljs-string">redis</span>
+  <span class="hljs-attr">ingress:</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-attr">from:</span>
+    <span class="hljs-bullet">-</span> <span class="hljs-attr">podSelector:</span> {}
+</code></pre>
+<p>Vamos entender o que estamos fazendo aqui:</p>
+<ul>
+<li><code>apiVersion</code>: Versão da API que estamos utilizando.</li>
+<li><code>kind</code>: Tipo de recurso que estamos criando.</li>
+<li><code>metadata</code>: Metadados do recurso.<ul>
+<li><code>name</code>: Nome da Network Policy.</li>
+<li><code>namespace</code>: Namespace onde a Network Policy será criada.</li>
+</ul>
+</li>
+<li><code>spec</code>: Especificação da Network Policy.<ul>
+<li><code>podSelector</code>: Seletor de Pods que serão afetados pela Network Policy.<ul>
+<li><code>matchLabels</code>: Labels dos Pods que serão afetados pela Network Policy.</li>
+</ul>
+</li>
+<li><code>ingress</code>: Regras de entrada.<ul>
+<li><code>from</code>: Origem do tráfego.<ul>
+<li><code>podSelector</code>: Seletor de Pods que podem acessar os Pods selecionados, nesse caso, todos os Pods do namespace <code>giropops</code>.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>Sempre que tiver o <code>{}</code> significa que estamos selecionando todos os Pods que atendem aos critérios especificados, nesse caso, todos os Pods do namespace <code>giropops</code> pois não estamos especificando nenhum critério.</p>
+<p>Vamos aplicar a nossa Network Policy:</p>
+<pre><code class="lang-bash">kubectl apply -f permitir-redis-somente-mesmo-ns.yaml -n giropops
+</code></pre>
+<p>Vamos testar o acesso ao Redis a partir de um Pod fora do namespace <code>giropops</code>, para isso vamos user o comando <code>redis ping</code>:</p>
+<pre><code class="lang-bash">kubectl run -it --rm --image redis redis-client -- redis-cli -h redis-service.giropops.svc.cluster.local ping
+</code></pre>
+<p>Se tudo estiver funcionando corretamente, você não receberá nenhuma resposta, pois o acesso ao Redis está bloqueado para Pods fora do namespace <code>giropops</code>.</p>
+<p>Agora, se você executar o mesmo comando, porém de dentro da Namespace <code>giropops</code>, você deverá receber a mensagem <code>PONG</code>, pois o acesso ao Redis está permitido para Pods dentro do namespace <code>giropops</code>! :D</p>
+<p>Vamos testar:</p>
+<pre><code class="lang-bash">kubectl run -it --rm -n giropops --image redis redis-client -- redis-cli -h redis-service.giropops.svc.cluster.local ping
+</code></pre>
+<p>A saída deve ser algo parecido com isso:</p>
+<pre><code class="lang-bash">If you don<span class="hljs-string">&apos;t see a command prompt, try pressing enter.
+
+PONG
+Session ended, resume using &apos;</span>kubectl attach redis-client -c redis-client -i -t<span class="hljs-string">&apos; command when the pod is running
+pod &quot;redis-client&quot; deleted
+</span></code></pre>
+<p>Pronto, agora que temos a nossa Network Policy funcionando!</p>
+<p>Agora vamos queremos bloquear todo o acesso de entrada para os Pods do namespace <code>giropops</code>, para isso, vamos criar o arquivo <code>nao-permitir-nada-externo.yaml</code> com o seguinte conteúdo:</p>
+<pre><code class="lang-yaml"><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">networking.k8s.io/v1</span>
+<span class="hljs-attr">kind:</span> <span class="hljs-string">NetworkPolicy</span>
+<span class="hljs-attr">metadata:</span>
+  <span class="hljs-attr">name:</span> <span class="hljs-string">allow-same-ns</span>
+  <span class="hljs-attr">namespace:</span> <span class="hljs-string">giropops</span>
+<span class="hljs-attr">spec:</span>
+  <span class="hljs-attr">podSelector:</span> {}
+  <span class="hljs-attr">policyTypes:</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-string">Ingress</span>
+  <span class="hljs-attr">ingress:</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-attr">from:</span>
+    <span class="hljs-bullet">-</span> <span class="hljs-attr">namespaceSelector:</span>
+        <span class="hljs-attr">matchLabels:</span>
+          <span class="hljs-attr">kubernetes.io/metadata.name:</span> <span class="hljs-string">giropops</span>
+</code></pre>
+<p>O que mudou aqui foi o seguinte:</p>
+<ul>
+<li><code>policyTypes</code>: Tipo de política que estamos criando, nesse caso, estamos criando uma política de entrada.</li>
+<li><code>ingress</code>: Regras de entrada.<ul>
+<li><code>from</code>: Origem do tráfego.<ul>
+<li><code>namespaceSelector</code>: Seletor de Namespaces que podem acessar os Pods selecionados, nesse caso, somente o namespace <code>giropops</code>.</li>
+<li><code>matchLabels</code>: Labels dos Namespaces que podem acessar os Pods selecionados, nesse caso, somente o namespace <code>giropops</code>.</li>
+<li><code>kubernetes.io/metadata.name</code>: Nome do Namespace.</li>
+<li><code>giropops</code>: Valor do Nome do Namespace.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>Simples, assim, estamos bloqueando todo o tráfego de entrada para os Pods do namespace <code>giropops</code>, menos para os Pods do próprio namespace <code>giropops</code>.</p>
+<p>Vamos aplicar a nossa Network Policy:</p>
+<pre><code class="lang-bash">kubectl apply -f nao-permitir-nada-externo.yaml -n giropops
+</code></pre>
+<p>Vamos testar o acesso ao Redis a partir de um Pod fora do namespace <code>giropops</code>, para isso vamos user o comando <code>redis ping</code>:</p>
+<pre><code class="lang-bash">kubectl run -it --rm --image redis redis-client -- redis-cli -h redis-service.giropops.svc.cluster.local ping
+</code></pre>
+<p>Nada de novo, certo, porém vamos testar o acesso a nossa aplicação a partir de um Pod fora do namespace <code>giropops</code>, para isso vamos user o comando <code>curl</code>:</p>
+<pre><code class="lang-bash">kubectl run -it --rm --image curlimages/curl curl-client -- curl giropops-senhas.giropops.svc
+</code></pre>
+<p>Se tudo estiver funcionando corretamente, você não receberá nenhuma resposta, pois o acesso a nossa aplicação está bloqueado para Pods fora do namespace <code>giropops</code>.</p>
+<p>Agora, se você executar o mesmo comando, porém de dentro da Namespace <code>giropops</code>, você deverá receber a mensagem <code>Giropops Senhas</code>, pois o acesso a nossa aplicação está permitido para Pods dentro do namespace <code>giropops</code>! :D</p>
+<p>Vamos testar:</p>
+<pre><code class="lang-bash">kubectl run -it --rm -n giropops --image curlimages/curl curl-client -- curl giropops-senhas.giropops.svc
+</code></pre>
+<p>Tudo funcionando maravilhosamente bem! De dentro do mesmo namespace, podemos acessar a nossa aplicação e o Redis, mas de fora do namespace, não podemos acessar nada! :D</p>
+<p>Mas com isso temos um problema, pois o nosso Ingress Controller não consegue acessar a nossa aplicação, pois ele está fora do namespace <code>giropops</code>, então vamos criar uma Network Policy para permitir o acesso ao nosso Ingress Controller.</p>
+<p>Para isso, vamos criar o arquivo <code>permitir-ingress-controller.yaml</code> com o seguinte conteúdo:</p>
+<pre><code class="lang-yaml"><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">networking.k8s.io/v1</span>
+<span class="hljs-attr">kind:</span> <span class="hljs-string">NetworkPolicy</span>
+<span class="hljs-attr">metadata:</span>
+  <span class="hljs-attr">name:</span> <span class="hljs-string">allow-same-ns-and-ingress-controller</span>
+  <span class="hljs-attr">namespace:</span> <span class="hljs-string">giropops</span>
+<span class="hljs-attr">spec:</span>
+  <span class="hljs-attr">podSelector:</span> {}
+  <span class="hljs-attr">policyTypes:</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-string">Ingress</span>
+  <span class="hljs-attr">ingress:</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-attr">from:</span>
+    <span class="hljs-bullet">-</span> <span class="hljs-attr">namespaceSelector:</span>
+        <span class="hljs-attr">matchLabels:</span>
+          <span class="hljs-attr">kubernetes.io/metadata.name:</span> <span class="hljs-string">ingress-nginx</span>
+    <span class="hljs-bullet">-</span> <span class="hljs-attr">namespaceSelector:</span>
+        <span class="hljs-attr">matchLabels:</span>
+          <span class="hljs-attr">kubernetes.io/metadata.name:</span> <span class="hljs-string">giropops</span>
+</code></pre>
+<p>Aqui a solução foi super simples, pois somente adicionamos mais um seletor de Namespaces, para permitir o acesso ao nosso Ingress Controller. Com isso, tudo que estiver dentro do namespace <code>ingress-nginx</code> e <code>giropops</code> poderá acessar os Pods do namespace <code>giropops</code>.</p>
+<p>Aqui poderiamos ter uma melhoria no código utilizando o matchExpressions, veja:</p>
+<pre><code class="lang-yaml"><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">networking.k8s.io/v1</span>
+<span class="hljs-attr">kind:</span> <span class="hljs-string">NetworkPolicy</span>
+<span class="hljs-attr">metadata:</span>
+  <span class="hljs-attr">name:</span> <span class="hljs-string">allow-same-ns-and-ingress-controller</span>
+  <span class="hljs-attr">namespace:</span> <span class="hljs-string">giropops</span>
+<span class="hljs-attr">spec:</span>
+  <span class="hljs-attr">podSelector:</span> {}
+  <span class="hljs-attr">policyTypes:</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-string">Ingress</span>
+  <span class="hljs-attr">ingress:</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-attr">from:</span>
+    <span class="hljs-bullet">-</span> <span class="hljs-attr">namespaceSelector:</span>
+        <span class="hljs-attr">matchExpressions:</span>
+        <span class="hljs-bullet">-</span> <span class="hljs-attr">key:</span> <span class="hljs-string">kubernetes.io/metadata.name</span>
+          <span class="hljs-attr">operator:</span> <span class="hljs-string">In</span>
+          <span class="hljs-attr">values:</span> [<span class="hljs-string">&quot;ingress-nginx&quot;</span>, <span class="hljs-string">&quot;giropops&quot;</span>]
+</code></pre>
+<p>O resultado seria o mesmo, porém o código ficaria mais limpo e mais fácil de entender.</p>
+<p>Agora pode testar o acesso a nossa aplicação a partir de um Pod fora do namespace <code>giropops</code>, para isso vamos user o comando <code>curl</code>:</p>
+<pre><code class="lang-bash">kubectl run -it --rm --image curlimages/curl curl-client -- curl giropops-senhas.giropops.svc
+</code></pre>
+<p>Aqui você não conseguirá acessar a nossa aplicação, pois o acesso a nossa aplicação está bloqueado para Pods fora do namespace <code>giropops</code>, agora se você executar o mesmo comando, porém de dentro da Namespace <code>giropops</code>, tudo funcionará bem!</p>
+<p>Porém, sempre que você utilizar o endereço do Ingress da nossa aplicação, você conseguirá normalmente, pois liberamos o acesso ao nosso Ingress Controller, portanto os clientes da nossa app que acessarão via internet, conseguirão acessar normalmente, porém Pods fora do namespace <code>giropops</code> não conseguirão acessar a nossa aplicação. Lindo não é mesmo? :D</p>
+<p>Somente uma observação importante:</p>
+<pre><code class="lang-yaml">    <span class="hljs-bullet">-</span> <span class="hljs-attr">namespaceSelector:</span>
+        <span class="hljs-attr">matchLabels:</span>
+          <span class="hljs-attr">kubernetes.io/metadata.name:</span> <span class="hljs-string">ingress-nginx</span>
+    <span class="hljs-bullet">-</span> <span class="hljs-attr">namespaceSelector:</span>
+        <span class="hljs-attr">matchLabels:</span>
+          <span class="hljs-attr">kubernetes.io/metadata.name:</span> <span class="hljs-string">giropops</span>
+</code></pre>
+<p>Um coisa que deve ser bem entendido no momento de criar as suas regras são os operadores lógicos, pois eles podem mudar completamente o resultado da sua Network Policy. No nosso exemplo, estamos utilizando o operador lógico <code>OR</code>, ou seja, estamos permitindo o acesso ao nosso Ingress Controller OU ao nosso namespace <code>giropops</code>. </p>
+<p>Se você quiser permitir o acesso ao nosso Ingress Controller E ao nosso namespace <code>giropops</code>, você deve utilizar o operador lógico <code>AND</code>, veja:</p>
+<pre><code class="lang-yaml">    <span class="hljs-bullet">-</span> <span class="hljs-attr">namespaceSelector:</span>
+        <span class="hljs-attr">matchLabels:</span>
+          <span class="hljs-attr">kubernetes.io/metadata.name:</span> <span class="hljs-string">ingress-nginx</span>
+      <span class="hljs-attr">namespaceSelector:</span>
+        <span class="hljs-attr">matchLabels:</span>
+          <span class="hljs-attr">kubernetes.io/metadata.name:</span> <span class="hljs-string">giropops</span>
+</code></pre>
+<p>Nesse caso a regra funcionará da seguinte forma, somente os Pods que estiverem dentro do namespace <code>ingress-nginx</code> E do namespace <code>giropops</code> poderão acessar os Pods do namespace <code>giropops</code>, ou seja, teriamos problemas.</p>
+<p>Teste aí e veja o que acontece. :D</p>
+<p>Nós podemos ter uma abortagem diferente, podemos ter um regra que irá bloquear todo o tráfego de entrada, e depois criar regras para permitir o tráfego de entrada para os Pods que precisam, veja:</p>
+<pre><code class="lang-yaml"><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">networking.k8s.io/v1</span>
+<span class="hljs-attr">kind:</span> <span class="hljs-string">NetworkPolicy</span>
+<span class="hljs-attr">metadata:</span>
+  <span class="hljs-attr">name:</span> <span class="hljs-string">default-deny-all</span>
+<span class="hljs-attr">spec:</span>
+  <span class="hljs-attr">podSelector:</span> {}
+  <span class="hljs-attr">policyTypes:</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-string">Ingress</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-string">Egress</span>
+</code></pre>
+<p>Agora estamos bloqueando todo o tráfego de entrada para os Pods do namespace <code>giropops</code>, pois estamos utilizando o <code>ingress: []</code> para bloquear todo o tráfego de entrada. Mais uma vez, estamos usando o <code>[]</code> vazio para selecionar todos os Pods e bloquear todo o tráfego de entrada, pois não estamos especificando nenhum critério.
+O policyTypes é um campo obrigatório, e nele você deve especificar o tipo de política que você está criando, nesse caso, estamos criando uma política de entrada e saída, por isso estamos utilizando o <code>Ingress</code> e o <code>Egress</code>.</p>
+<p>Vamos aplicar:</p>
+<pre><code class="lang-bash">kubectl apply -f deny-all-ingress.yaml -n giropops
+</code></pre>
+<p>Agora vamos criar uma regra para que a nossa App consiga acessar o Redis, veja:</p>
+<pre><code class="lang-yaml"><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">networking.k8s.io/v1</span>
+<span class="hljs-attr">kind:</span> <span class="hljs-string">NetworkPolicy</span>
+<span class="hljs-attr">metadata:</span>
+  <span class="hljs-attr">name:</span> <span class="hljs-string">allow-redis-app-only</span>
+  <span class="hljs-attr">namespace:</span> <span class="hljs-string">giropops</span>
+<span class="hljs-attr">spec:</span>
+  <span class="hljs-attr">podSelector:</span>
+    <span class="hljs-attr">matchLabels:</span>
+      <span class="hljs-attr">app:</span> <span class="hljs-string">redis</span>
+  <span class="hljs-attr">policyTypes:</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-string">Ingress</span>
+  <span class="hljs-attr">ingress:</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-attr">from:</span>
+    <span class="hljs-bullet">-</span> <span class="hljs-attr">podSelector:</span>
+        <span class="hljs-attr">matchLabels:</span>
+          <span class="hljs-attr">app:</span> <span class="hljs-string">giropops-senhas</span>
+      <span class="hljs-attr">namespaceSelector:</span>
+        <span class="hljs-attr">matchLabels:</span>
+          <span class="hljs-attr">kubernetes.io/metadata.name:</span> <span class="hljs-string">giropops</span>
+    <span class="hljs-attr">ports:</span>
+    <span class="hljs-bullet">-</span> <span class="hljs-attr">protocol:</span> <span class="hljs-string">TCP</span>
+      <span class="hljs-attr">port:</span> <span class="hljs-number">6379</span>
+</code></pre>
+<p>Com isso temos mais um regra para permitir o acesso ao Redis e a App somente entre eles e somente nas portas 6379 e 5000.</p>
+<p>Vamos aplicar:</p>
+<pre><code class="lang-bash">kubectl apply -f permitir-somente-ingress-entre-app-redis-mesmo-ns.yaml -n giropops
+</code></pre>
+<p>Pronto, fizemos mais uma camada de segurança, agora somente a nossa aplicação pode acessar o Redis, e somente nas portas 6379 e 5000, mas ainda temos um problema, pois o nosso Ingress Controller não consegue acessar a nossa aplicação, e com isso, nossos clientes não irão conseguir acessar a nossa aplicação, então vamos criar uma Network Policy para permitir o acesso ao nosso Ingress Controller, veja:</p>
+<pre><code class="lang-yaml"><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">networking.k8s.io/v1</span>
+<span class="hljs-attr">kind:</span> <span class="hljs-string">NetworkPolicy</span>
+<span class="hljs-attr">metadata:</span>
+  <span class="hljs-attr">name:</span> <span class="hljs-string">allow-ingress-controller</span>
+  <span class="hljs-attr">namespace:</span> <span class="hljs-string">giropops</span>
+<span class="hljs-attr">spec:</span>
+  <span class="hljs-attr">podSelector:</span> {}
+  <span class="hljs-attr">policyTypes:</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-string">Ingress</span>
+  <span class="hljs-attr">ingress:</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-attr">from:</span>
+    <span class="hljs-bullet">-</span> <span class="hljs-attr">namespaceSelector:</span>
+        <span class="hljs-attr">matchLabels:</span>
+          <span class="hljs-attr">kubernetes.io/metadata.name:</span> <span class="hljs-string">ingress-nginx</span>
+    <span class="hljs-attr">ports:</span>
+    <span class="hljs-bullet">-</span> <span class="hljs-attr">protocol:</span> <span class="hljs-string">TCP</span>
+      <span class="hljs-attr">port:</span> <span class="hljs-number">5000</span>
+</code></pre>
+<p>Pronto, agora o nosso Ingress Controller consegue acessar a nossa aplicação, e com isso, nossos clientes também conseguem acessar a nossa aplicação! </p>
+<p>Outra opção bem interessante de utilizar é o <code>ipBlock</code>, com ele você pode especificar um endereço IP ou um CIDR para permitir o acesso, veja:</p>
+<pre><code class="lang-yaml"><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">networking.k8s.io/v1</span>
+<span class="hljs-attr">kind:</span> <span class="hljs-string">NetworkPolicy</span>
+<span class="hljs-attr">metadata:</span>
+  <span class="hljs-attr">name:</span> <span class="hljs-string">ip-block</span>
+  <span class="hljs-attr">namespace:</span> <span class="hljs-string">giropops</span>
+<span class="hljs-attr">spec:</span>
+  <span class="hljs-attr">podSelector:</span> {}
+  <span class="hljs-attr">policyTypes:</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-string">Ingress</span>
+  <span class="hljs-attr">ingress:</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-attr">from:</span>
+    <span class="hljs-bullet">-</span> <span class="hljs-attr">ipBlock:</span>
+        <span class="hljs-attr">cidr:</span> <span class="hljs-number">172.18</span><span class="hljs-number">.0</span><span class="hljs-number">.0</span><span class="hljs-string">/16</span>
+</code></pre>
+<p>Com a regra acima estamos falando que nós queremos permitir o acesso somente para o range de IPs dentro do CIDR <code>172.18.0.0/16</code>, ou seja, somente os Pods que estiverem dentro desse range de IPs poderão acessar os Pods do namespace <code>giropops</code>.</p>
+<p>Ainda podemos adionar uma regra de exceção, veja:</p>
+<pre><code class="lang-yaml"><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">networking.k8s.io/v1</span>
+<span class="hljs-attr">kind:</span> <span class="hljs-string">NetworkPolicy</span>
+<span class="hljs-attr">metadata:</span>
+  <span class="hljs-attr">name:</span> <span class="hljs-string">ip-block</span>
+  <span class="hljs-attr">namespace:</span> <span class="hljs-string">giropops</span>
+<span class="hljs-attr">spec:</span>
+  <span class="hljs-attr">policyTypes:</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-string">Ingress</span>
+  <span class="hljs-attr">podSelector:</span> {}
+  <span class="hljs-attr">ingress:</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-attr">from:</span>
+    <span class="hljs-bullet">-</span> <span class="hljs-attr">ipBlock:</span>
+        <span class="hljs-attr">cidr:</span> <span class="hljs-number">172.18</span><span class="hljs-number">.0</span><span class="hljs-number">.0</span><span class="hljs-string">/16</span>
+        <span class="hljs-attr">except:</span>
+        <span class="hljs-bullet">-</span> <span class="hljs-number">172.18</span><span class="hljs-number">.0</span><span class="hljs-number">.112</span><span class="hljs-string">/32</span>
+</code></pre>
+<p>Com a regra acima, toda a rede <code>172.18.0.0/16</code> terá acesso, menos o IP <code>172.18.0.112</code> que não terá acesso aos Pods do namespace <code>giropops</code>.</p>
+<p>Nós criamos um monte de Network Policies, mas não nos concentramos em entender como ver se elas estão criadas e seus detalhes, então vamos ver como podemos fazer isso.</p>
+<p>Para visualizar as Network Policies que estão criadas no seu cluster, você pode executar o seguinte comando:</p>
+<pre><code class="lang-bash">kubectl get networkpolicies -n giropops
+</code></pre>
+<p>Para ver os detalhes de uma Network Policy, você pode executar o seguinte comando:</p>
+<pre><code class="lang-bash">kubectl describe networkpolicy &lt;nome-da-network-policy&gt; -n giropops
+</code></pre>
+<p>Para deletar uma Network Policy, você pode executar o seguinte comando:</p>
+<pre><code class="lang-bash">kubectl delete networkpolicy &lt;nome-da-network-policy&gt; -n giropops
+</code></pre>
+<p>Simples como voar, não?</p>
+<h4 id="egress">Egress</h4>
+<p>Nós falamos muito como criar regras de Ingres, ou seja, regras de entrada, mas e as regras de saída? Como podemos criar regras de saída?</p>
+<p>Para isso temos o <code>egress</code>, que é muito parecido com o <code>ingress</code>, mas com algumas diferenças, veja:</p>
+<pre><code class="lang-yaml"><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">networking.k8s.io/v1</span>
+<span class="hljs-attr">kind:</span> <span class="hljs-string">NetworkPolicy</span>
+<span class="hljs-attr">metadata:</span>
+  <span class="hljs-attr">name:</span> <span class="hljs-string">allow-egress</span>
+  <span class="hljs-attr">namespace:</span> <span class="hljs-string">giropops</span>
+<span class="hljs-attr">spec:</span>
+  <span class="hljs-attr">podSelector:</span> {}
+  <span class="hljs-attr">policyTypes:</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-string">Egrees</span>
+  <span class="hljs-attr">egress:</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-attr">to:</span>
+    <span class="hljs-bullet">-</span> <span class="hljs-attr">podSelector:</span>
+        <span class="hljs-attr">matchLabels:</span>
+          <span class="hljs-attr">app:</span> <span class="hljs-string">redis</span>
+    <span class="hljs-attr">ports:</span>
+    <span class="hljs-bullet">-</span> <span class="hljs-attr">protocol:</span> <span class="hljs-string">TCP</span>
+      <span class="hljs-attr">port:</span> <span class="hljs-number">6379</span>
+</code></pre>
+<p>Com a regra acima, estamos liberando o acesso para os Pods que atendem aos critérios especificados, nesse caso, somente os Pods que tiverem o label <code>app: redis</code> poderão acessar os Pods do namespace <code>giropops</code> na porta 6379. Com isso, todos os Pods da namespace <code>giropops</code> poderão acessar os Pods que tiverem o label <code>app: redis</code> na porta 6379.</p>
+<p>Agora, se quisermos que somente a nossa aplicação possa acessar o Redis, podemos fazer o seguinte:</p>
+<pre><code class="lang-yaml"><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">networking.k8s.io/v1</span>
+<span class="hljs-attr">kind:</span> <span class="hljs-string">NetworkPolicy</span>
+<span class="hljs-attr">metadata:</span>
+  <span class="hljs-attr">name:</span> <span class="hljs-string">allow-egress-only-app</span>
+  <span class="hljs-attr">namespace:</span> <span class="hljs-string">giropops</span>
+<span class="hljs-attr">spec:</span>
+  <span class="hljs-attr">policyTypes:</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-string">Egrees</span>
+  <span class="hljs-attr">podSelector:</span> 
+    <span class="hljs-attr">matchLabels:</span>
+      <span class="hljs-attr">app:</span> <span class="hljs-string">giropops-senhas</span>
+  <span class="hljs-attr">egress:</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-attr">to:</span>
+    <span class="hljs-bullet">-</span> <span class="hljs-attr">podSelector:</span>
+        <span class="hljs-attr">matchLabels:</span>
+          <span class="hljs-attr">app:</span> <span class="hljs-string">redis</span>
+    <span class="hljs-attr">ports:</span>
+    <span class="hljs-bullet">-</span> <span class="hljs-attr">protocol:</span> <span class="hljs-string">TCP</span>
+      <span class="hljs-attr">port:</span> <span class="hljs-number">6379</span>
+</code></pre>
+<p>Com a regra acima, somente a nossa aplicação poderá acessar o Redis, pois estamos utilizando o <code>podSelector</code> para selecionar somente os Pods que tiverem o label <code>app: giropops-senhas</code>, ou seja, somente a nossa aplicação poderá acessar o Redis.</p>
+<p>Simples demais!</p>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="../day-13/" class="navigation navigation-prev " aria-label="Previous page: Descomplicando Kubernetes dia 13">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="../day-15/README.md" class="navigation navigation-next " aria-label="Next page: Descomplicando Kubernetes dia 15">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"Descomplicando Kubernetes dia 14","level":"2.14","depth":1,"next":{"title":"Descomplicando Kubernetes dia 15","level":"2.15","depth":1,"path":"day-15/README.md","ref":"day-15/README.md","articles":[]},"previous":{"title":"Descomplicando Kubernetes dia 13","level":"2.13","depth":1,"path":"day-13/README.md","ref":"day-13/README.md","articles":[]},"dir":"ltr"},"config":{"plugins":[],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"language":"pt","gitbook":"*"},"file":{"path":"day-14/README.md","mtime":"2024-01-28T18:05:57.826Z","type":"markdown"},"gitbook":{"version":"3.6.20","time":"2024-01-28T18:06:05.591Z"},"basePath":"..","book":{"language":"pt"}});
+        });
+    </script>
+</div>
+
+        
+    <noscript>
+        <style>
+            .honkit-cloak {
+                display: block !important;
+            }
+        </style>
+    </noscript>
+    <script>
+        // Restore sidebar state as critical path for prevent layout shift
+        function __init__getSidebarState(defaultValue){
+            var baseKey = "";
+            var key = baseKey + ":sidebar";
+            try {
+                var value = localStorage[key];
+                if (value === undefined) {
+                    return defaultValue;
+                }
+                var parsed = JSON.parse(value);
+                return parsed == null ? defaultValue : parsed;
+            } catch (e) {
+                return defaultValue;
+            }
+        }
+        function __init__restoreLastSidebarState() {
+            var isMobile = window.matchMedia("(max-width: 600px)").matches;
+            if (isMobile) {
+                // Init last state if not mobile
+                return;
+            }
+            var sidebarState = __init__getSidebarState(true);
+            var book = document.querySelector(".book");
+            // Show sidebar if it enabled
+            if (sidebarState && book) {
+                book.classList.add("without-animation", "with-summary");
+            }
+        }
+
+        try {
+            __init__restoreLastSidebarState();
+        } finally {
+            var book = document.querySelector(".book");
+            book.classList.remove("honkit-cloak");
+        }
+    </script>
+    <script src="../../gitbook/gitbook.js"></script>
+    <script src="../../gitbook/theme.js"></script>
+    
+        
+        <script src="../../gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+

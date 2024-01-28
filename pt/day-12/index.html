@@ -279,9 +279,9 @@
             
         </li>
     
-        <li class="chapter " data-level="2.14" data-path="../day-14/README.md">
+        <li class="chapter " data-level="2.14" data-path="../day-14/">
             
-                <span>
+                <a href="../day-14/">
             
                     
                     Descomplicando Kubernetes dia 14
@@ -383,7 +383,7 @@
 <li><a href="#o-que-são-tolerations">O que são Tolerations?</a></li>
 <li><a href="#o-que-são-affinity-e-antiaffinity">O que são Affinity e Antiaffinity?</a></li>
 <li><a href="#o-antiaffinity">O Antiaffinity?</a></li>
-<li><a href="#o-que-vimos-no-dia-de-hoje">O que vimos no dia de hoje?</a></li>
+<li><a href="#final-do-day-12">Final do Day-12</a></li>
 </ul>
 </li>
 </ul>
@@ -535,7 +535,7 @@ nginx-7c58f9889c-qn9hh   1/1     Running   0          2m29s   10.244.5.9    stri
 nginx-7c58f9889c-wmm2n   1/1     Running   0          2m27s   10.244.6.11   strigus-worker2   &lt;none&gt;           &lt;none&gt;
 nginx-7c58f9889c-zp9g9   1/1     Running   0          2m29s   10.244.6.10   strigus-worker2   &lt;none&gt;           &lt;none&gt;
 </code></pre>
-<p>Funcionou! Os Pods que estavam executando no Node <code>strigus-worker1</code> foram removidos e agendados em outros Nodes.</p>
+<p>Funcionou! Os Pods que estavam sendo executados no Node <code>strigus-worker1</code> foram removidos e agendados em outros Nodes.</p>
 <p>Nesse caso, o Kubernetes não irá agendar nenhum Pod nesse Node a menos que ele tenha uma Toleration para o Taint que aplicamos.</p>
 <p>Isso é interessante em momentos que você precisa realizar manutenção em um Node, garantindo que não teremos nenhum Pod executando nele e que nenhum Pod será agendado nesse Node.</p>
 <p>Agora vamos remover o Taint do Node <code>strigus-worker1</code> e ver o que acontece.</p>
@@ -859,7 +859,7 @@ nginx-58b9c8f764-qzffs   1/1     Running   0          8s    10.244.5.38   strigu
 </code></pre>
 <p>Perceba que o Pod <code>nginx-58b9c8f764-qwjdk</code> está com o status <code>Pending</code>, pois não foi possível agendar ele em nenhum Node, pois em nossa regra nós falamos que ele não pode ser agendado em Nodes que tenham Pods com a label <code>app=nginx</code> na mesma zona de disponibilidade, ou seja, não teremos nenhum Node que atenda a essa regra.</p>
 <p>Sensacional demais, eu sei! \o/</p>
-<h3 id="o-que-vimos-no-dia-de-hoje">O que vimos no dia de hoje?</h3>
+<h3 id="final-do-day-12">Final do Day-12</h3>
 <p>No conteúdo de hoje, focamos em conceitos avançados de Kubernetes, explorando Taints, Tolerations, Affinity, e Antiaffinity. Esses são elementos cruciais para o gerenciamento eficiente de um cluster Kubernetes, permitindo controle refinado sobre onde e como os Pods são agendados.</p>
 <p><strong>Taints e Tolerations</strong>:</p>
 <ul>
@@ -917,7 +917,7 @@ nginx-58b9c8f764-qzffs   1/1     Running   0          8s    10.244.5.38   strigu
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Descomplicando Kubernetes dia 12","level":"2.12","depth":1,"next":{"title":"Descomplicando Kubernetes dia 13","level":"2.13","depth":1,"path":"day-13/README.md","ref":"day-13/README.md","articles":[]},"previous":{"title":"Descomplicando Kubernetes dia 11","level":"2.11","depth":1,"path":"day-11/README.md","ref":"day-11/README.md","articles":[]},"dir":"ltr"},"config":{"plugins":[],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"language":"pt","gitbook":"*"},"file":{"path":"day-12/README.md","mtime":"2024-01-24T13:57:05.518Z","type":"markdown"},"gitbook":{"version":"3.6.20","time":"2024-01-24T13:57:20.079Z"},"basePath":"..","book":{"language":"pt"}});
+            gitbook.page.hasChanged({"page":{"title":"Descomplicando Kubernetes dia 12","level":"2.12","depth":1,"next":{"title":"Descomplicando Kubernetes dia 13","level":"2.13","depth":1,"path":"day-13/README.md","ref":"day-13/README.md","articles":[]},"previous":{"title":"Descomplicando Kubernetes dia 11","level":"2.11","depth":1,"path":"day-11/README.md","ref":"day-11/README.md","articles":[]},"dir":"ltr"},"config":{"plugins":[],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"language":"pt","gitbook":"*"},"file":{"path":"day-12/README.md","mtime":"2024-01-28T18:05:57.826Z","type":"markdown"},"gitbook":{"version":"3.6.20","time":"2024-01-28T18:06:05.591Z"},"basePath":"..","book":{"language":"pt"}});
         });
     </script>
 </div>
