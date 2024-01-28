@@ -36,7 +36,7 @@
         - [¿Qué es CNI?](#qué-es-cni)
       - [Visualizando detalles de los nodos](#visualizando-detalles-de-los-nodos)
     - [Tu tarea](#tu-tarea)
-  - [Fin del Día 5](#fin-del-día-5)
+  - [Final del Día 5](#final-del-día-5)
 
 &nbsp;
 
@@ -766,7 +766,7 @@ Lo más importante es tener un clúster de Kubernetes funcionando y listo para s
 
 &nbsp;
 
-## Fin del Día 5
+## Final del Día 5
 
 Durante el Día 5, aprendiste cómo crear un clúster de Kubernetes utilizando 3 nodos a través de Kubeadm. Aprendiste todos los detalles importantes sobre el clúster y sus componentes. Instalamos el complemento de red Weave Net y también conocimos qué es la CNI y los complementos de red más utilizados en Kubernetes.
 
