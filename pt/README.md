@@ -390,6 +390,27 @@ Fique à vontade para aprender muito sobre Kubernetes utilizando esse livro!
 <details>
 <summary>DAY-14</summary>
 
+- [Descomplicando o Kubernetes](day-14/README.md#descomplicando-o-kubernetes)
+  - [DAY-14: Descomplicando Network Policies no Kubernetes](day-14/README.md#day-14-descomplicando-network-policies-no-kubernetes)
+  - [Conteúdo do Day-14](day-14/README.md#conteúdo-do-day-14)
+  - [O que iremos ver hoje?](day-14/README.md#o-que-iremos-ver-hoje)
+    - [O que são Network Policies?](day-14/README.md#o-que-são-network-policies)
+      - [Para que Servem as Network Policies?](day-14/README.md#para-que-servem-as-network-policies)
+      - [Conceitos Fundamentais: Ingress e Egress](day-14/README.md#conceitos-fundamentais-ingress-e-egress)
+      - [Como Funcionam as Network Policies?](day-14/README.md#como-funcionam-as-network-policies)
+      - [Ainda não é padrão](day-14/README.md#ainda-não-é-padrão)
+      - [Criando um Cluster EKS com Network Policies](day-14/README.md#criando-um-cluster-eks-com-network-policies)
+        - [Instalando o EKSCTL](day-14/README.md#instalando-o-eksctl)
+        - [Instalando o AWS CLI](day-14/README.md#instalando-o-aws-cli)
+        - [Criando o Cluster EKS](day-14/README.md#criando-o-cluster-eks)
+        - [Instalando o AWS VPC CNI Plugin](day-14/README.md#instalando-o-aws-vpc-cni-plugin)
+        - [Habilitando o Network Policy nas Configurações Avançadas do CNI](day-14/README.md#habilitando-o-network-policy-nas-configurações-avançadas-do-cni)
+      - [Instalando o Nginx Ingress Controller](day-14/README.md#instalando-o-nginx-ingress-controller)
+    - [Instalando um Nginx Ingress Controller](day-14/README.md#instalando-um-nginx-ingress-controller)
+      - [Nossa Aplicação de Exemplo](day-14/README.md#nossa-aplicação-de-exemplo)
+    - [Criando Regras de Network Policy](day-14/README.md#criando-regras-de-network-policy)
+      - [Ingress](day-14/README.md#ingress)
+      - [Egress](day-14/README.md#egress)
 </details>
 
 &nbsp;
