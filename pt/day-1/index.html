@@ -372,13 +372,12 @@
                                 
                                 <h1 id="descomplicando-o-kubernetes">Descomplicando o Kubernetes</h1>
 <p> </p>
-<h2 id="day-1">DAY-1</h2>
+<h2 id="day-1-o-que-é-o-kubernetes">DAY-1: O que é o Kubernetes?</h2>
 <p> </p>
-<h3 id="indice">Indice</h3>
+<h3 id="conteúdo-do-day-1">Conteúdo do Day-1</h3>
 <ul>
 <li><a href="#descomplicando-o-kubernetes">Descomplicando o Kubernetes</a><ul>
 <li><a href="#day-1">DAY-1</a><ul>
-<li><a href="#indice">Indice</a></li>
 <li><a href="#o-que-iremos-ver-hoje">O que iremos ver hoje?</a></li>
 <li><a href="#inicio-da-aula-do-day-1">Inicio da aula do Day-1</a></li>
 <li><a href="#qual-distro-gnulinux-devo-usar">Qual distro GNU/Linux devo usar?</a></li>
@@ -450,14 +449,14 @@
 </ul>
 <p> </p>
 <h3 id="o-que-iremos-ver-hoje">O que iremos ver hoje?</h3>
-<p>Durante o Day-1 nós vamos entender o que é um container, vamos falar sobre a importância do container runtime e do container engine. Durante o Day-1 vamos entender o que é o Kubernetes e sua arquitetura, vamos falar sobre o control plane, workers, apiserver, scheduler, controller e muito mais!
+<p>Durante o Day-1 exploraremos o conceito de containers, discutiremos a relevância do container runtime e do container engine. Além disso, vamos entender o que é o Kubernetes e sua arquitetura, falaremos sobre o control plane, workers, apiserver, scheduler, controller e muito mais!
 Será aqui que iremos criar o nosso primeiro cluster Kubernetes e realizar o deploy de um pod do Nginx. 
-O Day-1 é para que eu possa me sentir mais confortável com o Kubernetes e seus conceitos iniciais.
+O Day-1 é para que você possa se sentir mais confortável com o Kubernetes e seus conceitos iniciais.
  </p>
 <h3 id="inicio-da-aula-do-day-1">Inicio da aula do Day-1</h3>
 <p> </p>
 <h3 id="qual-distro-gnulinux-devo-usar">Qual distro GNU/Linux devo usar?</h3>
-<p>Devido ao fato de algumas ferramentas importantes, como o <code>systemd</code> e <code>journald</code>, terem se tornado padrão na maioria das principais distribuições disponíveis hoje, você não deve encontrar problemas para seguir o treinamento, caso você opte por uma delas, como Ubuntu, Debian, CentOS e afins.
+<p>Considerando que ferramentas essenciais, como o <code>systemd</code> e <code>journald</code>, agora são amplamente adotadas como padrão nas principais distribuições disponíveis, como Ubuntu, Debian, CentOS, entre outras, você não deverá enfrentar dificuldades ao seguir o treinamento utilizando qualquer uma delas.
  </p>
 <h3 id="alguns-sites-que-devemos-visitar">Alguns sites que devemos visitar</h3>
 <p>Abaixo temos os sites oficiais do projeto do Kubernetes:</p>
@@ -482,31 +481,27 @@ Abaixo temos as páginas oficiais das certificações do Kubernetes (CKA, CKAD e
 <p> </p>
 <h3 id="o-container-engine">O Container Engine</h3>
 <p>Antes de começar a falar um pouco mais sobre o Kubernetes, nós primeiro precisamos entender alguns componentes que são importantes no ecossistema do Kubernetes, um desses componentes é o Container Engine. </p>
-<p>O <em>Container Engine</em> é o responsável por gerenciar as imagens e volumes, é ele o responsável por garantir que os os recursos que os containers estão utilizando está devidamente isolados, a vida do container, storage, rede, etc.</p>
-<p>Hoje temos diversas opções para se utilizar como <em>Container Engine</em>, que até pouco tempo atrás tinhamos somente o Docker para esse papel.</p>
-<p>Opções como o Docker, o CRI-O e o Podman são bem conhecidas e preparadas para o ambiente produtivo. O Docker, como todos sabem, é o Container Engine mais popular e ele utiliza como Container Runtime o containerd.</p>
+<p>O <em>Container Engine</em> é o responsável por gerenciar as imagens e volumes, ele é o responsável por garantir que os os recursos utilizados pelos containers estão devidamente isolados, a vida do container, storage, rede, etc.</p>
+<p>Até pouco tempo atrás tinhamos somente o Docker para esse papel. Mas hoje já temos diversas opções para se utilizar como <em>Container Engine</em>.</p>
+<p>Opções como o Docker, o CRI-O e o Podman são bem conhecidas e preparadas para o ambiente produtivo. O Docker, é o Container Engine mais popular e ele utiliza como Container Runtime o containerd.</p>
 <p>Container Runtime? O que é isso?</p>
 <p>Calma que vou te explicar já já, mas antes temos que falar sobre a OCI. :)</p>
 <p> </p>
 <h4 id="oci---open-container-initiative">OCI - Open Container Initiative</h4>
 <p>A OCI é uma organização sem fins lucrativos que tem como objetivo padronizar a criação de containers, para que possam ser executados em qualquer ambiente. A OCI foi fundada em 2015 pela Docker, CoreOS, Google, IBM, Microsoft, Red Hat e VMware e hoje faz parte da Linux Foundation.</p>
-<p>O principal projeto criado pela OCI é o <em>runc</em>, que é o principal container runtime de baixo nível, e utilizado por diferentes <em>Container Engines, como o Docker. 
-O </em>runc* é um projeto open source, escrito em Go e seu código está disponível no GitHub.</p>
+<p>O runc, principal projeto desenvolvido pela OCI, é um container runtime de baixo nível amplamente utilizado por diversos Container Engines, incluindo o Docker. Este projeto, totalmente open source, é escrito em Go e seu código fonte pode ser acessado no GitHub.</p>
 <p>Agora sim já podemos falar sobre o que é o Container Runtime.</p>
 <p> </p>
 <h4 id="o-container-runtime">O Container Runtime</h4>
-<p>Para que seja possível executar os containers nos nós é necessário ter um <em>Container Runtime</em> instalado em cada um dos nós.</p>
-<p>O <em>Container Runtime</em> é o responsável por executar os containers nos nós. Quando você está utilizando Docker ou Podman para executar containers em sua máquina, por exemplo, você está fazendo uso de algum <em>Container Runtime</em>, ou melhor, o seu Container Engine está fazendo uso de algum <em>Container Runtime</em>.</p>
+<p>Para que seja possível executar os containers nos nós é necessário ter um <em>Container Runtime</em> instalado em cada um desses nós.</p>
+<p>O <em>Container Runtime</em> é o responsável por executar os containers nos nós. Quando você está utilizando ferramentas como Docker ou Podman para executar containers em sua máquina, por exemplo, você está fazendo uso de algum <em>Container Runtime</em>, ou melhor, o seu Container Engine está fazendo uso de algum <em>Container Runtime</em>.</p>
 <p>Temos três tipos de <em>Container Runtime</em>:</p>
 <ul>
 <li><p>Low-level: são os <em>Container Runtime</em> que são executados diretamente pelo Kernel, como o runc, o crun e o runsc.</p>
 </li>
 <li><p>High-level: são os <em>Container Runtime</em> que são executados por um <em>Container Engine</em>, como o containerd, o CRI-O e o Podman.</p>
 </li>
-<li><p>Sandbox: são os <em>Container Runtime</em> que são executados por um <em>Container Engine</em> e que são responsáveis por executar containers de forma segura em unikernels ou utilizando algum proxy para fazer a comunicação com o Kernel. O gVisor é um exemplo de <em>Container Runtime</em> do tipo Sandbox.</p>
-</li>
-<li><p>Virtualized: são os <em>Container Runtime</em> que são executados por um <em>Container Engine</em> e que são responsáveis por executar containers de forma segura em máquinas virtuais. A performance aqui é um pouco menor do que quando temos um sendo executado nativamente.
-O Kata Containers é um exemplo de <em>Container Runtime</em> do tipo Virtualized.</p>
+<li><p>Sandbox e Virtualized: são os <em>Container Runtime</em> que são executados por um <em>Container Engine</em> e que são responsáveis por executar containers de forma segura. O tipo Sandbox é executado em unikernels ou utilizando algum proxy para fazer a comunicação com o Kernel. O gVisor é um exemplo de <em>Container Runtime</em> do tipo Sandbox. Já o tipo Virtualized é executado em máquinas virtuais. A performance aqui é um pouco menor do que quando executado nativamente. O Kata Containers é um exemplo de <em>Container Runtime</em> do tipo Virtualized.</p>
 </li>
 </ul>
 <p> </p>
@@ -515,7 +510,7 @@ O Kata Containers é um exemplo de <em>Container Runtime</em> do tipo Virtualize
 <p>O projeto Kubernetes foi desenvolvido pela Google, em meados de 2014, para atuar como um orquestrador de contêineres para a empresa. O Kubernetes (k8s), cujo termo em Grego significa &quot;timoneiro&quot;, é um projeto <em>open source</em> que conta com <em>design</em> e desenvolvimento baseados no projeto Borg, que também é da Google <a href="https://kubernetes.io/blog/2015/04/borg-predecessor-to-kubernetes/" target="_blank">1</a>. Alguns outros produtos disponíveis no mercado, tais como o Apache Mesos e o Cloud Foundry, também surgiram a partir do projeto Borg.</p>
 <p>Como Kubernetes é uma palavra difícil de se pronunciar - e de se escrever - a comunidade simplesmente o apelidou de <strong>k8s</strong>, seguindo o padrão <a href="http://www.i18nguy.com/origini18n.html" target="_blank">i18n</a> (a letra &quot;k&quot; seguida por oito letras e o &quot;s&quot; no final), pronunciando-se simplesmente &quot;kates&quot;.</p>
 <p><strong>Versão longa:</strong></p>
-<p>Praticamente todo software desenvolvido na Google é executado em contêiner <a href="https://www.enterpriseai.news/2014/05/28/google-runs-software-containers/" target="_blank">2</a>. A Google já gerencia contêineres em larga escala há mais de uma década, quando não se falava tanto sobre isso. Para atender a demanda interna, alguns desenvolvedores do Google construíram três sistemas diferentes de gerenciamento de contêineres: <strong>Borg</strong>, <strong>Omega</strong> e <strong>Kubernetes</strong>. Cada sistema teve o desenvolvimento bastante influenciado pelo antecessor, embora fosse desenvolvido por diferentes razões.</p>
+<p>Praticamente todo software desenvolvido na Google é executado em contêiner <a href="https://www.enterpriseai.news/2014/05/28/google-runs-software-containers/" target="_blank">2</a>. A Google já gerencia contêineres em larga escala há mais de uma década, quando não se falava tanto sobre isso. Para atender a demanda interna, alguns desenvolvedores do Google construíram três sistemas diferentes de gerenciamento de contêineres: <strong>Borg</strong>, <strong>Omega</strong> e <strong>Kubernetes</strong>. Cada sistema teve o desenvolvimento influenciado pelo antecessor, embora fosse desenvolvido por diferentes razões.</p>
 <p>O primeiro sistema de gerenciamento de contêineres desenvolvido no Google foi o Borg, construído para gerenciar serviços de longa duração e jobs em lote, que anteriormente eram tratados por dois sistemas:  <strong>Babysitter</strong> e <strong>Global Work Queue</strong>. O último influenciou fortemente a arquitetura do Borg, mas estava focado em execução de jobs em lote. O Borg continua sendo o principal sistema de gerenciamento de contêineres dentro do Google por causa de sua escala, variedade de recursos e robustez extrema.</p>
 <p>O segundo sistema foi o Omega, descendente do Borg. Ele foi impulsionado pelo desejo de melhorar a engenharia de software do ecossistema Borg. Esse sistema aplicou muitos dos padrões que tiveram sucesso no Borg, mas foi construído do zero para ter a arquitetura mais consistente. Muitas das inovações do Omega foram posteriormente incorporadas ao Borg.</p>
 <p>O terceiro sistema foi o Kubernetes. Concebido e desenvolvido em um mundo onde desenvolvedores externos estavam se interessando em contêineres e o Google desenvolveu um negócio em amplo crescimento atualmente, que é a venda de infraestrutura de nuvem pública.</p>
@@ -523,7 +518,7 @@ O Kata Containers é um exemplo de <em>Container Runtime</em> do tipo Virtualize
 <p>Estas informações foram extraídas e adaptadas deste <a href="https://static.googleusercontent.com/media/research.google.com/pt-BR//pubs/archive/44843.pdf" target="_blank">artigo</a>, que descreve as lições aprendidas com o desenvolvimento e operação desses sistemas.
  </p>
 <h3 id="arquitetura-do-k8s">Arquitetura do k8s</h3>
-<p>Assim como os demais orquestradores disponíveis, o k8s também segue um modelo <em>control plane/workers</em>, constituindo assim um <em>cluster</em>, onde para seu funcionamento é recomendado no mínimo três nós: o nó <em>control-plane</em>, responsável (por padrão) pelo gerenciamento do <em>cluster</em>, e os demais como <em>workers</em>, executores das aplicações que queremos executar sobre esse <em>cluster</em>.</p>
+<p>Assim como os demais orquestradores disponíveis, o k8s também segue um modelo <em>control plane/workers</em>, constituindo assim um <em>cluster</em>, onde para seu funcionamento é recomendado no mínimo três nós: o nó <em>control-plane</em>, responsável (por padrão) pelo gerenciamento do <em>cluster</em>, e os demais como <em>workers</em>, responsáveis por executar as aplicações.</p>
 <p>É possível criar um cluster Kubernetes rodando em apenas um nó, porém é recomendado somente para fins de estudos e nunca executado em ambiente produtivo.</p>
 <p>Caso você queira utilizar o Kubernetes em sua máquina local, em seu desktop, existem diversas soluções que irão criar um cluster Kubernetes, utilizando máquinas virtuais ou o Docker, por exemplo.</p>
 <p>Com isso você poderá ter um cluster Kubernetes com diversos nós, porém todos eles rodando em sua máquina local, em seu desktop.</p>
@@ -539,7 +534,7 @@ O Kata Containers é um exemplo de <em>Container Runtime</em> do tipo Virtualize
 </li>
 <li><p><a href="https://k0sproject.io" target="_blank">k0s</a>: Desenvolvido pela <a href="https://www.mirantis.com" target="_blank">Mirantis</a>, mesma empresa que adquiriu a parte enterprise do <a href="https://www.docker.com" target="_blank">Docker</a>. É uma distribuição do Kubernetes com todos os recursos necessários para funcionar em um único binário, que proporciona uma simplicidade na instalação e manutenção do cluster. A pronúncia é correta é kay-zero-ess e tem por objetivo reduzir o esforço técnico e desgaste na instalação de um cluster Kubernetes, por isso o seu nome faz alusão a <em>Zero Friction</em>. <strong>O k0s pode ser utilizado em ambientes de produção</strong>;</p>
 </li>
-<li><p><strong>API Server</strong>: É um dos principais componentes do k8s. Este componente fornece uma API que utiliza JSON sobre HTTP para comunicação, onde para isto é utilizado principalmente o utilitário <code>kubectl</code>, por parte dos administradores, para a comunicação com os demais nós, como mostrado no gráfico. Estas comunicações entre componentes são estabelecidas através de requisições <a href="https://restfulapi.net" target="_blank">REST</a>;</p>
+<li><p><strong>API Server</strong>: É um dos principais componentes do k8s. Este componente fornece uma API que utiliza JSON sobre HTTP para comunicação, onde para isto é utilizado principalmente o utilitário <code>kubectl</code>, por parte dos administradores, para a comunicação com os demais nós. Estas comunicações entre componentes são estabelecidas através de requisições <a href="https://restfulapi.net" target="_blank">REST</a>;</p>
 </li>
 <li><p><strong>etcd</strong>: O etcd é um <em>datastore</em> chave-valor distribuído que o k8s utiliza para armazenar as especificações, status e configurações do <em>cluster</em>. Todos os dados armazenados dentro do etcd são manipulados apenas através da API. Por questões de segurança, o etcd é por padrão executado apenas em nós classificados como <em>control plane</em> no <em>cluster</em> k8s, mas também podem ser executados em <em>clusters</em> externos, específicos para o etcd, por exemplo;</p>
 </li>
@@ -547,7 +542,7 @@ O Kata Containers é um exemplo de <em>Container Runtime</em> do tipo Virtualize
 </li>
 <li><p><strong>Controller Manager</strong>: É o <em>controller manager</em> quem garante que o <em>cluster</em> esteja no último estado definido no etcd. Por exemplo: se no etcd um <em>deploy</em> está configurado para possuir dez réplicas de um <em>pod</em>, é o <em>controller manager</em> quem irá verificar se o estado atual do <em>cluster</em> corresponde a este estado e, em caso negativo, procurará conciliar ambos;</p>
 </li>
-<li><p><strong>Kubelet</strong>: O <em>kubelet</em> pode ser visto como o alente do k8s que é executado nos nós workers. Em cada nó worker deverá existir um agente Kubelet em execução. O Kubelet é responsável por de fato gerenciar os <em>pods</em> que foram direcionados pelo <em>controller</em> do <em>cluster</em>, dentro dos nós, de forma que para isto o Kubelet pode iniciar, parar e manter os contêineres e os pods em funcionamento de acordo com o instruído pelo controlador do cluster;</p>
+<li><p><strong>Kubelet</strong>: O <em>kubelet</em> desempenha o papel de um agente do k8s que é executado nos nós workers. Em cada nó worker deverá existir um agente Kubelet em execução, encarregado de gerenciar efetivamente os <em>pods</em> direcionados pelo <em>controller</em> do <em>cluster</em> dentro dos nós. Para isso, o Kubelet pode iniciar, parar e manter os contêineres e os pods em funcionamento seguindo as instruções fornecidas pelo controlador do cluster;</p>
 </li>
 <li><p><strong>Kube-proxy</strong>: Age como um <em>proxy</em> e um <em>load balancer</em>. Este componente é responsável por efetuar roteamento de requisições para os <em>pods</em> corretos, como também por cuidar da parte de rede do nó;</p>
 </li>
@@ -590,14 +585,14 @@ O Kata Containers é um exemplo de <em>Container Runtime</em> do tipo Virtualize
 <tr>
 <td>TCP</td>
 <td>Inbound</td>
-<td>10251</td>
+<td>10259</td>
 <td>kube-scheduler</td>
 <td>Self</td>
 </tr>
 <tr>
 <td>TCP</td>
 <td>Inbound</td>
-<td>10252</td>
+<td>10257</td>
 <td>kube-controller-manager</td>
 <td>Self</td>
 </tr>
@@ -680,7 +675,7 @@ sudo mv ./kubectl /usr/local/bin/kubectl
 kubectl version --client
 </code></pre><p> </p>
 <h4 id="instalação-do-kubectl-no-windows">Instalação do Kubectl no Windows</h4>
-<p>A instalação do <code>kubectl</code> pode ser realizada efetuando o download <a href="https://dl.k8s.io/release/v1.24.3/bin/windows/amd64/kubectl.exe" target="_blank">neste link</a>. </p>
+<p>A instalação do <code>kubectl</code> pode ser realizada efetuando o download <a href="https://dl.k8s.io/release/v1.29.1/bin/windows/amd64/kubectl.exe" target="_blank">neste link</a>. </p>
 <p>Outras informações sobre como instalar o kubectl no Windows podem ser encontradas <a href="https://kubernetes.io/docs/tasks/tools/install-kubectl-windows/" target="_blank">nesta página</a>.</p>
 <h3 id="customizando-o-kubectl">Customizando o kubectl</h3>
 <h4 id="auto-complete">Auto-complete</h4>
@@ -711,7 +706,7 @@ complete -F __start_kubectl k
 <h5 id="requisitos-básicos">Requisitos básicos</h5>
 <p>É importante frisar que o Minikube deve ser instalado localmente, e não em um <em>cloud provider</em>. Por isso, as especificações de <em>hardware</em> a seguir são referentes à máquina local.</p>
 <ul>
-<li>Processamento: 1 core;</li>
+<li>Processamento: 2 CPUs;</li>
 <li>Memória: 2 GB;</li>
 <li>HD: 20 GB.</li>
 </ul>
@@ -759,7 +754,7 @@ minikube version
 Caso a linha a seguir também esteja presente, não é necessária a instalação de um <em>hypervisor</em> como o Oracle VirtualBox:</p>
 <pre><code>Hyper-V Requirements:     A hypervisor has been detected. Features required for Hyper-V will not be displayed.:     A hypervisor has been detected. Features required for Hyper-V will not be displayed.
 </code></pre><p> 
-Faça o download e a instalação de um <em>hypervisor</em> (preferencialmente o <a href="https://www.virtualbox.org" target="_blank">Oracle VirtualBox</a>), caso no passo anterior não tenha sido acusada a presença de um. Finalmente, efetue o download do instalador do Minikube <a href="https://github.com/kubernetes/minikube/releases/latest" target="_blank">aqui</a> e execute-o.</p>
+Faça o download e a instalação de um <em>hypervisor</em> (preferencialmente o <a href="https://www.virtualbox.org" target="_blank">Oracle VirtualBox</a>), caso no passo anterior não tenha sido acusada a presença de um. Finalmente, efetue o download do instalador do Minikube <a href="https://github.com/kubernetes/minikube/releases/latest/download/minikube-windows-amd64.exe" target="_blank">aqui</a> e execute-o.</p>
 <h5 id="iniciando-parando-e-excluindo-o-minikube">Iniciando, parando e excluindo o Minikube</h5>
 <p>Quando operando em conjunto com um <em>hypervisor</em>, o Minikube cria uma máquina virtual, onde dentro dela estarão todos os componentes do k8s para execução.</p>
 <p>É possível selecionar qual <em>hypervisor</em> iremos utilizar por padrão, através no comando abaixo:</p>
@@ -857,7 +852,7 @@ Caso queira remover o cluster e todos os arquivos referente a ele, utilize o par
 <p>O Kind (<em>Kubernetes in Docker</em>) é outra alternativa para executar o Kubernetes num ambiente local para testes e aprendizado, mas não é recomendado para uso em produção.</p>
 <h5 id="instalação-no-gnulinux">Instalação no GNU/Linux</h5>
 <p>Para fazer a instalação no GNU/Linux, execute os seguintes comandos.</p>
-<pre><code>curl -Lo ./kind https://kind.sigs.k8s.io/dl/v0.14.0/kind-linux-amd64
+<pre><code>curl -Lo ./kind https://kind.sigs.k8s.io/dl/v0.20.0/kind-linux-amd64
 
 chmod +x ./kind
 
@@ -868,14 +863,13 @@ sudo mv ./kind /usr/local/bin/kind
 <pre><code>sudo brew install kind
 </code></pre><p> 
 ou</p>
-<pre><code>curl -Lo ./kind https://kind.sigs.k8s.io/dl/v0.14.0/kind-darwin-amd64
+<pre><code>curl -Lo ./kind https://kind.sigs.k8s.io/dl/v0.20.0/kind-darwin-amd64
 chmod +x ./kind
 mv ./kind /usr/bin/kind
 </code></pre><p> </p>
 <h5 id="instalação-no-windows">Instalação no Windows</h5>
 <p>Para fazer a instalação no Windows, execute os seguintes comandos.</p>
-<pre><code>curl.exe -Lo kind-windows-amd64.exe https://kind.sigs.k8s.io/dl/v0.14.0/kind-windows-amd64
-
+<pre><code>curl.exe -Lo kind-windows-amd64.exe https://kind.sigs.k8s.io/dl/v0.20.0/kind-windows-amd64
 Move-Item .\kind-windows-amd64.exe c:\kind.exe
 </code></pre><p> </p>
 <h6 id="instalação-no-windows-via-chocolatey">Instalação no Windows via Chocolatey</h6>
@@ -930,7 +924,7 @@ Liste os nodes do cluster.</p>
 
 Deleted clusters: [&quot;giropops&quot; &quot;kind&quot;]
 </code></pre><p> 
-Crie um arquivo de configuração para definir quantos e o tipo de nós no cluster que você deseja. No exemplo a seguir, será criado o arquivo de configuração <code>kind-3nodes.yaml</code> para especificar um cluster com 1 nó control-plane (que executará o control plane) e 2 workers.</p>
+Crie um arquivo de configuração para definir quantos e quais os tipos de nós que você deseja criar no cluster. No exemplo a seguir, será criado o arquivo de configuração <code>kind-3nodes.yaml</code> para especificar um cluster com 1 nó control-plane (que executará o control plane) e 2 workers.</p>
 <pre><code>cat &lt;&lt; EOF &gt; $HOME/kind-3nodes.yaml
 kind: Cluster
 apiVersion: kind.x-k8s.io/v1alpha4
@@ -994,13 +988,12 @@ Vamos agora remover o nosso <em>pod</em> com o seguinte comando.</p>
 A saída deve ser algo como:</p>
 <pre><code>pod &quot;nginx&quot; deleted
 </code></pre><p> </p>
-<h5 id="executando-nosso-primeiro-pod-no-k8s">Executando nosso primeiro pod no k8s</h5>
-<p>Uma outra forma de criar um pod ou qualquer outro objeto no Kubernetes é através da utilizaçâo de uma arquivo manifesto, que é uma arquivo em formato YAML onde você passa todas as definições do seu objeto. Mas pra frente vamos falar muito mais sobre como construir arquivos manifesto, mas agora eu quero que você conheça a opção <code>--dry-run</code> do <code>kubectl</code>, pos com ele podemos simular a criação de um resource e ainda ter um manifesto criado automaticamente. </p>
-<p>Exemplos:</p>
+<h5 id="executando-nosso-primeiro-pod-no-k8s-utilizando-um-arquivo-manifesto">Executando nosso primeiro pod no k8s utilizando um arquivo manifesto</h5>
+<p>Uma outra forma de criar um pod ou qualquer outro objeto no Kubernetes é através da utilizaçâo de uma arquivo manifesto, que é uma arquivo em formato YAML onde você passa todas as definições do seu objeto. Mas pra frente vamos falar mais sobre como construir arquivos manifesto, mas agora eu quero que você conheça a opção <code>--dry-run</code> do <code>kubectl</code>, com ela podemos simular a criação de um resource e ainda ter um manifesto criado automaticamente. </p>
 <p>Para a criação do template de um <em>pod</em>:</p>
 <pre><code>kubectl run meu-nginx --image nginx --dry-run=client -o yaml &gt; pod-template.yaml
 </code></pre><p> 
-Aqui estamos utilizando ainda o parametro &apos;-o&apos;, utilizando para modificar a saída para o formato YAML.</p>
+Estamos utilizando o parametro &apos;-o&apos; para modificar a saída para o formato YAML e redirecionando a saída para um arquivo chamado &apos;pod-template.yaml&apos;.</p>
 <p>Para a criação do <em>template</em> de um <em>deployment</em>:</p>
 <p>Com o arquivo gerado em mãos, agora você consegue criar um pod utilizando o manifesto que criamos da seguinte forma:</p>
 <pre><code>kubectl apply -f pod-template.yaml
@@ -1014,7 +1007,7 @@ Aqui estamos utilizando ainda o parametro &apos;-o&apos;, utilizando para modifi
 See &apos;kubectl expose -h&apos; for help and examples
 </code></pre><p>O erro ocorre devido ao fato do k8s não saber qual é a porta de destino do contêiner que deve ser exposta (no caso, a 80/TCP). Para configurá-la, vamos primeiramente remover o nosso <em>pod</em> antigo:</p>
 <pre><code>kubectl delete -f pod-template.yaml
-</code></pre><p>Agora vamos executar novamente o comando para a criação do pod utilizando o parametro &apos;dry-run&apos;, porém agora vamos adicionar o parametro &apos;--port&apos; para dizer qual a porta que o container está escutando, lembrando que estamos utilizando o nginx nesse exemplo, um webserver que escuta por padrão na porta 80.</p>
+</code></pre><p>Agora vamos executar novamente o comando para a criação do pod utilizando o parametro &apos;dry-run&apos;, adicionando o parametro &apos;--port&apos; para dizer qual a porta que o container está escutando, lembrando que estamos utilizando o nginx nesse exemplo, um webserver que escuta por padrão na porta 80.</p>
 <pre><code>kubectl run meu-nginx --image nginx --port 80 --dry-run=client -o yaml &gt; pod-template.yaml
 kubectl create -f pod-template.yaml
 </code></pre><p>Liste os pods.</p>
@@ -1042,7 +1035,7 @@ kubectl get pod,svc
 </code></pre><p>Note que o k8s nos disponibiliza algumas abreviações de seus recursos. Com o tempo você irá se familiar com elas. Para apagar os recursos criados, você pode executar os seguintes comandos.</p>
 <pre><code>kubectl delete -f pod-template.yaml
 kubectl delete service nginx
-</code></pre><p>Liste novamente os recursos para ver se os mesmos ainda estão presentes.</p>
+</code></pre><p>Liste novamente os recursos para verificar se eles foram removidos.</p>
 <p> </p>
 
                                 
@@ -1087,7 +1080,7 @@ kubectl delete service nginx
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Descomplicando Kubernetes dia 1","level":"2.1","depth":1,"next":{"title":"Descomplicando Kubernetes dia 2","level":"2.2","depth":1,"path":"day-2/README.md","ref":"day-2/README.md","articles":[]},"previous":{"title":"Introdução","level":"1.1","depth":1,"path":"README.md","ref":"README.md","articles":[]},"dir":"ltr"},"config":{"plugins":[],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"language":"pt","gitbook":"*"},"file":{"path":"day-1/README.md","mtime":"2024-01-28T18:10:32.079Z","type":"markdown"},"gitbook":{"version":"3.6.20","time":"2024-01-28T18:10:44.523Z"},"basePath":"..","book":{"language":"pt"}});
+            gitbook.page.hasChanged({"page":{"title":"Descomplicando Kubernetes dia 1","level":"2.1","depth":1,"next":{"title":"Descomplicando Kubernetes dia 2","level":"2.2","depth":1,"path":"day-2/README.md","ref":"day-2/README.md","articles":[]},"previous":{"title":"Introdução","level":"1.1","depth":1,"path":"README.md","ref":"README.md","articles":[]},"dir":"ltr"},"config":{"plugins":[],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"language":"pt","gitbook":"*"},"file":{"path":"day-1/README.md","mtime":"2024-01-28T18:10:56.771Z","type":"markdown"},"gitbook":{"version":"3.6.20","time":"2024-01-28T18:11:06.408Z"},"basePath":"..","book":{"language":"pt"}});
         });
     </script>
 </div>
