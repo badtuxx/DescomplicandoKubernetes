@@ -33,6 +33,7 @@
         - [Verificando los Endpoints](#verificando-los-endpoints)
         - [Eliminando un Service](#eliminando-un-service)
     - [Tu tarea](#tu-tarea)
+  - [Final del Día 7](#final-del-día-7)
 
 ## Inicio de la Lección del Día 7
 
@@ -695,6 +696,10 @@ Luego, juega un poco con los `Services`. Expón tu `StatefulSet` a través de un
 Por último, pero no menos importante, crea un `Service` de tipo `ExternalName` y apúntalo a un servicio externo de tu elección. Verifica que el servicio externo sea accesible desde dentro de tus `Pods`.
 
 Recuerda que la práctica hace al maestro, ¡así que no te saltes esta tarea! ;) Y si tienes preguntas o problemas, no dudes en pedir ayuda. ¡Estamos aquí para aprender juntos!
+
+&nbsp;
+
+## Final del Día 7
 
 ¡Hasta aquí llegamos por el Día 7! Durante este día, has aprendido acerca de dos recursos esenciales en Kubernetes: `StatefulSets` y `Services`. A través de ellos, puedes administrar aplicaciones que necesitan mantener la identidad del `Pod`, persistir datos y exponer esas aplicaciones al mundo exterior.
 
