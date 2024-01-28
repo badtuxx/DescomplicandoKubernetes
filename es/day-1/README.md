@@ -211,8 +211,8 @@ Protocolo|Dirección|Rango de Puertos|Propósito|Utilizado Por
 TCP|Entrada|6443*|Servidor de API de Kubernetes|Todos
 TCP|Entrada|2379-2380|Cliente API de servidor etcd|kube-apiserver, etcd
 TCP|Entrada|10250|API Kubelet|Propio, Control plane
-TCP|Entrada|10251|kube-scheduler|Propio
-TCP|Entrada|10252|kube-controller-manager|Propio
+TCP|Entrada|10259|kube-scheduler|Propio
+TCP|Entrada|10257|kube-controller-manager|Propio
 
 - Cualquier puerto marcado con * es personalizable. Asegúrate de que el puerto modificado también esté abierto.
 
