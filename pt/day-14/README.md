@@ -22,6 +22,7 @@
     - [Instalando um Nginx Ingress Controller](#instalando-um-nginx-ingress-controller)
       - [Nossa Aplicação de Exemplo](#nossa-aplicação-de-exemplo)
     - [Criando Regras de Network Policy](#criando-regras-de-network-policy)
+      - [Ingress](#ingress)
       - [Egress](#egress)
 
 
@@ -611,6 +612,8 @@ Pronto, agora que temos a nossa aplicação rodando, vamos começar a brincar co
 
 
 ### Criando Regras de Network Policy
+
+#### Ingress
 
 Em nosso exemplo, tanto a nossa aplicação quanto o Redis estão rodando no mesmo namespace, o namespace `giropops`. Por padrão, os Pods podem se comunicar livremente entre si. Vamos criar uma Network Policy para restringir o acesso ao Redis, permitindo que somente que pods do namespace `giropops` possam acessar o Redis.
 
