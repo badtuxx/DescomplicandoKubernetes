@@ -3,7 +3,7 @@
 <html lang="es" >
     <head>
         <meta charset="UTF-8">
-        <title>Simplificando Kubernetes dia 9 · HonKit</title>
+        <title>Simplificando Kubernetes día 9 · HonKit</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
         <meta name="generator" content="HonKit 3.6.20">
@@ -86,7 +86,7 @@
 
     
         
-        <li class="header">Sobre</li>
+        <li class="header">Acerca de</li>
         
         
     
@@ -115,7 +115,7 @@
                 <a href="../day-1/">
             
                     
-                    Simplificando Kubernetes dia 1
+                    Simplificando Kubernetes día 1
             
                 </a>
             
@@ -128,7 +128,7 @@
                 <a href="../day-2/">
             
                     
-                    Simplificando Kubernetes dia 2
+                    Simplificando Kubernetes día 2
             
                 </a>
             
@@ -141,7 +141,7 @@
                 <a href="../day-3/">
             
                     
-                    Simplificando Kubernetes dia 3
+                    Simplificando Kubernetes día 3
             
                 </a>
             
@@ -154,7 +154,7 @@
                 <a href="../day-4/">
             
                     
-                    Simplificando Kubernetes dia 4
+                    Simplificando Kubernetes día 4
             
                 </a>
             
@@ -167,7 +167,7 @@
                 <a href="../day-5/">
             
                     
-                    Simplificando Kubernetes dia 5
+                    Simplificando Kubernetes día 5
             
                 </a>
             
@@ -180,7 +180,7 @@
                 <a href="../day-6/">
             
                     
-                    Simplificando Kubernetes dia 6
+                    Simplificando Kubernetes día 6
             
                 </a>
             
@@ -193,7 +193,7 @@
                 <a href="../day-7/">
             
                     
-                    Simplificando Kubernetes dia 7
+                    Simplificando Kubernetes día 7
             
                 </a>
             
@@ -206,7 +206,7 @@
                 <a href="../day-8/">
             
                     
-                    Simplificando Kubernetes dia 8
+                    Simplificando Kubernetes día 8
             
                 </a>
             
@@ -219,7 +219,7 @@
                 <a href="./">
             
                     
-                    Simplificando Kubernetes dia 9
+                    Simplificando Kubernetes día 9
             
                 </a>
             
@@ -232,7 +232,7 @@
                 <a href="../day-10/">
             
                     
-                    Simplificando Kubernetes dia 10
+                    Simplificando Kubernetes día 10
             
                 </a>
             
@@ -240,12 +240,12 @@
             
         </li>
     
-        <li class="chapter " data-level="2.11" data-path="../day-11/README.md">
+        <li class="chapter " data-level="2.11" data-path="../day-11/">
             
-                <span>
+                <a href="../day-11/">
             
                     
-                    Simplificando Kubernetes dia 11
+                    Simplificando Kubernetes día 11
             
                 </a>
             
@@ -253,12 +253,12 @@
             
         </li>
     
-        <li class="chapter " data-level="2.12" data-path="../day-12/README.md">
+        <li class="chapter " data-level="2.12" data-path="../day-12/">
             
-                <span>
+                <a href="../day-12/">
             
                     
-                    Simplificando Kubernetes dia 12
+                    Simplificando Kubernetes día 12
             
                 </a>
             
@@ -266,12 +266,12 @@
             
         </li>
     
-        <li class="chapter " data-level="2.13" data-path="../day-13/README.md">
+        <li class="chapter " data-level="2.13" data-path="../day-13/">
             
-                <span>
+                <a href="../day-13/">
             
                     
-                    Simplificando Kubernetes dia 13
+                    Simplificando Kubernetes día 13
             
                 </a>
             
@@ -284,7 +284,7 @@
                 <span>
             
                     
-                    Simplificando Kubernetes dia 14
+                    Simplificando Kubernetes día 14
             
                 </a>
             
@@ -297,7 +297,7 @@
                 <span>
             
                     
-                    Simplificando Kubernetes dia 15
+                    Simplificando Kubernetes día 15
             
                 </a>
             
@@ -355,7 +355,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href=".." >Simplificando Kubernetes dia 9</a>
+        <a href=".." >Simplificando Kubernetes día 9</a>
     </h1>
 </div>
 
@@ -374,25 +374,266 @@
 <h2 id="día-9">DÍA 9</h2>
 <p> </p>
 <h3 id="¿qué-veremos-hoy">¿Qué veremos hoy?</h3>
-<p>Durante el día de hoy,</p>
+<p>&quot;Si estás aquí, es probable que ya tengas una idea de lo que hace Kubernetes. Pero, ¿cómo exponer tus servicios de manera eficiente y segura al mundo exterior? Aquí es donde entra en juego nuestro protagonista del día: el Ingress. En esta sección, desvelaremos qué es el Ingress, para qué sirve y cómo se diferencia de otras formas de exponer aplicaciones en Kubernetes.</p>
 <p> </p>
 <h3 id="contenido-del-día-9">Contenido del Día 9</h3>
 <ul>
-<li><a href="#por-que-">¿Por qué?</a></li>
+<li><a href="#simplificando-kubernetes">Simplificando Kubernetes</a><ul>
+<li><a href="#día-9">DÍA 9</a><ul>
+<li><a href="#qué-veremos-hoy">¿Qué veremos hoy?</a></li>
+<li><a href="#contenido-del-día-9">Contenido del Día 9</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#qué-es-ingress">¿Qué es Ingress?</a></li>
+<li><a href="#componentes-de-ingress">Componentes de Ingress</a><ul>
+<li><a href="#componentes-clave">Componentes Clave</a><ul>
+<li><a href="#ingress-controller">Ingress Controller</a></li>
+<li><a href="#ingress-resources">Ingress Resources</a></li>
+<li><a href="#anotaciones-y-personalizaciones">Anotaciones y Personalizaciones</a></li>
+<li><a href="#instalación-del-nginx-ingress-controller">Instalación del Nginx Ingress Controller</a><ul>
+<li><a href="#instalación-del-ingress-controller-nginx-en-kind">Instalación del Ingress Controller Nginx en Kind</a><ul>
+<li><a href="#creación-del-clúster-con-configuraciones-especiales">Creación del Clúster con Configuraciones Especiales</a></li>
+<li><a href="#instalación-de-un-ingress-controller">Instalación de un Ingress Controller</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#instalación-de-giropops-senhas-en-el-cluster">Instalación de Giropops-Senhas en el Cluster</a></li>
+<li><a href="#creación-de-un-recurso-de-ingress">Creación de un Recurso de Ingress</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#tbd-por-determinar">TBD (Por determinar)</a></li>
 </ul>
 <p> </p>
-<h3 id="¿por-qué">¿Por qué?</h3>
-<p> </p>
-<p> </p>
-<h3 id="tu-tarea">Tu tarea</h3>
-<p>Tu tarea es</p>
-<p> </p>
-<h2 id="desafío-del-día-9">Desafío del Día 9</h2>
-<p>No te olvides</p>
-<p> </p>
-<h2 id="final-del-día-9">Final del Día 9</h2>
-<p>Durante el Día 9, has aprendido</p>
-<p> </p>
+<h1 id="¿qué-es-ingress">¿Qué es Ingress?</h1>
+<p>Ingress es un recurso de Kubernetes que gestiona el acceso externo a los servicios dentro de un clúster. Funciona como una capa de enrutamiento HTTP/HTTPS, permitiendo la definición de reglas para dirigir el tráfico externo a diferentes servicios backend. Ingress se implementa a través de un controlador de Ingress, que puede ser alimentado por varias soluciones, como NGINX, Traefik o Istio, por mencionar algunas.</p>
+<p>Técnicamente, Ingress actúa como una abstracción de reglas de enrutamiento de alto nivel que son interpretadas y aplicadas por el controlador de Ingress. Permite características avanzadas como el equilibrio de carga, SSL/TLS, redirección, reescritura de URL, entre otras.</p>
+<p>Principales Componentes y Funcionalidades:
+Controlador de Ingress: Es la implementación real que satisface un recurso Ingress. Puede implementarse mediante varias soluciones de proxy inverso, como NGINX o HAProxy.</p>
+<p><strong>Reglas de Enrutamiento:</strong> Definidas en un objeto YAML, estas reglas determinan cómo deben dirigirse las solicitudes externas a los servicios internos.</p>
+<p><strong>Backend Predeterminado:</strong> Un servicio de respaldo al que se dirigen las solicitudes si no se cumple ninguna regla de enrutamiento.</p>
+<p><strong>Balanceo de Carga:</strong> Distribución automática del tráfico entre múltiples pods de un servicio.</p>
+<p><strong>Terminación SSL/TLS:</strong> Ingress permite la configuración de certificados SSL/TLS para la terminación de la encriptación en el punto de entrada del clúster.</p>
+<p><strong>Adjuntos de Recursos:</strong> Posibilidad de adjuntar recursos adicionales como ConfigMaps o Secrets, que pueden utilizarse para configurar comportamientos adicionales como la autenticación básica, listas de control de acceso, etc.&quot;</p>
+<h1 id="componentes-de-ingress">Componentes de Ingress</h1>
+<p>Ahora que ya sabemos qué es Ingress y por qué utilizarlo, es hora de sumergirnos en los componentes que lo componen. Como buen &quot;portero&quot; de nuestro clúster Kubernetes, Ingress no trabaja solo; está compuesto por varias &quot;piezas&quot; que orquestan el tráfico. ¡Vamos a explorarlas!</p>
+<h2 id="componentes-clave">Componentes Clave</h2>
+<h3 id="ingress-controller">Ingress Controller</h3>
+<p>El Ingress Controller es el motor detrás del objeto Ingress. Es responsable de aplicar las reglas de enrutamiento definidas en el recurso Ingress. Ejemplos populares incluyen el Ingress Controller de Nginx, Traefik y HAProxy Ingress.</p>
+<h3 id="ingress-resources">Ingress Resources</h3>
+<p>Los Ingress Resources son las configuraciones que defines para indicar al Ingress Controller cómo debe ser enrutado el tráfico. Estas se definen en archivos YAML y se aplican en el clúster.</p>
+<h3 id="anotaciones-y-personalizaciones">Anotaciones y Personalizaciones</h3>
+<p>Las anotaciones permiten personalizar el comportamiento predeterminado de tu Ingress. Por ejemplo, puedes forzar la redirección de HTTP a HTTPS o agregar políticas de seguridad, como protección contra ataques DDoS.</p>
+<h3 id="instalación-del-nginx-ingress-controller">Instalación del Nginx Ingress Controller</h3>
+<p>Vamos a instalar el Nginx Ingress Controller. Es importante tener en cuenta la versión del Ingress Controller que estás instalando, ya que las versiones más recientes o más antiguas pueden no ser compatibles con la versión de Kubernetes que estás utilizando. Para este tutorial, utilizaremos la versión 1.8.2.
+En tu terminal, ejecuta los siguientes comandos:</p>
+<pre><code class="lang-bash">kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.8.2/deploy/static/provider/cloud/deploy.yaml
+</code></pre>
+<p>Verifica si el Ingress Controller se ha instalado correctamente:</p>
+<pre><code class="lang-bash">kubectl get pods -n ingress-nginx
+</code></pre>
+<p>Puedes utilizar la opción <code>wait</code> de <code>kubectl</code>, de esta manera, cuando los pods estén listos, liberará la terminal, así:</p>
+<pre><code class="lang-bash">kubectl get pods -n ingress-nginx --<span class="hljs-built_in">wait</span>
+</code></pre>
+<pre><code class="lang-markdown"><span class="hljs-code">```bash
+kubectl wait --namespace ingress-nginx \
+  --for=condition=ready pod \
+  --selector=app.kubernetes.io/component=controller \
+  --timeout=90s
+</span></code></pre>
+<p>En el comando anterior, estamos esperando que los pods del Ingress Controller estén listos, con la etiqueta <code>app.kubernetes.io/component=controller</code>, en el namespace <code>ingress-nginx</code>, y en caso de que no estén listos en 90 segundos, el comando fallará.</p>
+<h4 id="instalación-del-ingress-controller-nginx-en-kind">Instalación del Ingress Controller Nginx en Kind</h4>
+<p>Kind es una herramienta muy útil para realizar pruebas y desarrollo con Kubernetes. En esta sección actualizada, proporcionamos detalles específicos para asegurarnos de que Ingress funcione como se espera en un clúster Kind.</p>
+<h5 id="creación-del-clúster-con-configuraciones-especiales">Creación del Clúster con Configuraciones Especiales</h5>
+<p>Al crear un clúster KinD, podemos especificar varias configuraciones que incluyen asignaciones de puertos y etiquetas para los nodos.</p>
+<ol>
+<li>Cree un archivo llamado <code>kind-config.yaml</code> con el siguiente contenido:</li>
+</ol>
+<pre><code class="lang-yaml"><span class="hljs-attr">kind:</span> <span class="hljs-string">Cluster</span>
+<span class="hljs-attr">apiVersion:</span> <span class="hljs-string">kind.x-k8s.io/v1alpha4</span>
+<span class="hljs-attr">nodes:</span>
+<span class="hljs-bullet">-</span> <span class="hljs-attr">role:</span> <span class="hljs-string">control-plane</span>
+  <span class="hljs-attr">kubeadmConfigPatches:</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-string">|
+    kind: InitConfiguration
+    nodeRegistration:
+      kubeletExtraArgs:
+        node-labels: &quot;ingress-ready=true&quot;
+</span>  <span class="hljs-attr">extraPortMappings:</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-attr">containerPort:</span> <span class="hljs-number">80</span>
+    <span class="hljs-attr">hostPort:</span> <span class="hljs-number">80</span>
+    <span class="hljs-attr">protocol:</span> <span class="hljs-string">TCP</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-attr">containerPort:</span> <span class="hljs-number">443</span>
+</code></pre>
+<ol>
+<li>Luego, cree el clúster utilizando este archivo de configuración:</li>
+</ol>
+<pre><code class="lang-bash">kind create cluster --config kind-config.yaml
+</code></pre>
+<h5 id="instalación-de-un-ingress-controller">Instalación de un Ingress Controller</h5>
+<p>Continuaremos utilizando el Ingress Controller de Nginx como ejemplo, ya que es ampliamente adoptado y bien documentado.</p>
+<pre><code class="lang-bash">kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/master/deploy/static/provider/kind/deploy.yaml
+</code></pre>
+<p>Puede utilizar la opción <code>wait</code> de <code>kubectl</code>, de modo que cuando los pods estén listos, liberará la terminal, como se muestra a continuación:</p>
+<pre><code class="lang-bash">kubectl <span class="hljs-built_in">wait</span> --namespace ingress-nginx \
+  --<span class="hljs-keyword">for</span>=condition=ready pod \
+  --selector=app.kubernetes.io/component=controller \
+  --timeout=90s
+</code></pre>
+<p>En el comando anterior, estamos esperando que los pods del Ingress Controller estén listos, con la etiqueta <code>app.kubernetes.io/component=controller</code>, en el espacio de nombres <code>ingress-nginx</code>, y si no están listos en 90 segundos, el comando fallará.</p>
+<h3 id="instalación-de-giropops-senhas-en-el-cluster">Instalación de Giropops-Senhas en el Cluster</h3>
+<p>Para la instalación de Giropops-Senhas, utilizaremos los siguientes archivos:</p>
+<p>Archivo: app-deployment.yaml</p>
+<pre><code class="lang-yaml"><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">apps/v1</span>
+<span class="hljs-attr">kind:</span> <span class="hljs-string">Deployment</span>
+<span class="hljs-attr">metadata:</span>
+  <span class="hljs-attr">labels:</span>
+    <span class="hljs-attr">app:</span> <span class="hljs-string">giropops-senhas</span> <span class="hljs-comment"># No se traduce giropops-senhas</span>
+  <span class="hljs-attr">name:</span> <span class="hljs-string">giropops-senhas</span>
+<span class="hljs-attr">spec:</span>
+  <span class="hljs-attr">replicas:</span> <span class="hljs-number">2</span>
+  <span class="hljs-attr">selector:</span>
+    <span class="hljs-attr">matchLabels:</span>
+      <span class="hljs-attr">app:</span> <span class="hljs-string">giropops-senhas</span>
+  <span class="hljs-attr">template:</span>
+    <span class="hljs-attr">metadata:</span>
+      <span class="hljs-attr">labels:</span>
+        <span class="hljs-attr">app:</span> <span class="hljs-string">giropops-senhas</span>
+    <span class="hljs-attr">spec:</span>
+      <span class="hljs-attr">containers:</span>
+      <span class="hljs-bullet">-</span> <span class="hljs-attr">image:</span> <span class="hljs-string">linuxtips/giropops-senhas:1.0</span>
+        <span class="hljs-attr">name:</span> <span class="hljs-string">giropops-senhas</span>
+        <span class="hljs-attr">env:</span>
+        <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">REDIS_HOST</span>
+          <span class="hljs-attr">value:</span> <span class="hljs-string">redis-service</span>
+        <span class="hljs-attr">ports:</span>
+        <span class="hljs-bullet">-</span> <span class="hljs-attr">containerPort:</span> <span class="hljs-number">5000</span>
+        <span class="hljs-attr">imagePullPolicy:</span> <span class="hljs-string">Always</span>
+</code></pre>
+<p>Archivo: app-service.yaml</p>
+<pre><code class="lang-yaml"><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">v1</span>
+<span class="hljs-attr">kind:</span> <span class="hljs-string">Service</span>
+<span class="hljs-attr">metadata:</span>
+  <span class="hljs-attr">name:</span> <span class="hljs-string">giropops-senhas</span>
+  <span class="hljs-attr">labels:</span>
+    <span class="hljs-attr">app:</span> <span class="hljs-string">giropops-senhas</span>
+<span class="hljs-attr">spec:</span>
+  <span class="hljs-attr">selector:</span>
+    <span class="hljs-attr">app:</span> <span class="hljs-string">giropops-senhas</span>
+  <span class="hljs-attr">ports:</span>
+    <span class="hljs-bullet">-</span> <span class="hljs-attr">protocol:</span> <span class="hljs-string">TCP</span>
+      <span class="hljs-attr">port:</span> <span class="hljs-number">5000</span>
+      <span class="hljs-attr">targetPort:</span> <span class="hljs-number">5000</span>
+      <span class="hljs-attr">name:</span> <span class="hljs-string">tcp-app</span>
+  <span class="hljs-attr">type:</span> <span class="hljs-string">ClusterIP</span>
+</code></pre>
+<p>Archivo: redis-deployment.yaml</p>
+<pre><code class="lang-yaml"><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">apps/v1</span>
+<span class="hljs-attr">kind:</span> <span class="hljs-string">Deployment</span>
+<span class="hljs-attr">metadata:</span>
+  <span class="hljs-attr">labels:</span>
+    <span class="hljs-attr">app:</span> <span class="hljs-string">redis</span>
+  <span class="hljs-attr">name:</span> <span class="hljs-string">redis-deployment</span>
+<span class="hljs-attr">spec:</span>
+  <span class="hljs-attr">replicas:</span> <span class="hljs-number">1</span>
+  <span class="hljs-attr">selector:</span>
+    <span class="hljs-attr">matchLabels:</span>
+      <span class="hljs-attr">app:</span> <span class="hljs-string">redis</span>
+  <span class="hljs-attr">template:</span>
+    <span class="hljs-attr">metadata:</span>
+      <span class="hljs-attr">labels:</span>
+        <span class="hljs-attr">app:</span> <span class="hljs-string">redis</span>
+    <span class="hljs-attr">spec:</span>
+      <span class="hljs-attr">containers:</span>
+      <span class="hljs-bullet">-</span> <span class="hljs-attr">image:</span> <span class="hljs-string">redis</span>
+        <span class="hljs-attr">name:</span> <span class="hljs-string">redis</span>
+        <span class="hljs-attr">ports:</span>
+          <span class="hljs-bullet">-</span> <span class="hljs-attr">containerPort:</span> <span class="hljs-number">6379</span>
+        <span class="hljs-attr">resources:</span>
+          <span class="hljs-attr">limits:</span>
+            <span class="hljs-attr">memory:</span> <span class="hljs-string">&quot;256Mi&quot;</span>
+            <span class="hljs-attr">cpu:</span> <span class="hljs-string">&quot;500m&quot;</span>
+          <span class="hljs-attr">requests:</span>
+            <span class="hljs-attr">memory:</span> <span class="hljs-string">&quot;128Mi&quot;</span>
+            <span class="hljs-attr">cpu:</span> <span class="hljs-string">&quot;250m&quot;</span>
+</code></pre>
+<p>Archivo: redis-service.yaml</p>
+<pre><code class="lang-yaml"><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">v1</span>
+<span class="hljs-attr">kind:</span> <span class="hljs-string">Service</span>
+<span class="hljs-attr">metadata:</span>
+  <span class="hljs-attr">name:</span> <span class="hljs-string">redis-service</span>
+<span class="hljs-attr">spec:</span>
+  <span class="hljs-attr">selector:</span>
+    <span class="hljs-attr">app:</span> <span class="hljs-string">redis</span>
+  <span class="hljs-attr">ports:</span>
+    <span class="hljs-bullet">-</span> <span class="hljs-attr">protocol:</span> <span class="hljs-string">TCP</span>
+      <span class="hljs-attr">port:</span> <span class="hljs-number">6379</span>
+      <span class="hljs-attr">targetPort:</span> <span class="hljs-number">6379</span>
+  <span class="hljs-attr">type:</span> <span class="hljs-string">ClusterIP</span>
+</code></pre>
+<p>Con los archivos mencionados anteriormente, estamos creando un Deployment y un Service para <code>Giropops-Senhas</code>, y un Deployment y un Service para Redis.</p>
+<p>Para aplicarlos, simplemente ejecute los siguientes comandos:</p>
+<pre><code class="lang-bash">kubectl apply -f app-deployment.yaml
+kubectl apply -f app-service.yaml
+kubectl apply -f redis-deployment.yaml
+kubectl apply -f redis-service.yaml
+</code></pre>
+<p>Para verificar si los pods están en funcionamiento, ejecute el siguiente comando:</p>
+<pre><code class="lang-bash">kubectl get pods
+</code></pre>
+<p>Para asegurarse de que los servicios estén en funcionamiento, ejecute el siguiente comando:</p>
+<pre><code class="lang-bash">kubectl get services
+</code></pre>
+<p>Si está utilizando Kind, puede acceder a la aplicación Giropops-Senhas localmente mediante el siguiente comando:</p>
+<pre><code class="lang-bash">kubectl port-forward service/giropops-senhas 5000:5000
+</code></pre>
+<p>Esto es válido si está utilizando Kind. Si no lo está haciendo, necesitará obtener la dirección IP de su Ingress, lo que se explicará más adelante.</p>
+<p>Para probar la aplicación, simplemente abra su navegador web y acceda a la siguiente dirección: <a href="http://localhost:5000" target="_blank">http://localhost:5000</a></p>
+<h3 id="creación-de-un-recurso-de-ingress">Creación de un Recurso de Ingress</h3>
+<p>Ahora, vamos a crear un recurso de Ingress para nuestro servicio <code>giropops-senhas</code>, que fue creado anteriormente. Cree un archivo llamado <code>ingress-1.yaml</code> con el siguiente contenido:</p>
+<pre><code class="lang-yaml"><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">networking.k8s.io/v1</span>
+<span class="hljs-attr">kind:</span> <span class="hljs-string">Ingress</span>
+<span class="hljs-attr">metadata:</span>
+  <span class="hljs-attr">name:</span> <span class="hljs-string">giropops-senhas</span>
+  <span class="hljs-attr">annotations:</span>
+    <span class="hljs-attr">nginx.ingress.kubernetes.io/rewrite-target:</span> <span class="hljs-string">/</span>
+<span class="hljs-attr">spec:</span>
+  <span class="hljs-attr">rules:</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-attr">http:</span>
+      <span class="hljs-attr">paths:</span>
+      <span class="hljs-bullet">-</span> <span class="hljs-attr">path:</span> <span class="hljs-string">/giropops-senhas</span>
+        <span class="hljs-attr">pathType:</span> <span class="hljs-string">Prefix</span>
+        <span class="hljs-attr">backend:</span>
+          <span class="hljs-attr">service:</span> 
+            <span class="hljs-attr">name:</span> <span class="hljs-string">giropops-senhas</span>
+            <span class="hljs-attr">port:</span>
+              <span class="hljs-attr">number:</span> <span class="hljs-number">5000</span>
+</code></pre>
+<p>Después de crear el archivo, aplíquelo con el siguiente comando:</p>
+<pre><code class="lang-bash">kubectl apply -f ingress-1.yaml
+</code></pre>
+<p>Ahora vamos verificar si nuestro Ingress se ha creado correctamente:</p>
+<pre><code class="lang-bash">kubectl get ingress
+</code></pre>
+<p>Para obtener más detalles, puede utilizar el comando <code>describe</code>:</p>
+<pre><code class="lang-bash">kubectl describe ingress giropops-senhas
+</code></pre>
+<p>Tanto en la salida del comando <code>get</code> como en la salida del comando <code>describe</code>, debería ver la dirección IP de su Ingress en el campo <code>Address</code>.</p>
+<p>Puede obtener esta dirección IP con el siguiente comando:</p>
+<pre><code class="lang-bash">kubectl get ingress giropops-senhas -o jsonpath=<span class="hljs-string">&apos;{.status.loadBalancer.ingress[0].hostname}&apos;</span>
+</code></pre>
+<p>Si está utilizando un clúster gestionado por un proveedor de servicios en la nube, como GKE, puede utilizar el siguiente comando:</p>
+<pre><code class="lang-bash">kubectl get ingress giropops-senhas -o jsonpath=<span class="hljs-string">&apos;{.status.loadBalancer.ingress[0].ip}&apos;</span>
+</code></pre>
+<p>Esto se debe a que cuando tienes un clúster EKS, AKS, GCP, etc., el Ingress Controller creará un equilibrador de carga para ti, y la dirección IP del equilibrador de carga será la dirección IP de tu Ingress, así de simple.</p>
+<p>Para probarlo, puedes usar el comando curl con la dirección IP, el nombre de host o el equilibrador de carga de tu Ingress:</p>
+<pre><code class="lang-bash">curl DIRECCIÓN_DEL_INGRESS/giropops-senhas
+</code></pre>
+<h1 id="tbd-por-determinar">TBD (Por determinar)</h1>
 
                                 
                                 </section>
@@ -420,12 +661,12 @@
 
             
                 
-                <a href="../day-8/" class="navigation navigation-prev " aria-label="Previous page: Simplificando Kubernetes dia 8">
+                <a href="../day-8/" class="navigation navigation-prev " aria-label="Previous page: Simplificando Kubernetes día 8">
                     <i class="fa fa-angle-left"></i>
                 </a>
                 
                 
-                <a href="../day-10/" class="navigation navigation-next " aria-label="Next page: Simplificando Kubernetes dia 10">
+                <a href="../day-10/" class="navigation navigation-next " aria-label="Next page: Simplificando Kubernetes día 10">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -436,7 +677,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Simplificando Kubernetes dia 9","level":"2.9","depth":1,"next":{"title":"Simplificando Kubernetes dia 10","level":"2.10","depth":1,"path":"day-10/README.md","ref":"day-10/README.md","articles":[]},"previous":{"title":"Simplificando Kubernetes dia 8","level":"2.8","depth":1,"path":"day-8/README.md","ref":"day-8/README.md","articles":[]},"dir":"ltr"},"config":{"plugins":[],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"language":"es","gitbook":"*"},"file":{"path":"day-9/README.md","mtime":"2024-01-28T18:06:24.769Z","type":"markdown"},"gitbook":{"version":"3.6.20","time":"2024-01-28T18:06:35.012Z"},"basePath":"..","book":{"language":"es"}});
+            gitbook.page.hasChanged({"page":{"title":"Simplificando Kubernetes día 9","level":"2.9","depth":1,"next":{"title":"Simplificando Kubernetes día 10","level":"2.10","depth":1,"path":"day-10/README.md","ref":"day-10/README.md","articles":[]},"previous":{"title":"Simplificando Kubernetes día 8","level":"2.8","depth":1,"path":"day-8/README.md","ref":"day-8/README.md","articles":[]},"dir":"ltr"},"config":{"plugins":[],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"language":"es","gitbook":"*"},"file":{"path":"day-9/README.md","mtime":"2024-01-28T18:07:48.033Z","type":"markdown"},"gitbook":{"version":"3.6.20","time":"2024-01-28T18:07:59.035Z"},"basePath":"..","book":{"language":"es"}});
         });
     </script>
 </div>
