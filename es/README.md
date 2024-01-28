@@ -1,6 +1,6 @@
 # Simplificando Kubernetes
 
-Este material es parte del curso "Simplificando Kubernetes" de LINUXtips. Ha sido diseñado para capacitar a persona estudiante o profesional de TI a trabajar con Kubernetes en entornos críticos.
+Este material es parte del curso "Simplificando Kubernetes" de LINUXtips. Ha sido diseñado para capacitar a la persona estudiante o profesional de TI a trabajar con Kubernetes en entornos críticos.
 
 El curso consta de material escrito, clases grabadas en vídeo y clases en vivo. Durante el curso, la persona será evaluada de manera práctica y deberá completar desafíos reales para avanzar en el curso.
 
@@ -68,7 +68,6 @@ El enfoque del curso es capacitar a la persona para trabajar con Kubernetes de m
 
 <details>
 <summary>DAY-2</summary>
-
 
 - [Simplificando Kubernetes](day-2/README.md#simplificando-kubernetes)
   - [Día 2](day-2/README.md#día-2)
@@ -308,7 +307,7 @@ Contamos con tu colaboración para hacer que este material sea aún más complet
 
 Mira los videos sobre Kubernetes, DevOps, Automatización y otros temas relacionados con la tecnología en los canales de LINUXtips:
 
-- [Canal de LINUXtips en Youtube](https://www.youtube.com/LINUXtips)
+- [Canal de LINUXtips en YouTube](https://www.youtube.com/LINUXtips)
 
 - [Canal de LINUXtips en Twitch](https://www.twitch.com/LINUXtips)
 
