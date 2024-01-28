@@ -591,14 +591,14 @@ Kata Containers es un ejemplo de <em>Container Runtime</em> tipo Virtualized.</p
 <tr>
 <td>TCP</td>
 <td>Entrada</td>
-<td>10251</td>
+<td>10259</td>
 <td>kube-scheduler</td>
 <td>Propio</td>
 </tr>
 <tr>
 <td>TCP</td>
 <td>Entrada</td>
-<td>10252</td>
+<td>10257</td>
 <td>kube-controller-manager</td>
 <td>Propio</td>
 </tr>
@@ -653,12 +653,8 @@ Kata Containers es un ejemplo de <em>Container Runtime</em> tipo Virtualized.</p
 <h3 id="instalación-y-personalización-de-kubectl">Instalación y personalización de Kubectl</h3>
 <h4 id="instalación-de-kubectl-en-gnulinux">Instalación de Kubectl en GNU/Linux</h4>
 <p>Vamos a instalar <code>kubectl</code> utilizando los siguientes comandos.</p>
-<pre><code class="lang-bash">curl -LO https://storage.googleapis.com/kubernetes-release/release/`curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt`/bin/linux/amd64/kubectl
-
-chmod +x ./kubectl
-
-sudo mv ./kubectl /usr/<span class="hljs-built_in">local</span>/bin/kubectl
-
+<pre><code class="lang-bash">curl -LO <span class="hljs-string">&quot;https://dl.k8s.io/release/<span class="hljs-subst">$(curl -L -s https://dl.k8s.io/release/stable.txt)</span>/bin/linux/amd64/kubectl&quot;</span>
+sudo install -o root -g root -m 0755 kubectl /usr/<span class="hljs-built_in">local</span>/bin/kubectl
 kubectl version --client
 </code></pre>
 <p> </p>
@@ -676,11 +672,11 @@ kubectl version --client
 </code></pre>
 <p> 
 Si prefieres el método tradicional, la instalación se puede realizar con los siguientes comandos:</p>
-<pre><code class="lang-bash">curl -LO <span class="hljs-string">&quot;https://storage.googleapis.com/kubernetes-release/release/<span class="hljs-subst">$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)</span>/bin/darwin/amd64/kubectl&quot;</span>
-
-chmod +x ./kubectl
+<pre><code class="lang-bash">curl -LO <span class="hljs-string">&quot;https://dl.k8s.io/release/<span class="hljs-subst">$(curl -L -s https://dl.k8s.io/release/stable.txt)</span>/bin/darwin/amd64/kubectl&quot;</span>
 
 sudo mv ./kubectl /usr/<span class="hljs-built_in">local</span>/bin/kubectl
+
+sudo chown root: /usr/<span class="hljs-built_in">local</span>/bin/kubectl
 
 kubectl version --client
 </code></pre>
@@ -718,7 +714,7 @@ complete -F __start_kubectl k
 <h5 id="requisitos-básicos">Requisitos básicos</h5>
 <p>Es importante enfatizar que Minikube debe ser instalado localmente, no en un <em>cloud provider</em>. Por lo tanto, las especificaciones de <em>hardware</em> a continuación se refieren a tu máquina local.</p>
 <ul>
-<li>Procesador: 1 núcleo;</li>
+<li>Procesador: 2 núcleo;</li>
 <li>Memoria: 2 GB;</li>
 <li>Disco duro: 20 GB.</li>
 </ul>
@@ -773,7 +769,7 @@ Si también ves la siguiente línea, no es necesario instalar un <em>hypervisor<
 <pre><code class="lang-text">Hyper-V Requirements:     A hypervisor has been detected. Features required for Hyper-V will not be displayed.:     A hypervisor has been detected. Features required for Hyper-V will not be displayed.
 </code></pre>
 <p> 
-Realice el download y la instalación de un <em>hypervisor</em> (preferentemente el <a href="https://www.virtualbox.org" target="_blank">Oracle VirtualBox</a>), si en el paso anterior no se detecta la presencia de uno. Finalmente, descarga el instalador de Minikube <a href="https://github.com/kubernetes/minikube/releases/latest" target="_blank">aqui</a> y ejecútalo.</p>
+Realice el download y la instalación de un <em>hypervisor</em> (preferentemente el <a href="https://www.virtualbox.org" target="_blank">Oracle VirtualBox</a>), si en el paso anterior no se detecta la presencia de uno. Finalmente, descarga el instalador de Minikube <a href="https://github.com/kubernetes/minikube/releases/latest/download/minikube-windows-amd64.exe" target="_blank">aqui</a> y ejecútalo.</p>
 <h5 id="iniciando-deteniendo-y-eliminando-minikube">Iniciando, deteniendo y eliminando Minikube</h5>
 <p>Cuando operas junto con un hypervisor, Minikube crea una máquina virtual donde se encuentran todos los componentes de k8s para su ejecución.</p>
 <p>Es posible seleccionar qué hypervisor utilizaremos de manera predeterminada con el siguiente comando:</p>
@@ -884,7 +880,7 @@ Si deseas eliminar el clúster y todos los archivos relacionados con él, utiliz
 <p>El Kind (<em>Kubernetes in Docker</em>) es otra alternativa para ejecutar Kubernetes en un entorno local para pruebas y aprendizaje, pero no se recomienda su uso en producción.</p>
 <h5 id="instalación-en-gnulinux">Instalación en GNU/Linux</h5>
 <p>Para realizar la instalación en GNU/Linux, ejecuta los siguientes comandos.</p>
-<pre><code class="lang-bash">curl -Lo ./kind https://kind.sigs.k8s.io/dl/v0.14.0/kind-linux-amd64
+<pre><code class="lang-bash">curl -Lo ./kind https://kind.sigs.k8s.io/dl/v0.20.0/kind-linux-amd64
 
 chmod +x ./kind
 
@@ -897,14 +893,14 @@ sudo mv ./kind /usr/<span class="hljs-built_in">local</span>/bin/kind
 </code></pre>
 <p> 
 ou</p>
-<pre><code class="lang-bash">curl -Lo ./kind https://kind.sigs.k8s.io/dl/v0.14.0/kind-darwin-amd64
+<pre><code class="lang-bash">curl -Lo ./kind https://kind.sigs.k8s.io/dl/v0.20.0/kind-darwin-amd64
 chmod +x ./kind
 mv ./kind /usr/bin/kind
 </code></pre>
 <p> </p>
 <h5 id="instalación-en-windows">Instalación en Windows</h5>
 <p>Para realizar la instalación en Windows, ejecuta los siguientes comandos.</p>
-<pre><code class="lang-bash">curl.exe -Lo kind-windows-amd64.exe https://kind.sigs.k8s.io/dl/v0.14.0/kind-windows-amd64
+<pre><code class="lang-bash">curl.exe -Lo kind-windows-amd64.exe https://kind.sigs.k8s.io/dl/v0.20.0/kind-windows-amd64
 
 Move-Item .\kind-windows-amd64.exe c:\kind.exe
 </code></pre>
@@ -1146,7 +1142,7 @@ kubectl delete service nginx
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Simplificando Kubernetes día 1","level":"2.1","depth":1,"next":{"title":"Simplificando Kubernetes día 2","level":"2.2","depth":1,"path":"day-2/README.md","ref":"day-2/README.md","articles":[]},"previous":{"title":"Introducción","level":"1.1","depth":1,"path":"README.md","ref":"README.md","articles":[]},"dir":"ltr"},"config":{"plugins":[],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"language":"es","gitbook":"*"},"file":{"path":"day-1/README.md","mtime":"2024-01-28T18:15:56.706Z","type":"markdown"},"gitbook":{"version":"3.6.20","time":"2024-01-28T18:16:07.409Z"},"basePath":"..","book":{"language":"es"}});
+            gitbook.page.hasChanged({"page":{"title":"Simplificando Kubernetes día 1","level":"2.1","depth":1,"next":{"title":"Simplificando Kubernetes día 2","level":"2.2","depth":1,"path":"day-2/README.md","ref":"day-2/README.md","articles":[]},"previous":{"title":"Introducción","level":"1.1","depth":1,"path":"README.md","ref":"README.md","articles":[]},"dir":"ltr"},"config":{"plugins":[],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"language":"es","gitbook":"*"},"file":{"path":"day-1/README.md","mtime":"2024-01-28T21:38:25.084Z","type":"markdown"},"gitbook":{"version":"3.6.20","time":"2024-01-28T21:38:35.064Z"},"basePath":"..","book":{"language":"es"}});
         });
     </script>
 </div>

@@ -646,12 +646,8 @@ Abaixo temos as páginas oficiais das certificações do Kubernetes (CKA, CKAD e
 <h3 id="instalando-e-customizando-o-kubectl">Instalando e customizando o Kubectl</h3>
 <h4 id="instalação-do-kubectl-no-gnulinux">Instalação do Kubectl no GNU/Linux</h4>
 <p>Vamos instalar o <code>kubectl</code> com os seguintes comandos.</p>
-<pre><code>curl -LO https://storage.googleapis.com/kubernetes-release/release/`curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt`/bin/linux/amd64/kubectl
-
-chmod +x ./kubectl
-
-sudo mv ./kubectl /usr/local/bin/kubectl
-
+<pre><code>curl -LO &quot;https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl&quot;
+sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
 kubectl version --client
 </code></pre><p> </p>
 <h4 id="instalação-do-kubectl-no-macos">Instalação do Kubectl no MacOS</h4>
@@ -666,11 +662,11 @@ Ou:</p>
 kubectl version --client
 </code></pre><p> 
 Já com o método tradicional, a instalação pode ser realizada com os seguintes comandos.</p>
-<pre><code>curl -LO &quot;https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/darwin/amd64/kubectl&quot;
-
-chmod +x ./kubectl
+<pre><code>curl -LO &quot;https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/darwin/amd64/kubectl&quot;
 
 sudo mv ./kubectl /usr/local/bin/kubectl
+
+sudo chown root: /usr/local/bin/kubectl
 
 kubectl version --client
 </code></pre><p> </p>
@@ -1080,7 +1076,7 @@ kubectl delete service nginx
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Descomplicando Kubernetes dia 1","level":"2.1","depth":1,"next":{"title":"Descomplicando Kubernetes dia 2","level":"2.2","depth":1,"path":"day-2/README.md","ref":"day-2/README.md","articles":[]},"previous":{"title":"Introdução","level":"1.1","depth":1,"path":"README.md","ref":"README.md","articles":[]},"dir":"ltr"},"config":{"plugins":[],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"language":"pt","gitbook":"*"},"file":{"path":"day-1/README.md","mtime":"2024-01-28T18:15:56.710Z","type":"markdown"},"gitbook":{"version":"3.6.20","time":"2024-01-28T18:16:07.409Z"},"basePath":"..","book":{"language":"pt"}});
+            gitbook.page.hasChanged({"page":{"title":"Descomplicando Kubernetes dia 1","level":"2.1","depth":1,"next":{"title":"Descomplicando Kubernetes dia 2","level":"2.2","depth":1,"path":"day-2/README.md","ref":"day-2/README.md","articles":[]},"previous":{"title":"Introdução","level":"1.1","depth":1,"path":"README.md","ref":"README.md","articles":[]},"dir":"ltr"},"config":{"plugins":[],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"language":"pt","gitbook":"*"},"file":{"path":"day-1/README.md","mtime":"2024-01-28T21:38:25.088Z","type":"markdown"},"gitbook":{"version":"3.6.20","time":"2024-01-28T21:38:35.064Z"},"basePath":"..","book":{"language":"pt"}});
         });
     </script>
 </div>
