@@ -21,7 +21,8 @@
       - [Instalando o Nginx Ingress Controller](#instalando-o-nginx-ingress-controller)
     - [Instalando um Nginx Ingress Controller](#instalando-um-nginx-ingress-controller)
       - [Nossa Aplicação de Exemplo](#nossa-aplicação-de-exemplo)
-      - [Permitindo Tráfego Dentro do Mesmo Namespace](#permitindo-tráfego-dentro-do-mesmo-namespace)
+    - [Criando Regras de Network Policy](#criando-regras-de-network-policy)
+      - [Ingress](#ingress)
       - [Egress](#egress)
 
 
@@ -608,7 +609,11 @@ Você pode acessar o endereço `giropops-senhas.containers.expert` no seu navega
 Pronto, agora que temos a nossa aplicação rodando, vamos começar a brincar com as Network Policies.
 
 
-#### Permitindo Tráfego Dentro do Mesmo Namespace
+
+
+### Criando Regras de Network Policy
+
+#### Ingress
 
 Em nosso exemplo, tanto a nossa aplicação quanto o Redis estão rodando no mesmo namespace, o namespace `giropops`. Por padrão, os Pods podem se comunicar livremente entre si. Vamos criar uma Network Policy para restringir o acesso ao Redis, permitindo que somente que pods do namespace `giropops` possam acessar o Redis.
 
