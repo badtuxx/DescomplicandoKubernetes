@@ -59,7 +59,6 @@ Hoje, exploraremos as funcionalidades e aplicações do Kyverno, uma ferramenta 
 
 Ao final deste e-book, você terá uma compreensão abrangente do Kyverno e estará equipado com o conhecimento e as habilidades para implementá-lo efetivamente em seus próprios clusters Kubernetes. Este e-book é projetado tanto para iniciantes quanto para profissionais experientes, proporcionando informações valiosas e práticas para todos os níveis de expertise.
 
----
 
 ## Inicio do Day-13
 
@@ -75,7 +74,6 @@ Kyverno é uma ferramenta de gerenciamento de políticas para Kubernetes, focada
 
 3. **Geração de Recursos:** Cria recursos adicionais do Kubernetes com base nas políticas definidas. Por exemplo, pode gerar NetworkPolicies para cada novo Namespace criado.
 
----
 
 ### Instalando o Kyverno
   
@@ -122,7 +120,6 @@ Após a instalação, é importante verificar se o Kyverno foi instalado correta
 
 Lembrando que é sempre importante consultar a documentação oficial para obter as instruções mais atualizadas e detalhadas, especialmente se estiver trabalhando com uma configuração específica ou uma versão mais recente do Kyverno ou do Kubernetes.
 
----
 
 ### Criando a nossa primeira Policy
 
@@ -136,7 +133,6 @@ As políticas, ou as policies em inglês, do Kyverno podem ser aplicadas de duas
 
 Se você não especificar nenhum namespace na política ou usar `ClusterPolicy`, o Kyverno assumirá que a política deve ser aplicada globalmente, ou seja, em todos os namespaces.
 
----
 
 **Exemplo de Políticas do Kyverno:**
 
@@ -192,14 +188,12 @@ spec:
 ```bash
 kubectl apply -f pod.yaml
 ```
----
 
 ### Mais exemplos de Policies
 Continuando com a explicação e exemplos de políticas do Kyverno para gerenciamento de clusters Kubernetes:
 
 Entendi, vou formatar o texto para que esteja pronto para ser copiado para o Google Docs:
 
----
 
 #### Exemplo de Política: Adicionar Label ao Namespace
 
@@ -234,7 +228,6 @@ spec:
 
 Esta política garante que cada Namespace no cluster seja automaticamente etiquetado com `Jeferson: "Lindo_Demais"`. Isso é particularmente útil para garantir a conformidade e a uniformidade na atribuição de labels, facilitando operações como filtragem e busca de Namespaces com base em critérios específicos.
 
----
 
 #### Exemplo de Política: Proibir Usuário Root
 
@@ -272,7 +265,6 @@ spec:
 
 Ao aplicar esta política, todos os Pods que tentarem executar containers como usuário root serão impedidos, com a exibição de uma mensagem de erro indicando que a execução como root não é permitida. Isso assegura uma camada adicional de segurança no ambiente Kubernetes, evitando práticas que possam comprometer a integridade e a segurança do cluster.
 
----
 
 #### Exemplo de Política: Gerar ConfigMap para Namespace
 
@@ -310,7 +302,6 @@ spec:
 
 A aplicação desta política resulta na criação automática de um ConfigMap padrão em cada Namespace novo, proporcionando uma forma rápida e eficiente de distribuir configurações comuns e informações essenciais. Isso é particularmente útil em cenários onde a consistência e a automatização de configurações são cruciais.
 
----
 
 #### Exemplo de Política: Permitir Apenas Repositórios Confiáveis
 
@@ -348,7 +339,6 @@ spec:
 
 Com a implementação desta política, qualquer tentativa de implantar um Pod com uma imagem de um repositório não confiável será bloqueada. A política assegura que apenas imagens de fontes aprovadas sejam usadas, fortalecendo a segurança do cluster contra vulnerabilidades e ataques externos.
 
----
 
 ##### Exemplo de Política: Require Probes
 
@@ -388,7 +378,6 @@ spec:
 
 Com a aplicação desta política, todos os novos Pods ou Pods atualizados devem incluir uma configuração de sonda de prontidão, que normalmente envolve a especificação de um caminho e porta para checagem HTTP. Isso assegura que o serviço só receba tráfego quando estiver totalmente operacional, melhorando a confiabilidade e a experiência do usuário.
 
----
 
 #### Exemplo de Política: Usando o Exclude
 
@@ -433,7 +422,6 @@ spec:
 
 Ao aplicar esta política, todos os Pods novos ou atualizados precisam ter limites de recursos claramente definidos, exceto aqueles no namespace `giropops`. Isso assegura uma melhor gestão de recursos e evita situações onde alguns Pods possam monopolizar recursos em detrimento de outros.
 
----
 
 ### Conclusão
 
