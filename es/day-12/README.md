@@ -1,89 +1,69 @@
-# Descomplicando o Kubernetes
-## DAY-12: Dominando Taints e Tolerations
+# Simplificando Kubernetes
 
-## Conteúdo do Day-12
+## Día 12: Dominando Taints y Tolerations
 
-- [Descomplicando o Kubernetes](#descomplicando-o-kubernetes)
-  - [DAY-12: Dominando Taints e Tolerations](#day-12-dominando-taints-e-tolerations)
-  - [Conteúdo do Day-12](#conteúdo-do-day-12)
-    - [Introdução](#introdução)
-    - [O que são Taints e Tolerations?](#o-que-são-taints-e-tolerations)
-    - [Por que usar Taints e Tolerations?](#por-que-usar-taints-e-tolerations)
-    - [Anatomia de um Taint](#anatomia-de-um-taint)
-    - [Anatomia de uma Toleration](#anatomia-de-uma-toleration)
-    - [Aplicando Taints](#aplicando-taints)
-    - [Configurando Tolerations](#configurando-tolerations)
-    - [Cenários de Uso](#cenários-de-uso)
-      - [Isolamento de Workloads](#isolamento-de-workloads)
-      - [Nodes Especializados](#nodes-especializados)
-      - [Evacuação e Manutenção de Nodes](#evacuação-e-manutenção-de-nodes)
-    - [Combinando Taints e Tolerations com Affinity Rules](#combinando-taints-e-tolerations-com-affinity-rules)
-    - [Exemplos Práticos](#exemplos-práticos)
-      - [Exemplo 1: Isolamento de Workloads](#exemplo-1-isolamento-de-workloads)
-      - [Exemplo 2: Utilizando Hardware Especializado](#exemplo-2-utilizando-hardware-especializado)
-      - [Exemplo 3: Manutenção de Nodes](#exemplo-3-manutenção-de-nodes)
-    - [Conclusão](#conclusão)
-    - [Tarefas do Dia](#tarefas-do-dia)
-- [Descomplicando o Kubernetes](#descomplicando-o-kubernetes-1)
-  - [DAY-12+1: Entendendo e Dominando os Selectors](#day-121-entendendo-e-dominando-os-selectors)
-  - [Conteúdo do Day-12+1](#conteúdo-do-day-121)
-    - [Introdução](#introdução-1)
-    - [O que são Selectors?](#o-que-são-selectors)
-    - [Tipos de Selectors](#tipos-de-selectors)
-      - [Equality-based Selectors](#equality-based-selectors)
-      - [Set-based Selectors](#set-based-selectors)
-    - [Selectors em Ação](#selectors-em-ação)
-      - [Em Services](#em-services)
-      - [Em ReplicaSets](#em-replicasets)
-      - [Em Jobs e CronJobs](#em-jobs-e-cronjobs)
-    - [Selectors e Namespaces](#selectors-e-namespaces)
-    - [Cenários de Uso](#cenários-de-uso-1)
-      - [Roteamento de Tráfego](#roteamento-de-tráfego)
-      - [Scaling Horizontal](#scaling-horizontal)
-      - [Desastre e Recuperação](#desastre-e-recuperação)
-    - [Dicas e Armadilhas](#dicas-e-armadilhas)
-    - [Exemplos Práticos](#exemplos-práticos-1)
-      - [Exemplo 1: Selector em um Service](#exemplo-1-selector-em-um-service)
-      - [Exemplo 2: Selector em um ReplicaSet](#exemplo-2-selector-em-um-replicaset)
-      - [Exemplo 3: Selectors Avançados](#exemplo-3-selectors-avançados)
-    - [Conclusão](#conclusão-1)
+&nbsp;
 
+## Contenido del Día 12
 
-### Introdução
+- [Simplificando Kubernetes](#simplificando-kubernetes)
+  - [Día 12: Dominando Taints y Tolerations](#día-12-dominando-taints-y-tolerations)
+  - [Contenido del Día 12](#contenido-del-día-12)
+    - [Introducción](#introducción)
+    - [¿Qué son Taints y Tolerations?](#qué-son-taints-y-tolerations)
+    - [¿Por qué usar Taints y Tolerations?](#por-qué-usar-taints-y-tolerations)
+    - [Anatomía de un Taint](#anatomía-de-un-taint)
+    - [Anatomía de una Tolerations](#anatomía-de-una-tolerations)
+    - [Aplicación de Taints](#aplicación-de-taints)
+    - [Configuración de Tolerations](#configuración-de-tolerations)
+    - [Escenarios de Uso](#escenarios-de-uso)
+      - [Aislamiento de Cargas de Trabajo](#aislamiento-de-cargas-de-trabajo)
+      - [Nodos Especializados](#nodos-especializados)
+      - [Toleration en un Pod que Requiere GPU:](#toleration-en-un-pod-que-requiere-gpu)
+      - [Evacuación y Mantenimiento de Nodos](#evacuación-y-mantenimiento-de-nodos)
+      - [Combinando Taints y Tolerations con Reglas de Afinidad](#combinando-taints-y-tolerations-con-reglas-de-afinidad)
+    - [Ejemplos Prácticos](#ejemplos-prácticos)
+      - [Ejemplo 1: Aislamiento de Cargas de Trabajo](#ejemplo-1-aislamiento-de-cargas-de-trabajo)
+      - [Ejemplo 2: Utilización de Hardware Especializado](#ejemplo-2-utilización-de-hardware-especializado)
+      - [Ejemplo 3: Mantenimiento de Nodos](#ejemplo-3-mantenimiento-de-nodos)
+    - [Conclusión](#conclusión)
+    - [Tareas del Día](#tareas-del-día)
 
-Olá, galera! No capítulo de hoje, vamos mergulhar fundo em um dos conceitos mais poderosos e flexíveis do Kubernetes: Taints e Tolerations. Prepare-se, pois este capítulo vai além do básico e entra em detalhes que você não vai querer perder. #VAIIII
+### Introducción
 
-### O que são Taints e Tolerations?
+¡Hola a todos! En el capítulo de hoy, vamos a sumergirnos profundamente en uno de los conceptos más poderosos y flexibles de Kubernetes: Taints (Marcas) y Tolerations (Tolerancias). Prepárense, porque este capítulo va más allá de lo básico y entra en detalles que no querrán perderse. #VAMOS
 
-Taints são "manchas" ou "marcações" aplicadas aos Nodes que os marcam para evitar que certos Pods sejam agendados neles. Por outro lado, Tolerations são configurações que podem ser aplicadas aos Pods para permitir que eles sejam agendados em Nodes com Taints específicos.
+### ¿Qué son Taints y Tolerations?
 
-### Por que usar Taints e Tolerations?
+Los Taints son "manchas" o "marcas" aplicadas a los Nodos que los marcan para evitar que ciertos Pods sean programados en ellos. Por otro lado, las Tolerations son configuraciones que se pueden aplicar a los Pods para permitir que sean programados en Nodos con Taints específicos.
 
-Em um cluster Kubernetes diversificado, nem todos os Nodes são iguais. Alguns podem ter acesso a recursos especiais como GPUs, enquanto outros podem ser reservados para workloads críticos. Taints e Tolerations fornecem um mecanismo para garantir que os Pods sejam agendados nos Nodes apropriados.
+### ¿Por qué usar Taints y Tolerations?
 
-### Anatomia de um Taint
+En un clúster Kubernetes diverso, no todos los Nodos son iguales. Algunos pueden tener acceso a recursos especiales como GPUs, mientras que otros pueden estar reservados para cargas de trabajo críticas. Los Taints y Tolerations proporcionan un mecanismo para asegurar que los Pods se programen en los Nodos adecuados.
 
-Um Taint é composto por uma `chave`, um `valor` e um `efeito`. O efeito pode ser:
+### Anatomía de un Taint
 
-- `NoSchedule`: O Kubernetes não agenda o Pod a menos que ele tenha uma Toleration correspondente.
-- `PreferNoSchedule`: O Kubernetes tenta não agendar, mas não é uma garantia.
-- `NoExecute`: Os Pods existentes são removidos se não tiverem uma Toleration correspondente.
+Un Taint está compuesto por una `clave`, un `valor` y un `efecto`. El efecto puede ser:
 
-### Anatomia de uma Toleration
+- `NoSchedule`: Kubernetes no programa el Pod a menos que tenga una Tolerations correspondiente.
+- `PreferNoSchedule`: Kubernetes intenta no programar, pero no hay garantía.
+- `NoExecute`: Los Pods existentes son eliminados si no tienen una Tolerations correspondiente.
 
-Uma Toleration é definida pelos mesmos elementos de um Taint: `chave`, `valor` e `efeito`. Além disso, ela contém um `operador`, que pode ser `Equal` ou `Exists`.
+### Anatomía de una Tolerations
 
-### Aplicando Taints
+Una Tolerations se define mediante los mismos elementos que un Taint: `clave`, `valor` y `efecto`. Además, contiene un `operador`, que puede ser `Equal` o `Exists`.
 
-Para aplicar um Taint a um Node, você utiliza o comando `kubectl taint`. Por exemplo:
+### Aplicación de Taints
+
+Para aplicar un Taint a un Nodo, puedes utilizar el comando `kubectl taint`. Por ejemplo:
 
 ```bash
-kubectl taint nodes node1 key=value:NoSchedule
+kubectl taint nodes nodo1 clave=valor:NoSchedule
 ```
 
-### Configurando Tolerations
+### Configuración de Tolerations
 
-Tolerations são configuradas no PodSpec. Aqui está um exemplo:
+Las Tolerations se configuran en el PodSpec. Aquí tienes un ejemplo:
 
 ```yaml
 apiVersion: v1
@@ -98,39 +78,39 @@ spec:
     effect: "NoSchedule"
 ```
 
-### Cenários de Uso
+### Escenarios de Uso
 
-#### Isolamento de Workloads
+#### Aislamiento de Cargas de Trabajo
 
-Imagine um cenário onde você tem Nodes que devem ser dedicados a workloads de produção e não devem executar Pods de desenvolvimento.
+Imagina un escenario en el que tienes Nodos que deben estar dedicados a cargas de trabajo de producción y no deben ejecutar Pods de desarrollo.
 
-Aplicar Taint:
+Aplicación de Taint:
 
 ```bash
 kubectl taint nodes prod-node environment=production:NoSchedule
 ```
 
-Toleration em Pod de produção:
+Tolerancia en el Pod de producción:
 
 ```yaml
 tolerations:
 - key: "environment"
   operator: "Equal"
-  value: "production"
+  value: "producción"
   effect: "NoSchedule"
 ```
 
-#### Nodes Especializados
+#### Nodos Especializados
 
-Se você tem Nodes com GPUs e quer garantir que apenas Pods que necessitem de GPUs sejam agendados ali.
+Si tienes Nodos con GPUs y deseas asegurarte de que solo se programen Pods que necesiten GPUs allí.
 
-Aplicar Taint:
+Aplicación de Taint:
 
 ```bash
 kubectl taint nodes gpu-node gpu=true:NoSchedule
 ```
 
-Toleration em Pod que necessita de GPU:
+#### Toleration en un Pod que Requiere GPU:
 
 ```yaml
 tolerations:
@@ -140,9 +120,9 @@ tolerations:
   effect: "NoSchedule"
 ```
 
-#### Evacuação e Manutenção de Nodes
+#### Evacuación y Mantenimiento de Nodos
 
-Se você precisa realizar manutenção em um Node e quer evitar que novos Pods sejam agendados nele.
+Si necesitas realizar mantenimiento en un Nodo y deseas evitar que se programen nuevos Pods en él.
 
 Aplicar Taint:
 
@@ -150,188 +130,57 @@ Aplicar Taint:
 kubectl taint nodes node1 maintenance=true:NoExecute
 ```
 
-### Combinando Taints e Tolerations com Affinity Rules
+#### Combinando Taints y Tolerations con Reglas de Afinidad
 
-Você pode combinar Taints e Tolerations com regras de afinidade para um controle ainda mais granular.
+Puedes combinar Taints y Tolerations con reglas de afinidad para un control aún más granular.
 
-### Exemplos Práticos
+### Ejemplos Prácticos
 
-#### Exemplo 1: Isolamento de Workloads
+#### Ejemplo 1: Aislamiento de Cargas de Trabajo
 
-Vamos criar um Node com um Taint e tentar agendar um Pod sem a Toleration correspondente.
+Creemos un Nodo con un Taint y tratemos de programar un Pod sin la Toleration correspondiente.
 
 ```bash
 # Aplicar Taint
 kubectl taint nodes dev-node environment=development:NoSchedule
 
-# Tentar agendar Pod
+# Intentar programar el Pod
 kubectl run nginx --image=nginx
 ```
 
-Observe que o Pod não será agendado até que uma Toleration seja adicionada.
+Observa que el Pod no se programará hasta que se agregue una Toleration correspondiente.
 
-#### Exemplo 2: Utilizando Hardware Especializado
+#### Ejemplo 2: Utilización de Hardware Especializado
 
-Vamos criar um Node com uma GPU e aplicar um Taint correspondente.
+Creemos un Nodo con una GPU y apliquemos un Taint correspondiente.
 
 ```bash
 # Aplicar Taint
 kubectl taint nodes gpu-node gpu=true:NoSchedule
 
-# Agendar Pod com Toleration
+# Programar Pod con Toleration
 kubectl apply -f gpu-pod.yaml
 ```
 
-Onde `gpu-pod.yaml` contém a Toleration correspondente.
+Donde `gpu-pod.yaml` contiene la Toleration correspondiente.
 
-#### Exemplo 3: Manutenção de Nodes
+#### Ejemplo 3: Mantenimiento de Nodos
 
-Vamos simular uma manutenção, aplicando um Taint em um
-
- Node e observando como os Pods são removidos.
+Simulemos un mantenimiento aplicando un Taint a un Nodo y observemos cómo se eliminan los Pods.
 
 ```bash
 # Aplicar Taint
 kubectl taint nodes node1 maintenance=true:NoExecute
 ```
 
-### Conclusão
+Estos ejemplos prácticos te ayudarán a comprender mejor cómo funcionan los Taints y Tolerations en situaciones del mundo real.
 
-Taints e Tolerations são ferramentas poderosas para o controle refinado do agendamento de Pods. Com elas, você pode isolar workloads, aproveitar hardware especializado e até gerenciar manutenções de forma mais eficaz.
+### Conclusión
 
-### Tarefas do Dia
+Taints y Tolerations son herramientas poderosas para un control refinado de la programación de Pods. Con ellas, puedes aislar workloads, aprovechar hardware especializado e incluso gestionar el mantenimiento de manera más eficaz.
 
-1. Aplique um Taint em um dos seus Nodes e tente agendar um Pod sem a Toleration correspondente.
-2. Remova o Taint e observe o comportamento.
-3. Adicione uma Toleration ao Pod e repita o processo.
+### Tareas del Día
 
-# Descomplicando o Kubernetes
-## DAY-12+1: Entendendo e Dominando os Selectors
-
-## Conteúdo do Day-12+1
-
-
-
-
-
-### Introdução
-
-E aí, pessoal! No capítulo de hoje, vamos nos aprofundar em um dos recursos mais versáteis e fundamentais do Kubernetes: os Selectors. Preparados? Então #VAIIII!
-
-### O que são Selectors?
-
-Selectors são formas de selecionar recursos, como Pods, com base em suas labels. Eles são a cola que une vários componentes do Kubernetes, como Services e ReplicaSets.
-
-### Tipos de Selectors
-
-#### Equality-based Selectors
-
-Estes são os mais simples, usando operadores como `=`, `==`, e `!=`.
-
-Exemplo:
-
-```bash
-kubectl get pods -l environment=production
-```
-
-#### Set-based Selectors
-
-Estes são mais complexos e usam operadores como `in`, `notin`, e `exists`.
-
-Exemplo:
-
-```bash
-kubectl get pods -l 'environment in (production, qa)'
-```
-
-### Selectors em Ação
-
-#### Em Services
-
-Services usam selectors para direcionar tráfego para Pods específicos.
-
-Exemplo:
-
-```yaml
-apiVersion: v1
-kind: Service
-metadata:
-  name: my-service
-spec:
-  selector:
-    app: MyApp
-```
-
-#### Em ReplicaSets
-
-ReplicaSets usam selectors para saber quais Pods gerenciar.
-
-Exemplo:
-
-```yaml
-apiVersion: apps/v1
-kind: ReplicaSet
-metadata:
-  name: my-replicaset
-spec:
-  selector:
-    matchLabels:
-      app: MyApp
-```
-
-#### Em Jobs e CronJobs
-
-Jobs e CronJobs também podem usar selectors para executar tarefas em Pods específicos.
-
-### Selectors e Namespaces
-
-É crucial entender que os selectors não atravessam namespaces; eles são eficazes apenas dentro do namespace atual, a menos que especificado de outra forma.
-
-### Cenários de Uso
-
-#### Roteamento de Tráfego
-
-Use selectors em Services para direcionar tráfego para versões específicas de uma aplicação.
-
-#### Scaling Horizontal
-
-Use selectors em Horizontal Pod Autoscalers para escalar apenas os Pods que atendem a critérios específicos.
-
-#### Desastre e Recuperação
-
-Em casos de failover, você pode usar selectors para direcionar tráfego para Pods em um cluster secundário.
-
-### Dicas e Armadilhas
-
-- Não mude as labels de Pods que são alvos de Services sem atualizar o selector do Service.
-- Use selectors de forma consistente para evitar confusões.
-
-### Exemplos Práticos
-
-#### Exemplo 1: Selector em um Service
-
-Vamos criar um Service que seleciona todos os Pods com a label `frontend`.
-
-```bash
-kubectl apply -f frontend-service.yaml
-```
-
-#### Exemplo 2: Selector em um ReplicaSet
-
-Vamos criar um ReplicaSet que gerencia todos os Pods com a label `backend`.
-
-```bash
-kubectl apply -f backend-replicaset.yaml
-```
-
-#### Exemplo 3: Selectors Avançados
-
-Vamos fazer uma query complexa para selecionar Pods com base em múltiplas labels.
-
-```bash
-kubectl get pods -l 'release-version in (v1, v2),environment!=debug'
-```
-
-### Conclusão
-
-Selectors são uma ferramenta poderosa e flexível no Kubernetes, permitindo um controle fino sobre como os recursos interagem. Dominar este conceito é fundamental para qualquer um que trabalhe com Kubernetes.
+1. Aplica un Taint en uno de tus Nodos y trata de programar un Pod sin la Toleration correspondiente.
+2. Elimina el Taint y observa el comportamiento.
+3. Agrega una Toleration al Pod y repite el proceso.

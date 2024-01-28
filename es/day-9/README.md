@@ -18,13 +18,13 @@
 - [¿Qué es Ingress?](#qué-es-ingress)
 - [Componentes de Ingress](#componentes-de-ingress)
   - [Componentes Clave](#componentes-clave)
-    - [Controlador de Ingress](#controlador-de-ingress)
-    - [Recursos de Ingress](#recursos-de-ingress)
+    - [Ingress Controller](#ingress-controller)
+    - [Ingress Resources](#ingress-resources)
     - [Anotaciones y Personalizaciones](#anotaciones-y-personalizaciones)
     - [Instalación del Nginx Ingress Controller](#instalación-del-nginx-ingress-controller)
-      - [Instalación del Controlador de Ingress Nginx en Kind](#instalación-del-controlador-de-ingress-nginx-en-kind)
+      - [Instalación del Ingress Controller Nginx en Kind](#instalación-del-ingress-controller-nginx-en-kind)
         - [Creación del Clúster con Configuraciones Especiales](#creación-del-clúster-con-configuraciones-especiales)
-        - [Instalación de un Controlador de Ingress](#instalación-de-un-controlador-de-ingress)
+        - [Instalación de un Ingress Controller](#instalación-de-un-ingress-controller)
     - [Instalación de Giropops-Senhas en el Cluster](#instalación-de-giropops-senhas-en-el-cluster)
     - [Creación de un Recurso de Ingress](#creación-de-un-recurso-de-ingress)
 - [TBD (Por determinar)](#tbd-por-determinar)
@@ -56,13 +56,13 @@ Ahora que ya sabemos qué es Ingress y por qué utilizarlo, es hora de sumergirn
 
 ## Componentes Clave
 
-### Controlador de Ingress
+### Ingress Controller
 
-El Controlador de Ingress es el motor detrás del objeto Ingress. Es responsable de aplicar las reglas de enrutamiento definidas en el recurso Ingress. Ejemplos populares incluyen el Controlador de Ingress de Nginx, Traefik y HAProxy Ingress.
+El Ingress Controller es el motor detrás del objeto Ingress. Es responsable de aplicar las reglas de enrutamiento definidas en el recurso Ingress. Ejemplos populares incluyen el Ingress Controller de Nginx, Traefik y HAProxy Ingress.
 
-### Recursos de Ingress
+### Ingress Resources
 
-Los Recursos de Ingress son las configuraciones que defines para indicar al Controlador de Ingress cómo debe ser enrutado el tráfico. Estas se definen en archivos YAML y se aplican en el clúster.
+Los Ingress Resources son las configuraciones que defines para indicar al Ingress Controller cómo debe ser enrutado el tráfico. Estas se definen en archivos YAML y se aplican en el clúster.
 
 ### Anotaciones y Personalizaciones
 
@@ -97,9 +97,9 @@ kubectl wait --namespace ingress-nginx \
   --timeout=90s
 ```
 
-En el comando anterior, estamos esperando que los pods del Controlador de Ingress estén listos, con la etiqueta `app.kubernetes.io/component=controller`, en el namespace `ingress-nginx`, y en caso de que no estén listos en 90 segundos, el comando fallará.
+En el comando anterior, estamos esperando que los pods del Ingress Controller estén listos, con la etiqueta `app.kubernetes.io/component=controller`, en el namespace `ingress-nginx`, y en caso de que no estén listos en 90 segundos, el comando fallará.
 
-#### Instalación del Controlador de Ingress Nginx en Kind
+#### Instalación del Ingress Controller Nginx en Kind
 
 Kind es una herramienta muy útil para realizar pruebas y desarrollo con Kubernetes. En esta sección actualizada, proporcionamos detalles específicos para asegurarnos de que Ingress funcione como se espera en un clúster Kind.
 
@@ -133,9 +133,9 @@ nodes:
 kind create cluster --config kind-config.yaml
 ```
 
-##### Instalación de un Controlador de Ingress
+##### Instalación de un Ingress Controller
 
-Continuaremos utilizando el Controlador de Ingress de Nginx como ejemplo, ya que es ampliamente adoptado y bien documentado.
+Continuaremos utilizando el Ingress Controller de Nginx como ejemplo, ya que es ampliamente adoptado y bien documentado.
 
 ```bash
 kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/master/deploy/static/provider/kind/deploy.yaml
@@ -150,7 +150,7 @@ kubectl wait --namespace ingress-nginx \
   --timeout=90s
 ```
 
-En el comando anterior, estamos esperando que los pods del Controlador de Ingress estén listos, con la etiqueta `app.kubernetes.io/component=controller`, en el espacio de nombres `ingress-nginx`, y si no están listos en 90 segundos, el comando fallará.
+En el comando anterior, estamos esperando que los pods del Ingress Controller estén listos, con la etiqueta `app.kubernetes.io/component=controller`, en el espacio de nombres `ingress-nginx`, y si no están listos en 90 segundos, el comando fallará.
 
 ### Instalación de Giropops-Senhas en el Cluster
 
@@ -163,7 +163,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    app: giropops-senhas
+    app: giropops-senhas # No se traduce giropops-senhas
   name: giropops-senhas
 spec:
   replicas: 2
@@ -256,7 +256,7 @@ spec:
   type: ClusterIP
 ```
 
-Con los archivos mencionados anteriormente, estamos creando un Deployment y un Service para Giropops-Senhas, y un Deployment y un Service para Redis.
+Con los archivos mencionados anteriormente, estamos creando un Deployment y un Service para `Giropops-Senhas`, y un Deployment y un Service para Redis.
 
 Para aplicarlos, simplemente ejecute los siguientes comandos:
 
@@ -345,7 +345,7 @@ Si está utilizando un clúster gestionado por un proveedor de servicios en la n
 kubectl get ingress giropops-senhas -o jsonpath='{.status.loadBalancer.ingress[0].ip}'
 ```
 
-Esto se debe a que cuando tienes un clúster EKS, AKS, GCP, etc., el controlador de Ingress creará un equilibrador de carga para ti, y la dirección IP del equilibrador de carga será la dirección IP de tu Ingress, así de simple.
+Esto se debe a que cuando tienes un clúster EKS, AKS, GCP, etc., el Ingress Controller creará un equilibrador de carga para ti, y la dirección IP del equilibrador de carga será la dirección IP de tu Ingress, así de simple.
 
 Para probarlo, puedes usar el comando curl con la dirección IP, el nombre de host o el equilibrador de carga de tu Ingress:
 

@@ -88,7 +88,7 @@ Existen varios tipos de Secrets que puedes utilizar, dependiendo de tus necesida
 
 Hay algunos tipos más de Secrets, pero estos son los más comunes. Puedes encontrar una lista completa de tipos de Secrets en la documentación de Kubernetes.
 
-Cada tipo de Secret tiene un formato diferente. Por ejemplo, los `Opaque Secrets` se almacenan como un mapa de cadenas, mientras que los `Secrets TLS` se almacenan como un mapa de cadenas con claves adicionales para almacenar certificados y claves, por lo que es importante saber qué tipo de Secret estás utilizando para almacenar los datos correctamente.
+Cada tipo de Secret tiene un formato diferente. Por ejemplo, los `Opaque Secrets` se almacenan como un mapa de strings, mientras que los `Secrets TLS` se almacenan como un mapa de strings con claves adicionales para almacenar certificados y claves, por lo que es importante saber qué tipo de Secret estás utilizando para almacenar los datos correctamente.
 
 ##### Antes de crear un Secret, el Base64
 
@@ -229,7 +229,7 @@ kubectl create secret generic giropops-secret --from-literal=username=<SECRETO> 
 
 Fácil, aquí estamos utilizando el parámetro `--from-literal` para definir los datos del Secret. Otras opciones son `--from-file` y `--from-env-file`, que puedes utilizar para definir los datos del Secret a partir de un archivo o variables de entorno.
 
-Si comparas las cadenas de los campos `username` y `password` del Secret creado utilizando el comando `kubectl create secret` con las cadenas de los campos `username` y `password` del Secret creado utilizando el archivo YAML, notarás que son identicas. Esto se debe porque el comando `kubectl create secret` automáticamente codifica los datos en Base64.
+Si comparas las cadenas de los campos `username` y `password` del Secret creado utilizando el comando `kubectl create secret` con las cadenas de los campos `username` y `password` del Secret creado utilizando el archivo YAML, notarás que son idénticas. Esto se debe porque el comando `kubectl create secret` automáticamente codifica los datos en Base64.
 
 &nbsp;
 
@@ -358,8 +358,8 @@ QXF1aSB0ZW0gcXVlIGVzdGFyIG8gY29udGXDumRvIGRvIHNldSBjb25maWcuanNvbiwgY29pc2EgbGlu
 apiVersion: v1
 kind: Secret
 metadata:
-  name: docker-hub-secret # nombre del Secreto
-type: kubernetes.io/dockerconfigjson # tipo de Secreto, en este caso, es un Secreto que almacena credenciales de Docker
+  name: docker-hub-secret # nombre del Secret
+type: kubernetes.io/dockerconfigjson # tipo de Secret, en este caso, es un Secret que almacena credenciales de Docker
 data:
   .dockerconfigjson: |  # reemplace este valor con el contenido de su archivo config.json codificado en base64
     QXF1aSB0ZW0gcXVlIGVzdGFyIG8gY29udGXDumRvIGRvIHNldSBjb25maWcuanNvbiwgY29pc2EgbGluZGEgZG8gSmVmaW0=

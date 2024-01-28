@@ -8,6 +8,6 @@ spec:
   ports:
   - port: 80
     name: web
-  clusterIP: None # Como estamos criando um Headless Service, não queremos que ele tenha um IP, então definimos o clusterIP como None
+  clusterIP: None # Como estamos creando un Servicio Headless, no queremos que tenga una dirección IP, por lo que definimos el clusterIP como None.
   selector:
     app: nginx
