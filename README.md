@@ -479,6 +479,7 @@ Fique à vontade para aprender muito sobre Kubernetes utilizando esse livro!
 
 </details>
 
+<details>
 <summary>DAY-14</summary>
 
 - [Descomplicando o Kubernetes](pt/day-14/README.md#descomplicando-o-kubernetes)
