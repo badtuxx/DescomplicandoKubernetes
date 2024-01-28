@@ -229,12 +229,8 @@ TCP|Inbound|30000-32767|NodePort|Services All
 Vamos instalar o ``kubectl`` com os seguintes comandos.
 
 ```
-curl -LO https://storage.googleapis.com/kubernetes-release/release/`curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt`/bin/linux/amd64/kubectl
-
-chmod +x ./kubectl
-
-sudo mv ./kubectl /usr/local/bin/kubectl
-
+curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
+sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
 kubectl version --client
 ```
 &nbsp;
@@ -259,11 +255,11 @@ kubectl version --client
 Já com o método tradicional, a instalação pode ser realizada com os seguintes comandos.
 
 ```
-curl -LO "https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/darwin/amd64/kubectl"
-
-chmod +x ./kubectl
+curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/darwin/amd64/kubectl"
 
 sudo mv ./kubectl /usr/local/bin/kubectl
+
+sudo chown root: /usr/local/bin/kubectl
 
 kubectl version --client
 ```

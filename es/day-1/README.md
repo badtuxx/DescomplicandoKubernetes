@@ -247,12 +247,8 @@ Es importante saber que la forma en que k8s gestiona los contenedores es ligeram
 Vamos a instalar ``kubectl`` utilizando los siguientes comandos.
 
 ```bash
-curl -LO https://storage.googleapis.com/kubernetes-release/release/`curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt`/bin/linux/amd64/kubectl
-
-chmod +x ./kubectl
-
-sudo mv ./kubectl /usr/local/bin/kubectl
-
+curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
+sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
 kubectl version --client
 ```
 
@@ -281,11 +277,11 @@ kubectl version --client
 Si prefieres el método tradicional, la instalación se puede realizar con los siguientes comandos:
 
 ```bash
-curl -LO "https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/darwin/amd64/kubectl"
-
-chmod +x ./kubectl
+curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/darwin/amd64/kubectl"
 
 sudo mv ./kubectl /usr/local/bin/kubectl
+
+sudo chown root: /usr/local/bin/kubectl
 
 kubectl version --client
 ```
