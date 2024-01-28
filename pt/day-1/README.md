@@ -270,7 +270,7 @@ kubectl version --client
 &nbsp;
 #### Instalação do Kubectl no Windows
 
-A instalação do ``kubectl`` pode ser realizada efetuando o download [neste link](https://dl.k8s.io/release/v1.24.3/bin/windows/amd64/kubectl.exe). 
+A instalação do ``kubectl`` pode ser realizada efetuando o download [neste link](https://dl.k8s.io/release/v1.29.1/bin/windows/amd64/kubectl.exe). 
 
 Outras informações sobre como instalar o kubectl no Windows podem ser encontradas [nesta página](https://kubernetes.io/docs/tasks/tools/install-kubectl-windows/).
 
@@ -321,7 +321,7 @@ Lembre-se, você não é obrigado a testar/utilizar todas as opções abaixo, ma
 
 É importante frisar que o Minikube deve ser instalado localmente, e não em um *cloud provider*. Por isso, as especificações de *hardware* a seguir são referentes à máquina local.
 
-* Processamento: 1 core;
+* Processamento: 2 CPUs;
 * Memória: 2 GB;
 * HD: 20 GB.
 
@@ -396,7 +396,7 @@ Caso a linha a seguir também esteja presente, não é necessária a instalaçã
 Hyper-V Requirements:     A hypervisor has been detected. Features required for Hyper-V will not be displayed.:     A hypervisor has been detected. Features required for Hyper-V will not be displayed.
 ```
 &nbsp;
-Faça o download e a instalação de um *hypervisor* (preferencialmente o [Oracle VirtualBox](https://www.virtualbox.org)), caso no passo anterior não tenha sido acusada a presença de um. Finalmente, efetue o download do instalador do Minikube [aqui](https://github.com/kubernetes/minikube/releases/latest) e execute-o.
+Faça o download e a instalação de um *hypervisor* (preferencialmente o [Oracle VirtualBox](https://www.virtualbox.org)), caso no passo anterior não tenha sido acusada a presença de um. Finalmente, efetue o download do instalador do Minikube [aqui](https://github.com/kubernetes/minikube/releases/latest/download/minikube-windows-amd64.exe) e execute-o.
 
 
 ##### Iniciando, parando e excluindo o Minikube
@@ -557,7 +557,7 @@ O Kind (*Kubernetes in Docker*) é outra alternativa para executar o Kubernetes 
 Para fazer a instalação no GNU/Linux, execute os seguintes comandos.
 
 ```
-curl -Lo ./kind https://kind.sigs.k8s.io/dl/v0.14.0/kind-linux-amd64
+curl -Lo ./kind https://kind.sigs.k8s.io/dl/v0.20.0/kind-linux-amd64
 
 chmod +x ./kind
 
@@ -575,7 +575,7 @@ sudo brew install kind
 ou
 
 ```
-curl -Lo ./kind https://kind.sigs.k8s.io/dl/v0.14.0/kind-darwin-amd64
+curl -Lo ./kind https://kind.sigs.k8s.io/dl/v0.20.0/kind-darwin-amd64
 chmod +x ./kind
 mv ./kind /usr/bin/kind
 ```
@@ -585,8 +585,7 @@ mv ./kind /usr/bin/kind
 Para fazer a instalação no Windows, execute os seguintes comandos.
 
 ```
-curl.exe -Lo kind-windows-amd64.exe https://kind.sigs.k8s.io/dl/v0.14.0/kind-windows-amd64
-
+curl.exe -Lo kind-windows-amd64.exe https://kind.sigs.k8s.io/dl/v0.20.0/kind-windows-amd64
 Move-Item .\kind-windows-amd64.exe c:\kind.exe
 ```
 &nbsp;
@@ -665,7 +664,7 @@ kind delete clusters $(kind get clusters)
 Deleted clusters: ["giropops" "kind"]
 ```
 &nbsp;
-Crie um arquivo de configuração para definir quantos e o tipo de nós no cluster que você deseja. No exemplo a seguir, será criado o arquivo de configuração ``kind-3nodes.yaml`` para especificar um cluster com 1 nó control-plane (que executará o control plane) e 2 workers.
+Crie um arquivo de configuração para definir quantos e quais os tipos de nós que você deseja criar no cluster. No exemplo a seguir, será criado o arquivo de configuração ``kind-3nodes.yaml`` para especificar um cluster com 1 nó control-plane (que executará o control plane) e 2 workers.
 
 ```
 cat << EOF > $HOME/kind-3nodes.yaml
@@ -767,12 +766,10 @@ pod "nginx" deleted
 ```
 &nbsp;
 
-##### Executando nosso primeiro pod no k8s
+##### Executando nosso primeiro pod no k8s utilizando um arquivo manifesto
 
 
-Uma outra forma de criar um pod ou qualquer outro objeto no Kubernetes é através da utilizaçâo de uma arquivo manifesto, que é uma arquivo em formato YAML onde você passa todas as definições do seu objeto. Mas pra frente vamos falar muito mais sobre como construir arquivos manifesto, mas agora eu quero que você conheça a opção ``--dry-run`` do ``kubectl``, pos com ele podemos simular a criação de um resource e ainda ter um manifesto criado automaticamente. 
-
-Exemplos:
+Uma outra forma de criar um pod ou qualquer outro objeto no Kubernetes é através da utilizaçâo de uma arquivo manifesto, que é uma arquivo em formato YAML onde você passa todas as definições do seu objeto. Mas pra frente vamos falar mais sobre como construir arquivos manifesto, mas agora eu quero que você conheça a opção ``--dry-run`` do ``kubectl``, com ela podemos simular a criação de um resource e ainda ter um manifesto criado automaticamente. 
 
 Para a criação do template de um *pod*:
 
@@ -780,7 +777,7 @@ Para a criação do template de um *pod*:
 kubectl run meu-nginx --image nginx --dry-run=client -o yaml > pod-template.yaml
 ```
 &nbsp;
-Aqui estamos utilizando ainda o parametro '-o', utilizando para modificar a saída para o formato YAML.
+Estamos utilizando o parametro '-o' para modificar a saída para o formato YAML e redirecionando a saída para um arquivo chamado 'pod-template.yaml'.
 
 Para a criação do *template* de um *deployment*:
 
@@ -815,9 +812,7 @@ O erro ocorre devido ao fato do k8s não saber qual é a porta de destino do con
 kubectl delete -f pod-template.yaml
 ```
 
-Agora vamos executar novamente o comando para a criação do pod utilizando o parametro 'dry-run', porém agora vamos adicionar o parametro '--port' para dizer qual a porta que o container está escutando, lembrando que estamos utilizando o nginx nesse exemplo, um webserver que escuta por padrão na porta 80.
-
-
+Agora vamos executar novamente o comando para a criação do pod utilizando o parametro 'dry-run', adicionando o parametro '--port' para dizer qual a porta que o container está escutando, lembrando que estamos utilizando o nginx nesse exemplo, um webserver que escuta por padrão na porta 80.
 
 ```
 kubectl run meu-nginx --image nginx --port 80 --dry-run=client -o yaml > pod-template.yaml
@@ -872,7 +867,7 @@ kubectl delete -f pod-template.yaml
 kubectl delete service nginx
 ```
 
-Liste novamente os recursos para ver se os mesmos ainda estão presentes.
+Liste novamente os recursos para verificar se eles foram removidos.
 
 
 &nbsp;
