@@ -29,7 +29,6 @@
     - [Conclusión](#conclusión)
     - [Tareas del Día](#tareas-del-día)
   - [DÍA 12+1: Comprendiendo y Dominando los Selectores](#día-121-comprendiendo-y-dominando-los-selectores)
-  - [Contenido del Día-12+1](#contenido-del-día-121)
     - [Introducción 12+1](#introducción-121)
     - [¿Qué son los Selectors?](#qué-son-los-selectors)
     - [Tipos de Selectors](#tipos-de-selectors)
@@ -208,8 +207,6 @@ Taints y Tolerations son herramientas poderosas para un control refinado de la p
 3. Agrega una Toleration al Pod y repite el proceso.
 
 ## DÍA 12+1: Comprendiendo y Dominando los Selectores
-
-## Contenido del Día-12+1
 
 ### Introducción 12+1
 
