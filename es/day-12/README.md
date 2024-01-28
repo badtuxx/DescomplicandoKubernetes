@@ -28,6 +28,13 @@
       - [Ejemplo 3: Mantenimiento de Nodos](#ejemplo-3-mantenimiento-de-nodos)
     - [Conclusión](#conclusión)
     - [Tareas del Día](#tareas-del-día)
+  - [DÍA 12+1: Comprendiendo y Dominando los Selectores](#día-121-comprendiendo-y-dominando-los-selectores)
+  - [Contenido del Día-12+1](#contenido-del-día-121)
+    - [Introducción 12+1](#introducción-121)
+    - [¿Qué son los Selectors?](#qué-son-los-selectors)
+    - [Tipos de Selectors](#tipos-de-selectors)
+      - [Equality-based Selectors](#equality-based-selectors)
+      - [Set-based Selectors](#set-based-selectors)
 
 ### Introducción
 
@@ -184,3 +191,37 @@ Taints y Tolerations son herramientas poderosas para un control refinado de la p
 1. Aplica un Taint en uno de tus Nodos y trata de programar un Pod sin la Toleration correspondiente.
 2. Elimina el Taint y observa el comportamiento.
 3. Agrega una Toleration al Pod y repite el proceso.
+
+## DÍA 12+1: Comprendiendo y Dominando los Selectores
+
+## Contenido del Día-12+1
+
+### Introducción 12+1
+
+¡Hola a todos! En el capítulo de hoy, profundizaremos en uno de los recursos más versátiles y fundamentales de Kubernetes: los Selectores. ¿Están listos? ¡Entonces #VAMOS!
+
+### ¿Qué son los Selectors?
+
+Los Selectors son formas de seleccionar recursos, como Pods, en función de sus etiquetas. Son el pegamento que une varios componentes de Kubernetes, como Services y RéplicaSets.
+
+### Tipos de Selectors
+
+#### Equality-based Selectors
+
+Estos son los más simples y utilizan operadores como `=`, `==` y `!=`.
+
+Ejemplo:
+
+```bash
+kubectl get pods -l environment=production
+```
+
+#### Set-based Selectors
+
+Estos son más complejos y utilizan operadores como `in`, `notin` y `exists`.
+
+Ejemplo:
+
+```bash
+kubectl get pods -l 'environment in (production, qa)'
+```
