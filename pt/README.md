@@ -422,12 +422,12 @@ Ensinar Kubernetes de uma forma mais real, passando todo o conteúdo de forma pr
 
 Esse é o primeiro treinamento sobre Kubernetes de forma realmente prática, da vida real. Pois entendemos que prática é o conjunto de entendimento sobre um assunto, seguido de exemplos reais que possam ser reproduzidos e conectando tudo isso com a forma como trabalhamos.
 
-Assim a definição de prática passa a ser um focada em o conhecimento da ferramenta e adicionando a realidade de um profissional no seu dia-a-dia aprendendo uma nova tecnologia, uma nova ferramenta.
+Assim a definição de prática passa a ser focada na integração do conhecimento da ferramenta com a realidade de um profissional no seu dia-a-dia aprendendo uma nova tecnologia, uma nova ferramenta.
 
 Prepare-se para um novo tipo de treinamento, e o melhor, prepare-se para um novo conceito sobre treinamento prático e de aprendizado de tecnologia.
 &nbsp;
 
-O conteúdo desse material é dividido em partes chamadas, onde chamamos cada uma de "day" (day_one, day_two, day_three, etc), para facilitar o aprendizado. A ideia é o aluno focar o aprendizado por etapas e por esse motivo recomendamos que ele mude para a próxima parte somente quando estiver totalmente confortável com o conteúdo atual.
+O conteúdo desse material é dividido em partes, onde chamamos cada uma de "day" (day-1, day-2, day-3, etc), para facilitar o aprendizado. A ideia é o aluno focar o aprendizado por etapas e por esse motivo recomendamos que ele mude para a próxima parte somente quando estiver totalmente confortável com o conteúdo atual.
 
 Nesse material você terá contato com conteúdos que abordam do nível iniciante ao avançado sobre Kubernetes, e agora que ele se tornou aberto, com a ajuda de todos vamos construir o maior e mais completo material sobre Kubernetes do mundo.
 
