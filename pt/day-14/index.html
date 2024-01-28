@@ -396,7 +396,10 @@
 </li>
 <li><a href="#instalando-um-nginx-ingress-controller">Instalando um Nginx Ingress Controller</a><ul>
 <li><a href="#nossa-aplicação-de-exemplo">Nossa Aplicação de Exemplo</a></li>
-<li><a href="#permitindo-tráfego-dentro-do-mesmo-namespace">Permitindo Tráfego Dentro do Mesmo Namespace</a></li>
+</ul>
+</li>
+<li><a href="#criando-regras-de-network-policy">Criando Regras de Network Policy</a><ul>
+<li><a href="#ingress">Ingress</a></li>
 <li><a href="#egress">Egress</a></li>
 </ul>
 </li>
@@ -813,7 +816,8 @@ kubectl get ingress -n giropops
 </code></pre>
 <p>Você pode acessar o endereço <code>giropops-senhas.containers.expert</code> no seu navegador para verificar se a aplicação está funcionando corretamente.</p>
 <p>Pronto, agora que temos a nossa aplicação rodando, vamos começar a brincar com as Network Policies.</p>
-<h4 id="permitindo-tráfego-dentro-do-mesmo-namespace">Permitindo Tráfego Dentro do Mesmo Namespace</h4>
+<h3 id="criando-regras-de-network-policy">Criando Regras de Network Policy</h3>
+<h4 id="ingress">Ingress</h4>
 <p>Em nosso exemplo, tanto a nossa aplicação quanto o Redis estão rodando no mesmo namespace, o namespace <code>giropops</code>. Por padrão, os Pods podem se comunicar livremente entre si. Vamos criar uma Network Policy para restringir o acesso ao Redis, permitindo que somente que pods do namespace <code>giropops</code> possam acessar o Redis.</p>
 <p>Para isso, vamos criar o arquivo <code>permitir-redis-somente-mesmo-ns.yaml</code> com o seguinte conteúdo:</p>
 <pre><code class="lang-yaml"><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">networking.k8s.io/v1</span>
@@ -1180,7 +1184,7 @@ O policyTypes é um campo obrigatório, e nele você deve especificar o tipo de 
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Descomplicando Kubernetes dia 14","level":"2.14","depth":1,"next":{"title":"Descomplicando Kubernetes dia 15","level":"2.15","depth":1,"path":"day-15/README.md","ref":"day-15/README.md","articles":[]},"previous":{"title":"Descomplicando Kubernetes dia 13","level":"2.13","depth":1,"path":"day-13/README.md","ref":"day-13/README.md","articles":[]},"dir":"ltr"},"config":{"plugins":[],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"language":"pt","gitbook":"*"},"file":{"path":"day-14/README.md","mtime":"2024-01-28T18:07:48.037Z","type":"markdown"},"gitbook":{"version":"3.6.20","time":"2024-01-28T18:07:59.035Z"},"basePath":"..","book":{"language":"pt"}});
+            gitbook.page.hasChanged({"page":{"title":"Descomplicando Kubernetes dia 14","level":"2.14","depth":1,"next":{"title":"Descomplicando Kubernetes dia 15","level":"2.15","depth":1,"path":"day-15/README.md","ref":"day-15/README.md","articles":[]},"previous":{"title":"Descomplicando Kubernetes dia 13","level":"2.13","depth":1,"path":"day-13/README.md","ref":"day-13/README.md","articles":[]},"dir":"ltr"},"config":{"plugins":[],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"language":"pt","gitbook":"*"},"file":{"path":"day-14/README.md","mtime":"2024-01-28T18:10:30.146Z","type":"markdown"},"gitbook":{"version":"3.6.20","time":"2024-01-28T18:10:39.424Z"},"basePath":"..","book":{"language":"pt"}});
         });
     </script>
 </div>
