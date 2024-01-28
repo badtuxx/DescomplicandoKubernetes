@@ -345,7 +345,7 @@ Recuerda, no estás obligado(a) a probar/utilizar todas las opciones a continuac
 
 Es importante enfatizar que Minikube debe ser instalado localmente, no en un *cloud provider*. Por lo tanto, las especificaciones de *hardware* a continuación se refieren a tu máquina local.
 
-- Procesador: 1 núcleo;
+- Procesador: 2 núcleo;
 - Memoria: 2 GB;
 - Disco duro: 20 GB.
 
@@ -429,7 +429,7 @@ Hyper-V Requirements:     A hypervisor has been detected. Features required for 
 ```
 
 &nbsp;
-Realice el download y la instalación de un *hypervisor* (preferentemente el [Oracle VirtualBox](https://www.virtualbox.org)), si en el paso anterior no se detecta la presencia de uno. Finalmente, descarga el instalador de Minikube [aqui](https://github.com/kubernetes/minikube/releases/latest) y ejecútalo.
+Realice el download y la instalación de un *hypervisor* (preferentemente el [Oracle VirtualBox](https://www.virtualbox.org)), si en el paso anterior no se detecta la presencia de uno. Finalmente, descarga el instalador de Minikube [aqui](https://github.com/kubernetes/minikube/releases/latest/download/minikube-windows-amd64.exe) y ejecútalo.
 
 ##### Iniciando, deteniendo y eliminando Minikube
 
@@ -604,7 +604,7 @@ El Kind (*Kubernetes in Docker*) es otra alternativa para ejecutar Kubernetes en
 Para realizar la instalación en GNU/Linux, ejecuta los siguientes comandos.
 
 ```bash
-curl -Lo ./kind https://kind.sigs.k8s.io/dl/v0.14.0/kind-linux-amd64
+curl -Lo ./kind https://kind.sigs.k8s.io/dl/v0.20.0/kind-linux-amd64
 
 chmod +x ./kind
 
@@ -625,7 +625,7 @@ sudo brew install kind
 ou
 
 ```bash
-curl -Lo ./kind https://kind.sigs.k8s.io/dl/v0.14.0/kind-darwin-amd64
+curl -Lo ./kind https://kind.sigs.k8s.io/dl/v0.20.0/kind-darwin-amd64
 chmod +x ./kind
 mv ./kind /usr/bin/kind
 ```
@@ -637,7 +637,7 @@ mv ./kind /usr/bin/kind
 Para realizar la instalación en Windows, ejecuta los siguientes comandos.
 
 ```bash
-curl.exe -Lo kind-windows-amd64.exe https://kind.sigs.k8s.io/dl/v0.14.0/kind-windows-amd64
+curl.exe -Lo kind-windows-amd64.exe https://kind.sigs.k8s.io/dl/v0.20.0/kind-windows-amd64
 
 Move-Item .\kind-windows-amd64.exe c:\kind.exe
 ```
