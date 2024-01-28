@@ -1,148 +1,148 @@
-# Descomplicando o Kubernetes
-## DAY-13: Descomplicando Kyverno e as Policies no Kubernetes
+# Simplificando Kubernetes
 
-## Conteúdo do Day-13
+## Día 13: Simplificando Kyverno y las Policies en Kubernetes
 
-- [Descomplicando o Kubernetes](#descomplicando-o-kubernetes)
-  - [DAY-13: Descomplicando Kyverno e as Policies no Kubernetes](#day-13-descomplicando-kyverno-e-as-policies-no-kubernetes)
-  - [Conteúdo do Day-13](#conteúdo-do-day-13)
-  - [O que iremos ver hoje?](#o-que-iremos-ver-hoje)
-  - [Inicio do Day-13](#inicio-do-day-13)
-    - [Introdução ao Kyverno](#introdução-ao-kyverno)
-    - [Instalando o Kyverno](#instalando-o-kyverno)
-      - [Utilizando Helm](#utilizando-helm)
-    - [Verificando a Instalação](#verificando-a-instalação)
-    - [Criando a nossa primeira Policy](#criando-a-nossa-primeira-policy)
-    - [Mais exemplos de Policies](#mais-exemplos-de-policies)
-      - [Exemplo de Política: Adicionar Label ao Namespace](#exemplo-de-política-adicionar-label-ao-namespace)
-        - [Detalhes da Política](#detalhes-da-política)
-        - [Arquivo de Política: `add-label-namespace.yaml`](#arquivo-de-política-add-label-namespaceyaml)
-        - [Utilização da Política](#utilização-da-política)
-      - [Exemplo de Política: Proibir Usuário Root](#exemplo-de-política-proibir-usuário-root)
-        - [Detalhes da Política](#detalhes-da-política-1)
-        - [Arquivo de Política: `disallow-root-user.yaml`](#arquivo-de-política-disallow-root-useryaml)
-        - [Implementação e Efeito](#implementação-e-efeito)
-      - [Exemplo de Política: Gerar ConfigMap para Namespace](#exemplo-de-política-gerar-configmap-para-namespace)
-        - [Detalhes da Política](#detalhes-da-política-2)
-        - [Arquivo de Política: `generate-configmap-for-namespace.yaml`](#arquivo-de-política-generate-configmap-for-namespaceyaml)
-        - [Implementação e Utilidade](#implementação-e-utilidade)
-      - [Exemplo de Política: Permitir Apenas Repositórios Confiáveis](#exemplo-de-política-permitir-apenas-repositórios-confiáveis)
-        - [Detalhes da Política](#detalhes-da-política-3)
-        - [Arquivo de Política: `registry-allowed.yaml`](#arquivo-de-política-registry-allowedyaml)
-        - [Implementação e Impacto](#implementação-e-impacto)
-        - [Exemplo de Política: Require Probes](#exemplo-de-política-require-probes)
-        - [Detalhes da Política](#detalhes-da-política-4)
-        - [Arquivo de Política: `require-probes.yaml`](#arquivo-de-política-require-probesyaml)
-        - [Implementação e Impacto](#implementação-e-impacto-1)
-      - [Exemplo de Política: Usando o Exclude](#exemplo-de-política-usando-o-exclude)
-        - [Detalhes da Política](#detalhes-da-política-5)
-        - [Arquivo de Política](#arquivo-de-política)
-        - [Implementação e Efeitos](#implementação-e-efeitos)
-    - [Conclusão](#conclusão)
-      - [Pontos-Chave Aprendidos](#pontos-chave-aprendidos)
+## Contenido del Día 13
 
-## O que iremos ver hoje?
+- [Simplificando Kubernetes](#simplificando-kubernetes)
+  - [Día 13: Simplificando Kyverno y las Policies en Kubernetes](#día-13-simplificando-kyverno-y-las-policies-en-kubernetes)
+  - [Contenido del Día 13](#contenido-del-día-13)
+  - [¿Qué veremos hoy?](#qué-veremos-hoy)
+  - [Comienzo del Día 13](#comienzo-del-día-13)
+    - [Introducción a Kyverno](#introducción-a-kyverno)
+    - [Instalación de Kyverno](#instalación-de-kyverno)
+      - [Usando Helm](#usando-helm)
+    - [Verificación de la Instalación](#verificación-de-la-instalación)
+    - [Creación de nuestra primera política](#creación-de-nuestra-primera-política)
+      - [Ejemplo de Política: Agregar Etiqueta al Namespace](#ejemplo-de-política-agregar-etiqueta-al-namespace)
+        - [Detalles de la Política: Agregar Etiqueta al Namespace](#detalles-de-la-política-agregar-etiqueta-al-namespace)
+        - [Archivo de Política: `add-label-namespace.yaml`](#archivo-de-política-add-label-namespaceyaml)
+        - [Uso de la Política: Agregar Etiqueta al Namespace](#uso-de-la-política-agregar-etiqueta-al-namespace)
+      - [Ejemplo de Política: Prohibir Usuario Root](#ejemplo-de-política-prohibir-usuario-root)
+        - [Detalles de la Política: Prohibir Usuario Root](#detalles-de-la-política-prohibir-usuario-root)
+        - [Archivo de la Política: `disallow-root-user.yaml`](#archivo-de-la-política-disallow-root-useryaml)
+        - [Implementación y Efecto](#implementación-y-efecto)
+      - [Ejemplo de Política: Generar ConfigMap para Namespace](#ejemplo-de-política-generar-configmap-para-namespace)
+        - [Detalles de la Política: Generar ConfigMap para Namespace](#detalles-de-la-política-generar-configmap-para-namespace)
+        - [Archivo de Política: `generar-configmap-para-namespace.yaml`](#archivo-de-política-generar-configmap-para-namespaceyaml)
+        - [Implementación y Utilidad](#implementación-y-utilidad)
+      - [Ejemplo de Política: Permitir Solo Repositorios de Confianza](#ejemplo-de-política-permitir-solo-repositorios-de-confianza)
+        - [Detalles de la Política: Permitir Solo Repositorios de Confianza](#detalles-de-la-política-permitir-solo-repositorios-de-confianza)
+        - [Archivo de Política: `repositorio-permitido.yaml`](#archivo-de-política-repositorio-permitidoyaml)
+        - [Implementación e Impacto](#implementación-e-impacto)
+        - [Ejemplo de Política: Require Probes](#ejemplo-de-política-require-probes)
+        - [Detalles de la Política: Require Probes](#detalles-de-la-política-require-probes)
+        - [Archivo de Política: `require-probes.yaml`](#archivo-de-política-require-probesyaml)
+        - [Implementación e Impacto: Require Probes](#implementación-e-impacto-require-probes)
+      - [Ejemplo de Política: Uso del Exclude](#ejemplo-de-política-uso-del-exclude)
+        - [Detalles de la Política: Uso del Exclude](#detalles-de-la-política-uso-del-exclude)
+        - [Archivo de Política](#archivo-de-política)
+        - [Implementación y Efectos: Uso del Exclude](#implementación-y-efectos-uso-del-exclude)
+    - [Conclusión](#conclusión)
+      - [Puntos Clave Aprendidos](#puntos-clave-aprendidos)
 
-Hoje, exploraremos as funcionalidades e aplicações do Kyverno, uma ferramenta de gerenciamento de políticas essencial para a segurança e eficiência de clusters Kubernetes. Com uma abordagem detalhada e prática, você aprenderá a usar o Kyverno para automatizar tarefas cruciais, garantir a conformidade com normas e regras estabelecidas e melhorar a administração geral de seus ambientes Kubernetes.
+## ¿Qué veremos hoy?
 
-**Principais Tópicos Abordados:**
+Hoy, exploraremos las funcionalidades y aplicaciones de Kyverno, una herramienta de gestión de políticas esencial para la seguridad y eficiencia de los clústeres Kubernetes. Con un enfoque detallado y práctico, aprenderás a utilizar Kyverno para automatizar tareas críticas, garantizar el cumplimiento de normativas y reglas establecidas, y mejorar la administración general de tus entornos Kubernetes.
 
-1. **Introdução ao Kyverno:** Uma visão geral do Kyverno, destacando sua importância e as principais funções de validação, mutação e geração de recursos.
+**Principales temas tratados:**
 
-2. **Instalação e Configuração:** Passo a passo para a instalação do Kyverno, incluindo métodos usando o Helm e arquivos YAML, e como verificar se a instalação foi bem-sucedida.
+1. **Introducción a Kyverno:** Una visión general de Kyverno, destacando su importancia y las principales funciones de validación, mutación y generación de recursos.
 
-3. **Desenvolvendo Políticas Eficientes:** Aprenda a criar políticas para diferentes cenários, desde garantir limites de CPU e memória em Pods até aplicar automaticamente labels a namespaces e restringir a execução de containers como root.
+2. **Instalación y configuración:** Un paso a paso para la instalación de Kyverno, incluyendo métodos que utilizan Helm y archivos YAML, y cómo verificar si la instalación se realizó con éxito.
 
-4. **Exemplos Práticos:** Vários exemplos de políticas, ilustrando como o Kyverno pode ser aplicado para resolver problemas reais e melhorar a segurança e conformidade dos clusters Kubernetes.
+3. **Desarrollo de políticas eficientes:** Aprenderás a crear políticas para diferentes escenarios, desde la garantía de límites de CPU y memoria en los Pods hasta la aplicación automática de etiquetas en espacios de nombres y la restricción de la ejecución de contenedores como root.
 
-5. **Dicas de Uso e Melhores Práticas:** Orientações sobre como aproveitar ao máximo o Kyverno, incluindo dicas de segurança, eficiência e automatização de processos.
+4. **Ejemplos prácticos:** Varios ejemplos de políticas que ilustran cómo Kyverno se puede aplicar para resolver problemas reales y mejorar la seguridad y el cumplimiento en los clústeres Kubernetes.
 
-Ao final deste e-book, você terá uma compreensão abrangente do Kyverno e estará equipado com o conhecimento e as habilidades para implementá-lo efetivamente em seus próprios clusters Kubernetes. Este e-book é projetado tanto para iniciantes quanto para profissionais experientes, proporcionando informações valiosas e práticas para todos os níveis de expertise.
+5. **Consejos de uso y mejores prácticas:** Orientaciones sobre cómo aprovechar al máximo Kyverno, incluyendo consejos de seguridad, eficiencia y automatización de procesos.
 
----
-
-## Inicio do Day-13
-
-### Introdução ao Kyverno
-
-Kyverno é uma ferramenta de gerenciamento de políticas para Kubernetes, focada na automação de várias tarefas relacionadas à segurança e configuração dos clusters de Kubernetes. Ele permite que você defina, gerencie e aplique políticas de forma declarativa para garantir que os clusters e suas cargas de trabalho estejam em conformidade com as regras e normas definidas.
-
-**Principais Funções do Kyverno:**
-
-1. **Validação de Recursos:** Verifica se os recursos do Kubernetes estão em conformidade com as políticas definidas. Por exemplo, pode garantir que todos os Pods tenham limites de CPU e memória definidos.
-
-2. **Mutação de Recursos:** Modifica automaticamente os recursos do Kubernetes para atender às políticas definidas. Por exemplo, pode adicionar automaticamente labels específicos a todos os novos Pods.
-
-3. **Geração de Recursos:** Cria recursos adicionais do Kubernetes com base nas políticas definidas. Por exemplo, pode gerar NetworkPolicies para cada novo Namespace criado.
+Al final de este libro electrónico, tendrás una comprensión completa de Kyverno y estarás preparado con el conocimiento y las habilidades necesarias para implementarlo de manera efectiva en tus propios clústeres Kubernetes. Este libro electrónico está diseñado tanto para principiantes como para profesionales experimentados, proporcionando información valiosa y práctica para todos los niveles de experiencia.
 
 ---
 
-### Instalando o Kyverno
-  
-A instalação do Kyverno em um cluster Kubernetes pode ser feita de várias maneiras, incluindo a utilização de um gerenciador de pacotes como o Helm, ou diretamente através de arquivos YAML. Aqui estão os passos básicos para instalar o Kyverno:
+## Comienzo del Día 13
 
-#### Utilizando Helm
+### Introducción a Kyverno
 
-O Helm é um gerenciador de pacotes para Kubernetes, que facilita a instalação e gerenciamento de aplicações. Para instalar o Kyverno com Helm, siga estes passos:
+Kyverno es una herramienta de gestión de políticas para Kubernetes que se enfoca en la automatización de diversas tareas relacionadas con la seguridad y configuración de los clústeres de Kubernetes. Permite definir, administrar y aplicar políticas de manera declarativa para garantizar que los clústeres y sus cargas de trabajo cumplan con las reglas y normativas establecidas.
 
-1. **Adicione o Repositório do Kyverno:**
-   
+**Principales funciones de Kyverno:**
+
+1. **Validación de recursos:** Verifica si los recursos de Kubernetes cumplen con las políticas definidas. Por ejemplo, puede asegurarse de que todos los Pods tengan límites de CPU y memoria definidos.
+
+2. **Mutación de recursos:** Modifica automáticamente los recursos de Kubernetes para cumplir con las políticas definidas. Por ejemplo, puede agregar automáticamente etiquetas específicas a todos los nuevos Pods.
+
+3. **Generación de recursos:** Crea recursos adicionales de Kubernetes en función de las políticas definidas. Por ejemplo, puede generar NetworkPolicies para cada nuevo espacio de nombres creado.
+
+---
+
+### Instalación de Kyverno
+
+La instalación de Kyverno en un clúster Kubernetes se puede realizar de varias maneras, incluyendo el uso de un gestor de paquetes como Helm o directamente a través de archivos YAML. Aquí están los pasos básicos para instalar Kyverno:
+
+#### Usando Helm
+
+Helm es un gestor de paquetes para Kubernetes que facilita la instalación y gestión de aplicaciones. Para instalar Kyverno con Helm, siga estos pasos:
+
+1. **Agregar el Repositorio de Kyverno:**
+
    ```shell
    helm repo add kyverno https://kyverno.github.io/kyverno/
    helm repo update
    ```
 
-2. **Instale o Kyverno:**
-   
-   Você pode instalar o Kyverno no namespace `kyverno` usando o seguinte comando:
+2. **Instalar Kyverno:**
+
+   Puede instalar Kyverno en el espacio de nombres `kyverno` utilizando el siguiente comando:
 
    ```shell
    helm install kyverno kyverno/kyverno --namespace kyverno --create-namespace
    ```
 
-### Verificando a Instalação
+### Verificación de la Instalación
 
-Após a instalação, é importante verificar se o Kyverno foi instalado corretamente e está funcionando como esperado.
+Después de la instalación, es importante verificar si Kyverno se ha instalado correctamente y está funcionando según lo esperado.
 
-- **Verifique os Pods:**
+- **Verificar los Pods:**
 
   ```shell
   kubectl get pods -n kyverno
   ```
 
-  Este comando deve mostrar os pods do Kyverno em execução no namespace especificado.
+  Este comando debería mostrar los Pods de Kyverno en ejecución en el espacio de nombres especificado.
 
-- **Verifique os CRDs:**
+- **Verificar los CRDs:**
 
   ```shell
   kubectl get crd | grep kyverno
   ```
 
-  Este comando deve listar os CRDs relacionados ao Kyverno, indicando que foram criados corretamente.
+  Este comando debería listar los CRDs relacionados con Kyverno, indicando que se han creado correctamente.
 
-Lembrando que é sempre importante consultar a documentação oficial para obter as instruções mais atualizadas e detalhadas, especialmente se estiver trabalhando com uma configuração específica ou uma versão mais recente do Kyverno ou do Kubernetes.
-
----
-
-### Criando a nossa primeira Policy
-
-Kyverno permite que você defina, gerencie e aplique políticas de forma declarativa para garantir que os clusters e suas cargas de trabalho estejam em conformidade com as regras e normas definidas.
-
-As políticas, ou as policies em inglês, do Kyverno podem ser aplicadas de duas maneiras principais: a nível de cluster (`ClusterPolicy`) ou a nível de namespace específico (`Policy`).
-
-1. **ClusterPolicy**: Quando você define uma política como `ClusterPolicy`, ela é aplicada a todos os namespaces no cluster. Ou seja, as regras definidas em uma `ClusterPolicy` são automaticamente aplicadas a todos os recursos correspondentes em todos os namespaces, a menos que especificamente excluídos.
-
-2. **Policy**: Se você deseja aplicar políticas a um namespace específico, você usaria o tipo `Policy`. As políticas definidas como `Policy` são aplicadas apenas dentro do namespace onde são criadas.
-
-Se você não especificar nenhum namespace na política ou usar `ClusterPolicy`, o Kyverno assumirá que a política deve ser aplicada globalmente, ou seja, em todos os namespaces.
+Recuerde que siempre es importante consultar la documentación oficial para obtener las instrucciones más actualizadas y detalladas, especialmente si está trabajando con una configuración específica o una versión más reciente de Kyverno o Kubernetes.
 
 ---
 
-**Exemplo de Políticas do Kyverno:**
+### Creación de nuestra primera política
 
-1. **Política de Limites de Recursos:** Garantir que todos os containers em um Pod tenham limites de CPU e memória definidos. Isso pode ser importante para evitar o uso excessivo de recursos em um cluster compartilhado.
+Kyverno permite definir, administrar y aplicar políticas de manera declarativa para garantizar que los clústeres y sus cargas de trabajo cumplan con las reglas y normas establecidas.
 
-**Arquivo `require-resources-limits.yaml`:**
+Las políticas, o "policies" en inglés, de Kyverno se pueden aplicar de dos formas principales: a nivel de clúster (`ClusterPolicy`) o a nivel de un namespace específico (`Policy`).
+
+1. **ClusterPolicy**: Cuando se define una política como `ClusterPolicy`, se aplica a todos los namespaces en el clúster. Esto significa que las reglas definidas en una `ClusterPolicy` se aplican automáticamente a todos los recursos correspondientes en todos los namespaces, a menos que se excluyan específicamente.
+
+2. **Policy**: Si desea aplicar políticas a un namespace específico, debe utilizar el tipo `Policy`. Las políticas definidas como `Policy` se aplican solo dentro del namespace en el que se crean.
+
+Si no especifica ningún namespace en la política o utiliza `ClusterPolicy`, Kyverno asumirá que la política debe aplicarse de forma global, es decir, en todos los namespaces.
+
+---
+
+**Ejemplo de Política de Kyverno:**
+
+1. **Política de Límites de Recursos:** Asegurar que todos los contenedores en un Pod tengan límites de CPU y memoria definidos. Esto puede ser importante para evitar el uso excesivo de recursos en un clúster compartido.
+
+**Archivo `require-resources-limits.yaml`:**
    ```yaml
    apiVersion: kyverno.io/v1
    kind: ClusterPolicy
@@ -168,48 +168,50 @@ Se você não especificar nenhum namespace na política ou usar `ClusterPolicy`,
                    cpu: "?*"
    ```
 
-
-Depois do arquivo criado, agora bastar realizar o deploy em nosso cluster Kubernetes.
+Después de crear el archivo, ahora solo tienes que implementarlo en tu clúster de Kubernetes.
 
 ```bash
 kubectl apply -f require-resources-limits.yaml
 ```
 
-Agora, tenta realizar o deploy de um simples Nginx sem definir o limite para os recursos.
+Ahora, intenta implementar un simple Nginx sin definir límites para los recursos.
 
-**Arquivo `pod.yaml`:**
+**Archivo `pod.yaml`:**
+
 ```bash
 apiVersion: v1
 kind: Pod
 metadata:
-  name: exemplo-pod
+  name: ejemplo-pod
 spec:
   containers:
-  - name: exemplo-container
+  - name: ejemplo-container
     image: nginx
 ```
 
 ```bash
 kubectl apply -f pod.yaml
 ```
----
-
-### Mais exemplos de Policies
-Continuando com a explicação e exemplos de políticas do Kyverno para gerenciamento de clusters Kubernetes:
-
-Entendi, vou formatar o texto para que esteja pronto para ser copiado para o Google Docs:
 
 ---
 
-#### Exemplo de Política: Adicionar Label ao Namespace
+**Más ejemplos de políticas**
 
-A política `add-label-namespace` é projetada para automatizar a adição de um label específico a todos os Namespaces em um cluster Kubernetes. Esta abordagem é essencial para a organização, monitoramento e controle de acesso em ambientes complexos.
+Continuando con la explicación y ejemplos de políticas de Kyverno para la gestión de clústeres de Kubernetes:
 
-##### Detalhes da Política
+Entiendo, voy a formatear el texto para que esté listo para copiar en Google Docs:
 
-O label adicionado por esta política é `Jeferson: "Lindo_Demais"`. A aplicação deste label a todos os Namespaces facilita a identificação e a categorização dos mesmos, permitindo uma gestão mais eficiente e uma padronização no uso de labels.
+---
 
-##### Arquivo de Política: `add-label-namespace.yaml`
+#### Ejemplo de Política: Agregar Etiqueta al Namespace
+
+La política `add-label-namespace` está diseñada para automatizar la adición de una etiqueta específica a todos los Namespaces en un clúster de Kubernetes. Este enfoque es fundamental para la organización, monitorización y control de acceso en entornos complejos.
+
+##### Detalles de la Política: Agregar Etiqueta al Namespace
+
+La etiqueta agregada por esta política es `Jeferson: "Lindo_Demais"`. La aplicación de esta etiqueta a todos los Namespaces facilita la identificación y categorización de los mismos, permitiendo una gestión más eficiente y una estandarización en el uso de etiquetas.
+
+##### Archivo de Política: `add-label-namespace.yaml`
 
 ```yaml
 apiVersion: kyverno.io/v1
@@ -230,21 +232,21 @@ spec:
             Jeferson: "Lindo_Demais"
 ```
 
-##### Utilização da Política
+##### Uso de la Política: Agregar Etiqueta al Namespace
 
-Esta política garante que cada Namespace no cluster seja automaticamente etiquetado com `Jeferson: "Lindo_Demais"`. Isso é particularmente útil para garantir a conformidade e a uniformidade na atribuição de labels, facilitando operações como filtragem e busca de Namespaces com base em critérios específicos.
+Esta política garantiza que cada Namespace en el clúster sea etiquetado automáticamente con `Jeferson: "Lindo_Demais"`. Esto es especialmente útil para garantizar la conformidad y uniformidad en la asignación de etiquetas, facilitando operaciones como la filtración y búsqueda de Namespaces basados en criterios específicos.
 
 ---
 
-#### Exemplo de Política: Proibir Usuário Root
+#### Ejemplo de Política: Prohibir Usuario Root
 
-A política `disallow-root-user` é uma regra de segurança crítica no gerenciamento de clusters Kubernetes. Ela proíbe a execução de containers como usuário root dentro de Pods. Este controle ajuda a prevenir possíveis vulnerabilidades de segurança e a reforçar as melhores práticas no ambiente de contêineres.
+La política `disallow-root-user` es una regla de seguridad crítica en la gestión de clústeres de Kubernetes. Prohíbe la ejecución de contenedores como usuario root dentro de Pods. Este control ayuda a prevenir posibles vulnerabilidades de seguridad y refuerza las mejores prácticas en el entorno de contenedores.
 
-##### Detalhes da Política
+##### Detalles de la Política: Prohibir Usuario Root
 
-O principal objetivo desta política é garantir que nenhum Pod no cluster execute containers como o usuário root. A execução de containers como root pode expor o sistema a riscos de segurança, incluindo acessos não autorizados e potenciais danos ao sistema host.
+El principal objetivo de esta política es garantizar que ningún Pod en el clúster ejecute contenedores como usuario root. La ejecución de contenedores como root puede exponer el sistema a riesgos de seguridad, incluyendo accesos no autorizados y posibles daños al sistema host.
 
-##### Arquivo de Política: `disallow-root-user.yaml`
+##### Archivo de la Política: `disallow-root-user.yaml`
 
 ```yaml
 apiVersion: kyverno.io/v1
@@ -252,7 +254,7 @@ kind: ClusterPolicy
 metadata:
   name: disallow-root-user
 spec:
-  validationFailureAction: Enforce
+  validationFailureAction: enforce
   rules:
   - name: check-runAsNonRoot
     match:
@@ -268,59 +270,59 @@ spec:
               runAsNonRoot: true
 ```
 
-##### Implementação e Efeito
+##### Implementación y Efecto
 
-Ao aplicar esta política, todos os Pods que tentarem executar containers como usuário root serão impedidos, com a exibição de uma mensagem de erro indicando que a execução como root não é permitida. Isso assegura uma camada adicional de segurança no ambiente Kubernetes, evitando práticas que possam comprometer a integridade e a segurança do cluster.
+Al aplicar esta política, se bloqueará la ejecución de todos los Pods que intenten ejecutar contenedores como usuario root. Se mostrará un mensaje de error que indica que no se permite la ejecución como root. Esto asegura una capa adicional de seguridad en el entorno de Kubernetes, evitando prácticas que puedan comprometer la integridad y la seguridad del clúster.
 
 ---
 
-#### Exemplo de Política: Gerar ConfigMap para Namespace
+#### Ejemplo de Política: Generar ConfigMap para Namespace
 
-A política `generate-configmap-for-namespace` é uma estratégia prática no gerenciamento de Kubernetes para automatizar a criação de ConfigMaps em Namespaces. Esta política simplifica a configuração e a gestão de múltiplos ambientes dentro de um cluster.
+La política `generar-configmap-para-namespace` es una estrategia práctica en la gestión de Kubernetes para automatizar la creación de ConfigMaps en Namespaces. Esta política simplifica la configuración y administración de múltiples entornos dentro de un clúster.
 
-##### Detalhes da Política
+##### Detalles de la Política: Generar ConfigMap para Namespace
 
-Esta política é projetada para criar automaticamente um ConfigMap em cada Namespace recém-criado. O ConfigMap gerado, denominado `default-configmap`, inclui um conjunto padrão de chaves e valores, facilitando a configuração inicial e a padronização dos Namespaces.
+Esta política está diseñada para crear automáticamente un ConfigMap en cada Namespace recién creado. El ConfigMap generado, denominado `configmap-por-defecto`, incluye un conjunto estándar de claves y valores, lo que facilita la configuración inicial y la estandarización de los Namespaces.
 
-##### Arquivo de Política: `generate-configmap-for-namespace.yaml`
+##### Archivo de Política: `generar-configmap-para-namespace.yaml`
 
 ```yaml
 apiVersion: kyverno.io/v1
 kind: ClusterPolicy
 metadata:
-  name: generate-configmap-for-namespace
+  name: generar-configmap-para-namespace
 spec:
   rules:
-    - name: generate-namespace-configmap
+    - name: generar-configmap-namespace
       match:
         resources:
           kinds:
             - Namespace
       generate:
         kind: ConfigMap
-        name: default-configmap
+        name: configmap-por-defecto
         namespace: "{{request.object.metadata.name}}"
         data:
-          data:
-            key1: "value1"
-            key2: "value2"
+          datos:
+            clave1: "valor1"
+            clave2: "valor2"
 ```
 
-##### Implementação e Utilidade
+##### Implementación y Utilidad
 
-A aplicação desta política resulta na criação automática de um ConfigMap padrão em cada Namespace novo, proporcionando uma forma rápida e eficiente de distribuir configurações comuns e informações essenciais. Isso é particularmente útil em cenários onde a consistência e a automatização de configurações são cruciais.
+La aplicación de esta política resulta en la creación automática de un ConfigMap por defecto en cada Namespace nuevo, lo que proporciona una forma rápida y eficiente de distribuir configuraciones comunes e información esencial. Esto es particularmente útil en escenarios donde la consistencia y la automatización de las configuraciones son cruciales.
 
 ---
 
-#### Exemplo de Política: Permitir Apenas Repositórios Confiáveis
+#### Ejemplo de Política: Permitir Solo Repositorios de Confianza
 
-A política `ensure-images-from-trusted-repo` é essencial para a segurança dos clusters Kubernetes, garantindo que todos os Pods utilizem imagens provenientes apenas de repositórios confiáveis. Esta política ajuda a prevenir a execução de imagens não verificadas ou potencialmente mal-intencionadas.
+La política `asegurar-imagenes-de-repositorio-confiable` es esencial para la seguridad de los clústeres de Kubernetes, garantizando que todos los Pods utilicen imágenes solo de repositorios de confianza. Esta política ayuda a prevenir la ejecución de imágenes no verificadas o potencialmente maliciosas.
 
-##### Detalhes da Política
+##### Detalles de la Política: Permitir Solo Repositorios de Confianza
 
-Esta política impõe que todas as imagens de containers usadas nos Pods devem ser originárias de repositórios especificados e confiáveis. A estratégia é crucial para manter a integridade e a segurança do ambiente de containers, evitando riscos associados a imagens desconhecidas ou não autorizadas.
+Esta política impone que todas las imágenes de contenedores utilizadas en los Pods deben provenir de repositorios especificados y de confianza. Esta estrategia es crucial para mantener la integridad y la seguridad del entorno de contenedores, evitando riesgos asociados con imágenes desconocidas o no autorizadas.
 
-##### Arquivo de Política: `registry-allowed.yaml`
+##### Archivo de Política: `repositorio-permitido.yaml`
 
 ```yaml
 apiVersion: kyverno.io/v1
@@ -344,21 +346,21 @@ spec:
             image: "trustedrepo.com/*"
 ```
 
-##### Implementação e Impacto
+##### Implementación e Impacto
 
-Com a implementação desta política, qualquer tentativa de implantar um Pod com uma imagem de um repositório não confiável será bloqueada. A política assegura que apenas imagens de fontes aprovadas sejam usadas, fortalecendo a segurança do cluster contra vulnerabilidades e ataques externos.
+Con la implementación de esta política, cualquier intento de implementar un Pod con una imagen de un repositorio no confiable será bloqueado. La política garantiza que solo se utilicen imágenes de fuentes aprobadas, fortaleciendo la seguridad del clúster contra vulnerabilidades y ataques externos.
 
 ---
 
-##### Exemplo de Política: Require Probes
+##### Ejemplo de Política: Require Probes
 
-A política `require-readinessprobe` desempenha um papel crucial no gerenciamento de tráfego e na garantia da disponibilidade de serviços em um cluster Kubernetes. Ela exige que todos os Pods tenham uma sonda de prontidão (readiness probe) configurada, assegurando que o tráfego seja direcionado para os Pods apenas quando estiverem prontos para processar solicitações.
+La política `require-readinessprobe` desempeña un papel crucial en la gestión del tráfico y garantiza la disponibilidad de los servicios en un clúster de Kubernetes. Exige que todos los Pods tengan una sonda de preparación (readiness probe) configurada, asegurando que el tráfico se dirija a los Pods solo cuando estén listos para procesar solicitudes.
 
-##### Detalhes da Política
+##### Detalles de la Política: Require Probes
 
-Esta política visa melhorar a confiabilidade e eficiência dos serviços executados no cluster, garantindo que os Pods estejam prontos para receber tráfego antes de serem expostos a solicitações externas. A sonda de prontidão verifica se o Pod está pronto para atender às solicitações, ajudando a evitar interrupções e problemas de desempenho.
+Esta política tiene como objetivo mejorar la confiabilidad y eficiencia de los servicios que se ejecutan en el clúster, garantizando que los Pods estén listos para recibir tráfico antes de exponerse a solicitudes externas. La sonda de preparación verifica si el Pod está listo para atender las solicitudes, lo que ayuda a evitar interrupciones y problemas de rendimiento.
 
-##### Arquivo de Política: `require-probes.yaml`
+##### Archivo de Política: `require-probes.yaml`
 
 ```yaml
 apiVersion: kyverno.io/v1
@@ -384,31 +386,31 @@ spec:
                     port: 8080
 ```
 
-##### Implementação e Impacto
+##### Implementación e Impacto: Require Probes
 
-Com a aplicação desta política, todos os novos Pods ou Pods atualizados devem incluir uma configuração de sonda de prontidão, que normalmente envolve a especificação de um caminho e porta para checagem HTTP. Isso assegura que o serviço só receba tráfego quando estiver totalmente operacional, melhorando a confiabilidade e a experiência do usuário.
+Con la aplicación de esta política, todos los nuevos Pods o Pods actualizados deben incluir una configuración de sonda de preparación, que normalmente implica especificar una ruta y un puerto para la verificación HTTP. Esto asegura que el servicio solo reciba tráfico cuando esté completamente operativo, mejorando la confiabilidad y la experiencia del usuario.
 
 ---
 
-#### Exemplo de Política: Usando o Exclude
+#### Ejemplo de Política: Uso del Exclude
 
-A política `require-resources-limits` é uma abordagem proativa para gerenciar a utilização de recursos em um cluster Kubernetes. Ela garante que todos os Pods tenham limites de recursos definidos, como CPU e memória, mas com uma exceção específica para um namespace.
+La política `require-resources-limits` es un enfoque proactivo para administrar el uso de recursos en un clúster de Kubernetes. Asegura que todos los Pods tengan límites de recursos definidos, como CPU y memoria, pero con una excepción específica para un namespace.
 
-##### Detalhes da Política
+##### Detalles de la Política: Uso del Exclude
 
-Essa política impõe que cada Pod no cluster tenha limites explícitos de CPU e memória configurados. Isso é crucial para evitar o consumo excessivo de recursos, que pode afetar outros Pods e a estabilidade geral do cluster. No entanto, esta política exclui especificamente o namespace `giropops` desta regra.
+Esta política impone que cada Pod en el clúster tenga límites explícitos de CPU y memoria configurados. Esto es fundamental para evitar el uso excesivo de recursos, que puede afectar a otros Pods y la estabilidad general del clúster. Sin embargo, esta política excluye específicamente el namespace `giropops` de esta regla.
 
-##### Arquivo de Política
+##### Archivo de Política
 
 ```yaml
 apiVersion: kyverno.io/v1
 kind: ClusterPolicy
 metadata:
-  name: require-resources-limits
+  name: requerir-recursos-limites
 spec:
   validationFailureAction: Enforce
   rules:
-  - name: validate-limits
+  - name: validar-limites
     match:
       resources:
         kinds:
@@ -418,7 +420,7 @@ spec:
         namespaces:
         - giropops
     validate:
-      message: "Precisa definir o limites de recursos"
+      message: "Debe definir límites de recursos"
       pattern:
         spec:
           containers:
@@ -429,30 +431,28 @@ spec:
                 memory: "?*"
 ```
 
-##### Implementação e Efeitos
+##### Implementación y Efectos: Uso del Exclude
 
-Ao aplicar esta política, todos os Pods novos ou atualizados precisam ter limites de recursos claramente definidos, exceto aqueles no namespace `giropops`. Isso assegura uma melhor gestão de recursos e evita situações onde alguns Pods possam monopolizar recursos em detrimento de outros.
-
----
-
-### Conclusão
-
-Ao longo deste artigo, exploramos as capacidades e funcionalidades do Kyverno, uma ferramenta inovadora e essencial para o gerenciamento de políticas em clusters Kubernetes. Compreendemos como o Kyverno simplifica e automatiza tarefas críticas relacionadas à segurança, conformidade e configuração, tornando-se um componente indispensável na administração de ambientes Kubernetes.
-
-#### Pontos-Chave Aprendidos
-
-1. **Automação e Conformidade:** Vimos como o Kyverno permite definir, gerenciar e aplicar políticas de forma declarativa, garantindo que os recursos do Kubernetes estejam sempre em conformidade com as regras e normas estabelecidas. Esta abordagem reduz significativamente o esforço manual, minimiza erros e assegura uma maior consistência em todo o ambiente.
-
-2. **Validação, Mutação e Geração de Recursos:** Aprendemos sobre as três funções principais do Kyverno – validação, mutação e geração de recursos – e como cada uma delas desempenha um papel vital na gestão eficaz do cluster. Estas funções proporcionam um controle granular sobre os recursos, desde a garantia de limites de CPU e memória até a aplicação automática de labels e a criação dinâmica de ConfigMaps.
-
-3. **Flexibilidade de Políticas:** Discutimos a diferença entre `ClusterPolicy` e `Policy`, destacando como o Kyverno oferece flexibilidade para aplicar políticas em todo o cluster ou em namespaces específicos. Isso permite uma gestão personalizada e adaptada às necessidades de diferentes partes do cluster.
-
-4. **Instalação e Verificação:** Abordamos as várias maneiras de instalar o Kyverno, com foco especial no uso do Helm, um gerenciador de pacotes popular para Kubernetes. Também exploramos como verificar a instalação correta do Kyverno, assegurando que tudo esteja funcionando conforme esperado.
-
-5. **Práticas de Segurança:** O artigo enfatizou a importância da segurança em Kubernetes, demonstrada por políticas como a proibição de execução de containers como usuário root e a exigência de imagens provenientes de repositórios confiáveis. Essas políticas ajudam a prevenir vulnerabilidades e garantir a integridade do cluster.
-
-6. **Automatização e Eficiência:** Por fim, aprendemos como o Kyverno facilita a automatização e a eficiência operacional. As políticas do Kyverno reduzem a necessidade de intervenção manual, aumentam a segurança e ajudam na conformidade regulatória, tornando a administração do Kubernetes mais simples e confiável.
-
-Em resumo, o Kyverno é uma ferramenta poderosa que transforma a maneira como as políticas são gerenciadas em Kubernetes. Seu enfoque na automação, flexibilidade e segurança o torna um componente essencial para qualquer administrador de Kubernetes que deseja otimizar a gestão de clusters, assegurar a conformidade e reforçar a segurança. Com o Kyverno, podemos atingir um nível mais alto de eficiência e confiança nos nossos ambientes Kubernetes, preparando-nos para enfrentar os desafios de um ecossistema em constante evolução.
+Al aplicar esta política, todos los Pods nuevos o actualizados deben tener límites de recursos claramente definidos, excepto aquellos en el namespace `giropops`. Esto asegura una mejor gestión de recursos y evita situaciones en las que algunos Pods puedan monopolizar recursos en detrimento de otros.
 
 ---
+
+### Conclusión
+
+A lo largo de este artículo, hemos explorado las capacidades y funcionalidades de Kyverno, una herramienta innovadora e imprescindible para la gestión de políticas en clústeres de Kubernetes. Hemos comprendido cómo Kyverno simplifica y automatiza tareas críticas relacionadas con la seguridad, el cumplimiento y la configuración, convirtiéndose en un componente indispensable en la administración de entornos Kubernetes.
+
+#### Puntos Clave Aprendidos
+
+1. **Automatización y Cumplimiento:** Hemos visto cómo Kyverno permite definir, gestionar y aplicar políticas de manera declarativa, garantizando que los recursos de Kubernetes estén siempre en cumplimiento con las reglas y normativas establecidas. Este enfoque reduce significativamente el esfuerzo manual, minimiza los errores y asegura una mayor consistencia en todo el entorno.
+
+2. **Validación, Mutación y Generación de Recursos:** Aprendimos sobre las tres funciones principales de Kyverno: validación, mutación y generación de recursos, y cómo cada una de ellas desempeña un papel vital en la gestión efectiva del clúster. Estas funciones proporcionan un control detallado sobre los recursos, desde garantizar límites de CPU y memoria hasta la aplicación automática de etiquetas y la creación dinámica de ConfigMaps.
+
+3. **Flexibilidad de Políticas:** Discutimos la diferencia entre `ClusterPolicy` y `Policy`, destacando cómo Kyverno ofrece flexibilidad para aplicar políticas en todo el clúster o en espacios de nombres específicos. Esto permite una gestión personalizada y adaptada a las necesidades de diferentes partes del clúster.
+
+4. **Instalación y Verificación:** Abordamos las diversas formas de instalar Kyverno, con un enfoque especial en el uso de Helm, un popular gestor de paquetes para Kubernetes. También exploramos cómo verificar la instalación correcta de Kyverno, asegurando que todo funcione según lo esperado.
+
+5. **Prácticas de Seguridad:** El artículo enfatizó la importancia de la seguridad en Kubernetes, demostrada a través de políticas como la prohibición de ejecutar contenedores como usuario root y la exigencia de imágenes provenientes de repositorios de confianza. Estas políticas ayudan a prevenir vulnerabilidades y garantizar la integridad del clúster.
+
+6. **Automatización y Eficiencia:** Por último, aprendimos cómo Kyverno facilita la automatización y la eficiencia operativa. Las políticas de Kyverno reducen la necesidad de intervención manual, aumentan la seguridad y ayudan en el cumplimiento normativo, haciendo que la administración de Kubernetes sea más sencilla y confiable.
+
+En resumen, Kyverno es una herramienta poderosa que transforma la forma en que se gestionan las políticas en Kubernetes. Su enfoque en la automatización, la flexibilidad y la seguridad lo convierte en un componente esencial para cualquier administrador de Kubernetes que desee optimizar la gestión de clústeres, garantizar el cumplimiento y fortalecer la seguridad. Con Kyverno, podemos alcanzar un nivel más alto de eficiencia y confiabilidad en nuestros entornos Kubernetes, preparándonos para enfrentar los desafíos de un ecosistema en constante evolución.

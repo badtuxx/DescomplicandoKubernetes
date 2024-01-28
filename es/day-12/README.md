@@ -35,6 +35,21 @@
     - [Tipos de Selectors](#tipos-de-selectors)
       - [Equality-based Selectors](#equality-based-selectors)
       - [Set-based Selectors](#set-based-selectors)
+    - [Selectors en acción](#selectors-en-acción)
+      - [En Services](#en-services)
+      - [En ReplicaSets](#en-replicasets)
+      - [En Jobs y CronJobs](#en-jobs-y-cronjobs)
+    - [Selectores y Namespaces](#selectores-y-namespaces)
+    - [Escenarios de uso](#escenarios-de-uso-1)
+      - [Enrutamiento de tráfico](#enrutamiento-de-tráfico)
+      - [Escalado horizontal](#escalado-horizontal)
+      - [Desastre y recuperación](#desastre-y-recuperación)
+    - [Consejos y trampas](#consejos-y-trampas)
+    - [Ejemplos prácticos](#ejemplos-prácticos-1)
+      - [Ejemplo 1: Selector en un Service](#ejemplo-1-selector-en-un-service)
+      - [Ejemplo 2: Selector en un ReplicaSet](#ejemplo-2-selector-en-un-replicaset)
+      - [Ejemplo 3: Selectors avanzados](#ejemplo-3-selectors-avanzados)
+    - [Conclusión 12+1](#conclusión-121)
 
 ### Introducción
 
@@ -225,3 +240,95 @@ Ejemplo:
 ```bash
 kubectl get pods -l 'environment in (production, qa)'
 ```
+
+### Selectors en acción
+
+#### En Services
+
+Los Services utilizan selectores para dirigir el tráfico hacia Pods específicos.
+
+Ejemplo:
+
+```yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: my-service
+spec:
+  selector:
+    app: MyApp
+```
+
+#### En ReplicaSets
+
+Los ReplicaSets utilizan selectores para saber qué Pods gestionar.
+
+Ejemplo:
+
+```yaml
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: my-replicaset
+spec:
+  selector:
+    matchLabels:
+      app: MyApp
+```
+
+#### En Jobs y CronJobs
+
+Los Jobs y CronJobs también pueden utilizar selectores para ejecutar tareas en Pods específicos.
+
+### Selectores y Namespaces
+
+Es crucial entender que los selectores no atraviesan namespaces; son efectivos solo dentro del namespace actual a menos que se especifique de otra manera.
+
+### Escenarios de uso
+
+#### Enrutamiento de tráfico
+
+Utilice Selectors en los Services para dirigir el tráfico hacia versiones específicas de una aplicación.
+
+#### Escalado horizontal
+
+Utilice selectores en Horizontal Pod Autoscalers para escalar solo los Pods que cumplan con criterios específicos.
+
+#### Desastre y recuperación
+
+En casos de conmutación por error, puede utilizar selectores para dirigir el tráfico hacia Pods en un clúster secundario.
+
+### Consejos y trampas
+
+- No cambie las etiquetas de los Pods que son objetivos de Services sin actualizar el selector del Service.
+- Utilice selectores de manera consistente para evitar confusiones.
+
+### Ejemplos prácticos
+
+#### Ejemplo 1: Selector en un Service
+
+Vamos a crear un Service que seleccione todos los Pods con la etiqueta `frontend`.
+
+```bash
+kubectl apply -f frontend-service.yaml
+```
+
+#### Ejemplo 2: Selector en un ReplicaSet
+
+Vamos a crear un ReplicaSet que gestione todos los Pods con la etiqueta `backend`.
+
+```bash
+kubectl apply -f backend-replicaset.yaml
+```
+
+#### Ejemplo 3: Selectors avanzados
+
+Vamos a realizar una consulta compleja para seleccionar Pods basados en múltiples etiquetas.
+
+```bash
+kubectl get pods -l 'release-version in (v1, v2),environment!=debug'
+```
+
+### Conclusión 12+1
+
+Los selectores son una herramienta poderosa y flexible en Kubernetes, que permite un control preciso sobre cómo interactúan los recursos. Dominar este concepto es fundamental para cualquiera que trabaje con Kubernetes.
