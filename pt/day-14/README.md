@@ -478,8 +478,8 @@ spec:
     app: giropops-senhas
   ports:
     - protocol: TCP
-      port: 6379
-      targetPort: 6379
+      port: 5000
+      targetPort: 5000
   type: ClusterIP
 ```
 
@@ -915,6 +915,61 @@ spec:
 ```
 
 Pronto, agora o nosso Ingress Controller consegue acessar a nossa aplicação, e com isso, nossos clientes também conseguem acessar a nossa aplicação! 
+
+
+Mas ainda temos um problema, os nossos Pods não conseguem acessar o DNS do cluster, então vamos criar uma Network Policy para permitir o acesso ao DNS do cluster e com isso o Pod de nossa App conseguirá acessar o Redis tranquilamente
+
+```yaml
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-dns-access
+  namespace: giropops
+spec:
+  podSelector:
+    matchLabels: {}
+  policyTypes:
+  - Egress
+  egress:
+  - to:
+    - namespaceSelector:
+        matchLabels:
+          kubernetes.io/metadata.name: kube-system
+      podSelector:
+        matchLabels:
+          k8s-app: kube-dns
+    ports:
+    - protocol: UDP
+      port: 53
+```
+
+Pronto, um problema a menos! :D
+Mas ainda temos outro!
+
+Quando criamos a regra de Egress bloqueando tudo, bloqueamos também o tráfego de saída de todos os Pods do Namespace `giropops`, e com isso, o nosso Pod de App não consegue acessar o Redis.
+
+```yaml
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-ns
+  namespace: giropops
+spec:
+  podSelector:
+    matchLabels: {}
+  policyTypes:
+  - Egress
+  egress:
+  - to:
+    - namespaceSelector:
+        matchLabels:
+          kubernetes.io/metadata.name: giropops
+      podSelector:
+        matchLabels:
+          app: redis
+```
+
+Pronto, agora acredito que todos os problemas foram resolvidos e podemos acessar a nossa App  e o Redis normalmente! :D
 
 Outra opção bem interessante de utilizar é o `ipBlock`, com ele você pode especificar um endereço IP ou um CIDR para permitir o acesso, veja:
 
