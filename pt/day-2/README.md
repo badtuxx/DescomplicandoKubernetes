@@ -1,13 +1,13 @@
 # Descomplicando o Kubernetes
 &nbsp;
-## DAY-2
+## DAY-2 - Descomplicando o Pod
 &nbsp;
 
-### Indice
+### Conteúdo do Day-2
 
 - [Descomplicando o Kubernetes](#descomplicando-o-kubernetes)
   - [DAY-2](#day-2)
-    - [Indice](#indice)
+    - [Conteúdo do Day-3](#conteúdo-do-day-3)
     - [Inicio da aula do Day-2](#inicio-da-aula-do-day-2)
     - [O que iremos ver hoje?](#o-que-iremos-ver-hoje)
     - [O que é um Pod?](#o-que-é-um-pod)
@@ -36,7 +36,7 @@ E claro, vamos aprender como ver todos os detalhes de um Pod em execução e bri
 ### O que é um Pod?
 
 
-Primeiro coisa, o Pod é a menor unidade dentro de um cluster Kubernetes.
+Primeira coisa, o Pod é a menor unidade dentro de um cluster Kubernetes.
 
 Quando estamos falando sobre Pod, precisamos pensar que o Pod é uma caixinha que contém um ou mais containers. E esses containers compartilham os mesmos recursos do Pod, como por exemplo, o IP, o namespace, o volume, etc.
 
@@ -107,7 +107,7 @@ Por exemplo:
 kubectl get pods giropops -o yaml
 ```
 
-O comando acima irá mostrar todos os detalhes do Pod em formato YAML, praticamente igual ao que você irá ver no arquivo YAML que criamos para criar o Pod, porém com alguns detalhes a mais, como por exemplo, o UID do Pod, o nome do Node onde o Pod está sendo executado, etc. Afinal, esse Pod já está em execução, então o Kubernetes já tem mais detalhes sobre ele.
+O comando acima mostrará todos os detalhes do Pod em formato YAML, praticamente igual ao que você verá no arquivo YAML que utilizaremos a seguir para criar o Pod. Porém terá alguns detalhes a mais, como por exemplo, o UID do Pod, o nome do Node onde o Pod está sendo executado, etc. Afinal, esse Pod já está em execução, então o Kubernetes já tem mais detalhes sobre ele.
 
 Uma outra saída interessante é a saída em formato JSON, que você pode ver usando o comando:
 
@@ -135,7 +135,7 @@ Por exemplo:
 kubectl get pods giropops -o wide
 ```
 
-Agora, se você quiser ver os detalhes do Pod em formato YAML, mas sem precisar usar o comando get, você pode usar o comando:
+Agora, se você quiser ver os detalhes do Pod, mas sem precisar usar o comando get, você pode usar o comando:
 
 ```bash
 kubectl describe pods <nome-do-pod>
@@ -171,8 +171,8 @@ apiVersion: v1 # versão da API do Kubernetes
 kind: Pod # tipo do objeto que estamos criando
 metadata: # metadados do Pod 
   name: giropops # nome do Pod que estamos criando
-labels: # labels do Pod
-  run: giropops # label run com o valor giropops
+  labels: # labels do Pod
+    run: giropops # label run com o valor giropops
 spec: # especificação do Pod
   containers: # containers que estão dentro do Pod
   - name: giropops # nome do container
@@ -183,7 +183,7 @@ spec: # especificação do Pod
 
 Agora, vamos criar o Pod usando o arquivo YAML que acabamos de criar.
 
-```
+```bash
 kubectl apply -f pod.yaml
 ```
 
@@ -197,7 +197,7 @@ kubectl get pods
 
 Já que usamos o comando `apply`, acho que vale a pena explicar o que ele faz.
 
-O comando `apply` é um comando que faz o que o nome diz, ele aplica o arquivo YAML no cluster, ou seja, ele cria o objeto que está descrito no arquivo YAML no cluster. Caso o objeto já exista, ele irá atualizar o objeto com as informações que estão no arquivo YAML.
+O comando `apply` é um comando que faz o que o nome diz, ele aplica o arquivo YAML no cluster, ou seja, ele cria o objeto que está descrito no arquivo YAML no cluster. Caso o objeto já exista, ele irá atualizá-lo com as informações que estão no arquivo YAML.
 
 Um outro comando que você pode usar para criar um objeto no cluster é o comando `create`, que também cria o objeto que está descrito no arquivo YAML no cluster, porém, caso o objeto já exista, ele irá retornar um erro. E por esse motivo que o comando `apply` é mais usado, pois ele atualiza o objeto caso ele já exista. :)
 
@@ -209,7 +209,7 @@ kubectl describe pods giropops
 
 #### Visualizando os logs do Pod
 
-Outro comando muito util para ver o que está acontecendo com o Pod, mais especificamente ver o que o container está logando, é o comando:
+Outro comando muito útil para ver o que está acontecendo com o Pod, mais especificamente ver o que o container está logando, é o comando:
 
 ```bash
 kubectl logs giropops
@@ -240,8 +240,8 @@ apiVersion: v1 # versão da API do Kubernetes
 kind: Pod # tipo do objeto que estamos criando
 metadata: # metadados do Pod 
   name: giropops # nome do Pod que estamos criando
-labels: # labels do Pod
-  run: giropops # label run com o valor giropops
+  labels: # labels do Pod
+    run: giropops # label run com o valor giropops
 spec: # especificação do Pod
   containers: # containers que estão dentro do Pod
   - name: girus # nome do container
@@ -313,7 +313,6 @@ Nós também podemos utilizar o `exec` para conectar em uma container que está 
 kubectl exec giropops -c strigus -it -- sh
 ```
 
-
 O parametro `-it` é usado para que o comando `exec` crie um processo dentro do container com interatividade e com um terminal, fazendo com que o comando `exec` se comporte como o comando `attach`, porém com a diferença que o comando `exec` cria um processo dentro do container, no caso o processo `sh`. E por esse motivo que o comando `exec` é mais usado, pois ele cria um processo dentro do container, diferente do comando `attach` que não cria nenhum processo dentro do container.
 
 Nesse caso, podemos até mesmo conectar no container do Nginx, pois ele vai conectar no container criando um processo que é o nosso interpretador de comandos `sh`, sendo possível executar qualquer comando dentro do container pois temos um shell para interagir com o container.
@@ -323,6 +322,12 @@ kubectl exec giropops -c girus -it -- sh
 ```
 
 Para sair do container, basta apertar a tecla `Ctrl + D`.
+
+Não esqueça de deletar o Pod que criamos.
+
+```bash
+kubectl delete pods giropops
+```
 
 &nbsp;
 
@@ -335,8 +340,8 @@ apiVersion: v1 # versão da API do Kubernetes
 kind: Pod # tipo do objeto que estamos criando
 metadata: # metadados do Pod
   name: giropops # nome do Pod que estamos criando
-labels: # labels do Pod
-  run: giropops # label run com o valor giropops
+  labels: # labels do Pod
+    run: giropops # label run com o valor giropops
 spec: # especificação do Pod 
   containers: # containers que estão dentro do Pod 
   - name: girus # nome do container 
@@ -354,7 +359,7 @@ spec: # especificação do Pod
 
 Veja que estamos conhecendo alguns novos campos, o `resources`, o `limits` e o `requests`.
 
-O campo `resources` é usado para definir os recursos que estão sendo utilizados pelo container, e dentro dele temos os campos `limits` e `requests`.
+O campo `resources` é usado para definir os recursos que serão utilizados pelo container, e dentro dele temos os campos `limits` e `requests`.
 
 O campo `limits` é usado para definir os limites máximos de recursos que o container pode utilizar, e o campo `requests` é usado para definir os recursos garantidos ao container.
 
@@ -363,6 +368,8 @@ Simples demais!
 Os valores que passamos para os campos `limits` e `requests` foram:
 
 - `memory`: quantidade de memória que o container pode utilizar, por exemplo, `128Mi` ou `1Gi`. O valor `Mi` significa mebibytes e o valor `Gi` significa gibibytes. O valor `M` significa megabytes e o valor `G` significa gigabytes. O valor `Mi` é usado para definir o limite de memória em mebibytes, pois o Kubernetes utiliza o sistema de unidades binárias, e não o sistema de unidades decimais. O valor `M` é usado para definir o limite de memória em megabytes, pois o Docker utiliza o sistema de unidades decimais, e não o sistema de unidades binárias. Então, se você estiver utilizando o Docker, você pode usar o valor `M` para definir o limite de memória, mas se você estiver utilizando o Kubernetes, você deve usar o valor `Mi` para definir o limite de memória.
+
+- `cpu`: quantidade de CPU que o container pode utilizar, por exemplo, `0.5` ou `1`. O valor `0.5` significa 50% de uma CPU, e o valor `1` significa 100% de uma CPU. O valor `m` significa millicpu, ou seja, milicpu é igual a 1/1000 de uma CPU. Então, se você quiser definir o limite de CPU em 50% de uma CPU, você pode definir o valor `500m`, ou você pode definir o valor `0.5`, que é o mesmo que definir o valor `500m`.
 
 Agora vamos criar o Pod com os limites de memória e CPU.
 
@@ -409,26 +416,22 @@ Containers:
       /var/run/secrets/kubernetes.io/serviceaccount from default-token-0b0b0 (ro)
 ```
 
-
 Veja que na saída acima, ele mostra o campo CPU com o valor `500m`, isso significa que o container pode utilizar no máximo 50% de uma CPU, afinal um CPU é igual a 1000 milliCPUs, e 50% de 1000 milicpus é 500 milliCPUs.
-
-Então, se você quiser definir o limite de CPU em 50% de uma CPU, você pode definir o valor `500m`, ou você pode definir o valor `0.5`, que é o mesmo que definir o valor `500m`.
 
 Para você testar os limites de memória e CPU, você pode executar o comando `stress` dentro do container, que é um comando que faz o container consumir recursos de CPU e memória. Lembre-se de instalar o comando `stress`, pois ele não vem instalado por padrão.
 
-
 Para ficar fácil de testar, vamos criar um Pod com o Ubuntu com limitação de memória, e vamos instalar o comando `stress` dentro do container.
 
-Chame o arquivo de `pod-ubuntu-limitado.yaml`.
+Crie o arquivo `pod-ubuntu-limitado.yaml`.
 
 ```yaml
 apiVersion: v1
 kind: Pod
 metadata:
-  name: giropops
+  name: ubuntu
 spec:
   containers:
-  - name: girus
+  - name: ubuntu
     image: ubuntu
     args:
     - sleep
@@ -449,7 +452,6 @@ Agora vamos criar o Pod.
 ```bash
 kubectl create -f pod-ubuntu-limitado.yaml
 ```
-
 
 Agora vamos verificar se o Pod foi criado.
 
@@ -554,10 +556,18 @@ Você pode ver a saída do comando `kubectl describe pod giropops` para ver o vo
 kubectl describe pod giropops
 ```
 
+```bash
+Volumes:
+  primeiro-emptydir:
+    Type:       EmptyDir (a temporary directory that shares a pod's lifetime)
+    Medium:     
+    SizeLimit:  256Mi
+```
+
 Agora vamos para dentro do container.
 
 ```bash
-kubectl exec -it ubuntu -- bash
+kubectl exec -it giropops -- bash
 ```
 
 Agora vamos criar um arquivo dentro do diretório `/giropops`.
