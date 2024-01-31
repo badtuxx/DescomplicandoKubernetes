@@ -372,13 +372,13 @@
                                 
                                 <h1 id="descomplicando-o-kubernetes">Descomplicando o Kubernetes</h1>
 <p> </p>
-<h2 id="day-2">DAY-2</h2>
+<h2 id="day-2---descomplicando-o-pod">DAY-2 - Descomplicando o Pod</h2>
 <p> </p>
-<h3 id="indice">Indice</h3>
+<h3 id="conteúdo-do-day-2">Conteúdo do Day-2</h3>
 <ul>
 <li><a href="#descomplicando-o-kubernetes">Descomplicando o Kubernetes</a><ul>
 <li><a href="#day-2">DAY-2</a><ul>
-<li><a href="#indice">Indice</a></li>
+<li><a href="#conteúdo-do-day-3">Conteúdo do Day-3</a></li>
 <li><a href="#inicio-da-aula-do-day-2">Inicio da aula do Day-2</a></li>
 <li><a href="#o-que-iremos-ver-hoje">O que iremos ver hoje?</a></li>
 <li><a href="#o-que-é-um-pod">O que é um Pod?</a><ul>
@@ -406,7 +406,7 @@
 Vamos ver desde a criação de um simples Pod, passando por Pod com multicontainers, com volumes e ainda com limitação ao consumo de recursos, como CPU ou memória.
 E claro, vamos aprender como ver todos os detalhes de um Pod em execução e brincar bastante com nossos arquivos YAML.</p>
 <h3 id="o-que-é-um-pod">O que é um Pod?</h3>
-<p>Primeiro coisa, o Pod é a menor unidade dentro de um cluster Kubernetes.</p>
+<p>Primeira coisa, o Pod é a menor unidade dentro de um cluster Kubernetes.</p>
 <p>Quando estamos falando sobre Pod, precisamos pensar que o Pod é uma caixinha que contém um ou mais containers. E esses containers compartilham os mesmos recursos do Pod, como por exemplo, o IP, o namespace, o volume, etc.</p>
 <p>Então, quando falamos de Pod, estamos falando de um ou mais containers que compartilham os mesmos recursos, ponto.</p>
 <p> </p>
@@ -441,7 +441,7 @@ E claro, vamos aprender como ver todos os detalhes de um Pod em execução e bri
 <p>Por exemplo:</p>
 <pre><code class="lang-bash">kubectl get pods giropops -o yaml
 </code></pre>
-<p>O comando acima irá mostrar todos os detalhes do Pod em formato YAML, praticamente igual ao que você irá ver no arquivo YAML que criamos para criar o Pod, porém com alguns detalhes a mais, como por exemplo, o UID do Pod, o nome do Node onde o Pod está sendo executado, etc. Afinal, esse Pod já está em execução, então o Kubernetes já tem mais detalhes sobre ele.</p>
+<p>O comando acima mostrará todos os detalhes do Pod em formato YAML, praticamente igual ao que você verá no arquivo YAML que utilizaremos a seguir para criar o Pod. Porém terá alguns detalhes a mais, como por exemplo, o UID do Pod, o nome do Node onde o Pod está sendo executado, etc. Afinal, esse Pod já está em execução, então o Kubernetes já tem mais detalhes sobre ele.</p>
 <p>Uma outra saída interessante é a saída em formato JSON, que você pode ver usando o comando:</p>
 <pre><code class="lang-bash">kubectl get pods &lt;nome-do-pod&gt; -o json
 </code></pre>
@@ -455,7 +455,7 @@ E claro, vamos aprender como ver todos os detalhes de um Pod em execução e bri
 <p>Por exemplo:</p>
 <pre><code class="lang-bash">kubectl get pods giropops -o wide
 </code></pre>
-<p>Agora, se você quiser ver os detalhes do Pod em formato YAML, mas sem precisar usar o comando get, você pode usar o comando:</p>
+<p>Agora, se você quiser ver os detalhes do Pod, mas sem precisar usar o comando get, você pode usar o comando:</p>
 <pre><code class="lang-bash">kubectl describe pods &lt;nome-do-pod&gt;
 </code></pre>
 <p>Por exemplo:</p>
@@ -474,8 +474,8 @@ E claro, vamos aprender como ver todos os detalhes de um Pod em execução e bri
 <span class="hljs-attr">kind:</span> <span class="hljs-string">Pod</span> <span class="hljs-comment"># tipo do objeto que estamos criando</span>
 <span class="hljs-attr">metadata:</span> <span class="hljs-comment"># metadados do Pod </span>
   <span class="hljs-attr">name:</span> <span class="hljs-string">giropops</span> <span class="hljs-comment"># nome do Pod que estamos criando</span>
-<span class="hljs-attr">labels:</span> <span class="hljs-comment"># labels do Pod</span>
-  <span class="hljs-attr">run:</span> <span class="hljs-string">giropops</span> <span class="hljs-comment"># label run com o valor giropops</span>
+  <span class="hljs-attr">labels:</span> <span class="hljs-comment"># labels do Pod</span>
+    <span class="hljs-attr">run:</span> <span class="hljs-string">giropops</span> <span class="hljs-comment"># label run com o valor giropops</span>
 <span class="hljs-attr">spec:</span> <span class="hljs-comment"># especificação do Pod</span>
   <span class="hljs-attr">containers:</span> <span class="hljs-comment"># containers que estão dentro do Pod</span>
   <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">giropops</span> <span class="hljs-comment"># nome do container</span>
@@ -484,19 +484,20 @@ E claro, vamos aprender como ver todos os detalhes de um Pod em execução e bri
     <span class="hljs-bullet">-</span> <span class="hljs-attr">containerPort:</span> <span class="hljs-number">80</span> <span class="hljs-comment"># porta 80 exposta pelo container</span>
 </code></pre>
 <p>Agora, vamos criar o Pod usando o arquivo YAML que acabamos de criar.</p>
-<pre><code>kubectl apply -f pod.yaml
-</code></pre><p>O comando acima irá criar o Pod usando o arquivo YAML que criamos.</p>
+<pre><code class="lang-bash">kubectl apply -f pod.yaml
+</code></pre>
+<p>O comando acima irá criar o Pod usando o arquivo YAML que criamos.</p>
 <p>Para ver o Pod criado, podemos usar o comando:</p>
 <pre><code class="lang-bash">kubectl get pods
 </code></pre>
 <p>Já que usamos o comando <code>apply</code>, acho que vale a pena explicar o que ele faz.</p>
-<p>O comando <code>apply</code> é um comando que faz o que o nome diz, ele aplica o arquivo YAML no cluster, ou seja, ele cria o objeto que está descrito no arquivo YAML no cluster. Caso o objeto já exista, ele irá atualizar o objeto com as informações que estão no arquivo YAML.</p>
+<p>O comando <code>apply</code> é um comando que faz o que o nome diz, ele aplica o arquivo YAML no cluster, ou seja, ele cria o objeto que está descrito no arquivo YAML no cluster. Caso o objeto já exista, ele irá atualizá-lo com as informações que estão no arquivo YAML.</p>
 <p>Um outro comando que você pode usar para criar um objeto no cluster é o comando <code>create</code>, que também cria o objeto que está descrito no arquivo YAML no cluster, porém, caso o objeto já exista, ele irá retornar um erro. E por esse motivo que o comando <code>apply</code> é mais usado, pois ele atualiza o objeto caso ele já exista. :)</p>
 <p>Agora, vamos ver os detalhes do Pod que acabamos de criar.</p>
 <pre><code class="lang-bash">kubectl describe pods giropops
 </code></pre>
 <h4 id="visualizando-os-logs-do-pod">Visualizando os logs do Pod</h4>
-<p>Outro comando muito util para ver o que está acontecendo com o Pod, mais especificamente ver o que o container está logando, é o comando:</p>
+<p>Outro comando muito útil para ver o que está acontecendo com o Pod, mais especificamente ver o que o container está logando, é o comando:</p>
 <pre><code class="lang-bash">kubectl logs giropops
 </code></pre>
 <p>Sendo que giropops é o nome do Pod que criamos.</p>
@@ -513,8 +514,8 @@ E claro, vamos aprender como ver todos os detalhes de um Pod em execução e bri
 <span class="hljs-attr">kind:</span> <span class="hljs-string">Pod</span> <span class="hljs-comment"># tipo do objeto que estamos criando</span>
 <span class="hljs-attr">metadata:</span> <span class="hljs-comment"># metadados do Pod </span>
   <span class="hljs-attr">name:</span> <span class="hljs-string">giropops</span> <span class="hljs-comment"># nome do Pod que estamos criando</span>
-<span class="hljs-attr">labels:</span> <span class="hljs-comment"># labels do Pod</span>
-  <span class="hljs-attr">run:</span> <span class="hljs-string">giropops</span> <span class="hljs-comment"># label run com o valor giropops</span>
+  <span class="hljs-attr">labels:</span> <span class="hljs-comment"># labels do Pod</span>
+    <span class="hljs-attr">run:</span> <span class="hljs-string">giropops</span> <span class="hljs-comment"># label run com o valor giropops</span>
 <span class="hljs-attr">spec:</span> <span class="hljs-comment"># especificação do Pod</span>
   <span class="hljs-attr">containers:</span> <span class="hljs-comment"># containers que estão dentro do Pod</span>
   <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">girus</span> <span class="hljs-comment"># nome do container</span>
@@ -560,6 +561,9 @@ E claro, vamos aprender como ver todos os detalhes de um Pod em execução e bri
 <pre><code class="lang-bash">kubectl <span class="hljs-built_in">exec</span> giropops -c girus -it -- sh
 </code></pre>
 <p>Para sair do container, basta apertar a tecla <code>Ctrl + D</code>.</p>
+<p>Não esqueça de deletar o Pod que criamos.</p>
+<pre><code class="lang-bash">kubectl delete pods giropops
+</code></pre>
 <p> </p>
 <h3 id="criando-um-container-com-limites-de-memória-e-cpu">Criando um container com limites de memória e CPU</h3>
 <p>Vamos criar um arquivo YAML chamado pod-limitado.yaml com o seguinte conteúdo:</p>
@@ -567,8 +571,8 @@ E claro, vamos aprender como ver todos os detalhes de um Pod em execução e bri
 <span class="hljs-attr">kind:</span> <span class="hljs-string">Pod</span> <span class="hljs-comment"># tipo do objeto que estamos criando</span>
 <span class="hljs-attr">metadata:</span> <span class="hljs-comment"># metadados do Pod</span>
   <span class="hljs-attr">name:</span> <span class="hljs-string">giropops</span> <span class="hljs-comment"># nome do Pod que estamos criando</span>
-<span class="hljs-attr">labels:</span> <span class="hljs-comment"># labels do Pod</span>
-  <span class="hljs-attr">run:</span> <span class="hljs-string">giropops</span> <span class="hljs-comment"># label run com o valor giropops</span>
+  <span class="hljs-attr">labels:</span> <span class="hljs-comment"># labels do Pod</span>
+    <span class="hljs-attr">run:</span> <span class="hljs-string">giropops</span> <span class="hljs-comment"># label run com o valor giropops</span>
 <span class="hljs-attr">spec:</span> <span class="hljs-comment"># especificação do Pod </span>
   <span class="hljs-attr">containers:</span> <span class="hljs-comment"># containers que estão dentro do Pod </span>
   <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">girus</span> <span class="hljs-comment"># nome do container </span>
@@ -584,12 +588,15 @@ E claro, vamos aprender como ver todos os detalhes de um Pod em execução e bri
         <span class="hljs-attr">cpu:</span> <span class="hljs-string">&quot;0.3&quot;</span> <span class="hljs-comment"># CPU garantida ao container, no caso 30% de uma CPU</span>
 </code></pre>
 <p>Veja que estamos conhecendo alguns novos campos, o <code>resources</code>, o <code>limits</code> e o <code>requests</code>.</p>
-<p>O campo <code>resources</code> é usado para definir os recursos que estão sendo utilizados pelo container, e dentro dele temos os campos <code>limits</code> e <code>requests</code>.</p>
+<p>O campo <code>resources</code> é usado para definir os recursos que serão utilizados pelo container, e dentro dele temos os campos <code>limits</code> e <code>requests</code>.</p>
 <p>O campo <code>limits</code> é usado para definir os limites máximos de recursos que o container pode utilizar, e o campo <code>requests</code> é usado para definir os recursos garantidos ao container.</p>
 <p>Simples demais! </p>
 <p>Os valores que passamos para os campos <code>limits</code> e <code>requests</code> foram:</p>
 <ul>
-<li><code>memory</code>: quantidade de memória que o container pode utilizar, por exemplo, <code>128Mi</code> ou <code>1Gi</code>. O valor <code>Mi</code> significa mebibytes e o valor <code>Gi</code> significa gibibytes. O valor <code>M</code> significa megabytes e o valor <code>G</code> significa gigabytes. O valor <code>Mi</code> é usado para definir o limite de memória em mebibytes, pois o Kubernetes utiliza o sistema de unidades binárias, e não o sistema de unidades decimais. O valor <code>M</code> é usado para definir o limite de memória em megabytes, pois o Docker utiliza o sistema de unidades decimais, e não o sistema de unidades binárias. Então, se você estiver utilizando o Docker, você pode usar o valor <code>M</code> para definir o limite de memória, mas se você estiver utilizando o Kubernetes, você deve usar o valor <code>Mi</code> para definir o limite de memória.</li>
+<li><p><code>memory</code>: quantidade de memória que o container pode utilizar, por exemplo, <code>128Mi</code> ou <code>1Gi</code>. O valor <code>Mi</code> significa mebibytes e o valor <code>Gi</code> significa gibibytes. O valor <code>M</code> significa megabytes e o valor <code>G</code> significa gigabytes. O valor <code>Mi</code> é usado para definir o limite de memória em mebibytes, pois o Kubernetes utiliza o sistema de unidades binárias, e não o sistema de unidades decimais. O valor <code>M</code> é usado para definir o limite de memória em megabytes, pois o Docker utiliza o sistema de unidades decimais, e não o sistema de unidades binárias. Então, se você estiver utilizando o Docker, você pode usar o valor <code>M</code> para definir o limite de memória, mas se você estiver utilizando o Kubernetes, você deve usar o valor <code>Mi</code> para definir o limite de memória.</p>
+</li>
+<li><p><code>cpu</code>: quantidade de CPU que o container pode utilizar, por exemplo, <code>0.5</code> ou <code>1</code>. O valor <code>0.5</code> significa 50% de uma CPU, e o valor <code>1</code> significa 100% de uma CPU. O valor <code>m</code> significa millicpu, ou seja, milicpu é igual a 1/1000 de uma CPU. Então, se você quiser definir o limite de CPU em 50% de uma CPU, você pode definir o valor <code>500m</code>, ou você pode definir o valor <code>0.5</code>, que é o mesmo que definir o valor <code>500m</code>.</p>
+</li>
 </ul>
 <p>Agora vamos criar o Pod com os limites de memória e CPU.</p>
 <pre><code class="lang-bash">kubectl create -f pod-limitado.yaml
@@ -624,17 +631,16 @@ E claro, vamos aprender como ver todos os detalhes de um Pod em execução e bri
       /var/run/secrets/kubernetes.io/serviceaccount from default-token-0b0b0 (ro)
 </code></pre>
 <p>Veja que na saída acima, ele mostra o campo CPU com o valor <code>500m</code>, isso significa que o container pode utilizar no máximo 50% de uma CPU, afinal um CPU é igual a 1000 milliCPUs, e 50% de 1000 milicpus é 500 milliCPUs.</p>
-<p>Então, se você quiser definir o limite de CPU em 50% de uma CPU, você pode definir o valor <code>500m</code>, ou você pode definir o valor <code>0.5</code>, que é o mesmo que definir o valor <code>500m</code>.</p>
 <p>Para você testar os limites de memória e CPU, você pode executar o comando <code>stress</code> dentro do container, que é um comando que faz o container consumir recursos de CPU e memória. Lembre-se de instalar o comando <code>stress</code>, pois ele não vem instalado por padrão.</p>
 <p>Para ficar fácil de testar, vamos criar um Pod com o Ubuntu com limitação de memória, e vamos instalar o comando <code>stress</code> dentro do container.</p>
-<p>Chame o arquivo de <code>pod-ubuntu-limitado.yaml</code>.</p>
+<p>Crie o arquivo <code>pod-ubuntu-limitado.yaml</code>.</p>
 <pre><code class="lang-yaml"><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">v1</span>
 <span class="hljs-attr">kind:</span> <span class="hljs-string">Pod</span>
 <span class="hljs-attr">metadata:</span>
-  <span class="hljs-attr">name:</span> <span class="hljs-string">giropops</span>
+  <span class="hljs-attr">name:</span> <span class="hljs-string">ubuntu</span>
 <span class="hljs-attr">spec:</span>
   <span class="hljs-attr">containers:</span>
-  <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">girus</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">ubuntu</span>
     <span class="hljs-attr">image:</span> <span class="hljs-string">ubuntu</span>
     <span class="hljs-attr">args:</span>
     <span class="hljs-bullet">-</span> <span class="hljs-string">sleep</span>
@@ -711,8 +717,14 @@ apt install -y stress
 <p>Você pode ver a saída do comando <code>kubectl describe pod giropops</code> para ver o volume que foi criado.</p>
 <pre><code class="lang-bash">kubectl describe pod giropops
 </code></pre>
+<pre><code class="lang-bash">Volumes:
+  primeiro-emptydir:
+    Type:       EmptyDir (a temporary directory that shares a pod<span class="hljs-string">&apos;s lifetime)
+    Medium:     
+    SizeLimit:  256Mi
+</span></code></pre>
 <p>Agora vamos para dentro do container.</p>
-<pre><code class="lang-bash">kubectl <span class="hljs-built_in">exec</span> -it ubuntu -- bash
+<pre><code class="lang-bash">kubectl <span class="hljs-built_in">exec</span> -it giropops -- bash
 </code></pre>
 <p>Agora vamos criar um arquivo dentro do diretório <code>/giropops</code>.</p>
 <pre><code class="lang-bash">touch /giropops/FUNCIONAAAAAA
@@ -765,7 +777,7 @@ apt install -y stress
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Descomplicando Kubernetes dia 2","level":"2.2","depth":1,"next":{"title":"Descomplicando Kubernetes dia 3","level":"2.3","depth":1,"path":"day-3/README.md","ref":"day-3/README.md","articles":[]},"previous":{"title":"Descomplicando Kubernetes dia 1","level":"2.1","depth":1,"path":"day-1/README.md","ref":"day-1/README.md","articles":[]},"dir":"ltr"},"config":{"plugins":[],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"language":"pt","gitbook":"*"},"file":{"path":"day-2/README.md","mtime":"2024-01-31T11:57:37.835Z","type":"markdown"},"gitbook":{"version":"3.6.20","time":"2024-01-31T11:57:57.967Z"},"basePath":"..","book":{"language":"pt"}});
+            gitbook.page.hasChanged({"page":{"title":"Descomplicando Kubernetes dia 2","level":"2.2","depth":1,"next":{"title":"Descomplicando Kubernetes dia 3","level":"2.3","depth":1,"path":"day-3/README.md","ref":"day-3/README.md","articles":[]},"previous":{"title":"Descomplicando Kubernetes dia 1","level":"2.1","depth":1,"path":"day-1/README.md","ref":"day-1/README.md","articles":[]},"dir":"ltr"},"config":{"plugins":[],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"language":"pt","gitbook":"*"},"file":{"path":"day-2/README.md","mtime":"2024-01-31T14:02:02.719Z","type":"markdown"},"gitbook":{"version":"3.6.20","time":"2024-01-31T14:02:13.258Z"},"basePath":"..","book":{"language":"pt"}});
         });
     </script>
 </div>
