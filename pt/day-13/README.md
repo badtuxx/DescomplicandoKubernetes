@@ -38,7 +38,7 @@
         - [Detalhes da Política](#detalhes-da-política-5)
         - [Arquivo de Política](#arquivo-de-política)
         - [Implementação e Efeitos](#implementação-e-efeitos)
-    - [Conclusão](#conclusão)
+  - [Final do Day-13](#final-do-day-13)
       - [Pontos-Chave Aprendidos](#pontos-chave-aprendidos)
 
 ## O que iremos ver hoje?
@@ -423,7 +423,7 @@ spec:
 Ao aplicar esta política, todos os Pods novos ou atualizados precisam ter limites de recursos claramente definidos, exceto aqueles no namespace `giropops`. Isso assegura uma melhor gestão de recursos e evita situações onde alguns Pods possam monopolizar recursos em detrimento de outros.
 
 
-### Conclusão
+## Final do Day-13 
 
 Ao longo deste artigo, exploramos as capacidades e funcionalidades do Kyverno, uma ferramenta inovadora e essencial para o gerenciamento de políticas em clusters Kubernetes. Compreendemos como o Kyverno simplifica e automatiza tarefas críticas relacionadas à segurança, conformidade e configuração, tornando-se um componente indispensável na administração de ambientes Kubernetes.
 
