@@ -1,0 +1,17 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: giropops-senhas
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  rules:
+  - http:
+      paths:
+      - path: /giropops-senhas
+        pathType: Prefix
+        backend:
+          service: 
+            name: giropops-senhas
+            port:
+              number: 5000
