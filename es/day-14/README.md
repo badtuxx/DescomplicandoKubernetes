@@ -221,7 +221,6 @@ Aquí estamos haciendo lo siguiente:
 
 La salida del comando debería verse algo como esto:
 
-
 ```bash
 2024-01-26 16:12:39 [ℹ]  eksctl version 0.168.0
 2024-01-26 16:12:39 [ℹ]  using region us-east-1
@@ -326,7 +325,7 @@ Recuerda que debes reemplazar el nombre del clúster y la versión del CNI por l
 
 Puedes consultar el enlace a continuación para verificar la versión del CNI que debes usar:
 
-https://docs.aws.amazon.com/eks/latest/userguide/managing-vpc-cni.html
+<https://docs.aws.amazon.com/eks/latest/userguide/managing-vpc-cni.html>
 
 Debes elegir la versión del CNI de acuerdo con la versión de Kubernetes que estás utilizando, así que tenlo en cuenta.
 
@@ -362,8 +361,8 @@ La salida debería verse algo como esto:
 2024-01-28 14:16:44 [ℹ]  Kubernetes version "1.28" in use by cluster "eks-cluster"
 2024-01-28 14:16:44 [ℹ]  getting all addons
 2024-01-28 14:16:45 [ℹ]  to see issues for an addon run `eksctl get addon --name <addon-name> --cluster <cluster-name>`
-NAME	VERSION			STATUS	ISSUES	IAMROLE	UPDATE AVAILABLE	CONFIGURATION VALUES
-vpc-cni	v1.16.0-eksbuild.1	ACTIVE	0		v1.16.2-eksbuild.1	
+NAME VERSION STATUS ISSUES IAMROLE UPDATE AVAILABLE CONFIGURATION VALUES
+vpc-cni v1.16.0-eksbuild.1 ACTIVE 0 v1.16.2-eksbuild.1 
 ```
 
 O puedes acceder a la consola de AWS y verificar los complementos instalados en tu clúster, como se muestra en la siguiente imagen:

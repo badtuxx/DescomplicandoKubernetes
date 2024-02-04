@@ -467,7 +467,7 @@ TO DO
       - [Verbos](day-15/#verbos)
       - [Agregando el certificado del usuario al kubeconfig](day-15/#agregando-el-certificado-del-usuario-al-kubeconfig)
       - [Accediendo al clúster con el nuevo usuario](day-15/#accediendo-al-clúster-con-el-nuevo-usuario)
-      - 
+
 </details>
 
 &nbsp;

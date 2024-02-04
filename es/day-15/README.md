@@ -3,6 +3,7 @@
 ## Día 15: Descomplicando RBAC e controle de acesso no Kubernetes
 
 ## Contenido del Día 15
+
 - [Simplificando Kubernetes](#simplificando-kubernetes)
   - [Día 15: Descomplicando RBAC e controle de acesso no Kubernetes](#día-15-descomplicando-rbac-e-controle-de-acesso-no-kubernetes)
   - [Contenido del Día 15](#contenido-del-día-15)
@@ -100,6 +101,7 @@ En el archivo anterior, estamos definiendo la siguiente información:
 - `spec.expirationSeconds`: El tiempo de cad
 
 ucidad del certificado, que en este caso es de 1 año.
+
 - `spec.usages`: El tipo de uso del certificado, que en este caso es `client auth` (autenticación de cliente).
 
 Una vez que haya creado este archivo y copiado el contenido del certificado en base64, puede aplicar el recurso utilizando el siguiente comando:
@@ -109,7 +111,6 @@ kubectl apply -f developer.yaml
 ```
 
 Esto enviará la solicitud de firma de certificado al clúster Kubernetes para que sea firmada y se genere el certificado final para el usuario "developer".
-
 
 ```bash
 kubectl apply -f developer.yaml
@@ -322,7 +323,6 @@ kubectl api-resources --namespaced=false
 
 El resultado será similar a lo siguiente:
 
-
 ```bash
 NAME                              SHORTNAMES   APIVERSION                             NAMESPACED   KIND
 componentstatuses                 cs           v1                                     false        ComponentStatus
@@ -366,7 +366,6 @@ kubectl api-resources -o wide
 ```
 
 El resultado se verá similar a esto:
-
 
 ```bash
 NAME                              SHORTNAMES   APIVERSION                             NAMESPACED   KIND                             VERBS                                                        CATEGORIES
