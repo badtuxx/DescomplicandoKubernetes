@@ -34,10 +34,12 @@ Se você está aqui, provavelmente já tem alguma noção do que o Kubernetes fa
     - [Configurando um Ingress para a nossa aplicação em Flask com Redis](#configurando-um-ingress-para-a-nossa-aplicação-em-flask-com-redis)
     - [Criando múltiplos Ingresses no mesmo Ingress Controller](#criando-múltiplos-ingresses-no-mesmo-ingress-controller)
 - [Instalando um cluster EKS para os nossos testes com Ingress](#instalando-um-cluster-eks-para-os-nossos-testes-com-ingress)
+  - [Instalando um cluster EKS para os nossos testes com Ingress](#instalando-um-cluster-eks-para-os-nossos-testes-com-ingress)
   - [Entendendo os Contexts do Kubernetes para gerenciar vários clusters](#entendendo-os-contexts-do-kubernetes-para-gerenciar-vários-clusters)
   - [Instalando o Ingress Nginx Controller no EKS](#instalando-o-ingress-nginx-controller-no-eks)
   - [Conhecendo o ingressClassName e configurando um novo Ingress](#conhecendo-o-ingressclassname-e-configurando-um-novo-ingress)
   - [Configurando um domínio válido para o nosso Ingress no EKS](#configurando-um-domínio-válido-para-o-nosso-ingress-no-eks)
+- [Final do Day-9](#final-do-day-9)
 
 &nbsp;
 
@@ -565,3 +567,158 @@ ENDEREÇO_IP_DO_INGRESS giropops-senhas.io
 Podemos testar que as duas aplicações estão funcionando corretamente acessando os endereços `giropops.nginx.io` e `giropops-senhas.io` no navegador.
 
 # Instalando um cluster EKS para os nossos testes com Ingress
+
+## Instalando um cluster EKS para os nossos testes com Ingress
+
+Agora que já sabemos como criar um Ingress, e como ele funciona, vamos criar um cluster EKS para testar o Ingress utilizando o eksctl, que é uma ferramenta oficial da AWS para criar clusters EKS.
+
+Para instalar o eksctl, siga as instruções do link: https://eksctl.io/installation/
+
+Após instalar o eksctl, podemos criar o nosso cluster EKS com o comando:
+
+```bash
+eksctl create cluster --name=eks-cluster --version=1.24 --region=us-east-1 --nodegroup-name=eks-cluster-nodegroup --node-type=t3.medium --nodes=2 --nodes-min=1 --nodes-max=3 --managed
+```
+
+## Entendendo os Contexts do Kubernetes para gerenciar vários clusters
+
+Quando você está trabalhando com mais de um cluster Kubernetes, é importante entender como os contextos funcionam. Um contexto é um conjunto de parâmetros que determinam como interagir com um cluster Kubernetes. Isso inclui o cluster, o usuário e o namespace.
+
+Você pode listar os contextos disponíveis no seu ambiente com o comando:
+
+```bash
+kubectl config get-contexts
+```
+
+Você pode ver qual é o contexto atual com o comando:
+
+```bash
+kubectl config current-context
+```
+
+Você pode mudar o contexto atual com o comando:
+
+```bash
+kubectl config use-context NOME_DO_CONTEXTO
+```
+
+## Instalando o Ingress Nginx Controller no EKS
+
+Com o nosso cluster EKS criado, podemos instalar o Ingress Nginx Controller e fazer o deploy da nossa aplicação. 
+
+Para instalar o Ingress Nginx Controller no EKS, vamos seguir o comando da documentação oficial do Nginx Ingress Controller para AWS:
+
+```bash
+kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.8.2/deploy/static/provider/aws/deploy.yaml
+```
+
+Você pode utilizar a opção `wait` do `kubectl`, assim quando os pods estiverem prontos, ele irá liberar o shell, veja:
+
+```bash
+kubectl wait --namespace ingress-nginx \
+  --for=condition=ready pod \
+  --selector=app.kubernetes.io/component=controller \
+  --timeout=90s
+```
+
+A instalação do Ingress Nginx Controller no EKS já cria um LoadBalancer automaticamente na AWS, então podemos ver o endereço público do LoadBalancer com o comando:
+
+```bash
+kubectl get services -n ingress-nginx
+```
+
+Sempre utilize os logs para verificar se o Ingress Controller está funcionando corretamente:
+
+```bash
+kubectl logs -f -n ingress-nginx POD_DO_INGRESS_CONTROLLER
+```
+
+Acessando o endereço público do LoadBalancer no navegador, você verá a página padrão do Nginx Ingress Controller. Mas não é isso que queremos ver, queremos ver a nossa aplicação rodando. Então vamos fazer o deploy da nossa aplicação e criar um recurso de Ingress para ela.
+
+```bash
+kubectl apply -f app-deployment.yaml
+kubectl apply -f app-service.yaml
+kubectl apply -f redis-deployment.yaml
+kubectl apply -f redis-service.yaml
+```
+
+## Conhecendo o ingressClassName e configurando um novo Ingress 
+
+O Ingress Class é um recurso do Kubernetes que permite que você defina qual controlador de Ingress deve ser utilizado para um determinado recurso de Ingress. Isso é útil quando você tem mais de um controlador de Ingress no seu cluster, e quer que um recurso de Ingress seja tratado por um controlador específico.
+
+Até agora, nós não definimos um Ingress Class, já que no Kind temos apenas um controlador de Ingress, o Nginx Ingress Controller. Mas quando estamos trabalhando com um cluster EKS, precisamos obrigatoriamente definir um Ingress Class.
+
+Vamos utilizar o arquivo `ingress-6.yaml` para criar um novo recurso de Ingress para a nossa aplicação:
+
+```yaml
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: giropops-senhas
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  ingressClassName: nginx
+  rules:
+  - http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service: 
+            name: giropops-senhas
+            port:
+              number: 5000
+```
+
+Agora vamos aplicar esse novo recurso de Ingress:
+
+```bash
+kubectl apply -f ingress-6.yaml
+```
+
+Como não definimos um domínio válido para o nosso Ingress, vamos acessar a aplicação através do endereço do LoadBalancer. Você pode obter o endereço através do comando:
+
+```bash
+kubectl get ingress
+```
+
+## Configurando um domínio válido para o nosso Ingress no EKS
+
+Já que estamos trabalhando com um cluster EKS, e queremos acessar a nossa aplicação através de um domínio, precisamos primeiro ter um domínio válido. Vamos utilizar como exemlo o https://containers.expert para criarmos o subdomínio https://giropops.containers.expert.
+
+Após configurar o subdomínio no seu provedor de DNS, você pode criar um novo recurso de Ingress com o domínio configurado. Vamos utilizar o arquivo `ingress-7.yaml` para criar um novo recurso de Ingress para a nossa aplicação:
+
+```yaml
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: giropops-senhas
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: giropops.containers.expert
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service: 
+                name: giropops-senhas
+                port:
+                  number: 5000
+```
+
+Agora vamos aplicar esse novo recurso de Ingress:
+
+```bash
+kubectl apply -f ingress-7.yaml
+```
+
+Com nosso domínio e o Ingress configurados, podemos acessar a aplicação através do endereço https://giropops.containers.expert.
+
+# Final do Day-9
+
+Com isso, finalizamos o nosso Day-9. Nós vimos o que é o Ingress, como ele funciona, o que são as classes de Ingress, e como configurar um Ingress no Kubernetes, no Kind e na AWS com EKS. Espero que você tenha aprendido bastante sobre o Ingress, e que esteja pronto para aplicar esse conhecimento no seu dia a dia. Não esqueça de praticar tudo o que aprendeu, e de compartilhar esse conhecimento com outras pessoas.
