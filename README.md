@@ -534,7 +534,6 @@ Fique à vontade para aprender muito sobre Kubernetes utilizando esse livro!
       - [Utilizando o Token do Service Account](pt/day-15/README.md#utilizando-o-token-do-service-account)
       - [Removendo o Service Account](pt/day-15/README.md#removendo-o-service-account)
   - [Final do Day-15](pt/day-15/README.md#final-do-day-15)
-
 </details>
 
 
