@@ -377,11 +377,9 @@
 <li><a href="#descomplicando-o-kubernetes">Descomplicando o Kubernetes</a><ul>
 <li><a href="#day-15-descomplicando-rbac-e-controle-de-acesso-no-kubernetes">DAY-15: Descomplicando RBAC e controle de acesso no Kubernetes</a></li>
 <li><a href="#conteúdo-do-day-15">Conteúdo do Day-15</a></li>
-</ul>
-</li>
 <li><a href="#o-que-iremos-ver-hoje">O que iremos ver hoje?</a></li>
 <li><a href="#rbac">RBAC</a><ul>
-<li><a href="#o-que-é-rbac">O que é RBAC?</a><ul>
+<li><a href="#o-que-é-rbac">O que é RBAC?</a></li>
 <li><a href="#primeiro-exemplo-de-rbac">Primeiro exemplo de RBAC</a><ul>
 <li><a href="#criando-um-usuário-para-acesso-ao-cluster">Criando um Usuário para acesso ao cluster</a></li>
 <li><a href="#criando-um-role-para-o-nosso-usuário">Criando um Role para o nosso usuário</a></li>
@@ -410,10 +408,10 @@
 </ul>
 </li>
 </ul>
-<h1 id="o-que-iremos-ver-hoje">O que iremos ver hoje?</h1>
+<h2 id="o-que-iremos-ver-hoje">O que iremos ver hoje?</h2>
 <p>Hoje, conheceremos profundamente o mundo do RBAC (Role-Based Access Control) no Kubernetes. O RBAC é um mecanismo essencial que permite a administradores de sistemas definirem regras de acesso específicas para usuários e serviços dentro de um cluster Kubernetes. Você aprenderá sobre a importância do RBAC para a segurança e a gestão eficaz dos recursos de um cluster, incluindo como criar e gerenciar usuários, atribuir papéis e permissões específicas, e configurar acessos baseados em funções para diferentes tipos de usuários e serviços. Vamos explorar exemplos práticos de como aplicar o RBAC para controlar o acesso a recursos do cluster, como pods, deployments e serviços, garantindo que apenas usuários autorizados possam executar operações específicas. Ao final deste guia, você terá um entendimento sólido sobre como implementar e gerenciar o controle de acesso baseado em funções no Kubernetes, proporcionando um ambiente de cluster mais seguro e eficiente.</p>
-<h1 id="rbac">RBAC</h1>
-<h2 id="o-que-é-rbac">O que é RBAC?</h2>
+<h2 id="rbac">RBAC</h2>
+<h3 id="o-que-é-rbac">O que é RBAC?</h3>
 <p>RBAC é um acrônimo para Role-Based Access Control, ou Controle de Acesso Baseado em Funções. É um método de controle de acesso que permite que um administrador defina permissões específicas para usuários e grupos de usuários. Isso significa que os administradores podem controlar quem tem acesso a quais recursos e o que eles podem fazer com esses recursos.</p>
 <p>No Kubernetes é super importante você entender como funciona o RBAC, pois é através dele que você vai definir as permissões de acesso aos recursos do cluster, como por exemplo, quem pode criar um Pod, um Deployment, um Service, etc.</p>
 <h3 id="primeiro-exemplo-de-rbac">Primeiro exemplo de RBAC</h3>
@@ -1341,7 +1339,7 @@ kubectl delete rolebinding NOME-DO-ROLEBINDING
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Descomplicando Kubernetes dia 15","level":"2.15","depth":1,"next":{"title":"Como ajudar","level":"3.1","depth":1,"path":"CONTRIBUTING.md","ref":"CONTRIBUTING.md","articles":[]},"previous":{"title":"Descomplicando Kubernetes dia 14","level":"2.14","depth":1,"path":"day-14/README.md","ref":"day-14/README.md","articles":[]},"dir":"ltr"},"config":{"plugins":[],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"language":"pt","gitbook":"*"},"file":{"path":"day-15/README.md","mtime":"2024-02-05T11:09:18.800Z","type":"markdown"},"gitbook":{"version":"3.6.20","time":"2024-02-05T11:09:29.234Z"},"basePath":"..","book":{"language":"pt"}});
+            gitbook.page.hasChanged({"page":{"title":"Descomplicando Kubernetes dia 15","level":"2.15","depth":1,"next":{"title":"Como ajudar","level":"3.1","depth":1,"path":"CONTRIBUTING.md","ref":"CONTRIBUTING.md","articles":[]},"previous":{"title":"Descomplicando Kubernetes dia 14","level":"2.14","depth":1,"path":"day-14/README.md","ref":"day-14/README.md","articles":[]},"dir":"ltr"},"config":{"plugins":[],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"language":"pt","gitbook":"*"},"file":{"path":"day-15/README.md","mtime":"2024-02-05T11:13:46.447Z","type":"markdown"},"gitbook":{"version":"3.6.20","time":"2024-02-05T11:13:56.559Z"},"basePath":"..","book":{"language":"pt"}});
         });
     </script>
 </div>
