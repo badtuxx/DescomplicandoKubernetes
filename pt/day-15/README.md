@@ -1048,7 +1048,6 @@ Nada de novo acima, certo? No arquivo estamos definindo o seguinte:
 - `kind`: Tipo do recurso que estamos criando, no caso, um Service Account.
 - `metadata.name`: Nome do nosso Service Account.
 - `metadata.namespace`: Namespace que o nosso Service Account será criado.
-```
 
 Agora vamos aplicar o arquivo no cluster:
 
