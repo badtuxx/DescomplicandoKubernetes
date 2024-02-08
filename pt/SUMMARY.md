@@ -19,6 +19,7 @@
 * [Descomplicando Kubernetes dia 13](day-13/README.md)
 * [Descomplicando Kubernetes dia 14](day-14/README.md)
 * [Descomplicando Kubernetes dia 15](day-15/README.md)
+* [Descomplicando Kubernetes dia 16](day-16/README.md)
 
 ## Contribuir
 * [Como ajudar](CONTRIBUTING.md)
