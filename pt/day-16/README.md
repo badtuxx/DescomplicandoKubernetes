@@ -12,6 +12,7 @@
     - [Criando o nosso primeiro Chart](#criando-o-nosso-primeiro-chart)
       - [Instalando o nosso Chart](#instalando-o-nosso-chart)
       - [Atualizando o nosso Chart](#atualizando-o-nosso-chart)
+      - [Utilizando `range`  e o `if` no Helm](#utilizando-range--e-o-if-no-helm)
 
 ## O que iremos ver hoje?
 
@@ -664,3 +665,466 @@ Agora eu preciso que você pratique o máximo possível, brincando com as divers
 
 Bora deixar o nosso Chart ainda mais legal?
 
+#### Utilizando `range`  e o `if` no Helm
+
+O Helm tem uma funcionalidade muito legal que é o `range`, que é uma estrutura de controle que nos permite iterar sobre uma lista de itens, e isso é muito útil quando estamos trabalhando com listas de itens, como por exemplo, quando estamos trabalhando com os manifestos do Kubernetes.
+
+Para que você consiga utilizar o `range`, precisamos antes entender sua estrutura básica, por exemplo, temos um arquivo com 4 frutas, e queremos listar todas elas, como eu faria isso?
+
+Primeiro, vamos criar um arquivo chamado `frutas.yaml` com o seguinte conteúdo:
+
+```yaml
+frutas:
+  - banana
+  - maçã
+  - uva
+  - morango
+```
+
+Agora vamos pegar fruta por fruta, e colocando a seguinte frase antes de cada uma delas: "Eu gosto de". 
+
+Para isso, vamos criar um arquivo chamado `eu-gosto-frutas.yaml` com o seguinte conteúdo:
+
+```yaml
+{{- range .Values.frutas }}
+Eu gosto de {{ . }}
+{{- end }}
+```
+
+O resultado será:
+
+```bash
+Eu gosto de banana
+Eu gosto de maçã
+Eu gosto de uva
+Eu gosto de morango
+```
+
+Ficou fácil, certo?
+O `range` percorreu toda a lista e ainda adicionou a frase que queríamos. 
+
+Vamos imaginar que eu tenho uma lista de portas que eu quero expor para a minha aplicação, e eu quero criar um Service para cada porta que eu tenho na minha lista, como eu faria isso?
+
+Por exemplo, a nossa aplicação Giropops-Senhas, ela tem 2 portas que ela expõe, a porta 5000 e a porta 8088. A porta 5000 é a porta que a aplicação escuta, e a porta 8088 é a porta que a aplicação expõe as métricas para o Prometheus.
+
+Outra função super interessante e que é muito útil é o `if`, que é uma estrutura de controle que nos permite fazer uma verificação se uma condição é verdadeira ou falsa, e baseado nisso, podemos fazer alguma coisa ou não.
+
+a Estrutura básica do `if` é a seguinte:
+
+```yaml
+{{- if eq .Values.giropopsSenhas.service.type "NodePort" }}
+  nodePort: {{ .Values.giropopsSenhas.service.nodePort }}
+  targetPort: {{ .Values.giropopsSenhas.service.targetPort }}
+{{- else }}
+  targetPort: {{ .Values.giropopsSenhas.service.targetPort }}
+{{- end }}
+```
+
+Onde:
+
+- `{{- if eq .Values.giropopsSenhas.service.type "NodePort" }}`: Verifica se o valor que está definido para a chave `type` é igual a `NodePort`
+- `nodePort: {{ .Values.giropopsSenhas.service.nodePort }}`: Se a condição for verdadeira, ele irá renderizar o valor que está definido para a chave `nodePort`
+- `targetPort: {{ .Values.giropopsSenhas.service.targetPort }}`: Se a condição for verdadeira, ele irá renderizar o valor que está definido para a chave `targetPort`
+- `{{- else }}`: Se a condição for falsa, ele irá renderizar o valor que está definido para a chave `targetPort`
+- `{{- end }}`: Finaliza a estrutura de controle
+
+Simples como voar! Bora lá utilizar essas duas fun´ções para deixar o nosso Chart ainda mais legal.
+
+Vamos começar criando um arquivo chamado `giropops-senhas-service.yaml` com o seguinte conteúdo:
+
+```yaml
+{{- range .Values.giropops-senhas.ports }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .name }}
+  labels:
+    app: {{ .name }}
+spec:
+  type: {{ .serviceType }}
+  ports:
+  - name: {{ .name }}
+    port: {{ .port }}
+{{- if eq .serviceType "NodePort" }}
+    nodePort: {{ .NodePort }}
+{{- end }}
+    targetPort: {{ .targetPort }}
+  selector:
+    app: giropops-senhas
+---
+{{- end }}
+```
+
+No arquivo acima, estamos utilizando a função `range` para iterar sobre a lista de portas que queremos expor para a nossa aplicação, e estamos utilizando a função `if` para verificar se a porta que estamos expondo é do tipo `NodePort`, e baseado nisso, estamos renderizando o valor que está definido para a chave `nodePort`.
+
+Agora vamos alterar o arquivo `values.yaml` e adicionar a lista de portas que queremos expor para a nossa aplicação, para isso, edite o arquivo `values.yaml` e adicione a lista de portas que queremos expor para a nossa aplicação:
+
+```yaml
+giropops-senhas:
+  name: "giropops-senhas"
+  image: "linuxtips/giropops-senhas:1.0"
+  replicas: "3"
+  ports:
+    - port: 5000
+      targetPort: 5000
+      name: "giropops-senhas-port"
+      serviceType: NodePort
+      NodePort: 32500
+    - port: 8088
+      targetPort: 8088
+      name: "giropops-senhas-metrics"
+      serviceType: ClusterIP
+  labels:
+    app: "giropops-senhas"
+    env: "labs"
+    live: "true"
+  resources:
+    requests:
+      memory: "128Mi"
+      cpu: "250m"
+    limits:
+      memory: "256Mi"
+      cpu: "500m"
+redis:
+  image: "redis"
+  replicas: 1
+  port: 6379
+  labels:
+    app: "redis"
+    env: "labs"
+    live: "true"
+  service:
+    type: "ClusterIP"
+    port: 6379
+    targetPort: 6379
+    name: "redis-port"
+  resources:
+    requests:
+      memory: "128Mi"
+      cpu: "250m"
+    limits:
+      memory: "256Mi"
+      cpu: "500m"
+```
+
+Temos algumas coisas novas no arquivo `values.yaml`. O objetivo da mudança é deixar o arquivo ainda mais dinâmico, e para isso, adicionamos adicionamos mais informações sobre as portas que iremos utilizar. Deixamos as informações mais organizadas para facilitar a dinâmica criada no arquivo `giropops-senhas-service.yaml`.
+
+Poderiamos ainda criar um único template para realizar o deploy do Redis e do Giropops-Senhas, somente para que possamos gastar um pouquinho mais do nosso conhecimento, ou seja, isso aqui é muito mais para fins didáticos do que para a vida real, mas vamos lá, vamos criar um arquivo chamado `giropops-senhas-deployment.yaml` com o seguinte conteúdo:
+
+```yaml
+{{- range $component, $config := .Values.deployments }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ $component }}
+  labels:
+    app: {{ $config.labels.app }}
+spec:
+  replicas: {{ $config.replicas }}
+  selector:
+    matchLabels:
+      app: {{ $config.labels.app }}
+  template:
+    metadata:
+      labels:
+        app: {{ $config.labels.app }}
+    spec:
+      containers:
+      - name: {{ $component }}
+        image: {{ $config.image }}
+        ports:
+        {{- range $config.ports }}
+        - containerPort: {{ .port }}
+        {{- end }}
+        resources:
+          requests:
+            memory: {{ $config.resources.requests.memory }}
+            cpu: {{ $config.resources.requests.cpu }}
+          limits:
+            memory: {{ $config.resources.limits.memory }}
+            cpu: {{ $config.resources.limits.cpu }}
+{{- if $config.env }}
+        env:
+        {{- range $config.env }}
+        - name: {{ .name }}
+          value: {{ .value }}
+        {{- end }}
+{{- end }}
+---
+{{- end }}
+```
+
+Estamos utilizando a função `range` logo no inicio do arquivo, e com ele estamos interando sobre a lista de componentes que temos no nosso arquivo `values.yaml`, ou seja, o Redis e o Giropops-Senhas. Mas também estamos utilizando o `range` para interar sobre a lista de outras configurações que temos no nosso arquivo `values.yaml`, como por exemplo, as portas que queremos expor para a nossa aplicação e o limite de recursos que queremos utilizar. Ele definiu duas variáveis, `$component` e `$config`, onde `$component` é o nome do componente que estamos interando, e `$config` é a configuração que estamos interando, fácil!
+
+Agora vamos instalar a nossa aplicação com o comando abaixo:
+
+```bash
+helm install giropops-senhas ./
+```
+
+A saída será algo assim:
+
+```bash
+Error: INSTALLATION FAILED: parse error at (giropops-senhas/templates/services.yaml:1): bad character U+002D '-'
+```
+
+Parece que alguma coisa de errado não está certo, certo? hahaha
+
+O que aconteceu foi o seguinte:
+
+Quando estamos utilizando o nome do componente com um hífen, e tentamos passar na utilização do `range`, o Helm não entende que aquele é o nome do recurso que estamos utilizando, e retorna o erro de `bad character U+002D '-'`.
+
+Para resolver isso, vamos utilizar mais uma função do Helm, que é a função `index`.
+
+A função `index` nos permite acessar um valor de um mapa baseado na chave que estamos passando, nesse caso seria o `.Values`, e ainda buscar um valor baseado na chave que estamos passando, que é o nome do componente que estamos interando. Vamos ver como ficaria o nosso `services.yaml` com a utilização da função `index`:
+
+```yaml
+{{- range (index .Values "giropops-senhas").ports }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .name }}
+  labels:
+    app: {{ .name }}
+spec:
+  type: {{ .serviceType }}
+  ports:
+  - name: {{ .name }}
+    port: {{ .port }}
+{{- if eq .serviceType "NodePort" }}
+    nodePort: {{ .NodePort }}
+{{- end }}
+    targetPort: {{ .targetPort }}
+  selector:
+    app: giropops-senhas
+---
+{{- end }}
+```
+
+Pronto, agora acredito que tudo terá um final feliz, para ter certeza, vamos instalar a nossa aplicação com o comando abaixo:
+
+```bash
+helm install giropops-senhas ./
+```
+
+Se tudo ocorrer bem, você verá a seguinte saída:
+
+```bash
+NAME: giropops-senhas
+LAST DEPLOYED: Sat Feb 10 12:19:27 2024
+NAMESPACE: default
+STATUS: deployed
+REVISION: 1
+TEST SUITE: None
+```
+
+Vamos ver se deu bom!
+
+```bash
+kubectl get deployment
+```
+
+Temos a saída abaixo:
+
+```bash
+NAME                         READY   UP-TO-DATE   AVAILABLE   AGE
+giropops-senhas-deployment   3/3     3            3           4m1s
+redis-deployment             1/1     1            1           4m1s
+```
+
+Agora os Pods:
+
+```bash
+kubectl get pods
+```
+
+A saída:
+
+```bash
+NAME                                         READY   STATUS    RESTARTS   AGE
+giropops-senhas-deployment-5c547c9cf-979vp   1/1     Running   0          4m40s
+giropops-senhas-deployment-5c547c9cf-s5k9x   1/1     Running   0          4m39s
+giropops-senhas-deployment-5c547c9cf-zp4s4   1/1     Running   0          4m39s
+redis-deployment-69c5869684-cxslb            1/1     Running   0          4m40s
+```
+
+Vamos ver os Services:
+
+```bash
+kubectl get svc
+```
+
+Se a sua saída trouxe os dois serviços, com os nomes `giropops-senhas-port` e `giropops-senhas-metrics`, e com os tipos `NodePort` e `ClusterIP`, respectivamente, é um sinal de que deu super bom!
+
+```bash
+NAME                      TYPE        CLUSTER-IP     EXTERNAL-IP   PORT(S)          AGE
+giropops-senhas-app       NodePort    10.96.185.6    <none>        5000:32500/TCP   5m1s
+giropops-senhas-metrics   ClusterIP   10.96.107.37   <none>        8088/TCP         5m1s
+kubernetes                ClusterIP   10.96.0.1      <none>        443/TCP          3d21h
+```
+
+Parece que deu ruim, certo?
+
+Ficou faltando o Service do Redis. :/
+
+Vamos resolver, mas antes, vamos mudar um pouco a organização em nosso `values.yaml`.
+
+```yaml
+deployments:
+  giropops-senhas:
+    name: "giropops-senhas"
+    image: "linuxtips/giropops-senhas:1.0"
+    replicas: "3"
+    labels:
+      app: "giropops-senhas"
+      env: "labs"
+      live: "true"
+    resources:
+      requests:
+        memory: "128Mi"
+        cpu: "250m"
+      limits:
+        memory: "256Mi"
+        cpu: "500m"
+  redis:
+    image: "redis"
+    replicas: 1
+    port: 6379
+    labels:
+      app: "redis"
+      env: "labs"
+      live: "true"
+    service:
+      type: "ClusterIP"
+      port: 6379
+      targetPort: 6379
+      name: "redis-port"
+    resources:
+      requests:
+        memory: "128Mi"
+        cpu: "250m"
+      limits:
+        memory: "256Mi"
+        cpu: "500m"
+services:
+  giropops-senhas:
+    ports:
+      - port: 5000
+        targetPort: 5000
+        name: "giropops-senhas-app"
+        serviceType: NodePort
+        NodePort: 32500
+      - port: 8088
+        targetPort: 8088
+        name: "giropops-senhas-metrics"
+        serviceType: ClusterIP
+    labels:
+      app: "giropops-senhas"
+      env: "labs"
+      live: "true"
+  redis:
+    ports:
+      - port: 6379
+        targetPort: 6378
+        name: "redis-port"
+        serviceType: ClusterIP
+    labels:
+      app: "redis"
+      env: "labs"
+      live: "true"
+```
+
+Precisamos agora atualizar os nossos templates para que eles possam utilizar as novas chaves que criamos no arquivo `values.yaml`.
+
+Vamos atualizar o `services.yaml` para que ele possa utilizar as novas chaves que criamos no arquivo `values.yaml`:
+
+```yaml
+{{- range $component, $config := .Values.services }}
+  {{ range $port := $config.ports }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ $component }}-{{ $port.name }}
+  labels:
+    app: {{ $config.labels.app }}
+spec:
+  type: {{ $port.serviceType }}
+  ports:
+  - port: {{ $port.port }}
+    targetPort: {{ $port.targetPort }}
+    protocol: TCP
+    name: {{ $port.name }}
+    {{ if eq $port.serviceType "NodePort" }}
+    nodePort: {{ $port.nodePort }}
+    {{ end }}
+  selector:
+    app: {{ $config.labels.app }}
+---
+  {{ end }}
+{{- end }}
+```
+
+Adicionamos um novo `range` para interar sobre a lista de portas que queremos expor para a nossa aplicação, e utilizamos a função `index` para acessar o valor que está definido para a chave `services` no arquivo `values.yaml`.
+
+Como o nosso `deployments.yaml` já está atualizado, não precisamos fazer nenhuma alteração nele, o que precisamos é deployar o nosso Chart novamente e ver se as nossas mondificações funcionaram.
+
+Temos duas opções, ou realizamos o `uninstall` e o `install` novamente, ou realizamos o `upgrade` da nossa aplicação.
+
+Vou realizar o `uninstall` e o `install` novamente, para isso, execute os comandos abaixo:
+
+```bash
+helm uninstall giropops-senhas
+```
+
+E agora:
+
+```bash
+helm install giropops-senhas ./
+```
+
+Caso eu queira fazer o `upgrade`, eu poderia utilizar o comando abaixo:
+
+```bash
+helm upgrade giropops-senhas ./
+```
+
+Pronto, se tudo estiver certinho, temos uma saída parecida com a seguinte:
+
+```bash
+NAME: giropops-senhas
+LAST DEPLOYED: Sat Feb 10 14:05:37 2024
+NAMESPACE: default
+STATUS: deployed
+REVISION: 1
+TEST SUITE: None
+```
+
+Vamos listar os recursos:
+  
+```bash
+kubectl get deployments,pods,svc
+```
+
+Assim ele trará todos os nossos recursos utilizados pela nossa aplicação.
+
+```bash
+NAME                              READY   UP-TO-DATE   AVAILABLE   AGE
+deployment.apps/giropops-senhas   3/3     3            3           69s
+deployment.apps/redis             1/1     1            1           69s
+
+NAME                                   READY   STATUS    RESTARTS   AGE
+pod/giropops-senhas-8598bc5699-68sn6   1/1     Running   0          69s
+pod/giropops-senhas-8598bc5699-wgnxj   1/1     Running   0          69s
+pod/giropops-senhas-8598bc5699-xqssx   1/1     Running   0          69s
+pod/redis-69c5869684-62d2h             1/1     Running   0          69s
+
+NAME                              TYPE        CLUSTER-IP     EXTERNAL-IP   PORT(S)          AGE
+service/giropops-senhas-app       NodePort    10.96.119.23   <none>        5000:30032/TCP   69s
+service/giropops-senhas-metrics   ClusterIP   10.96.110.83   <none>        8088/TCP         69s
+service/kubernetes                ClusterIP   10.96.0.1      <none>        443/TCP          3d22h
+service/redis-service             ClusterIP   10.96.77.187   <none>        6379/TCP         69s
+```
+
+Pronto! Tudo criado com sucesso!
+
+Agora você já sabe como utilizar o `range` e o `if` no Helm, e já sabe como criar um Chart do zero, e já sabe como instalar, atualizar e remover a sua aplicação utilizando o Helm.
