@@ -264,6 +264,23 @@ Fique à vontade para aprender muito sobre Kubernetes utilizando esse livro!
 <details>
 <summary>DAY-10</summary>
 
+- [Descomplicando o Kubernetes](day-10/README.md#descomplicando-o-kubernetes)
+  - [DAY-10: Descomplicando Ingress com TLS, Labels, Annotations e o Cert-manager](day-10/README.md#day-10-descomplicando-ingress-com-tls-labels-annotations-e-o-cert-manager)
+    - [Conteúdo do Day-10](day-10/README.md#conteúdo-do-day-10)
+        - [O que iremos ver hoje?](day-10/README.md#o-que-iremos-ver-hoje)
+- [O que é o Cert-Manager?](day-10/README.md#o-que-é-o-cert-manager)
+    - [Instalando e configurando o Cert-Manager](day-10/README.md#instalando-e-configurando-o-cert-manager)
+    - [Configurando o Ingress para usar o Cert-Manager e ter o HTTPS](day-10/README.md#configurando-o-ingress-para-usar-o-cert-manager-e-ter-o-https)
+- [O que são os Annotations e as Labels no Kubernetes?](day-10/README.md#o-que-são-os-annotations-e-as-labels-no-kubernetes)
+    - [Explorando um pouco mais as Labels](day-10/README.md#explorando-um-pouco-mais-as-labels)
+    - [Explorando as Annotations no Kubernetes](day-10/README.md#explorando-as-annotations-no-kubernetes)
+    - [Adicionando Autenticação ao Ingress](day-10/README.md#adicionando-autenticação-ao-ingress)
+    - [Configurando Affinity Cookie no Ingress](day-10/README.md#configurando-affinity-cookie-no-ingress)
+    - [Configurando Upsream Hashing no Ingress](day-10/README.md#configurando-upsream-hashing-no-ingress)
+    - [Canary Deployments com o Ingress no Kubernetes](day-10/README.md#canary-deployments-com-o-ingress-no-kubernetes)
+    - [Limitando requisições as nossas aplicações com o Ingress](day-10/README.md#limitando-requisições-as-nossas-aplicações-com-o-ingress)
+- [Final do Day-10](day-10/README.md#final-do-day-10)
+
 </details>
 
 <details>
