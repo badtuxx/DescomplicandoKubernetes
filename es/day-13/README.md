@@ -143,6 +143,7 @@ Si no especifica ningún namespace en la política o utiliza `ClusterPolicy`, Ky
 1. **Política de Límites de Recursos:** Asegurar que todos los contenedores en un Pod tengan límites de CPU y memoria definidos. Esto puede ser importante para evitar el uso excesivo de recursos en un clúster compartido.
 
 **Archivo `require-resources-limits.yaml`:**
+
    ```yaml
    apiVersion: kyverno.io/v1
    kind: ClusterPolicy
