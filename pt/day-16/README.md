@@ -1279,28 +1279,32 @@ Para ilustrar a criação e o uso de helpers, vamos começar com um exemplo prá
 1. **Definindo um Helper:**
    No diretório `templates`, crie um arquivo chamado `_helpers.tpl` e adicione o seguinte conteúdo:
 
-   ```txt
-   {{/*
-   Define um helper para o nome do aplicativo.
-   */}}
-   {{- define "meuapp.name" -}}
-   {{- default .Chart.Name .Values.appName | trunc 63 | trimSuffix "-" -}}
-   {{- end -}}
-   ```
+
+```yaml
+{% raw %}
+{{/*
+Define um helper para o nome do aplicativo.
+*/}}
+{{- define "meuapp.name" -}}
+{{- default .Chart.Name .Values.appName | trunc 63 | trimSuffix "-" -}}
+{{- end -}}
+{% endraw %}
+```
+
 
    Esta função define um nome padrão para o seu aplicativo, usando o nome do gráfico (`Chart.Name`) ou um nome personalizado definido em `Values.appName`, limitando-o a 63 caracteres e removendo quaisquer hífens no final.
 
 2. **Usando o Helper:**
    Agora, você pode usar este helper em seus templates para garantir que o nome do aplicativo seja consistente em todos os recursos. Por exemplo, em um template de Deployment, você pode usar:
 
-   ```yaml
-   apiVersion: apps/v1
-   kind: Deployment
-   metadata:
-     name: {{ include "meuapp.name" . }}
-     labels:
-       app: {{ include "meuapp.name" . }}
-   ```
+```yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "meuapp.name" . }}
+  labels:
+    app: {{ include "meuapp.name" . }}
+```
 
 ##### Helpers Avançados: Exemplos Práticos
 
@@ -1310,7 +1314,7 @@ Para ilustrar a criação e o uso de helpers, vamos começar com um exemplo prá
 
 Imagine que você tenha múltiplos serviços que precisam ser configurados de maneira ligeiramente diferente com base em certos valores de entrada. Você pode criar um helper complexo que gera a configuração apropriada para cada serviço.
 
-```txt
+```yaml
 {{/*
 Gerar configuração específica do serviço.
 */}}
@@ -1327,7 +1331,7 @@ Gerar configuração específica do serviço.
 
 Em ambientes de desenvolvimento, você pode querer configurar seus serviços de maneira diferente do que em produção. Um helper pode ajudar a injetar essas configurações com base no ambiente.
 
-```txt
+```yaml
 {{/*
 Ajustar configurações com base no ambiente.
 */}}
@@ -1365,7 +1369,7 @@ Como já vimos, o arquivo `_helpers.tpl` contém definições de templates que p
 
 Para reutilizar as labels de aplicativos em seus deployments e services:
 
-```txt
+```yaml
 {{/*
 Generate application labels
 */}}
@@ -1383,7 +1387,7 @@ No arquivo acima estamos definindo um helper que gera as labels do aplicativo co
 
 Template para definir os requests e limits de CPU e memória:
 
-```txt
+```yaml
 {{/*
 Generate container resources
 */}}
@@ -1403,7 +1407,7 @@ Aqui estamos definindo um helper que gera as configurações de recursos para um
 
 Template para a definição de portas no deployment:
 
-```txt
+```yaml
 {{/*
 Generate container ports
 */}}
@@ -1498,7 +1502,7 @@ Para tornar os arquivos `config-map-dp.yaml` e `config-map-obs.yaml` mais inteli
 
 Adicionaremos templates para gerar ConfigMaps de bancos de dados e observabilidade:
 
-```txt
+```yaml
 {{/*
 Generate database config map
 */}}
@@ -1557,7 +1561,7 @@ Isso irá iterar sobre os componentes definidos em `.Values.observability` e apl
 
 Ahhh, o nosso arquivo `_helpers.tpl` ficou da seguinte maneira:
 
-```txt
+```yaml
 {{/* Define a base para reutilização de labels */}}
 {{- define "app.labels" -}}
 app: {{ .labels.app }}
