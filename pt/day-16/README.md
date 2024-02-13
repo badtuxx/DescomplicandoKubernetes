@@ -366,7 +366,7 @@ Precisamos entender como ler o arquivo acima, e é bem simples, o arquivo acima 
 
 E nesse caso, caso eu queira usar o valor que está definido para `image`, eu posso utilizar a variável `{{ .Values.giropops-senhas.image }}` no meu manifesto do Kubernetes, onde:
 
-- {{ .Values }}: É a variável que o Helm utiliza para acessar as variáveis que estão definidas no arquivo `values.yaml`, e o resto é a chave que estamos acessando.
+- {{ Values }}: É a variável que o Helm utiliza para acessar as variáveis que estão definidas no arquivo `values.yaml`, e o resto é a chave que estamos acessando.
 
 Entendeu? Eu sei que é meu confuso no começo, mas treinando irá ficar mais fácil.
 
