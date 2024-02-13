@@ -749,11 +749,13 @@ a Estrutura básica do `if` é a seguinte:
 
 Onde:
 
+```yaml
 - `{{- if eq .Values.giropopsSenhas.service.type "NodePort" }}`: Verifica se o valor que está definido para a chave `type` é igual a `NodePort`
 - `nodePort: {{ .Values.giropopsSenhas.service.nodePort }}`: Se a condição for verdadeira, ele irá renderizar o valor que está definido para a chave `nodePort`
 - `targetPort: {{ .Values.giropopsSenhas.service.targetPort }}`: Se a condição for verdadeira, ele irá renderizar o valor que está definido para a chave `targetPort`
 - `{{- else }}`: Se a condição for falsa, ele irá renderizar o valor que está definido para a chave `targetPort`
 - `{{- end }}`: Finaliza a estrutura de controle
+```
 
 Simples como voar! Bora lá utilizar essas duas fun´ções para deixar o nosso Chart ainda mais legal.
 
