@@ -1279,28 +1279,32 @@ Para ilustrar a criação e o uso de helpers, vamos começar com um exemplo prá
 1. **Definindo um Helper:**
    No diretório `templates`, crie um arquivo chamado `_helpers.tpl` e adicione o seguinte conteúdo:
 
-   ```yaml
-   {{/*
-   Define um helper para o nome do aplicativo.
-   */}}
-   {{- define "meuapp.name" -}}
-   {{- default .Chart.Name .Values.appName | trunc 63 | trimSuffix "-" -}}
-   {{- end -}}
-   ```
+
+```yaml
+{% raw %}
+{{/*
+Define um helper para o nome do aplicativo.
+*/}}
+{{- define "meuapp.name" -}}
+{{- default .Chart.Name .Values.appName | trunc 63 | trimSuffix "-" -}}
+{{- end -}}
+{% endraw %}
+```
+
 
    Esta função define um nome padrão para o seu aplicativo, usando o nome do gráfico (`Chart.Name`) ou um nome personalizado definido em `Values.appName`, limitando-o a 63 caracteres e removendo quaisquer hífens no final.
 
 2. **Usando o Helper:**
    Agora, você pode usar este helper em seus templates para garantir que o nome do aplicativo seja consistente em todos os recursos. Por exemplo, em um template de Deployment, você pode usar:
 
-   ```yaml
-   apiVersion: apps/v1
-   kind: Deployment
-   metadata:
-     name: {{ include "meuapp.name" . }}
-     labels:
-       app: {{ include "meuapp.name" . }}
-   ```
+```yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "meuapp.name" . }}
+  labels:
+    app: {{ include "meuapp.name" . }}
+```
 
 ##### Helpers Avançados: Exemplos Práticos
 
