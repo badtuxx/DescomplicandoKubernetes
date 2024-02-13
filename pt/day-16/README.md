@@ -1279,7 +1279,7 @@ Para ilustrar a criação e o uso de helpers, vamos começar com um exemplo prá
 1. **Definindo um Helper:**
    No diretório `templates`, crie um arquivo chamado `_helpers.tpl` e adicione o seguinte conteúdo:
 
-   ```yaml
+   ```txt
    {{/*
    Define um helper para o nome do aplicativo.
    */}}
@@ -1310,7 +1310,7 @@ Para ilustrar a criação e o uso de helpers, vamos começar com um exemplo prá
 
 Imagine que você tenha múltiplos serviços que precisam ser configurados de maneira ligeiramente diferente com base em certos valores de entrada. Você pode criar um helper complexo que gera a configuração apropriada para cada serviço.
 
-```yaml
+```txt
 {{/*
 Gerar configuração específica do serviço.
 */}}
@@ -1327,7 +1327,7 @@ Gerar configuração específica do serviço.
 
 Em ambientes de desenvolvimento, você pode querer configurar seus serviços de maneira diferente do que em produção. Um helper pode ajudar a injetar essas configurações com base no ambiente.
 
-```yaml
+```txt
 {{/*
 Ajustar configurações com base no ambiente.
 */}}
@@ -1365,7 +1365,7 @@ Como já vimos, o arquivo `_helpers.tpl` contém definições de templates que p
 
 Para reutilizar as labels de aplicativos em seus deployments e services:
 
-```yaml
+```txt
 {{/*
 Generate application labels
 */}}
@@ -1383,7 +1383,7 @@ No arquivo acima estamos definindo um helper que gera as labels do aplicativo co
 
 Template para definir os requests e limits de CPU e memória:
 
-```yaml
+```txt
 {{/*
 Generate container resources
 */}}
@@ -1403,7 +1403,7 @@ Aqui estamos definindo um helper que gera as configurações de recursos para um
 
 Template para a definição de portas no deployment:
 
-```yaml
+```txt
 {{/*
 Generate container ports
 */}}
@@ -1498,7 +1498,7 @@ Para tornar os arquivos `config-map-dp.yaml` e `config-map-obs.yaml` mais inteli
 
 Adicionaremos templates para gerar ConfigMaps de bancos de dados e observabilidade:
 
-```yaml
+```txt
 {{/*
 Generate database config map
 */}}
@@ -1557,7 +1557,7 @@ Isso irá iterar sobre os componentes definidos em `.Values.observability` e apl
 
 Ahhh, o nosso arquivo `_helpers.tpl` ficou da seguinte maneira:
 
-```yaml
+```txt
 {{/* Define a base para reutilização de labels */}}
 {{- define "app.labels" -}}
 app: {{ .labels.app }}
