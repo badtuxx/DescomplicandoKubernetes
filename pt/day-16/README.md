@@ -13,6 +13,32 @@
       - [Instalando o nosso Chart](#instalando-o-nosso-chart)
       - [Atualizando o nosso Chart](#atualizando-o-nosso-chart)
       - [Utilizando `range`  e o `if` no Helm](#utilizando-range--e-o-if-no-helm)
+      - [Utilizando `default`, `toYaml` e `toJson` no Helm](#utilizando-default-toyaml-e-tojson-no-helm)
+      - [O Que São Helpers no Helm?](#o-que-são-helpers-no-helm)
+        - [Por Que Usar Helpers?](#por-que-usar-helpers)
+        - [Criando o Nosso Primeiro Helper](#criando-o-nosso-primeiro-helper)
+        - [Helpers Avançados: Exemplos Práticos](#helpers-avançados-exemplos-práticos)
+          - [Exemplo 1: Controlando a Complexidade](#exemplo-1-controlando-a-complexidade)
+          - [Exemplo 2: Personalização Baseada em Ambiente](#exemplo-2-personalização-baseada-em-ambiente)
+        - [Melhores Práticas ao Usar Helpers](#melhores-práticas-ao-usar-helpers)
+      - [Criando o `_helpers.tpl` da nossa App](#criando-o-_helperstpl-da-nossa-app)
+        - [Passo 1: Criando o arquivo `_helpers.tpl`](#passo-1-criando-o-arquivo-_helperstpl)
+          - [Labels](#labels)
+          - [Resources](#resources)
+          - [Ports](#ports)
+      - [Passo 2: Refatorando `Deployments.yaml` e `Services.yaml`](#passo-2-refatorando-deploymentsyaml-e-servicesyaml)
+          - [O nosso `Deployments.yaml`](#o-nosso-deploymentsyaml)
+          - [O nosso `Services.yaml`](#o-nosso-servicesyaml)
+      - [Passo 3: Refatorando os ConfigMaps](#passo-3-refatorando-os-configmaps)
+        - [Atualizando o `_helpers.tpl`](#atualizando-o-_helperstpl)
+        - [Refatorando `config-map-dp.yaml`](#refatorando-config-map-dpyaml)
+        - [Refatorando `config-map-obs.yaml`](#refatorando-config-map-obsyaml)
+      - [Criando um repositório de Helm Charts](#criando-um-repositório-de-helm-charts)
+        - [Criando o repositório no Github](#criando-o-repositório-no-github)
+        - [Inicializando o repositório](#inicializando-o-repositório)
+        - [Configurando o GitHub Pages](#configurando-o-github-pages)
+      - [Utilizando o nosso repositório de Helm Charts](#utilizando-o-nosso-repositório-de-helm-charts)
+      - [O que vimos no dia de hoje](#o-que-vimos-no-dia-de-hoje)
 
 ## O que iremos ver hoje?
 
@@ -1127,4 +1153,766 @@ service/redis-service             ClusterIP   10.96.77.187   <none>        6379/
 
 Pronto! Tudo criado com sucesso!
 
-Agora você já sabe como utilizar o `range` e o `if` no Helm, e já sabe como criar um Chart do zero, e já sabe como instalar, atualizar e remover a sua aplicação utilizando o Helm.
+Agora você já sabe como utilizar o `range`, `index` e o `if` no Helm, e já sabe como criar um Chart do zero, e já sabe como instalar, atualizar e remover a sua aplicação utilizando o Helm.
+
+
+#### Utilizando `default`, `toYaml` e `toJson` no Helm
+
+Vamos comecer mais algumas funções do Helm, que são o `default`, `toYaml` e `toJson`, que nos ajudarão a deixar o nosso Chart ainda mais dinâmico e customizável.
+
+Suponhamos que queremos garantir que sempre haja um valor padrão para o número de réplicas nos nossos deployments, mesmo que esse valor não tenha sido especificamente definido no `values.yaml`. Podemos modificar o nosso `giropops-senhas-deployment.yaml` para incluir a função `default`:
+
+```yaml
+replicas: {{ .Values.giropopsSenhas.replicas | default 3 }}
+```
+
+Agora vamos adicionar a configuração necessária para a observabilidade da nossa aplicação "Giropops-Senhas", que inclui diversos parâmetros de configuração, e precisamos passá-la como uma string JSON para um ConfigMap. E o `toJson` irá nos salvar:
+
+No `values.yaml`, adicionamos uma configuração complexa:
+
+```yaml
+observability:
+  giropops-senhas:
+    logging: true
+    metrics:
+      enabled: true
+      path: "/metrics"
+```
+
+Agora vamos criar um ConfigMap que inclui essa configuração como uma string JSON:
+
+```yaml
+{{- range $component, $config := .Values.observability }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ $component }}-observability-config
+data:
+  app-config.json: | 
+    {{ toJson $config }}
+{{- end }}
+```
+
+Dessa forma, transformamos a configuração definida no `values.yaml` em uma string JSON formatada, que é injetada diretamente no ConfigMap. A função `nindent 4` garante que iremos usar com 4 espaços de indentação a cada linha do conteúdo injetado.
+
+```json
+{
+    "logging": true,
+    "metrics": {
+        "enabled": true,
+        "path": "/metrics"
+    }
+}
+```
+
+Fácil!
+
+E por fim, vamos adicionar o endereço de um banco de dados como uma configuração YAML, e precisamos passá-la como uma string YAML para um ConfigMap. E o `toYaml` é a função que irá garantir que a configuração seja injetada corretamente:
+
+A configuração no `values.yaml`:
+
+```yaml
+databases:
+  giropops-senhas:
+    type: "MySQL"
+      host: "mysql.svc.cluster.local"
+      port: 3306
+      name: "MyDB"
+```
+
+Com isso, já podemos criar um ConfigMap que inclui essa configuração como uma string YAML:
+
+```yaml
+{{- range $component, $config := .Values.databases }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ $component }}-db-config
+data:
+  app-config.yaml: |
+    {{- toYaml $config | nindent 4 }}
+{{- end }}
+```
+
+Dessa forma, transformamos a configuração definida no `values.yaml` em uma string YAML formatada, que é injetada diretamente no ConfigMap. A função `nindent 2` garante que o conteúdo injetado esteja corretamente indentado, pois ela adiciona 2 espaços de indentação a cada linha do conteúdo injetado.
+
+Para que possamos aplicar essas modificações, precisamos realizar o `upgrade` da nossa aplicação, para isso, execute o comando abaixo:
+
+```bash
+helm upgrade giropops-senhas ./
+```
+
+Agora já temos além dos deployments e services, também os ConfigMaps para a nossa aplicação.
+
+Para ver os ConfigMaps, execute o comando abaixo:
+
+```bash
+kubectl get configmaps
+```
+
+Para ver os detalhes de cada ConfigMap, execute o comando abaixo:
+
+```bash
+kubectl get configmap <configmap-name> -o yaml
+```
+
+Chega a ser lacrimejante de tão lindo! :D
+
+
+#### O Que São Helpers no Helm?
+
+Helpers no Helm são funções definidas em arquivos `_helpers.tpl` dentro do diretório `templates` de um gráfico Helm. Eles permitem a reutilização de código e lógicas complexas em seus templates, promovendo práticas de codificação DRY (Don't Repeat Yourself). Isso significa que, em vez de repetir o mesmo código em vários lugares, você pode definir uma função helper e chamá-la sempre que precisar.
+
+##### Por Que Usar Helpers?
+
+- **Reutilização de Código:** Evita duplicação e facilita a manutenção.
+- **Abstração de Complexidade:** Encapsula lógicas complexas, tornando os templates mais limpos e fáceis de entender.
+- **Personalização e Flexibilidade:** Permite a criação de templates mais dinâmicos e adaptáveis às necessidades específicas do usuário.
+
+##### Criando o Nosso Primeiro Helper
+
+Para ilustrar a criação e o uso de helpers, vamos começar com um exemplo prático. Imagine que você precisa incluir o nome padrão do seu aplicativo em vários recursos Kubernetes no seu chart Helm. Em vez de escrever manualmente o nome em cada recurso, você pode definir um helper para isso.
+
+1. **Definindo um Helper:**
+   No diretório `templates`, crie um arquivo chamado `_helpers.tpl` e adicione o seguinte conteúdo:
+
+   ```yaml
+   {{/*
+   Define um helper para o nome do aplicativo.
+   */}}
+   {{- define "meuapp.name" -}}
+   {{- default .Chart.Name .Values.appName | trunc 63 | trimSuffix "-" -}}
+   {{- end -}}
+   ```
+
+   Esta função define um nome padrão para o seu aplicativo, usando o nome do gráfico (`Chart.Name`) ou um nome personalizado definido em `Values.appName`, limitando-o a 63 caracteres e removendo quaisquer hífens no final.
+
+2. **Usando o Helper:**
+   Agora, você pode usar este helper em seus templates para garantir que o nome do aplicativo seja consistente em todos os recursos. Por exemplo, em um template de Deployment, você pode usar:
+
+   ```yaml
+   apiVersion: apps/v1
+   kind: Deployment
+   metadata:
+     name: {{ include "meuapp.name" . }}
+     labels:
+       app: {{ include "meuapp.name" . }}
+   ```
+
+##### Helpers Avançados: Exemplos Práticos
+
+À medida que você se familiariza com os helpers, pode começar a explorar usos mais avançados. Aqui estão alguns exemplos que demonstram a flexibilidade e o poder dos helpers no Helm.
+
+###### Exemplo 1: Controlando a Complexidade
+
+Imagine que você tenha múltiplos serviços que precisam ser configurados de maneira ligeiramente diferente com base em certos valores de entrada. Você pode criar um helper complexo que gera a configuração apropriada para cada serviço.
+
+```yaml
+{{/*
+Gerar configuração específica do serviço.
+*/}}
+{{- define "meuapp.serviceConfig" -}}
+{{- if eq .Values.serviceType "frontend" -}}
+# Configuração específica do frontend
+{{- else if eq .Values.serviceType "backend" -}}
+# Configuração específica do backend
+{{- end -}}
+{{- end -}}
+```
+
+###### Exemplo 2: Personalização Baseada em Ambiente
+
+Em ambientes de desenvolvimento, você pode querer configurar seus serviços de maneira diferente do que em produção. Um helper pode ajudar a injetar essas configurações com base no ambiente.
+
+```yaml
+{{/*
+Ajustar configurações com base no ambiente.
+*/}}
+{{- define "meuapp.envConfig" -}}
+{{- if eq .Values.environment "prod" -}}
+# Configurações de produção
+{{- else -}}
+# Configurações de desenvolvimento
+{{- end
+
+ -}}
+{{- end -}}
+```
+
+##### Melhores Práticas ao Usar Helpers
+
+- **Mantenha os Helpers Simples:** Funções muito complexas podem ser difíceis de manter e entender.
+- **Nomeie os Helpers de Forma Clara:** Os nomes devem refletir o propósito da função para facilitar a compreensão e o uso.
+- **Documente Seus Helpers:** Comentários claros sobre o que cada helper faz ajudam outros desenvolvedores a entender seu código mais rapidamente.
+- **Use Helpers para Lógicas Recorrentes:** Aproveite os helpers para evitar a repetição de lógicas complexas ou padrões comuns em seus templates.
+
+
+
+#### Criando o `_helpers.tpl` da nossa App
+
+Chegou o momento de chamar os Helpers do Helm para nos ajudar a dimunir a repetição de códigos e também para reduzir a complexidade de nossos Templates.
+
+Vamos dividir em algumas etapas para ficar fácil o entendimento sobre o que estamos fazendo em cada passo. :)
+
+##### Passo 1: Criando o arquivo `_helpers.tpl`
+
+Como já vimos, o arquivo `_helpers.tpl` contém definições de templates que podem ser reutilizadas em vários lugares. Aqui estão alguns templates úteis para o nosso caso:
+
+###### Labels
+
+Para reutilizar as labels de aplicativos em seus deployments e services:
+
+```yaml
+{{/*
+Generate application labels
+*/}}
+{{- define "app.labels" -}}
+app: {{ .labels.app }}
+env: {{ .labels.env }}
+live: {{ .labels.live }}
+{{- end }}
+```
+
+No arquivo acima estamos definindo um helper que gera as labels do aplicativo com base nas configurações fornecidas. Isso nos permite reutilizar as mesmas labels em vários recursos, garantindo consistência e facilitando a manutenção.
+
+
+###### Resources
+
+Template para definir os requests e limits de CPU e memória:
+
+```yaml
+{{/*
+Generate container resources
+*/}}
+{{- define "app.resources" -}}
+requests:
+  memory: {{ .resources.requests.memory }}
+  cpu: {{ .resources.requests.cpu }}
+limits:
+  memory: {{ .resources.limits.memory }}
+  cpu: {{ .resources.limits.cpu }}
+{{- end }}
+```
+
+Aqui estamos definindo um helper que gera as configurações de recursos para um contêiner com base nas configurações fornecidas.
+
+###### Ports
+
+Template para a definição de portas no deployment:
+
+```yaml
+{{/*
+Generate container ports
+*/}}
+{{- define "app.ports" -}}
+{{- range .ports }}
+- containerPort: {{ .port }}
+{{- end }}
+{{- end }}
+```
+
+#### Passo 2: Refatorando `Deployments.yaml` e `Services.yaml`
+
+Com os helpers definidos, já podemos refatorar nossos arquivos `Deployments.yaml` e `Services.yaml` para utilizar esses templates.
+
+###### O nosso `Deployments.yaml`
+
+```yaml
+{{- range $component, $config := .Values.deployments }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ $component }}
+  labels:
+    {{- include "app.labels" $config | nindent 4 }}
+spec:
+  replicas: {{ $config.replicas | default 3 }}
+  selector:
+    matchLabels:
+      app: {{ $config.labels.app }}
+  template:
+    metadata:
+      labels:
+        {{- include "app.labels" $config | nindent 8 }}
+    spec:
+      containers:
+      - name: {{ $component }}
+        image: {{ $config.image }}
+        ports:
+        {{- include "app.ports" $config | nindent 10 }}
+        resources:
+          {{- include "app.resources" $config | nindent 12 }}
+{{- if $config.env }}
+        env:
+        {{- range $config.env }}
+        - name: {{ .name }}
+          value: {{ .value }}
+        {{- end }}
+{{- end }}
+---
+{{- end }}
+```
+
+###### O nosso `Services.yaml`
+
+```yaml
+{{- range $component, $config := .Values.services }}
+  {{- range $port := $config.ports }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ $component }}-{{ $port.name }}
+  labels:
+    {{- include "app.labels" $config | nindent 4 }}
+spec:
+  type: {{ $port.serviceType }}
+  ports:
+  - port: {{ $port.port }}
+    targetPort: {{ $port.targetPort }}
+    protocol: TCP
+    name: {{ $port.name }}
+    {{- if eq $port.serviceType "NodePort" }}
+    nodePort: {{ $port.nodePort }}
+    {{- end }}
+  selector:
+    app: {{ $config.labels.app }}
+---
+  {{- end }}
+{{- end }}
+```
+
+Pronto! Agora já temos o `_helpers.tpl` criado e os templates atualizados!
+
+Caso queira testar, basta instalar ou fazer o upgrade do nosso Chart. Não vou fazer aqui novamente pois já executamos mais de 1 milhão de vezes, você já sabe como fazer isso com os pés nas costas. :)
+
+#### Passo 3: Refatorando os ConfigMaps
+
+Ainda precisamos trabalhar com os nosso ConfigMaps, e para isso eu pensei em executar algo um pouco mais complexo, somente para que possamos gastar todo o nosso conhecimento. hahaha
+
+Para tornar os arquivos `config-map-dp.yaml` e `config-map-obs.yaml` mais inteligentes e menos complexos com a ajuda do arquivo `_helpers.tpl`, podemos adicionar mais definições de template que facilitam a criação de ConfigMaps para bases de dados e configurações de observabilidade. Vou adicionar templates específicos para esses dois tipos de ConfigMap no arquivo `_helpers.tpl` e, em seguida, refatorar os arquivos de ConfigMap para utilizar esses templates.
+
+##### Atualizando o `_helpers.tpl`
+
+Adicionaremos templates para gerar ConfigMaps de bancos de dados e observabilidade:
+
+```yaml
+{{/*
+Generate database config map
+*/}}
+{{- define "database.configmap" -}}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .component }}-db-config
+data:
+  app-config.yaml: |
+    {{- toYaml .config | nindent 4 }}
+{{- end }}
+
+{{/*
+Generate observability config map
+*/}}
+{{- define "observability.configmap" -}}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .component }}-observability-config
+data:
+  app-config.json: | 
+    {{ toJson .config }}
+{{- end }}
+```
+
+Agora estamos praticamente colocando todo o conteúdo dos ConfigMaps aqui, isso fará com que os nossos arquivos fiquem bem pequenos e somente utilizando a combinação do `values.yaml` e o `_helpers.tpl`.
+
+
+##### Refatorando `config-map-dp.yaml`
+
+Para utilizar o template do `_helpers.tpl`, bora modificar o arquivo `config-map-dp.yaml` da seguinte forma:
+
+```yaml
+{{- range $component, $config := .Values.databases }}
+  {{- $data := dict "component" $component "config" $config }}
+  {{- include "database.configmap" $data | nindent 0 }}
+{{- end }}
+```
+
+Isso irá percorrer todos os componentes definidos em `.Values.databases` e aplicar o template definido para criar um ConfigMap para cada banco de dados.
+
+##### Refatorando `config-map-obs.yaml`
+
+Da mesma forma, modifique o arquivo `config-map-obs.yaml` para usar o template de observabilidade:
+
+```yaml
+{{- range $component, $config := .Values.observability }}
+  {{- $data := dict "component" $component "config" $config }}
+  {{- include "observability.configmap" $data | nindent 0 }}
+{{- end }}
+```
+
+Isso irá iterar sobre os componentes definidos em `.Values.observability` e aplicar o template para criar um ConfigMap de observabilidade para cada componente.
+
+Ahhh, o nosso arquivo `_helpers.tpl` ficou da seguinte maneira:
+
+```yaml
+{{/* Define a base para reutilização de labels */}}
+{{- define "app.labels" -}}
+app: {{ .labels.app }}
+env: {{ .labels.env }}
+live: {{ .labels.live }}
+{{- end }}
+
+{{/* Template para especificações de recursos de containers */}}
+{{- define "app.resources" -}}
+requests:
+  memory: {{ .resources.requests.memory }}
+  cpu: {{ .resources.requests.cpu }}
+limits:
+  memory: {{ .resources.limits.memory }}
+  cpu: {{ .resources.limits.cpu }}
+{{- end }}
+
+{{/* Template para definição de portas em containers */}}
+{{- define "app.ports" -}}
+{{- range .ports }}
+- containerPort: {{ .port }}
+{{- end }}
+{{- end }}
+
+{{/* Template para gerar um ConfigMap para configurações de banco de dados */}}
+{{- define "database.configmap" -}}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .component }}-db-config
+data:
+  app-config.yaml: |
+    {{- toYaml .config | nindent 4 }}
+{{- end }}
+
+{{/* Template para gerar um ConfigMap para configurações de observabilidade */}}
+{{- define "observability.configmap" -}}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .component }}-observability-config
+data:
+  app-config.json: | 
+    {{ toJson .config }}
+{{- end }}
+```
+
+Veja o quanto conseguimos modificar os nossos Templates utilizando o nosso `_helpers.tpl`, isso é mágico demais! Porém é importante lembrar que não devemos usar os helpers para deixar as coisas mais complexas, e sim, facilitar e diminuir a nossa carga cognitiva e a repetição de códigos. Aqui estamos trabalhando de forma que fique mais didática, porém isso não quer dizer que você deva repetir isso em sua produção. Tudo depende, e dito isso, agora que você já conhece bem o que são os Helm Charts, acho que já podemos conhecer como criar o nosso repositório de Helm Charts!
+
+#### Criando um repositório de Helm Charts
+
+É bem comum que você tenha um repositório interno para armazenar os seus Helm Charts, para que outras pessoas consigam utilizar e ajudar no gerenciamento do repositório.
+
+A criação de um repositório é bastante simples, e para o nosso exemplo vamos utilizar o Github para ser o nosso repo de Charts. Esse repositório pode ser público ou privado, depende da sua necessidade.
+
+Vou colocar alguns passos para que você possa criar o seu repositório no Github, antes da gente começar a começar a trabalhar com o nosso repositório de Helm Charts.
+
+##### Criando o repositório no Github
+
+1. Acesse o Github e faça o login na sua conta.
+2. Clique no ícone de "+" no canto superior direito e selecione "New repository".
+3. Nomeie o seu repositório (por exemplo, meu-repo-charts).
+4. Deixe o repositório público ou privado, conforme sua necessidade.
+5. Clique em "Create repository".
+  
+Pronto, repo criado!
+
+Agora vamos clona-lo para a nossa máquina e começar a trabalhar com ele.
+
+```bash
+git clone < endereço do seu repo >
+```
+
+Agora acesse o diretório do seu repositório e vamos começar a brincadeira do lado do Helm.
+
+##### Inicializando o repositório
+
+Primeira coisa, vamos criar o diretórios charts e acessa-lo:
+
+```bash
+mkdir charts
+cd charts
+```
+
+Agora vamos copiar o nosso Chart para o diretório `charts`:
+
+```bash
+cp -r <diretório do seu Chart> ./
+```
+
+O conteúdo será algo assim:
+
+```bash
+.
+├── charts
+│   └── giropops-senhas
+│       ├── charts
+│       ├── Chart.yaml
+│       ├── templates
+│       │   ├── configmap-db.yaml
+│       │   ├── configmap-observability.yaml
+│       │   ├── deployments.yaml
+│       │   ├── _helpers.tpl
+│       │   └── services.yaml
+│       └── values.yaml
+└── README.md
+```
+
+Vamos aproveitar e conhecer dois comandos que irão nos ajudar a ter certeza que está tudo certo com o nosso Chart.
+
+O primeiro é o `lint`, usado para ver como está a qualidade do nosso Chart:
+
+```bash
+helm lint giropops-senhas
+```
+
+Com isso, se tudo estiver bem você verá a seguinte saída:
+
+```bash
+==> Linting charts/giropops-senhas
+[INFO] Chart.yaml: icon is recommended
+
+1 chart(s) linted, 0 chart(s) failed
+```
+
+Temos um aviso, mas isso não é um problema, é apenas uma recomendação.
+
+Outro comando que nos ajuda a ter certeza que está tudo certo com o nosso Chart é o `template`, que irá renderizar o nosso Chart e verificar se está tudo certo:
+
+```bash
+helm template charts/giropops-senhas
+```
+
+Com isso você verá a saída do seu Chart renderizado, e assim você consegue conferir os manifestos gerados e ver se está tudo certo. :)
+
+O próximo passo é criar um pacote do nosso Chart, que nada mais é que um .tgz que contém o nosso Chart, e para isso, execute o comando abaixo:
+
+```bash
+helm package charts/giropops-senhas
+```
+
+A saída:
+
+```bash
+Successfully packaged chart and saved it to: /home/LINUXtips/meu-repo/giropops-senhas-0.1.0.tgz
+```
+
+Agora que já temosk o tarball do nosso Chart, vamos adicionar ele ao nosso repositório, e para que isso seja possível vamos conhecer um comando que irá nos ajudar nessa tarefa, que é o `repo index`.
+
+O `repo index` irá criar um arquivo index.yaml que contém as informações sobre os pacotes disponíveis no repositório, e para isso, execute o comando abaixo:
+
+```bash
+helm repo index --url <URL do seu repo no github> .
+```
+
+Perceba que ele criou um arquivo chamado `index.yaml`, e nesse arquivo temos informções sobre o nosso Chart, como o nome, a versão, a descrição, o tipo de aplicação, e o endereço do Chart.
+
+Vamos dar um `cat` nesse arquivo para ver o que temos:
+
+```bash
+cat index.yaml
+```
+
+```yaml
+apiVersion: v1
+entries:
+  giropops-senhas:
+  - apiVersion: v2
+    appVersion: 0.1.0
+    created: "2024-02-13T11:40:40.803868957+01:00"
+    description: Esse é o chart do Giropops-Senhas, utilizados nos laboratórios de
+      Kubernetes.
+    digest: 05bc20f073f5e7824ok43o4k3okfdfac1be5c46e4bdc0ac3a8a45eec
+    name: giropops-senhas
+    sources:
+    - https://github.com/seu-user/seu-repo
+    urls:
+    - https://github.com/seu-user/seu-repo/giropops-senhas-0.1.0.tgz
+    version: 0.1.0
+generated: "2024-02-13T11:40:40.803383504+01:00"
+```
+
+Com o index.yaml, precisamos ir para o próximo passo, que é fazer o commit e o push do nosso repositório.
+
+```bash
+git add .
+git commit -m "Adicionando o Chart do Giropops-Ssenhas"
+git push origin main
+```
+
+Pronto, o nosso código está no repo lá no GitHub. \o/
+
+Mas o nosso trabalho não para por aqui, precisamos configurar o GitHub Pages para o nosso repositório de Helm Charts.
+
+##### Configurando o GitHub Pages
+
+Siga os passos abaixo para configurar o seu GitHub Pages:
+
+1. Acesse o repositório no Github.
+2. Clique na aba "Settings".
+3. Role a página até a seção "Pages".
+4. Selecione a branch `main` e a pasta `root` e clique em "Save".
+5. Aguarde alguns minutos e copie o link que aparecerá na seção "Pages".
+
+
+Algo parecido com a imagem abaixo:
+
+![Alt text](images/github-pages.png?raw=true "GitHub Pages")
+
+Pronto, o nosso repositorio de Helm Charts está configurado e pronto para ser utilizado!
+
+Um coisa importante é alterar o `index.yaml` para que ele aponte para o endereço do GitHub Pages, e para isso, execute o comando abaixo:
+
+```bash
+helm repo index --url <URL do seu repo no github> .
+```
+
+Com isso, o seu `index.yaml` estará apontando para o endereço do GitHub Pages, do contrário o seu repositório não funcionará.
+
+Agora que já temos o nosso repositório de Helm Charts, vamos ver como utilizá-lo.
+
+#### Utilizando o nosso repositório de Helm Charts
+
+Deu trabalho, mas agora já temos o nosso repo de Helm Charts criado com sucesso, porém ainda não sabemos qual o seu gostinho, afinal ainda não utilizamos ele.
+
+Vamos resolver isso!
+
+Primeira coisa, para que possamos utilizar o Chart de um determinado repositório, precisamos adicionar esse repositório ao Helm, e para isso, execute o comando abaixo:
+
+```bash
+helm repo add meu-repo <URL do seu repo no github>
+```
+
+Vamos listar os repositórios que temos no Helm:
+
+```bash
+helm repo list
+```
+
+A minha saída:
+
+```bash
+NAME            URL                                              
+metrics-server  https://kubernetes-sigs.github.io/metrics-server/
+kyverno         https://kyverno.github.io/kyverno/               
+meurepo         https://badtuxx.github.io/charts-example/  
+```
+
+Veja que o nosso repo está lá! Além do nosso repo, temos mais dois outros repos adicionados por mim anteriomente, que são o `metrics-server` e o `kyverno`. É com esse comando que conseguimos ver todos os repositórios que temos no Helm.
+
+Podemos listar os Charts que temos no nosso repositório da seguinte maneira:
+
+```bash
+helm search repo meu-repo
+```
+
+A saída:
+
+```bash
+NAME                            CHART VERSION   APP VERSION     DESCRIPTION                                       
+meure2po/giropops-senhas        0.1.0           0.1.0           Esse é o chart do Giropops-Senhas, utilizados n...
+```
+
+O nosso está lá, e o melhor, pronto para ser utilizado!
+
+Agora, caso você queria instalar o Chart do Giropops-Senhas, basta executar o comando abaixo:
+
+```bash
+helm install giropops-senhas meu-repo/giropops-senhas
+```
+
+E pronto, o seu Chart já está instalado e funcionando!
+
+Caso você queira personalizar o seu Chart, basta criar um arquivo `values.yaml` e passar as configurações que você deseja, e depois passar esse arquivo para o Helm, da seguinte maneira:
+
+```bash
+helm install giropops-senhas meu-repo/giropops-senhas -f values.yaml
+```
+
+E para atualizar um Chart que já está instalado, basta executar o comando abaixo:
+
+```bash
+helm upgrade giropops-senhas meu-repo/giropops-senhas
+```
+
+Quer ver os detalhes do seu Chart? Execute o comando abaixo:
+
+```bash
+helm show all meu-repo/giropops-senhas
+```
+
+O que teremos será uma descrição do nosso Chart, com todas as informações que definimos no `Chart.yaml` e no `values.yaml`, algo como a saida abaixo:
+  
+```bash
+apiVersion: v2
+appVersion: 0.1.0
+description: Esse é o chart do Giropops-Senhas, utilizados nos laboratórios de Kubernetes.
+name: giropops-senhas
+sources:
+- https://github.com/badtuxx/giropops-senhas
+version: 0.1.0
+
+---
+giropopsSenhas:
+  name: "giropops-senhas"
+  image: "linuxtips/giropops-senhas:1.0"
+  replicas: "3"
+  port: 5000
+  labels:
+    app: "giropops-senhas"
+    env: "labs"
+    live: "true"
+  service:
+    type: "NodePort"
+    port: 5000
+    targetPort: 5000
+    name: "giropops-senhas-port"
+  resources:
+    requests:
+      memory: "128Mi"
+      cpu: "250m"
+    limits:
+      memory: "256Mi"
+      cpu: "500m"
+
+redis:
+  image: "redis"
+  replicas: 1
+  port: 6379
+  labels:
+    app: "redis"
+    env: "labs"
+    live: "true"
+  service:
+    type: "ClusterIP"
+    port: 6379
+    targetPort: 6379
+    name: "redis-port"
+  resources:
+    requests:
+      memory: "128Mi"
+      cpu: "250m"
+    limits:
+      memory: "256Mi"
+      cpu: "500m"
+```
+
+E por fim, caso você queira remover o seu Chart, basta executar o comando abaixo:
+
+```bash
+helm uninstall giropops-senhas
+```
+
+Simples como voar! Sim, eu sei, chega a ser lacrimejante, mas agora eu já posso dizer que você domina o Helm!
+
+#### O que vimos no dia de hoje
+
+Hoje o dia foi intenso, pois conseguimos descomplicar como usar o Helm para deixar a nossa vida ainda melhor. Aprendemos a criar um Chart do zero, utilizando diversas técnicas e deixando muito conhecimento para que você possa utilizar em sua vida! 
+Agora eu quero que você me manda algum Chart que você criou com o que você aprendeu por aqui! Deixa o tio Jefinho feliz! hahahha
+
+E por hoje é só! #VAIIII

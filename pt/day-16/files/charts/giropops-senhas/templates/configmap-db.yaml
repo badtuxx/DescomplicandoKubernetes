@@ -1,0 +1,4 @@
+{{- range $component, $config := .Values.databases }}
+  {{- $data := dict "component" $component "config" $config }}
+  {{- include "database.configmap" $data | nindent 0 }}
+{{- end }}
