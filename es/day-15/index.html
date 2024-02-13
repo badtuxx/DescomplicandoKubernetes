@@ -1,0 +1,967 @@
+
+<!DOCTYPE HTML>
+<html lang="es" >
+    <head>
+        <meta charset="UTF-8">
+        <title>Simplificando Kubernetes día 15 · HonKit</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="HonKit 3.6.20">
+        
+        
+        
+    
+    <link rel="stylesheet" href="../../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="../CONTRIBUTING.html" />
+    
+    
+    <link rel="prev" href="../day-14/" />
+    
+
+    </head>
+    <body>
+        
+<div class="book honkit-cloak">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="Escribe para buscar" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        <li class="header">Acerca de</li>
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../">
+            
+                <a href="../">
+            
+                    
+                    Introducción
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="header">Capítulos</li>
+        
+        
+    
+        <li class="chapter " data-level="2.1" data-path="../day-1/">
+            
+                <a href="../day-1/">
+            
+                    
+                    Simplificando Kubernetes día 1
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.2" data-path="../day-2/">
+            
+                <a href="../day-2/">
+            
+                    
+                    Simplificando Kubernetes día 2
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.3" data-path="../day-3/">
+            
+                <a href="../day-3/">
+            
+                    
+                    Simplificando Kubernetes día 3
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.4" data-path="../day-4/">
+            
+                <a href="../day-4/">
+            
+                    
+                    Simplificando Kubernetes día 4
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.5" data-path="../day-5/">
+            
+                <a href="../day-5/">
+            
+                    
+                    Simplificando Kubernetes día 5
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.6" data-path="../day-6/">
+            
+                <a href="../day-6/">
+            
+                    
+                    Simplificando Kubernetes día 6
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.7" data-path="../day-7/">
+            
+                <a href="../day-7/">
+            
+                    
+                    Simplificando Kubernetes día 7
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.8" data-path="../day-8/">
+            
+                <a href="../day-8/">
+            
+                    
+                    Simplificando Kubernetes día 8
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.9" data-path="../day-9/">
+            
+                <a href="../day-9/">
+            
+                    
+                    Simplificando Kubernetes día 9
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.10" data-path="../day-10/">
+            
+                <a href="../day-10/">
+            
+                    
+                    Simplificando Kubernetes día 10
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.11" data-path="../day-11/">
+            
+                <a href="../day-11/">
+            
+                    
+                    Simplificando Kubernetes día 11
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.12" data-path="../day-12/">
+            
+                <a href="../day-12/">
+            
+                    
+                    Simplificando Kubernetes día 12
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.13" data-path="../day-13/">
+            
+                <a href="../day-13/">
+            
+                    
+                    Simplificando Kubernetes día 13
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.14" data-path="../day-14/">
+            
+                <a href="../day-14/">
+            
+                    
+                    Simplificando Kubernetes día 14
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="2.15" data-path="./">
+            
+                <a href="./">
+            
+                    
+                    Simplificando Kubernetes día 15
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="header">Contribuir</li>
+        
+        
+    
+        <li class="chapter " data-level="3.1" data-path="../CONTRIBUTING.html">
+            
+                <a href="../CONTRIBUTING.html">
+            
+                    
+                    Cómo ayudar
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://github.com/honkit/honkit" target="blank" class="gitbook-link">
+            Publicado con HonKit
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href=".." >Simplificando Kubernetes día 15</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h1 id="simplificando-kubernetes">Simplificando Kubernetes</h1>
+<h2 id="día-15-descomplicando-rbac-e-controle-de-acesso-no-kubernetes">Día 15: Descomplicando RBAC e controle de acesso no Kubernetes</h2>
+<h2 id="contenido-del-día-15">Contenido del Día 15</h2>
+<ul>
+<li><a href="#simplificando-kubernetes">Simplificando Kubernetes</a><ul>
+<li><a href="#día-15-descomplicando-rbac-e-controle-de-acesso-no-kubernetes">Día 15: Descomplicando RBAC e controle de acesso no Kubernetes</a></li>
+<li><a href="#contenido-del-día-15">Contenido del Día 15</a></li>
+</ul>
+</li>
+<li><a href="#qué-vamos-a-aprender-hoy">¿Qué vamos a aprender hoy?</a></li>
+<li><a href="#rbac">RBAC</a><ul>
+<li><a href="#qué-es-rbac">¿Qué es RBAC?</a><ul>
+<li><a href="#primer-ejemplo-de-rbac">Primer ejemplo de RBAC</a><ul>
+<li><a href="#creación-de-un-usuario-para-acceso-al-clúster">Creación de un Usuario para Acceso al clúster</a></li>
+<li><a href="#creando-un-rol-para-nuestro-usuario">Creando un Rol para nuestro usuario</a></li>
+<li><a href="#apigroups">apiGroups</a></li>
+<li><a href="#verbos">Verbos</a></li>
+<li><a href="#agregando-el-certificado-del-usuario-al-kubeconfig">Agregando el certificado del usuario al kubeconfig</a></li>
+<li><a href="#accediendo-al-clúster-con-el-nuevo-usuario">Accediendo al clúster con el nuevo usuario</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h1 id="¿qué-vamos-a-aprender-hoy">¿Qué vamos a aprender hoy?</h1>
+<p>Hoy hablaremos de...</p>
+<h1 id="rbac">RBAC</h1>
+<h2 id="¿qué-es-rbac">¿Qué es RBAC?</h2>
+<p>RBAC es un acrónimo que significa Control de Acceso Basado en Roles (Role-Based Access Control). Es un método de control de acceso que permite a un administrador definir permisos específicos para usuarios y grupos de usuarios. Esto significa que los administradores pueden controlar quién tiene acceso a qué recursos y qué pueden hacer con esos recursos.</p>
+<p>En Kubernetes, es fundamental comprender cómo funciona RBAC, ya que a través de él se definen los permisos de acceso a los recursos del clúster, como quién puede crear un Pod, un Deployment, un Service, entre otros.</p>
+<h3 id="primer-ejemplo-de-rbac">Primer ejemplo de RBAC</h3>
+<p>Supongamos que necesitamos dar acceso al clúster a un desarrollador de nuestra empresa, pero no queremos que tenga acceso a todos los recursos del clúster, sino solo a los recursos necesarios para desarrollar su aplicación.</p>
+<p>Para lograrlo, crearemos un usuario llamado <code>developer</code> y le daremos acceso para crear y administrar los Pods en el espacio de nombres <code>dev</code>.</p>
+<p>Existen dos formas de hacerlo. La primera y más antigua es mediante la creación de un Token de acceso, y la segunda y más nueva es mediante la creación de un usuario.</p>
+<h4 id="creación-de-un-usuario-para-acceso-al-clúster">Creación de un Usuario para Acceso al clúster</h4>
+<p>Bueno, ahora que ya sabemos cuáles serán los permisos de nuestro nuevo usuario, podemos comenzar a crearlo.</p>
+<p>Lo primero que necesitamos hacer es generar una clave privada para nuestro usuario. Para ello, utilizaremos el comando <code>openssl</code>:</p>
+<pre><code class="lang-bash">openssl genrsa -out developer.key 2048
+</code></pre>
+<p>Con el comando anterior, estamos creando una clave privada de 2048 bits y guardándola en el archivo <code>developer.key</code>. El parámetro <code>genrsa</code> indica que queremos generar una clave privada, y el parámetro <code>-out</code> indica el nombre del archivo en el que queremos guardar la clave.</p>
+<p>Una vez creada la clave, debemos generar una Solicitud de Firma de Certificado (Certificate Signing Request o CSR), que es un archivo que contiene el certificado que hemos creado y que se enviará a Kubernetes para que lo firme y genere el certificado final.</p>
+<pre><code class="lang-bash">openssl req -new -key developer.key -out developer.csr -subj <span class="hljs-string">&quot;/CN=developer&quot;</span>
+</code></pre>
+<p>En el comando anterior, estamos creando un certificado para nuestro usuario utilizando la clave privada que creamos anteriormente. El parámetro <code>req</code> indica que queremos crear un certificado, el parámetro <code>-key</code> indica el nombre del archivo de la clave privada que queremos utilizar, el parámetro <code>-out</code> indica el nombre del archivo en el que queremos guardar el certificado, y el parámetro <code>-subj</code> indica el nombre del usuario que queremos crear.</p>
+<p>Ahora, con los dos archivos en mano, podemos comenzar a crear nuestro usuario en el clúster, pero antes, necesitamos crear una Solicitud de Firma de Certificado (Certificate Signing Request o CSR), que es un archivo que contiene el certificado que hemos creado y que se enviará a Kubernetes para que lo firme y genere el certificado final.</p>
+<p>Pero para crear el archivo, primero debemos tener el contenido del certificado en base64. Para ello, utilizaremos el comando <code>base64</code>:</p>
+<pre><code class="lang-bash">cat developer.csr | base64 | tr -d <span class="hljs-string">&apos;\n&apos;</span>
+</code></pre>
+<p>Con el comando anterior, estamos leyendo el contenido del archivo <code>developer.csr</code>, convirtiéndolo a base64 y eliminando el salto de línea.</p>
+<p>El contenido del certificado en base64 será algo similar a esto:</p>
+<pre><code class="lang-bash">LS0tLS1CRUdJTiBDRVJUSUZJQ0FURSBSRVFVRVNULS0tLS0KTUlJQ1dUQ0NBVUVDQVFBd0ZERVNNQkFHQTFVRUF3d0paR1YyWld4dmNHVnlNSUlCSWpBTkJna3Foa2lHOXcwCgpBUUVGQUFPQ0FROEFNSUlCQ2dLQ0FRRUF5OFN1Y25JWjJjL0k3dXQvS0EwSXhvN0RZa0hkSUxrbmxZOWNwMkVlClJJSzRzU1NzZnA2SzBhbWZlYWtRaEdXT2NWMmFaeEtTM0xrNERNNlVmb3ZucEQvOXpidDl0em44UUpMTDZxREEKeHFxbzVSbEt4QnpEV3lQT2JkUStMWnI2VjFQZ2wxYms2c3o0d2lWek52a2NhT0doSDdlSU90QVI0U096MjNJdAowZ0xiZHBDalFITFIvNlFuSXBjY3h3bDBGa1FtL3RVeHdRa0x1NXNpSTNKOGRiUkQwcnlFdGxReWQ5elhLM29rCjBRbVpLZDVpV1p2aDU3R1lrV1kweGMzV0J5aXY5OURQYVE3WTB4MFNaWGlPL2w0bTRzazJ3RjYwa2dUa1NJZmQKdEMxN2Y1ZzVWVzhOTW02amNpMFRXeDk5Z0REcmpHanJpaExHeTBLUWdRa2p3d0lEQVFBQm9BQXdEUVlKS29aSQpodmNOQVFFTEJRQURnZ0VCQUllZVdLbjAwZkk5ekw3MUVQNFNpOUVxVUFNUnBYT0dkT1Aybm8rMTV2VzJ5WmpwCmhsTWpVTjMraVZubkh2QVBvWFVLKzBYdXdmaklHMjBQTjA5UEd1alU4aUFIeVZRbFZRS0VaOWpRcENXYnQybngKVlZhYUw0N0tWMUpXMnF3M1YybmNVNkhlNHdtQzVqUE9vU29vVGtrVlF5Uml4bkcyVVQrejI3M2xpaTY3RkFXegpBZ1QvczlVa3gvS1dxRjIzczVuUk9TTlZUS2xCSG5LMU40YkN6RHBqZnN5V01GUXdnazhxRCtlOXp0cTh2c1VhCi9Say9jUWNyS2wxVDMyM0xDcG1TekhnM3hDdjFqdzJUVFFINm1yWlBBa2doa2R2YlNnalp6Y1JRZWNqSEpNeTMKTzFJQXJ6V3pWbU1hRTJqeGhUV1JwbkJkcVZjZERTUERiNkNXaktVPQotLS0tLUVORCBDRVJUSUZJQ0FURSBSRVFVRVNULS0tLS0K%
+</code></pre>
+<p>Recuerda eliminar el salto de línea al final del archivo, que se representa con el <code>%</code>.</p>
+<p>Agora que tenemos el contenido del certificado en base64, cópielo y péguelo en el archivo <code>developer.yaml</code> que vamos a crear a continuación:</p>
+<pre><code class="lang-yaml"><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">certificates.k8s.io/v1</span>
+<span class="hljs-attr">kind:</span> <span class="hljs-string">CertificateSigningRequest</span>
+<span class="hljs-attr">metadata:</span>
+ <span class="hljs-attr">name:</span> <span class="hljs-string">developer</span>
+<span class="hljs-attr">spec:</span>
+ <span class="hljs-attr">request:</span> <span class="hljs-string">LS0tLS1CRUdJTiBDRVJUSUZJQ0FURSBSRVFVRVNULS0tLS0KTUlJQ1dUQ0NBVUVDQVFBd0ZERVNNQkFHQTFVRUF3d0paR1YyWld4dmNHVnlNSUlCSWpBTkJna3Foa2lHOXcwQgpBUUVGQUFPQ0FROEFNSUlCQ2dLQ0FRRUF5OFN1Y25JWjJjL0k3dXQvS0EwSXhvN0RZa0hkSUxrbmxZOWNwMkVlClJJSzRzU1NzZnA2SzBhbWZlYWtRaEdXT2NWMmFaeEtTM0xrNERNNlVmb3ZucEQvOXpidDl0em44UUpMTDZxREEKeHFxbzVSbEt4QnpEV3lQT2JkUStMWnI2VjFQZ2wxYms2c3o0d2lWek52a2NhT0doSDdlSU90QVI0U096MjNJdAowZ0xiZHBDalFITFIvNlFuSXBjY3h3bDBGa1FtL3RVeHdRa0x1NXNpSTNKOGRiUkQwcnlFdGxReWQ5elhLM29rCjBRbVpLZDVpV1p2aDU3R1lrV1kweGMzV0J5aXY5OURQYVE3WTB4MFNaWGlPL2w0bTRzazJ3RjYwa2dUa1NJZmQKdEMxN2Y1ZzVWVzhOTW02amNpMFRXeDk5Z0REcmpHanJpaExHeTBLUWdRa2p3d0lEQVFBQm9BQXdEUVlKS29aSQpodmNOQVFFTEJRQURnZ0VCQUllZVdLbjAwZkk5ekw3MUVQNFNpOUVxVUFNUnBYT0dkT1Aybm8rMTV2VzJ5WmpwCmhsTWpVTjMraVZubkh2QVBvWFVLKzBYdXdmaklHMjBQTjA5UEd1alU4aUFIeVZRbFZRS0VaOWpRcENXYnQybngKVlZhYUw0N0tWMUpXMnF3M1YybmNVNkhlNHdtQzVqUE9vU29vVGtrVlF5Uml4bkcyVVQrejI3M2xpaTY3RkFXegpBZ1QvczlVa3gvS1dxRjIzczVuUk9TTlZUS2xCSG5LMU40YkN6RHBqZnN5V01GUXdnazhxRCtlOXp0cTh2c1VhCi9Say9jUWNyS2wxVDMyM0xDcG1TekhnM3hDdjFqdzJUVFFINm1yWlBBa2doa2R2YlNnalp6Y1JRZWNqSEpNeTMKTzFJQXJ6V3pWbU1hRTJqeGhUV1JwbkJkcVZjZERTUERiNkNXaktVPQotLS0tLUVORCBDRVJUSUZJQ0FURSBSRVFVRVNULS0tLS0K</span> 
+ <span class="hljs-attr">signerName:</span> <span class="hljs-string">kubernetes.io/kube-apiserver-client</span>
+ <span class="hljs-attr">expirationSeconds:</span> <span class="hljs-number">31536000</span> <span class="hljs-comment"># 1 year</span>
+ <span class="hljs-attr">usages:</span>
+ <span class="hljs-bullet">-</span> <span class="hljs-string">client</span> <span class="hljs-string">auth</span>
+</code></pre>
+<p>En el archivo anterior, estamos definiendo la siguiente información:</p>
+<ul>
+<li><code>apiVersion</code>: La versión de la API que estamos utilizando para crear nuestro usuario.</li>
+<li><code>kind</code>: El tipo de recurso que estamos creando, en este caso, una Solicitud de Firma de Certificado (CSR).</li>
+<li><code>metadata.name</code>: El nombre de nuestro usuario.</li>
+<li><code>spec.request</code>: El contenido del certificado en base64.</li>
+<li><code>spec.signerName</code>: El nombre del firmante del certificado, que en este caso es el kube-apiserver, que será responsable de firmar nuestro certificado.</li>
+<li><code>spec.expirationSeconds</code>: El tiempo de cad</li>
+</ul>
+<p>ucidad del certificado, que en este caso es de 1 año.</p>
+<ul>
+<li><code>spec.usages</code>: El tipo de uso del certificado, que en este caso es <code>client auth</code> (autenticación de cliente).</li>
+</ul>
+<p>Una vez que haya creado este archivo y copiado el contenido del certificado en base64, puede aplicar el recurso utilizando el siguiente comando:</p>
+<pre><code class="lang-bash">kubectl apply -f developer.yaml
+</code></pre>
+<p>Esto enviará la solicitud de firma de certificado al clúster Kubernetes para que sea firmada y se genere el certificado final para el usuario &quot;developer&quot;.</p>
+<pre><code class="lang-bash">kubectl apply -f developer.yaml
+</code></pre>
+<p>Vamos listar los CSR del clúster para ver el estado de nuestro usuario:</p>
+<pre><code class="lang-bash">kubectl get csr
+</code></pre>
+<p>El resultado será algo similar a esto:</p>
+<pre><code class="lang-bash">NAME        AGE   SIGNERNAME                                    REQUESTOR                 REQUESTEDDURATION   CONDITION
+csr-4zd8k   15m   kubernetes.io/kube-apiserver-client-kubelet   system:bootstrap:abcdef   &lt;none&gt;              Approved,Issued
+csr-68wsv   15m   kubernetes.io/kube-apiserver-client-kubelet   system:bootstrap:abcdef   &lt;none&gt;              Approved,Issued
+csr-jkm8t   15m   kubernetes.io/kube-apiserver-client-kubelet   system:bootstrap:abcdef   &lt;none&gt;              Approved,Issued
+csr-r2hcr   15m   kubernetes.io/kube-apiserver-client-kubelet   system:bootstrap:abcdef   &lt;none&gt;              Approved,Issued
+csr-x52kj   15m   kubernetes.io/kube-apiserver-client-kubelet   system:bootstrap:abcdef   &lt;none&gt;              Approved,Issued
+developer   3s    kubernetes.io/kube-apiserver-client           kubernetes-admin          365d                Pending
+</code></pre>
+<p>Observe que nuestro usuario tiene el estado <code>Pending</code> porque el kube-apiserver aún no ha firmado nuestro certificado. Puede seguir el estado de su usuario con el siguiente comando:</p>
+<pre><code class="lang-bash">kubectl describe csr developer
+</code></pre>
+<p>El resultado será algo similar a esto:</p>
+<pre><code class="lang-bash">Name:         developer
+Labels:       &lt;none&gt;
+Annotations:  kubectl.kubernetes.io/last-applied-configuration={<span class="hljs-string">&quot;apiVersion&quot;</span>:<span class="hljs-string">&quot;certificates.k8s.io/v1&quot;</span>,<span class="hljs-string">&quot;kind&quot;</span>:<span class="hljs-string">&quot;CertificateSigningRequest&quot;</span>,<span class="hljs-string">&quot;metadata&quot;</span>:{<span class="hljs-string">&quot;annotations&quot;</span>:{},<span class="hljs-string">&quot;name&quot;</span>:<span class="hljs-string">&quot;developer&quot;</span>},<span class="hljs-string">&quot;spec&quot;</span>:{<span class="hljs-string">&quot;expirationSeconds&quot;</span>:31536000,<span class="hljs-string">&quot;request&quot;</span>:<span class="hljs-string">&quot;LS0tLS1CRUdJTiBDRVJUSUZJQ0FURSBSRVFVRVNULS0tLS0KTUlJQ1dUQ0NBVUVDQVFBd0ZERVNNQkFHQTFVRUF3d0paR1YyWld4dmNHVnlNSUlCSWpBTkJna3Foa2lHOXcwQgpBUUVGQUFPQ0FROEFNSUlCQ2dLQ0FRRUF5OFN1Y25JWjJjL0k3dXQvS0EwSXhvN0RZa0hkSUxrbmxZOWNwMkVlClJJSzRzU1NzZnA2SzBhbWZlYWtRaEdXT2NWMmFaeEtTM0xrNERNNlVmb3ZucEQvOXpidDl0em44UUpMTDZxREEKeHFxbzVSbEt4QnpEV3lQT2JkUStMWnI2VjFQZ2wxYms2c3o0d2lWek52a2NhT0doSDdlSU90QVI0U096MjNJdAowZ0xiZHBDalFITFIvNlFuSXBjY3h3bDBGa1FtL3RVeHdRa0x1NXNpSTNKOGRiUkQwcnlFdGxReWQ5elhLM29rCjBRbVpLZDVpV1p2aDU3R1lrV1kweGMzV0J5aXY5OURQYVE3WTB4MFNaWGlPL2w0bTRzazJ3RjYwa2dUa1NJZmQKdEMxN2Y1ZzVWVzhOTW02amNpMFRXeDk5Z0REcmpHanJpaExHeTBLUWdRa2p3d0lEQVFBQm9BQXdEUVlKS29aSQpodmNOQVFFTEJRQURnZ0VCQUllZVdLbjAwZkk5ekw3MUVQNFNpOUVxVUFNUnBYT0dkT1Aybm8rMTV2VzJ5WmpwCmhsTWpVTjMraVZubkh2QVBvWFVLKzBYdXdmaklHMjBQTjA5UEd1alU4aUFIeVZRbFZRS0VaOWpRcENXYnQybngKVlZhYUw0N0tWMUpXMnF3M1YybmNVNkhlNHdtQzVqUE9vU29vVGtrVlF5Uml4bkcyVVQrejI3M2xpaTY3RkFXegpBZ1QvczlVa3gvS1dxRjIzczVuUk9TTlZUS2xCSG5LMU40YkN6RHBqZnN5V01GUXdnazhxRCtlOXp0cTh2c1VhCi9Say9jUWNyS2wxVDMyM0xDcG1TekhnM3hDdjFqdzJUVFFINm1yWlBBa2doa2R2YlNnalp6Y1JRZWNqSEpNeTMKTzFJQXJ6V3pWbU1hRTJqeGhUV1JwbkJkcVZjZERTUERiNkNXaktVPQotLS0tLUVORCBDRVJUSUZJQ0FURSBSRVFVRVNULS0tLS0K&quot;</span>,<span class="hljs-string">&quot;signerName&quot;</span>:<span class="hljs-string">&quot;kubernetes.io/kube-apiserver-client&quot;</span>,<span class="hljs-string">&quot;usages&quot;</span>:[<span class="hljs-string">&quot;client auth&quot;</span>]}}
+
+CreationTimestamp:   Wed, 31 Jan 2024 11:52:24 +0100
+Requesting User:     kubernetes-admin
+Signer:              kubernetes.io/kube-apiserver-client
+Requested Duration:  365d
+Status:              Pending
+Subject:
+         Common Name:    developer
+         Serial Number:  
+Events:  &lt;none&gt;
+</code></pre>
+<p>Hasta ahora todo va bien, ahora debemos aprobar nuestro certificado utilizando el comando <code>kubectl certificate approve</code>:</p>
+<pre><code class="lang-bash">kubectl certificate approve developer
+</code></pre>
+<p>Ahora vamos listar los CSR (Solicitudes de firma de certificado) del clúster nuevamente:</p>
+<pre><code class="lang-bash">kubectl get csr
+</code></pre>
+<p>El resultado será algo parecido a esto:</p>
+<pre><code class="lang-bash">NAME        AGE   SIGNERNAME                                    REQUESTOR                 REQUESTEDDURATION   CONDITION
+csr-4zd8k   17m   kubernetes.io/kube-apiserver-client-kubelet   system:bootstrap:abcdef   &lt;none&gt;              Approved,Issued
+csr-68wsv   17m   kubernetes.io/kube-apiserver-client-kubelet   system:bootstrap:abcdef   &lt;none&gt;              Approved,Issued
+csr-jkm8t   17m   kubernetes.io/kube-apiserver-client-kubelet   system:bootstrap:abcdef   &lt;none&gt;              Approved,Issued
+csr-r2hcr   17m   kubernetes.io/kube-apiserver-client-kubelet   system:bootstrap:abcdef   &lt;none&gt;              Approved,Issued
+csr-x52kj   16m   kubernetes.io/kube-apiserver-client-kubelet   system:bootstrap:abcdef   &lt;none&gt;              Approved,Issued
+developer   88s   kubernetes.io/kube-apiserver-client           kubernetes-admin          365d                Approved,Issued
+</code></pre>
+<p>Listo, nuestro certificado ha sido firmado con éxito. Ahora podemos obtener el certificado de nuestro usuario y guardarlo en un archivo. Para ello, utilizaremos el comando <code>kubectl get csr</code>:</p>
+<pre><code class="lang-bash">kubectl get csr developer -o jsonpath=<span class="hljs-string">&apos;{.status.certificate}&apos;</span> | base64 --decode &gt; developer.crt
+</code></pre>
+<p>En el comando anterior, estamos obteniendo el certificado de nuestro usuario, decodificándolo en base64 y guardándolo en el archivo <code>developer.crt</code>.</p>
+<p>Para obtener el certificado, estamos utilizando el parámetro <code>-o jsonpath=&apos;{.status.certificate}&apos;</code> para que el comando devuelva solo el certificado del usuario y no toda la información del CSR.</p>
+<p>Puede verificar el contenido del certificado mediante el comando:</p>
+<pre><code class="lang-bash">cat developer.crt
+</code></pre>
+<p>Ahora tenemos nuestro certificado final creado y podemos utilizarlo para acceder al clúster, pero antes debemos definir lo que nuestro usuario puede hacer en el clúster.</p>
+<h4 id="creando-un-rol-para-nuestro-usuario">Creando un Rol para nuestro usuario</h4>
+<p>Cuando creamos un nuevo usuario o ServiceAccount en Kubernetes, no tiene acceso a nada en el clúster. Para que pueda acceder a los recursos del clúster, debemos crear un Rol y asociarlo al usuario.</p>
+<p>La definición de un Rol consiste en un archivo donde especificamos qué permisos tendrá el usuario en el clúster y para qué recursos tendrá acceso. Dentro del Rol es donde definimos:</p>
+<ul>
+<li>En qué espacio de nombres (namespace) tendrá acceso el usuario.</li>
+<li>A qué grupos de API (apiGroups) tendrá acceso el usuario.</li>
+<li>A qué recursos tendrá acceso el usuario.</li>
+<li>A qué verbos tendrá acceso el usuario.</li>
+</ul>
+<h4 id="apigroups">apiGroups</h4>
+<p>Los grupos de API (apiGroups) son los grupos de recursos de Kubernetes, que se dividen en <code>core</code> y <code>named</code>. Puede consultar todos los grupos de recursos de Kubernetes mediante el comando <code>kubectl api-resources</code>.</p>
+<p>Veamos la lista de grupos de recursos de Kubernetes:</p>
+<pre><code class="lang-bash">kubectl api-resources
+</code></pre>
+<p>La lista es larga, pero el resultado será algo similar a esto:</p>
+<pre><code class="lang-bash">NAME                              SHORTNAMES   APIVERSION                             NAMESPACED   KIND
+bindings                                       v1                                     <span class="hljs-literal">true</span>         Binding
+componentstatuses                 cs           v1                                     <span class="hljs-literal">false</span>        ComponentStatus
+configmaps                        cm           v1                                     <span class="hljs-literal">true</span>         ConfigMap
+endpoints                         ep           v1                                     <span class="hljs-literal">true</span>         Endpoints
+events                            ev           v1                                     <span class="hljs-literal">true</span>         Event
+limitranges                       limits       v1                                     <span class="hljs-literal">true</span>         LimitRange
+namespaces                        ns           v1                                     <span class="hljs-literal">false</span>        Namespace
+nodes                             no           v1                                     <span class="hljs-literal">false</span>        Node
+persistentvolumeclaims            pvc          v1                                     <span class="hljs-literal">true</span>         PersistentVolumeClaim
+persistentvolumes                 pv           v1                                     <span class="hljs-literal">false</span>        PersistentVolume
+pods                              po           v1                                     <span class="hljs-literal">true</span>         Pod
+podtemplates                                   v1                                     <span class="hljs-literal">true</span>         PodTemplate
+replicationcontrollers            rc           v1                                     <span class="hljs-literal">true</span>         ReplicationController
+resourcequotas                    quota        v1                                     <span class="hljs-literal">true</span>         ResourceQuota
+secrets                                        v1                                     <span class="hljs-literal">true</span>         Secret
+serviceaccounts                   sa           v1                                     <span class="hljs-literal">true</span>         ServiceAccount
+services                          svc          v1                                     <span class="hljs-literal">true</span>         Service
+mutatingwebhookconfigurations                  admissionregistration.k8s.io/v1        <span class="hljs-literal">false</span>        MutatingWebhookConfiguration
+validatingwebhookconfigurations                admissionregistration.k8s.io/v1        <span class="hljs-literal">false</span>        ValidatingWebhookConfiguration
+customresourcedefinitions         crd,crds     apiextensions.k8s.io/v1                <span class="hljs-literal">false</span>        CustomResourceDefinition
+apiservices                                    apiregistration.k8s.io/v1              <span class="hljs-literal">false</span>        APIService
+controllerrevisions                            apps/v1                                <span class="hljs-literal">true</span>         ControllerRevision
+daemonsets                        ds           apps/v1                                <span class="hljs-literal">true</span>         DaemonSet
+deployments                       deploy       apps/v1                                <span class="hljs-literal">true</span>         Deployment
+replicasets                       rs           apps/v1                                <span class="hljs-literal">true</span>         ReplicaSet
+statefulsets                      sts          apps/v1                                <span class="hljs-literal">true</span>         StatefulSet
+tokenreviews                                   authentication.k8s.io/v1               <span class="hljs-literal">false</span>        TokenReview
+localsubjectaccessreviews                      authorization.k8s.io/v1                <span class="hljs-literal">true</span>         LocalSubjectAccessReview
+selfsubjectaccessreviews                       authorization.k8s.io/v1                <span class="hljs-literal">false</span>        SelfSubjectAccessReview
+selfsubjectrulesreviews                        authorization.k8s.io/v1                <span class="hljs-literal">false</span>        SelfSubjectRulesReview
+subjectaccessreviews                           authorization.k8s.io/v1                <span class="hljs-literal">false</span>        SubjectAccessReview
+horizontalpodautoscalers          hpa          autoscaling/v2                         <span class="hljs-literal">true</span>         HorizontalPodAutoscaler
+cronjobs                          cj           batch/v1                               <span class="hljs-literal">true</span>         CronJob
+<span class="hljs-built_in">jobs</span>                                           batch/v1                               <span class="hljs-literal">true</span>         Job
+certificatesigningrequests        csr          certificates.k8s.io/v1                 <span class="hljs-literal">false</span>        CertificateSigningRequest
+leases                                         coordination.k8s.io/v1                 <span class="hljs-literal">true</span>         Lease
+endpointslices                                 discovery.k8s.io/v1                    <span class="hljs-literal">true</span>         EndpointSlice
+events                            ev           events.k8s.io/v1                       <span class="hljs-literal">true</span>         Event
+flowschemas                                    flowcontrol.apiserver.k8s.io/v1beta3   <span class="hljs-literal">false</span>        FlowSchema
+prioritylevelconfigurations                    flowcontrol.apiserver.k8s.io/v1beta3   <span class="hljs-literal">false</span>        PriorityLevelConfiguration
+ingressclasses                                 networking.k8s.io/v1                   <span class="hljs-literal">false</span>        IngressClass
+ingresses                         ing          networking.k8s.io/v1                   <span class="hljs-literal">true</span>         Ingress
+networkpolicies                   netpol       networking.k8s.io/v1                   <span class="hljs-literal">true</span>         NetworkPolicy
+runtimeclasses                                 node.k8s.io/v1                         <span class="hljs-literal">false</span>        RuntimeClass
+poddisruptionbudgets              pdb          policy/v1                              <span class="hljs-literal">true</span>         PodDisruptionBudget
+clusterrolebindings                            rbac.authorization.k8s.io/v1           <span class="hljs-literal">false</span>        ClusterRoleBinding
+clusterroles                                   rbac.authorization.k8s.io/v1           <span class="hljs-literal">false</span>        ClusterRole
+rolebindings                                   rbac.authorization.k8s.io/v1           <span class="hljs-literal">true</span>         RoleBinding
+roles                                          rbac.authorization.k8s.io/v1           <span class="hljs-literal">true</span>         Role
+priorityclasses                   pc           scheduling.k8s.io/v1                   <span class="hljs-literal">false</span>        PriorityClass
+csidrivers                                     storage.k8s.io/v1                      <span class="hljs-literal">false</span>        CSIDriver
+csinodes                                       storage.k8s.io/v1                      <span class="hljs-literal">false</span>        CSINode
+csistoragecapacities                           storage.k8s.io/v1                      <span class="hljs-literal">true</span>         CSIStorageCapacity
+storageclasses                    sc           storage.k8s.io/v1                      <span class="hljs-literal">false</span>        StorageClass
+volumeattachments                              storage.k8s.io/v1                      <span class="hljs-literal">false</span>        VolumeAttachment
+</code></pre>
+<p>Donde la primera columna es el nombre del recurso, la segunda columna es el nombre abreviado del recurso, la tercera columna es la versión de la API a la que pertenece el recurso, la cuarta columna indica si el recurso se encuentra o no en un espacio de nombres (Namespaced), y la quinta columna es el tipo de recurso.</p>
+<p>Echemos un vistazo a un recurso específico, por ejemplo, el recurso <code>pods</code>:</p>
+<pre><code class="lang-bash">kubectl api-resources | grep pods
+</code></pre>
+<p>El resultado será algo similar a esto:</p>
+<pre><code class="lang-bash">NAME       SHORTNAMES   APIVERSION     NAMESPACED   KIND
+pods       po           v1             <span class="hljs-literal">true</span>         Pod
+</code></pre>
+<p>Donde:</p>
+<ul>
+<li><code>NAME</code>: Nombre del recurso.</li>
+<li><code>SHORTNAMES</code>: Nombre abreviado del recurso.</li>
+<li><code>APIVERSION</code>: Versión de la API a la que pertenece el recurso.</li>
+<li><code>NAMESPACED</code>: Indica si el recurso se encuentra o no en un espacio de nombres.</li>
+<li><code>KIND</code>: Tipo de recurso.</li>
+</ul>
+<p>Pero, ¿qué significa que un recurso esté en un espacio de nombres (Namespaced)? Un recurso Namespaced es un recurso que puede crearse dentro de un espacio de nombres (namespace), por ejemplo, un Pod, un Deployment, un Service, etc. Por otro lado, un recurso que no es Namespaced es un recurso que no puede crearse dentro de un espacio de nombres, como un Nodo (Node), un Volumen Persistente (PersistentVolume), un ClusterRole, etc. ¿Sencillo, verdad?</p>
+<p>Ahora bien, ¿cómo sabemos cuál es el apiGroup de un recurso? El apiGroup de un recurso es el nombre del grupo de recursos al que pertenece. Por ejemplo, el recurso <code>pods</code> pertenece al grupo de recursos <code>core</code>, y el recurso <code>deployments</code> pertenece al grupo de recursos <code>apps</code>. Cuando un recurso es de tipo <code>core</code>, no es necesario especificar su apiGroup, ya que Kubernetes asume automáticamente que pertenece al grupo de recursos <code>core</code>, y esto se refleja en <code>apiVersion: v1</code>.</p>
+<p>Por otro lado, <code>apiVersion: apps/v1</code> indica que el recurso pertenece al grupo de recursos <code>apps</code>, y su versión de API es <code>v1</code>. Dentro del grupo <code>apps</code>, encontramos recursos importantes como <code>deployments</code>, <code>replicasets</code>, <code>daemonsets</code>, <code>statefulsets</code>, entre otros.</p>
+<p>Los recursos son las entidades que Kubernetes administra y gestiona. Estos recursos se dividen en dos categorías principales: <code>core</code> y <code>named</code>. Puede consultar todos los recursos de Kubernetes utilizando el comando <code>kubectl api-resources</code>.</p>
+<p>Los recursos denominados <code>core</code> son recursos predefinidos que vienen instalados con Kubernetes. Por otro lado, los recursos denominados <code>named</code> son recursos que se instalan mediante Custom Resource Definitions (CRD), como por ejemplo, el recurso <code>ServiceMonitor</code> utilizado por Prometheus.</p>
+<p>A continuación, listaremos los recursos de Kubernetes que no están en un espacio de nombres (non-namespaced):</p>
+<pre><code class="lang-bash">kubectl api-resources --namespaced=<span class="hljs-literal">false</span>
+</code></pre>
+<p>El resultado será similar a lo siguiente:</p>
+<pre><code class="lang-bash">NAME                              SHORTNAMES   APIVERSION                             NAMESPACED   KIND
+componentstatuses                 cs           v1                                     <span class="hljs-literal">false</span>        ComponentStatus
+namespaces                        ns           v1                                     <span class="hljs-literal">false</span>        Namespace
+nodes                             no           v1                                     <span class="hljs-literal">false</span>        Node
+persistentvolumes                 pv           v1                                     <span class="hljs-literal">false</span>        PersistentVolume
+mutatingwebhookconfigurations                  admissionregistration.k8s.io/v1        <span class="hljs-literal">false</span>        MutatingWebhookConfiguration
+validatingwebhookconfigurations                admissionregistration.k8s.io/v1        <span class="hljs-literal">false</span>        ValidatingWebhookConfiguration
+customresourcedefinitions         crd,crds     apiextensions.k8s.io/v1                <span class="hljs-literal">false</span>        CustomResourceDefinition
+apiservices                                    apiregistration.k8s.io/v1              <span class="hljs-literal">false</span>        APIService
+tokenreviews                                   authentication.k8s.io/v1               <span class="hljs-literal">false</span>        TokenReview
+selfsubjectaccessreviews                       authorization.k8s.io/v1                <span class="hljs-literal">false</span>        SelfSubjectAccessReview
+selfsubjectrulesreviews                        authorization.k8s.io/v1                <span class="hljs-literal">false</span>        SelfSubjectRulesReview
+subjectaccessreviews                           authorization.k8s.io/v1                <span class="hljs-literal">false</span>        SubjectAccessReview
+certificatesigningrequests        csr          certificates.k8s.io/v1                 <span class="hljs-literal">false</span>        CertificateSigningRequest
+flowschemas                                    flowcontrol.apiserver.k8s.io/v1beta3   <span class="hljs-literal">false</span>        FlowSchema
+prioritylevelconfigurations                    flowcontrol.apiserver.k8s.io/v1beta3   <span class="hljs-literal">false</span>        PriorityLevelConfiguration
+ingressclasses                                 networking.k8s.io/v1                   <span class="hljs-literal">false</span>        IngressClass
+runtimeclasses                                 node.k8s.io/v1                         <span class="hljs-literal">false</span>        RuntimeClass
+clusterrolebindings                            rbac.authorization.k8s.io/v1           <span class="hljs-literal">false</span>        ClusterRoleBinding
+clusterroles                                   rbac.authorization.k8s.io/v1           <span class="hljs-literal">false</span>        ClusterRole
+priorityclasses                   pc           scheduling.k8s.io/v1                   <span class="hljs-literal">false</span>        PriorityClass
+csidrivers                                     storage.k8s.io/v1                      <span class="hljs-literal">false</span>        CSIDriver
+csinodes                                       storage.k8s.io/v1                      <span class="hljs-literal">false</span>        CSINode
+storageclasses                    sc           storage.k8s.io/v1                      <span class="hljs-literal">false</span>        StorageClass
+volumeattachments                              storage.k8s.io/v1                      <span class="hljs-literal">false</span>        VolumeAttachment
+</code></pre>
+<p>De esta manera, podemos identificar cuáles son los recursos nativos de Kubernetes y cuáles son los recursos instalados a través de CRD (Definiciones de Recursos Personalizados, por sus siglas en inglés), como por ejemplo, <code>ServiceMonitor</code> de Prometheus.</p>
+<p>Por lo tanto, el nombre del recurso es el nombre que utilizamos para crear el recurso, como por ejemplo, <code>pods</code>, <code>deployments</code>, <code>services</code>, etc.</p>
+<h4 id="verbos">Verbos</h4>
+<p>Los verbos definen las acciones que un usuario puede realizar en un recurso determinado. Por ejemplo, los verbos pueden incluir crear, listar, actualizar, eliminar, etc.</p>
+<p>Para que pueda ver los verbos que se pueden utilizar, vamos a utilizar el comando <code>kubectl api-resources</code> con la opción <code>-o wide</code>:</p>
+<pre><code class="lang-bash">kubectl api-resources -o wide
+</code></pre>
+<p>El resultado se verá similar a esto:</p>
+<pre><code class="lang-bash">NAME                              SHORTNAMES   APIVERSION                             NAMESPACED   KIND                             VERBS                                                        CATEGORIES
+bindings                                       v1                                     <span class="hljs-literal">true</span>         Binding                          create                                                       
+componentstatuses                 cs           v1                                     <span class="hljs-literal">false</span>        ComponentStatus                  get,list                                                     
+configmaps                        cm           v1                                     <span class="hljs-literal">true</span>         ConfigMap                        create,delete,deletecollection,get,list,patch,update,watch   
+endpoints                         ep           v1                                     <span class="hljs-literal">true</span>         Endpoints                        create,delete,deletecollection,get,list,patch,update,watch   
+events                            ev           v1                                     <span class="hljs-literal">true</span>         Event                            create,delete,deletecollection,get,list,patch,update,watch   
+limitranges                       limits       v1                                     <span class="hljs-literal">true</span>         LimitRange                       create,delete,deletecollection,get,list,patch,update,watch   
+namespaces                        ns           v1                                     <span class="hljs-literal">false</span>        Namespace                        create,delete,get,list,patch,update,watch                    
+nodes                             no           v1                                     <span class="hljs-literal">false</span>        Node                             create,delete,deletecollection,get,list,patch,update,watch   
+persistentvolumeclaims            pvc          v1                                     <span class="hljs-literal">true</span>         PersistentVolumeClaim            create,delete,deletecollection,get,list,patch,update,watch   
+persistentvolumes                 pv           v1                                     <span class="hljs-literal">false</span>        PersistentVolume                 create,delete,deletecollection,get,list,patch,update,watch   
+pods                              po           v1                                     <span class="hljs-literal">true</span>         Pod                              create,delete,deletecollection,get,list,patch,update,watch   all
+podtemplates                                   v1                                     <span class="hljs-literal">true</span>         PodTemplate                      create,delete,deletecollection,get,list,patch,update,watch   
+replicationcontrollers            rc           v1                                     <span class="hljs-literal">true</span>         ReplicationController            create,delete,deletecollection,get,list,patch,update,watch   all
+resourcequotas                    quota        v1                                     <span class="hljs-literal">true</span>         ResourceQuota                    create,delete,deletecollection,get,list,patch,update,watch   
+secrets                                        v1                                     <span class="hljs-literal">true</span>         Secret                           create,delete,deletecollection,get,list,patch,update,watch   
+serviceaccounts                   sa           v1                                     <span class="hljs-literal">true</span>         ServiceAccount                   create,delete,deletecollection,get,list,patch,update,watch   
+services                          svc          v1                                     <span class="hljs-literal">true</span>         Service                          create,delete,deletecollection,get,list,patch,update,watch   all
+mutatingwebhookconfigurations                  admissionregistration.k8s.io/v1        <span class="hljs-literal">false</span>        MutatingWebhookConfiguration     create,delete,deletecollection,get,list,patch,update,watch   api-extensions
+validatingwebhookconfigurations                admissionregistration.k8s.io/v1        <span class="hljs-literal">false</span>        ValidatingWebhookConfiguration   create,delete,deletecollection,get,list,patch,update,watch   api-extensions
+customresourcedefinitions         crd,crds     apiextensions.k8s.io/v1                <span class="hljs-literal">false</span>        CustomResourceDefinition         create,delete,deletecollection,get,list,patch,update,watch   api-extensions
+apiservices                                    apiregistration.k8s.io/v1              <span class="hljs-literal">false</span>        APIService                       create,delete,deletecollection,get,list,patch,update,watch   api-extensions
+controllerrevisions                            apps/v1                                <span class="hljs-literal">true</span>         ControllerRevision               create,delete,deletecollection,get,list,patch,update,watch   
+daemonsets                        ds           apps/v1                                <span class="hljs-literal">true</span>         DaemonSet                        create,delete,deletecollection,get,list,patch,update,watch   all
+deployments                       deploy       apps/v1                                <span class="hljs-literal">true</span>         Deployment                       create,delete,deletecollection,get,list,patch,update,watch   all
+replicasets                       rs           apps/v1                                <span class="hljs-literal">true</span>         ReplicaSet                       create,delete,deletecollection,get,list,patch,update,watch   all
+statefulsets                      sts          apps/v1                                <span class="hljs-literal">true</span>         StatefulSet                      create,delete,deletecollection,get,list,patch,update,watch   all
+tokenreviews                                   authentication.k8s.io/v1               <span class="hljs-literal">false</span>        TokenReview                      create                                                       
+localsubjectaccessreviews                      authorization.k8s.io/v1                <span class="hljs-literal">true</span>         LocalSubjectAccessReview         create                                                       
+selfsubjectaccessreviews                       authorization.k8s.io/v1                <span class="hljs-literal">false</span>        SelfSubjectAccessReview          create                                                       
+selfsubjectrulesreviews                        authorization.k8s.io/v1                <span class="hljs-literal">false</span>        SelfSubjectRulesReview           create                                                       
+subjectaccessreviews                           authorization.k8s.io/v1                <span class="hljs-literal">false</span>        SubjectAccessReview              create                                                       
+horizontalpodautoscalers          hpa          autoscaling/v2                         <span class="hljs-literal">true</span>         HorizontalPodAutoscaler          create,delete,deletecollection,get,list,patch,update,watch   all
+cronjobs                          cj           batch/v1                               <span class="hljs-literal">true</span>         CronJob                          create,delete,deletecollection,get,list,patch,update,watch   all
+<span class="hljs-built_in">jobs</span>                                           batch/v1                               <span class="hljs-literal">true</span>         Job                              create,delete,deletecollection,get,list,patch,update,watch   all
+certificatesigningrequests        csr          certificates.k8s.io/v1                 <span class="hljs-literal">false</span>        CertificateSigningRequest        create,delete,deletecollection,get,list,patch,update,watch   
+leases                                         coordination.k8s.io/v1                 <span class="hljs-literal">true</span>         Lease                            create,delete,deletecollection,get,list,patch,update,watch   
+endpointslices                                 discovery.k8s.io/v1                    <span class="hljs-literal">true</span>         EndpointSlice                    create,delete,deletecollection,get,list,patch,update,watch   
+events                            ev           events.k8s.io/v1                       <span class="hljs-literal">true</span>         Event                            create,delete,deletecollection,get,list,patch,update,watch   
+flowschemas                                    flowcontrol.apiserver.k8s.io/v1beta3   <span class="hljs-literal">false</span>        FlowSchema                       create,delete,deletecollection,get,list,patch,update,watch   
+prioritylevelconfigurations                    flowcontrol.apiserver.k8s.io/v1beta3   <span class="hljs-literal">false</span>        PriorityLevelConfiguration       create,delete,deletecollection,get,list,patch,update,watch   
+ingressclasses                                 networking.k8s.io/v1                   <span class="hljs-literal">false</span>        IngressClass                     create,delete,deletecollection,get,list,patch,update,watch   
+ingresses                         ing          networking.k8s.io/v1                   <span class="hljs-literal">true</span>         Ingress                          create,delete,deletecollection,get,list,patch,update,watch   
+networkpolicies                   netpol       networking.k8s.io/v1                   <span class="hljs-literal">true</span>         NetworkPolicy                    create,delete,deletecollection,get,list,patch,update,watch   
+runtimeclasses                                 node.k8s.io/v1                         <span class="hljs-literal">false</span>        RuntimeClass                     create,delete,deletecollection,get,list,patch,update,watch   
+poddisruptionbudgets              pdb          policy/v1                              <span class="hljs-literal">true</span>         PodDisruptionBudget              create,delete,deletecollection,get,list,patch,update,watch   
+clusterrolebindings                            rbac.authorization.k8s.io/v1           <span class="hljs-literal">false</span>        ClusterRoleBinding               create,delete,deletecollection,get,list,patch,update,watch   
+clusterroles                                   rbac.authorization.k8s.io/v1           <span class="hljs-literal">false</span>        ClusterRole                      create,delete,deletecollection,get,list,patch,update,watch   
+rolebindings                                   rbac.authorization.k8s.io/v1           <span class="hljs-literal">true</span>         RoleBinding                      create,delete,deletecollection,get,list,patch,update,watch   
+roles                                          rbac.authorization.k8s.io/v1           <span class="hljs-literal">true</span>         Role                             create,delete,deletecollection,get,list,patch,update,watch   
+priorityclasses                   pc           scheduling.k8s.io/v1                   <span class="hljs-literal">false</span>        PriorityClass                    create,delete,deletecollection,get,list,patch,update,watch   
+csidrivers                                     storage.k8s.io/v1                      <span class="hljs-literal">false</span>        CSIDriver                        create,delete,deletecollection,get,list,patch,update,watch   
+csinodes                                       storage.k8s.io/v1                      <span class="hljs-literal">false</span>        CSINode                          create,delete,deletecollection,get,list,patch,update,watch   
+csistoragecapacities                           storage.k8s.io/v1                      <span class="hljs-literal">true</span>         CSIStorageCapacity               create,delete,deletecollection,get,list,patch,update,watch   
+storageclasses                    sc           storage.k8s.io/v1                      <span class="hljs-literal">false</span>        StorageClass                     create,delete,deletecollection,get,list,patch,update,watch   
+volumeattachments                              storage.k8s.io/v1                      <span class="hljs-literal">false</span>        VolumeAttachment                 create,delete,deletecollection,get,list,patch,update,watch
+</code></pre>
+<p>Ahora, observe que tenemos una nueva columna llamada <code>VERBS</code>, que contiene todos los verbos que se pueden utilizar con el recurso, y la columna <code>CATEGORIES</code>, que muestra la categoría del recurso. Sin embargo, nuestro enfoque aquí está en los verbos, así que echemos un vistazo a ellos.</p>
+<p>Los verbos se dividen en:</p>
+<ul>
+<li><code>create</code>: Permite que el usuario cree un recurso.</li>
+<li><code>delete</code>: Permite que el usuario elimine un recurso.</li>
+<li><code>deletecollection</code>: Permite que el usuario elimine una colección de recursos.</li>
+<li><code>get</code>: Permite que el usuario obtenga un recurso.</li>
+<li><code>list</code>: Permite que el usuario liste los recursos.</li>
+<li><code>patch</code>: Permite que el usuario actualice un recurso.</li>
+<li><code>update</code>: Permite que el usuario actualice un recurso.</li>
+<li><code>watch</code>: Permite que el usuario siga los cambios en un recurso.</li>
+</ul>
+<p>Por ejemplo, tomemos la línea del recurso <code>pods</code>:</p>
+<pre><code class="lang-bash">NAME   SHORTNAMES   APIVERSION     NAMESPACED   KIND     VERBS                     CATEGORIES
+pods   po           v1             <span class="hljs-literal">true</span>         Pod      create,delete,deletecollection,get,list,patch,update,watch   all
+</code></pre>
+<p>Con esto, sabemos que el usuario puede crear, eliminar, eliminar una colección, obtener, listar, actualizar y seguir los cambios en un Pod. ¡Muy sencillo!</p>
+<p>Ahora que conocemos bien los <code>resources</code>, <code>apiGroups</code> y <code>verbs</code>, crearemos nuestra Role para nuestro usuario.</p>
+<p>Para ello, crearemos un archivo llamado <code>developer-role.yaml</code> con el siguiente contenido:</p>
+<pre><code class="lang-yaml"><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">rbac.authorization.k8s.io/v1</span>
+<span class="hljs-attr">kind:</span> <span class="hljs-string">Role</span>
+<span class="hljs-attr">metadata:</span>
+ <span class="hljs-attr">name:</span> <span class="hljs-string">developer</span>
+ <span class="hljs-attr">namespace:</span> <span class="hljs-string">dev</span>
+<span class="hljs-attr">rules:</span>
+<span class="hljs-bullet">-</span> <span class="hljs-attr">apiGroups:</span> [<span class="hljs-string">&quot;&quot;</span>] <span class="hljs-comment"># &quot;&quot; indica el grupo de recursos principal</span>
+  <span class="hljs-attr">resources:</span> [<span class="hljs-string">&quot;pods&quot;</span>]
+  <span class="hljs-attr">verbs:</span> [<span class="hljs-string">&quot;get&quot;</span>, <span class="hljs-string">&quot;watch&quot;</span>, <span class="hljs-string">&quot;list&quot;</span>, <span class="hljs-string">&quot;update&quot;</span>, <span class="hljs-string">&quot;create&quot;</span>, <span class="hljs-string">&quot;delete&quot;</span>]
+</code></pre>
+<p>En el archivo anterior, definimos la siguiente información:</p>
+<ul>
+<li><code>apiVersion</code>: Versión de la API que estamos utilizando para crear nuestro usuario.</li>
+<li><code>kind</code>: Tipo de recurso que estamos creando, en este caso, una Role.</li>
+<li><code>metadata.name</code>: Nombre de nuestra Role.</li>
+<li><code>metadata.namespace</code>: Namespace en el que se creará nuestra Role.</li>
+<li><code>rules</code>: Reglas de nuestra Role.</li>
+<li><code>rules.apiGroups</code>: Grupos de recursos a los que tendrá acceso nuestra Role.</li>
+<li><code>rules.resources</code>: Recursos a los que tendrá acceso nuestra Role.</li>
+<li><code>rules.verbs</code>: Verbos a los que tendrá acceso nuestra Role.</li>
+</ul>
+<p>Estoy seguro de que le resulta fácil comprender la Role, que básicamente establece lo que nuestro usuario puede hacer en el clúster. En resumen, estamos diciendo que el usuario que utilice esta Role podrá realizar todas las operaciones con el recurso <code>pods</code> en el espacio de nombres <code>dev</code>. ¡Tan sencillo como volar!</p>
+<p>Recuerde que esta Role puede ser reutilizada por otros usuarios y que puede crear tantas Roles como desee, así como crear Roles para otros perfiles de usuarios y otros recursos, como <code>deployments</code>, <code>services</code>, <code>configmaps</code>, etc.</p>
+<p>¡Ah, antes de continuar, creemos el espacio de nombres <code>dev</code>:</p>
+<pre><code class="lang-bash">kubectl create ns dev
+</code></pre>
+<p>Ahora que hemos creado nuestro archivo y el espacio de nombres, vamos a aplicarlo en el clúster:</p>
+<pre><code class="lang-bash">kubectl apply -f developer-role.yaml
+</code></pre>
+<p>Para verificar si nuestra Role se ha creado correctamente, enumeremos las Roles en el clúster:</p>
+<pre><code class="lang-bash">kubectl get roles -n dev
+</code></pre>
+<p>La salida será algo como:</p>
+<pre><code class="lang-bash">NAME        CREATED AT
+developer   2024-01-31T11:32:08Z
+</code></pre>
+<p>Para ver los detalles de la Role, utilizaremos el comando <code>kubectl describe</code>:</p>
+<pre><code class="lang-bash">kubectl describe role developer -n dev
+</code></pre>
+<p>La salida será algo parecida a esto:</p>
+<pre><code class="lang-bash">Name:         developer
+Labels:       &lt;none&gt;
+Annotations:  &lt;none&gt;
+PolicyRule:
+  Resources  Non-Resource URLs  Resource Names  Verbs
+  ---------  -----------------  --------------  -----
+  pods       []                 []              [get watch list update create delete]
+</code></pre>
+<p>Listo, nuestra Role ya está creada, pero aún no la hemos asociado a nuestro usuario. Para hacerlo, crearemos un RoleBinding.</p>
+<p>El RoleBinding es el recurso que asocia un usuario a una Role, es decir, a través del RoleBinding definimos qué usuario tiene acceso a qué Role. Puedes pensar en ello como si fuera una insignia de Desarrollador, donde la Role sería la insignia y el RoleBinding sería la insignia con el nombre del usuario. ¿Tiene sentido?</p>
+<p>Para ello, crearemos un archivo llamado <code>developer-rolebinding.yaml</code> con el siguiente contenido:</p>
+<pre><code class="lang-yaml"><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">rbac.authorization.k8s.io/v1</span>
+<span class="hljs-attr">kind:</span> <span class="hljs-string">RoleBinding</span>
+<span class="hljs-attr">metadata:</span>
+  <span class="hljs-attr">name:</span> <span class="hljs-string">DeveloperRoleBinding</span>
+  <span class="hljs-attr">namespace:</span> <span class="hljs-string">dev</span>
+<span class="hljs-attr">subjects:</span>
+<span class="hljs-bullet">-</span> <span class="hljs-attr">kind:</span> <span class="hljs-string">User</span>
+  <span class="hljs-attr">name:</span> <span class="hljs-string">developer</span>
+<span class="hljs-attr">roleRef:</span>
+  <span class="hljs-attr">kind:</span> <span class="hljs-string">Role</span>
+  <span class="hljs-attr">name:</span> <span class="hljs-string">developer</span>
+  <span class="hljs-attr">apiGroup:</span> <span class="hljs-string">rbac.authorization.k8s.io</span>
+</code></pre>
+<p>En el archivo anterior, estamos definiendo la siguiente información:</p>
+<ul>
+<li><code>apiVersion</code>: La versión de la API que estamos utilizando para crear nuestro usuario.</li>
+<li><code>kind</code>: El tipo de recurso que estamos creando, en este caso, un RoleBinding.</li>
+<li><code>metadata.name</code>: El nombre de nuestro RoleBinding.</li>
+<li><code>metadata.namespace</code>: El espacio de nombres en el que se creará nuestro RoleBinding.</li>
+<li><code>subjects</code>: Los usuarios que tendrán acceso a la Role.</li>
+<li><code>subjects.kind</code>: El tipo de usuario, que en este caso es <code>User</code>.</li>
+<li><code>subjects.name</code>: El nombre del usuario, que en este caso es <code>developer</code>.</li>
+<li><code>roleRef</code>: La referencia a la Role a la que el usuario tendrá acceso.</li>
+<li><code>roleRef.kind</code>: El tipo de Role, que en este caso es <code>Role</code>.</li>
+<li><code>roleRef.name</code>: El nombre de la Role, que en este caso es <code>developer</code>.</li>
+<li><code>roleRef.apiGroup</code>: El grupo de recursos de la Role, que en este caso es <code>rbac.authorization.k8s.io</code>.</li>
+</ul>
+<p>No es nada complicado, y una vez más, está muy claro lo que estamos haciendo, que es darle acceso al usuario <code>developer</code> con la Role <code>developer</code> en el espacio de nombres <code>dev</code>.</p>
+<p>Ahora que tenemos nuestro archivo creado, apliquémoslo:</p>
+<pre><code class="lang-bash">kubectl apply -f developer-rolebinding.yaml
+</code></pre>
+<p>Para verificar si nuestro RoleBinding se creó correctamente, enumeremos los RoleBindings en el clúster:</p>
+<pre><code class="lang-bash">kubectl get rolebindings -n dev
+</code></pre>
+<p>La salida será:</p>
+<pre><code class="lang-bash">NAME                   ROLE             AGE
+DeveloperRoleBinding   Role/developer   9s
+</code></pre>
+<p>Para ver los detalles del RoleBinding, utilizaremos el comando <code>kubectl describe</code>:</p>
+<pre><code class="lang-bash">kubectl describe rolebinding DeveloperRoleBinding -n dev
+</code></pre>
+<p>La salida será algo similar a esto:</p>
+<pre><code class="lang-bash">Name:         DeveloperRoleBinding
+Labels:       &lt;none&gt;
+Annotations:  &lt;none&gt;
+Role:
+  Kind:  Role
+  Name:  developer
+Subjects:
+  Kind  Name       Namespace
+  ----  ----       ---------
+  User  developer
+</code></pre>
+<p>Listo, el RoleBinding se ha creado con éxito. Ahora, vamos a probar nuestro usuario.</p>
+<h4 id="agregando-el-certificado-del-usuario-al-kubeconfig">Agregando el certificado del usuario al kubeconfig</h4>
+<p>Ahora que hemos creado con éxito nuestro usuario, debemos agregar el certificado del usuario al kubeconfig para poder acceder al clúster con nuestro usuario.</p>
+<p>Para hacerlo, utilizaremos el comando <code>kubectl config set-credentials</code>:</p>
+<pre><code class="lang-bash">kubectl config set-credentials developer --client-certificate=developer.crt --client-key=developer.key --embed-certs=<span class="hljs-literal">true</span>
+</code></pre>
+<p>El comando <code>kubectl config set-credentials</code> se utiliza para agregar un nuevo usuario al kubeconfig y recibe los siguientes parámetros:</p>
+<ul>
+<li><code>--client-certificate</code>: Ruta del certificado del usuario.</li>
+<li><code>--client-key</code>: Ruta de la clave del usuario.</li>
+<li><code>--embed-certs</code>: Indica si el certificado debe incrustarse en el kubeconfig.</li>
+</ul>
+<p>En nuestro caso, estamos proporcionando la ruta del certificado y la clave del usuario, y estamos indicando que el certificado debe incrustarse en el kubeconfig.</p>
+<p>Ahora debemos crear un contexto para nuestro usuario utilizando el comando <code>kubectl config set-context</code>:</p>
+<pre><code class="lang-bash">kubectl config set-context developer --cluster=NOMBRE-DEL-CLÚSTER --namespace=dev --user=developer
+</code></pre>
+<p>Si no recuerdas qué es un contexto en Kubernetes, te ayudaré a recordarlo. Un contexto es un conjunto de configuraciones que define el acceso a un clúster, es decir, un contexto está compuesto por un clúster, un usuario y un espacio de nombres (namespace). Cuando creas un nuevo usuario, debes crear un nuevo contexto para él, de modo que pueda acceder al clúster.</p>
+<p>Para obtener los nombres de los clústeres, puedes utilizar el comando <code>kubectl config get-clusters</code>, de esta manera podrás obtener el nombre del clúster que deseas utilizar.</p>
+<p>Con esto, nuestro nuevo usuario está listo para ser utilizado, pero antes verifiquemos si funciona correctamente.</p>
+<h4 id="accediendo-al-clúster-con-el-nuevo-usuario">Accediendo al clúster con el nuevo usuario</h4>
+<p>Una vez que hemos creado nuestro usuario y que el certificado del usuario se ha agregado al kubeconfig, y que ya tenemos un contexto para el usuario, podemos probar el acceso al clúster.</p>
+<p>Para hacerlo, debemos cambiar al contexto del usuario utilizando el comando <code>kubectl config use-context</code>:</p>
+<pre><code class="lang-bash">kubectl config use-context developer
+</code></pre>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="../day-14/" class="navigation navigation-prev " aria-label="Previous page: Simplificando Kubernetes día 14">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="../CONTRIBUTING.html" class="navigation navigation-next " aria-label="Next page: Cómo ayudar">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"Simplificando Kubernetes día 15","level":"2.15","depth":1,"next":{"title":"Cómo ayudar","level":"3.1","depth":1,"path":"CONTRIBUTING.md","ref":"CONTRIBUTING.md","articles":[]},"previous":{"title":"Simplificando Kubernetes día 14","level":"2.14","depth":1,"path":"day-14/README.md","ref":"day-14/README.md","articles":[]},"dir":"ltr"},"config":{"plugins":[],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"language":"es","gitbook":"*"},"file":{"path":"day-15/README.md","mtime":"2024-02-13T12:08:25.867Z","type":"markdown"},"gitbook":{"version":"3.6.20","time":"2024-02-13T12:08:36.997Z"},"basePath":"..","book":{"language":"es"}});
+        });
+    </script>
+</div>
+
+        
+    <noscript>
+        <style>
+            .honkit-cloak {
+                display: block !important;
+            }
+        </style>
+    </noscript>
+    <script>
+        // Restore sidebar state as critical path for prevent layout shift
+        function __init__getSidebarState(defaultValue){
+            var baseKey = "";
+            var key = baseKey + ":sidebar";
+            try {
+                var value = localStorage[key];
+                if (value === undefined) {
+                    return defaultValue;
+                }
+                var parsed = JSON.parse(value);
+                return parsed == null ? defaultValue : parsed;
+            } catch (e) {
+                return defaultValue;
+            }
+        }
+        function __init__restoreLastSidebarState() {
+            var isMobile = window.matchMedia("(max-width: 600px)").matches;
+            if (isMobile) {
+                // Init last state if not mobile
+                return;
+            }
+            var sidebarState = __init__getSidebarState(true);
+            var book = document.querySelector(".book");
+            // Show sidebar if it enabled
+            if (sidebarState && book) {
+                book.classList.add("without-animation", "with-summary");
+            }
+        }
+
+        try {
+            __init__restoreLastSidebarState();
+        } finally {
+            var book = document.querySelector(".book");
+            book.classList.remove("honkit-cloak");
+        }
+    </script>
+    <script src="../../gitbook/gitbook.js"></script>
+    <script src="../../gitbook/theme.js"></script>
+    
+        
+        <script src="../../gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+

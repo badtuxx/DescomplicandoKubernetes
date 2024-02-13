@@ -277,9 +277,9 @@
             
         </li>
     
-        <li class="chapter " data-level="2.14" data-path="day-14/README.md">
+        <li class="chapter " data-level="2.14" data-path="day-14/">
             
-                <span>
+                <a href="day-14/">
             
                     
                     Simplificando Kubernetes día 14
@@ -290,9 +290,9 @@
             
         </li>
     
-        <li class="chapter " data-level="2.15" data-path="day-15/README.md">
+        <li class="chapter " data-level="2.15" data-path="day-15/">
             
-                <span>
+                <a href="day-15/">
             
                     
                     Simplificando Kubernetes día 15
@@ -375,7 +375,7 @@
 <p>¡Siéntase libre de aprender mucho sobre Kubernetes utilizando este libro!</p>
 <h2 id="contenido">Contenido</h2>
 <details>
-<summary>DÍA 1</summary>
+<summary>DAY-1</summary>
 
 - [Simplificando Kubernetes](day-1/README.md#simplificando-kubernetes)
   - [Día 1](day-1/README.md##día-1)
@@ -595,12 +595,68 @@
 
 <details>
 <summary>DAY-8</summary>
-TO DO
+
+- [Simplificando Kubernetes](day-8/#simplificando-kubernetes)
+  - [Día 8](day-8/#día-8)
+    - [Contenido del Día 8](day-8/#contenido-del-día-8)
+    - [¿Qué veremos hoy?](day-8/#qué-veremos-hoy)
+      - [¿Qué son los Secrets?](day-8/#qué-son-los-secrets)
+        - [¿Cómo funcionan los Secrets?](day-8/#cómo-funcionan-los-secrets)
+        - [Tipos de Secrets](day-8/#tipos-de-secrets)
+        - [Antes de crear un Secret, el Base64](day-8/#antes-de-crear-un-secret-el-base64)
+        - [Creando nuestro primer Secret](day-8/#creando-nuestro-primer-secret)
+        - [Usando nuestro primer Secret](day-8/#usando-nuestro-primer-secret)
+        - [Creando un Secreto para almacenar credenciales de Docker](day-8/#creando-un-secreto-para-almacenar-credenciales-de-docker)
+        - [Creando un Secret TLS](day-8/#creando-un-secret-tls)
+      - [ConfigMaps](day-8/#configmaps)
+      - [Operador de Secretos Externos](day-8/#operador-de-secretos-externos)
+        - [El Rol Destacado del ESO](day-8/#el-rol-destacado-del-eso)
+        - [Conceptos Clave del Operador de Secretos Externos](day-8/#conceptos-clave-del-operador-de-secretos-externos)
+        - [SecretStore](day-8/#secretstore)
+        - [ExternalSecret](day-8/#externalsecret)
+        - [ClusterSecretStore](day-8/#clustersecretstore)
+        - [Control de Acceso y Seguridad](day-8/#control-de-acceso-y-seguridad)
+      - [Configurando el External Secrets Operator](day-8/#configurando-el-external-secrets-operator)
+        - [¿Qué es Vault?](day-8/#qué-es-vault)
+        - [¿Por Qué Usar Vault?](day-8/#por-qué-usar-vault)
+        - [Comandos Básicos de Vault](day-8/#comandos-básicos-de-vault)
+        - [El Vault en el Contexto de Kubernetes](day-8/#el-vault-en-el-contexto-de-kubernetes)
+        - [Instalación y Configuración de Vault en Kubernetes](day-8/#instalación-y-configuración-de-vault-en-kubernetes)
+        - [Requisitos Previos](day-8/#requisitos-previos)
+        - [Instalando y Configurando Vault con Helm](day-8/#instalando-y-configurando-vault-con-helm)
+        - [Agregar el Repositorio del Operador de Secretos Externos a Helm](day-8/#agregar-el-repositorio-del-operador-de-secretos-externos-a-helm)
+        - [Instalando el Operador de Secretos Externos](day-8/#instalando-el-operador-de-secretos-externos)
+        - [Verificación de la Instalación de ESO](day-8/#verificación-de-la-instalación-de-eso)
+        - [Creación de un Secreto en Kubernetes](day-8/#creación-de-un-secreto-en-kubernetes)
+        - [Configuración del ClusterSecretStore](day-8/#configuración-del-clustersecretstore)
+        - [Creación de un ExternalSecret](day-8/#creación-de-un-externalsecret)
+  - [Final del Día 8](day-8/#final-del-día-8)
+
+ 
 </details>
 
 <details>
 <summary>DAY-9</summary>
-TO DO
+
+- [Simplificando Kubernetes](day-9/#simplificando-kubernetes)
+  - [DÍA 9](day-9/#día-9)
+    - [¿Qué veremos hoy?](day-9/#qué-veremos-hoy)
+    - [Contenido del Día 9](day-9/#contenido-del-día-9)
+- [¿Qué es Ingress?](day-9/#qué-es-ingress)
+- [Componentes de Ingress](day-9/#componentes-de-ingress)
+  - [Componentes Clave](day-9/#componentes-clave)
+    - [Ingress Controller](day-9/#ingress-controller)
+    - [Ingress Resources](day-9/#ingress-resources)
+    - [Anotaciones y Personalizaciones](day-9/#anotaciones-y-personalizaciones)
+    - [Instalación del Nginx Ingress Controller](day-9/#instalación-del-nginx-ingress-controller)
+      - [Instalación del Ingress Controller Nginx en Kind](day-9/#instalación-del-ingress-controller-nginx-en-kind)
+        - [Creación del Clúster con Configuraciones Especiales](day-9/#creación-del-clúster-con-configuraciones-especiales)
+        - [Instalación de un Ingress Controller](day-9/#instalación-de-un-ingress-controller)
+    - [Instalación de Giropops-Senhas en el Cluster](day-9/#instalación-de-giropops-senhas-en-el-cluster)
+    - [Creación de un Recurso de Ingress](day-9/#creación-de-un-recurso-de-ingress)
+- [TBD (Por determinar)](day-9/#tbd-por-determinar)
+
+ 
 </details>
 
 <details>
@@ -610,22 +666,172 @@ TO DO
 
 <details>
 <summary>DAY-11</summary>
-TO DO
+
+- [Simplificando Kubernetes](day-11/#simplificando-kubernetes)
+  - [Día 11](day-11/#día-11)
+  - [Contenido del Día 11](day-11/#contenido-del-día-11)
+    - [Comienzo de la lección del Día 11](day-11/#comienzo-de-la-lección-del-día-11)
+      - [¿Qué veremos hoy?](day-11/#qué-veremos-hoy)
+      - [Introducción al Escalador Automático de Pods Horizontales (HPA)](day-11/#introducción-al-escalador-automático-de-pods-horizontales-hpa)
+      - [¿Cómo funciona el HPA?](day-11/#cómo-funciona-el-hpa)
+  - [Introducción al Metrics Server](day-11/#introducción-al-metrics-server)
+    - [¿Por qué es importante el Metrics Server para el HPA?](day-11/#por-qué-es-importante-el-metrics-server-para-el-hpa)
+    - [Instalación del Metrics Server](day-11/#instalación-del-metrics-server)
+      - [En Amazon EKS y la mayoría de los clústeres Kubernetes](day-11/#en-amazon-eks-y-la-mayoría-de-los-clústeres-kubernetes)
+      - [En Minikube](day-11/#en-minikube)
+      - [En KinD (Kubernetes in Docker)](day-11/#en-kind-kubernetes-in-docker)
+      - [Verificando la Instalación del Metrics Server](day-11/#verificando-la-instalación-del-metrics-server)
+      - [Obteniendo Métricas](day-11/#obteniendo-métricas)
+    - [Creando un HPA](day-11/#creando-un-hpa)
+    - [Ejemplos Prácticos con HPA](day-11/#ejemplos-prácticos-con-hpa)
+      - [Escalado automático basado en el uso de CPU](day-11/#escalado-automático-basado-en-el-uso-de-cpu)
+      - [Escalado automático basado en el uso de Memoria](day-11/#escalado-automático-basado-en-el-uso-de-memoria)
+      - [Configuración Avanzada de HPA: Definición del Comportamiento de Escalado](day-11/#configuración-avanzada-de-hpa-definición-del-comportamiento-de-escalado)
+      - [ContainerResource](day-11/#containerresource)
+      - [Detalles del Algoritmo de Escalado](day-11/#detalles-del-algoritmo-de-escalado)
+      - [Configuraciones Avanzadas y Uso Práctico](day-11/#configuraciones-avanzadas-y-uso-práctico)
+      - [Integración del HPA con Prometheus para Métricas Personalizadas](day-11/#integración-del-hpa-con-prometheus-para-métricas-personalizadas)
+    - [Tu Tarea](day-11/#tu-tarea)
+    - [Fin del Día 11](day-11/#fin-del-día-11)
+
+ 
 </details>
-TO DO
+
 <details>
 <summary>DAY-12</summary>
-TO DO
+
+- [Simplificando Kubernetes](day-12/#simplificando-kubernetes)
+  - [Día 12: Dominando Taints y Tolerations](day-12/#día-12-dominando-taints-y-tolerations)
+  - [Contenido del Día 12](day-12/#contenido-del-día-12)
+    - [Introducción](day-12/#introducción)
+    - [¿Qué son Taints y Tolerations?](day-12/#qué-son-taints-y-tolerations)
+    - [¿Por qué usar Taints y Tolerations?](day-12/#por-qué-usar-taints-y-tolerations)
+    - [Anatomía de un Taint](day-12/#anatomía-de-un-taint)
+    - [Anatomía de una Tolerations](day-12/#anatomía-de-una-tolerations)
+    - [Aplicación de Taints](day-12/#aplicación-de-taints)
+    - [Configuración de Tolerations](day-12/#configuración-de-tolerations)
+    - [Escenarios de Uso](day-12/#escenarios-de-uso)
+      - [Aislamiento de Cargas de Trabajo](day-12/#aislamiento-de-cargas-de-trabajo)
+      - [Nodos Especializados](day-12/#nodos-especializados)
+      - [Toleration en un Pod que Requiere GPU:](day-12/#toleration-en-un-pod-que-requiere-gpu)
+      - [Evacuación y Mantenimiento de Nodos](day-12/#evacuación-y-mantenimiento-de-nodos)
+      - [Combinando Taints y Tolerations con Reglas de Afinidad](day-12/#combinando-taints-y-tolerations-con-reglas-de-afinidad)
+    - [Ejemplos Prácticos](day-12/#ejemplos-prácticos)
+      - [Ejemplo 1: Aislamiento de Cargas de Trabajo](day-12/#ejemplo-1-aislamiento-de-cargas-de-trabajo)
+      - [Ejemplo 2: Utilización de Hardware Especializado](day-12/#ejemplo-2-utilización-de-hardware-especializado)
+      - [Ejemplo 3: Mantenimiento de Nodos](day-12/#ejemplo-3-mantenimiento-de-nodos)
+    - [Conclusión](day-12/#conclusión)
+    - [Tareas del Día](day-12/#tareas-del-día)
+  - [DÍA 12+1: Comprendiendo y Dominando los Selectores](day-12/#día-121-comprendiendo-y-dominando-los-selectores)
+    - [Introducción 12+1](day-12/#introducción-121)
+    - [¿Qué son los Selectors?](day-12/#qué-son-los-selectors)
+    - [Tipos de Selectors](day-12/#tipos-de-selectors)
+      - [Equality-based Selectors](day-12/#equality-based-selectors)
+      - [Set-based Selectors](day-12/#set-based-selectors)
+    - [Selectors en acción](day-12/#selectors-en-acción)
+      - [En Services](day-12/#en-services)
+      - [En ReplicaSets](day-12/#en-replicasets)
+      - [En Jobs y CronJobs](day-12/#en-jobs-y-cronjobs)
+    - [Selectores y Namespaces](day-12/#selectores-y-namespaces)
+    - [Escenarios de uso](day-12/#escenarios-de-uso-1)
+      - [Enrutamiento de tráfico](day-12/#enrutamiento-de-tráfico)
+      - [Escalado horizontal](day-12/#escalado-horizontal)
+      - [Desastre y recuperación](day-12/#desastre-y-recuperación)
+    - [Consejos y trampas](day-12/#consejos-y-trampas)
+    - [Ejemplos prácticos](day-12/#ejemplos-prácticos-1)
+      - [Ejemplo 1: Selector en un Service](day-12/#ejemplo-1-selector-en-un-service)
+      - [Ejemplo 2: Selector en un ReplicaSet](day-12/#ejemplo-2-selector-en-un-replicaset)
+      - [Ejemplo 3: Selectors avanzados](day-12/#ejemplo-3-selectors-avanzados)
+    - [Conclusión 12+1](day-12/#conclusión-121)
+
 </details>
-TO DO
+
 <details>
 <summary>DAY-13</summary>
-TO DO
+
+- [Simplificando Kubernetes](day-13/#simplificando-kubernetes)
+  - [Día 13: Simplificando Kyverno y las Policies en Kubernetes](day-13/#día-13-simplificando-kyverno-y-las-policies-en-kubernetes)
+  - [Contenido del Día 13](day-13/#contenido-del-día-13)
+  - [¿Qué veremos hoy?](day-13/#qué-veremos-hoy)
+  - [Comienzo del Día 13](day-13/#comienzo-del-día-13)
+    - [Introducción a Kyverno](day-13/#introducción-a-kyverno)
+    - [Instalación de Kyverno](day-13/#instalación-de-kyverno)
+      - [Usando Helm](day-13/#usando-helm)
+    - [Verificación de la Instalación](day-13/#verificación-de-la-instalación)
+    - [Creación de nuestra primera política](day-13/#creación-de-nuestra-primera-política)
+      - [Ejemplo de Política: Agregar Etiqueta al Namespace](day-13/#ejemplo-de-política-agregar-etiqueta-al-namespace)
+        - [Detalles de la Política: Agregar Etiqueta al Namespace](day-13/#detalles-de-la-política-agregar-etiqueta-al-namespace)
+        - [Archivo de Política: `add-label-namespace.yaml`](day-13/#archivo-de-política-add-label-namespaceyaml)
+        - [Uso de la Política: Agregar Etiqueta al Namespace](day-13/#uso-de-la-política-agregar-etiqueta-al-namespace)
+      - [Ejemplo de Política: Prohibir Usuario Root](day-13/#ejemplo-de-política-prohibir-usuario-root)
+        - [Detalles de la Política: Prohibir Usuario Root](day-13/#detalles-de-la-política-prohibir-usuario-root)
+        - [Archivo de la Política: `disallow-root-user.yaml`](day-13/#archivo-de-la-política-disallow-root-useryaml)
+        - [Implementación y Efecto](day-13/#implementación-y-efecto)
+      - [Ejemplo de Política: Generar ConfigMap para Namespace](day-13/#ejemplo-de-política-generar-configmap-para-namespace)
+        - [Detalles de la Política: Generar ConfigMap para Namespace](day-13/#detalles-de-la-política-generar-configmap-para-namespace)
+        - [Archivo de Política: `generar-configmap-para-namespace.yaml`](day-13/#archivo-de-política-generar-configmap-para-namespaceyaml)
+        - [Implementación y Utilidad](day-13/#implementación-y-utilidad)
+      - [Ejemplo de Política: Permitir Solo Repositorios de Confianza](day-13/#ejemplo-de-política-permitir-solo-repositorios-de-confianza)
+        - [Detalles de la Política: Permitir Solo Repositorios de Confianza](day-13/#detalles-de-la-política-permitir-solo-repositorios-de-confianza)
+        - [Archivo de Política: `repositorio-permitido.yaml`](day-13/#archivo-de-política-repositorio-permitidoyaml)
+        - [Implementación e Impacto](day-13/#implementación-e-impacto)
+        - [Ejemplo de Política: Require Probes](day-13/#ejemplo-de-política-require-probes)
+        - [Detalles de la Política: Require Probes](day-13/#detalles-de-la-política-require-probes)
+        - [Archivo de Política: `require-probes.yaml`](day-13/#archivo-de-política-require-probesyaml)
+        - [Implementación e Impacto: Require Probes](day-13/#implementación-e-impacto-require-probes)
+      - [Ejemplo de Política: Uso del Exclude](day-13/#ejemplo-de-política-uso-del-exclude)
+        - [Detalles de la Política: Uso del Exclude](day-13/#detalles-de-la-política-uso-del-exclude)
+        - [Archivo de Política](day-13/#archivo-de-política)
+        - [Implementación y Efectos: Uso del Exclude](day-13/#implementación-y-efectos-uso-del-exclude)
+    - [Conclusión](day-13/#conclusión)
+      - [Puntos Clave Aprendidos](day-13/#puntos-clave-aprendidos)
+
 </details>
-TO DO
+
 <details>
 <summary>DAY-14</summary>
-TO DO
+
+- [Simplificando Kubernetes](day-14/#simplificando-kubernetes)
+  - [Día 14: Network Policies no Kubernetes](day-14/#día-14-network-policies-no-kubernetes)
+  - [Contenido del Día 14](day-14/#contenido-del-día-14)
+  - [Lo que veremos hoy](day-14/#lo-que-veremos-hoy)
+    - [¿Qué son las Network Policies?](day-14/#qué-son-las-network-policies)
+      - [¿Para qué sirven las Network Policies?](day-14/#para-qué-sirven-las-network-policies)
+      - [Conceptos Fundamentales: Ingress y Egress](day-14/#conceptos-fundamentales-ingress-y-egress)
+      - [¿Cómo funcionan las Network Policies?](day-14/#cómo-funcionan-las-network-policies)
+      - [Aún no es estándar](day-14/#aún-no-es-estándar)
+      - [Creación de un clúster EKS con Network Policies](day-14/#creación-de-un-clúster-eks-con-network-policies)
+      - [Instalación de EKSCTL](day-14/#instalación-de-eksctl)
+      - [Instalación de AWS CLI](day-14/#instalación-de-aws-cli)
+        - [Creación del Cluster EKS](day-14/#creación-del-cluster-eks)
+        - [Instalando el complemento AWS VPC CNI](day-14/#instalando-el-complemento-aws-vpc-cni)
+        - [Habilitación de Network Policy en las Configuraciones Avanzadas del CNI](day-14/#habilitación-de-network-policy-en-las-configuraciones-avanzadas-del-cni)
+      - [Instalación del Controlador de Ingress Nginx](day-14/#instalación-del-controlador-de-ingress-nginx)
+    - [Instalando un Controlador de Ingress Nginx](day-14/#instalando-un-controlador-de-ingress-nginx)
+      - [Nuestra Aplicación de Ejemplo](day-14/#nuestra-aplicación-de-ejemplo)
+    - [Creación de Reglas de Política de Red](day-14/#creación-de-reglas-de-política-de-red)
+      - [Ingress](day-14/#ingress)
+      - [Egress](day-14/#egress)
+
+</details>
+
+<details>
+<summary>DAY-15</summary>
+
+- [Simplificando Kubernetes](day-15/#simplificando-kubernetes)
+  - [Día 15: Descomplicando RBAC e controle de acesso no Kubernetes](day-15/#día-15-descomplicando-rbac-e-controle-de-acesso-no-kubernetes)
+  - [Contenido del Día 15](day-15/#contenido-del-día-15)
+- [¿Qué vamos a aprender hoy?](day-15/#qué-vamos-a-aprender-hoy)
+- [RBAC](day-15/#rbac)
+  - [¿Qué es RBAC?](day-15/#qué-es-rbac)
+    - [Primer ejemplo de RBAC](day-15/#primer-ejemplo-de-rbac)
+      - [Creación de un Usuario para Acceso al clúster](day-15/#creación-de-un-usuario-para-acceso-al-clúster)
+      - [Creando un Rol para nuestro usuario](day-15/#creando-un-rol-para-nuestro-usuario)
+      - [apiGroups](day-15/#apigroups)
+      - [Verbos](day-15/#verbos)
+      - [Agregando el certificado del usuario al kubeconfig](day-15/#agregando-el-certificado-del-usuario-al-kubeconfig)
+      - [Accediendo al clúster con el nuevo usuario](day-15/#accediendo-al-clúster-con-el-nuevo-usuario)
+
 </details>
 
 <p> </p>
@@ -708,7 +914,7 @@ Y finalmente, simularemos algunas conversaciones para que se asemeje un poco má
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Introducción","level":"1.1","depth":1,"next":{"title":"Simplificando Kubernetes día 1","level":"2.1","depth":1,"path":"day-1/README.md","ref":"day-1/README.md","articles":[]},"dir":"ltr"},"config":{"plugins":[],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"language":"es","gitbook":"*"},"file":{"path":"README.md","mtime":"2024-02-08T15:56:28.785Z","type":"markdown"},"gitbook":{"version":"3.6.20","time":"2024-02-08T15:56:50.410Z"},"basePath":".","book":{"language":"es"}});
+            gitbook.page.hasChanged({"page":{"title":"Introducción","level":"1.1","depth":1,"next":{"title":"Simplificando Kubernetes día 1","level":"2.1","depth":1,"path":"day-1/README.md","ref":"day-1/README.md","articles":[]},"dir":"ltr"},"config":{"plugins":[],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"language":"es","gitbook":"*"},"file":{"path":"README.md","mtime":"2024-02-13T12:08:25.863Z","type":"markdown"},"gitbook":{"version":"3.6.20","time":"2024-02-13T12:08:36.997Z"},"basePath":".","book":{"language":"es"}});
         });
     </script>
 </div>

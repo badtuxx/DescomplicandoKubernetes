@@ -303,6 +303,19 @@
             
         </li>
     
+        <li class="chapter " data-level="2.16" data-path="day-16/">
+            
+                <a href="day-16/">
+            
+                    
+                    Descomplicando Kubernetes dia 16
+            
+                </a>
+            
+
+            
+        </li>
+    
 
     
         
@@ -599,33 +612,50 @@
   - [O que iremos ver hoje?](day-9/README.md#o-que-iremos-ver-hoje)
     - [Conteúdo do Day-9](day-9/README.md#conteúdo-do-day-9-1)
 - [O Que é o Ingress?](day-9/README.md#o-que-é-o-ingress)
-  - [Teoria: O que é Ingress?](day-9/README.md#teoria-o-que-é-ingress)
-  - [Prática: Mãos à Obra](day-9/README.md#prática-mãos-à-obra)
-    - [Criando um Serviço Simples](day-9/README.md#criando-um-serviço-simples)
-- [Seção 2: Componentes do Ingress](day-9/README.md#seção-2-componentes-do-ingress)
-  - [Introdução](day-9/README.md#introdução)
-  - [Teoria: Componentes Chave](day-9/README.md#teoria-componentes-chave)
+  - [O que é Ingress?](day-9/README.md#o-que-é-ingress)
+- [Componentes do Ingress](day-9/README.md#componentes-do-ingress)
+  - [Componentes Chave](day-9/README.md#componentes-chave)
     - [Ingress Controller](day-9/README.md#ingress-controller)
     - [Ingress Resources](day-9/README.md#ingress-resources)
     - [Annotations e Customizations](day-9/README.md#annotations-e-customizations)
-  - [Prática: Montando o Quebra-Cabeça](day-9/README.md#prática-montando-o-quebra-cabeça)
     - [Instalando um Nginx Ingress Controller](day-9/README.md#instalando-um-nginx-ingress-controller)
       - [Instalando o Nginx Ingress Controller no Kind](day-9/README.md#instalando-o-nginx-ingress-controller-no-kind)
-        - [Introdução](day-9/README.md#introdução-1)
-        - [Criando o Cluster com Configurações Especiais](day-9/README.md#criando-o-cluster-com-configurações-especiais)
+          - [Criando o Cluster com Configurações Especiais](day-9/README.md#criando-o-cluster-com-configurações-especiais)
         - [Instalando um Ingress Controller](day-9/README.md#instalando-um-ingress-controller)
+    - [Instalando o Giropops-Senhas no Cluster](day-9/README.md#instalando-o-giropops-senhas-no-cluster)
     - [Criando um Recurso de Ingress](day-9/README.md#criando-um-recurso-de-ingress)
-    - [Annotations para Customização](day-9/README.md#annotations-para-customização)
-- [Seção 3: Configurando Rotas](day-9/README.md#seção-3-configurando-rotas)
-  - [Introdução](day-9/README.md#introdução-2)
-  - [Teoria: O Que São Rotas?](day-9/README.md#teoria-o-que-são-rotas)
-  - [Prática: Configurando Rotas Simples](day-9/README.md#prática-configurando-rotas-simples)
-  - [Prática: Configurando Rotas Avançadas](day-9/README.md#prática-configurando-rotas-avançadas)
+    - [O que está acontecendo com o nosso Ingress?](day-9/README.md#o-que-está-acontecendo-com-o-nosso-ingress)
+    - [Configurando um Ingress para a nossa aplicação em Flask com Redis](day-9/README.md#configurando-um-ingress-para-a-nossa-aplicação-em-flask-com-redis)
+    - [Criando múltiplos Ingresses no mesmo Ingress Controller](day-9/README.md#criando-múltiplos-ingresses-no-mesmo-ingress-controller)
+- [Instalando um cluster EKS para os nossos testes com Ingress](day-9/README.md#instalando-um-cluster-eks-para-os-nossos-testes-com-ingress)
+  - [Instalando um cluster EKS para os nossos testes com Ingress](day-9/README.md#instalando-um-cluster-eks-para-os-nossos-testes-com-ingress)
+  - [Entendendo os Contexts do Kubernetes para gerenciar vários clusters](day-9/README.md#entendendo-os-contexts-do-kubernetes-para-gerenciar-vários-clusters)
+  - [Instalando o Ingress Nginx Controller no EKS](day-9/README.md#instalando-o-ingress-nginx-controller-no-eks)
+  - [Conhecendo o ingressClassName e configurando um novo Ingress](day-9/README.md#conhecendo-o-ingressclassname-e-configurando-um-novo-ingress)
+  - [Configurando um domínio válido para o nosso Ingress no EKS](day-9/README.md#configurando-um-domínio-válido-para-o-nosso-ingress-no-eks)
+- [Final do Day-9](day-9/README.md#final-do-day-9)
 
 </details>
 
 <details>
 <summary>DAY-10</summary>
+
+- [Descomplicando o Kubernetes](day-10/README.md#descomplicando-o-kubernetes)
+  - [DAY-10: Descomplicando Ingress com TLS, Labels, Annotations e o Cert-manager](day-10/README.md#day-10-descomplicando-ingress-com-tls-labels-annotations-e-o-cert-manager)
+    - [Conteúdo do Day-10](day-10/README.md#conteúdo-do-day-10)
+        - [O que iremos ver hoje?](day-10/README.md#o-que-iremos-ver-hoje)
+- [O que é o Cert-Manager?](day-10/README.md#o-que-é-o-cert-manager)
+    - [Instalando e configurando o Cert-Manager](day-10/README.md#instalando-e-configurando-o-cert-manager)
+    - [Configurando o Ingress para usar o Cert-Manager e ter o HTTPS](day-10/README.md#configurando-o-ingress-para-usar-o-cert-manager-e-ter-o-https)
+- [O que são os Annotations e as Labels no Kubernetes?](day-10/README.md#o-que-são-os-annotations-e-as-labels-no-kubernetes)
+    - [Explorando um pouco mais as Labels](day-10/README.md#explorando-um-pouco-mais-as-labels)
+    - [Explorando as Annotations no Kubernetes](day-10/README.md#explorando-as-annotations-no-kubernetes)
+    - [Adicionando Autenticação ao Ingress](day-10/README.md#adicionando-autenticação-ao-ingress)
+    - [Configurando Affinity Cookie no Ingress](day-10/README.md#configurando-affinity-cookie-no-ingress)
+    - [Configurando Upsream Hashing no Ingress](day-10/README.md#configurando-upsream-hashing-no-ingress)
+    - [Canary Deployments com o Ingress no Kubernetes](day-10/README.md#canary-deployments-com-o-ingress-no-kubernetes)
+    - [Limitando requisições as nossas aplicações com o Ingress](day-10/README.md#limitando-requisições-as-nossas-aplicações-com-o-ingress)
+- [Final do Day-10](day-10/README.md#final-do-day-10)
 
 </details>
 
@@ -854,7 +884,7 @@ E por fim, vamos simular algumas conversas para que fique um pouco mais parecido
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Introdução","level":"1.1","depth":1,"next":{"title":"Descomplicando Kubernetes dia 1","level":"2.1","depth":1,"path":"day-1/README.md","ref":"day-1/README.md","articles":[]},"dir":"ltr"},"config":{"plugins":[],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"language":"pt","gitbook":"*"},"file":{"path":"README.md","mtime":"2024-02-08T15:56:28.789Z","type":"markdown"},"gitbook":{"version":"3.6.20","time":"2024-02-08T15:56:50.410Z"},"basePath":".","book":{"language":"pt"}});
+            gitbook.page.hasChanged({"page":{"title":"Introdução","level":"1.1","depth":1,"next":{"title":"Descomplicando Kubernetes dia 1","level":"2.1","depth":1,"path":"day-1/README.md","ref":"day-1/README.md","articles":[]},"dir":"ltr"},"config":{"plugins":[],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"language":"pt","gitbook":"*"},"file":{"path":"README.md","mtime":"2024-02-13T12:08:25.871Z","type":"markdown"},"gitbook":{"version":"3.6.20","time":"2024-02-13T12:08:36.997Z"},"basePath":".","book":{"language":"pt"}});
         });
     </script>
 </div>

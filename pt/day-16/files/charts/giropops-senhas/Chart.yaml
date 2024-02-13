@@ -1,0 +1,7 @@
+apiVersion: v2
+name: giropops-senhas
+description: Esse é o chart do Giropops-Senhas, utilizados nos laboratórios de Kubernetes.
+version: 0.1.0
+appVersion: 0.1.0
+sources:
+  - https://github.com/badtuxx/giropops-senhas

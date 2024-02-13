@@ -1,0 +1,1964 @@
+
+<!DOCTYPE HTML>
+<html lang="pt" >
+    <head>
+        <meta charset="UTF-8">
+        <title>Descomplicando Kubernetes dia 16 · HonKit</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="HonKit 3.6.20">
+        
+        
+        
+    
+    <link rel="stylesheet" href="../../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="../CONTRIBUTING.html" />
+    
+    
+    <link rel="prev" href="../day-15/" />
+    
+
+    </head>
+    <body>
+        
+<div class="book honkit-cloak">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="Escreva para pesquisar" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        <li class="header">Sobre</li>
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../">
+            
+                <a href="../">
+            
+                    
+                    Introdução
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="header">Capítulos</li>
+        
+        
+    
+        <li class="chapter " data-level="2.1" data-path="../day-1/">
+            
+                <a href="../day-1/">
+            
+                    
+                    Descomplicando Kubernetes dia 1
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.2" data-path="../day-2/">
+            
+                <a href="../day-2/">
+            
+                    
+                    Descomplicando Kubernetes dia 2
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.3" data-path="../day-3/">
+            
+                <a href="../day-3/">
+            
+                    
+                    Descomplicando Kubernetes dia 3
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.4" data-path="../day-4/">
+            
+                <a href="../day-4/">
+            
+                    
+                    Descomplicando Kubernetes dia 4
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.5" data-path="../day-5/">
+            
+                <a href="../day-5/">
+            
+                    
+                    Descomplicando Kubernetes dia 5
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.6" data-path="../day-6/">
+            
+                <a href="../day-6/">
+            
+                    
+                    Descomplicando Kubernetes dia 6
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.7" data-path="../day-7/">
+            
+                <a href="../day-7/">
+            
+                    
+                    Descomplicando Kubernetes dia 7
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.8" data-path="../day-8/">
+            
+                <a href="../day-8/">
+            
+                    
+                    Descomplicando Kubernetes dia 8
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.9" data-path="../day-9/">
+            
+                <a href="../day-9/">
+            
+                    
+                    Descomplicando Kubernetes dia 9
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.10" data-path="../day-10/">
+            
+                <a href="../day-10/">
+            
+                    
+                    Descomplicando Kubernetes dia 10
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.11" data-path="../day-11/">
+            
+                <a href="../day-11/">
+            
+                    
+                    Descomplicando Kubernetes dia 11
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.12" data-path="../day-12/">
+            
+                <a href="../day-12/">
+            
+                    
+                    Descomplicando Kubernetes dia 12
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.13" data-path="../day-13/">
+            
+                <a href="../day-13/">
+            
+                    
+                    Descomplicando Kubernetes dia 13
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.14" data-path="../day-14/">
+            
+                <a href="../day-14/">
+            
+                    
+                    Descomplicando Kubernetes dia 14
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.15" data-path="../day-15/">
+            
+                <a href="../day-15/">
+            
+                    
+                    Descomplicando Kubernetes dia 15
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="2.16" data-path="./">
+            
+                <a href="./">
+            
+                    
+                    Descomplicando Kubernetes dia 16
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="header">Contribuir</li>
+        
+        
+    
+        <li class="chapter " data-level="3.1" data-path="../CONTRIBUTING.html">
+            
+                <a href="../CONTRIBUTING.html">
+            
+                    
+                    Como ajudar
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://github.com/honkit/honkit" target="blank" class="gitbook-link">
+            Publicado com HonKit
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href=".." >Descomplicando Kubernetes dia 16</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h1 id="descomplicando-o-kubernetes">Descomplicando o Kubernetes</h1>
+<h2 id="day-16-descomplicando-helm">DAY-16: Descomplicando Helm</h2>
+<h2 id="conteúdo-do-day-16">Conteúdo do Day-16</h2>
+<ul>
+<li><a href="#descomplicando-o-kubernetes">Descomplicando o Kubernetes</a><ul>
+<li><a href="#day-16-descomplicando-helm">DAY-16: Descomplicando Helm</a></li>
+<li><a href="#conteúdo-do-day-16">Conteúdo do Day-16</a></li>
+<li><a href="#o-que-iremos-ver-hoje">O que iremos ver hoje?</a><ul>
+<li><a href="#o-que-é-o-helm">O que é o Helm?</a></li>
+<li><a href="#o-que-é-um-chart">O que é um Chart?</a></li>
+<li><a href="#criando-o-nosso-primeiro-chart">Criando o nosso primeiro Chart</a><ul>
+<li><a href="#instalando-o-nosso-chart">Instalando o nosso Chart</a></li>
+<li><a href="#atualizando-o-nosso-chart">Atualizando o nosso Chart</a></li>
+<li><a href="#utilizando-range--e-o-if-no-helm">Utilizando <code>range</code>  e o <code>if</code> no Helm</a></li>
+<li><a href="#utilizando-default-toyaml-e-tojson-no-helm">Utilizando <code>default</code>, <code>toYaml</code> e <code>toJson</code> no Helm</a></li>
+<li><a href="#o-que-são-helpers-no-helm">O Que São Helpers no Helm?</a><ul>
+<li><a href="#por-que-usar-helpers">Por Que Usar Helpers?</a></li>
+<li><a href="#criando-o-nosso-primeiro-helper">Criando o Nosso Primeiro Helper</a></li>
+<li><a href="#helpers-avançados-exemplos-práticos">Helpers Avançados: Exemplos Práticos</a><ul>
+<li><a href="#exemplo-1-controlando-a-complexidade">Exemplo 1: Controlando a Complexidade</a></li>
+<li><a href="#exemplo-2-personalização-baseada-em-ambiente">Exemplo 2: Personalização Baseada em Ambiente</a></li>
+</ul>
+</li>
+<li><a href="#melhores-práticas-ao-usar-helpers">Melhores Práticas ao Usar Helpers</a></li>
+</ul>
+</li>
+<li><a href="#criando-o-_helperstpl-da-nossa-app">Criando o <code>_helpers.tpl</code> da nossa App</a><ul>
+<li><a href="#passo-1-criando-o-arquivo-_helperstpl">Passo 1: Criando o arquivo <code>_helpers.tpl</code></a><ul>
+<li><a href="#labels">Labels</a></li>
+<li><a href="#resources">Resources</a></li>
+<li><a href="#ports">Ports</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#passo-2-refatorando-deploymentsyaml-e-servicesyaml">Passo 2: Refatorando <code>Deployments.yaml</code> e <code>Services.yaml</code></a><ul>
+<li><a href="#o-nosso-deploymentsyaml">O nosso <code>Deployments.yaml</code></a></li>
+<li><a href="#o-nosso-servicesyaml">O nosso <code>Services.yaml</code></a></li>
+</ul>
+</li>
+<li><a href="#passo-3-refatorando-os-configmaps">Passo 3: Refatorando os ConfigMaps</a><ul>
+<li><a href="#atualizando-o-_helperstpl">Atualizando o <code>_helpers.tpl</code></a></li>
+<li><a href="#refatorando-config-map-dpyaml">Refatorando <code>config-map-dp.yaml</code></a></li>
+<li><a href="#refatorando-config-map-obsyaml">Refatorando <code>config-map-obs.yaml</code></a></li>
+</ul>
+</li>
+<li><a href="#criando-um-repositório-de-helm-charts">Criando um repositório de Helm Charts</a><ul>
+<li><a href="#criando-o-repositório-no-github">Criando o repositório no Github</a></li>
+<li><a href="#inicializando-o-repositório">Inicializando o repositório</a></li>
+<li><a href="#configurando-o-github-pages">Configurando o GitHub Pages</a></li>
+</ul>
+</li>
+<li><a href="#utilizando-o-nosso-repositório-de-helm-charts">Utilizando o nosso repositório de Helm Charts</a></li>
+<li><a href="#o-que-vimos-no-dia-de-hoje">O que vimos no dia de hoje</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="o-que-iremos-ver-hoje">O que iremos ver hoje?</h2>
+<p>Hoje é dia de falar sobre uma peça super importante quando estamos falando sobre como gerenciar aplicações no Kubernetes. O Helm é um gerenciador de pacotes para Kubernetes que facilita a definição, instalação e atualização de aplicações complexas no Kubernetes.</p>
+<p>Durante o dia de hoje, nós iremos descomplicar de uma vez por todas as suas dúvidas no momento de utilizar o Helm para gerencia de aplicações no Kubernetes.</p>
+<p>Bora!</p>
+<h3 id="o-que-é-o-helm">O que é o Helm?</h3>
+<p>O Helm é um gerenciador de pacotes para Kubernetes que facilita a definição, instalação e atualização de aplicações complexas no Kubernetes. Com ele você pode definir no detalhe como a sua aplicação será instalada, quais configurações serão utilizadas e como será feita a atualização da aplicação.</p>
+<p>Mas para que você possa utilizar o Helm, a primeira coisa é fazer a sua instalação. Vamos ver como realizar a instalação do Helm na sua máquina Linux.</p>
+<p>Lembrando que o Helm é um projeto da CNCF e é mantido pela comunidade, ele funciona em máquinas Linux, Windows e MacOS.</p>
+<p>Para realizar a instalação no Linux, podemos utilizar diferentes formas, como baixar o binário e instalar manualmente, utilizar o gerenciador de pacotes da sua distribuição ou utilizar o script de instalação preparado pela comunidade.</p>
+<p>Vamos ver como realizar a instalação do Helm no Linux utilizando o script de instalação, mas fique a vontade de utilizar a forma que você achar mais confortável, e tire todas as suas dúvidas no site da documentação oficial do Helm.</p>
+<p>Para fazer a instalação, vamos fazer o seguinte:</p>
+<pre><code class="lang-bash">curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
+chmod 700 get_helm.sh
+./get_helm.sh
+</code></pre>
+<p>Com o comando acima, você irá baixar o script de instalação utilizando o curl, dar permissão de execução para o script e executar o script para realizar a instalação do Helm na sua máquina.</p>
+<p>A saída será algo assim:</p>
+<pre><code class="lang-bash">Downloading https://get.helm.sh/helm-v3.14.0-linux-amd64.tar.gz
+Verifying checksum... Done.
+Preparing to install helm into /usr/<span class="hljs-built_in">local</span>/bin
+helm installed into /usr/<span class="hljs-built_in">local</span>/bin/helm
+</code></pre>
+<p>Vamos ver se a instalação foi realizada com sucesso, executando o comando <code>helm version</code>:</p>
+<pre><code class="lang-bash">helm version
+</code></pre>
+<p>No meu caso, no momento de criação desse material eu tenho a seguinte saída:</p>
+<pre><code class="lang-bash">version.BuildInfo{Version:<span class="hljs-string">&quot;v3.14.0&quot;</span>, GitCommit:<span class="hljs-string">&quot;3fc9f4b2638e76f26739cd77c7017139be81d0ea&quot;</span>, GitTreeState:<span class="hljs-string">&quot;clean&quot;</span>, GoVersion:<span class="hljs-string">&quot;go1.21.5&quot;</span>}
+</code></pre>
+<p>Pronto, agora que já temos o Helm instalado, já podemos começar a nossa brincadeira.</p>
+<p>Durante o dia de hoje, eu quero ensinar o Helm de uma maneira diferente do que estamos acostumados a ver por aí. Vamos focar inicialmente na criação de Charts, e depois vamos ver como instalar e atualizar aplicações utilizando o Helm, de uma maneira mais natural e prática.</p>
+<h3 id="o-que-é-um-chart">O que é um Chart?</h3>
+<p>Um Chart é um pacote que contém informações necessárias para criar instâncias de aplicações Kubernetes. É com ele que iremos definir como a nossa aplicação será instalada, quais configurações serão utilizadas e como será feita a atualização da aplicação.</p>
+<p>Um Chart, normalmente é composto por um conjunto de arquivos que definem a aplicação, e um conjunto de templates que definem como a aplicação será instalada no Kubernetes.</p>
+<p>Vamos parar de falar e vamos criar o nosso primeiro Chart, acho que ficará mais fácil de entender.</p>
+<h3 id="criando-o-nosso-primeiro-chart">Criando o nosso primeiro Chart</h3>
+<p>Para o nosso exemplo, vamos usar novamente a aplicação de exemplo chamada Giropops-Senhas, que é uma aplicação que gera senhas aleatórias que criamos durante uma live no canal da LINUXtips.</p>
+<p>Ela é uma aplicação simples, é uma aplicação em Python, mas especificamente uma aplicação Flask, que gera senhas aleatórias e exibe na tela. Ela utiliza um Redis para armazenar temporariamente as senhas geradas.</p>
+<p>Simples como voar!</p>
+<p>A primeira coisa que temos que fazer é clonar o repositório da aplicação, para isso, execute o comando abaixo:</p>
+<pre><code class="lang-bash">git <span class="hljs-built_in">clone</span> git@github.com:badtuxx/giropops-senhas.git
+</code></pre>
+<p>Com isso temos um diretório chamado <code>giropops-senhas</code> com o código da aplicação, vamos acessa-lo:</p>
+<pre><code class="lang-bash"><span class="hljs-built_in">cd</span> giropops-senhas
+</code></pre>
+<p>O conteúdo do diretório é o seguinte:</p>
+<pre><code class="lang-bash">app.py  LICENSE  requirements.txt  static  tailwind.config.js  templates
+</code></pre>
+<p>Pronto, o nosso repo já está clonado, agora vamos começar com o nosso Chart.</p>
+<p>A primeira coisa que iremos fazer, somente para facilitar o nosso entendimento, é criar os manifestos do Kubernetes para a nossa aplicação. Vamos criar um Deployment e um Service para o Giropops-Senhas e para o Redis.</p>
+<p>Vamos começar com o Deployment do Redis, para isso, crie um arquivo chamado <code>redis-deployment.yaml</code> com o seguinte conteúdo:</p>
+<pre><code class="lang-yaml"><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">apps/v1</span>
+<span class="hljs-attr">kind:</span> <span class="hljs-string">Deployment</span>
+<span class="hljs-attr">metadata:</span>
+  <span class="hljs-attr">labels:</span>
+    <span class="hljs-attr">app:</span> <span class="hljs-string">redis</span>
+  <span class="hljs-attr">name:</span> <span class="hljs-string">redis-deployment</span>
+<span class="hljs-attr">spec:</span>
+  <span class="hljs-attr">replicas:</span> <span class="hljs-number">1</span>
+  <span class="hljs-attr">selector:</span>
+    <span class="hljs-attr">matchLabels:</span>
+      <span class="hljs-attr">app:</span> <span class="hljs-string">redis</span>
+  <span class="hljs-attr">template:</span>
+    <span class="hljs-attr">metadata:</span>
+      <span class="hljs-attr">labels:</span>
+        <span class="hljs-attr">app:</span> <span class="hljs-string">redis</span>
+    <span class="hljs-attr">spec:</span>
+      <span class="hljs-attr">containers:</span>
+      <span class="hljs-bullet">-</span> <span class="hljs-attr">image:</span> <span class="hljs-string">redis</span>
+        <span class="hljs-attr">name:</span> <span class="hljs-string">redis</span>
+        <span class="hljs-attr">ports:</span>
+          <span class="hljs-bullet">-</span> <span class="hljs-attr">containerPort:</span> <span class="hljs-number">6379</span>
+        <span class="hljs-attr">resources:</span>
+          <span class="hljs-attr">limits:</span>
+            <span class="hljs-attr">memory:</span> <span class="hljs-string">&quot;256Mi&quot;</span>
+            <span class="hljs-attr">cpu:</span> <span class="hljs-string">&quot;500m&quot;</span>
+          <span class="hljs-attr">requests:</span>
+            <span class="hljs-attr">memory:</span> <span class="hljs-string">&quot;128Mi&quot;</span>
+            <span class="hljs-attr">cpu:</span> <span class="hljs-string">&quot;250m&quot;</span>
+</code></pre>
+<p>Agora vamos criar o Service do Redis, para isso, crie um arquivo chamado <code>redis-service.yaml</code> com o seguinte conteúdo:</p>
+<pre><code class="lang-yaml"><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">v1</span>
+<span class="hljs-attr">kind:</span> <span class="hljs-string">Service</span>
+<span class="hljs-attr">metadata:</span>
+  <span class="hljs-attr">name:</span> <span class="hljs-string">redis-service</span>
+<span class="hljs-attr">spec:</span>
+  <span class="hljs-attr">selector:</span>
+    <span class="hljs-attr">app:</span> <span class="hljs-string">redis</span>
+  <span class="hljs-attr">ports:</span>
+    <span class="hljs-bullet">-</span> <span class="hljs-attr">protocol:</span> <span class="hljs-string">TCP</span>
+      <span class="hljs-attr">port:</span> <span class="hljs-number">6379</span>
+      <span class="hljs-attr">targetPort:</span> <span class="hljs-number">6379</span>
+  <span class="hljs-attr">type:</span> <span class="hljs-string">ClusterIP</span>
+</code></pre>
+<p>Agora vamos criar o Deployment do Giropops-Senhas, para isso, crie um arquivo chamado <code>giropops-senhas-deployment.yaml</code> com o seguinte conteúdo:</p>
+<pre><code class="lang-yaml"><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">apps/v1</span>
+<span class="hljs-attr">kind:</span> <span class="hljs-string">Deployment</span>
+<span class="hljs-attr">metadata:</span>
+  <span class="hljs-attr">labels:</span>
+    <span class="hljs-attr">app:</span> <span class="hljs-string">giropops-senhas</span>
+  <span class="hljs-attr">name:</span> <span class="hljs-string">giropops-senhas</span>
+<span class="hljs-attr">spec:</span>
+  <span class="hljs-attr">replicas:</span> <span class="hljs-number">2</span>
+  <span class="hljs-attr">selector:</span>
+    <span class="hljs-attr">matchLabels:</span>
+      <span class="hljs-attr">app:</span> <span class="hljs-string">giropops-senhas</span>
+  <span class="hljs-attr">template:</span>
+    <span class="hljs-attr">metadata:</span>
+      <span class="hljs-attr">labels:</span>
+        <span class="hljs-attr">app:</span> <span class="hljs-string">giropops-senhas</span>
+    <span class="hljs-attr">spec:</span>
+      <span class="hljs-attr">containers:</span>
+      <span class="hljs-bullet">-</span> <span class="hljs-attr">image:</span> <span class="hljs-string">linuxtips/giropops-senhas:1.0</span>
+        <span class="hljs-attr">name:</span> <span class="hljs-string">giropops-senhas</span>
+        <span class="hljs-attr">ports:</span>
+        <span class="hljs-bullet">-</span> <span class="hljs-attr">containerPort:</span> <span class="hljs-number">5000</span>
+        <span class="hljs-attr">imagePullPolicy:</span> <span class="hljs-string">Always</span>
+        <span class="hljs-attr">resources:</span>
+          <span class="hljs-attr">limits:</span>
+            <span class="hljs-attr">memory:</span> <span class="hljs-string">&quot;256Mi&quot;</span>
+            <span class="hljs-attr">cpu:</span> <span class="hljs-string">&quot;500m&quot;</span>
+          <span class="hljs-attr">requests:</span>
+            <span class="hljs-attr">memory:</span> <span class="hljs-string">&quot;128Mi&quot;</span>
+            <span class="hljs-attr">cpu:</span> <span class="hljs-string">&quot;250m&quot;</span>
+</code></pre>
+<p>E finalmente, vamos criar o Service do Giropops-Senhas, para isso, crie um arquivo chamado <code>giropops-senhas-service.yaml</code> com o seguinte conteúdo:</p>
+<pre><code class="lang-yaml"><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">v1</span>
+<span class="hljs-attr">kind:</span> <span class="hljs-string">Service</span>
+<span class="hljs-attr">metadata:</span>
+  <span class="hljs-attr">name:</span> <span class="hljs-string">giropops-senhas</span>
+  <span class="hljs-attr">labels:</span>
+    <span class="hljs-attr">app:</span> <span class="hljs-string">giropops-senhas</span>
+<span class="hljs-attr">spec:</span>
+  <span class="hljs-attr">selector:</span>
+    <span class="hljs-attr">app:</span> <span class="hljs-string">giropops-senhas</span>
+  <span class="hljs-attr">ports:</span>
+    <span class="hljs-bullet">-</span> <span class="hljs-attr">protocol:</span> <span class="hljs-string">TCP</span>
+      <span class="hljs-attr">port:</span> <span class="hljs-number">5000</span>
+      <span class="hljs-attr">nodePort:</span> <span class="hljs-number">32500</span>
+      <span class="hljs-attr">targetPort:</span> <span class="hljs-number">5000</span>
+      <span class="hljs-attr">name:</span> <span class="hljs-string">tcp-app</span>
+  <span class="hljs-attr">type:</span> <span class="hljs-string">NodePort</span>
+</code></pre>
+<p>Manifesos criados! Perceba que não temos nada de novo até agora, somente criamos os manifestos do Kubernetes para a nossa aplicação como já fizemos anteriormente.</p>
+<p>Mas o pq eu fiz isso? Simples, para que você possa entender que um Chart é basicamente isso, um conjunto de manifestos do Kubernetes que definem como a sua aplicação será instalada no Kubernetes.</p>
+<p>E você deve estar falando: Esse Jeferson está de brincadeira, pois eu já sei como fazer isso, cadê a novidade? Cadê o Helm? Calma calabrezo! :D</p>
+<p>Bem, a ideia de criar os manifestos é somente para nos guiar durante a criação do nosso Chart.</p>
+<p>Com os arquivos para nos ajudar, vamos criar o nosso Chart.</p>
+<p>Para criar o nosso Chart, poderiamos utilizar o comando <code>helm create</code>, mas eu quero fazer de uma maneira diferente, quero criar o nosso Chart na mão, para que você possa entender como ele é composto, e depois voltamos para o <code>helm create</code> para criar os nossos próximos Charts.</p>
+<p>Bem, a primeira coisa que temos que fazer é criar um diretório para o nosso Chart, vamos criar um diretório chamado <code>giropops-senhas-chart</code>:</p>
+<pre><code class="lang-bash">mkdir giropops-senhas-chart
+</code></pre>
+<p>Agora vamos acessar o diretório:</p>
+<pre><code class="lang-bash"><span class="hljs-built_in">cd</span> giropops-senhas-chart
+</code></pre>
+<p>Bem, agora vamos começar a criar a nossa estrutura de diretórios para o nosso Chart, e o primeiro cara que iremos criar é o Chart.yaml, que é o arquivo que contém as informações sobre o nosso Chart, como o nome, a versão, a descrição, etc.</p>
+<p>Vamos criar o arquivo Chart.yaml com o seguinte conteúdo:</p>
+<pre><code class="lang-yaml"><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">v2</span>
+<span class="hljs-attr">name:</span> <span class="hljs-string">giropops-senhas</span>
+<span class="hljs-attr">description:</span> <span class="hljs-string">Esse</span> <span class="hljs-string">é</span> <span class="hljs-string">o</span> <span class="hljs-string">chart</span> <span class="hljs-string">do</span> <span class="hljs-string">Giropops-Senhas,</span> <span class="hljs-string">utilizados</span> <span class="hljs-string">nos</span> <span class="hljs-string">laboratórios</span> <span class="hljs-string">de</span> <span class="hljs-string">Kubernetes.</span>
+<span class="hljs-attr">version:</span> <span class="hljs-number">0.1</span><span class="hljs-number">.0</span>
+<span class="hljs-attr">appVersion:</span> <span class="hljs-number">0.1</span><span class="hljs-number">.0</span>
+<span class="hljs-attr">sources:</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-string">https://github.com/badtuxx/giropops-senhas</span>
+</code></pre>
+<p>Nada de novo até aqui, somente criamos o arquivo Chart.yaml com as informações sobre o nosso Chart. Agora vamos para o nosso próximo passo, criar o diretório <code>templates</code> que é onde ficarão os nossos manifestos do Kubernetes.</p>
+<p>Vamos criar o diretório <code>templates</code>:</p>
+<pre><code class="lang-bash">mkdir templates
+</code></pre>
+<p>Vamos mover os manifestos que criamos anteriormente para o diretório <code>templates</code>:</p>
+<pre><code class="lang-bash">mv ../redis-deployment.yaml templates/
+mv ../redis-service.yaml templates/
+mv ../giropops-senhas-deployment.yaml templates/
+mv ../giropops-senhas-service.yaml templates/
+</code></pre>
+<p>Vamos deixar eles quietinhos lá por enquanto, e vamos criar o próximo arquivo que é o <code>values.yaml</code>. Esse é uma peça super importante do nosso Chart, pois é nele que iremos definir as variáveis que serão utilizadas nos nossos manifestos do Kubernetes, é nele que o Helm irá se basear para criar os manifestos do Kubernetes, ou melhor, para renderizar os manifestos do Kubernetes.</p>
+<p>Quando criamos os manifestos para a nossa App, nós deixamos ele da mesma forma como usamos para criar os manifestos do Kubernetes, mas agora, com o Helm, nós podemos utilizar variáveis para definir os valores que serão utilizados nos manifestos, e é isso que iremos fazer, e é isso que é uma das mágicas do Helm.</p>
+<p>Vamos criar o arquivo <code>values.yaml</code> com o seguinte conteúdo:</p>
+<pre><code class="lang-yaml"><span class="hljs-attr">giropops-senhas:</span>
+  <span class="hljs-attr">name:</span> <span class="hljs-string">&quot;giropops-senhas&quot;</span>
+  <span class="hljs-attr">image:</span> <span class="hljs-string">&quot;linuxtips/giropops-senhas:1.0&quot;</span>
+  <span class="hljs-attr">replicas:</span> <span class="hljs-string">&quot;3&quot;</span>
+  <span class="hljs-attr">port:</span> <span class="hljs-number">5000</span>
+  <span class="hljs-attr">labels:</span>
+    <span class="hljs-attr">app:</span> <span class="hljs-string">&quot;giropops-senhas&quot;</span>
+    <span class="hljs-attr">env:</span> <span class="hljs-string">&quot;labs&quot;</span>
+    <span class="hljs-attr">live:</span> <span class="hljs-string">&quot;true&quot;</span>
+  <span class="hljs-attr">service:</span>
+    <span class="hljs-attr">type:</span> <span class="hljs-string">&quot;NodePort&quot;</span>
+    <span class="hljs-attr">port:</span> <span class="hljs-number">5000</span>
+    <span class="hljs-attr">targetPort:</span> <span class="hljs-number">5000</span>
+    <span class="hljs-attr">name:</span> <span class="hljs-string">&quot;giropops-senhas-port&quot;</span>
+  <span class="hljs-attr">resources:</span>
+    <span class="hljs-attr">requests:</span>
+      <span class="hljs-attr">memory:</span> <span class="hljs-string">&quot;128Mi&quot;</span>
+      <span class="hljs-attr">cpu:</span> <span class="hljs-string">&quot;250m&quot;</span>
+    <span class="hljs-attr">limits:</span>
+      <span class="hljs-attr">memory:</span> <span class="hljs-string">&quot;256Mi&quot;</span>
+      <span class="hljs-attr">cpu:</span> <span class="hljs-string">&quot;500m&quot;</span>
+
+<span class="hljs-attr">redis:</span>
+  <span class="hljs-attr">image:</span> <span class="hljs-string">&quot;redis&quot;</span>
+  <span class="hljs-attr">replicas:</span> <span class="hljs-number">1</span>
+  <span class="hljs-attr">port:</span> <span class="hljs-number">6379</span>
+  <span class="hljs-attr">labels:</span>
+    <span class="hljs-attr">app:</span> <span class="hljs-string">&quot;redis&quot;</span>
+    <span class="hljs-attr">env:</span> <span class="hljs-string">&quot;labs&quot;</span>
+    <span class="hljs-attr">live:</span> <span class="hljs-string">&quot;true&quot;</span>
+  <span class="hljs-attr">service:</span>
+    <span class="hljs-attr">type:</span> <span class="hljs-string">&quot;ClusterIP&quot;</span>
+    <span class="hljs-attr">port:</span> <span class="hljs-number">6379</span>
+    <span class="hljs-attr">targetPort:</span> <span class="hljs-number">6379</span>
+    <span class="hljs-attr">name:</span> <span class="hljs-string">&quot;redis-port&quot;</span>
+  <span class="hljs-attr">resources:</span>
+    <span class="hljs-attr">requests:</span>
+      <span class="hljs-attr">memory:</span> <span class="hljs-string">&quot;128Mi&quot;</span>
+      <span class="hljs-attr">cpu:</span> <span class="hljs-string">&quot;250m&quot;</span>
+    <span class="hljs-attr">limits:</span>
+      <span class="hljs-attr">memory:</span> <span class="hljs-string">&quot;256Mi&quot;</span>
+      <span class="hljs-attr">cpu:</span> <span class="hljs-string">&quot;500m&quot;</span>
+</code></pre>
+<p>Não confunda o arquivo acima com os manifestos do Kubernetes, o arquivo acima é apenas algumas definições que iremos usar no lugar das variáveis que defineremos nos manifestos do Kubernetes.</p>
+<p>Precisamos entender como ler o arquivo acima, e é bem simples, o arquivo acima é um arquivo YAML, e nele temos duas chaves, <code>giropops-senhas</code> e <code>redis</code>, e dentro de cada chave temos as definições que iremos utilizar, por exemplo:</p>
+<ul>
+<li><code>giropops-senhas</code>:<ul>
+<li><code>image</code>: A imagem que iremos utilizar para o nosso Deployment</li>
+<li><code>replicas</code>: A quantidade de réplicas que iremos utilizar para o nosso Deployment</li>
+<li><code>port</code>: A porta que iremos utilizar para o nosso Service</li>
+<li><code>labels</code>: As labels que iremos utilizar para o nosso Deployment</li>
+<li><code>service</code>: As definições que iremos utilizar para o nosso Service</li>
+<li><code>resources</code>: As definições de recursos que iremos utilizar para o nosso Deployment</li>
+</ul>
+</li>
+<li><code>redis</code>:<ul>
+<li><code>image</code>: A imagem que iremos utilizar para o nosso Deployment</li>
+<li><code>replicas</code>: A quantidade de réplicas que iremos utilizar para o nosso Deployment</li>
+<li><code>port</code>: A porta que iremos utilizar para o nosso Service</li>
+<li><code>labels</code>: As labels que iremos utilizar para o nosso Deployment</li>
+<li><code>service</code>: As definições que iremos utilizar para o nosso Service</li>
+<li><code>resources</code>: As definições de recursos que iremos utilizar para o nosso Deployment</li>
+</ul>
+</li>
+</ul>
+<p>E nesse caso, caso eu queira usar o valor que está definido para <code>image</code>, eu posso utilizar a variável <code>{{ .Values.giropops-senhas.image }}</code> no meu manifesto do Kubernetes, onde:</p>
+<ul>
+<li>: É a variável que o Helm utiliza para acessar as variáveis que estão definidas no arquivo <code>values.yaml</code>, e o resto é a chave que estamos acessando.</li>
+</ul>
+<p>Entendeu? Eu sei que é meu confuso no começo, mas treinando irá ficar mais fácil.</p>
+<p>Vamos fazer um teste rápido, como eu vejo o valor da porta que está definida para o Service do Redis?</p>
+<p>Pensou?</p>
+<p>Já sabemos que temos que começar com .Values, para representar o arquivo <code>values.yaml</code>, e depois temos que acessar a chave <code>redis</code>, e depois a chave <code>service</code>, e depois a chave <code>port</code>, então, o valor que está definido para a porta que iremos utilizar para o Service do Redis é <code>{{ .Values.redis.service.port }}</code>.</p>
+<p>Sempre você tem que respeitar a indentação do arquivo <code>values.yaml</code>, pois é ela que define como você irá acessar as chaves, certo?</p>
+<p>Dito isso, já podemos começar a substituir os valores do que está definido nos manifestos do Kubernetes pelos valores que estão definidos no arquivo <code>values.yaml</code>. Iremos sair da forma estática para a forma dinâmica, é o Helm em ação!</p>
+<p>Vamos começar com o arquivo <code>redis-deployment.yaml</code>, e vamos substituir o que está definido por variáveis, e para isso, vamos utilizar o seguinte conteúdo:</p>
+<pre><code class="lang-yaml"><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">apps/v1</span>
+<span class="hljs-attr">kind:</span> <span class="hljs-string">Deployment</span>
+<span class="hljs-attr">metadata:</span>
+  <span class="hljs-attr">labels:</span> 
+    <span class="hljs-attr">app:</span> <span class="hljs-string">redis</span> 
+  <span class="hljs-attr">name:</span> <span class="hljs-string">redis-deployment</span>
+<span class="hljs-attr">spec:</span>
+  <span class="hljs-attr">replicas:</span> <span class="hljs-number">1</span>
+  <span class="hljs-attr">selector:</span>
+    <span class="hljs-attr">matchLabels:</span>
+      <span class="hljs-attr">app:</span> <span class="hljs-string">redis</span>
+  <span class="hljs-attr">template:</span>
+    <span class="hljs-attr">metadata:</span>
+      <span class="hljs-attr">labels:</span>
+        <span class="hljs-attr">app:</span> <span class="hljs-string">redis</span>
+    <span class="hljs-attr">spec:</span>
+      <span class="hljs-attr">containers:</span>
+      <span class="hljs-bullet">-</span> <span class="hljs-attr">image:</span> {{ <span class="hljs-string">.Values.redis.image</span> }}
+        <span class="hljs-attr">name:</span> <span class="hljs-string">redis</span>
+        <span class="hljs-attr">ports:</span>
+          <span class="hljs-bullet">-</span> <span class="hljs-attr">containerPort:</span> {{ <span class="hljs-string">.Values.redis.port</span> }}
+        <span class="hljs-attr">resources:</span>
+          <span class="hljs-attr">limits:</span>
+            <span class="hljs-attr">memory:</span> {{ <span class="hljs-string">.Values.redis.resources.limits.memory</span> }}
+            <span class="hljs-attr">cpu:</span> {{ <span class="hljs-string">.Values.redis.resources.limits.cpu</span> }}
+          <span class="hljs-attr">requests:</span>
+            <span class="hljs-attr">memory:</span> {{ <span class="hljs-string">.Values.redis.resources.requests.memory</span> }}
+            <span class="hljs-attr">cpu:</span> {{ <span class="hljs-string">.Values.redis.resources.requests.cpu</span> }}
+</code></pre>
+<p>Veja que estamos usando e abusando das variáveis que estão definidas no arquivo <code>values.yaml</code>, agora vou explicar o que estamos fazendo:</p>
+<pre><code class="lang-yaml"><span class="hljs-bullet">-</span> <span class="hljs-string">`image`:</span> <span class="hljs-string">Estamos</span> <span class="hljs-string">utilizando</span> <span class="hljs-string">a</span> <span class="hljs-string">variável</span> <span class="hljs-string">`{{</span> <span class="hljs-string">.Values.redis.image</span> <span class="hljs-string">}}`</span> <span class="hljs-string">para</span> <span class="hljs-string">definir</span> <span class="hljs-string">a</span> <span class="hljs-string">imagem</span> <span class="hljs-string">que</span> <span class="hljs-string">iremos</span> <span class="hljs-string">utilizar</span> <span class="hljs-string">para</span> <span class="hljs-string">o</span> <span class="hljs-string">nosso</span> <span class="hljs-string">Deployment</span>
+<span class="hljs-bullet">-</span> <span class="hljs-string">`name`:</span> <span class="hljs-string">Estamos</span> <span class="hljs-string">utilizando</span> <span class="hljs-string">a</span> <span class="hljs-string">variável</span> <span class="hljs-string">`{{</span> <span class="hljs-string">.Values.redis.name</span> <span class="hljs-string">}}`</span> <span class="hljs-string">para</span> <span class="hljs-string">definir</span> <span class="hljs-string">o</span> <span class="hljs-string">nome</span> <span class="hljs-string">que</span> <span class="hljs-string">iremos</span> <span class="hljs-string">utilizar</span> <span class="hljs-string">para</span> <span class="hljs-string">o</span> <span class="hljs-string">nosso</span> <span class="hljs-string">Deployment</span>
+<span class="hljs-bullet">-</span> <span class="hljs-string">`replicas`:</span> <span class="hljs-string">Estamos</span> <span class="hljs-string">utilizando</span> <span class="hljs-string">a</span> <span class="hljs-string">variável</span> <span class="hljs-string">`{{</span> <span class="hljs-string">.Values.redis.replicas</span> <span class="hljs-string">}}`</span> <span class="hljs-string">para</span> <span class="hljs-string">definir</span> <span class="hljs-string">a</span> <span class="hljs-string">quantidade</span> <span class="hljs-string">de</span> <span class="hljs-string">réplicas</span> <span class="hljs-string">que</span> <span class="hljs-string">iremos</span> <span class="hljs-string">utilizar</span> <span class="hljs-string">para</span> <span class="hljs-string">o</span> <span class="hljs-string">nosso</span> <span class="hljs-string">Deployment</span>
+<span class="hljs-bullet">-</span> <span class="hljs-string">`resources`:</span> <span class="hljs-string">Estamos</span> <span class="hljs-string">utilizando</span> <span class="hljs-string">as</span> <span class="hljs-string">variáveis</span> <span class="hljs-string">`{{</span> <span class="hljs-string">.Values.redis.resources.limits.memory</span> <span class="hljs-string">}}`,</span> <span class="hljs-string">`{{</span> <span class="hljs-string">.Values.redis.resources.limits.cpu</span> <span class="hljs-string">}}`,</span> <span class="hljs-string">`{{</span> <span class="hljs-string">.Values.redis.resources.requests.memory</span> <span class="hljs-string">}}`</span> <span class="hljs-string">e</span> <span class="hljs-string">`{{</span> <span class="hljs-string">.Values.redis.resources.requests.cpu</span> <span class="hljs-string">}}`</span> <span class="hljs-string">para</span> <span class="hljs-string">definir</span> <span class="hljs-string">as</span> <span class="hljs-string">definições</span> <span class="hljs-string">de</span> <span class="hljs-string">recursos</span> <span class="hljs-string">que</span> <span class="hljs-string">iremos</span> <span class="hljs-string">utilizar</span> <span class="hljs-string">para</span> <span class="hljs-string">o</span> <span class="hljs-string">nosso</span> <span class="hljs-string">Deployment.</span>
+</code></pre>
+<p>Com isso, ele irá utilizar os valores que estão definidos no arquivo <code>values.yaml</code> para renderizar o nosso manifesto do Kubernetes, logo, quando precisar alterar alguma configuração, basta alterar o arquivo <code>values.yaml</code>, e o Helm irá renderizar os manifestos do Kubernetes com os valores definidos.</p>
+<p>Vamos fazer o mesmo para os outros manifestos do Kubernetes, e depois vamos ver como instalar a nossa aplicação utilizando o Helm.</p>
+<p>Vamos fazer o mesmo para o arquivo <code>redis-service.yaml</code>:</p>
+<pre><code class="lang-yaml"><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">v1</span>
+<span class="hljs-attr">kind:</span> <span class="hljs-string">Service</span>
+<span class="hljs-attr">metadata:</span>
+  <span class="hljs-attr">name:</span> <span class="hljs-string">redis-service</span>
+<span class="hljs-attr">spec:</span>
+  <span class="hljs-attr">selector:</span>
+    <span class="hljs-attr">app:</span> <span class="hljs-string">redis</span>
+  <span class="hljs-attr">ports:</span>
+    <span class="hljs-bullet">-</span> <span class="hljs-attr">protocol:</span> <span class="hljs-string">TCP</span>
+      <span class="hljs-attr">port:</span> {{ <span class="hljs-string">.Values.redis.service.port</span> }}
+      <span class="hljs-attr">targetPort:</span> {{ <span class="hljs-string">.Values.redis.service.port</span> }}
+  <span class="hljs-attr">type:</span> {{ <span class="hljs-string">.Values.redis.service.type</span> }}
+</code></pre>
+<p>E para o arquivo <code>giropops-senhas-deployment.yaml</code>:</p>
+<pre><code class="lang-yaml"><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">apps/v1</span>
+<span class="hljs-attr">kind:</span> <span class="hljs-string">Deployment</span>
+<span class="hljs-attr">metadata:</span>
+  <span class="hljs-attr">labels:</span>
+    <span class="hljs-attr">app:</span> <span class="hljs-string">giropops-senhas</span>
+  <span class="hljs-attr">name:</span> <span class="hljs-string">giropops-senhas</span>
+<span class="hljs-attr">spec:</span>
+  <span class="hljs-attr">replicas:</span> {{ <span class="hljs-string">.Values.giropops-senhas.replicas</span> }}
+  <span class="hljs-attr">selector:</span>
+    <span class="hljs-attr">matchLabels:</span>
+      <span class="hljs-attr">app:</span> <span class="hljs-string">giropops-senhas</span>
+  <span class="hljs-attr">template:</span>
+    <span class="hljs-attr">metadata:</span>
+      <span class="hljs-attr">labels:</span>
+        <span class="hljs-attr">app:</span> <span class="hljs-string">giropops-senhas</span>
+    <span class="hljs-attr">spec:</span>
+      <span class="hljs-attr">containers:</span>
+      <span class="hljs-bullet">-</span> <span class="hljs-attr">image:</span> {{ <span class="hljs-string">.Values.giropops-senhas.image</span> }}
+        <span class="hljs-attr">name:</span> <span class="hljs-string">giropops-senhas</span>
+        <span class="hljs-attr">ports:</span>
+        <span class="hljs-bullet">-</span> <span class="hljs-attr">containerPort:</span> {{ <span class="hljs-string">.Values.giropops-senhas.service.port</span> }}
+        <span class="hljs-attr">imagePullPolicy:</span> <span class="hljs-string">Always</span>
+        <span class="hljs-attr">resources:</span>
+          <span class="hljs-attr">limits:</span>
+            <span class="hljs-attr">memory:</span> {{ <span class="hljs-string">.Values.giropops-senhas.resources.limits.memory</span> }}
+            <span class="hljs-attr">cpu:</span> {{ <span class="hljs-string">.Values.giropops-senhas.resources.limits.cpu</span> }}
+          <span class="hljs-attr">requests:</span>
+            <span class="hljs-attr">memory:</span> {{ <span class="hljs-string">.Values.giropops-senhas.resources.requests.memory</span> }}
+            <span class="hljs-attr">cpu:</span> {{ <span class="hljs-string">.Values.giropops-senhas.resources.requests.cpu</span> }}
+</code></pre>
+<p>E para o arquivo <code>giropops-senhas-service.yaml</code>:</p>
+<pre><code class="lang-yaml"><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">v1</span>
+<span class="hljs-attr">kind:</span> <span class="hljs-string">Service</span>
+<span class="hljs-attr">metadata:</span>
+  <span class="hljs-attr">name:</span> <span class="hljs-string">giropops-senhas</span>
+  <span class="hljs-attr">labels:</span>
+    <span class="hljs-attr">app:</span> <span class="hljs-string">giropops-senhas</span>
+<span class="hljs-attr">spec:</span>
+  <span class="hljs-attr">selector:</span>
+    <span class="hljs-attr">app:</span> <span class="hljs-string">giropops-senhas</span>
+  <span class="hljs-attr">ports:</span>
+    <span class="hljs-bullet">-</span> <span class="hljs-attr">protocol:</span> <span class="hljs-string">TCP</span>
+      <span class="hljs-attr">port:</span> {{ <span class="hljs-string">.Values.giropops-senhas.service.port</span> }}
+      <span class="hljs-attr">nodePort:</span> {{ <span class="hljs-string">.Values.giropops-senhas.service.nodePort</span> }}
+      <span class="hljs-attr">targetPort:</span> {{ <span class="hljs-string">.Values.giropops-senhas.service.port</span> }}
+  <span class="hljs-attr">type:</span> {{ <span class="hljs-string">.Values.giropops-senhas.service.type</span> }}
+</code></pre>
+<p>Agora já temos todos os nosso manifestos mais dinâmicos, e portanto já podemos chama-los de Templates, que é o nome que o Helm utiliza para os manifestos do Kubernetes que são renderizados utilizando as variáveis.</p>
+<p>Ahhh, temos que criar um diretório chamado <code>charts</code> para que o Helm possa gerenciar as dependências do nosso Chart, mas como não temos dependências, podemos criar um diretório vazio, vamos fazer isso:</p>
+<pre><code class="lang-bash">mkdir charts
+</code></pre>
+<p>Pronto, já temos o nosso Chart criado!</p>
+<p>Agora vamos testa-lo para ver se tudo está funcionando como esperamos.</p>
+<h4 id="instalando-o-nosso-chart">Instalando o nosso Chart</h4>
+<p>Para que possamos utilizar o nosso Chart, precisamos utilizar o comando <code>helm install</code>, que é o comando que utilizamos para instalar um Chart no Kubernetes.</p>
+<p>Vamos instalar o nosso Chart, para isso, execute o comando abaixo:</p>
+<pre><code class="lang-bash">helm install giropops-senhas ./
+</code></pre>
+<p>Se tudo ocorrer bem, você verá a seguinte saída:</p>
+<pre><code class="lang-bash">NAME: giropops-senhas
+LAST DEPLOYED: Thu Feb  8 16:37:58 2024
+NAMESPACE: default
+STATUS: deployed
+REVISION: 1
+TEST SUITE: None
+</code></pre>
+<p>O nosso Chart foi instalado com sucesso!</p>
+<p>Vamos listar os Pods para ver se eles estão rodando, execute o comando abaixo:</p>
+<pre><code class="lang-bash">kubectl get pods
+</code></pre>
+<p>A saída será algo assim:</p>
+<pre><code class="lang-bash">NAME                                READY   STATUS    RESTARTS      AGE
+giropops-senhas-7d4fddc49f-9zfj9    1/1     Running   0             42s
+giropops-senhas-7d4fddc49f-dn996    1/1     Running   0             42s
+giropops-senhas-7d4fddc49f-fpvh6    1/1     Running   0             42s
+redis-deployment-76c5cdb57b-wf87q   1/1     Running   0             42s
+</code></pre>
+<p>Perceba que temos 3 Pods rodando para a nossa aplicação Giropops-Senhas, e 1 Pod rodando para o Redis, conforme definimos no arquivo <code>values.yaml</code>.</p>
+<p>Agora vamos listar os Charts que estão instalados no nosso Kubernetes, para isso, execute o comando abaixo:</p>
+<pre><code class="lang-bash">helm list
+</code></pre>
+<p>Se você quiser ver de alguma namespace específica, você pode utilizar o comando <code>helm list -n &lt;namespace&gt;</code>, mas no nosso caso, como estamos utilizando a namespace default, não precisamos especificar a namespace.</p>
+<p>Para ver mais detalhes do Chart que instalamos, você pode utilizar o comando <code>helm get</code>, para isso, execute o comando abaixo:</p>
+<pre><code class="lang-bash">helm get all giropops-senhas
+</code></pre>
+<p>A saída será os detalhes do Chart e os manifestos que foram renderizados pelo Helm.</p>
+<p>Vamos fazer uma alteração no nosso Chart, e vamos ver como atualizar a nossa aplicação utilizando o Helm.</p>
+<h4 id="atualizando-o-nosso-chart">Atualizando o nosso Chart</h4>
+<p>Vamos fazer uma alteração no nosso Chart, e vamos ver como atualizar a nossa aplicação utilizando o Helm.</p>
+<p>Vamos editar o <code>values.yaml</code> e alterar a quantidade de réplicas que estamos utilizando para a nossa aplicação Giropops-Senhas, para isso, edite o arquivo <code>values.yaml</code> e altere a quantidade de réplicas para 5:</p>
+<pre><code class="lang-yaml"><span class="hljs-attr">giropops-senhas:</span>
+  <span class="hljs-attr">name:</span> <span class="hljs-string">&quot;giropops-senhas&quot;</span>
+  <span class="hljs-attr">image:</span> <span class="hljs-string">&quot;linuxtips/giropops-senhas:1.0&quot;</span>
+  <span class="hljs-attr">replicas:</span> <span class="hljs-string">&quot;5&quot;</span>
+  <span class="hljs-attr">port:</span> <span class="hljs-number">5000</span>
+  <span class="hljs-attr">labels:</span>
+    <span class="hljs-attr">app:</span> <span class="hljs-string">&quot;giropops-senhas&quot;</span>
+    <span class="hljs-attr">env:</span> <span class="hljs-string">&quot;labs&quot;</span>
+    <span class="hljs-attr">live:</span> <span class="hljs-string">&quot;true&quot;</span>
+  <span class="hljs-attr">service:</span>
+    <span class="hljs-attr">type:</span> <span class="hljs-string">&quot;NodePort&quot;</span>
+    <span class="hljs-attr">port:</span> <span class="hljs-number">5000</span>
+    <span class="hljs-attr">targetPort:</span> <span class="hljs-number">5000</span>
+    <span class="hljs-attr">name:</span> <span class="hljs-string">&quot;giropops-senhas-port&quot;</span>
+  <span class="hljs-attr">resources:</span>
+    <span class="hljs-attr">requests:</span>
+      <span class="hljs-attr">memory:</span> <span class="hljs-string">&quot;128Mi&quot;</span>
+      <span class="hljs-attr">cpu:</span> <span class="hljs-string">&quot;250m&quot;</span>
+    <span class="hljs-attr">limits:</span>
+      <span class="hljs-attr">memory:</span> <span class="hljs-string">&quot;256Mi&quot;</span>
+      <span class="hljs-attr">cpu:</span> <span class="hljs-string">&quot;500m&quot;</span>
+<span class="hljs-attr">redis:</span>
+  <span class="hljs-attr">image:</span> <span class="hljs-string">&quot;redis&quot;</span>
+  <span class="hljs-attr">replicas:</span> <span class="hljs-number">1</span>
+  <span class="hljs-attr">port:</span> <span class="hljs-number">6379</span>
+  <span class="hljs-attr">labels:</span>
+    <span class="hljs-attr">app:</span> <span class="hljs-string">&quot;redis&quot;</span>
+    <span class="hljs-attr">env:</span> <span class="hljs-string">&quot;labs&quot;</span>
+    <span class="hljs-attr">live:</span> <span class="hljs-string">&quot;true&quot;</span>
+  <span class="hljs-attr">service:</span>
+    <span class="hljs-attr">type:</span> <span class="hljs-string">&quot;ClusterIP&quot;</span>
+    <span class="hljs-attr">port:</span> <span class="hljs-number">6379</span>
+    <span class="hljs-attr">targetPort:</span> <span class="hljs-number">6379</span>
+    <span class="hljs-attr">name:</span> <span class="hljs-string">&quot;redis-port&quot;</span>
+  <span class="hljs-attr">resources:</span>
+    <span class="hljs-attr">requests:</span>
+      <span class="hljs-attr">memory:</span> <span class="hljs-string">&quot;128Mi&quot;</span>
+      <span class="hljs-attr">cpu:</span> <span class="hljs-string">&quot;250m&quot;</span>
+    <span class="hljs-attr">limits:</span>
+      <span class="hljs-attr">memory:</span> <span class="hljs-string">&quot;256Mi&quot;</span>
+      <span class="hljs-attr">cpu:</span> <span class="hljs-string">&quot;500m&quot;</span>
+</code></pre>
+<p>A única coisa que alteramos foi a quantidade de réplicas que estamos utilizando para a nossa aplicação Giropops-Senhas, de 3 para 5.</p>
+<p>Vamos agora pedir para o Helm atualizar a nossa aplicação, para isso, execute o comando abaixo:</p>
+<pre><code class="lang-bash">helm upgrade giropops-senhas ./
+</code></pre>
+<p>Se tudo ocorrer bem, você verá a seguinte saída:</p>
+<pre><code class="lang-bash">Release <span class="hljs-string">&quot;giropops-senhas&quot;</span> has been upgraded. Happy Helming!
+NAME: giropops-senhas
+LAST DEPLOYED: Thu Feb  8 16:46:26 2024
+NAMESPACE: default
+STATUS: deployed
+REVISION: 2
+TEST SUITE: None
+</code></pre>
+<p>Agora vamos ver se o número de réplicas foi alterado, para isso, execute o comando abaixo:</p>
+<pre><code class="lang-bash">giropops-senhas-7d4fddc49f-9zfj9    1/1     Running   0             82s
+giropops-senhas-7d4fddc49f-dn996    1/1     Running   0             82s
+giropops-senhas-7d4fddc49f-fpvh6    1/1     Running   0             82s
+redis-deployment-76c5cdb57b-wf87q   1/1     Running   0             82s
+giropops-senhas-7d4fddc49f-ll25z    1/1     Running   0             18s
+giropops-senhas-7d4fddc49f-w8p7r    1/1     Running   0             18s
+</code></pre>
+<p>Agora temos mais dois Pods em execução, da mesma forma que definimos no arquivo <code>values.yaml</code>.</p>
+<p>Agora vamos remover a nossa aplicação:</p>
+<pre><code class="lang-bash">helm uninstall giropops-senhas
+</code></pre>
+<p>A saída será algo assim:</p>
+<pre><code class="lang-bash">release <span class="hljs-string">&quot;giropops-senhas&quot;</span> uninstalled
+</code></pre>
+<p>Já era, a nossa aplicação foi removida com sucesso!</p>
+<p>Como eu falei, nesse caso criamos tudo na mão, mas eu poderia ter usado o comando <code>helm create</code> para criar o nosso Chart, e ele teria criado a estrutura de diretórios e os arquivos que precisamos para o nosso Chart, e depois teríamos que fazer as alterações que fizemos manualmente.</p>
+<p>A estrutura de diretórios que o <code>helm create</code> cria é a seguinte:</p>
+<pre><code class="lang-bash">giropops-senhas-chart/
+├── charts
+├── Chart.yaml
+├── templates
+│   ├── deployment.yaml
+│   ├── _helpers.tpl
+│   ├── hpa.yaml
+│   ├── ingress.yaml
+│   ├── NOTES.txt
+│   ├── serviceaccount.yaml
+│   ├── service.yaml
+│   └── tests
+│       └── test-connection.yaml
+└── values.yaml
+</code></pre>
+<p>Eu não criei dessa forma, pois acho que iria complicar um pouco o nosso entendimento inicial, pois ele iria criar mais coisas que iriamos utilizar, mas em contrapartida, podemos utiliza-lo para nos basear para os nossos próximos Charts.
+Ele é o nosso amigo, e sim, ele pode nos ajudar! hahaha</p>
+<p>Agora eu preciso que você pratique o máximo possível, brincando com as diversas opções que temos disponíveis no Helm, e o mais importante, use e abuse da documentação oficial do Helm, ela é muito rica e tem muitos exemplos que podem te ajudar.</p>
+<p>Bora deixar o nosso Chart ainda mais legal?</p>
+<h4 id="utilizando-range--e-o-if-no-helm">Utilizando <code>range</code>  e o <code>if</code> no Helm</h4>
+<p>O Helm tem uma funcionalidade muito legal que é o <code>range</code>, que é uma estrutura de controle que nos permite iterar sobre uma lista de itens, e isso é muito útil quando estamos trabalhando com listas de itens, como por exemplo, quando estamos trabalhando com os manifestos do Kubernetes.</p>
+<p>Para que você consiga utilizar o <code>range</code>, precisamos antes entender sua estrutura básica, por exemplo, temos um arquivo com 4 frutas, e queremos listar todas elas, como eu faria isso?</p>
+<p>Primeiro, vamos criar um arquivo chamado <code>frutas.yaml</code> com o seguinte conteúdo:</p>
+<pre><code class="lang-yaml"><span class="hljs-attr">frutas:</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-string">banana</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-string">maçã</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-string">uva</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-string">morango</span>
+</code></pre>
+<p>Agora vamos pegar fruta por fruta, e colocando a seguinte frase antes de cada uma delas: &quot;Eu gosto de&quot;. </p>
+<p>Para isso, vamos criar um arquivo chamado <code>eu-gosto-frutas.yaml</code> com o seguinte conteúdo:</p>
+<pre><code class="lang-yaml">{{<span class="hljs-bullet">-</span> <span class="hljs-string">range</span> <span class="hljs-string">.Values.frutas</span> }}
+<span class="hljs-string">Eu</span> <span class="hljs-string">gosto</span> <span class="hljs-string">de</span> {{ <span class="hljs-string">.</span> }}
+{{<span class="hljs-bullet">-</span> <span class="hljs-string">end</span> }}
+</code></pre>
+<p>O resultado será:</p>
+<pre><code class="lang-bash">Eu gosto de banana
+Eu gosto de maçã
+Eu gosto de uva
+Eu gosto de morango
+</code></pre>
+<p>Ficou fácil, certo?
+O <code>range</code> percorreu toda a lista e ainda adicionou a frase que queríamos. </p>
+<p>Vamos imaginar que eu tenho uma lista de portas que eu quero expor para a minha aplicação, e eu quero criar um Service para cada porta que eu tenho na minha lista, como eu faria isso?</p>
+<p>Por exemplo, a nossa aplicação Giropops-Senhas, ela tem 2 portas que ela expõe, a porta 5000 e a porta 8088. A porta 5000 é a porta que a aplicação escuta, e a porta 8088 é a porta que a aplicação expõe as métricas para o Prometheus.</p>
+<p>Outra função super interessante e que é muito útil é o <code>if</code>, que é uma estrutura de controle que nos permite fazer uma verificação se uma condição é verdadeira ou falsa, e baseado nisso, podemos fazer alguma coisa ou não.</p>
+<p>a Estrutura básica do <code>if</code> é a seguinte:</p>
+<pre><code class="lang-yaml">{{<span class="hljs-bullet">-</span> <span class="hljs-string">if</span> <span class="hljs-string">eq</span> <span class="hljs-string">.Values.giropopsSenhas.service.type</span> <span class="hljs-string">&quot;NodePort&quot;</span> }}
+  <span class="hljs-attr">nodePort:</span> {{ <span class="hljs-string">.Values.giropopsSenhas.service.nodePort</span> }}
+  <span class="hljs-attr">targetPort:</span> {{ <span class="hljs-string">.Values.giropopsSenhas.service.targetPort</span> }}
+{{<span class="hljs-bullet">-</span> <span class="hljs-string">else</span> }}
+  <span class="hljs-attr">targetPort:</span> {{ <span class="hljs-string">.Values.giropopsSenhas.service.targetPort</span> }}
+{{<span class="hljs-bullet">-</span> <span class="hljs-string">end</span> }}
+</code></pre>
+<p>Onde:</p>
+<pre><code class="lang-yaml"><span class="hljs-bullet">-</span> <span class="hljs-string">`{{-</span> <span class="hljs-string">if</span> <span class="hljs-string">eq</span> <span class="hljs-string">.Values.giropopsSenhas.service.type</span> <span class="hljs-string">&quot;NodePort&quot;</span> <span class="hljs-string">}}`:</span> <span class="hljs-string">Verifica</span> <span class="hljs-string">se</span> <span class="hljs-string">o</span> <span class="hljs-string">valor</span> <span class="hljs-string">que</span> <span class="hljs-string">está</span> <span class="hljs-string">definido</span> <span class="hljs-string">para</span> <span class="hljs-string">a</span> <span class="hljs-string">chave</span> <span class="hljs-string">`type`</span> <span class="hljs-string">é</span> <span class="hljs-string">igual</span> <span class="hljs-string">a</span> <span class="hljs-string">`NodePort`</span>
+<span class="hljs-bullet">-</span> <span class="hljs-string">`nodePort:</span> {{ <span class="hljs-string">.Values.giropopsSenhas.service.nodePort</span> }}<span class="hljs-string">`:</span> <span class="hljs-string">Se</span> <span class="hljs-string">a</span> <span class="hljs-string">condição</span> <span class="hljs-string">for</span> <span class="hljs-string">verdadeira,</span> <span class="hljs-string">ele</span> <span class="hljs-string">irá</span> <span class="hljs-string">renderizar</span> <span class="hljs-string">o</span> <span class="hljs-string">valor</span> <span class="hljs-string">que</span> <span class="hljs-string">está</span> <span class="hljs-string">definido</span> <span class="hljs-string">para</span> <span class="hljs-string">a</span> <span class="hljs-string">chave</span> <span class="hljs-string">`nodePort`</span>
+<span class="hljs-bullet">-</span> <span class="hljs-string">`targetPort:</span> {{ <span class="hljs-string">.Values.giropopsSenhas.service.targetPort</span> }}<span class="hljs-string">`:</span> <span class="hljs-string">Se</span> <span class="hljs-string">a</span> <span class="hljs-string">condição</span> <span class="hljs-string">for</span> <span class="hljs-string">verdadeira,</span> <span class="hljs-string">ele</span> <span class="hljs-string">irá</span> <span class="hljs-string">renderizar</span> <span class="hljs-string">o</span> <span class="hljs-string">valor</span> <span class="hljs-string">que</span> <span class="hljs-string">está</span> <span class="hljs-string">definido</span> <span class="hljs-string">para</span> <span class="hljs-string">a</span> <span class="hljs-string">chave</span> <span class="hljs-string">`targetPort`</span>
+<span class="hljs-bullet">-</span> <span class="hljs-string">`{{-</span> <span class="hljs-string">else</span> <span class="hljs-string">}}`:</span> <span class="hljs-string">Se</span> <span class="hljs-string">a</span> <span class="hljs-string">condição</span> <span class="hljs-string">for</span> <span class="hljs-string">falsa,</span> <span class="hljs-string">ele</span> <span class="hljs-string">irá</span> <span class="hljs-string">renderizar</span> <span class="hljs-string">o</span> <span class="hljs-string">valor</span> <span class="hljs-string">que</span> <span class="hljs-string">está</span> <span class="hljs-string">definido</span> <span class="hljs-string">para</span> <span class="hljs-string">a</span> <span class="hljs-string">chave</span> <span class="hljs-string">`targetPort`</span>
+<span class="hljs-bullet">-</span> <span class="hljs-string">`{{-</span> <span class="hljs-string">end</span> <span class="hljs-string">}}`:</span> <span class="hljs-string">Finaliza</span> <span class="hljs-string">a</span> <span class="hljs-string">estrutura</span> <span class="hljs-string">de</span> <span class="hljs-string">controle</span>
+</code></pre>
+<p>Simples como voar! Bora lá utilizar essas duas fun´ções para deixar o nosso Chart ainda mais legal.</p>
+<p>Vamos começar criando um arquivo chamado <code>giropops-senhas-service.yaml</code> com o seguinte conteúdo:</p>
+<pre><code class="lang-yaml">{{<span class="hljs-bullet">-</span> <span class="hljs-string">range</span> <span class="hljs-string">.Values.giropops-senhas.ports</span> }}
+<span class="hljs-attr">apiVersion:</span> <span class="hljs-string">v1</span>
+<span class="hljs-attr">kind:</span> <span class="hljs-string">Service</span>
+<span class="hljs-attr">metadata:</span>
+  <span class="hljs-attr">name:</span> {{ <span class="hljs-string">.name</span> }}
+  <span class="hljs-attr">labels:</span>
+    <span class="hljs-attr">app:</span> {{ <span class="hljs-string">.name</span> }}
+<span class="hljs-attr">spec:</span>
+  <span class="hljs-attr">type:</span> {{ <span class="hljs-string">.serviceType</span> }}
+  <span class="hljs-attr">ports:</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> {{ <span class="hljs-string">.name</span> }}
+    <span class="hljs-attr">port:</span> {{ <span class="hljs-string">.port</span> }}
+{{<span class="hljs-bullet">-</span> <span class="hljs-string">if</span> <span class="hljs-string">eq</span> <span class="hljs-string">.serviceType</span> <span class="hljs-string">&quot;NodePort&quot;</span> }}
+    <span class="hljs-attr">nodePort:</span> {{ <span class="hljs-string">.NodePort</span> }}
+{{<span class="hljs-bullet">-</span> <span class="hljs-string">end</span> }}
+    <span class="hljs-attr">targetPort:</span> {{ <span class="hljs-string">.targetPort</span> }}
+  <span class="hljs-attr">selector:</span>
+    <span class="hljs-attr">app:</span> <span class="hljs-string">giropops-senhas</span>
+<span class="hljs-meta">---</span>
+{{<span class="hljs-bullet">-</span> <span class="hljs-string">end</span> }}
+</code></pre>
+<p>No arquivo acima, estamos utilizando a função <code>range</code> para iterar sobre a lista de portas que queremos expor para a nossa aplicação, e estamos utilizando a função <code>if</code> para verificar se a porta que estamos expondo é do tipo <code>NodePort</code>, e baseado nisso, estamos renderizando o valor que está definido para a chave <code>nodePort</code>.</p>
+<p>Agora vamos alterar o arquivo <code>values.yaml</code> e adicionar a lista de portas que queremos expor para a nossa aplicação, para isso, edite o arquivo <code>values.yaml</code> e adicione a lista de portas que queremos expor para a nossa aplicação:</p>
+<pre><code class="lang-yaml"><span class="hljs-attr">giropops-senhas:</span>
+  <span class="hljs-attr">name:</span> <span class="hljs-string">&quot;giropops-senhas&quot;</span>
+  <span class="hljs-attr">image:</span> <span class="hljs-string">&quot;linuxtips/giropops-senhas:1.0&quot;</span>
+  <span class="hljs-attr">replicas:</span> <span class="hljs-string">&quot;3&quot;</span>
+  <span class="hljs-attr">ports:</span>
+    <span class="hljs-bullet">-</span> <span class="hljs-attr">port:</span> <span class="hljs-number">5000</span>
+      <span class="hljs-attr">targetPort:</span> <span class="hljs-number">5000</span>
+      <span class="hljs-attr">name:</span> <span class="hljs-string">&quot;giropops-senhas-port&quot;</span>
+      <span class="hljs-attr">serviceType:</span> <span class="hljs-string">NodePort</span>
+      <span class="hljs-attr">NodePort:</span> <span class="hljs-number">32500</span>
+    <span class="hljs-bullet">-</span> <span class="hljs-attr">port:</span> <span class="hljs-number">8088</span>
+      <span class="hljs-attr">targetPort:</span> <span class="hljs-number">8088</span>
+      <span class="hljs-attr">name:</span> <span class="hljs-string">&quot;giropops-senhas-metrics&quot;</span>
+      <span class="hljs-attr">serviceType:</span> <span class="hljs-string">ClusterIP</span>
+  <span class="hljs-attr">labels:</span>
+    <span class="hljs-attr">app:</span> <span class="hljs-string">&quot;giropops-senhas&quot;</span>
+    <span class="hljs-attr">env:</span> <span class="hljs-string">&quot;labs&quot;</span>
+    <span class="hljs-attr">live:</span> <span class="hljs-string">&quot;true&quot;</span>
+  <span class="hljs-attr">resources:</span>
+    <span class="hljs-attr">requests:</span>
+      <span class="hljs-attr">memory:</span> <span class="hljs-string">&quot;128Mi&quot;</span>
+      <span class="hljs-attr">cpu:</span> <span class="hljs-string">&quot;250m&quot;</span>
+    <span class="hljs-attr">limits:</span>
+      <span class="hljs-attr">memory:</span> <span class="hljs-string">&quot;256Mi&quot;</span>
+      <span class="hljs-attr">cpu:</span> <span class="hljs-string">&quot;500m&quot;</span>
+<span class="hljs-attr">redis:</span>
+  <span class="hljs-attr">image:</span> <span class="hljs-string">&quot;redis&quot;</span>
+  <span class="hljs-attr">replicas:</span> <span class="hljs-number">1</span>
+  <span class="hljs-attr">port:</span> <span class="hljs-number">6379</span>
+  <span class="hljs-attr">labels:</span>
+    <span class="hljs-attr">app:</span> <span class="hljs-string">&quot;redis&quot;</span>
+    <span class="hljs-attr">env:</span> <span class="hljs-string">&quot;labs&quot;</span>
+    <span class="hljs-attr">live:</span> <span class="hljs-string">&quot;true&quot;</span>
+  <span class="hljs-attr">service:</span>
+    <span class="hljs-attr">type:</span> <span class="hljs-string">&quot;ClusterIP&quot;</span>
+    <span class="hljs-attr">port:</span> <span class="hljs-number">6379</span>
+    <span class="hljs-attr">targetPort:</span> <span class="hljs-number">6379</span>
+    <span class="hljs-attr">name:</span> <span class="hljs-string">&quot;redis-port&quot;</span>
+  <span class="hljs-attr">resources:</span>
+    <span class="hljs-attr">requests:</span>
+      <span class="hljs-attr">memory:</span> <span class="hljs-string">&quot;128Mi&quot;</span>
+      <span class="hljs-attr">cpu:</span> <span class="hljs-string">&quot;250m&quot;</span>
+    <span class="hljs-attr">limits:</span>
+      <span class="hljs-attr">memory:</span> <span class="hljs-string">&quot;256Mi&quot;</span>
+      <span class="hljs-attr">cpu:</span> <span class="hljs-string">&quot;500m&quot;</span>
+</code></pre>
+<p>Temos algumas coisas novas no arquivo <code>values.yaml</code>. O objetivo da mudança é deixar o arquivo ainda mais dinâmico, e para isso, adicionamos adicionamos mais informações sobre as portas que iremos utilizar. Deixamos as informações mais organizadas para facilitar a dinâmica criada no arquivo <code>giropops-senhas-service.yaml</code>.</p>
+<p>Poderiamos ainda criar um único template para realizar o deploy do Redis e do Giropops-Senhas, somente para que possamos gastar um pouquinho mais do nosso conhecimento, ou seja, isso aqui é muito mais para fins didáticos do que para a vida real, mas vamos lá, vamos criar um arquivo chamado <code>giropops-senhas-deployment.yaml</code> com o seguinte conteúdo:</p>
+<pre><code class="lang-yaml">{{<span class="hljs-bullet">-</span> <span class="hljs-string">range</span> <span class="hljs-string">$component</span>, <span class="hljs-string">$config</span> <span class="hljs-string">:=</span> <span class="hljs-string">.Values.deployments</span> }}
+<span class="hljs-attr">apiVersion:</span> <span class="hljs-string">apps/v1</span>
+<span class="hljs-attr">kind:</span> <span class="hljs-string">Deployment</span>
+<span class="hljs-attr">metadata:</span>
+  <span class="hljs-attr">name:</span> {{ <span class="hljs-string">$component</span> }}
+  <span class="hljs-attr">labels:</span>
+    <span class="hljs-attr">app:</span> {{ <span class="hljs-string">$config.labels.app</span> }}
+<span class="hljs-attr">spec:</span>
+  <span class="hljs-attr">replicas:</span> {{ <span class="hljs-string">$config.replicas</span> }}
+  <span class="hljs-attr">selector:</span>
+    <span class="hljs-attr">matchLabels:</span>
+      <span class="hljs-attr">app:</span> {{ <span class="hljs-string">$config.labels.app</span> }}
+  <span class="hljs-attr">template:</span>
+    <span class="hljs-attr">metadata:</span>
+      <span class="hljs-attr">labels:</span>
+        <span class="hljs-attr">app:</span> {{ <span class="hljs-string">$config.labels.app</span> }}
+    <span class="hljs-attr">spec:</span>
+      <span class="hljs-attr">containers:</span>
+      <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> {{ <span class="hljs-string">$component</span> }}
+        <span class="hljs-attr">image:</span> {{ <span class="hljs-string">$config.image</span> }}
+        <span class="hljs-attr">ports:</span>
+        {{<span class="hljs-bullet">-</span> <span class="hljs-string">range</span> <span class="hljs-string">$config.ports</span> }}
+        <span class="hljs-bullet">-</span> <span class="hljs-attr">containerPort:</span> {{ <span class="hljs-string">.port</span> }}
+        {{<span class="hljs-bullet">-</span> <span class="hljs-string">end</span> }}
+        <span class="hljs-attr">resources:</span>
+          <span class="hljs-attr">requests:</span>
+            <span class="hljs-attr">memory:</span> {{ <span class="hljs-string">$config.resources.requests.memory</span> }}
+            <span class="hljs-attr">cpu:</span> {{ <span class="hljs-string">$config.resources.requests.cpu</span> }}
+          <span class="hljs-attr">limits:</span>
+            <span class="hljs-attr">memory:</span> {{ <span class="hljs-string">$config.resources.limits.memory</span> }}
+            <span class="hljs-attr">cpu:</span> {{ <span class="hljs-string">$config.resources.limits.cpu</span> }}
+{{<span class="hljs-bullet">-</span> <span class="hljs-string">if</span> <span class="hljs-string">$config.env</span> }}
+        <span class="hljs-attr">env:</span>
+        {{<span class="hljs-bullet">-</span> <span class="hljs-string">range</span> <span class="hljs-string">$config.env</span> }}
+        <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> {{ <span class="hljs-string">.name</span> }}
+          <span class="hljs-attr">value:</span> {{ <span class="hljs-string">.value</span> }}
+        {{<span class="hljs-bullet">-</span> <span class="hljs-string">end</span> }}
+{{<span class="hljs-bullet">-</span> <span class="hljs-string">end</span> }}
+<span class="hljs-meta">---</span>
+{{<span class="hljs-bullet">-</span> <span class="hljs-string">end</span> }}
+</code></pre>
+<p>Estamos utilizando a função <code>range</code> logo no inicio do arquivo, e com ele estamos interando sobre a lista de componentes que temos no nosso arquivo <code>values.yaml</code>, ou seja, o Redis e o Giropops-Senhas. Mas também estamos utilizando o <code>range</code> para interar sobre a lista de outras configurações que temos no nosso arquivo <code>values.yaml</code>, como por exemplo, as portas que queremos expor para a nossa aplicação e o limite de recursos que queremos utilizar. Ele definiu duas variáveis, <code>$component</code> e <code>$config</code>, onde <code>$component</code> é o nome do componente que estamos interando, e <code>$config</code> é a configuração que estamos interando, fácil!</p>
+<p>Agora vamos instalar a nossa aplicação com o comando abaixo:</p>
+<pre><code class="lang-bash">helm install giropops-senhas ./
+</code></pre>
+<p>A saída será algo assim:</p>
+<pre><code class="lang-bash">Error: INSTALLATION FAILED: parse error at (giropops-senhas/templates/services.yaml:1): bad character U+002D <span class="hljs-string">&apos;-&apos;</span>
+</code></pre>
+<p>Parece que alguma coisa de errado não está certo, certo? hahaha</p>
+<p>O que aconteceu foi o seguinte:</p>
+<p>Quando estamos utilizando o nome do componente com um hífen, e tentamos passar na utilização do <code>range</code>, o Helm não entende que aquele é o nome do recurso que estamos utilizando, e retorna o erro de <code>bad character U+002D &apos;-&apos;</code>.</p>
+<p>Para resolver isso, vamos utilizar mais uma função do Helm, que é a função <code>index</code>.</p>
+<p>A função <code>index</code> nos permite acessar um valor de um mapa baseado na chave que estamos passando, nesse caso seria o <code>.Values</code>, e ainda buscar um valor baseado na chave que estamos passando, que é o nome do componente que estamos interando. Vamos ver como ficaria o nosso <code>services.yaml</code> com a utilização da função <code>index</code>:</p>
+<pre><code class="lang-yaml">{{<span class="hljs-bullet">-</span> <span class="hljs-string">range</span> <span class="hljs-string">(index</span> <span class="hljs-string">.Values</span> <span class="hljs-string">&quot;giropops-senhas&quot;</span><span class="hljs-string">).ports</span> }}
+<span class="hljs-attr">apiVersion:</span> <span class="hljs-string">v1</span>
+<span class="hljs-attr">kind:</span> <span class="hljs-string">Service</span>
+<span class="hljs-attr">metadata:</span>
+  <span class="hljs-attr">name:</span> {{ <span class="hljs-string">.name</span> }}
+  <span class="hljs-attr">labels:</span>
+    <span class="hljs-attr">app:</span> {{ <span class="hljs-string">.name</span> }}
+<span class="hljs-attr">spec:</span>
+  <span class="hljs-attr">type:</span> {{ <span class="hljs-string">.serviceType</span> }}
+  <span class="hljs-attr">ports:</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> {{ <span class="hljs-string">.name</span> }}
+    <span class="hljs-attr">port:</span> {{ <span class="hljs-string">.port</span> }}
+{{<span class="hljs-bullet">-</span> <span class="hljs-string">if</span> <span class="hljs-string">eq</span> <span class="hljs-string">.serviceType</span> <span class="hljs-string">&quot;NodePort&quot;</span> }}
+    <span class="hljs-attr">nodePort:</span> {{ <span class="hljs-string">.NodePort</span> }}
+{{<span class="hljs-bullet">-</span> <span class="hljs-string">end</span> }}
+    <span class="hljs-attr">targetPort:</span> {{ <span class="hljs-string">.targetPort</span> }}
+  <span class="hljs-attr">selector:</span>
+    <span class="hljs-attr">app:</span> <span class="hljs-string">giropops-senhas</span>
+<span class="hljs-meta">---</span>
+{{<span class="hljs-bullet">-</span> <span class="hljs-string">end</span> }}
+</code></pre>
+<p>Pronto, agora acredito que tudo terá um final feliz, para ter certeza, vamos instalar a nossa aplicação com o comando abaixo:</p>
+<pre><code class="lang-bash">helm install giropops-senhas ./
+</code></pre>
+<p>Se tudo ocorrer bem, você verá a seguinte saída:</p>
+<pre><code class="lang-bash">NAME: giropops-senhas
+LAST DEPLOYED: Sat Feb 10 12:19:27 2024
+NAMESPACE: default
+STATUS: deployed
+REVISION: 1
+TEST SUITE: None
+</code></pre>
+<p>Vamos ver se deu bom!</p>
+<pre><code class="lang-bash">kubectl get deployment
+</code></pre>
+<p>Temos a saída abaixo:</p>
+<pre><code class="lang-bash">NAME                         READY   UP-TO-DATE   AVAILABLE   AGE
+giropops-senhas-deployment   3/3     3            3           4m1s
+redis-deployment             1/1     1            1           4m1s
+</code></pre>
+<p>Agora os Pods:</p>
+<pre><code class="lang-bash">kubectl get pods
+</code></pre>
+<p>A saída:</p>
+<pre><code class="lang-bash">NAME                                         READY   STATUS    RESTARTS   AGE
+giropops-senhas-deployment-5c547c9cf-979vp   1/1     Running   0          4m40s
+giropops-senhas-deployment-5c547c9cf-s5k9x   1/1     Running   0          4m39s
+giropops-senhas-deployment-5c547c9cf-zp4s4   1/1     Running   0          4m39s
+redis-deployment-69c5869684-cxslb            1/1     Running   0          4m40s
+</code></pre>
+<p>Vamos ver os Services:</p>
+<pre><code class="lang-bash">kubectl get svc
+</code></pre>
+<p>Se a sua saída trouxe os dois serviços, com os nomes <code>giropops-senhas-port</code> e <code>giropops-senhas-metrics</code>, e com os tipos <code>NodePort</code> e <code>ClusterIP</code>, respectivamente, é um sinal de que deu super bom!</p>
+<pre><code class="lang-bash">NAME                      TYPE        CLUSTER-IP     EXTERNAL-IP   PORT(S)          AGE
+giropops-senhas-app       NodePort    10.96.185.6    &lt;none&gt;        5000:32500/TCP   5m1s
+giropops-senhas-metrics   ClusterIP   10.96.107.37   &lt;none&gt;        8088/TCP         5m1s
+kubernetes                ClusterIP   10.96.0.1      &lt;none&gt;        443/TCP          3d21h
+</code></pre>
+<p>Parece que deu ruim, certo?</p>
+<p>Ficou faltando o Service do Redis. :/</p>
+<p>Vamos resolver, mas antes, vamos mudar um pouco a organização em nosso <code>values.yaml</code>.</p>
+<pre><code class="lang-yaml"><span class="hljs-attr">deployments:</span>
+  <span class="hljs-attr">giropops-senhas:</span>
+    <span class="hljs-attr">name:</span> <span class="hljs-string">&quot;giropops-senhas&quot;</span>
+    <span class="hljs-attr">image:</span> <span class="hljs-string">&quot;linuxtips/giropops-senhas:1.0&quot;</span>
+    <span class="hljs-attr">replicas:</span> <span class="hljs-string">&quot;3&quot;</span>
+    <span class="hljs-attr">labels:</span>
+      <span class="hljs-attr">app:</span> <span class="hljs-string">&quot;giropops-senhas&quot;</span>
+      <span class="hljs-attr">env:</span> <span class="hljs-string">&quot;labs&quot;</span>
+      <span class="hljs-attr">live:</span> <span class="hljs-string">&quot;true&quot;</span>
+    <span class="hljs-attr">resources:</span>
+      <span class="hljs-attr">requests:</span>
+        <span class="hljs-attr">memory:</span> <span class="hljs-string">&quot;128Mi&quot;</span>
+        <span class="hljs-attr">cpu:</span> <span class="hljs-string">&quot;250m&quot;</span>
+      <span class="hljs-attr">limits:</span>
+        <span class="hljs-attr">memory:</span> <span class="hljs-string">&quot;256Mi&quot;</span>
+        <span class="hljs-attr">cpu:</span> <span class="hljs-string">&quot;500m&quot;</span>
+  <span class="hljs-attr">redis:</span>
+    <span class="hljs-attr">image:</span> <span class="hljs-string">&quot;redis&quot;</span>
+    <span class="hljs-attr">replicas:</span> <span class="hljs-number">1</span>
+    <span class="hljs-attr">port:</span> <span class="hljs-number">6379</span>
+    <span class="hljs-attr">labels:</span>
+      <span class="hljs-attr">app:</span> <span class="hljs-string">&quot;redis&quot;</span>
+      <span class="hljs-attr">env:</span> <span class="hljs-string">&quot;labs&quot;</span>
+      <span class="hljs-attr">live:</span> <span class="hljs-string">&quot;true&quot;</span>
+    <span class="hljs-attr">service:</span>
+      <span class="hljs-attr">type:</span> <span class="hljs-string">&quot;ClusterIP&quot;</span>
+      <span class="hljs-attr">port:</span> <span class="hljs-number">6379</span>
+      <span class="hljs-attr">targetPort:</span> <span class="hljs-number">6379</span>
+      <span class="hljs-attr">name:</span> <span class="hljs-string">&quot;redis-port&quot;</span>
+    <span class="hljs-attr">resources:</span>
+      <span class="hljs-attr">requests:</span>
+        <span class="hljs-attr">memory:</span> <span class="hljs-string">&quot;128Mi&quot;</span>
+        <span class="hljs-attr">cpu:</span> <span class="hljs-string">&quot;250m&quot;</span>
+      <span class="hljs-attr">limits:</span>
+        <span class="hljs-attr">memory:</span> <span class="hljs-string">&quot;256Mi&quot;</span>
+        <span class="hljs-attr">cpu:</span> <span class="hljs-string">&quot;500m&quot;</span>
+<span class="hljs-attr">services:</span>
+  <span class="hljs-attr">giropops-senhas:</span>
+    <span class="hljs-attr">ports:</span>
+      <span class="hljs-bullet">-</span> <span class="hljs-attr">port:</span> <span class="hljs-number">5000</span>
+        <span class="hljs-attr">targetPort:</span> <span class="hljs-number">5000</span>
+        <span class="hljs-attr">name:</span> <span class="hljs-string">&quot;giropops-senhas-app&quot;</span>
+        <span class="hljs-attr">serviceType:</span> <span class="hljs-string">NodePort</span>
+        <span class="hljs-attr">NodePort:</span> <span class="hljs-number">32500</span>
+      <span class="hljs-bullet">-</span> <span class="hljs-attr">port:</span> <span class="hljs-number">8088</span>
+        <span class="hljs-attr">targetPort:</span> <span class="hljs-number">8088</span>
+        <span class="hljs-attr">name:</span> <span class="hljs-string">&quot;giropops-senhas-metrics&quot;</span>
+        <span class="hljs-attr">serviceType:</span> <span class="hljs-string">ClusterIP</span>
+    <span class="hljs-attr">labels:</span>
+      <span class="hljs-attr">app:</span> <span class="hljs-string">&quot;giropops-senhas&quot;</span>
+      <span class="hljs-attr">env:</span> <span class="hljs-string">&quot;labs&quot;</span>
+      <span class="hljs-attr">live:</span> <span class="hljs-string">&quot;true&quot;</span>
+  <span class="hljs-attr">redis:</span>
+    <span class="hljs-attr">ports:</span>
+      <span class="hljs-bullet">-</span> <span class="hljs-attr">port:</span> <span class="hljs-number">6379</span>
+        <span class="hljs-attr">targetPort:</span> <span class="hljs-number">6378</span>
+        <span class="hljs-attr">name:</span> <span class="hljs-string">&quot;redis-port&quot;</span>
+        <span class="hljs-attr">serviceType:</span> <span class="hljs-string">ClusterIP</span>
+    <span class="hljs-attr">labels:</span>
+      <span class="hljs-attr">app:</span> <span class="hljs-string">&quot;redis&quot;</span>
+      <span class="hljs-attr">env:</span> <span class="hljs-string">&quot;labs&quot;</span>
+      <span class="hljs-attr">live:</span> <span class="hljs-string">&quot;true&quot;</span>
+</code></pre>
+<p>Precisamos agora atualizar os nossos templates para que eles possam utilizar as novas chaves que criamos no arquivo <code>values.yaml</code>.</p>
+<p>Vamos atualizar o <code>services.yaml</code> para que ele possa utilizar as novas chaves que criamos no arquivo <code>values.yaml</code>:</p>
+<pre><code class="lang-yaml">{{<span class="hljs-bullet">-</span> <span class="hljs-string">range</span> <span class="hljs-string">$component</span>, <span class="hljs-string">$config</span> <span class="hljs-string">:=</span> <span class="hljs-string">.Values.services</span> }}
+  {{ <span class="hljs-string">range</span> <span class="hljs-string">$port</span> <span class="hljs-string">:=</span> <span class="hljs-string">$config.ports</span> }}
+<span class="hljs-attr">apiVersion:</span> <span class="hljs-string">v1</span>
+<span class="hljs-attr">kind:</span> <span class="hljs-string">Service</span>
+<span class="hljs-attr">metadata:</span>
+  <span class="hljs-attr">name:</span> {{ <span class="hljs-string">$component</span> }}<span class="hljs-string">-{{</span> <span class="hljs-string">$port.name</span> <span class="hljs-string">}}</span>
+  <span class="hljs-attr">labels:</span>
+    <span class="hljs-attr">app:</span> {{ <span class="hljs-string">$config.labels.app</span> }}
+<span class="hljs-attr">spec:</span>
+  <span class="hljs-attr">type:</span> {{ <span class="hljs-string">$port.serviceType</span> }}
+  <span class="hljs-attr">ports:</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-attr">port:</span> {{ <span class="hljs-string">$port.port</span> }}
+    <span class="hljs-attr">targetPort:</span> {{ <span class="hljs-string">$port.targetPort</span> }}
+    <span class="hljs-attr">protocol:</span> <span class="hljs-string">TCP</span>
+    <span class="hljs-attr">name:</span> {{ <span class="hljs-string">$port.name</span> }}
+    {{ <span class="hljs-string">if</span> <span class="hljs-string">eq</span> <span class="hljs-string">$port.serviceType</span> <span class="hljs-string">&quot;NodePort&quot;</span> }}
+    <span class="hljs-attr">nodePort:</span> {{ <span class="hljs-string">$port.nodePort</span> }}
+    {{ <span class="hljs-string">end</span> }}
+  <span class="hljs-attr">selector:</span>
+    <span class="hljs-attr">app:</span> {{ <span class="hljs-string">$config.labels.app</span> }}
+<span class="hljs-meta">---</span>
+  {{ <span class="hljs-string">end</span> }}
+{{<span class="hljs-bullet">-</span> <span class="hljs-string">end</span> }}
+</code></pre>
+<p>Adicionamos um novo <code>range</code> para interar sobre a lista de portas que queremos expor para a nossa aplicação, e utilizamos a função <code>index</code> para acessar o valor que está definido para a chave <code>services</code> no arquivo <code>values.yaml</code>.</p>
+<p>Como o nosso <code>deployments.yaml</code> já está atualizado, não precisamos fazer nenhuma alteração nele, o que precisamos é deployar o nosso Chart novamente e ver se as nossas mondificações funcionaram.</p>
+<p>Temos duas opções, ou realizamos o <code>uninstall</code> e o <code>install</code> novamente, ou realizamos o <code>upgrade</code> da nossa aplicação.</p>
+<p>Vou realizar o <code>uninstall</code> e o <code>install</code> novamente, para isso, execute os comandos abaixo:</p>
+<pre><code class="lang-bash">helm uninstall giropops-senhas
+</code></pre>
+<p>E agora:</p>
+<pre><code class="lang-bash">helm install giropops-senhas ./
+</code></pre>
+<p>Caso eu queira fazer o <code>upgrade</code>, eu poderia utilizar o comando abaixo:</p>
+<pre><code class="lang-bash">helm upgrade giropops-senhas ./
+</code></pre>
+<p>Pronto, se tudo estiver certinho, temos uma saída parecida com a seguinte:</p>
+<pre><code class="lang-bash">NAME: giropops-senhas
+LAST DEPLOYED: Sat Feb 10 14:05:37 2024
+NAMESPACE: default
+STATUS: deployed
+REVISION: 1
+TEST SUITE: None
+</code></pre>
+<p>Vamos listar os recursos:</p>
+<pre><code class="lang-bash">kubectl get deployments,pods,svc
+</code></pre>
+<p>Assim ele trará todos os nossos recursos utilizados pela nossa aplicação.</p>
+<pre><code class="lang-bash">NAME                              READY   UP-TO-DATE   AVAILABLE   AGE
+deployment.apps/giropops-senhas   3/3     3            3           69s
+deployment.apps/redis             1/1     1            1           69s
+
+NAME                                   READY   STATUS    RESTARTS   AGE
+pod/giropops-senhas-8598bc5699-68sn6   1/1     Running   0          69s
+pod/giropops-senhas-8598bc5699-wgnxj   1/1     Running   0          69s
+pod/giropops-senhas-8598bc5699-xqssx   1/1     Running   0          69s
+pod/redis-69c5869684-62d2h             1/1     Running   0          69s
+
+NAME                              TYPE        CLUSTER-IP     EXTERNAL-IP   PORT(S)          AGE
+service/giropops-senhas-app       NodePort    10.96.119.23   &lt;none&gt;        5000:30032/TCP   69s
+service/giropops-senhas-metrics   ClusterIP   10.96.110.83   &lt;none&gt;        8088/TCP         69s
+service/kubernetes                ClusterIP   10.96.0.1      &lt;none&gt;        443/TCP          3d22h
+service/redis-service             ClusterIP   10.96.77.187   &lt;none&gt;        6379/TCP         69s
+</code></pre>
+<p>Pronto! Tudo criado com sucesso!</p>
+<p>Agora você já sabe como utilizar o <code>range</code>, <code>index</code> e o <code>if</code> no Helm, e já sabe como criar um Chart do zero, e já sabe como instalar, atualizar e remover a sua aplicação utilizando o Helm.</p>
+<h4 id="utilizando-default-toyaml-e-tojson-no-helm">Utilizando <code>default</code>, <code>toYaml</code> e <code>toJson</code> no Helm</h4>
+<p>Vamos comecer mais algumas funções do Helm, que são o <code>default</code>, <code>toYaml</code> e <code>toJson</code>, que nos ajudarão a deixar o nosso Chart ainda mais dinâmico e customizável.</p>
+<p>Suponhamos que queremos garantir que sempre haja um valor padrão para o número de réplicas nos nossos deployments, mesmo que esse valor não tenha sido especificamente definido no <code>values.yaml</code>. Podemos modificar o nosso <code>giropops-senhas-deployment.yaml</code> para incluir a função <code>default</code>:</p>
+<pre><code class="lang-yaml"><span class="hljs-attr">replicas:</span> {{ <span class="hljs-string">.Values.giropopsSenhas.replicas</span> <span class="hljs-string">|</span> <span class="hljs-string">default</span> <span class="hljs-number">3</span> }}
+</code></pre>
+<p>Agora vamos adicionar a configuração necessária para a observabilidade da nossa aplicação &quot;Giropops-Senhas&quot;, que inclui diversos parâmetros de configuração, e precisamos passá-la como uma string JSON para um ConfigMap. E o <code>toJson</code> irá nos salvar:</p>
+<p>No <code>values.yaml</code>, adicionamos uma configuração complexa:</p>
+<pre><code class="lang-yaml"><span class="hljs-attr">observability:</span>
+  <span class="hljs-attr">giropops-senhas:</span>
+    <span class="hljs-attr">logging:</span> <span class="hljs-literal">true</span>
+    <span class="hljs-attr">metrics:</span>
+      <span class="hljs-attr">enabled:</span> <span class="hljs-literal">true</span>
+      <span class="hljs-attr">path:</span> <span class="hljs-string">&quot;/metrics&quot;</span>
+</code></pre>
+<p>Agora vamos criar um ConfigMap que inclui essa configuração como uma string JSON:</p>
+<pre><code class="lang-yaml">{{<span class="hljs-bullet">-</span> <span class="hljs-string">range</span> <span class="hljs-string">$component</span>, <span class="hljs-string">$config</span> <span class="hljs-string">:=</span> <span class="hljs-string">.Values.observability</span> }}
+<span class="hljs-attr">apiVersion:</span> <span class="hljs-string">v1</span>
+<span class="hljs-attr">kind:</span> <span class="hljs-string">ConfigMap</span>
+<span class="hljs-attr">metadata:</span>
+  <span class="hljs-attr">name:</span> {{ <span class="hljs-string">$component</span> }}<span class="hljs-string">-observability-config</span>
+<span class="hljs-attr">data:</span>
+  <span class="hljs-attr">app-config.json:</span> <span class="hljs-string">| 
+    {{ toJson $config }}
+</span>{{<span class="hljs-bullet">-</span> <span class="hljs-string">end</span> }}
+</code></pre>
+<p>Dessa forma, transformamos a configuração definida no <code>values.yaml</code> em uma string JSON formatada, que é injetada diretamente no ConfigMap. A função <code>nindent 4</code> garante que iremos usar com 4 espaços de indentação a cada linha do conteúdo injetado.</p>
+<pre><code class="lang-json">{
+    <span class="hljs-string">&quot;logging&quot;</span>: <span class="hljs-literal">true</span>,
+    <span class="hljs-string">&quot;metrics&quot;</span>: {
+        <span class="hljs-string">&quot;enabled&quot;</span>: <span class="hljs-literal">true</span>,
+        <span class="hljs-string">&quot;path&quot;</span>: <span class="hljs-string">&quot;/metrics&quot;</span>
+    }
+}
+</code></pre>
+<p>Fácil!</p>
+<p>E por fim, vamos adicionar o endereço de um banco de dados como uma configuração YAML, e precisamos passá-la como uma string YAML para um ConfigMap. E o <code>toYaml</code> é a função que irá garantir que a configuração seja injetada corretamente:</p>
+<p>A configuração no <code>values.yaml</code>:</p>
+<pre><code class="lang-yaml"><span class="hljs-attr">databases:</span>
+  <span class="hljs-attr">giropops-senhas:</span>
+    <span class="hljs-attr">type:</span> <span class="hljs-string">&quot;MySQL&quot;</span>
+      <span class="hljs-attr">host:</span> <span class="hljs-string">&quot;mysql.svc.cluster.local&quot;</span>
+      <span class="hljs-attr">port:</span> <span class="hljs-number">3306</span>
+      <span class="hljs-attr">name:</span> <span class="hljs-string">&quot;MyDB&quot;</span>
+</code></pre>
+<p>Com isso, já podemos criar um ConfigMap que inclui essa configuração como uma string YAML:</p>
+<pre><code class="lang-yaml">{{<span class="hljs-bullet">-</span> <span class="hljs-string">range</span> <span class="hljs-string">$component</span>, <span class="hljs-string">$config</span> <span class="hljs-string">:=</span> <span class="hljs-string">.Values.databases</span> }}
+<span class="hljs-attr">apiVersion:</span> <span class="hljs-string">v1</span>
+<span class="hljs-attr">kind:</span> <span class="hljs-string">ConfigMap</span>
+<span class="hljs-attr">metadata:</span>
+  <span class="hljs-attr">name:</span> {{ <span class="hljs-string">$component</span> }}<span class="hljs-string">-db-config</span>
+<span class="hljs-attr">data:</span>
+  <span class="hljs-attr">app-config.yaml:</span> <span class="hljs-string">|
+    {{- toYaml $config | nindent 4 }}
+</span>{{<span class="hljs-bullet">-</span> <span class="hljs-string">end</span> }}
+</code></pre>
+<p>Dessa forma, transformamos a configuração definida no <code>values.yaml</code> em uma string YAML formatada, que é injetada diretamente no ConfigMap. A função <code>nindent 2</code> garante que o conteúdo injetado esteja corretamente indentado, pois ela adiciona 2 espaços de indentação a cada linha do conteúdo injetado.</p>
+<p>Para que possamos aplicar essas modificações, precisamos realizar o <code>upgrade</code> da nossa aplicação, para isso, execute o comando abaixo:</p>
+<pre><code class="lang-bash">helm upgrade giropops-senhas ./
+</code></pre>
+<p>Agora já temos além dos deployments e services, também os ConfigMaps para a nossa aplicação.</p>
+<p>Para ver os ConfigMaps, execute o comando abaixo:</p>
+<pre><code class="lang-bash">kubectl get configmaps
+</code></pre>
+<p>Para ver os detalhes de cada ConfigMap, execute o comando abaixo:</p>
+<pre><code class="lang-bash">kubectl get configmap &lt;configmap-name&gt; -o yaml
+</code></pre>
+<p>Chega a ser lacrimejante de tão lindo! :D</p>
+<h4 id="o-que-são-helpers-no-helm">O Que São Helpers no Helm?</h4>
+<p>Helpers no Helm são funções definidas em arquivos <code>_helpers.tpl</code> dentro do diretório <code>templates</code> de um gráfico Helm. Eles permitem a reutilização de código e lógicas complexas em seus templates, promovendo práticas de codificação DRY (Don&apos;t Repeat Yourself). Isso significa que, em vez de repetir o mesmo código em vários lugares, você pode definir uma função helper e chamá-la sempre que precisar.</p>
+<h5 id="por-que-usar-helpers">Por Que Usar Helpers?</h5>
+<ul>
+<li><strong>Reutilização de Código:</strong> Evita duplicação e facilita a manutenção.</li>
+<li><strong>Abstração de Complexidade:</strong> Encapsula lógicas complexas, tornando os templates mais limpos e fáceis de entender.</li>
+<li><strong>Personalização e Flexibilidade:</strong> Permite a criação de templates mais dinâmicos e adaptáveis às necessidades específicas do usuário.</li>
+</ul>
+<h5 id="criando-o-nosso-primeiro-helper">Criando o Nosso Primeiro Helper</h5>
+<p>Para ilustrar a criação e o uso de helpers, vamos começar com um exemplo prático. Imagine que você precisa incluir o nome padrão do seu aplicativo em vários recursos Kubernetes no seu chart Helm. Em vez de escrever manualmente o nome em cada recurso, você pode definir um helper para isso.</p>
+<ol>
+<li><strong>Definindo um Helper:</strong>
+No diretório <code>templates</code>, crie um arquivo chamado <code>_helpers.tpl</code> e adicione o seguinte conteúdo:</li>
+</ol>
+<pre><code class="lang-yaml">{<span class="hljs-string">%</span> <span class="hljs-string">raw</span> <span class="hljs-string">%</span>}
+{{<span class="hljs-string">/*</span>
+<span class="hljs-string">Define</span> <span class="hljs-string">um</span> <span class="hljs-string">helper</span> <span class="hljs-string">para</span> <span class="hljs-string">o</span> <span class="hljs-string">nome</span> <span class="hljs-string">do</span> <span class="hljs-string">aplicativo.</span>
+<span class="hljs-string">*/</span>}}
+{{<span class="hljs-bullet">-</span> <span class="hljs-string">define</span> <span class="hljs-string">&quot;meuapp.name&quot;</span> <span class="hljs-string">-</span>}}
+{{<span class="hljs-bullet">-</span> <span class="hljs-string">default</span> <span class="hljs-string">.Chart.Name</span> <span class="hljs-string">.Values.appName</span> <span class="hljs-string">|</span> <span class="hljs-string">trunc</span> <span class="hljs-number">63</span> <span class="hljs-string">|</span> <span class="hljs-string">trimSuffix</span> <span class="hljs-string">&quot;-&quot;</span> <span class="hljs-string">-</span>}}
+{{<span class="hljs-bullet">-</span> <span class="hljs-string">end</span> <span class="hljs-string">-</span>}}
+{<span class="hljs-string">%</span> <span class="hljs-string">endraw</span> <span class="hljs-string">%</span>}
+</code></pre>
+<p>   Esta função define um nome padrão para o seu aplicativo, usando o nome do gráfico (<code>Chart.Name</code>) ou um nome personalizado definido em <code>Values.appName</code>, limitando-o a 63 caracteres e removendo quaisquer hífens no final.</p>
+<ol>
+<li><strong>Usando o Helper:</strong>
+Agora, você pode usar este helper em seus templates para garantir que o nome do aplicativo seja consistente em todos os recursos. Por exemplo, em um template de Deployment, você pode usar:</li>
+</ol>
+<pre><code class="lang-yaml"><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">apps/v1</span>
+<span class="hljs-attr">kind:</span> <span class="hljs-string">Deployment</span>
+<span class="hljs-attr">metadata:</span>
+  <span class="hljs-attr">name:</span> {{ <span class="hljs-string">include</span> <span class="hljs-string">&quot;meuapp.name&quot;</span> <span class="hljs-string">.</span> }}
+  <span class="hljs-attr">labels:</span>
+    <span class="hljs-attr">app:</span> {{ <span class="hljs-string">include</span> <span class="hljs-string">&quot;meuapp.name&quot;</span> <span class="hljs-string">.</span> }}
+</code></pre>
+<h5 id="helpers-avançados-exemplos-práticos">Helpers Avançados: Exemplos Práticos</h5>
+<p>À medida que você se familiariza com os helpers, pode começar a explorar usos mais avançados. Aqui estão alguns exemplos que demonstram a flexibilidade e o poder dos helpers no Helm.</p>
+<h6 id="exemplo-1-controlando-a-complexidade">Exemplo 1: Controlando a Complexidade</h6>
+<p>Imagine que você tenha múltiplos serviços que precisam ser configurados de maneira ligeiramente diferente com base em certos valores de entrada. Você pode criar um helper complexo que gera a configuração apropriada para cada serviço.</p>
+<pre><code class="lang-yaml">{{<span class="hljs-string">/*</span>
+<span class="hljs-string">Gerar</span> <span class="hljs-string">configuração</span> <span class="hljs-string">específica</span> <span class="hljs-string">do</span> <span class="hljs-string">serviço.</span>
+<span class="hljs-string">*/</span>}}
+{{<span class="hljs-bullet">-</span> <span class="hljs-string">define</span> <span class="hljs-string">&quot;meuapp.serviceConfig&quot;</span> <span class="hljs-string">-</span>}}
+{{<span class="hljs-bullet">-</span> <span class="hljs-string">if</span> <span class="hljs-string">eq</span> <span class="hljs-string">.Values.serviceType</span> <span class="hljs-string">&quot;frontend&quot;</span> <span class="hljs-string">-</span>}}
+<span class="hljs-comment"># Configuração específica do frontend</span>
+{{<span class="hljs-bullet">-</span> <span class="hljs-string">else</span> <span class="hljs-string">if</span> <span class="hljs-string">eq</span> <span class="hljs-string">.Values.serviceType</span> <span class="hljs-string">&quot;backend&quot;</span> <span class="hljs-string">-</span>}}
+<span class="hljs-comment"># Configuração específica do backend</span>
+{{<span class="hljs-bullet">-</span> <span class="hljs-string">end</span> <span class="hljs-string">-</span>}}
+{{<span class="hljs-bullet">-</span> <span class="hljs-string">end</span> <span class="hljs-string">-</span>}}
+</code></pre>
+<h6 id="exemplo-2-personalização-baseada-em-ambiente">Exemplo 2: Personalização Baseada em Ambiente</h6>
+<p>Em ambientes de desenvolvimento, você pode querer configurar seus serviços de maneira diferente do que em produção. Um helper pode ajudar a injetar essas configurações com base no ambiente.</p>
+<pre><code class="lang-yaml">{{<span class="hljs-string">/*</span>
+<span class="hljs-string">Ajustar</span> <span class="hljs-string">configurações</span> <span class="hljs-string">com</span> <span class="hljs-string">base</span> <span class="hljs-literal">no</span> <span class="hljs-string">ambiente.</span>
+<span class="hljs-string">*/</span>}}
+{{<span class="hljs-bullet">-</span> <span class="hljs-string">define</span> <span class="hljs-string">&quot;meuapp.envConfig&quot;</span> <span class="hljs-string">-</span>}}
+{{<span class="hljs-bullet">-</span> <span class="hljs-string">if</span> <span class="hljs-string">eq</span> <span class="hljs-string">.Values.environment</span> <span class="hljs-string">&quot;prod&quot;</span> <span class="hljs-string">-</span>}}
+<span class="hljs-comment"># Configurações de produção</span>
+{{<span class="hljs-bullet">-</span> <span class="hljs-string">else</span> <span class="hljs-string">-</span>}}
+<span class="hljs-comment"># Configurações de desenvolvimento</span>
+{{<span class="hljs-bullet">-</span> <span class="hljs-string">end</span>
+
+ <span class="hljs-string">-</span>}}
+{{<span class="hljs-bullet">-</span> <span class="hljs-string">end</span> <span class="hljs-string">-</span>}}
+</code></pre>
+<h5 id="melhores-práticas-ao-usar-helpers">Melhores Práticas ao Usar Helpers</h5>
+<ul>
+<li><strong>Mantenha os Helpers Simples:</strong> Funções muito complexas podem ser difíceis de manter e entender.</li>
+<li><strong>Nomeie os Helpers de Forma Clara:</strong> Os nomes devem refletir o propósito da função para facilitar a compreensão e o uso.</li>
+<li><strong>Documente Seus Helpers:</strong> Comentários claros sobre o que cada helper faz ajudam outros desenvolvedores a entender seu código mais rapidamente.</li>
+<li><strong>Use Helpers para Lógicas Recorrentes:</strong> Aproveite os helpers para evitar a repetição de lógicas complexas ou padrões comuns em seus templates.</li>
+</ul>
+<h4 id="criando-o-helperstpl-da-nossa-app">Criando o <code>_helpers.tpl</code> da nossa App</h4>
+<p>Chegou o momento de chamar os Helpers do Helm para nos ajudar a dimunir a repetição de códigos e também para reduzir a complexidade de nossos Templates.</p>
+<p>Vamos dividir em algumas etapas para ficar fácil o entendimento sobre o que estamos fazendo em cada passo. :)</p>
+<h5 id="passo-1-criando-o-arquivo-helperstpl">Passo 1: Criando o arquivo <code>_helpers.tpl</code></h5>
+<p>Como já vimos, o arquivo <code>_helpers.tpl</code> contém definições de templates que podem ser reutilizadas em vários lugares. Aqui estão alguns templates úteis para o nosso caso:</p>
+<h6 id="labels">Labels</h6>
+<p>Para reutilizar as labels de aplicativos em seus deployments e services:</p>
+<pre><code class="lang-yaml">{{<span class="hljs-string">/*</span>
+<span class="hljs-string">Generate</span> <span class="hljs-string">application</span> <span class="hljs-string">labels</span>
+<span class="hljs-string">*/</span>}}
+{{<span class="hljs-bullet">-</span> <span class="hljs-string">define</span> <span class="hljs-string">&quot;app.labels&quot;</span> <span class="hljs-string">-</span>}}
+<span class="hljs-attr">app:</span> {{ <span class="hljs-string">.labels.app</span> }}
+<span class="hljs-attr">env:</span> {{ <span class="hljs-string">.labels.env</span> }}
+<span class="hljs-attr">live:</span> {{ <span class="hljs-string">.labels.live</span> }}
+{{<span class="hljs-bullet">-</span> <span class="hljs-string">end</span> }}
+</code></pre>
+<p>No arquivo acima estamos definindo um helper que gera as labels do aplicativo com base nas configurações fornecidas. Isso nos permite reutilizar as mesmas labels em vários recursos, garantindo consistência e facilitando a manutenção.</p>
+<h6 id="resources">Resources</h6>
+<p>Template para definir os requests e limits de CPU e memória:</p>
+<pre><code class="lang-yaml">{{<span class="hljs-string">/*</span>
+<span class="hljs-string">Generate</span> <span class="hljs-string">container</span> <span class="hljs-string">resources</span>
+<span class="hljs-string">*/</span>}}
+{{<span class="hljs-bullet">-</span> <span class="hljs-string">define</span> <span class="hljs-string">&quot;app.resources&quot;</span> <span class="hljs-string">-</span>}}
+<span class="hljs-attr">requests:</span>
+  <span class="hljs-attr">memory:</span> {{ <span class="hljs-string">.resources.requests.memory</span> }}
+  <span class="hljs-attr">cpu:</span> {{ <span class="hljs-string">.resources.requests.cpu</span> }}
+<span class="hljs-attr">limits:</span>
+  <span class="hljs-attr">memory:</span> {{ <span class="hljs-string">.resources.limits.memory</span> }}
+  <span class="hljs-attr">cpu:</span> {{ <span class="hljs-string">.resources.limits.cpu</span> }}
+{{<span class="hljs-bullet">-</span> <span class="hljs-string">end</span> }}
+</code></pre>
+<p>Aqui estamos definindo um helper que gera as configurações de recursos para um contêiner com base nas configurações fornecidas.</p>
+<h6 id="ports">Ports</h6>
+<p>Template para a definição de portas no deployment:</p>
+<pre><code class="lang-yaml">{{<span class="hljs-string">/*</span>
+<span class="hljs-string">Generate</span> <span class="hljs-string">container</span> <span class="hljs-string">ports</span>
+<span class="hljs-string">*/</span>}}
+{{<span class="hljs-bullet">-</span> <span class="hljs-string">define</span> <span class="hljs-string">&quot;app.ports&quot;</span> <span class="hljs-string">-</span>}}
+{{<span class="hljs-bullet">-</span> <span class="hljs-string">range</span> <span class="hljs-string">.ports</span> }}
+<span class="hljs-bullet">-</span> <span class="hljs-attr">containerPort:</span> {{ <span class="hljs-string">.port</span> }}
+{{<span class="hljs-bullet">-</span> <span class="hljs-string">end</span> }}
+{{<span class="hljs-bullet">-</span> <span class="hljs-string">end</span> }}
+</code></pre>
+<h4 id="passo-2-refatorando-deploymentsyaml-e-servicesyaml">Passo 2: Refatorando <code>Deployments.yaml</code> e <code>Services.yaml</code></h4>
+<p>Com os helpers definidos, já podemos refatorar nossos arquivos <code>Deployments.yaml</code> e <code>Services.yaml</code> para utilizar esses templates.</p>
+<h6 id="o-nosso-deploymentsyaml">O nosso <code>Deployments.yaml</code></h6>
+<pre><code class="lang-yaml">{{<span class="hljs-bullet">-</span> <span class="hljs-string">range</span> <span class="hljs-string">$component</span>, <span class="hljs-string">$config</span> <span class="hljs-string">:=</span> <span class="hljs-string">.Values.deployments</span> }}
+<span class="hljs-attr">apiVersion:</span> <span class="hljs-string">apps/v1</span>
+<span class="hljs-attr">kind:</span> <span class="hljs-string">Deployment</span>
+<span class="hljs-attr">metadata:</span>
+  <span class="hljs-attr">name:</span> {{ <span class="hljs-string">$component</span> }}
+  <span class="hljs-attr">labels:</span>
+    {{<span class="hljs-bullet">-</span> <span class="hljs-string">include</span> <span class="hljs-string">&quot;app.labels&quot;</span> <span class="hljs-string">$config</span> <span class="hljs-string">|</span> <span class="hljs-string">nindent</span> <span class="hljs-number">4</span> }}
+<span class="hljs-attr">spec:</span>
+  <span class="hljs-attr">replicas:</span> {{ <span class="hljs-string">$config.replicas</span> <span class="hljs-string">|</span> <span class="hljs-string">default</span> <span class="hljs-number">3</span> }}
+  <span class="hljs-attr">selector:</span>
+    <span class="hljs-attr">matchLabels:</span>
+      <span class="hljs-attr">app:</span> {{ <span class="hljs-string">$config.labels.app</span> }}
+  <span class="hljs-attr">template:</span>
+    <span class="hljs-attr">metadata:</span>
+      <span class="hljs-attr">labels:</span>
+        {{<span class="hljs-bullet">-</span> <span class="hljs-string">include</span> <span class="hljs-string">&quot;app.labels&quot;</span> <span class="hljs-string">$config</span> <span class="hljs-string">|</span> <span class="hljs-string">nindent</span> <span class="hljs-number">8</span> }}
+    <span class="hljs-attr">spec:</span>
+      <span class="hljs-attr">containers:</span>
+      <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> {{ <span class="hljs-string">$component</span> }}
+        <span class="hljs-attr">image:</span> {{ <span class="hljs-string">$config.image</span> }}
+        <span class="hljs-attr">ports:</span>
+        {{<span class="hljs-bullet">-</span> <span class="hljs-string">include</span> <span class="hljs-string">&quot;app.ports&quot;</span> <span class="hljs-string">$config</span> <span class="hljs-string">|</span> <span class="hljs-string">nindent</span> <span class="hljs-number">10</span> }}
+        <span class="hljs-attr">resources:</span>
+          {{<span class="hljs-bullet">-</span> <span class="hljs-string">include</span> <span class="hljs-string">&quot;app.resources&quot;</span> <span class="hljs-string">$config</span> <span class="hljs-string">|</span> <span class="hljs-string">nindent</span> <span class="hljs-number">12</span> }}
+{{<span class="hljs-bullet">-</span> <span class="hljs-string">if</span> <span class="hljs-string">$config.env</span> }}
+        <span class="hljs-attr">env:</span>
+        {{<span class="hljs-bullet">-</span> <span class="hljs-string">range</span> <span class="hljs-string">$config.env</span> }}
+        <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> {{ <span class="hljs-string">.name</span> }}
+          <span class="hljs-attr">value:</span> {{ <span class="hljs-string">.value</span> }}
+        {{<span class="hljs-bullet">-</span> <span class="hljs-string">end</span> }}
+{{<span class="hljs-bullet">-</span> <span class="hljs-string">end</span> }}
+<span class="hljs-meta">---</span>
+{{<span class="hljs-bullet">-</span> <span class="hljs-string">end</span> }}
+</code></pre>
+<h6 id="o-nosso-servicesyaml">O nosso <code>Services.yaml</code></h6>
+<pre><code class="lang-yaml">{{<span class="hljs-bullet">-</span> <span class="hljs-string">range</span> <span class="hljs-string">$component</span>, <span class="hljs-string">$config</span> <span class="hljs-string">:=</span> <span class="hljs-string">.Values.services</span> }}
+  {{<span class="hljs-bullet">-</span> <span class="hljs-string">range</span> <span class="hljs-string">$port</span> <span class="hljs-string">:=</span> <span class="hljs-string">$config.ports</span> }}
+<span class="hljs-attr">apiVersion:</span> <span class="hljs-string">v1</span>
+<span class="hljs-attr">kind:</span> <span class="hljs-string">Service</span>
+<span class="hljs-attr">metadata:</span>
+  <span class="hljs-attr">name:</span> {{ <span class="hljs-string">$component</span> }}<span class="hljs-string">-{{</span> <span class="hljs-string">$port.name</span> <span class="hljs-string">}}</span>
+  <span class="hljs-attr">labels:</span>
+    {{<span class="hljs-bullet">-</span> <span class="hljs-string">include</span> <span class="hljs-string">&quot;app.labels&quot;</span> <span class="hljs-string">$config</span> <span class="hljs-string">|</span> <span class="hljs-string">nindent</span> <span class="hljs-number">4</span> }}
+<span class="hljs-attr">spec:</span>
+  <span class="hljs-attr">type:</span> {{ <span class="hljs-string">$port.serviceType</span> }}
+  <span class="hljs-attr">ports:</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-attr">port:</span> {{ <span class="hljs-string">$port.port</span> }}
+    <span class="hljs-attr">targetPort:</span> {{ <span class="hljs-string">$port.targetPort</span> }}
+    <span class="hljs-attr">protocol:</span> <span class="hljs-string">TCP</span>
+    <span class="hljs-attr">name:</span> {{ <span class="hljs-string">$port.name</span> }}
+    {{<span class="hljs-bullet">-</span> <span class="hljs-string">if</span> <span class="hljs-string">eq</span> <span class="hljs-string">$port.serviceType</span> <span class="hljs-string">&quot;NodePort&quot;</span> }}
+    <span class="hljs-attr">nodePort:</span> {{ <span class="hljs-string">$port.nodePort</span> }}
+    {{<span class="hljs-bullet">-</span> <span class="hljs-string">end</span> }}
+  <span class="hljs-attr">selector:</span>
+    <span class="hljs-attr">app:</span> {{ <span class="hljs-string">$config.labels.app</span> }}
+<span class="hljs-meta">---</span>
+  {{<span class="hljs-bullet">-</span> <span class="hljs-string">end</span> }}
+{{<span class="hljs-bullet">-</span> <span class="hljs-string">end</span> }}
+</code></pre>
+<p>Pronto! Agora já temos o <code>_helpers.tpl</code> criado e os templates atualizados!</p>
+<p>Caso queira testar, basta instalar ou fazer o upgrade do nosso Chart. Não vou fazer aqui novamente pois já executamos mais de 1 milhão de vezes, você já sabe como fazer isso com os pés nas costas. :)</p>
+<h4 id="passo-3-refatorando-os-configmaps">Passo 3: Refatorando os ConfigMaps</h4>
+<p>Ainda precisamos trabalhar com os nosso ConfigMaps, e para isso eu pensei em executar algo um pouco mais complexo, somente para que possamos gastar todo o nosso conhecimento. hahaha</p>
+<p>Para tornar os arquivos <code>config-map-dp.yaml</code> e <code>config-map-obs.yaml</code> mais inteligentes e menos complexos com a ajuda do arquivo <code>_helpers.tpl</code>, podemos adicionar mais definições de template que facilitam a criação de ConfigMaps para bases de dados e configurações de observabilidade. Vou adicionar templates específicos para esses dois tipos de ConfigMap no arquivo <code>_helpers.tpl</code> e, em seguida, refatorar os arquivos de ConfigMap para utilizar esses templates.</p>
+<h5 id="atualizando-o-helperstpl">Atualizando o <code>_helpers.tpl</code></h5>
+<p>Adicionaremos templates para gerar ConfigMaps de bancos de dados e observabilidade:</p>
+<pre><code class="lang-yaml">{{<span class="hljs-string">/*</span>
+<span class="hljs-string">Generate</span> <span class="hljs-string">database</span> <span class="hljs-string">config</span> <span class="hljs-string">map</span>
+<span class="hljs-string">*/</span>}}
+{{<span class="hljs-bullet">-</span> <span class="hljs-string">define</span> <span class="hljs-string">&quot;database.configmap&quot;</span> <span class="hljs-string">-</span>}}
+<span class="hljs-attr">apiVersion:</span> <span class="hljs-string">v1</span>
+<span class="hljs-attr">kind:</span> <span class="hljs-string">ConfigMap</span>
+<span class="hljs-attr">metadata:</span>
+  <span class="hljs-attr">name:</span> {{ <span class="hljs-string">.component</span> }}<span class="hljs-string">-db-config</span>
+<span class="hljs-attr">data:</span>
+  <span class="hljs-attr">app-config.yaml:</span> <span class="hljs-string">|
+    {{- toYaml .config | nindent 4 }}
+</span>{{<span class="hljs-bullet">-</span> <span class="hljs-string">end</span> }}
+
+{{<span class="hljs-string">/*</span>
+<span class="hljs-string">Generate</span> <span class="hljs-string">observability</span> <span class="hljs-string">config</span> <span class="hljs-string">map</span>
+<span class="hljs-string">*/</span>}}
+{{<span class="hljs-bullet">-</span> <span class="hljs-string">define</span> <span class="hljs-string">&quot;observability.configmap&quot;</span> <span class="hljs-string">-</span>}}
+<span class="hljs-attr">apiVersion:</span> <span class="hljs-string">v1</span>
+<span class="hljs-attr">kind:</span> <span class="hljs-string">ConfigMap</span>
+<span class="hljs-attr">metadata:</span>
+  <span class="hljs-attr">name:</span> {{ <span class="hljs-string">.component</span> }}<span class="hljs-string">-observability-config</span>
+<span class="hljs-attr">data:</span>
+  <span class="hljs-attr">app-config.json:</span> <span class="hljs-string">| 
+    {{ toJson .config }}
+</span>{{<span class="hljs-bullet">-</span> <span class="hljs-string">end</span> }}
+</code></pre>
+<p>Agora estamos praticamente colocando todo o conteúdo dos ConfigMaps aqui, isso fará com que os nossos arquivos fiquem bem pequenos e somente utilizando a combinação do <code>values.yaml</code> e o <code>_helpers.tpl</code>.</p>
+<h5 id="refatorando-config-map-dpyaml">Refatorando <code>config-map-dp.yaml</code></h5>
+<p>Para utilizar o template do <code>_helpers.tpl</code>, bora modificar o arquivo <code>config-map-dp.yaml</code> da seguinte forma:</p>
+<pre><code class="lang-yaml">{{<span class="hljs-bullet">-</span> <span class="hljs-string">range</span> <span class="hljs-string">$component</span>, <span class="hljs-string">$config</span> <span class="hljs-string">:=</span> <span class="hljs-string">.Values.databases</span> }}
+  {{<span class="hljs-bullet">-</span> <span class="hljs-string">$data</span> <span class="hljs-string">:=</span> <span class="hljs-string">dict</span> <span class="hljs-string">&quot;component&quot;</span> <span class="hljs-string">$component</span> <span class="hljs-string">&quot;config&quot;</span> <span class="hljs-string">$config</span> }}
+  {{<span class="hljs-bullet">-</span> <span class="hljs-string">include</span> <span class="hljs-string">&quot;database.configmap&quot;</span> <span class="hljs-string">$data</span> <span class="hljs-string">|</span> <span class="hljs-string">nindent</span> <span class="hljs-number">0</span> }}
+{{<span class="hljs-bullet">-</span> <span class="hljs-string">end</span> }}
+</code></pre>
+<p>Isso irá percorrer todos os componentes definidos em <code>.Values.databases</code> e aplicar o template definido para criar um ConfigMap para cada banco de dados.</p>
+<h5 id="refatorando-config-map-obsyaml">Refatorando <code>config-map-obs.yaml</code></h5>
+<p>Da mesma forma, modifique o arquivo <code>config-map-obs.yaml</code> para usar o template de observabilidade:</p>
+<pre><code class="lang-yaml">{{<span class="hljs-bullet">-</span> <span class="hljs-string">range</span> <span class="hljs-string">$component</span>, <span class="hljs-string">$config</span> <span class="hljs-string">:=</span> <span class="hljs-string">.Values.observability</span> }}
+  {{<span class="hljs-bullet">-</span> <span class="hljs-string">$data</span> <span class="hljs-string">:=</span> <span class="hljs-string">dict</span> <span class="hljs-string">&quot;component&quot;</span> <span class="hljs-string">$component</span> <span class="hljs-string">&quot;config&quot;</span> <span class="hljs-string">$config</span> }}
+  {{<span class="hljs-bullet">-</span> <span class="hljs-string">include</span> <span class="hljs-string">&quot;observability.configmap&quot;</span> <span class="hljs-string">$data</span> <span class="hljs-string">|</span> <span class="hljs-string">nindent</span> <span class="hljs-number">0</span> }}
+{{<span class="hljs-bullet">-</span> <span class="hljs-string">end</span> }}
+</code></pre>
+<p>Isso irá iterar sobre os componentes definidos em <code>.Values.observability</code> e aplicar o template para criar um ConfigMap de observabilidade para cada componente.</p>
+<p>Ahhh, o nosso arquivo <code>_helpers.tpl</code> ficou da seguinte maneira:</p>
+<pre><code class="lang-yaml">{{<span class="hljs-string">/*</span> <span class="hljs-string">Define</span> <span class="hljs-string">a</span> <span class="hljs-string">base</span> <span class="hljs-string">para</span> <span class="hljs-string">reutilização</span> <span class="hljs-string">de</span> <span class="hljs-string">labels</span> <span class="hljs-string">*/</span>}}
+{{<span class="hljs-bullet">-</span> <span class="hljs-string">define</span> <span class="hljs-string">&quot;app.labels&quot;</span> <span class="hljs-string">-</span>}}
+<span class="hljs-attr">app:</span> {{ <span class="hljs-string">.labels.app</span> }}
+<span class="hljs-attr">env:</span> {{ <span class="hljs-string">.labels.env</span> }}
+<span class="hljs-attr">live:</span> {{ <span class="hljs-string">.labels.live</span> }}
+{{<span class="hljs-bullet">-</span> <span class="hljs-string">end</span> }}
+
+{{<span class="hljs-string">/*</span> <span class="hljs-string">Template</span> <span class="hljs-string">para</span> <span class="hljs-string">especificações</span> <span class="hljs-string">de</span> <span class="hljs-string">recursos</span> <span class="hljs-string">de</span> <span class="hljs-string">containers</span> <span class="hljs-string">*/</span>}}
+{{<span class="hljs-bullet">-</span> <span class="hljs-string">define</span> <span class="hljs-string">&quot;app.resources&quot;</span> <span class="hljs-string">-</span>}}
+<span class="hljs-attr">requests:</span>
+  <span class="hljs-attr">memory:</span> {{ <span class="hljs-string">.resources.requests.memory</span> }}
+  <span class="hljs-attr">cpu:</span> {{ <span class="hljs-string">.resources.requests.cpu</span> }}
+<span class="hljs-attr">limits:</span>
+  <span class="hljs-attr">memory:</span> {{ <span class="hljs-string">.resources.limits.memory</span> }}
+  <span class="hljs-attr">cpu:</span> {{ <span class="hljs-string">.resources.limits.cpu</span> }}
+{{<span class="hljs-bullet">-</span> <span class="hljs-string">end</span> }}
+
+{{<span class="hljs-string">/*</span> <span class="hljs-string">Template</span> <span class="hljs-string">para</span> <span class="hljs-string">definição</span> <span class="hljs-string">de</span> <span class="hljs-string">portas</span> <span class="hljs-string">em</span> <span class="hljs-string">containers</span> <span class="hljs-string">*/</span>}}
+{{<span class="hljs-bullet">-</span> <span class="hljs-string">define</span> <span class="hljs-string">&quot;app.ports&quot;</span> <span class="hljs-string">-</span>}}
+{{<span class="hljs-bullet">-</span> <span class="hljs-string">range</span> <span class="hljs-string">.ports</span> }}
+<span class="hljs-bullet">-</span> <span class="hljs-attr">containerPort:</span> {{ <span class="hljs-string">.port</span> }}
+{{<span class="hljs-bullet">-</span> <span class="hljs-string">end</span> }}
+{{<span class="hljs-bullet">-</span> <span class="hljs-string">end</span> }}
+
+{{<span class="hljs-string">/*</span> <span class="hljs-string">Template</span> <span class="hljs-string">para</span> <span class="hljs-string">gerar</span> <span class="hljs-string">um</span> <span class="hljs-string">ConfigMap</span> <span class="hljs-string">para</span> <span class="hljs-string">configurações</span> <span class="hljs-string">de</span> <span class="hljs-string">banco</span> <span class="hljs-string">de</span> <span class="hljs-string">dados</span> <span class="hljs-string">*/</span>}}
+{{<span class="hljs-bullet">-</span> <span class="hljs-string">define</span> <span class="hljs-string">&quot;database.configmap&quot;</span> <span class="hljs-string">-</span>}}
+<span class="hljs-attr">apiVersion:</span> <span class="hljs-string">v1</span>
+<span class="hljs-attr">kind:</span> <span class="hljs-string">ConfigMap</span>
+<span class="hljs-attr">metadata:</span>
+  <span class="hljs-attr">name:</span> {{ <span class="hljs-string">.component</span> }}<span class="hljs-string">-db-config</span>
+<span class="hljs-attr">data:</span>
+  <span class="hljs-attr">app-config.yaml:</span> <span class="hljs-string">|
+    {{- toYaml .config | nindent 4 }}
+</span>{{<span class="hljs-bullet">-</span> <span class="hljs-string">end</span> }}
+
+{{<span class="hljs-string">/*</span> <span class="hljs-string">Template</span> <span class="hljs-string">para</span> <span class="hljs-string">gerar</span> <span class="hljs-string">um</span> <span class="hljs-string">ConfigMap</span> <span class="hljs-string">para</span> <span class="hljs-string">configurações</span> <span class="hljs-string">de</span> <span class="hljs-string">observabilidade</span> <span class="hljs-string">*/</span>}}
+{{<span class="hljs-bullet">-</span> <span class="hljs-string">define</span> <span class="hljs-string">&quot;observability.configmap&quot;</span> <span class="hljs-string">-</span>}}
+<span class="hljs-attr">apiVersion:</span> <span class="hljs-string">v1</span>
+<span class="hljs-attr">kind:</span> <span class="hljs-string">ConfigMap</span>
+<span class="hljs-attr">metadata:</span>
+  <span class="hljs-attr">name:</span> {{ <span class="hljs-string">.component</span> }}<span class="hljs-string">-observability-config</span>
+<span class="hljs-attr">data:</span>
+  <span class="hljs-attr">app-config.json:</span> <span class="hljs-string">| 
+    {{ toJson .config }}
+</span>{{<span class="hljs-bullet">-</span> <span class="hljs-string">end</span> }}
+</code></pre>
+<p>Veja o quanto conseguimos modificar os nossos Templates utilizando o nosso <code>_helpers.tpl</code>, isso é mágico demais! Porém é importante lembrar que não devemos usar os helpers para deixar as coisas mais complexas, e sim, facilitar e diminuir a nossa carga cognitiva e a repetição de códigos. Aqui estamos trabalhando de forma que fique mais didática, porém isso não quer dizer que você deva repetir isso em sua produção. Tudo depende, e dito isso, agora que você já conhece bem o que são os Helm Charts, acho que já podemos conhecer como criar o nosso repositório de Helm Charts!</p>
+<h4 id="criando-um-repositório-de-helm-charts">Criando um repositório de Helm Charts</h4>
+<p>É bem comum que você tenha um repositório interno para armazenar os seus Helm Charts, para que outras pessoas consigam utilizar e ajudar no gerenciamento do repositório.</p>
+<p>A criação de um repositório é bastante simples, e para o nosso exemplo vamos utilizar o Github para ser o nosso repo de Charts. Esse repositório pode ser público ou privado, depende da sua necessidade.</p>
+<p>Vou colocar alguns passos para que você possa criar o seu repositório no Github, antes da gente começar a começar a trabalhar com o nosso repositório de Helm Charts.</p>
+<h5 id="criando-o-repositório-no-github">Criando o repositório no Github</h5>
+<ol>
+<li>Acesse o Github e faça o login na sua conta.</li>
+<li>Clique no ícone de &quot;+&quot; no canto superior direito e selecione &quot;New repository&quot;.</li>
+<li>Nomeie o seu repositório (por exemplo, meu-repo-charts).</li>
+<li>Deixe o repositório público ou privado, conforme sua necessidade.</li>
+<li>Clique em &quot;Create repository&quot;.</li>
+</ol>
+<p>Pronto, repo criado!</p>
+<p>Agora vamos clona-lo para a nossa máquina e começar a trabalhar com ele.</p>
+<pre><code class="lang-bash">git <span class="hljs-built_in">clone</span> &lt; endereço <span class="hljs-keyword">do</span> seu repo &gt;
+</code></pre>
+<p>Agora acesse o diretório do seu repositório e vamos começar a brincadeira do lado do Helm.</p>
+<h5 id="inicializando-o-repositório">Inicializando o repositório</h5>
+<p>Primeira coisa, vamos criar o diretórios charts e acessa-lo:</p>
+<pre><code class="lang-bash">mkdir charts
+<span class="hljs-built_in">cd</span> charts
+</code></pre>
+<p>Agora vamos copiar o nosso Chart para o diretório <code>charts</code>:</p>
+<pre><code class="lang-bash">cp -r &lt;diretório <span class="hljs-keyword">do</span> seu Chart&gt; ./
+</code></pre>
+<p>O conteúdo será algo assim:</p>
+<pre><code class="lang-bash">.
+├── charts
+│   └── giropops-senhas
+│       ├── charts
+│       ├── Chart.yaml
+│       ├── templates
+│       │   ├── configmap-db.yaml
+│       │   ├── configmap-observability.yaml
+│       │   ├── deployments.yaml
+│       │   ├── _helpers.tpl
+│       │   └── services.yaml
+│       └── values.yaml
+└── README.md
+</code></pre>
+<p>Vamos aproveitar e conhecer dois comandos que irão nos ajudar a ter certeza que está tudo certo com o nosso Chart.</p>
+<p>O primeiro é o <code>lint</code>, usado para ver como está a qualidade do nosso Chart:</p>
+<pre><code class="lang-bash">helm lint giropops-senhas
+</code></pre>
+<p>Com isso, se tudo estiver bem você verá a seguinte saída:</p>
+<pre><code class="lang-bash">==&gt; Linting charts/giropops-senhas
+[INFO] Chart.yaml: icon is recommended
+
+1 chart(s) linted, 0 chart(s) failed
+</code></pre>
+<p>Temos um aviso, mas isso não é um problema, é apenas uma recomendação.</p>
+<p>Outro comando que nos ajuda a ter certeza que está tudo certo com o nosso Chart é o <code>template</code>, que irá renderizar o nosso Chart e verificar se está tudo certo:</p>
+<pre><code class="lang-bash">helm template charts/giropops-senhas
+</code></pre>
+<p>Com isso você verá a saída do seu Chart renderizado, e assim você consegue conferir os manifestos gerados e ver se está tudo certo. :)</p>
+<p>O próximo passo é criar um pacote do nosso Chart, que nada mais é que um .tgz que contém o nosso Chart, e para isso, execute o comando abaixo:</p>
+<pre><code class="lang-bash">helm package charts/giropops-senhas
+</code></pre>
+<p>A saída:</p>
+<pre><code class="lang-bash">Successfully packaged chart and saved it to: /home/LINUXtips/meu-repo/giropops-senhas-0.1.0.tgz
+</code></pre>
+<p>Agora que já temosk o tarball do nosso Chart, vamos adicionar ele ao nosso repositório, e para que isso seja possível vamos conhecer um comando que irá nos ajudar nessa tarefa, que é o <code>repo index</code>.</p>
+<p>O <code>repo index</code> irá criar um arquivo index.yaml que contém as informações sobre os pacotes disponíveis no repositório, e para isso, execute o comando abaixo:</p>
+<pre><code class="lang-bash">helm repo index --url &lt;URL <span class="hljs-keyword">do</span> seu repo no github&gt; .
+</code></pre>
+<p>Perceba que ele criou um arquivo chamado <code>index.yaml</code>, e nesse arquivo temos informções sobre o nosso Chart, como o nome, a versão, a descrição, o tipo de aplicação, e o endereço do Chart.</p>
+<p>Vamos dar um <code>cat</code> nesse arquivo para ver o que temos:</p>
+<pre><code class="lang-bash">cat index.yaml
+</code></pre>
+<pre><code class="lang-yaml"><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">v1</span>
+<span class="hljs-attr">entries:</span>
+  <span class="hljs-attr">giropops-senhas:</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-attr">apiVersion:</span> <span class="hljs-string">v2</span>
+    <span class="hljs-attr">appVersion:</span> <span class="hljs-number">0.1</span><span class="hljs-number">.0</span>
+    <span class="hljs-attr">created:</span> <span class="hljs-string">&quot;2024-02-13T11:40:40.803868957+01:00&quot;</span>
+    <span class="hljs-attr">description:</span> <span class="hljs-string">Esse</span> <span class="hljs-string">é</span> <span class="hljs-string">o</span> <span class="hljs-string">chart</span> <span class="hljs-string">do</span> <span class="hljs-string">Giropops-Senhas,</span> <span class="hljs-string">utilizados</span> <span class="hljs-string">nos</span> <span class="hljs-string">laboratórios</span> <span class="hljs-string">de</span>
+      <span class="hljs-string">Kubernetes.</span>
+    <span class="hljs-attr">digest:</span> <span class="hljs-string">05bc20f073f5e7824ok43o4k3okfdfac1be5c46e4bdc0ac3a8a45eec</span>
+    <span class="hljs-attr">name:</span> <span class="hljs-string">giropops-senhas</span>
+    <span class="hljs-attr">sources:</span>
+    <span class="hljs-bullet">-</span> <span class="hljs-string">https://github.com/seu-user/seu-repo</span>
+    <span class="hljs-attr">urls:</span>
+    <span class="hljs-bullet">-</span> <span class="hljs-string">https://github.com/seu-user/seu-repo/giropops-senhas-0.1.0.tgz</span>
+    <span class="hljs-attr">version:</span> <span class="hljs-number">0.1</span><span class="hljs-number">.0</span>
+<span class="hljs-attr">generated:</span> <span class="hljs-string">&quot;2024-02-13T11:40:40.803383504+01:00&quot;</span>
+</code></pre>
+<p>Com o index.yaml, precisamos ir para o próximo passo, que é fazer o commit e o push do nosso repositório.</p>
+<pre><code class="lang-bash">git add .
+git commit -m <span class="hljs-string">&quot;Adicionando o Chart do Giropops-Ssenhas&quot;</span>
+git push origin main
+</code></pre>
+<p>Pronto, o nosso código está no repo lá no GitHub. \o/</p>
+<p>Mas o nosso trabalho não para por aqui, precisamos configurar o GitHub Pages para o nosso repositório de Helm Charts.</p>
+<h5 id="configurando-o-github-pages">Configurando o GitHub Pages</h5>
+<p>Siga os passos abaixo para configurar o seu GitHub Pages:</p>
+<ol>
+<li>Acesse o repositório no Github.</li>
+<li>Clique na aba &quot;Settings&quot;.</li>
+<li>Role a página até a seção &quot;Pages&quot;.</li>
+<li>Selecione a branch <code>main</code> e a pasta <code>root</code> e clique em &quot;Save&quot;.</li>
+<li>Aguarde alguns minutos e copie o link que aparecerá na seção &quot;Pages&quot;.</li>
+</ol>
+<p>Algo parecido com a imagem abaixo:</p>
+<p><img src="images/github-pages.png?raw=true" alt="Alt text" title="GitHub Pages"></p>
+<p>Pronto, o nosso repositorio de Helm Charts está configurado e pronto para ser utilizado!</p>
+<p>Um coisa importante é alterar o <code>index.yaml</code> para que ele aponte para o endereço do GitHub Pages, e para isso, execute o comando abaixo:</p>
+<pre><code class="lang-bash">helm repo index --url &lt;URL <span class="hljs-keyword">do</span> seu repo no github&gt; .
+</code></pre>
+<p>Com isso, o seu <code>index.yaml</code> estará apontando para o endereço do GitHub Pages, do contrário o seu repositório não funcionará.</p>
+<p>Agora que já temos o nosso repositório de Helm Charts, vamos ver como utilizá-lo.</p>
+<h4 id="utilizando-o-nosso-repositório-de-helm-charts">Utilizando o nosso repositório de Helm Charts</h4>
+<p>Deu trabalho, mas agora já temos o nosso repo de Helm Charts criado com sucesso, porém ainda não sabemos qual o seu gostinho, afinal ainda não utilizamos ele.</p>
+<p>Vamos resolver isso!</p>
+<p>Primeira coisa, para que possamos utilizar o Chart de um determinado repositório, precisamos adicionar esse repositório ao Helm, e para isso, execute o comando abaixo:</p>
+<pre><code class="lang-bash">helm repo add meu-repo &lt;URL <span class="hljs-keyword">do</span> seu repo no github&gt;
+</code></pre>
+<p>Vamos listar os repositórios que temos no Helm:</p>
+<pre><code class="lang-bash">helm repo list
+</code></pre>
+<p>A minha saída:</p>
+<pre><code class="lang-bash">NAME            URL                                              
+metrics-server  https://kubernetes-sigs.github.io/metrics-server/
+kyverno         https://kyverno.github.io/kyverno/               
+meurepo         https://badtuxx.github.io/charts-example/
+</code></pre>
+<p>Veja que o nosso repo está lá! Além do nosso repo, temos mais dois outros repos adicionados por mim anteriomente, que são o <code>metrics-server</code> e o <code>kyverno</code>. É com esse comando que conseguimos ver todos os repositórios que temos no Helm.</p>
+<p>Podemos listar os Charts que temos no nosso repositório da seguinte maneira:</p>
+<pre><code class="lang-bash">helm search repo meu-repo
+</code></pre>
+<p>A saída:</p>
+<pre><code class="lang-bash">NAME                            CHART VERSION   APP VERSION     DESCRIPTION                                       
+meure2po/giropops-senhas        0.1.0           0.1.0           Esse é o chart <span class="hljs-keyword">do</span> Giropops-Senhas, utilizados n...
+</code></pre>
+<p>O nosso está lá, e o melhor, pronto para ser utilizado!</p>
+<p>Agora, caso você queria instalar o Chart do Giropops-Senhas, basta executar o comando abaixo:</p>
+<pre><code class="lang-bash">helm install giropops-senhas meu-repo/giropops-senhas
+</code></pre>
+<p>E pronto, o seu Chart já está instalado e funcionando!</p>
+<p>Caso você queira personalizar o seu Chart, basta criar um arquivo <code>values.yaml</code> e passar as configurações que você deseja, e depois passar esse arquivo para o Helm, da seguinte maneira:</p>
+<pre><code class="lang-bash">helm install giropops-senhas meu-repo/giropops-senhas -f values.yaml
+</code></pre>
+<p>E para atualizar um Chart que já está instalado, basta executar o comando abaixo:</p>
+<pre><code class="lang-bash">helm upgrade giropops-senhas meu-repo/giropops-senhas
+</code></pre>
+<p>Quer ver os detalhes do seu Chart? Execute o comando abaixo:</p>
+<pre><code class="lang-bash">helm show all meu-repo/giropops-senhas
+</code></pre>
+<p>O que teremos será uma descrição do nosso Chart, com todas as informações que definimos no <code>Chart.yaml</code> e no <code>values.yaml</code>, algo como a saida abaixo:</p>
+<pre><code class="lang-bash">apiVersion: v2
+appVersion: 0.1.0
+description: Esse é o chart <span class="hljs-keyword">do</span> Giropops-Senhas, utilizados nos laboratórios de Kubernetes.
+name: giropops-senhas
+sources:
+- https://github.com/badtuxx/giropops-senhas
+version: 0.1.0
+
+---
+giropopsSenhas:
+  name: <span class="hljs-string">&quot;giropops-senhas&quot;</span>
+  image: <span class="hljs-string">&quot;linuxtips/giropops-senhas:1.0&quot;</span>
+  replicas: <span class="hljs-string">&quot;3&quot;</span>
+  port: 5000
+  labels:
+    app: <span class="hljs-string">&quot;giropops-senhas&quot;</span>
+    env: <span class="hljs-string">&quot;labs&quot;</span>
+    live: <span class="hljs-string">&quot;true&quot;</span>
+  service:
+    <span class="hljs-built_in">type</span>: <span class="hljs-string">&quot;NodePort&quot;</span>
+    port: 5000
+    targetPort: 5000
+    name: <span class="hljs-string">&quot;giropops-senhas-port&quot;</span>
+  resources:
+    requests:
+      memory: <span class="hljs-string">&quot;128Mi&quot;</span>
+      cpu: <span class="hljs-string">&quot;250m&quot;</span>
+    limits:
+      memory: <span class="hljs-string">&quot;256Mi&quot;</span>
+      cpu: <span class="hljs-string">&quot;500m&quot;</span>
+
+redis:
+  image: <span class="hljs-string">&quot;redis&quot;</span>
+  replicas: 1
+  port: 6379
+  labels:
+    app: <span class="hljs-string">&quot;redis&quot;</span>
+    env: <span class="hljs-string">&quot;labs&quot;</span>
+    live: <span class="hljs-string">&quot;true&quot;</span>
+  service:
+    <span class="hljs-built_in">type</span>: <span class="hljs-string">&quot;ClusterIP&quot;</span>
+    port: 6379
+    targetPort: 6379
+    name: <span class="hljs-string">&quot;redis-port&quot;</span>
+  resources:
+    requests:
+      memory: <span class="hljs-string">&quot;128Mi&quot;</span>
+      cpu: <span class="hljs-string">&quot;250m&quot;</span>
+    limits:
+      memory: <span class="hljs-string">&quot;256Mi&quot;</span>
+      cpu: <span class="hljs-string">&quot;500m&quot;</span>
+</code></pre>
+<p>E por fim, caso você queira remover o seu Chart, basta executar o comando abaixo:</p>
+<pre><code class="lang-bash">helm uninstall giropops-senhas
+</code></pre>
+<p>Simples como voar! Sim, eu sei, chega a ser lacrimejante, mas agora eu já posso dizer que você domina o Helm!</p>
+<h4 id="o-que-vimos-no-dia-de-hoje">O que vimos no dia de hoje</h4>
+<p>Hoje o dia foi intenso, pois conseguimos descomplicar como usar o Helm para deixar a nossa vida ainda melhor. Aprendemos a criar um Chart do zero, utilizando diversas técnicas e deixando muito conhecimento para que você possa utilizar em sua vida! 
+Agora eu quero que você me manda algum Chart que você criou com o que você aprendeu por aqui! Deixa o tio Jefinho feliz! hahahha</p>
+<p>E por hoje é só! #VAIIII</p>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="../day-15/" class="navigation navigation-prev " aria-label="Previous page: Descomplicando Kubernetes dia 15">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="../CONTRIBUTING.html" class="navigation navigation-next " aria-label="Next page: Como ajudar">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"Descomplicando Kubernetes dia 16","level":"2.16","depth":1,"next":{"title":"Como ajudar","level":"3.1","depth":1,"path":"CONTRIBUTING.md","ref":"CONTRIBUTING.md","articles":[]},"previous":{"title":"Descomplicando Kubernetes dia 15","level":"2.15","depth":1,"path":"day-15/README.md","ref":"day-15/README.md","articles":[]},"dir":"ltr"},"config":{"plugins":[],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"language":"pt","gitbook":"*"},"file":{"path":"day-16/README.md","mtime":"2024-02-13T12:08:25.875Z","type":"markdown"},"gitbook":{"version":"3.6.20","time":"2024-02-13T12:08:36.997Z"},"basePath":"..","book":{"language":"pt"}});
+        });
+    </script>
+</div>
+
+        
+    <noscript>
+        <style>
+            .honkit-cloak {
+                display: block !important;
+            }
+        </style>
+    </noscript>
+    <script>
+        // Restore sidebar state as critical path for prevent layout shift
+        function __init__getSidebarState(defaultValue){
+            var baseKey = "";
+            var key = baseKey + ":sidebar";
+            try {
+                var value = localStorage[key];
+                if (value === undefined) {
+                    return defaultValue;
+                }
+                var parsed = JSON.parse(value);
+                return parsed == null ? defaultValue : parsed;
+            } catch (e) {
+                return defaultValue;
+            }
+        }
+        function __init__restoreLastSidebarState() {
+            var isMobile = window.matchMedia("(max-width: 600px)").matches;
+            if (isMobile) {
+                // Init last state if not mobile
+                return;
+            }
+            var sidebarState = __init__getSidebarState(true);
+            var book = document.querySelector(".book");
+            // Show sidebar if it enabled
+            if (sidebarState && book) {
+                book.classList.add("without-animation", "with-summary");
+            }
+        }
+
+        try {
+            __init__restoreLastSidebarState();
+        } finally {
+            var book = document.querySelector(".book");
+            book.classList.remove("honkit-cloak");
+        }
+    </script>
+    <script src="../../gitbook/gitbook.js"></script>
+    <script src="../../gitbook/theme.js"></script>
+    
+        
+        <script src="../../gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+

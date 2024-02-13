@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: giropops-senhas
+  labels:
+    app: giropops
+    jeferson: gostoso
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: giropops
+  template:
+    metadata:
+      labels:
+        app: giropops
+        jeferson: gostoso
+    spec:
+      containers:
+      - name: giropops-senhas
+        image: containers-expert/giropops-senhas:1.0
+        ports:
+        - containerPort: 5000

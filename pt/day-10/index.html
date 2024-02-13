@@ -305,6 +305,19 @@
             
         </li>
     
+        <li class="chapter " data-level="2.16" data-path="../day-16/">
+            
+                <a href="../day-16/">
+            
+                    
+                    Descomplicando Kubernetes dia 16
+            
+                </a>
+            
+
+            
+        </li>
+    
 
     
         
@@ -371,27 +384,444 @@
                                 <section class="normal markdown-section">
                                 
                                 <h1 id="descomplicando-o-kubernetes">Descomplicando o Kubernetes</h1>
-<h2 id="day-10">DAY-10</h2>
+<h2 id="day-10-descomplicando-ingress-com-tls-labels-annotations-e-o-cert-manager">DAY-10: Descomplicando Ingress com TLS, Labels, Annotations e o Cert-manager</h2>
+<p> </p>
+<h2 id="conteúdo-do-day-10">Conteúdo do Day-10</h2>
 <p> </p>
 <h3 id="o-que-iremos-ver-hoje">O que iremos ver hoje?</h3>
-<p>Durante o dia de hoje, </p>
+<p>Agora que você já sabe o que é o ingress e como ele funciona, vamos adicionar o Cert-Manager com o Let&apos;s Encrypt ao cluster e criar um certificado SSL para o nosso domínio. Além disso, vamos aprender o que são e como funcionam as <code>Annotations</code> e <code>Labels</code> no Kubernetes.</p>
 <p> </p>
 <h3 id="conteúdo-do-day-10">Conteúdo do Day-10</h3>
 <ul>
-<li><a href="#por-que-">Por que ?</a></li>
+<li><a href="#descomplicando-o-kubernetes">Descomplicando o Kubernetes</a><ul>
+<li><a href="#day-10-descomplicando-ingress-com-tls-labels-annotations-e-o-cert-manager">DAY-10: Descomplicando Ingress com TLS, Labels, Annotations e o Cert-manager</a><ul>
+<li><a href="#conteúdo-do-day-10">Conteúdo do Day-10</a><ul>
+<li><a href="#o-que-iremos-ver-hoje">O que iremos ver hoje?</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#o-que-é-o-cert-manager">O que é o Cert-Manager?</a><ul>
+<li><a href="#instalando-e-configurando-o-cert-manager">Instalando e configurando o Cert-Manager</a></li>
+<li><a href="#configurando-o-ingress-para-usar-o-cert-manager-e-ter-o-https">Configurando o Ingress para usar o Cert-Manager e ter o HTTPS</a></li>
+</ul>
+</li>
+<li><a href="#o-que-são-os-annotations-e-as-labels-no-kubernetes">O que são os Annotations e as Labels no Kubernetes?</a><ul>
+<li><a href="#explorando-um-pouco-mais-as-labels">Explorando um pouco mais as Labels</a></li>
+<li><a href="#explorando-as-annotations-no-kubernetes">Explorando as Annotations no Kubernetes</a></li>
+<li><a href="#adicionando-autenticação-ao-ingress">Adicionando Autenticação ao Ingress</a></li>
+<li><a href="#configurando-affinity-cookie-no-ingress">Configurando Affinity Cookie no Ingress</a></li>
+<li><a href="#configurando-upsream-hashing-no-ingress">Configurando Upsream Hashing no Ingress</a></li>
+<li><a href="#canary-deployments-com-o-ingress-no-kubernetes">Canary Deployments com o Ingress no Kubernetes</a></li>
+<li><a href="#limitando-requisições-as-nossas-aplicações-com-o-ingress">Limitando requisições as nossas aplicações com o Ingress</a></li>
+</ul>
+</li>
+<li><a href="#final-do-day-10">Final do Day-10</a></li>
 </ul>
 <p> </p>
-<h3 id="por-que-">Por que ?</h3>
-<p> </p>
-<p> </p>
-<h3 id="a-sua-lição-de-casa">A sua lição de casa</h3>
-<p>A sua lição de casa é </p>
-<p> </p>
-<h2 id="desafio-do-day-10">Desafio do Day-10</h2>
-<p>Não esqueça de</p>
-<p> </p>
+<h1 id="o-que-é-o-cert-manager">O que é o Cert-Manager?</h1>
+<p>O <code>Cert-Manager</code> é um controlador do Kubernetes que automatiza a solicitação, emissão, renovação e rotação de certificados TLS de uma maneira muito fácil. Ele é capaz de gerenciar certificados de diferentes autoridades de certificação, como o Let&apos;s Encrypt, Venafi, Vault, entre outros. Além disso, o <code>Cert-Manager</code> é um projeto open-source membro da Cloud Native Computing Foundation (CNCF).</p>
+<p>O <code>Cert-Manager</code> utiliza dois tipos recursos do Kubernetes para gerenciar os certificados TLS: <code>Issuers</code> e <code>ClusterIssuers</code>. Os <code>Issuers</code> são recursos que permitem a emissão de certificados para um único namespace, enquanto os <code>ClusterIssuers</code> permitem a emissão de certificados para todos os namespaces do cluster.</p>
+<p>Enquanto estamos desenvolvendo a nossa aplicação, é uma boa prática utilizar um <code>Issuer</code> para o ambiente de desenvolvimento e um <code>ClusterIssuer</code> para o ambiente de produção. Dessa forma, podemos testar a emissão de certificados no ambiente de desenvolvimento e garantir que tudo está funcionando corretamente antes de ir para o ambiente de produção. Já que a utilização de um <code>ClusterIssuer</code> de produção no ambiente de desenvolvimento pode acabar bloqueando a emissão de certificados devido aos limites pré-estabelecidos pela autoridade certificadora.</p>
+<p>Vamos utilizar o <code>Let&apos;s Encrypt</code> como autoridade de certificação para o nosso ambiente de desenvolvimento, para isso precisamos entender como é feita a verificação do domínio. O <code>Let&apos;s Encrypt</code> utiliza o protocolo <code>ACME</code> (Automatic Certificate Management Environment) para verificar a propriedade do domínio. O <code>ACME</code> utiliza dois tipos de desafios para verificar a propriedade do domínio: <code>HTTP-01</code> e <code>DNS-01</code>.</p>
+<p>O desafio <code>HTTP-01</code> é feito através da criação de um arquivo com um token específico no servidor web que está respondendo pelas requisições do domínio. Já o desafio <code>DNS-01</code> é feito através da criação de um registro <code>TXT</code> no servidor de DNS do domínio.</p>
+<h2 id="instalando-e-configurando-o-cert-manager">Instalando e configurando o Cert-Manager</h2>
+<p>Para instalar o <code>Cert-Manager</code> no seu cluster, você pode utilizar o <code>Helm</code> ou instalar diretamente com o <code>kubectl</code>. No nosso caso, vamos instalar o <code>Cert-Manager</code> utilizando o <code>Kubectl</code>.</p>
+<pre><code class="lang-bash">kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/v1.14.1/cert-manager.yaml
+</code></pre>
+<p>Vamos confirmar se o <code>Cert-Manager</code> foi instalado corretamente.</p>
+<pre><code class="lang-bash">kubectl get pods -n cert-manager
+</code></pre>
+<p>Com o <code>Cert-Manager</code> instalado, vamos criar o <code>Issuer</code> para o ambiente de desenvolvimento e o <code>ClusterIssuer</code> para o ambiente de produção.</p>
+<pre><code class="lang-yaml"><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">cert-manager.io/v1</span>
+<span class="hljs-attr">kind:</span> <span class="hljs-string">Issuer</span>
+<span class="hljs-attr">metadata:</span>
+  <span class="hljs-attr">name:</span> <span class="hljs-string">letsencrypt-staging</span>
+<span class="hljs-attr">spec:</span>
+  <span class="hljs-attr">acme:</span>
+    <span class="hljs-comment"># The ACME server URL</span>
+    <span class="hljs-attr">server:</span> <span class="hljs-string">https://acme-staging-v02.api.letsencrypt.org/directory</span>
+    <span class="hljs-comment"># Email address used for ACME registration</span>
+    <span class="hljs-attr">email:</span> <span class="hljs-string">example@mail.com</span>
+    <span class="hljs-comment"># Name of a secret used to store the ACME account private key</span>
+    <span class="hljs-attr">privateKeySecretRef:</span>
+      <span class="hljs-attr">name:</span> <span class="hljs-string">letsencrypt-staging</span>
+    <span class="hljs-comment"># Enable the HTTP-01 challenge provider</span>
+    <span class="hljs-attr">solvers:</span>
+    <span class="hljs-bullet">-</span> <span class="hljs-attr">http01:</span>
+        <span class="hljs-attr">ingress:</span>
+          <span class="hljs-attr">ingressClassName:</span> <span class="hljs-string">nginx</span>
+</code></pre>
+<pre><code class="lang-yaml"><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">cert-manager.io/v1</span>
+<span class="hljs-attr">kind:</span> <span class="hljs-string">ClusterIssuer</span>
+<span class="hljs-attr">metadata:</span>
+  <span class="hljs-attr">name:</span> <span class="hljs-string">letsencrypt-prod</span>
+<span class="hljs-attr">spec:</span>
+  <span class="hljs-attr">acme:</span>
+    <span class="hljs-comment"># The ACME server URL</span>
+    <span class="hljs-attr">server:</span> <span class="hljs-string">https://acme-v02.api.letsencrypt.org/directory</span>
+    <span class="hljs-comment"># Email address used for ACME registration</span>
+    <span class="hljs-attr">email:</span> <span class="hljs-string">example@mail.com</span>
+    <span class="hljs-comment"># Name of a secret used to store the ACME account private key</span>
+    <span class="hljs-attr">privateKeySecretRef:</span>
+      <span class="hljs-attr">name:</span> <span class="hljs-string">letsencrypt-prod</span>
+    <span class="hljs-comment"># Enable the HTTP-01 challenge provider</span>
+    <span class="hljs-attr">solvers:</span>
+    <span class="hljs-bullet">-</span> <span class="hljs-attr">http01:</span>
+        <span class="hljs-attr">ingress:</span>
+          <span class="hljs-attr">ingressClassName:</span> <span class="hljs-string">nginx</span>
+</code></pre>
+<p>Aplique os arquivos no seu cluster.</p>
+<pre><code class="lang-bash">kubectl apply -f issuer-staging.yaml
+kubectl apply -f cluster-issuer-prod.yaml
+</code></pre>
+<p>Com os <code>Issuers</code> e <code>ClusterIssuers</code> criados, podemos obter mais informações sobre eles.</p>
+<pre><code class="lang-bash">kubectl get issuers
+kubectl get clusterissuers
+</code></pre>
+<pre><code class="lang-bash">kubectl describe issuer letsencrypt-staging
+kubectl describe clusterissuer letsencrypt-prod
+</code></pre>
+<h2 id="configurando-o-ingress-para-usar-o-cert-manager-e-ter-o-https">Configurando o Ingress para usar o Cert-Manager e ter o HTTPS</h2>
+<p>Já temos o <code>Cert-Manager</code> instalado e configurado, agora precisamos configurar o <code>Ingress</code> para utilizar o <code>Cert-Manager</code> e ter o HTTPS. Para isso, vamos criar um <code>Ingress</code> para a nossa aplicação e adicionar a anotação <code>cert-manager.io/cluster-issuer</code> utilizando o <code>ClusterIssuer</code> que criamos anteriormente.</p>
+<pre><code class="lang-yaml"><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">networking.k8s.io/v1</span>
+<span class="hljs-attr">kind:</span> <span class="hljs-string">Ingress</span>
+<span class="hljs-attr">metadata:</span>
+  <span class="hljs-attr">name:</span> <span class="hljs-string">giropops-senhas</span>
+  <span class="hljs-attr">annotations:</span>
+    <span class="hljs-attr">nginx.ingress.kubernetes.io/rewrite-target:</span> <span class="hljs-string">/</span>
+    <span class="hljs-attr">cert-manager.io/cluster-issuer:</span> <span class="hljs-string">&quot;letsencrypt-prod&quot;</span>
+<span class="hljs-attr">spec:</span>
+  <span class="hljs-attr">ingressClassName:</span> <span class="hljs-string">nginx</span>
+  <span class="hljs-attr">tls:</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-attr">hosts:</span>
+    <span class="hljs-bullet">-</span> <span class="hljs-string">giropops.containers.expert</span>
+    <span class="hljs-attr">secretName:</span> <span class="hljs-string">giropops-containers-expert-tls</span>
+  <span class="hljs-attr">rules:</span>
+    <span class="hljs-bullet">-</span> <span class="hljs-attr">host:</span> <span class="hljs-string">giropops.containers.expert</span>
+      <span class="hljs-attr">http:</span>
+        <span class="hljs-attr">paths:</span>
+          <span class="hljs-bullet">-</span> <span class="hljs-attr">path:</span> <span class="hljs-string">/</span>
+            <span class="hljs-attr">pathType:</span> <span class="hljs-string">Prefix</span>
+            <span class="hljs-attr">backend:</span>
+              <span class="hljs-attr">service:</span> 
+                <span class="hljs-attr">name:</span> <span class="hljs-string">giropops-senhas</span>
+                <span class="hljs-attr">port:</span>
+                  <span class="hljs-attr">number:</span> <span class="hljs-number">5000</span>
+</code></pre>
+<p>Aplique o arquivo no seu cluster.</p>
+<pre><code class="lang-bash">kubectl apply -f ingress.yaml
+</code></pre>
+<p>Agora, vamos verificar se o <code>Cert-Manager</code> criou o certificado para o nosso domínio.</p>
+<pre><code class="lang-bash">kubectl get certificates
+kubectl describe certificate giropops-containers-expert-tls
+</code></pre>
+<p>Também é possível ver as <code>Order</code> criadas pelo <code>Cert-Manager</code> para a emissão do certificado.</p>
+<pre><code class="lang-bash">kubectl get orders
+kubectl describe order giropops-containers-expert-tls
+</code></pre>
+<p>Com o <code>Cert-Manager</code> configurado e o <code>Ingress</code> utilizando o <code>ClusterIssuer</code> para a emissão de certificados, a nossa aplicação já está disponível com o HTTPS. Podemos verificar o certificado acessando a aplicação pelo navegador e clicando no cadeado ao lado do domínio.</p>
+<h1 id="o-que-são-os-annotations-e-as-labels-no-kubernetes">O que são os Annotations e as Labels no Kubernetes?</h1>
+<p>As <code>Annotations</code> e <code>Labels</code> são recursos do Kubernetes que permitem adicionar metadados aos recursos do cluster. </p>
+<ul>
+<li><p>As <code>Annotations</code> são pares chave-valor que podem ser utilizados para adicionar metadados adicionais aos recursos do cluster. Como por exemplo, adicionar informações sobre a versão da aplicação, parâmetros de configuração, entre outros.</p>
+</li>
+<li><p>As <code>Labels</code> também são pares chave-valor, mas são utilizadas para identificar e selecionar recursos do cluster. Como por exemplo, adicionar uma label <code>app: giropops</code> para identificar todos os recursos relacionados a aplicação <code>giropops</code>.</p>
+</li>
+</ul>
+<h2 id="explorando-um-pouco-mais-as-labels">Explorando um pouco mais as Labels</h2>
+<p>As <code>Labels</code> são utilizadas para identificar e selecionar recursos do cluster. Elas são utilizadas para identificar recursos de maneira mais fácil e rápida. Por exemplo, podemos adicionar a label <code>jeferson: gostoso</code> para identificar os recursos relacionados a aplicação <code>giropops</code>.</p>
+<pre><code class="lang-yaml"><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">apps/v1</span>
+<span class="hljs-attr">kind:</span> <span class="hljs-string">Deployment</span>
+<span class="hljs-attr">metadata:</span>
+  <span class="hljs-attr">name:</span> <span class="hljs-string">giropops-senhas</span>
+  <span class="hljs-attr">labels:</span>
+    <span class="hljs-attr">app:</span> <span class="hljs-string">giropops</span>
+    <span class="hljs-attr">jeferson:</span> <span class="hljs-string">gostoso</span>
+<span class="hljs-attr">spec:</span>
+  <span class="hljs-attr">replicas:</span> <span class="hljs-number">3</span>
+  <span class="hljs-attr">selector:</span>
+    <span class="hljs-attr">matchLabels:</span>
+      <span class="hljs-attr">app:</span> <span class="hljs-string">giropops</span>
+  <span class="hljs-attr">template:</span>
+    <span class="hljs-attr">metadata:</span>
+      <span class="hljs-attr">labels:</span>
+        <span class="hljs-attr">app:</span> <span class="hljs-string">giropops</span>
+    <span class="hljs-attr">spec:</span>
+      <span class="hljs-attr">containers:</span>
+      <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">giropops-senhas</span>
+        <span class="hljs-attr">image:</span> <span class="hljs-string">containers-expert/giropops-senhas:1.0</span>
+        <span class="hljs-attr">ports:</span>
+        <span class="hljs-bullet">-</span> <span class="hljs-attr">containerPort:</span> <span class="hljs-number">5000</span>
+</code></pre>
+<p>Se quisermos listar os recursos que possuem a label <code>jeferson: gostoso</code>, podemos utilizar o comando <code>kubectl get</code> com a flag <code>--selector</code>.</p>
+<pre><code class="lang-bash">kubectl get deployments --selector descomplicando=kubernetes
+</code></pre>
+<p>Nesse exemplo, adicionamos a label <code>jeferson: gostoso</code> ao <code>Deployment</code> da aplicação <code>giropops</code>. Mas e se quisermos adicionar a label <code>jeferson: gostoso</code> aos nossos <code>Pods</code>? Para isso, devemos adicionar a label no campo <code>metadata</code> do <code>Pod</code>, dentro de <code>spec</code>.</p>
+<pre><code class="lang-yaml"><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">apps/v1</span>
+<span class="hljs-attr">kind:</span> <span class="hljs-string">Deployment</span>
+<span class="hljs-attr">metadata:</span>
+  <span class="hljs-attr">name:</span> <span class="hljs-string">giropops-senhas</span>
+  <span class="hljs-attr">labels:</span>
+    <span class="hljs-attr">app:</span> <span class="hljs-string">giropops</span>
+    <span class="hljs-attr">jeferson:</span> <span class="hljs-string">gostoso</span>
+<span class="hljs-attr">spec:</span>
+  <span class="hljs-attr">replicas:</span> <span class="hljs-number">3</span>
+  <span class="hljs-attr">selector:</span>
+    <span class="hljs-attr">matchLabels:</span>
+      <span class="hljs-attr">app:</span> <span class="hljs-string">giropops</span>
+  <span class="hljs-attr">template:</span>
+    <span class="hljs-attr">metadata:</span>
+      <span class="hljs-attr">labels:</span>
+        <span class="hljs-attr">app:</span> <span class="hljs-string">giropops</span>
+        <span class="hljs-attr">jeferson:</span> <span class="hljs-string">gostoso</span>
+    <span class="hljs-attr">spec:</span>
+      <span class="hljs-attr">containers:</span>
+      <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">giropops-senhas</span>
+        <span class="hljs-attr">image:</span> <span class="hljs-string">containers-expert/giropops-senhas:1.0</span>
+        <span class="hljs-attr">ports:</span>
+        <span class="hljs-bullet">-</span> <span class="hljs-attr">containerPort:</span> <span class="hljs-number">5000</span>
+</code></pre>
+<p>Agora, se quisermos listar os <code>Pods</code> que possuem a label <code>jeferson: gostoso</code>, podemos utilizar o comando <code>kubectl get</code> com a flag <code>--selector</code>.</p>
+<pre><code class="lang-bash">kubectl get pods --selector jeferson=gostoso
+</code></pre>
+<p>Ou podemos listar todos os recursos que possuem a label <code>jeferson: gostoso</code> utilizando o comando <code>kubectl get</code> com a flag <code>--selector</code> e o nome do recurso.</p>
+<pre><code class="lang-bash">kubectl get all --selector jeferson=gostoso
+</code></pre>
+<p>Também podemos adicionar uma label utilizando o comando <code>kubectl label</code>. Vamos então adicionar a label <code>jeferson: lindo</code> ao <code>Pod</code> da aplicação <code>Redis</code>.</p>
+<pre><code class="lang-bash">kubectl label pods redis jeferson=lindo
+</code></pre>
+<p>E se precisarmos mudar o valor da label <code>jeferson</code> para <code>gostoso</code>? Podemos utilizar o comando <code>kubectl label</code> com a flag <code>--overwrite</code>.</p>
+<pre><code class="lang-bash">kubectl label pods redis jeferson=gosotoso --overwrite
+</code></pre>
+<p>E podemos remover uma label utilizando o comando <code>kubectl label</code> com a flag <code>-</code>.</p>
+<pre><code class="lang-bash">kubectl label pods redis jeferson-
+</code></pre>
+<p>Para uma lista de todas as opções disponíveis para o comando <code>kubectl label</code>, você pode utilizar o comando <code>kubectl label --help</code>.</p>
+<h2 id="explorando-as-annotations-no-kubernetes">Explorando as Annotations no Kubernetes</h2>
+<p>As <code>annotation</code> são utilizadas para adicionar metadados adicionais aos recursos do cluster. Elas são utilizadas para adicionar informações sobre a versão da aplicação, parâmetros de configuração, entre outros.</p>
+<p>Vamos adicionar uma <code>annotation</code> ao <code>Pod</code> do <code>Redis</code> utilizando o comando <code>kubectl annotate</code>.</p>
+<pre><code class="lang-bash">kubectl annotate pods redis description=<span class="hljs-string">&quot;Pod do redis para ser usado com o giropops-senhas&quot;</span>
+</code></pre>
+<p>Assim como subistituir o valor de uma <code>Label</code>, podemos subistituir o valor de uma <code>annotation</code> utilizando a flag <code>--overwrite</code>.</p>
+<pre><code class="lang-bash">kubectl annotate pods redis description=<span class="hljs-string">&quot;Pod do redis&quot;</span> --overwrite
+</code></pre>
+<p>E para apagar uma <code>annotation</code> também é tão simples quanto apagar uma <code>Label</code>. Basta utilizar o comando <code>kubectl annotate</code> com a flag <code>-</code>.</p>
+<pre><code class="lang-bash">kubectl annotate pods redis description-
+</code></pre>
+<p>Podemos utilizar o comando <code>kubectl describe</code> para ver as <code>annotations</code> e <code>Labels</code> de um recurso. Mas e se quisermos uma visão somente das <code>annotations</code>? Podemos utilizar o comando <code>kubectl get</code> com a flag <code>-o</code> com o formato <code>jsonpath</code>.</p>
+<pre><code class="lang-bash">kubectl get pods redis -o jsonpath=<span class="hljs-string">&apos;{.metadata.annotations}&apos;</span>
+</code></pre>
+<p>Quando passamos o valor <code>{.metadata.annotations}</code> para a flag <code>-o jsonpath</code>, estamos pedindo para o <code>kubectl</code> retornar somente as <code>annotations</code> que estão no campo <code>metadata</code> do recurso <code>Pod</code> (identificado pelo <code>.</code>).</p>
+<pre><code class="lang-bash">apiVersion: v1
+kind: Pod
+metadata:
+  annotations:
+    description: Pod <span class="hljs-keyword">do</span> redis para ser usado com o giropops-senhas
+</code></pre>
+<h2 id="adicionando-autenticação-ao-ingress">Adicionando Autenticação ao Ingress</h2>
+<p>Vamos adicionar autenticação ao <code>Ingress</code> utilizando as <code>Annotations</code> do <code>Nginx Ingress Controller</code>. Utilizaremos a autenticação do tipo <code>basic</code> e um <code>secret</code> para armazenar os usuários e senhas.</p>
+<pre><code class="lang-yaml"><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">networking.k8s.io/v1</span>
+<span class="hljs-attr">kind:</span> <span class="hljs-string">Ingress</span>
+<span class="hljs-attr">metadata:</span>
+  <span class="hljs-attr">name:</span> <span class="hljs-string">giropops-senhas</span>
+  <span class="hljs-attr">annotations:</span>
+    <span class="hljs-attr">nginx.ingress.kubernetes.io/rewrite-target:</span> <span class="hljs-string">/</span>
+    <span class="hljs-attr">nginx.ingress.kubernetes.io/auth-type:</span> <span class="hljs-string">&quot;basic&quot;</span>
+    <span class="hljs-attr">nginx.ingress.kubernetes.io/auth-secret:</span> <span class="hljs-string">&quot;giropops-senhas-users&quot;</span>
+    <span class="hljs-attr">nginx.ingress.kubernetes.io/auth-realm:</span> <span class="hljs-string">&quot;Autenicação necessária&quot;</span>
+    <span class="hljs-attr">cert-manager.io/cluster-issuer:</span> <span class="hljs-string">&quot;letsencrypt-prod&quot;</span>
+<span class="hljs-attr">spec:</span>
+  <span class="hljs-attr">ingressClassName:</span> <span class="hljs-string">nginx</span>
+  <span class="hljs-attr">tls:</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-attr">hosts:</span>
+    <span class="hljs-bullet">-</span> <span class="hljs-string">giropops.containers.expert</span>
+    <span class="hljs-attr">secretName:</span> <span class="hljs-string">giropops-containers-expert-tls</span>
+  <span class="hljs-attr">rules:</span>
+    <span class="hljs-bullet">-</span> <span class="hljs-attr">host:</span> <span class="hljs-string">giropops.containers.expert</span>
+      <span class="hljs-attr">http:</span>
+        <span class="hljs-attr">paths:</span>
+          <span class="hljs-bullet">-</span> <span class="hljs-attr">path:</span> <span class="hljs-string">/</span>
+            <span class="hljs-attr">pathType:</span> <span class="hljs-string">Prefix</span>
+            <span class="hljs-attr">backend:</span>
+              <span class="hljs-attr">service:</span> 
+                <span class="hljs-attr">name:</span> <span class="hljs-string">giropops-senhas</span>
+                <span class="hljs-attr">port:</span>
+                  <span class="hljs-attr">number:</span> <span class="hljs-number">5000</span>
+</code></pre>
+<p>Agora, vamos criar o usuário e a senha para a autenticação utilizando o comando <code>htpasswd</code> do <code>Apache</code>.</p>
+<pre><code class="lang-bash">htpasswd -c auth jeferson
+</code></pre>
+<p>O comando <code>htpasswd</code> irá pedir para você digitar a senha do usuário. Após digitar a senha, o arquivo <code>auth</code> será criado no diretório onde você executou o comando. Agora, vamos criar um <code>secret</code> no Kubernetes com o arquivo <code>auth</code>.</p>
+<pre><code class="lang-bash">kubectl create secret generic giropops-senhas-users --from-file=auth
+</code></pre>
+<p>Aplique o arquivo no seu cluster.</p>
+<pre><code class="lang-bash">kubectl apply -f ingress2.yaml
+</code></pre>
+<p>Agora, a nossa aplicação <code>giropops-senhas</code> está protegida com autenticação do tipo <code>basic</code>. Se você tentar acessar a aplicação pelo navegador, será solicitado um usuário e senha.</p>
+<h2 id="configurando-affinity-cookie-no-ingress">Configurando Affinity Cookie no Ingress</h2>
+<p>Algumas vezes, precisamos garantir que um usuário sempre seja direcionado para o mesmo <code>Pod</code> da aplicação. Uma das maneiras de fazer isso é utilizando o <code>Affinity Cookie</code> do <code>Nginx Ingress Controller</code>. O <code>Affinity Cookie</code> é um cookie que é adicionado na resposta do <code>Pod</code> e utilizado para direcionar o usuário para o mesmo <code>Pod</code> na próxima requisição.</p>
+<pre><code class="lang-yaml"><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">networking.k8s.io/v1</span>
+<span class="hljs-attr">kind:</span> <span class="hljs-string">Ingress</span>
+<span class="hljs-attr">metadata:</span>
+  <span class="hljs-attr">name:</span> <span class="hljs-string">giropops-senhas</span>
+  <span class="hljs-attr">annotations:</span>
+    <span class="hljs-attr">nginx.ingress.kubernetes.io/rewrite-target:</span> <span class="hljs-string">/</span>
+    <span class="hljs-comment"># nginx.ingress.kubernetes.io/auth-type: &quot;basic&quot;</span>
+    <span class="hljs-comment"># nginx.ingress.kubernetes.io/auth-secret: &quot;giropops-senhas-users&quot;</span>
+    <span class="hljs-comment"># nginx.ingress.kubernetes.io/auth-realm: &quot;Autenicação necessária&quot;</span>
+    <span class="hljs-attr">nginx.ingress.kubernetes.io/affinity:</span> <span class="hljs-string">&quot;cookie&quot;</span>
+    <span class="hljs-attr">nginx.ingress.kubernetes.io/session-cookie-name:</span> <span class="hljs-string">&quot;giropops-cookie&quot;</span>
+    <span class="hljs-attr">cert-manager.io/cluster-issuer:</span> <span class="hljs-string">&quot;letsencrypt-prod&quot;</span>
+<span class="hljs-attr">spec:</span>
+  <span class="hljs-attr">ingressClassName:</span> <span class="hljs-string">nginx</span>
+  <span class="hljs-attr">tls:</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-attr">hosts:</span>
+    <span class="hljs-bullet">-</span> <span class="hljs-string">giropops.containers.expert</span>
+    <span class="hljs-attr">secretName:</span> <span class="hljs-string">giropops-containers-expert-tls</span>
+  <span class="hljs-attr">rules:</span>
+    <span class="hljs-bullet">-</span> <span class="hljs-attr">host:</span> <span class="hljs-string">giropops.containers.expert</span>
+      <span class="hljs-attr">http:</span>
+        <span class="hljs-attr">paths:</span>
+          <span class="hljs-bullet">-</span> <span class="hljs-attr">path:</span> <span class="hljs-string">/</span>
+            <span class="hljs-attr">pathType:</span> <span class="hljs-string">Prefix</span>
+            <span class="hljs-attr">backend:</span>
+              <span class="hljs-attr">service:</span> 
+                <span class="hljs-attr">name:</span> <span class="hljs-string">giropops-senhas</span>
+                <span class="hljs-attr">port:</span>
+                  <span class="hljs-attr">number:</span> <span class="hljs-number">5000</span>
+</code></pre>
+<p>Aplique o arquivo no seu cluster.</p>
+<pre><code class="lang-bash">kubectl apply -f ingress3.yaml
+</code></pre>
+<p>Para testar o <code>Affinity Cookie</code>, vamos utilizar o comando <code>curl</code> com a flag <code>-v</code> para ver os cabeçalhos da resposta.</p>
+<pre><code class="lang-bash">curl -v https://giropops.containers.expert
+</code></pre>
+<p>Na saída do comando <code>curl</code> você verá a linha <code>set-Cookie</code> com o valor <code>giropops-cookie</code>. Esse é o cookie que será utilizado para direcionar o usuário para o mesmo <code>Pod</code> na próxima requisição.</p>
+<h2 id="configurando-upsream-hashing-no-ingress">Configurando Upsream Hashing no Ingress</h2>
+<p>Além do <code>Affinity Cookie</code>, o <code>Nginx Ingress Controller</code> também suporta o <code>Upsream Hashing</code>. O <code>Upsream Hashing</code> é uma técnica mais avançada que utiliza um valor do cabeçalho da requisição para direcionar o usuário para o mesmo <code>Pod</code> da aplicação. No nosso exemplo, vamos utilizar o <code>$request_uri</code> para identificar o <code>Pod</code> que irá responder a requisição por meio da URI da requisição.</p>
+<pre><code class="lang-yaml"><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">networking.k8s.io/v1</span>
+<span class="hljs-attr">kind:</span> <span class="hljs-string">Ingress</span>
+<span class="hljs-attr">metadata:</span>
+  <span class="hljs-attr">name:</span> <span class="hljs-string">giropops-senhas</span>
+  <span class="hljs-attr">annotations:</span>
+    <span class="hljs-attr">nginx.ingress.kubernetes.io/rewrite-target:</span> <span class="hljs-string">/</span>
+    <span class="hljs-comment"># nginx.ingress.kubernetes.io/auth-type: &quot;basic&quot;</span>
+    <span class="hljs-comment"># nginx.ingress.kubernetes.io/auth-secret: &quot;giropops-senhas-users&quot;</span>
+    <span class="hljs-comment"># nginx.ingress.kubernetes.io/auth-realm: &quot;Autenicação necessária&quot;</span>
+    <span class="hljs-comment"># nginx.ingress.kubernetes.io/affinity: &quot;cookie&quot;</span>
+    <span class="hljs-comment"># nginx.ingress.kubernetes.io/session-cookie-name: &quot;giropops-cookie&quot;</span>
+    <span class="hljs-attr">nginx.ingress.kubernetes.io/upstream-hash-by:</span> <span class="hljs-string">&quot;$request_uri&quot;</span>
+    <span class="hljs-attr">cert-manager.io/cluster-issuer:</span> <span class="hljs-string">&quot;letsencrypt-prod&quot;</span>
+<span class="hljs-attr">spec:</span>
+  <span class="hljs-attr">ingressClassName:</span> <span class="hljs-string">nginx</span>
+  <span class="hljs-attr">tls:</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-attr">hosts:</span>
+    <span class="hljs-bullet">-</span> <span class="hljs-string">giropops.containers.expert</span>
+    <span class="hljs-attr">secretName:</span> <span class="hljs-string">giropops-containers-expert-tls</span>
+  <span class="hljs-attr">rules:</span>
+    <span class="hljs-bullet">-</span> <span class="hljs-attr">host:</span> <span class="hljs-string">giropops.containers.expert</span>
+      <span class="hljs-attr">http:</span>
+        <span class="hljs-attr">paths:</span>
+          <span class="hljs-bullet">-</span> <span class="hljs-attr">path:</span> <span class="hljs-string">/</span>
+            <span class="hljs-attr">pathType:</span> <span class="hljs-string">Prefix</span>
+            <span class="hljs-attr">backend:</span>
+              <span class="hljs-attr">service:</span> 
+                <span class="hljs-attr">name:</span> <span class="hljs-string">giropops-senhas</span>
+                <span class="hljs-attr">port:</span>
+                  <span class="hljs-attr">number:</span> <span class="hljs-number">5000</span>
+</code></pre>
+<p>Aplique o arquivo no seu cluster.</p>
+<pre><code class="lang-bash">kubectl apply -f ingress4.yaml
+</code></pre>
+<p>Além do <code>$request_uri</code>, o <code>Nginx Ingress Controller</code> suporta outros mérodos para o <code>Upsream Hashing</code>. Você pode ver a lista completa na documentação do <code>Nginx Ingress Controller</code>.</p>
+<h2 id="canary-deployments-com-o-ingress-no-kubernetes">Canary Deployments com o Ingress no Kubernetes</h2>
+<p>Os <code>Canary Deployments</code> são uma técnica de implantação que permite testar uma nova versão da aplicação em um subconjunto de usuários antes de implantar a nova versão para todos os usuários. No Kubernetes, podemos utilizar o <code>Ingress</code> para fazer <code>Canary Deployments</code> utilizando a anotação <code>nginx.ingress.kubernetes.io/canary</code> e <code>nginx.ingress.kubernetes.io/canary-weight</code>.</p>
+<pre><code class="lang-yaml"><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">networking.k8s.io/v1</span>
+<span class="hljs-attr">kind:</span> <span class="hljs-string">Ingress</span>
+<span class="hljs-attr">metadata:</span>
+  <span class="hljs-attr">name:</span> <span class="hljs-string">giropops-senhas-canary</span>
+  <span class="hljs-attr">annotations:</span>
+    <span class="hljs-attr">nginx.ingress.kubernetes.io/rewrite-target:</span> <span class="hljs-string">/</span>
+    <span class="hljs-comment"># nginx.ingress.kubernetes.io/auth-type: &quot;basic&quot;</span>
+    <span class="hljs-comment"># nginx.ingress.kubernetes.io/auth-secret: &quot;giropops-senhas-users&quot;</span>
+    <span class="hljs-comment"># nginx.ingress.kubernetes.io/auth-realm: &quot;Autenicação necessária&quot;</span>
+    <span class="hljs-comment"># nginx.ingress.kubernetes.io/affinity: &quot;cookie&quot;</span>
+    <span class="hljs-comment"># nginx.ingress.kubernetes.io/session-cookie-name: &quot;giropops-cookie&quot;</span>
+    <span class="hljs-comment"># nginx.ingress.kubernetes.io/upstream-hash-by: &quot;$request_uri&quot;</span>
+    <span class="hljs-attr">nginx.ingress.kubernetes.io/canary:</span> <span class="hljs-string">&quot;true&quot;</span>
+    <span class="hljs-attr">nginx.ingress.kubernetes.io/canary-weight:</span> <span class="hljs-string">&quot;10&quot;</span>
+    <span class="hljs-comment"># cert-manager.io/cluster-issuer: &quot;letsencrypt-prod&quot;</span>
+<span class="hljs-attr">spec:</span>
+  <span class="hljs-attr">ingressClassName:</span> <span class="hljs-string">nginx</span>
+  <span class="hljs-attr">tls:</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-attr">hosts:</span>
+    <span class="hljs-bullet">-</span> <span class="hljs-string">giropops.containers.expert</span>
+    <span class="hljs-attr">secretName:</span> <span class="hljs-string">giropops-containers-expert-tls</span>
+  <span class="hljs-attr">rules:</span>
+    <span class="hljs-bullet">-</span> <span class="hljs-attr">host:</span> <span class="hljs-string">giropops.containers.expert</span>
+      <span class="hljs-attr">http:</span>
+        <span class="hljs-attr">paths:</span>
+          <span class="hljs-bullet">-</span> <span class="hljs-attr">path:</span> <span class="hljs-string">/</span>
+            <span class="hljs-attr">pathType:</span> <span class="hljs-string">Prefix</span>
+            <span class="hljs-attr">backend:</span>
+              <span class="hljs-attr">service:</span> 
+                <span class="hljs-attr">name:</span> <span class="hljs-string">nginx</span>
+                <span class="hljs-attr">port:</span>
+                  <span class="hljs-attr">number:</span> <span class="hljs-number">80</span>
+</code></pre>
+<p>Como estamos direcionando o tráfego para o <code>Nginx</code>, precisamos criar o nosso <code>Pod</code> e expor ele, vamos utilizar os comandos <code>kubectl run</code> e <code>kubectl expose</code>:</p>
+<pre><code class="lang-bash">kubectl run nginx --image=nginx --port=80
+</code></pre>
+<pre><code class="lang-bash">kubectl expose deployment nginx --port=80
+</code></pre>
+<p>Agora vamos criar o <code>Ingress</code> no nosso cluster que vai ser responsável por gerenciar o tráfego do <code>Canary Deployment</code> para o <code>Pod</code> do <code>Nginx</code>.</p>
+<pre><code class="lang-bash">kubectl apply -f ingress5.yaml
+</code></pre>
+<p>Acessando a aplicação pelo navegador, você verá que 10% das requisições estão indo para o <code>Pod</code> do <code>Nginx</code>. Isso é o <code>Canary Deployment</code> em ação. Você pode aumentar o peso do <code>Canary Deployment</code>, alterando o valor da anotação <code>nginx.ingress.kubernetes.io/canary-weight</code> para o valor desejado.</p>
+<p>Você pode utilizar o <code>Canary Deployment</code> em conjunto com o <code>Affinity Cookie</code> e/ou <code>Upsream Hashing</code> para garantir que o usuário sempre seja direcionado para o mesmo <code>Pod</code> durante o <code>Canary Deployment</code>, garantindo que ele sempre veja a mesma versão da aplicação.</p>
+<h2 id="limitando-requisições-das-nossas-aplicações-com-o-ingress">Limitando requisições das nossas aplicações com o Ingress</h2>
+<p>Outra funcionalidade interessante do <code>Nginx Ingress Controller</code> é a capacidade de limitar o número de requisições que uma aplicação pode receber. Isso é útil para proteger a aplicação de ataques de negação de serviço (DDoS) e garantir que a aplicação sempre esteja disponível para os usuários.</p>
+<pre><code class="lang-yaml"><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">networking.k8s.io/v1</span>
+<span class="hljs-attr">kind:</span> <span class="hljs-string">Ingress</span>
+<span class="hljs-attr">metadata:</span>
+  <span class="hljs-attr">name:</span> <span class="hljs-string">giropops-senhas</span>
+  <span class="hljs-attr">annotations:</span>
+    <span class="hljs-attr">nginx.ingress.kubernetes.io/limit-rps:</span> <span class="hljs-string">&quot;2&quot;</span>
+    <span class="hljs-attr">nginx.ingress.kubernetes.io/rewrite-target:</span> <span class="hljs-string">/</span>
+    <span class="hljs-comment"># nginx.ingress.kubernetes.io/auth-type: &quot;basic&quot;</span>
+    <span class="hljs-comment"># nginx.ingress.kubernetes.io/auth-secret: &quot;giropops-senhas-users&quot;</span>
+    <span class="hljs-comment"># nginx.ingress.kubernetes.io/auth-realm: &quot;Autenicação necessária&quot;</span>
+    <span class="hljs-comment"># nginx.ingress.kubernetes.io/affinity: &quot;cookie&quot;</span>
+    <span class="hljs-comment"># nginx.ingress.kubernetes.io/session-cookie-name: &quot;giropops-cookie&quot;</span>
+    <span class="hljs-comment"># nginx.ingress.kubernetes.io/upstream-hash-by: &quot;$request_uri&quot;</span>
+    <span class="hljs-comment"># cert-manager.io/cluster-issuer: &quot;letsencrypt-prod&quot;</span>
+<span class="hljs-attr">spec:</span>
+  <span class="hljs-attr">ingressClassName:</span> <span class="hljs-string">nginx</span>
+  <span class="hljs-attr">tls:</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-attr">hosts:</span>
+    <span class="hljs-bullet">-</span> <span class="hljs-string">giropops.containers.expert</span>
+    <span class="hljs-attr">secretName:</span> <span class="hljs-string">giropops-containers-expert-tls</span>
+  <span class="hljs-attr">rules:</span>
+    <span class="hljs-bullet">-</span> <span class="hljs-attr">host:</span> <span class="hljs-string">giropops.containers.expert</span>
+      <span class="hljs-attr">http:</span>
+        <span class="hljs-attr">paths:</span>
+          <span class="hljs-bullet">-</span> <span class="hljs-attr">path:</span> <span class="hljs-string">/</span>
+            <span class="hljs-attr">pathType:</span> <span class="hljs-string">Prefix</span>
+            <span class="hljs-attr">backend:</span>
+              <span class="hljs-attr">service:</span> 
+                <span class="hljs-attr">name:</span> <span class="hljs-string">giropops-senhas</span>
+                <span class="hljs-attr">port:</span>
+                  <span class="hljs-attr">number:</span> <span class="hljs-number">5000</span>
+</code></pre>
+<p>Aplique o arquivo no seu cluster.</p>
+<pre><code class="lang-bash">kubectl apply -f ingress6.yaml
+</code></pre>
+<p>Agora, a nossa aplicação <code>giropops-senhas</code> está limitada a 2 requisições por segundo. Se você tentar fazer mais de 2 requisições por segundo, você verá o erro <code>503 Service Temporarily Unavailable</code>. Claro que utilizar o valor <code>2</code> para o <code>limit-rps</code> pode não ser o ideal, você deve ajustar o valor para o que for mais adequado para a sua aplicação.</p>
 <h2 id="final-do-day-10">Final do Day-10</h2>
-<p>Durante o Day-10 você aprendeu </p>
+<p>Durante o Day-10 você aprendeu como adicionar o <code>Cert-Manager</code> ao seu cluster e criar um certificado SSL para o seu domínio. Além disso, vimos o que são e como funcionam as <code>Annotations</code> e <code>Labels</code> no Kubernetes. Como adicionar a autenticação com usuário e senha. O <code>Affinity Cookie</code> e <code>Upsream Hashing</code> para direcionar o usuário para o mesmo <code>Pod</code> sempre que necessário. O <code>Canary Deployments</code> para testar uma nova versão da aplicação em um subconjunto de usuários antes de implantar a nova versão para todos os usuários. E por fim, você aprendeu como limitar as requisições nas suas aplicações com o <code>limit-rps</code>.</p>
 <p> </p>
 
                                 
@@ -436,7 +866,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Descomplicando Kubernetes dia 10","level":"2.10","depth":1,"next":{"title":"Descomplicando Kubernetes dia 11","level":"2.11","depth":1,"path":"day-11/README.md","ref":"day-11/README.md","articles":[]},"previous":{"title":"Descomplicando Kubernetes dia 9","level":"2.9","depth":1,"path":"day-9/README.md","ref":"day-9/README.md","articles":[]},"dir":"ltr"},"config":{"plugins":[],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"language":"pt","gitbook":"*"},"file":{"path":"day-10/README.md","mtime":"2024-02-08T15:56:28.793Z","type":"markdown"},"gitbook":{"version":"3.6.20","time":"2024-02-08T15:56:50.410Z"},"basePath":"..","book":{"language":"pt"}});
+            gitbook.page.hasChanged({"page":{"title":"Descomplicando Kubernetes dia 10","level":"2.10","depth":1,"next":{"title":"Descomplicando Kubernetes dia 11","level":"2.11","depth":1,"path":"day-11/README.md","ref":"day-11/README.md","articles":[]},"previous":{"title":"Descomplicando Kubernetes dia 9","level":"2.9","depth":1,"path":"day-9/README.md","ref":"day-9/README.md","articles":[]},"dir":"ltr"},"config":{"plugins":[],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"language":"pt","gitbook":"*"},"file":{"path":"day-10/README.md","mtime":"2024-02-13T12:08:25.871Z","type":"markdown"},"gitbook":{"version":"3.6.20","time":"2024-02-13T12:08:36.997Z"},"basePath":"..","book":{"language":"pt"}});
         });
     </script>
 </div>
