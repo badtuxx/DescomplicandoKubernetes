@@ -536,6 +536,47 @@ Fique à vontade para aprender muito sobre Kubernetes utilizando esse livro!
   - [Final do Day-15](pt/day-15/README.md#final-do-day-15)
 </details>
 
+<details>
+<summary>DAY-16</summary>
+
+- [Descomplicando o Kubernetes](pt/day-16/README.md#descomplicando-o-kubernetes)
+  - [DAY-16: Descomplicando Helm](pt/day-16/README.md#day-16-descomplicando-helm)
+  - [Conteúdo do Day-16](pt/day-16/README.md#conteúdo-do-day-16)
+  - [O que iremos ver hoje?](pt/day-16/README.md#o-que-iremos-ver-hoje)
+    - [O que é o Helm?](pt/day-16/README.md#o-que-é-o-helm)
+    - [O que é um Chart?](pt/day-16/README.md#o-que-é-um-chart)
+    - [Criando o nosso primeiro Chart](pt/day-16/README.md#criando-o-nosso-primeiro-chart)
+      - [Instalando o nosso Chart](pt/day-16/README.md#instalando-o-nosso-chart)
+      - [Atualizando o nosso Chart](pt/day-16/README.md#atualizando-o-nosso-chart)
+      - [Utilizando `range`  e o `if` no Helm](pt/day-16/README.md#utilizando-range--e-o-if-no-helm)
+      - [Utilizando `default`, `toYaml` e `toJson` no Helm](pt/day-16/README.md#utilizando-default-toyaml-e-tojson-no-helm)
+      - [O Que São Helpers no Helm?](pt/day-16/README.md#o-que-são-helpers-no-helm)
+        - [Por Que Usar Helpers?](pt/day-16/README.md#por-que-usar-helpers)
+        - [Criando o Nosso Primeiro Helper](pt/day-16/README.md#criando-o-nosso-primeiro-helper)
+        - [Helpers Avançados: Exemplos Práticos](pt/day-16/README.md#helpers-avançados-exemplos-práticos)
+          - [Exemplo 1: Controlando a Complexidade](pt/day-16/README.md#exemplo-1-controlando-a-complexidade)
+          - [Exemplo 2: Personalização Baseada em Ambiente](pt/day-16/README.md#exemplo-2-personalização-baseada-em-ambiente)
+        - [Melhores Práticas ao Usar Helpers](pt/day-16/README.md#melhores-práticas-ao-usar-helpers)
+      - [Criando o `_helpers.tpl` da nossa App](pt/day-16/README.md#criando-o-_helperstpl-da-nossa-app)
+        - [Passo 1: Criando o arquivo `_helpers.tpl`](pt/day-16/README.md#passo-1-criando-o-arquivo-_helperstpl)
+          - [Labels](pt/day-16/README.md#labels)
+          - [Resources](pt/day-16/README.md#resources)
+          - [Ports](pt/day-16/README.md#ports)
+      - [Passo 2: Refatorando `Deployments.yaml` e `Services.yaml`](pt/day-16/README.md#passo-2-refatorando-deploymentsyaml-e-servicesyaml)
+          - [O nosso `Deployments.yaml`](pt/day-16/README.md#o-nosso-deploymentsyaml)
+          - [O nosso `Services.yaml`](pt/day-16/README.md#o-nosso-servicesyaml)
+      - [Passo 3: Refatorando os ConfigMaps](pt/day-16/README.md#passo-3-refatorando-os-configmaps)
+        - [Atualizando o `_helpers.tpl`](pt/day-16/README.md#atualizando-o-_helperstpl)
+        - [Refatorando `config-map-dp.yaml`](pt/day-16/README.md#refatorando-config-map-dpyaml)
+        - [Refatorando `config-map-obs.yaml`](pt/day-16/README.md#refatorando-config-map-obsyaml)
+      - [Criando um repositório de Helm Charts](pt/day-16/README.md#criando-um-repositório-de-helm-charts)
+        - [Criando o repositório no Github](pt/day-16/README.md#criando-o-repositório-no-github)
+        - [Inicializando o repositório](pt/day-16/README.md#inicializando-o-repositório)
+        - [Configurando o GitHub Pages](pt/day-16/README.md#configurando-o-github-pages)
+      - [Utilizando o nosso repositório de Helm Charts](pt/day-16/README.md#utilizando-o-nosso-repositório-de-helm-charts)
+      - [O que vimos no dia de hoje](pt/day-16/README.md#o-que-vimos-no-dia-de-hoje)
+
+</details>
 
 
 &nbsp;
