@@ -1281,14 +1281,12 @@ Para ilustrar a criação e o uso de helpers, vamos começar com um exemplo prá
 
 
 ```yaml
-{% raw %}
 {{/*
 Define um helper para o nome do aplicativo.
 */}}
 {{- define "meuapp.name" -}}
 {{- default .Chart.Name .Values.appName | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
-{% endraw %}
 ```
 
 
