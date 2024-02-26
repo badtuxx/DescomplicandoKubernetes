@@ -1084,7 +1084,7 @@ spec:
     protocol: TCP
     name: {{ $port.name }}
     {{ if eq $port.serviceType "NodePort" }}
-    nodePort: {{ $port.nodePort }}
+    nodePort: {{ $port.NodePort }}
     {{ end }}
   selector:
     app: {{ $config.labels.app }}
