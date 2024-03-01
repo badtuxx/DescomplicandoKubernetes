@@ -390,7 +390,7 @@ metadata:
     app: redis 
   name: redis-deployment
 spec:
-  replicas: 1
+  replicas: {{ .Values.redis.replicas }}
   selector:
     matchLabels:
       app: redis
