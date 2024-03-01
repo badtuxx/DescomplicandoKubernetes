@@ -1218,9 +1218,9 @@ A configuração no `values.yaml`:
 databases:
   giropops-senhas:
     type: "MySQL"
-      host: "mysql.svc.cluster.local"
-      port: 3306
-      name: "MyDB"
+    host: "mysql.svc.cluster.local"
+    port: 3306
+    name: "MyDB"
 ```
 
 Com isso, já podemos criar um ConfigMap que inclui essa configuração como uma string YAML:
